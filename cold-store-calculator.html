@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cold Room Calculator – Free PUF Panel Thickness & Refrigeration Load | ColdMatrix</title>
+  <meta name="description" content="Free cold storage calculator for Pakistan. Get PUF panel thickness, panel count, and refrigeration load instantly from your cold room dimensions and temperature.">
+  <meta name="keywords" content="cold storage calculator, cold room calculator Pakistan, cold store calculator, cold room panels, cold store panels, cold storage calculation, cold room calculation, PUF panel thickness calculator, refrigeration load calculator, freezer room size calculator, cold store Karachi Lahore Islamabad">
+  <link rel="canonical" href="https://coldmatrixtools.com/cold-store-calculator.html">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Cold Room Size Calculator",
+    "url": "https://coldmatrixtools.com/cold-store-calculator.html",
+    "applicationCategory": "Utility",
+    "description": "Free calculator for cold storage room PUF panel thickness, panel count, and refrigeration load based on room size and storage temperature.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" }
+  }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#0B0F14;--panel:#141B24;--panel-2:#1B242F;--foam:#EDF1F5;--frost:#4FC3F7;--muted:#7C8798;--line:#242F3D; }
+    *{box-sizing:border-box; margin:0; padding:0;}
+    body{ background: linear-gradient(var(--bg), var(--bg)), repeating-linear-gradient(0deg, rgba(79,195,247,0.035) 0 1px, transparent 1px 40px); color:var(--foam); font-family:'IBM Plex Sans', sans-serif; }
+    .nav { background:rgba(10,15,20,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding:12px 20px; display:flex; justify-content:space-between; align-items:center; }
+    .nav a { color:var(--muted); text-decoration:none; font-size:0.85rem; }
+    .nav a.brand { color:var(--frost); font-weight:700; }
+    .container { max-width:900px; margin:20px auto; padding:0 20px; }
+    .ad-card {
+      border-radius:14px; overflow:hidden;
+      background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat;
+      border:1px solid var(--line); padding:18px;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    }
+    .ad-card ul { list-style:none; padding:0; margin:0; }
+    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
+    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
+    .ad-card .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; }
+    .install-bar { background:#4FC3F7; color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; }
+    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; cursor:pointer; font-weight:600; }
+    .card{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:28px; margin-bottom:20px;}
+    .card h2{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; text-transform:uppercase; color:var(--muted); margin-bottom:22px;}
+    .field{margin-bottom:19px;}
+    .field label{display:block; font-size:0.78rem; color:var(--muted); margin-bottom:7px;}
+    select, input{width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--foam); padding:12px; border-radius:6px;}
+    .dim-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
+    .calc-btn{width:100%; background:linear-gradient(135deg,#4FC3F7,#2196F3); color:#0B0F14; border:none; padding:15px; border-radius:6px; font-family:'Oswald',sans-serif; font-weight:600; font-size:0.95rem; text-transform:uppercase; cursor:pointer;}
+    .gauge{position:relative; width:14px; height:260px; background:linear-gradient(to bottom, #3C7FB1 0%, #3C7FB1 30%, #E0A93A 30%, #E0A93A 62%, #D95B43 62%, #D95B43 100%); border-radius:7px; border:1px solid var(--line);}
+    .gauge-marker{position:absolute; left:-6px; width:26px; height:3px; background:var(--foam); box-shadow:0 0 0 2px var(--bg),0 0 8px rgba(255,255,255,0.6);}
+    .unit-toggle{display:flex; gap:8px; margin-bottom:12px;}
+    .unit-btn{flex:1; padding:9px; border:1px solid var(--line); background:var(--panel-2); color:var(--muted); border-radius:6px; cursor:pointer; text-align:center; font-size:0.85rem; user-select:none;}
+    .unit-btn.active{border-color:var(--frost); color:var(--frost);}
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <a href="index.html" class="brand">❄️ Cold Matrix</a>
+    <div>
+      <a href="index.html">Home</a> &nbsp;&nbsp;
+      <a href="about.html">About</a> &nbsp;&nbsp;
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="ad-card">
+      <div>
+        <ul>
+          <li>PEB Structures</li>
+          <li>Cold Storage & Freezer Rooms</li>
+          <li>PU/PIR Sandwich Panels</li>
+          <li>Prefab Construction Solutions</li>
+        </ul>
+        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+      </div>
+      <a href="https://wa.me/447897051975?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20PEB%2FCold%20Storage%2FSandwich%20Panels" class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+    </div>
+
+    <div class="install-bar" id="installBarTool">
+      Install ColdMatrix App
+      <button onclick="installAppTool()">Install</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:1.8rem; margin-bottom:10px;">❄️ Cold Room Size Calculator</h1>
+    <p style="color:var(--muted); margin-bottom:30px;">Get recommended PUF panel thickness, panel count, and refrigeration load from your room dimensions and storage temperature.</p>
+
+    <div class="card">
+      <h2>Storage requirement</h2>
+      <div class="field"><label>Product type</label><select id="product"><option value="meat">Meat</option><option value="fish">Fish / Seafood</option><option value="dairy">Dairy</option><option value="fruitveg">Fruits & Vegetables</option><option value="icecream">Ice Cream / Dessert</option><option value="pharma">Pharma / Vaccine</option><option value="general">General / Mixed Goods</option></select></div>
+      <div class="field"><label>Storage condition</label><select id="condition"><option value="chilled">Chilled (normal, above 0°C)</option><option value="frozen">Frozen (below 0°C)</option></select></div>
+      <div class="field"><label>Required storage temperature (°C)</label><input type="number" id="temp" placeholder="e.g. -15" value="-15"></div>
+      <div class="field">
+        <label>Room dimensions</label>
+        <div class="unit-toggle">
+          <div class="unit-btn active" data-unit="m" onclick="setUnit('m',this)">Meters (m)</div>
+          <div class="unit-btn" data-unit="ft" onclick="setUnit('ft',this)">Feet (ft)</div>
+        </div>
+        <div class="dim-grid"><div><label style="font-size:0.7rem;">Width (<span id="widthUnitLabel">m</span>)</label><input type="number" id="width" placeholder="8" value="8"></div><div><label style="font-size:0.7rem;">Length (<span id="lengthUnitLabel">m</span>)</label><input type="number" id="length" placeholder="10" value="10"></div><div><label style="font-size:0.7rem;">Height (<span id="heightUnitLabel">m</span>)</label><input type="number" id="height" placeholder="3" value="3"></div></div>
+      </div>
+      <button class="calc-btn" onclick="calculate()">Calculate recommendation</button>
+    </div>
+
+    <div class="card" id="resultCard">
+      <h2>Recommendation</h2>
+      <div id="placeholder" style="text-align:center; padding:40px; color:var(--muted);">Fill in your requirement and calculate to see panel thickness & load estimate.</div>
+      <div id="resultBody" style="display:none;">
+        <div style="display:flex; gap:24px; align-items:center;">
+          <div class="gauge"><div class="gauge-marker" id="gaugeMarker" style="top:0;"></div></div>
+          <div>
+            <div style="text-align:center;"><span id="thicknessNum" style="font-size:2.4rem; font-weight:600; color:var(--frost);">—</span><br><span style="color:var(--muted);">panel thickness</span></div>
+            <div id="crossSection" style="display:flex; align-items:center; justify-content:center; gap:5px; height:110px; background:var(--panel-2); border-radius:8px; margin:20px 0;"></div>
+          </div>
+        </div>
+        <div style="border-top:1px solid var(--line); margin-top:20px; padding-top:18px;">
+          <div style="display:flex; justify-content:space-between; padding:9px 0;"><span>Total insulated area</span><span id="areaVal">—</span></div>
+          <div style="display:flex; justify-content:space-between; padding:9px 0;"><span>Room volume</span><span id="volVal">—</span></div>
+          <div style="display:flex; justify-content:space-between; padding:9px 0;"><span>Approx. panels needed *</span><span id="panelVal">—</span></div>
+          <div style="display:flex; justify-content:space-between; padding:9px 0;"><span>Estimated ref. load</span><span id="loadVal">—</span></div>
+          <div style="display:flex; justify-content:space-between; padding:9px 0;"><span>Recommended compressor **</span><span id="compVal">—</span></div>
+        </div>
+        <p style="font-size:0.76rem; color:var(--muted); margin-top:18px; border-left:2px solid var(--frost); padding-left:12px;">* Panel count based on 1200mm wide panels.<br>** HP/unit is a reference only — consult your refrigeration supplier.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let unit='m';
+    function setUnit(u,btn){
+      if(u===unit)return;
+      const factor = u==='ft' ? (1/0.3048) : 0.3048;
+      ['width','length','height'].forEach(id=>{
+        const el=document.getElementById(id);
+        const v=parseFloat(el.value);
+        if(!isNaN(v))el.value=Math.round(v*factor*100)/100;
+      });
+      unit=u;
+      document.querySelectorAll('.unit-btn').forEach(b=>b.classList.remove('active'));
+      if(btn)btn.classList.add('active');
+      document.getElementById('widthUnitLabel').textContent=u;
+      document.getElementById('lengthUnitLabel').textContent=u;
+      document.getElementById('heightUnitLabel').textContent=u;
+    }
+    function getThickness(temp){if(temp>-15)return{mm:100,label:'100mm'};if(temp>=-25)return{mm:120,label:'120mm'};return{mm:150,label:'150mm'};}
+    function estimateCompressorHP(tr,temp){let hpPerTR=temp>-5?1.2:temp>-15?1.5:temp>-25?2.0:2.6;let totalHP=tr*hpPerTR;const sizes=[1,1.5,2,3,5,7.5,10,12.5,15,20,25,30,40];function nearest(hp){for(let s of sizes)if(s>=hp)return s;return sizes[sizes.length-1];}if(totalHP<=30){let s=nearest(totalHP);return{units:1,hpEach:s,totalHP};}else{let s=nearest(totalHP/2);return{units:2,hpEach:s,totalHP};}}
+    function estimateLoadKW(vol,temp,prod){let base=temp>-5?25:temp>-15?35:temp>-25?50:70;const factor={meat:1.1,fish:1.15,dairy:1,fruitveg:0.9,icecream:1.2,pharma:0.85,general:1}[prod]||1;let watts=vol*base*factor,kw=watts/1000,tr=kw/3.517;return{kw,tr};}
+    function calculate(){
+      const prod=document.getElementById('product').value;
+      const temp=parseFloat(document.getElementById('temp').value);
+      let W=parseFloat(document.getElementById('width').value),L=parseFloat(document.getElementById('length').value),H=parseFloat(document.getElementById('height').value);
+      if(isNaN(temp)||isNaN(L)||isNaN(W)||isNaN(H)||L<=0||W<=0||H<=0){alert('Please enter valid numbers.');return;}
+      if(unit==='ft'){L*=0.3048;W*=0.3048;H*=0.3048;}
+      const vol=L*W*H,area=2*(L*H)+2*(W*H)+2*(L*W);
+      const thickness=getThickness(temp);const panels=Math.ceil(area/(1.2*3));
+      const load=estimateLoadKW(vol,temp,prod);
+      document.getElementById('placeholder').style.display='none';document.getElementById('resultBody').style.display='block';
+      document.getElementById('thicknessNum').textContent=thickness.label;
+      document.getElementById('areaVal').textContent=area.toFixed(1)+' m²';
+      document.getElementById('volVal').textContent=vol.toFixed(1)+' m³';
+      document.getElementById('panelVal').textContent=panels+' panels';
+      document.getElementById('loadVal').textContent=load.tr.toFixed(2)+' TR ('+load.kw.toFixed(2)+' kW)';
+      const comp=estimateCompressorHP(load.tr,temp);document.getElementById('compVal').textContent=comp.units+' unit'+(comp.units>1?'s':'')+' × '+comp.hpEach+' HP';
+      const gaugeTop=Math.max(0,Math.min(260,(-temp/50)*260));document.getElementById('gaugeMarker').style.top=gaugeTop+'px';
+      const cs=document.getElementById('crossSection');cs.innerHTML='';
+      const m1=document.createElement('div');m1.style.width='5px';m1.style.height='80px';m1.style.background='#AEB8C6';m1.style.borderRadius='2px';cs.appendChild(m1);
+      const foam=document.createElement('div');foam.style.width=Math.min(90,Math.max(30,thickness.mm/2))+'px';foam.style.height='80px';foam.style.background='repeating-linear-gradient(135deg, #3a4258 0 6px, #2C3448 6px 12px)';foam.style.borderRadius='2px';cs.appendChild(foam);
+      const m2=document.createElement('div');m2.style.width='5px';m2.style.height='80px';m2.style.background='#AEB8C6';m2.style.borderRadius='2px';cs.appendChild(m2);
+    }
+  </script>
+  <script>
+    let deferredPromptTool;const bar=document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPromptTool=e;});
+    function installAppTool(){if(deferredPromptTool){deferredPromptTool.prompt();deferredPromptTool.userChoice.then(()=>{bar.style.display='none';});}else{alert('📲 Open your browser menu and choose "Add to Home Screen" to install ColdMatrix.');}}
+    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+  </script>
+</body>
+</html>
