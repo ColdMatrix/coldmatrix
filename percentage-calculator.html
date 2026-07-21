@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Percentage Calculator – Free Online Percentage Tool | ColdMatrix</title>
+  <meta name="description" content="Free online percentage calculator. Calculate percentages, percentage increase/decrease, and what percent one number is of another. Quick, accurate, and easy to use.">
+  <meta name="keywords" content="percentage calculator, percentage increase, percentage decrease, percent of, free percentage tool">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0F14; --surface: #12181F; --surface2: #1B232C; --border: #2A3540;
+      --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7;
+      --gradient: linear-gradient(135deg, #4FC3F7, #2196F3);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
+    .container { max-width: 900px; margin:0 auto; padding:0 24px; }
+
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+
+    .ad-card {
+      border-radius:14px; overflow:hidden;
+      background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat;
+      border:1px solid var(--border); padding:18px; margin:20px 0;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    }
+    .ad-card ul { list-style:none; padding:0; margin:0; }
+    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
+    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
+    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
+
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; }
+    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
+    .subtitle { color:var(--muted); margin-bottom:30px; }
+
+    .card {
+      background:var(--surface); border:1px solid var(--border); border-radius:12px;
+      padding:24px; margin-bottom:20px;
+    }
+    .card h2 { font-size:1rem; font-weight:600; margin-bottom:18px; color:var(--accent); }
+
+    .field { margin-bottom:14px; }
+    .field label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; }
+    .field input {
+      width:100%; background:var(--surface2); border:1px solid var(--border);
+      color:var(--text); padding:12px; border-radius:8px; font-size:1rem;
+    }
+    .field input:focus { outline:none; border-color:var(--accent); }
+
+    .btn-calc {
+      width:100%; background:var(--gradient); color:#0A0F14; border:none;
+      padding:14px; border-radius:8px; font-weight:600; font-size:0.95rem;
+      cursor:pointer; margin-top:8px;
+    }
+
+    .result {
+      background:var(--surface2); border:1px solid var(--accent);
+      border-radius:8px; padding:16px; margin-top:16px; text-align:center;
+      font-size:1.2rem; font-weight:600; color:var(--accent); display:none;
+    }
+    .result.show { display:block; }
+
+    .tab-row { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+    .tab-btn {
+      flex:1; padding:10px; background:var(--surface2); border:1px solid var(--border);
+      color:var(--muted); border-radius:8px; cursor:pointer; text-align:center;
+      font-size:0.85rem; font-weight:500; min-width:100px;
+    }
+    .tab-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(79,195,247,0.1); }
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--accent); text-decoration:none; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Ad Banner -->
+    <div class="ad-card">
+      <div>
+        <ul>
+          <li>PEB Structures</li>
+          <li>Cold Storage & Freezer Rooms</li>
+          <li>PU/PIR Sandwich Panels</li>
+          <li>Prefab Construction Solutions</li>
+        </ul>
+        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+      </div>
+      <a href="https://wa.me/447897051975?text=Hi%2C%20I%27d%20like%20a%20quote" class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+    </div>
+
+    <!-- Install Bar -->
+    <div class="install-bar" id="installBarTool">
+      Install ColdMatrix App
+      <button onclick="installAppTool()">Install</button>
+    </div>
+
+    <!-- Calculator Title -->
+    <h1>📊 Percentage Calculator</h1>
+    <p class="subtitle">Quick and accurate percentage calculations — free for everyone.</p>
+
+    <!-- Tab Buttons -->
+    <div class="tab-row">
+      <button class="tab-btn active" data-tab="tab1">% of a Number</button>
+      <button class="tab-btn" data-tab="tab2">What % is X of Y</button>
+      <button class="tab-btn" data-tab="tab3">% Increase/Decrease</button>
+    </div>
+
+    <!-- Tab 1: Percentage of a Number -->
+    <div class="tab-content active" id="tab1">
+      <div class="card">
+        <h2>What is X% of Y?</h2>
+        <div class="field">
+          <label>Percentage (%)</label>
+          <input type="number" id="pct1" placeholder="e.g. 15">
+        </div>
+        <div class="field">
+          <label>Of Number</label>
+          <input type="number" id="num1" placeholder="e.g. 2000">
+        </div>
+        <button class="btn-calc" onclick="calcTab1()">Calculate</button>
+        <div class="result" id="result1"></div>
+      </div>
+    </div>
+
+    <!-- Tab 2: What Percent is X of Y -->
+    <div class="tab-content" id="tab2">
+      <div class="card">
+        <h2>X is what percent of Y?</h2>
+        <div class="field">
+          <label>X (Part)</label>
+          <input type="number" id="part2" placeholder="e.g. 150">
+        </div>
+        <div class="field">
+          <label>Y (Total)</label>
+          <input type="number" id="total2" placeholder="e.g. 600">
+        </div>
+        <button class="btn-calc" onclick="calcTab2()">Calculate</button>
+        <div class="result" id="result2"></div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Percentage Increase/Decrease -->
+    <div class="tab-content" id="tab3">
+      <div class="card">
+        <h2>Percentage Increase / Decrease</h2>
+        <div class="field">
+          <label>Old Value</label>
+          <input type="number" id="old3" placeholder="e.g. 500">
+        </div>
+        <div class="field">
+          <label>New Value</label>
+          <input type="number" id="new3" placeholder="e.g. 650">
+        </div>
+        <button class="btn-calc" onclick="calcTab3()">Calculate</button>
+        <div class="result" id="result3"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.
+  </footer>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById(this.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Tab 1: % of a number
+    function calcTab1() {
+      const pct = parseFloat(document.getElementById('pct1').value);
+      const num = parseFloat(document.getElementById('num1').value);
+      const res = document.getElementById('result1');
+      if (isNaN(pct) || isNaN(num)) {
+        res.textContent = 'Please enter valid numbers.';
+        res.classList.add('show');
+        return;
+      }
+      const result = (pct / 100) * num;
+      res.innerHTML = `${pct}% of ${num} = <strong>${result.toFixed(2)}</strong>`;
+      res.classList.add('show');
+    }
+
+    // Tab 2: X is what % of Y
+    function calcTab2() {
+      const part = parseFloat(document.getElementById('part2').value);
+      const total = parseFloat(document.getElementById('total2').value);
+      const res = document.getElementById('result2');
+      if (isNaN(part) || isNaN(total) || total === 0) {
+        res.textContent = 'Please enter valid numbers (total cannot be 0).';
+        res.classList.add('show');
+        return;
+      }
+      const result = (part / total) * 100;
+      res.innerHTML = `${part} is <strong>${result.toFixed(2)}%</strong> of ${total}`;
+      res.classList.add('show');
+    }
+
+    // Tab 3: Percentage increase/decrease
+    function calcTab3() {
+      const oldVal = parseFloat(document.getElementById('old3').value);
+      const newVal = parseFloat(document.getElementById('new3').value);
+      const res = document.getElementById('result3');
+      if (isNaN(oldVal) || isNaN(newVal) || oldVal === 0) {
+        res.textContent = 'Please enter valid numbers (old value cannot be 0).';
+        res.classList.add('show');
+        return;
+      }
+      const diff = newVal - oldVal;
+      const pct = (diff / oldVal) * 100;
+      const direction = pct >= 0 ? 'increase' : 'decrease';
+      res.innerHTML = `${Math.abs(pct).toFixed(2)}% ${direction} (from ${oldVal} to ${newVal})`;
+      res.classList.add('show');
+    }
+
+    // PWA Install
+    let deferredPromptTool;
+    const bar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPromptTool = e;
+    });
+    function installAppTool() {
+      if (deferredPromptTool) {
+        deferredPromptTool.prompt();
+        deferredPromptTool.userChoice.then(() => { bar.style.display = 'none'; });
+      } else {
+        alert('📱 Android: tap "Add to Home Screen" in Chrome menu.\n📱 iPhone: tap Share → Add to Home Screen.');
+      }
+    }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
