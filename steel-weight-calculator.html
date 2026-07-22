@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steel Weight Calculator – Free Online Tool | ColdMatrix</title>
+  <meta name="description" content="Free steel weight calculator for plates, bars, pipes, and beams. Calculate weight in kg and lbs instantly. Built for engineers, fabricators, and contractors.">
+  <meta name="keywords" content="steel weight calculator, steel plate weight, steel bar weight, pipe weight calculator, beam weight calculator, PEB, fabrication">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0F14; --surface: #12181F; --surface2: #1B232C; --border: #2A3540;
+      --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7;
+      --gradient: linear-gradient(135deg, #4FC3F7, #2196F3);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
+    .container { max-width: 900px; margin:0 auto; padding:0 24px; }
+
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+
+    .ad-card {
+      border-radius:14px; overflow:hidden;
+      background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat;
+      border:1px solid var(--border); padding:18px; margin:20px 0;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    }
+    .ad-card ul { list-style:none; padding:0; margin:0; }
+    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
+    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
+    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
+
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; }
+    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
+    .subtitle { color:var(--muted); margin-bottom:30px; }
+
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:20px; }
+    .card h2 { font-size:1rem; font-weight:600; margin-bottom:18px; color:var(--accent); }
+
+    .field { margin-bottom:14px; }
+    .field label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; }
+    .field input, .field select { width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:12px; border-radius:8px; font-size:1rem; }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); }
+
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:14px; border-radius:8px; font-weight:600; font-size:0.95rem; cursor:pointer; margin-top:8px; }
+    .result { background:var(--surface2); border:1px solid var(--accent); border-radius:8px; padding:16px; margin-top:16px; text-align:center; font-size:1.2rem; font-weight:600; color:var(--accent); }
+
+    .tab-row { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
+    .tab-btn { flex:1; padding:10px; background:var(--surface2); border:1px solid var(--border); color:var(--muted); border-radius:8px; cursor:pointer; text-align:center; font-size:0.85rem; font-weight:500; min-width:100px; }
+    .tab-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(79,195,247,0.1); }
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; }
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--accent); text-decoration:none; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Ad Banner -->
+    <div class="ad-card">
+      <div>
+        <ul>
+          <li>PEB Structures</li>
+          <li>Cold Storage & Freezer Rooms</li>
+          <li>PU/PIR Sandwich Panels</li>
+          <li>Prefab Construction Solutions</li>
+        </ul>
+        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+      </div>
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+    </div>
+
+    <!-- Install Bar -->
+    <div class="install-bar" id="installBarTool">Install ColdMatrix App <button onclick="installAppTool()">Install</button></div>
+
+    <!-- Title -->
+    <h1>🛠️ Steel Weight Calculator</h1>
+    <p class="subtitle">Calculate weight of steel plates, bars, pipes, and beams — free and accurate.</p>
+
+    <!-- Tabs -->
+    <div class="tab-row">
+      <button class="tab-btn active" data-tab="tab1">📐 Plate</button>
+      <button class="tab-btn" data-tab="tab2">📏 Round Bar</button>
+      <button class="tab-btn" data-tab="tab3">🔩 Pipe</button>
+      <button class="tab-btn" data-tab="tab4">🏗️ Beam</button>
+    </div>
+
+    <!-- Plate -->
+    <div class="tab-content active" id="tab1">
+      <div class="card">
+        <h2>Steel Plate Weight</h2>
+        <div class="row2">
+          <div class="field"><label>Length (m)</label><input type="number" id="pLen" value="1"></div>
+          <div class="field"><label>Width (m)</label><input type="number" id="pWid" value="1"></div>
+        </div>
+        <div class="field"><label>Thickness (mm)</label><input type="number" id="pThk" value="10"></div>
+        <div class="result" id="plateResult">Weight: 78.50 kg</div>
+      </div>
+    </div>
+
+    <!-- Round Bar -->
+    <div class="tab-content" id="tab2">
+      <div class="card">
+        <h2>Round Bar Weight</h2>
+        <div class="field"><label>Diameter (mm)</label><input type="number" id="bDia" value="20"></div>
+        <div class="field"><label>Length (m)</label><input type="number" id="bLen" value="1"></div>
+        <div class="result" id="barResult">Weight: 2.47 kg</div>
+      </div>
+    </div>
+
+    <!-- Pipe -->
+    <div class="tab-content" id="tab3">
+      <div class="card">
+        <h2>Pipe Weight</h2>
+        <div class="row2">
+          <div class="field"><label>Outer Diameter (mm)</label><input type="number" id="piOD" value="60"></div>
+          <div class="field"><label>Wall Thickness (mm)</label><input type="number" id="piWT" value="5"></div>
+        </div>
+        <div class="field"><label>Length (m)</label><input type="number" id="piLen" value="1"></div>
+        <div class="result" id="pipeResult">Weight: 6.78 kg</div>
+      </div>
+    </div>
+
+    <!-- Beam -->
+    <div class="tab-content" id="tab4">
+      <div class="card">
+        <h2>I-Beam / H-Beam Weight</h2>
+        <div class="row2">
+          <div class="field"><label>Height (mm)</label><input type="number" id="bmH" value="200"></div>
+          <div class="field"><label>Flange Width (mm)</label><input type="number" id="bmW" value="100"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>Web Thickness (mm)</label><input type="number" id="bmWT" value="5.6"></div>
+          <div class="field"><label>Flange Thickness (mm)</label><input type="number" id="bmFT" value="8.5"></div>
+        </div>
+        <div class="field"><label>Length (m)</label><input type="number" id="bmLen" value="1"></div>
+        <div class="result" id="beamResult">Weight: 27.90 kg</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
+
+  <script>
+    const density = 7850; // kg/m³
+
+    // Plate
+    function calcPlate(){const l=+document.getElementById('pLen').value||0,w=+document.getElementById('pWid').value||0,t=+document.getElementById('pThk').value||0;const vol=l*w*(t/1000);const wt=vol*density;document.getElementById('plateResult').textContent=`Weight: ${wt.toFixed(2)} kg (${(wt*2.20462).toFixed(2)} lbs)`;}
+    // Bar
+    function calcBar(){const d=+document.getElementById('bDia').value||0,l=+document.getElementById('bLen').value||0;const vol=Math.PI*Math.pow(d/2000,2)*l;const wt=vol*density;document.getElementById('barResult').textContent=`Weight: ${wt.toFixed(2)} kg (${(wt*2.20462).toFixed(2)} lbs)`;}
+    // Pipe
+    function calcPipe(){const od=+document.getElementById('piOD').value||0,wt=+document.getElementById('piWT').value||0,l=+document.getElementById('piLen').value||0;const id=od-2*wt;const vol=Math.PI*(Math.pow(od/2000,2)-Math.pow(id/2000,2))*l;const w=vol*density;document.getElementById('pipeResult').textContent=`Weight: ${w.toFixed(2)} kg (${(w*2.20462).toFixed(2)} lbs)`;}
+    // Beam
+    function calcBeam(){const h=+document.getElementById('bmH').value||0,w=+document.getElementById('bmW').value||0,wt=+document.getElementById('bmWT').value||0,ft=+document.getElementById('bmFT').value||0,l=+document.getElementById('bmLen').value||0;const webVol=(h-2*ft)*(wt/1000)*(l);const flangeVol=2*(w*(ft/1000)*l);const vol=webVol+flangeVol;const weight=vol*density;document.getElementById('beamResult').textContent=`Weight: ${weight.toFixed(2)} kg (${(weight*2.20462).toFixed(2)} lbs)`;}
+
+    // Real-time
+    document.querySelectorAll('input').forEach(i=>i.addEventListener('input',()=>{calcPlate();calcBar();calcPipe();calcBeam();}));
+
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.getElementById(this.dataset.tab).classList.add('active');}));
+
+    // PWA
+    let d;const bar=document.getElementById('installBarTool');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();d=e;});window.installAppTool=function(){if(d){d.prompt();d.userChoice.then(()=>{bar.style.display='none';});}else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');}};
+    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+  </script>
+</body>
+</html>
