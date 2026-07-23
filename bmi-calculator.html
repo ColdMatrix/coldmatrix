@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator – Free Body Mass Index Tool | ColdMatrix</title>
+  <meta name="description" content="Free BMI calculator. Check your body mass index instantly. Find out if you're underweight, normal, overweight, or obese. Simple, accurate, and free.">
+  <meta name="keywords" content="BMI calculator, body mass index, weight calculator, health calculator, fitness tool, ideal weight">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0F14; --surface: #12181F; --surface2: #1B232C; --border: #2A3540;
+      --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7;
+      --gradient: linear-gradient(135deg, #4FC3F7, #2196F3);
+      --health-green: #4CAF50; --health-orange: #FF9800; --health-red: #F44336;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
+    .container { max-width: 900px; margin:0 auto; padding:0 24px; }
+
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+
+    .ad-card {
+      border-radius:14px; overflow:hidden;
+      background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat;
+      border:1px solid var(--border); padding:18px; margin:20px 0;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    }
+    .ad-card ul { list-style:none; padding:0; margin:0; }
+    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
+    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
+    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
+
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; }
+    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
+    .subtitle { color:var(--muted); margin-bottom:30px; }
+
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:20px; text-align:center; }
+    .card h2 { font-size:1rem; font-weight:600; margin-bottom:18px; color:var(--accent); }
+
+    .input-group { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:16px; }
+    .input-field { flex:1; min-width:120px; }
+    .input-field label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; text-align:left; }
+    .input-field input { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:14px; border-radius:12px; font-size:1.2rem; text-align:center; transition:0.3s; }
+    .input-field input:focus { outline:none; border-color:var(--accent); }
+
+    .btn-calc { width:100%; max-width:300px; background:var(--gradient); color:#0A0F14; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; margin:12px auto 0; }
+
+    .bmi-result { margin-top:24px; display:none; }
+    .bmi-number { font-size:3rem; font-weight:800; }
+    .bmi-category { font-size:1.2rem; font-weight:600; margin-top:8px; padding:8px 20px; border-radius:50px; display:inline-block; }
+    .bmi-scale { display:flex; margin-top:20px; border-radius:12px; overflow:hidden; height:12px; }
+    .scale-under { background:var(--accent); flex:18.5; }
+    .scale-normal { background:var(--health-green); flex:6.5; }
+    .scale-over { background:var(--health-orange); flex:5; }
+    .scale-obese { background:var(--health-red); flex:10; }
+    .bmi-info { margin-top:20px; text-align:left; font-size:0.85rem; color:var(--muted); line-height:1.8; }
+    .bmi-info strong { color:var(--text); }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--accent); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <div class="ad-card">
+      <div>
+        <ul>
+          <li>PEB Structures</li>
+          <li>Cold Storage & Freezer Rooms</li>
+          <li>PU/PIR Sandwich Panels</li>
+          <li>Prefab Construction Solutions</li>
+        </ul>
+        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+      </div>
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+    </div>
+
+    <div class="install-bar" id="installBarTool">Install ColdMatrix App <button onclick="installAppTool()">Install</button></div>
+
+    <h1>⚖️ BMI Calculator</h1>
+    <p class="subtitle">Check your Body Mass Index — free, instant, and accurate.</p>
+
+    <div class="card">
+      <h2>Enter Your Details</h2>
+      <div class="input-group">
+        <div class="input-field"><label>Weight (kg)</label><input type="number" id="weight" placeholder="70" value="70"></div>
+        <div class="input-field"><label>Height (cm)</label><input type="number" id="height" placeholder="170" value="170"></div>
+        <div class="input-field"><label>Age (years)</label><input type="number" id="age" placeholder="30" value="30"></div>
+      </div>
+      <button class="btn-calc" onclick="calculateBMI()">Calculate My BMI</button>
+
+      <div class="bmi-result" id="bmiResult">
+        <div class="bmi-number" id="bmiNumber"></div>
+        <div class="bmi-category" id="bmiCategory"></div>
+        <div class="bmi-scale">
+          <div class="scale-under"></div><div class="scale-normal"></div><div class="scale-over"></div><div class="scale-obese"></div>
+        </div>
+        <div class="bmi-info" id="bmiInfo"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
+
+  <script>
+    function calculateBMI(){
+      const w=parseFloat(document.getElementById('weight').value);
+      const h=parseFloat(document.getElementById('height').value)/100;
+      const age=parseInt(document.getElementById('age').value)||0;
+      if(!w||!h||w<=0||h<=0){alert('Please enter valid weight and height.');return}
+      const bmi=w/(h*h);
+      let cat,color,info;
+      if(bmi<18.5){cat='Underweight';color='var(--accent)';info='Your BMI is below the normal range. Consider consulting a nutritionist for a healthy weight gain plan.'}
+      else if(bmi<25){cat='Normal Weight';color='var(--health-green)';info='Great! Your BMI is in the healthy range. Maintain a balanced diet and regular exercise.'}
+      else if(bmi<30){cat='Overweight';color='var(--health-orange)';info='Your BMI is above the normal range. Regular exercise and a healthy diet can help you reach your ideal weight.'}
+      else{cat='Obese';color='var(--health-red)';info='Your BMI is in the obese range. Please consult a doctor or nutritionist for a personalized health plan.'}
+      document.getElementById('bmiResult').style.display='block';
+      document.getElementById('bmiNumber').innerHTML=bmi.toFixed(1);
+      document.getElementById('bmiNumber').style.color=color;
+      document.getElementById('bmiCategory').textContent=cat;
+      document.getElementById('bmiCategory').style.background=color;
+      document.getElementById('bmiCategory').style.color='#fff';
+      document.getElementById('bmiInfo').innerHTML=`<strong>BMI:</strong> ${bmi.toFixed(1)} kg/m²<br><strong>Category:</strong> ${cat}<br><strong>Age:</strong> ${age||'N/A'}<br><br>${info}`;
+    }
+    // PWA
+    let d;const bar=document.getElementById('installBarTool');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();d=e});window.installAppTool=function(){if(d){d.prompt();d.userChoice.then(()=>{bar.style.display='none'})}else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.')}};if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{})}
+  </script>
+</body>
+</html>
