@@ -11,11 +11,10 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Free tools for everyone who builds, plans, or dreams. Cold storage calculators, sandwich panel estimators, unit converters, QR generator, and more.">
-  <meta name="keywords" content="cold storage calculator, sandwich panel calculator, unit converter, percentage calculator, QR code generator, free tools Pakistan, PEB calculator">
+  <meta name="description" content="Free tools for everyone who builds, plans, or dreams. Business calculators, engineering tools, health & everyday utilities — all free.">
+  <meta name="keywords" content="cold storage calculator, sandwich panel calculator, unit converter, percentage calculator, QR code generator, BMI calculator, profit margin calculator, free tools Pakistan">
   <meta name="theme-color" content="#0A0F14">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="manifest" href="https://coldmatrixtools.com/manifest.json">
+  <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>❄️</text></svg>">
   <title>ColdMatrix – Free Smart Tools | For Everyone Who Builds, Plans, or Dreams</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,6 +24,7 @@
       --bg: #0A0F14; --surface: #12181F; --surface2: #1B232C; --border: #2A3540;
       --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7;
       --gradient: linear-gradient(135deg, #4FC3F7, #2196F3);
+      --biz: #4FC3F7; --everyday: #26C6DA; --health: #FF6B6B; --fun: #FFA726;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
@@ -40,7 +40,7 @@
 
     .hero { background: linear-gradient(0deg, rgba(10,15,20,0.3) 0%, rgba(10,15,20,0.0) 100%), url('hero-bg.jpg') center/cover no-repeat; background-color: #0A0F14; padding: 60px 0 50px; text-align: center; }
     .hero-glass { background: rgba(10,15,20,0.7); backdrop-filter: blur(6px); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:28px 24px; max-width:650px; margin:0 auto; }
-    .hero-badge { display:inline-block; background:rgba(79,195,247,0.15); border:1px solid rgba(79,195,247,0.3); border-radius:50px; padding:5px 20px; font-size:0.85rem; color:var(--accent); margin-bottom:16px; }
+    .hero-badge { display:inline-block; background:rgba(79,195,247,0.15); border:1px solid rgba(79,195,247,0.3); border-radius:50px; padding:5px 20px; font-size:0.85rem; color:#fff; margin-bottom:16px; }
     .hero-title { font-size:clamp(1.4rem,4vw,2rem); font-weight:800; line-height:1.2; margin-bottom:12px; color:#fff; }
     .hero-title span { color:var(--accent); }
     .hero-welcome { font-size:0.9rem; color:#d0d6dc; margin-bottom:20px; }
@@ -61,21 +61,31 @@
     .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
 
     .section { padding:50px 0; }
-    .section-label { font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; color:var(--accent); margin-bottom:8px; font-weight:600; }
-    .section-title { font-size:1.3rem; font-weight:700; margin-bottom:10px; }
+    .section-label { font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; margin-bottom:8px; font-weight:600; }
+    .section-title { font-size:1.4rem; font-weight:700; margin-bottom:6px; }
+    .section-desc { color:var(--muted); margin-bottom:28px; font-size:0.9rem; }
+
+    .cat-biz .section-label, .cat-biz .section-title { color:var(--biz); }
+    .cat-everyday .section-label, .cat-everyday .section-title { color:var(--everyday); }
 
     .tools-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
-    .tool-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px; text-decoration:none; color:var(--text); transition:all 0.3s; display:flex; flex-direction:column; gap:10px; }
-    .tool-card:hover { border-color:var(--accent); transform:translateY(-3px); }
-    .tool-icon { font-size:1.4rem; }
+    .tool-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px; text-decoration:none; color:var(--text); transition:all 0.3s; display:flex; flex-direction:column; gap:10px; position:relative; overflow:hidden; }
+    .tool-card:hover { transform:translateY(-4px); box-shadow:0 12px 24px rgba(0,0,0,0.4); }
+    .tool-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+    .cat-biz .tool-card::before { background:var(--biz); }
+    .cat-everyday .tool-card::before { background:var(--everyday); }
+    .tool-icon { font-size:1.5rem; }
     .tool-card h3 { font-size:0.95rem; font-weight:600; }
     .tool-card p { color:var(--muted); font-size:0.8rem; }
     .tool-status { margin-top:auto; font-size:0.65rem; font-weight:600; color:var(--accent); }
     .tool-card.coming-soon { opacity:0.6; pointer-events:none; }
     .tool-card.coming-soon .tool-status { color:var(--muted); }
+    .tool-card.featured { border-color:var(--fun); }
+    .tool-card.featured::before { background:var(--fun); }
 
     .why-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; }
-    .why-item { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center; font-weight:500; font-size:0.85rem; }
+    .why-item { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px; text-align:center; font-weight:500; font-size:0.85rem; }
+    .why-item:hover { border-color:var(--accent); }
 
     .footer { border-top:1px solid var(--border); padding:40px 0 30px; margin-top:50px; }
     .footer-grid { display:flex; justify-content:space-between; flex-wrap:wrap; gap:30px; margin-bottom:30px; }
@@ -89,82 +99,53 @@
 <body>
   <nav class="navbar"><div class="container nav-inner"><a href="https://coldmatrixtools.com/" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="https://coldmatrixtools.com/" class="active">🏠 Home</a></li><li><a href="https://coldmatrixtools.com/#tools">🛠️ Tools</a></li><li><a href="https://coldmatrixtools.com/about.html">ℹ️ About</a></li><li><a href="https://coldmatrixtools.com/contact.html">📞 Contact</a></li></ul></div></nav>
 
-  <section class="hero"><div class="container"><div class="hero-glass"><div class="hero-badge" style="color:#ffffff !important; text-shadow:0 1px 4px rgba(0,0,0,0.8) !important;">❄️ For Everyone Who Builds, Plans, or Dreams</div><h1 class="hero-title">One Platform. <span>Unlimited Smart Tools.</span></h1><p class="hero-welcome">Free calculators and tools for contractors, fabricators, engineers, students, homeowners, and everyone planning a project.</p><div class="hero-buttons"><a href="https://coldmatrixtools.com/#tools" class="btn btn-primary">Explore Free Tools →</a><a href="https://coldmatrixtools.com/contact.html" class="btn btn-outline">Get Support</a></div></div></div></section>
+  <section class="hero"><div class="container"><div class="hero-glass"><div class="hero-badge">❄️ For Everyone Who Builds, Plans, or Dreams</div><h1 class="hero-title">One Platform. <span>Unlimited Smart Tools.</span></h1><p class="hero-welcome">Free calculators and tools for contractors, fabricators, engineers, students, homeowners, and everyone planning a project across Pakistan.</p><div class="hero-buttons"><a href="https://coldmatrixtools.com/#tools" class="btn btn-primary">Explore Free Tools →</a><a href="https://coldmatrixtools.com/contact.html" class="btn btn-outline">Get Support</a></div></div></div></section>
 
   <div class="container"><div class="ad-banner"><div class="ad-inner"><div><ul class="ad-list"><li>PEB Structures</li><li>Cold Storage & Freezer Rooms</li><li>PU/PIR Sandwich Panels (Roof & Wall)</li><li>Prefab Construction Solutions</li></ul><div class="ad-location">✓ Karachi, Lahore, Islamabad & all Pakistan</div></div><a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a></div></div></div>
 
   <div class="container"><div class="install-bar" id="installBar">Install ColdMatrix App <button onclick="installApp()">Install</button></div></div>
 
-  <section class="section" id="tools"><div class="container"><div class="section-label">Popular Tools</div><h2 class="section-title">All Free Tools</h2><div class="tools-grid">
-    <a href="https://coldmatrixtools.com/cold-store-calculator.html" class="tool-card"><div class="tool-icon">❄️</div><h3>Cold Room Calculator</h3><p>PUF panel thickness, panel count, and refrigeration load.</p><div class="tool-status">● Live</div></a>
-    <a href="https://coldmatrixtools.com/sandwich-panel-calculator.html" class="tool-card"><div class="tool-icon">🧱</div><h3>Sandwich Panel Calculator</h3><p>Estimate weight, quantity, and total order weight.</p><div class="tool-status">● Live</div></a>
-    <a href="https://coldmatrixtools.com/qr-code-generator.html" class="tool-card"><div class="tool-icon">📱</div><h3>QR Code Generator</h3><p>Websites, WhatsApp, contacts, Wi‑Fi – all QR types.</p><div class="tool-status">● Live</div></a>
-    <a href="https://coldmatrixtools.com/unit-converter.html" class="tool-card"><div class="tool-icon">📏</div><h3>Unit Converter</h3><p>Length, weight, temperature – convert instantly.</p><div class="tool-status">● Live</div></a>
-    <a href="https://coldmatrixtools.com/percentage-calculator.html" class="tool-card"><div class="tool-icon">📊</div><h3>Percentage Calculator</h3><p>Quick percentage calculations for everyday use.</p><div class="tool-status">● Live</div></a>
-    <a href="https://coldmatrixtools.com/steel-weight-calculator.html" class="tool-card">
-  <div class="tool-icon">🛠️</div>
-  <h3>Steel Weight Calculator</h3>
-  <p>Calculate weight of plates, bars, pipes, and beams.</p>
-  <div class="tool-status">● Live</div>
-</a>
-<a href="https://coldmatrixtools.com/cooling-requirement-calculator.html" class="tool-card">
-  <div class="tool-icon">❄️</div>
-  <h3>Cooling Requirement (BTU/TR)</h3>
-  <p>Find out how much cooling capacity your room needs.</p>
-  <div class="tool-status">● Live</div>
-</a>
-<a href="https://coldmatrixtools.com/smart-scanner.html" class="tool-card">
-  <div class="tool-icon">📷</div>
-  <h3>ColdMatrix Smart Scanner</h3>
-  <p>Scan QR codes, barcodes & text. Live camera & upload.</p>
-  <div class="tool-status">● Live</div>
-</a>
-<a href="https://coldmatrixtools.com/bmi-calculator.html" class="tool-card">
-  <div class="tool-icon">⚖️</div>
-  <h3>BMI Calculator</h3>
-  <p>Check your Body Mass Index — free & instant.</p>
-  <div class="tool-status">● Live</div>
-</a>
-<a href="https://coldmatrixtools.com/profit-margin-calculator.html" class="tool-card">
-  <div class="tool-icon">🧮</div>
-  <h3>Profit Margin Calculator</h3>
-  <p>Calculate profit, margin, markup & selling price.</p>
-  <div class="tool-status">● Live</div>
-</a>
-    <div class="tool-card coming-soon"><div class="tool-icon">🔜</div><h3>More Coming Soon</h3><p>Smart tools underway — stay tuned.</p><div class="tool-status">Coming Soon</div></div>
+  <!-- ───── BUSINESS & ENGINEERING TOOLS ───── -->
+  <section class="section cat-biz" id="tools"><div class="container">
+    <div class="section-label">💼 Business & Engineering</div>
+    <h2 class="section-title">Professional Tools for Your Projects</h2>
+    <p class="section-desc">Built for contractors, engineers, fabricators — and everyone planning a real project.</p>
+    <div class="tools-grid">
+      <a href="https://coldmatrixtools.com/cold-store-calculator.html" class="tool-card"><div class="tool-icon">❄️</div><h3>Cold Room Calculator</h3><p>PUF panel thickness, panel count, and refrigeration load.</p><div class="tool-status">● Live</div></a>
+      <a href="https://coldmatrixtools.com/sandwich-panel-calculator.html" class="tool-card"><div class="tool-icon">🧱</div><h3>Sandwich Panel Calculator</h3><p>Estimate weight, quantity, and total order weight.</p><div class="tool-status">● Live</div></a>
+      <a href="https://coldmatrixtools.com/cooling-requirement-calculator.html" class="tool-card"><div class="tool-icon">🌡️</div><h3>Cooling Requirement (BTU/TR)</h3><p>Cooling capacity needed for any room or cold storage.</p><div class="tool-status">● Live</div></a>
+      <a href="https://coldmatrixtools.com/steel-weight-calculator.html" class="tool-card"><div class="tool-icon">🛠️</div><h3>Steel Weight Calculator</h3><p>Plates, bars, pipes & beams — instant weight.</p><div class="tool-status">● Live</div></a>
+      <a href="https://coldmatrixtools.com/profit-margin-calculator.html" class="tool-card"><div class="tool-icon">🧮</div><h3>Profit Margin Calculator</h3><p>Profit, margin, markup & selling price.</p><div class="tool-status">● Live</div></a>
+      <a href="https://coldmatrixtools.com/smart-scanner.html" class="tool-card featured"><div class="tool-icon">📷</div><h3>⭐ Smart Scanner</h3><p>QR, barcode & text — live camera + upload.</p><div class="tool-status">● Live</div></a>
+    </div>
+  </div></section>
+
+  <!-- ───── EVERYDAY USEFUL TOOLS ───── -->
+  <section class="section cat-everyday"><div class="container">
+    <div class="section-label">🌟 Everyday Useful</div>
+    <h2 class="section-title">Handy Tools for Daily Life</h2>
+    <p class="section-desc">Simple, free, and useful for everyone — no registration needed.</p>
+    <div class="tools-grid">
+      <a href="https://coldmatrixtools.com/bmi-calculator.html" class="tool-card"><div class="tool-icon">⚖️</div><h3>BMI Calculator</h3><p>Check your Body Mass Index — free & instant.</p><div class="tool-status">● Live</div></a>
+      <a href="https://coldmatrixtools.com/percentage-calculator.html" class="tool-card"><div class="tool-icon">📊</div><h3>Percentage Calculator</h3><p>Quick percentage calculations for everyday use.</p><div class="tool-status">● Live</div></a>
+      <a href="https://coldmatrixtools.com/unit-converter.html" class="tool-card"><div class="tool-icon">📏</div><h3>Unit Converter</h3><p>Length, weight, temperature — convert instantly.</p><div class="tool-status">● Live</div></a>
+      <a href="https://coldmatrixtools.com/qr-code-generator.html" class="tool-card"><div class="tool-icon">📱</div><h3>QR Code Generator</h3><p>Websites, WhatsApp, contacts, Wi‑Fi — all QR types.</p><div class="tool-status">● Live</div></a>
+      <div class="tool-card coming-soon"><div class="tool-icon">🎂</div><h3>Age Calculator</h3><p>Coming soon — calculate your exact age.</p><div class="tool-status">Coming Soon</div></div>
+    </div>
+  </div></section>
+
+  <!-- ───── WHY COLDMATRIX ───── -->
+  <section class="section"><div class="container"><div class="section-label" style="color:var(--accent);">Why ColdMatrix</div><h2 class="section-title">Built for professionals, free for everyone</h2><div class="why-grid" style="margin-top:16px;">
+    <div class="why-item">❄️ Free Forever</div><div class="why-item">❄️ No Registration</div><div class="why-item">❄️ Mobile Friendly</div><div class="why-item">❄️ Privacy First</div><div class="why-item">❄️ Fast & Accurate</div><div class="why-item">❄️ Growing Tool Library</div>
   </div></div></section>
 
-  <section class="section"><div class="container"><div class="section-label">Why ColdMatrix</div><h2 class="section-title">Built for professionals, free for everyone</h2><div class="why-grid" style="margin-top:16px;">
-    <div class="why-item">❄️ Free Forever</div>
-    <div class="why-item">❄️ No Registration</div>
-    <div class="why-item">❄️ Mobile Friendly</div>
-    <div class="why-item">❄️ Privacy First</div>
-    <div class="why-item">❄️ Fast & Accurate</div>
-    <div class="why-item">❄️ Growing Tool Library</div>
-  </div></div></section>
-<section class="section">
-  <div class="container" style="text-align:center;">
-    <h2 class="section-title">Who Uses ColdMatrix</h2>
-    <p style="color:var(--muted);margin-bottom:16px;font-size:0.9rem;">Anyone planning a cold room, prefab building, or just curious about tools — you're in the right place.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
-      <span style="background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.8rem;">🏠 Homeowners</span>
-      <span style="background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.8rem;">🌾 Farmers</span>
-      <span style="background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.8rem;">👨‍🔧 Contractors</span>
-      <span style="background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.8rem;">🏗️ Engineers</span>
-      <span style="background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.8rem;">🧑‍💼 Business Owners</span>
-      <span style="background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.8rem;">🎓 Students</span>
-      <span style="background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.8rem;">🔨 DIY Builders</span>
-      <span style="background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.8rem;">👨‍👩‍👧 Families</span>
-    </div>
-  </div>
-</section>
-  <footer class="footer"><div class="container"><div class="footer-grid"><div><h4>ColdMatrix</h4><p style="color:var(--muted);font-size:0.85rem;">For everyone who builds, plans, or dreams.</p></div><div class="footer-col"><h4>Tools</h4><a href="https://coldmatrixtools.com/cold-store-calculator.html">Cold Room</a><a href="https://coldmatrixtools.com/sandwich-panel-calculator.html">Panel</a><a href="https://coldmatrixtools.com/qr-code-generator.html">QR</a><a href="https://coldmatrixtools.com/unit-converter.html">Units</a><a href="https://coldmatrixtools.com/percentage-calculator.html">% Calc</a></div><div class="footer-col"><h4>Company</h4><a href="https://coldmatrixtools.com/about.html">About</a><a href="https://coldmatrixtools.com/contact.html">Contact</a></div><div class="footer-col"><h4>Legal</h4><a href="https://coldmatrixtools.com/privacy-policy.html">Privacy</a><a href="https://coldmatrixtools.com/terms-of-use.html">Terms</a></div></div><div class="footer-bottom"><p style="text-align:center; color:#ffffff !important; font-size:0.85rem; margin-bottom:8px; text-shadow:0 1px 4px rgba(0,0,0,0.8);">For everyone who builds, plans, or dreams.</p><span>© 2026 ColdMatrix Tools.</span><span>Powered by <strong style="color:var(--accent);">ColdMatrix</strong></span></div></div></footer>
+  <!-- ───── FOOTER ───── -->
+  <footer class="footer"><div class="container"><div class="footer-grid"><div><h4>ColdMatrix</h4><p style="color:var(--muted);font-size:0.85rem;">For everyone who builds, plans, or dreams.</p></div><div class="footer-col"><h4>Business Tools</h4><a href="https://coldmatrixtools.com/cold-store-calculator.html">Cold Room</a><a href="https://coldmatrixtools.com/sandwich-panel-calculator.html">Sandwich Panel</a><a href="https://coldmatrixtools.com/cooling-requirement-calculator.html">Cooling Req.</a><a href="https://coldmatrixtools.com/steel-weight-calculator.html">Steel Weight</a><a href="https://coldmatrixtools.com/profit-margin-calculator.html">Profit Margin</a></div><div class="footer-col"><h4>Everyday Tools</h4><a href="https://coldmatrixtools.com/bmi-calculator.html">BMI</a><a href="https://coldmatrixtools.com/percentage-calculator.html">Percentage</a><a href="https://coldmatrixtools.com/unit-converter.html">Units</a><a href="https://coldmatrixtools.com/qr-code-generator.html">QR Code</a><a href="https://coldmatrixtools.com/smart-scanner.html">Smart Scanner</a></div><div class="footer-col"><h4>Company</h4><a href="https://coldmatrixtools.com/about.html">About</a><a href="https://coldmatrixtools.com/contact.html">Contact</a></div><div class="footer-col"><h4>Legal</h4><a href="https://coldmatrixtools.com/privacy-policy.html">Privacy</a><a href="https://coldmatrixtools.com/terms-of-use.html">Terms</a></div></div><div class="footer-bottom"><span>© 2026 ColdMatrix Tools.</span><span>Powered by <strong style="color:var(--accent);">ColdMatrix</strong></span></div></div></footer>
 
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
-
   <script>
     let d;const b=document.getElementById('installBar');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();d=e;});window.installApp=function(){if(d){d.prompt();d.userChoice.then(()=>{b.style.display='none';});}else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');}};
-    if('serviceWorker' in navigator){navigator.serviceWorker.register('https://coldmatrixtools.com/service-worker.js').catch(()=>{});}
+    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
   </script>
 </body>
 </html>
