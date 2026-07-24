@@ -1,379 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <link rel="canonical" href="https://coldmatrixtools.com/birthday-countdown.html">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DCJ7K7LSCF');
-  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ðŸŽ‚ Birthday Countdown â€” Personalized Wishes | ColdMatrix</title>
-  <meta name="description" content="Create a personalized birthday countdown with photo, zodiac sign, and custom message. Share it on WhatsApp, Instagram, or download to your gallery.">
-  <meta name="theme-color" content="#0A0F14">
-  <link rel="manifest" href="manifest.json">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <title>Birthday Countdown — ColdMatrix Tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0A0F14;
-      --surface: #12181F;
-      --surface2: #1B232C;
-      --border: #2A3540;
-      --text: #EAEDF0;
-      --muted: #8B98A5;
-      --accent: #FF6B8A;
-      --accent-glow: #FF3B6F;
-      --gold: #FFD700;
-      --gradient: linear-gradient(135deg, #FF6B8A, #FF3B6F);
+      --bg: #0A0F14; --surface: #12181F; --border: #2A3540;
+      --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7;
+      --gradient: linear-gradient(135deg, #4FC3F7, #2196F3);
+      --fun: #FFD700;
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
-    .container { max-width: 900px; margin:0 auto; padding:0 24px; }
-
-    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
-    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
-    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
-    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
-    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
-
-    .ad-card { border-radius:14px; overflow:hidden; background: linear-gradient(90deg, rgba(10,15,20,0.7), rgba(10,15,20,0.4)), url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
-    .ad-card ul { list-style:none; padding:0; margin:0; }
-    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
-    .ad-card li::before { content:"âœ“"; color:#4caf50; font-weight:700; margin-right:6px; }
-    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
-
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; }
-    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
-
-    h1 { font-size:2rem; font-weight:900; margin-bottom:8px; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display:inline-block; }
-    .subtitle { color:var(--muted); margin-bottom:30px; font-size:1.1rem; }
-
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; margin-bottom:24px; }
-    .card h2 { font-size:1.2rem; font-weight:700; margin-bottom:18px; color:var(--accent); }
-
-    .field { margin-bottom:16px; }
-    .field label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
-    .field input, .field textarea, .field select { width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:14px; border-radius:10px; font-size:1rem; font-family:'Inter',sans-serif; }
-    .field input:focus, .field textarea:focus { outline:none; border-color:var(--accent); }
-    .field input[type="file"] { padding:12px; background:var(--surface2); cursor:pointer; }
-
-    .photo-upload-area { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
-    .photo-preview { width:80px; height:80px; border-radius:50%; border:3px solid var(--accent); object-fit:cover; background:var(--surface2); display:none; }
-    .photo-placeholder { width:80px; height:80px; border-radius:50%; border:2px dashed var(--border); display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:0.7rem; text-align:center; }
-
-    .btn-primary { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; transition:transform 0.2s; }
-    .btn-primary:hover { transform:scale(1.02); }
-
-    /* BIRTHDAY CARD */
-    #card-wrapper { display:none; margin-top:30px; }
-    #birthday-card {
-      background: 
-        radial-gradient(circle at 15% 20%, rgba(255, 107, 138, 0.25) 0%, transparent 50%),
-        radial-gradient(circle at 85% 80%, rgba(0, 212, 255, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.12) 0%, transparent 60%),
-        linear-gradient(135deg, #12181F 0%, #0A0F14 100%);
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; padding: 20px; }
+    .container { max-width: 800px; margin: 40px auto; }
+    
+    .birthday-card {
+      background: linear-gradient(rgba(10, 15, 20, 0.75), rgba(10, 15, 20, 0.85)), url('birthday_calc.jpg');
+      background-size: cover;
+      background-position: center;
       border: 1px solid rgba(255, 107, 138, 0.4);
       border-radius: 20px;
-      padding: 30px;
+      padding: 40px 30px;
       text-align: center;
       position: relative;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(255, 107, 138, 0.2);
+    }
+
+    .birthday-card h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    .birthday-card p {
       color: #EAEDF0;
+      font-size: 1rem;
+      margin-bottom: 24px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
     }
 
+    .input-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
     }
-    #birthday-card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-image: radial-gradient(rgba(255, 215, 0, 0.6) 1.5px, transparent 1.5px);
-      background-size: 25px 25px;
-      opacity: 0.12;
-      pointer-events: none;
+
+    input[type="date"] {
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(18, 24, 31, 0.9);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
     }
-    .card-badge { display:inline-block; background:var(--gradient); color:#fff; font-size:0.7rem; font-weight:700; padding:4px 16px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; }
-    .card-photo { width:140px; height:140px; border-radius:50%; object-fit:cover; border:4px solid var(--accent); margin:0 auto 16px; display:block; box-shadow:0 0 30px rgba(255,107,138,0.3); background:var(--surface2); }
-    .card-name { font-size:2.2rem; font-weight:900; color:#fff; margin-bottom:4px; }
-    .card-zodiac { font-size:1.2rem; color:var(--accent); font-weight:600; margin-bottom:4px; }
-    .card-zodiac-liner { font-size:0.95rem; color:var(--muted); font-style:italic; margin-bottom:16px; padding:0 10px; }
-    .card-countdown { font-size:3rem; font-weight:900; color:var(--gold); margin:8px 0; letter-spacing:2px; }
-    .card-countdown-label { color:var(--muted); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; }
-    .card-details { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin:16px 0; padding:16px; background:rgba(255,255,255,0.03); border-radius:12px; border:1px solid var(--border); }
-    .card-details span { font-size:0.9rem; color:var(--muted); }
-    .card-details strong { color:#fff; font-weight:600; }
-    .card-message { font-size:1.2rem; color:var(--text); margin:16px 0 8px; font-style:italic; padding:0 10px; border-left:3px solid var(--accent); padding-left:16px; text-align:left; }
 
-    .card-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; justify-content:center; }
-    .card-actions button { padding:12px 24px; border:none; border-radius:10px; font-weight:700; font-size:0.95rem; cursor:pointer; transition:0.2s; display:flex; align-items:center; gap:8px; }
-    .card-actions button:hover { transform:translateY(-2px); }
-    .btn-wa { background:#25D366; color:white; }
-    .btn-wa-no-link { background:#1da85a; color:white; }
-    .btn-download { background:var(--accent); color:#0A0F14; }
-    .btn-instagram { background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); color:white; }
+    .btn {
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      background: var(--gradient);
+      color: #0A0F14;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
 
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--accent); text-decoration:none; }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
 
-    @media (max-width:600px) {
-      .card-name { font-size:1.8rem; }
-      .card-countdown { font-size:2.2rem; }
-      .card-photo { width:100px; height:100px; }
-      .card-details { flex-direction:column; gap:8px; align-items:center; }
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: 12px;
+      margin-top: 25px;
+      margin-bottom: 25px;
+    }
+
+    .time-box {
+      background: rgba(18, 24, 31, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 15px 10px;
+      backdrop-filter: blur(5px);
+    }
+
+    .time-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--fun);
+    }
+
+    .time-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 1px;
+    }
+
+    .extra-info {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: #d0d6dc;
+      background: rgba(10, 15, 20, 0.6);
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 25px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="container nav-inner">
-      <a href="index.html" class="logo"> ColdMatrix</a>
-      <ul class="nav-links">
-        <li><a href="index.html"> Home</a></li>
-        <li><a href="index.html#tools" class="active"> Tools</a></li>
-        <li><a href="about.html"> About</a></li>
-        <li><a href="contact.html"> Contact</a></li>
-      </ul>
-    </div>
-  </nav>
-
   <div class="container">
-    <div class="ad-card">
-      <div>
-        <ul><li>PEB Structures</li><li>Cold Storage & Freezer Rooms</li><li>PU/PIR Sandwich Panels</li><li>Prefab Construction Solutions</li></ul>
-        <div style="font-size:0.8rem;color:#c8d0d8;margin-top:4px"> Karachi, Lahore, Islamabad & all Pakistan</div>
+    <div class="birthday-card" id="birthday-card">
+      <h1> Birthday Countdown</h1>
+      <p> Select a birthdate to launch the live countdown, see turning age, zodiac sign, and custom celebration wishes!</p>
+      
+      <div class="input-group">
+        <input type="date" id="bdayInput">
+        <button class="btn" onclick="startCountdownTimer()">Start Countdown</button>
       </div>
-      <a href="https://wa.me/923333228470?text=Hi%2C%20I'm%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank"> Get Quote</a>
+
+      <div id="resultArea" style="display:none;">
+        <div class="countdown-grid">
+          <div class="time-box">
+            <div class="time-value" id="days">00</div>
+            <div class="time-label">Days</div>
+          </div>
+          <div class="time-box">
+            <div class="time-value" id="hours">00</div>
+            <div class="time-label">Hours</div>
+          </div>
+          <div class="time-box">
+            <div class="time-value" id="minutes">00</div>
+            <div class="time-label">Minutes</div>
+          </div>
+          <div class="time-box">
+            <div class="time-value" id="seconds">00</div>
+            <div class="time-label">Seconds</div>
+          </div>
+        </div>
+        <div class="extra-info" id="extraInfo"></div>
+      </div>
     </div>
 
-    <div class="install-bar" id="installBarTool"> Add to Home Screen <button onclick="installAppTool()">Install</button></div>
-
-    <h1> Birthday Countdown</h1>
-    <p class="subtitle"> Create a beautiful, personalized birthday card for your loved ones — with live countdown, zodiac sign, and custom wishes. Celebrate every special moment.</p>
-
-    <!-- Input Section -->
-    <div class="card" id="input-section">
-      <h2> Enter Details</h2>
-      <div class="field"><label> Name of Birthday Person</label><input type="text" id="personName" placeholder="e.g. Ayesha" value=""></div>
-      
-      <div class="field"><label> Date of Birth</label><input type="date" id="dob" value=""></div>
-      
-      <div class="field">
-        <label> Upload Photo (Optional)</label>
-        <div class="photo-upload-area">
-          <input type="file" id="photoInput" accept="image/*" style="flex:1;">
-          <img id="photoPreview" class="photo-preview" alt="Preview">
-          <div id="photoPlaceholder" class="photo-placeholder">No Photo</div>
-        </div>
-      </div>
-      
-      <div class="field"><label> Custom Message / Wish</label><textarea id="customMessage" rows="2" placeholder="e.g. Happy Birthday my dear friend! May your day be as beautiful as you."></textarea></div>
-      
-      <button class="btn-primary" onclick="createBirthdayCard()"> Create Birthday Card</button>
-    </div>
-
-    <!-- Card Output -->
-    <div id="card-wrapper">
-      <div id="birthday-card">
-        <div class="card-badge"> Countdown</div>
-        <img id="cardPhoto" class="card-photo" src="" alt="Photo" style="display:none;">
-        <div class="card-name" id="cardName">—</div>
-        <div class="card-zodiac" id="cardZodiac">—</div>
-        <div class="card-zodiac-liner" id="cardLiner">—</div>
-        <div class="card-countdown" id="cardCountdown">—</div>
-        <div class="card-countdown-label">Days Until Birthday</div>
-        <div class="card-details">
-          <span> <strong id="cardNextDate">—</strong></span>
-          <span> <strong id="cardDay">—</strong></span>
-          <span> Age: <strong id="cardAge">—</strong></span>
-        </div>
-        <div class="card-message" id="cardMessage">—</div>
-        <div style="margin-top:12px; font-size:0.7rem; color:var(--muted);"> Made with  ColdMatrix Tools</div>
-      </div>
-
-      <!-- Action Buttons -->
-      <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
-        <button class="btn-wa" onclick="shareWhatsApp(true)"> Share on WhatsApp (with Link)</button>
-        <button class="btn-wa-no-link" onclick="shareWhatsApp(false)"> Share on WhatsApp (without Link)</button>
-        <button class="btn-download" onclick="downloadCard()"> Download to Gallery</button>
-        <button class="btn-instagram" onclick="shareInstagram()"> Share on Instagram</button>
-      </div>
+    <div style="text-align: center;">
+      <a href="https://coldmatrixtools.com/" class="back-link"> Back to ColdMatrix Tools</a>
     </div>
   </div>
 
-  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
-
   <script>
-    let currentPerson = { name: '', dob: null, photo: null, message: '', zodiac: null };
-    let countdownInterval = null;
+    let timerInterval;
 
-    // --- ZODIAC DATA ---
-    const zodiacs = [
-      { sign: 'Capricorn', emoji: '', start: {m:1, d:1}, end: {m:1, d:19}, element: 'Earth', liner: 'Ambitious and disciplined — you were born to lead and climb every mountain.' },
-      { sign: 'Aquarius', emoji: '', start: {m:1, d:20}, end: {m:2, d:18}, element: 'Air', liner: 'Innovative and visionary — you see the world differently, and that is your superpower.' },
-      { sign: 'Pisces', emoji: '', start: {m:2, d:19}, end: {m:3, d:20}, element: 'Water', liner: 'Dreamy and compassionate — your heart is your greatest gift to the world.' },
-      { sign: 'Aries', emoji: '', start: {m:3, d:21}, end: {m:4, d:19}, element: 'Fire', liner: 'Bold and fearless — you were born to ignite and lead.' },
-      { sign: 'Taurus', emoji: '', start: {m:4, d:20}, end: {m:5, d:20}, element: 'Earth', liner: 'Steadfast and loyal — your strength moves mountains and builds empires.' },
-      { sign: 'Gemini', emoji: '', start: {m:5, d:21}, end: {m:6, d:20}, element: 'Air', liner: 'Curious and brilliant — your mind is a universe of endless possibilities.' },
-      { sign: 'Cancer', emoji: '', start: {m:6, d:21}, end: {m:7, d:22}, element: 'Water', liner: 'Intuitive and caring — your heart heals and nurtures everyone around you.' },
-      { sign: 'Leo', emoji: '', start: {m:7, d:23}, end: {m:8, d:22}, element: 'Fire', liner: 'Radiant and majestic — you were born to shine and inspire the world.' },
-      { sign: 'Virgo', emoji: '', start: {m:8, d:23}, end: {m:9, d:22}, element: 'Earth', liner: 'Meticulous and pure — your soul brings order to chaos and clarity to confusion.' },
-      { sign: 'Libra', emoji: '', start: {m:9, d:23}, end: {m:10, d:22}, element: 'Air', liner: 'Harmonious and just — your beauty is in your balance and grace.' },
-      { sign: 'Scorpio', emoji: '', start: {m:10, d:23}, end: {m:11, d:21}, element: 'Water', liner: 'Intense and transformative — your power is unmatched and unstoppable.' },
-      { sign: 'Sagittarius', emoji: '', start: {m:11, d:22}, end: {m:12, d:21}, element: 'Fire', liner: 'Free-spirited and wise — your quest for truth inspires us all.' },
-      { sign: 'Capricorn', emoji: '', start: {m:12, d:22}, end: {m:12, d:31}, element: 'Earth', liner: 'Ambitious and disciplined — you climb every mountain with grace.' },
-    ];
-
-    function getZodiac(month, day) {
-      for(let z of zodiacs) {
-        if(month === z.start.m && day >= z.start.d && month === z.end.m && day <= z.end.d) return z;
-        if(month > z.start.m && month < z.end.m) return z;
-        if(month === z.start.m && day >= z.start.d && month < z.end.m) return z;
-        if(month > z.start.m && month === z.end.m && day <= z.end.d) return z;
+    function getZodiacSign(day, month) {
+      const signs = [
+        { name: "Capricorn ", start: [1,1], end: [1,19] },
+        { name: "Aquarius ", start: [1,20], end: [2,18] },
+        { name: "Pisces ", start: [2,19], end: [3,20] },
+        { name: "Aries ", start: [3,21], end: [4,19] },
+        { name: "Taurus ", start: [4,20], end: [5,20] },
+        { name: "Gemini ", start: [5,21], end: [6,20] },
+        { name: "Cancer ", start: [6,21], end: [7,22] },
+        { name: "Leo ", start: [7,23], end: [8,22] },
+        { name: "Virgo ", start: [8,23], end: [9,22] },
+        { name: "Libra ", start: [9,23], end: [10,22] },
+        { name: "Scorpio ", start: [10,23], end: [11,21] },
+        { name: "Sagittarius ", start: [11,22], end: [12,21] },
+        { name: "Capricorn ", start: [12,22], end: [12,31] }
+      ];
+      for (let sign of signs) {
+        if ((month === sign.start[0] && day >= sign.start[1]) || (month === sign.end[0] && day <= sign.end[1])) {
+          return sign.name;
+        }
       }
-      return zodiacs[0]; // fallback
+      return "Unknown";
     }
 
-    // --- MAIN LOGIC ---
-    function createBirthdayCard() {
-      const name = document.getElementById('personName').value.trim();
-      const dobVal = document.getElementById('dob').value;
-      const message = document.getElementById('customMessage').value.trim();
-      const photoFile = document.getElementById('photoInput').files[0];
-
-      if(!name) { alert('Please enter the person\'s name.'); return; }
-      if(!dobVal) { alert('Please select the date of birth.'); return; }
-
-      const dobParts = dobVal.split('-');
-      const birthMonth = parseInt(dobParts[1]);
-      const birthDay = parseInt(dobParts[2]);
-      const birthYear = parseInt(dobParts[0]);
-
-      const today = new Date();
-      let currentYear = today.getFullYear();
-      let nextBirthday = new Date(currentYear, birthMonth - 1, birthDay);
+    function startCountdownTimer() {
+      const inputVal = document.getElementById('bdayInput').value;
+      const resultArea = document.getElementById('resultArea');
       
-      if(nextBirthday < today) {
-        nextBirthday = new Date(currentYear + 1, birthMonth - 1, birthDay);
+      if (!inputVal) {
+        alert(" Please select a valid birthdate first!");
+        return;
       }
 
-      const diffTime = nextBirthday.getTime() - today.getTime();
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      resultArea.style.display = "block";
+      clearInterval(timerInterval);
 
-      // Calculate Age
-      let ageYears = today.getFullYear() - birthYear;
-      let ageMonths = today.getMonth() - (birthMonth - 1);
-      let ageDays = today.getDate() - birthDay;
-      if(ageDays < 0) { ageMonths--; const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0); ageDays += prevMonth.getDate(); }
-      if(ageMonths < 0) { ageYears--; ageMonths += 12; }
+      const bdayDate = new Date(inputVal);
+      const bMonth = bdayDate.getMonth() + 1;
+      const bDay = bdayDate.getDate();
+      const bYear = bdayDate.getFullYear();
 
-      const zodiac = getZodiac(birthMonth, birthDay);
-      const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      const nextDayName = dayNames[nextBirthday.getDay()];
-      const dateStr = nextBirthday.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      function updateTimer() {
+        const now = new Date();
+        let targetYear = now.getFullYear();
+        let nextBday = new Date(targetYear, bMonth - 1, bDay);
 
-      // Update Card UI
-      document.getElementById('cardName').textContent = name;
-      document.getElementById('cardZodiac').textContent = `${zodiac.emoji} ${zodiac.sign}  |  ${zodiac.element} Sign`;
-      document.getElementById('cardLiner').textContent = `"${zodiac.liner}"`;
-      document.getElementById('cardCountdown').textContent = diffDays;
-      document.getElementById('cardNextDate').textContent = dateStr;
-      document.getElementById('cardDay').textContent = nextDayName;
-      document.getElementById('cardAge').textContent = `${ageYears}y ${ageMonths}m ${ageDays}d`;
-      document.getElementById('cardMessage').textContent = message || `Happy Birthday, ${name}! `;
+        if (now > nextBday) {
+          nextBday.setFullYear(targetYear + 1);
+          targetYear++;
+        }
 
-      // Photo
-      const cardPhoto = document.getElementById('cardPhoto');
-      if(photoFile) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          cardPhoto.src = e.target.result;
-          cardPhoto.style.display = 'block';
-        };
-        reader.readAsDataURL(photoFile);
-      } else {
-        cardPhoto.style.display = 'none';
+        const turningAge = targetYear - bYear;
+        const diff = nextBday - now;
+
+        if (diff <= 0) {
+          document.getElementById('days').innerText = "00";
+          document.getElementById('hours').innerText = "00";
+          document.getElementById('minutes').innerText = "00";
+          document.getElementById('seconds').innerText = "00";
+          document.getElementById('extraInfo').innerHTML = " <strong>Happy Birthday!</strong> Wishing you a wonderful and joyful day filled with success and happiness! ";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / 1000 / 60) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        document.getElementById('days').innerText = String(days).padStart(2, '0');
+        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+
+        const zodiac = getZodiacSign(bDay, bMonth);
+        document.getElementById('extraInfo').innerHTML = ` Turning <strong>${turningAge}</strong> years old &nbsp;|&nbsp; Zodiac Sign: <strong>${zodiac}</strong>`;
       }
 
-      // Store data for sharing
-      currentPerson = { name, dob: dobVal, message, zodiac, photo: cardPhoto.src, diffDays, age: `${ageYears}y ${ageMonths}m ${ageDays}d`, nextDate: dateStr, nextDay: nextDayName };
-
-      document.getElementById('card-wrapper').style.display = 'block';
-      document.getElementById('card-wrapper').scrollIntoView({ behavior: 'smooth' });
-
-      // Start countdown
-      if(countdownInterval) clearInterval(countdownInterval);
-      startCountdown(nextBirthday);
-
-      function startCountdown(targetDate) {
-        const countdownEl = document.getElementById('cardCountdown');
-        countdownInterval = setInterval(() => {
-          const now = new Date();
-          const diff = targetDate.getTime() - now.getTime();
-          if(diff <= 0) { clearInterval(countdownInterval); countdownEl.textContent = ' TODAY!'; return; }
-          const days = Math.floor(diff / (1000*60*60*24));
-          const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-          const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
-          const seconds = Math.floor((diff % (1000*60)) / 1000);
-          if(days > 0) countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-          else countdownEl.textContent = `${hours}h ${minutes}m ${seconds}s`;
-        }, 1000);
-      }
+      updateTimer();
+      timerInterval = setInterval(updateTimer, 1000);
     }
-
-    // --- SHARING FUNCTIONS ---
-    function shareWhatsApp(includeLink) {
-      const name = currentPerson.name || 'Friend';
-      const days = document.getElementById('cardCountdown').textContent;
-      const msg = ` *${name}'s Birthday Countdown!*\n ${currentPerson.nextDate || 'Soon!'}\n ${days} remaining\n ${currentPerson.zodiac?.emoji || ''} ${currentPerson.zodiac?.sign || ''}\n "${currentPerson.message || 'Happy Birthday!'}"${includeLink ? '\n\n Made with  at ColdMatrix Tools: https://coldmatrixtools.com/birthday-countdown.html' : '\n\n Made with  ColdMatrix Tools'}`;
-      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
-    }
-
-    function downloadCard() {
-      const card = document.getElementById('birthday-card');
-      html2canvas(card, { scale: 2, backgroundColor: '#0b0f19', useCORS: true }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'birthday-card.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-      }).catch(err => {
-        alert('Could not download image. Please try sharing directly or take a screenshot.');
-      });
-    }
-
-    function shareInstagram() {
-      alert(' 1. Download the card to your gallery using the "Download to Gallery" button.\n2. Open Instagram, create a new post/story, and upload the saved image.\n3. Tag @ColdMatrixTools for a shoutout! ');
-    }
-
-    // Photo Preview
-    document.getElementById('photoInput').addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if(file) {
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-          const preview = document.getElementById('photoPreview');
-          preview.src = ev.target.result;
-          preview.style.display = 'block';
-          document.getElementById('photoPlaceholder').style.display = 'none';
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    // Install PWA
-    let d; const bar=document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d=e; });
-    function installAppTool() {
-      if(d){ d.prompt(); d.userChoice.then(()=>{ bar.style.display='none'; }); }
-      else { alert(' Android: "Add to Home Screen" in Chrome.\n iPhone: Share  Add to Home Screen.'); }
-    }
-    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
   </script>
+
 </body>
 </html>
