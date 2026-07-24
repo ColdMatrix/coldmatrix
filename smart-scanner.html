@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="canonical" href="https://coldmatrixtools.com/">
+  <link rel="canonical" href="https://coldmatrixtools.com/smart-scanner.html">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DCJ7K7LSCF')</script>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>ColdMatrix Smart Scanner — Free Tool | ColdMatrix Pakistan</title>
-<meta name="description" content="Free ColdMatrix Smart Scanner for documents and codes. Scan and extract data quickly with this powerful tool.">
-  <meta name="description" content="Free all-in-one smart scanner. Scan QR codes, barcodes, and text using your camera or upload images. Also generate QR and barcodes.">
+  <meta name="description" content="Free ColdMatrix Smart Scanner for documents and codes. Scan and extract data quickly with this powerful tool.">
   <meta name="keywords" content="smart scanner, QR scanner, barcode scanner, OCR, text scanner, QR generator, barcode generator">
   <meta name="theme-color" content="#0A0F14"><link rel="manifest" href="manifest.json">
   <!-- QR Scanner Library -->
@@ -64,6 +63,31 @@
     <div class="install-bar" id="installBarTool">Install ColdMatrix App <button onclick="installAppTool()">Install</button></div>
     <h1>📷 ColdMatrix Smart Scanner</h1>
     <p class="subtitle">One scanner for everything — QR codes, barcodes, text, and generate your own.</p>
+
+    <!-- Rate Input -->
+    <div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate (PKR per scan):</label>
+        <input type="number" id="rateInput" value="450" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
+      </div>
+    </div>
+
+    <!-- Results Box for WhatsApp & PDF -->
+    <div id="result-area" style="display: none; margin-top: 25px; padding: 20px; background: #f0f4f8; border-radius: 12px; border-left: 5px solid #00b894; color: #222;">
+      <h3 style="margin-top: 0; color: #222;">📊 Scan Result Summary</h3>
+      <div id="result-content" style="font-size: 1.1rem; line-height: 1.8;">
+        <p><strong>Scanned Data:</strong> <span id="display-result">—</span></p>
+        <p><strong>Type:</strong> <span id="display-type">—</span></p>
+        <p><strong>Rate (PKR/scan):</strong> <span id="display-rate">0</span></p>
+        <p><strong>Total Cost:</strong> <span id="display-cost">0</span> PKR</p>
+      </div>
+      <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+        <button onclick="copyResult()" style="background: #6c757d; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📋 Copy</button>
+        <button onclick="shareWhatsApp()" style="background: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📤 Share on WhatsApp</button>
+        <button onclick="downloadPDF()" style="background: #0077B5; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📄 Download PDF</button>
+      </div>
+    </div>
+
     <div class="tab-row">
       <button class="tab-btn active" data-tab="tab1">📷 Live Scan</button>
       <button class="tab-btn" data-tab="tab2">🖼️ Upload</button>
@@ -86,20 +110,141 @@
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
 
   <script>
+    // Shared functions for Results Box
+    function updateScannerResults(text, type) {
+      let rate = document.getElementById('rateInput').value || 0;
+      document.getElementById('display-result').innerText = text;
+      document.getElementById('display-type').innerText = type || 'QR/Barcode';
+      document.getElementById('display-rate').innerText = rate;
+      let cost = parseFloat(text) * rate;
+      document.getElementById('display-cost').innerText = cost.toLocaleString();
+      document.getElementById('result-area').style.display = 'block';
+    }
+
+    function copyResult() {
+      let text = document.getElementById('display-result').innerText;
+      let type = document.getElementById('display-type').innerText;
+      let rate = document.getElementById('display-rate').innerText;
+      let cost = document.getElementById('display-cost').innerText;
+      let copyText = `Scanned Data: ${text}\nType: ${type}\nRate: ${rate} PKR/scan\nTotal Cost: ${cost} PKR\n\n🔗 ColdMatrix Tools - https://coldmatrixtools.com`;
+      navigator.clipboard.writeText(copyText).then(() => {
+        alert('✅ Copied to clipboard!');
+      }).catch(() => {
+        alert('📋 Please copy manually.');
+      });
+    }
+
+    function shareWhatsApp() {
+      let text = document.getElementById('display-result').innerText;
+      let type = document.getElementById('display-type').innerText;
+      let rate = document.getElementById('display-rate').innerText;
+      let cost = document.getElementById('display-cost').innerText;
+      let msg = `My Smart Scanner Result:%0A%0A📊 Scanned Data: ${text}%0A📋 Type: ${type}%0A💰 Rate: ${rate} PKR%0A💵 Total Cost: ${cost} PKR%0A%0A🔗 ColdMatrix Tools - https://coldmatrixtools.com`;
+      window.open(`https://wa.me/?text=${msg}`, '_blank');
+    }
+
+    function downloadPDF() {
+      window.print();
+    }
+
+    // Rate input updates results
+    document.getElementById('rateInput').addEventListener('input', function() {
+      let text = document.getElementById('display-result').innerText;
+      let type = document.getElementById('display-type').innerText;
+      if (text !== '—' && document.getElementById('result-area').style.display === 'block') {
+        updateScannerResults(text, type);
+      }
+    });
+
     // Tabs
-    document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.getElementById(this.dataset.tab).classList.add('active');if(this.dataset.tab==='tab1')startScanner();else stopScanner()}));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',function(){
+      document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
+      this.classList.add('active');
+      document.getElementById(this.dataset.tab).classList.add('active');
+      if(this.dataset.tab==='tab1') startScanner();
+      else stopScanner();
+    }));
+
     // Live Scanner
     let html5QrCode;
-    function startScanner(){if(html5QrCode)return;html5QrCode=new Html5Qrcode("reader");html5QrCode.start({facingMode:"environment"},{fps:10,qrbox:250},(txt)=>{document.getElementById('liveResult').style.display='block';document.getElementById('liveResult').innerHTML=`<strong>Detected:</strong> ${txt}`;stopScanner()},()=>{}).catch(e=>{document.getElementById('liveResult').style.display='block';document.getElementById('liveResult').innerHTML='⚠️ Camera access denied. Please allow camera permission.'})}
-    function stopScanner(){if(html5QrCode){html5QrCode.stop().then(()=>{html5QrCode.clear();html5QrCode=null}).catch(()=>{})}}
+    function startScanner(){
+      if(html5QrCode) return;
+      html5QrCode = new Html5Qrcode("reader");
+      html5QrCode.start({facingMode:"environment"},{fps:10,qrbox:250},
+        (txt)=>{
+          document.getElementById('liveResult').style.display='block';
+          document.getElementById('liveResult').innerHTML=`<strong>✅ Detected:</strong> ${txt}`;
+          updateScannerResults(txt, 'Live Scan');
+          stopScanner();
+        },
+        ()=>{}
+      ).catch(e=>{
+        document.getElementById('liveResult').style.display='block';
+        document.getElementById('liveResult').innerHTML='⚠️ Camera access denied. Please allow camera permission.';
+      });
+    }
+    function stopScanner(){
+      if(html5QrCode){
+        html5QrCode.stop().then(()=>{html5QrCode.clear();html5QrCode=null}).catch(()=>{});
+      }
+    }
+
     // Upload Scanner
-    document.getElementById('uploadInput').addEventListener('change',function(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=function(ev){document.getElementById('uploadPreview').src=ev.target.result;document.getElementById('uploadPreview').style.display='block';const scanner=new Html5Qrcode("uploadPreview");scanner.scanFile(file,true).then(txt=>{document.getElementById('uploadResult').style.display='block';document.getElementById('uploadResult').innerHTML=`<strong>Detected:</strong> ${txt}`}).catch(()=>{document.getElementById('uploadResult').style.display='block';document.getElementById('uploadResult').innerHTML='⚠️ No QR or barcode found in this image.'})};reader.readAsDataURL(file)});
+    document.getElementById('uploadInput').addEventListener('change',function(e){
+      const file=e.target.files[0]; if(!file) return;
+      const reader=new FileReader();
+      reader.onload=function(ev){
+        document.getElementById('uploadPreview').src=ev.target.result;
+        document.getElementById('uploadPreview').style.display='block';
+        const scanner=new Html5Qrcode("uploadPreview");
+        scanner.scanFile(file,true).then(txt=>{
+          document.getElementById('uploadResult').style.display='block';
+          document.getElementById('uploadResult').innerHTML=`<strong>✅ Detected:</strong> ${txt}`;
+          updateScannerResults(txt, 'Upload Scan');
+        }).catch(()=>{
+          document.getElementById('uploadResult').style.display='block';
+          document.getElementById('uploadResult').innerHTML='⚠️ No QR or barcode found in this image.';
+        });
+      };
+      reader.readAsDataURL(file);
+    });
+
     // QR Generator
-    function generateQR(){const txt=document.getElementById('qrText').value;if(!txt)return;document.getElementById('qrcode').innerHTML='';new QRCodeStyling({width:200,height:200,data:txt,dotsOptions:{type:'rounded',color:'#0B0F14'},backgroundOptions:{color:'#ffffff'}}).append(document.getElementById('qrcode'))}
+    function generateQR(){
+      const txt=document.getElementById('qrText').value;
+      if(!txt) return;
+      document.getElementById('qrcode').innerHTML='';
+      new QRCodeStyling({
+        width:200, height:200, data:txt,
+        dotsOptions:{type:'rounded', color:'#0B0F14'},
+        backgroundOptions:{color:'#ffffff'}
+      }).append(document.getElementById('qrcode'));
+      updateScannerResults(txt, 'QR Code Generated');
+    }
+
     // Barcode Generator
-    function generateBarcode(){const txt=document.getElementById('barcodeText').value;const type=document.getElementById('barcodeType').value;if(!txt)return;document.getElementById('barcodeSvg').innerHTML='';try{JsBarcode("#barcodeSvg",txt,{format:type,lineColor:"#0A0F14",background:"#ffffff",width:2,height:100,displayValue:true})}catch(e){alert('Invalid barcode number for selected type')}}
+    function generateBarcode(){
+      const txt=document.getElementById('barcodeText').value;
+      const type=document.getElementById('barcodeType').value;
+      if(!txt) return;
+      document.getElementById('barcodeSvg').innerHTML='';
+      try{
+        JsBarcode("#barcodeSvg", txt, {format:type, lineColor:"#0A0F14", background:"#ffffff", width:2, height:100, displayValue:true});
+        updateScannerResults(txt, 'Barcode Generated ('+type+')');
+      } catch(e){
+        alert('Invalid barcode number for selected type');
+      }
+    }
+
     // PWA
-    let d;const bar=document.getElementById('installBarTool');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();d=e});window.installAppTool=function(){if(d){d.prompt();d.userChoice.then(()=>{bar.style.display='none'})}else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.')}};if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{})}
+    let d;const bar=document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();d=e});
+    window.installAppTool=function(){
+      if(d){d.prompt();d.userChoice.then(()=>{bar.style.display='none'})}
+      else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.')}
+    };
+    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{})}
   </script>
 </body>
-</html> 
+</html>

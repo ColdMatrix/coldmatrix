@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="canonical" href="https://coldmatrixtools.com/">
+  <link rel="canonical" href="https://coldmatrixtools.com/cooling-requirement-calculator.html">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -11,9 +11,8 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cooling Requirement Calculator — Free Tool | ColdMatrix Pakistan</title>
-<meta name="description" content="Free Cooling Requirement Calculator for engineers. Calculate cooling load and requirements.">
-  <meta name="description" content="Free cooling requirement calculator. Find out how much cooling capacity (BTU/hr, kW, Tons) your room or cold storage needs. Simple and accurate.">
+  <title>Cooling Requirement Calculator — Free Tool | ColdMatrix Pakistan</title>
+  <meta name="description" content="Free Cooling Requirement Calculator for engineers. Calculate cooling load, BTU/hr, kW, Tons of Refrigeration, and total cost.">
   <meta name="keywords" content="cooling requirement calculator, BTU calculator, tons of refrigeration, cold room cooling, AC load calculator, cooling capacity">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
@@ -28,7 +27,7 @@
     body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
     .container { max-width: 900px; margin:0 auto; padding:0 24px; }
 
-    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
     .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
@@ -110,6 +109,14 @@
     <h1>❄️ Cooling Requirement Calculator (BTU/TR)</h1>
     <p class="subtitle">Find out how much cooling capacity your room or cold storage needs — in BTU/hr, kW, and Tons of Refrigeration.</p>
 
+    <!-- Rate Input -->
+    <div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate (PKR per kW):</label>
+        <input type="number" id="rateInput" value="450" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
+      </div>
+    </div>
+
     <div class="card">
       <h2>Room Details</h2>
       <div class="row3">
@@ -154,6 +161,22 @@
 
       <div class="note">
         ⚠️ This is an estimate based on conduction heat gain. Actual load may vary due to product load, door openings, lighting, and equipment. Consult a refrigeration engineer for final sizing.
+      </div>
+    </div>
+
+    <!-- Results Box for WhatsApp & PDF -->
+    <div id="result-area" style="display: none; margin-top: 25px; padding: 20px; background: #f0f4f8; border-radius: 12px; border-left: 5px solid #00b894; color: #222;">
+      <h3 style="margin-top: 0; color: #222;">📊 Your Results Summary</h3>
+      <div id="result-content" style="font-size: 1.1rem; line-height: 1.8;">
+        <p><strong>Cooling Capacity:</strong> <span id="display-kw">0</span> kW</p>
+        <p><strong>Tons of Refrigeration:</strong> <span id="display-tr">0</span> TR</p>
+        <p><strong>BTU/hr:</strong> <span id="display-btu">0</span></p>
+        <p><strong>Rate (PKR/kW):</strong> <span id="display-rate">0</span></p>
+        <p><strong>Estimated Cost:</strong> <span id="display-cost">0</span> PKR</p>
+      </div>
+      <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+        <button onclick="shareWhatsApp()" style="background: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📤 Share on WhatsApp</button>
+        <button onclick="downloadPDF()" style="background: #0077B5; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📄 Download PDF</button>
       </div>
     </div>
 
@@ -206,6 +229,31 @@
       else recommendation = Math.ceil(tons) + ' HP Commercial Unit';
 
       document.getElementById('recOut').textContent = recommendation;
+
+      // Update Results Box for WhatsApp & PDF
+      let rate = document.getElementById('rateInput').value || 0;
+      document.getElementById('display-kw').innerText = kW.toFixed(2);
+      document.getElementById('display-tr').innerText = tons.toFixed(2);
+      document.getElementById('display-btu').innerText = btuPerHr.toFixed(0);
+      document.getElementById('display-rate').innerText = rate;
+      document.getElementById('display-cost').innerText = (kW * rate).toLocaleString();
+      document.getElementById('result-area').style.display = 'block';
+    }
+
+    // Share on WhatsApp
+    function shareWhatsApp() {
+        let kw = document.getElementById('display-kw').innerText;
+        let tr = document.getElementById('display-tr').innerText;
+        let btu = document.getElementById('display-btu').innerText;
+        let rate = document.getElementById('display-rate').innerText;
+        let cost = document.getElementById('display-cost').innerText;
+        let message = `My Cooling Requirement Results:%0A%0A❄️ Cooling Capacity: ${kw} kW%0A🧊 Tons of Refrigeration: ${tr} TR%0A🔥 BTU/hr: ${btu}%0A💰 Rate per kW: ${rate} PKR%0A💵 Estimated Cost: ${cost} PKR%0A%0A🔗 Calculated using ColdMatrix Tools - https://coldmatrixtools.com`;
+        window.open(`https://wa.me/?text=${message}`, '_blank');
+    }
+
+    // Download PDF
+    function downloadPDF() {
+        window.print();
     }
 
     // PWA

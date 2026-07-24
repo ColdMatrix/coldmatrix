@@ -1,21 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="canonical" <title>Cold Storage Calculator — Free Tool | ColdMatrix Pakistan</title>
-<meta name="description" content="Free Cold Storage Calculator for engineers and builders in Pakistan. Calculate cold room dimensions and capacity quickly.">
- href="https://coldmatrixtools.com/">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DCJ7K7LSCF');
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  `Cold Storage Calculator — Free Tool
-  <meta name="description" content="Free [Tool Name] for engineers and builders in Pakistan. Calculate [tool purpose] quickly and accurately.">
-  <meta name="description" content="Free cold storage calculator for Pakistan. Get PUF panel thickness, panel count, and refrigeration load instantly from your cold room dimensions and temperature.">
+  <link rel="canonical" href="https://coldmatrixtools.com/cold-store-calculator.html">
+  <title>Cold Storage Calculator — Free Tool | ColdMatrix Pakistan</title>
+  <meta name="description" content="Free Cold Storage Calculator for engineers and builders in Pakistan. Calculate cold room dimensions, PUF panel thickness, panel count, and cost.">
   <meta name="keywords" content="cold storage calculator, cold room calculator Pakistan, cold store calculator, cold room panels, cold store panels, cold storage calculation, cold room calculation, PUF panel thickness calculator, refrigeration load calculator, freezer room size calculator, cold store Karachi Lahore Islamabad">
   <link rel="canonical" href="https://coldmatrixtools.com/cold-store-calculator.html">
   <meta name="theme-color" content="#0A0F14">
@@ -100,6 +88,14 @@
     <h1 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:1.8rem; margin-bottom:10px;">❄️ Cold Room Size Calculator</h1>
     <p style="color:var(--muted); margin-bottom:30px;">Get recommended PUF panel thickness, panel count, and refrigeration load from your room dimensions and storage temperature.</p>
 
+    <!-- Rate Input -->
+    <div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate (PKR per panel):</label>
+        <input type="number" id="rateInput" value="450" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
+      </div>
+    </div>
+
     <div class="card">
       <h2>Storage requirement</h2>
       <div class="field"><label>Product type</label><select id="product"><option value="meat">Meat</option><option value="fish">Fish / Seafood</option><option value="dairy">Dairy</option><option value="fruitveg">Fruits & Vegetables</option><option value="icecream">Ice Cream / Dessert</option><option value="pharma">Pharma / Vaccine</option><option value="general">General / Mixed Goods</option></select></div>
@@ -114,6 +110,21 @@
         <div class="dim-grid"><div><label style="font-size:0.7rem;">Width (<span id="widthUnitLabel">m</span>)</label><input type="number" id="width" placeholder="8" value="8"></div><div><label style="font-size:0.7rem;">Length (<span id="lengthUnitLabel">m</span>)</label><input type="number" id="length" placeholder="10" value="10"></div><div><label style="font-size:0.7rem;">Height (<span id="heightUnitLabel">m</span>)</label><input type="number" id="height" placeholder="3" value="3"></div></div>
       </div>
       <button class="calc-btn" onclick="calculate()">Calculate recommendation</button>
+    </div>
+
+    <!-- Results Box for WhatsApp & PDF -->
+    <div id="result-area" style="display: none; margin-top: 25px; padding: 20px; background: #f0f4f8; border-radius: 12px; border-left: 5px solid #00b894; color: #222;">
+      <h3 style="margin-top: 0; color: #222;">📊 Your Results Summary</h3>
+      <div id="result-content" style="font-size: 1.1rem; line-height: 1.8;">
+        <p><strong>Panel Thickness:</strong> <span id="display-thickness">—</span></p>
+        <p><strong>Total Panels:</strong> <span id="display-panels">—</span></p>
+        <p><strong>Rate (PKR/panel):</strong> <span id="display-rate">0</span></p>
+        <p><strong>Estimated Cost:</strong> <span id="display-cost">0</span> PKR</p>
+      </div>
+      <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+        <button onclick="shareWhatsApp()" style="background: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📤 Share on WhatsApp</button>
+        <button onclick="downloadPDF()" style="background: #0077B5; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📄 Download PDF</button>
+      </div>
     </div>
 
     <div class="card" id="resultCard">
@@ -180,6 +191,30 @@
       const m1=document.createElement('div');m1.style.width='5px';m1.style.height='80px';m1.style.background='#AEB8C6';m1.style.borderRadius='2px';cs.appendChild(m1);
       const foam=document.createElement('div');foam.style.width=Math.min(90,Math.max(30,thickness.mm/2))+'px';foam.style.height='80px';foam.style.background='repeating-linear-gradient(135deg, #3a4258 0 6px, #2C3448 6px 12px)';foam.style.borderRadius='2px';cs.appendChild(foam);
       const m2=document.createElement('div');m2.style.width='5px';m2.style.height='80px';m2.style.background='#AEB8C6';m2.style.borderRadius='2px';cs.appendChild(m2);
+      
+      // Update the Results Box for WhatsApp & PDF
+      let panelCount = panels;
+      let rate = document.getElementById('rateInput').value || 0;
+      document.getElementById('display-thickness').innerText = thickness.label;
+      document.getElementById('display-panels').innerText = panelCount;
+      document.getElementById('display-rate').innerText = rate;
+      document.getElementById('display-cost').innerText = (panelCount * rate).toLocaleString();
+      document.getElementById('result-area').style.display = 'block';
+    }
+
+    // Share on WhatsApp
+    function shareWhatsApp() {
+        let thickness = document.getElementById('display-thickness').innerText;
+        let panels = document.getElementById('display-panels').innerText;
+        let rate = document.getElementById('display-rate').innerText;
+        let cost = document.getElementById('display-cost').innerText;
+        let message = `My Cold Storage Calculation Results:%0A%0A📦 Panel Thickness: ${thickness}%0A📋 Total Panels: ${panels}%0A💰 Rate per panel: ${rate} PKR%0A💵 Estimated Cost: ${cost} PKR%0A%0A🔗 Calculated using ColdMatrix Tools - https://coldmatrixtools.com`;
+        window.open(`https://wa.me/?text=${message}`, '_blank');
+    }
+
+    // Download PDF
+    function downloadPDF() {
+        window.print();
     }
   </script>
   <script>

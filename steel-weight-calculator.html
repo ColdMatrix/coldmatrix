@@ -113,6 +113,23 @@
     <!-- Title -->
     <h1>🛠️ Steel Weight Calculator</h1>
     <p class="subtitle">Calculate weight of steel plates, bars, pipes, and beams — free and accurate.</p>
+    <!-- Metal Selection & Rate Input -->
+<div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <label for="metalType" style="font-weight: bold; color: #333;">🧪 Metal:</label>
+    <select id="metalType" style="padding: 8px 12px; border: 2px solid #00b894; border-radius: 5px; background: white; font-weight: bold;">
+      <option value="7850">Mild Steel (7850 kg/m³)</option>
+      <option value="7930">Stainless Steel (7930 kg/m³)</option>
+      <option value="2700">Aluminum (2700 kg/m³)</option>
+      <option value="8960">Copper (8960 kg/m³)</option>
+      <option value="8500">Brass (8500 kg/m³)</option>
+    </select>
+  </div>
+  <div style="display: flex; align-items: center; gap: 8px;">
+    <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate (PKR/kg):</label>
+    <input type="number" id="rateInput" value="300" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
+  </div>
+</div>
  
     <!-- Tabs -->
     <div class="tab-row">
@@ -195,21 +212,27 @@
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
 
 <script>
-    const density = 7850; // kg/m³
+    // Density is now read from the dropdown
+
+    // Helper to get current density
+    function getDensity() {
+        let select = document.getElementById('metalType');
+        return parseFloat(select.value) || 7850; // Default to Mild Steel
+    }
 
     // Plate
-    function calcPlate(){const l=+document.getElementById('pLen').value||0,w=+document.getElementById('pWid').value||0,t=+document.getElementById('pThk').value||0;const vol=l*w*(t/1000);const wt=vol*density;document.getElementById('plateResult').textContent=`Weight: ${wt.toFixed(2)} kg (${(wt*2.20462).toFixed(2)} lbs)`; updateUnifiedResults();}
+    function calcPlate(){const l=+document.getElementById('pLen').value||0,w=+document.getElementById('pWid').value||0,t=+document.getElementById('pThk').value||0;const vol=l*w*(t/1000);const wt=vol*getDensity();document.getElementById('plateResult').textContent=`Weight: ${wt.toFixed(2)} kg (${(wt*2.20462).toFixed(2)} lbs)`; updateUnifiedResults();}
     
     // Bar
-    function calcBar(){const d=+document.getElementById('bDia').value||0,l=+document.getElementById('bLen').value||0;const vol=Math.PI*Math.pow(d/2000,2)*l;const wt=vol*density;document.getElementById('barResult').textContent=`Weight: ${wt.toFixed(2)} kg (${(wt*2.20462).toFixed(2)} lbs)`; updateUnifiedResults();}
+    function calcBar(){const d=+document.getElementById('bDia').value||0,l=+document.getElementById('bLen').value||0;const vol=Math.PI*Math.pow(d/2000,2)*l;const wt=vol*getDensity();document.getElementById('barResult').textContent=`Weight: ${wt.toFixed(2)} kg (${(wt*2.20462).toFixed(2)} lbs)`; updateUnifiedResults();}
     
     // Pipe
-    function calcPipe(){const od=+document.getElementById('piOD').value||0,wt=+document.getElementById('piWT').value||0,l=+document.getElementById('piLen').value||0;const id=od-2*wt;const vol=Math.PI*(Math.pow(od/2000,2)-Math.pow(id/2000,2))*l;const w=vol*density;document.getElementById('pipeResult').textContent=`Weight: ${w.toFixed(2)} kg (${(w*2.20462).toFixed(2)} lbs)`; updateUnifiedResults();}
+    function calcPipe(){const od=+document.getElementById('piOD').value||0,wt=+document.getElementById('piWT').value||0,l=+document.getElementById('piLen').value||0;const id=od-2*wt;const vol=Math.PI*(Math.pow(od/2000,2)-Math.pow(id/2000,2))*l;const w=vol*getDensity();document.getElementById('pipeResult').textContent=`Weight: ${w.toFixed(2)} kg (${(w*2.20462).toFixed(2)} lbs)`; updateUnifiedResults();}
     
     // Beam
-    function calcBeam(){const h=+document.getElementById('bmH').value||0,w=+document.getElementById('bmW').value||0,wt=+document.getElementById('bmWT').value||0,ft=+document.getElementById('bmFT').value||0,l=+document.getElementById('bmLen').value||0;const webVol=(h-2*ft)*(wt/1000)*(l);const flangeVol=2*(w*(ft/1000)*l);const vol=webVol+flangeVol;const weight=vol*density;document.getElementById('beamResult').textContent=`Weight: ${weight.toFixed(2)} kg (${(weight*2.20462).toFixed(2)} lbs)`; updateUnifiedResults();}
+    function calcBeam(){const h=+document.getElementById('bmH').value||0,w=+document.getElementById('bmW').value||0,wt=+document.getElementById('bmWT').value||0,ft=+document.getElementById('bmFT').value||0,l=+document.getElementById('bmLen').value||0;const webVol=(h-2*ft)*(wt/1000)*(l);const flangeVol=2*(w*(ft/1000)*l);const vol=webVol+flangeVol;const weight=vol*getDensity();document.getElementById('beamResult').textContent=`Weight: ${weight.toFixed(2)} kg (${(weight*2.20462).toFixed(2)} lbs)`; updateUnifiedResults();}
 
-    // Update unified results area
+    // Update unified results area (shows Weight, Rate, Cost)
     function updateUnifiedResults() {
         let activeTab = document.querySelector('.tab-content.active');
         if (!activeTab) return;
@@ -219,22 +242,42 @@
         let weightMatch = resultText.match(/Weight:\s*([\d.]+)\s*kg/);
         if (weightMatch) {
             let weight = parseFloat(weightMatch[1]);
+            let rateInput = document.getElementById('rateInput');
+            let rate = parseFloat(rateInput.value) || 0;
+            
             document.getElementById('display-weight').innerText = weight.toFixed(2);
-            document.getElementById('display-rate').innerText = '450';
-            document.getElementById('display-cost').innerText = (weight * 450).toLocaleString();
+            document.getElementById('display-rate').innerText = rate.toFixed(2);
+            document.getElementById('display-cost').innerText = (weight * rate).toLocaleString();
             document.getElementById('result-area').style.display = 'block';
         }
     }
 
-    // Real-time
+    // Real-time auto calculation on input change
     document.querySelectorAll('input').forEach(i=>i.addEventListener('input',()=>{calcPlate();calcBar();calcPipe();calcBeam();}));
 
     // Tabs
     document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.getElementById(this.dataset.tab).classList.add('active');}));
 
-    // PWA
+    // PWA Install
     let d;const bar=document.getElementById('installBarTool');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();d=e;});window.installAppTool=function(){if(d){d.prompt();d.userChoice.then(()=>{bar.style.display='none';});}else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');}};
     if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+
+    // Listen to Metal Dropdown change to refresh results
+    document.addEventListener('DOMContentLoaded', function() {
+        let metalSelect = document.getElementById('metalType');
+        let rateInput = document.getElementById('rateInput');
+        if (metalSelect) {
+            metalSelect.addEventListener('change', function() {
+                // Recalculate all shapes
+                calcPlate(); calcBar(); calcPipe(); calcBeam();
+            });
+        }
+        if (rateInput) {
+            rateInput.addEventListener('input', function() {
+                updateUnifiedResults();
+            });
+        }
+    });
 
     // Function to share results on WhatsApp
     function shareWhatsApp() {

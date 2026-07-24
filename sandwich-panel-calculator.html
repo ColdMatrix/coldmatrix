@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="canonical" href="https://coldmatrixtools.com/">
+  <link rel="canonical" href="https://coldmatrixtools.com/sandwich-panel-calculator.html">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -12,9 +12,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sandwich Panel Calculator — Free Tool | ColdMatrix Pakistan</title>
-<meta name="description" content="Free Sandwich Panel Calculator for engineers and builders in Pakistan. Calculate panel thickness, weight, and insulation.">
-<meta name="description" content="Free Sandwich Panel Calculator for engineers and builders in Pakistan. Calculate panel thickness, weight, and insulation.">
-  <meta name="description" content="Free sandwich panel calculator for PU and PIR roof & wall panels. Get panel weight, quantity, and total order weight instantly — built for fabricators in Pakistan.">
+  <meta name="description" content="Free Sandwich Panel Calculator for engineers and builders in Pakistan. Calculate panel thickness, weight, quantity, and total cost.">
   <meta name="keywords" content="sandwich panel calculator, PU panel calculator, PIR panel calculator, PU panels, PIR panels, sandwich panels, wall panels, roof panels, corrugated panels, sandwich panel calculation, PPGI panel weight calculator, roof panel calculator, wall panel calculator Pakistan, PUF panel quantity estimator">
   <link rel="canonical" href="https://coldmatrixtools.com/sandwich-panel-calculator.html">
   <meta name="theme-color" content="#0A0F14">
@@ -102,6 +100,14 @@
     <h1 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:1.8rem; margin-bottom:10px;">🧱 Sandwich Panel Calculator</h1>
     <p style="color:var(--muted); margin-bottom:30px;">Estimate PPGI/PUF panel weight, quantity, and total order weight instantly from your specification.</p>
 
+    <!-- Rate Input -->
+    <div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate (PKR per kg):</label>
+        <input type="number" id="rateInput" value="450" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
+      </div>
+    </div>
+
     <div class="card">
       <h2>Panel Specification</h2>
       <div class="field"><label>Panel type</label><select id="panelType"><option value="roof">Roof (corrugated)</option><option value="wall">Wall / Flat (low-rib)</option></select></div>
@@ -111,6 +117,21 @@
       <div class="field"><label>Panel length</label><input type="number" id="lengthVal" placeholder="e.g. 20" value="20"><div class="row2"><div class="unit-btn" data-group="length" data-unit="mm">mm</div><div class="unit-btn active" data-group="length" data-unit="ft">ft</div></div></div>
       <div class="field"><label>Total area needed (sq ft)</label><input type="number" id="areaNeeded" placeholder="e.g. 2000" value="2000"></div>
       <button class="btn-calc" onclick="calculate()">Calculate</button>
+    </div>
+
+    <!-- Results Box for WhatsApp & PDF -->
+    <div id="result-area" style="display: none; margin-top: 25px; padding: 20px; background: #f0f4f8; border-radius: 12px; border-left: 5px solid #00b894; color: #222;">
+      <h3 style="margin-top: 0; color: #222;">📊 Your Results Summary</h3>
+      <div id="result-content" style="font-size: 1.1rem; line-height: 1.8;">
+        <p><strong>Total Weight:</strong> <span id="display-weight">0</span> kg</p>
+        <p><strong>Panels Required:</strong> <span id="display-panels">0</span> pcs</p>
+        <p><strong>Rate (PKR/kg):</strong> <span id="display-rate">0</span></p>
+        <p><strong>Estimated Cost:</strong> <span id="display-cost">0</span> PKR</p>
+      </div>
+      <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+        <button onclick="shareWhatsApp()" style="background: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📤 Share on WhatsApp</button>
+        <button onclick="downloadPDF()" style="background: #0077B5; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📄 Download PDF</button>
+      </div>
     </div>
 
     <div class="card">
@@ -142,6 +163,7 @@
       const coreW=core/1000*coreD,steelW=2*(gauge/1000)*steelD,weightPerM2=coreW+steelW,weightPerSqft=weightPerM2/sqftPerM2;
       const panelAreaM2=wM*lM,panelAreaSqft=panelAreaM2*sqftPerM2,panelWeight=panelAreaM2*weightPerM2;
       const panels=Math.ceil(area/panelAreaSqft),totalArea=panels*panelAreaSqft,totalWeight=panels*panelWeight;
+      
       document.getElementById('emptyState').style.display='none';document.getElementById('resultBlock').style.display='block';
       document.getElementById('outPanelWeight').innerHTML=panelWeight.toFixed(1)+'<small>kg</small>';
       document.getElementById('outPanelArea').innerHTML=panelAreaSqft.toFixed(1)+'<small>sq ft</small>';
@@ -149,6 +171,29 @@
       document.getElementById('outTotalArea').innerHTML=totalArea.toFixed(0)+'<small>sq ft</small>';
       document.getElementById('outTotalWeight').innerHTML=totalWeight.toFixed(0)+'<small>kg</small>';
       document.getElementById('outPerSqft').innerHTML=weightPerSqft.toFixed(3)+'<small>kg/sqft</small>';
+
+      // Update Results Box for WhatsApp & PDF
+      let rate = document.getElementById('rateInput').value || 0;
+      document.getElementById('display-weight').innerText = totalWeight.toFixed(0);
+      document.getElementById('display-panels').innerText = panels;
+      document.getElementById('display-rate').innerText = rate;
+      document.getElementById('display-cost').innerText = (totalWeight * rate).toLocaleString();
+      document.getElementById('result-area').style.display = 'block';
+    }
+
+    // Share on WhatsApp
+    function shareWhatsApp() {
+        let weight = document.getElementById('display-weight').innerText;
+        let panels = document.getElementById('display-panels').innerText;
+        let rate = document.getElementById('display-rate').innerText;
+        let cost = document.getElementById('display-cost').innerText;
+        let message = `My Sandwich Panel Calculation Results:%0A%0A📦 Total Weight: ${weight} kg%0A📋 Panels Required: ${panels} pcs%0A💰 Rate per kg: ${rate} PKR%0A💵 Estimated Cost: ${cost} PKR%0A%0A🔗 Calculated using ColdMatrix Tools - https://coldmatrixtools.com`;
+        window.open(`https://wa.me/?text=${message}`, '_blank');
+    }
+
+    // Download PDF
+    function downloadPDF() {
+        window.print();
     }
   </script>
   <script>
