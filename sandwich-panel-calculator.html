@@ -11,10 +11,8 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sandwich Panel Calculator — Free Tool | ColdMatrix Pakistan</title>
-  <meta name="description" content="Free Sandwich Panel Calculator for engineers and builders in Pakistan. Calculate panel thickness, weight, quantity, and total cost.">
-  <meta name="keywords" content="sandwich panel calculator, PU panel calculator, PIR panel calculator, PU panels, PIR panels, sandwich panels, wall panels, roof panels, corrugated panels, sandwich panel calculation, PPGI panel weight calculator, roof panel calculator, wall panel calculator Pakistan, PUF panel quantity estimator">
-  <link rel="canonical" href="https://coldmatrixtools.com/sandwich-panel-calculator.html">
+  <title>Sandwich Panel Calculator — Professional Engineering Tool | ColdMatrix Pakistan</title>
+  <meta name="description" content="Professional Sandwich Panel Calculator for contractors and builders. Calculate panel thickness, weight, quantity, and total project cost.">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
   <script type="application/ld+json">
@@ -24,51 +22,65 @@
     "name": "Sandwich Panel Calculator",
     "url": "https://coldmatrixtools.com/sandwich-panel-calculator.html",
     "applicationCategory": "Utility",
-    "description": "Free calculator for PU/PIR sandwich panel weight, quantity, and total order weight for roof and wall panels.",
+    "description": "Professional calculator for PU/PIR sandwich panel weight, quantity, and total order volume for roof and wall panels.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" }
   }
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root{ --bg:#0B0F14;--panel:#141B24;--panel-2:#1B242F;--foam:#EDF1F5;--frost:#4FC3F7;--muted:#7C8798;--line:#242F3D; }
+    :root{ --bg:#0B0F14; --panel:#141B24; --panel-2:#1B242F; --foam:#EDF1F5; --frost:#4FC3F7; --muted:#7C8798; --line:#242F3D; --accent:#00b894; }
     *{box-sizing:border-box; margin:0; padding:0;}
-    body{ background: linear-gradient(var(--bg), var(--bg)), repeating-linear-gradient(0deg, rgba(79,195,247,0.035) 0 1px, transparent 1px 40px); color:var(--foam); font-family:'IBM Plex Sans', sans-serif; }
+    body{ background: linear-gradient(var(--bg), var(--bg)), repeating-linear-gradient(0deg, rgba(79,195,247,0.035) 0 1px, transparent 1px 40px); color:var(--foam); font-family:'IBM Plex Sans', sans-serif; line-height: 1.5; padding-bottom: 50px; }
     .nav { background:rgba(10,15,20,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding:12px 20px; display:flex; justify-content:space-between; align-items:center; }
     .nav a { color:var(--muted); text-decoration:none; font-size:0.85rem; }
     .nav a.brand { color:var(--frost); font-weight:700; }
     .container { max-width:900px; margin:20px auto; padding:0 20px; }
     .ad-card {
       border-radius:14px; overflow:hidden;
-      background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat;
+      background: linear-gradient(90deg, rgba(10,15,20,0.85) 0%, rgba(10,15,20,0.5) 100%), url('ad-bg.jpg') center/cover no-repeat;
       border:1px solid var(--line); padding:18px;
-      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom: 20px;
     }
     .ad-card ul { list-style:none; padding:0; margin:0; }
     .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
     .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
     .ad-card .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; }
-    .install-bar { background:#4FC3F7; color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; }
-    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; cursor:pointer; font-weight:600; }
-    .card{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:28px; margin-bottom:20px;}
-    .card h2{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; text-transform:uppercase; color:var(--muted); margin-bottom:22px;}
-    .field{margin-bottom:19px;}
-    .field label{display:block; font-size:0.78rem; color:var(--muted); margin-bottom:7px;}
-    select, input{width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--foam); padding:12px; border-radius:6px;}
-    .row2{display:flex; gap:8px; margin-top:8px;}
-    .unit-btn{flex:1; padding:9px; border:1px solid var(--line); background:var(--panel-2); color:var(--muted); border-radius:6px; cursor:pointer; text-align:center;}
-    .unit-btn.active{border-color:var(--frost); color:var(--frost);}
-    .btn-calc{width:100%; background:linear-gradient(135deg,#4FC3F7,#2196F3); color:#0B0F14; border:none; padding:15px; border-radius:6px; font-family:'Oswald',sans-serif; font-weight:600; font-size:0.95rem; text-transform:uppercase; cursor:pointer;}
-    .result-block{display:none;}
-    .stat{display:flex; justify-content:space-between; padding:14px 0; border-bottom:1px solid var(--line);}
-    .stat .label{color:var(--muted);}
-    .stat .value{font-weight:600; color:var(--foam);}
-    .layer-gi{width:5px; background:linear-gradient(180deg,#9aa7b5,#6b7683);}
-    .layer-core{flex:1; background:repeating-linear-gradient(135deg, #2a3542 0 6px, #232d38 6px 12px);}
+    
+    .card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:28px; margin-bottom:20px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);}
+    .card h2{font-family:'Oswald',sans-serif; font-size:1.1rem; text-transform:uppercase; color:var(--frost); margin-bottom:18px; border-bottom: 1px solid var(--line); padding-bottom: 8px; letter-spacing: 0.5px;}
+    
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+    .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:15px; }
+    .field{margin-bottom:16px;}
+    .field label{display:block; font-size:0.8rem; color:var(--muted); margin-bottom:6px; font-weight: 500;}
+    select, input{width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--foam); padding:11px 14px; border-radius:6px; font-size: 0.95rem; outline: none; transition: border-color 0.2s;}
+    select:focus, input:focus { border-color: var(--frost); }
+    
+    .unit-toggle{display:flex; gap:8px; margin-bottom:10px;}
+    .unit-btn{flex:1; padding:9px; border:1px solid var(--line); background:var(--panel-2); color:var(--muted); border-radius:6px; cursor:pointer; text-align:center; font-size:0.85rem;}
+    .unit-btn.active{border-color:var(--frost); color:var(--frost); background: rgba(79,195,247,0.05);}
+    
+    .calc-btn{width:100%; background:linear-gradient(135deg,#4FC3F7,#2196F3); color:#0B0F14; border:none; padding:16px; border-radius:8px; font-family:'Oswald',sans-serif; font-weight:600; font-size:1.1rem; text-transform:uppercase; cursor:pointer; box-shadow: 0 4px 15px rgba(79,195,247,0.3); transition: transform 0.1s;}
+    .calc-btn:hover { transform: translateY(-1px); }
+    
+    .results-container { background: linear-gradient(145deg, #121821, #0e131a); border: 1px solid #2A3B4C; border-radius: 12px; padding: 25px; margin-top: 25px; display: none; }
+    .result-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; }
+    .result-row span:last-child { font-weight: 600; color: #fff; }
+    
+    .action-buttons { margin-top: 25px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .action-btn { padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; text-transform: uppercase; font-family: 'Oswald', sans-serif; }
+    .whatsapp-action { background: #25D366; color: white; }
+    .pdf-action { background: #0077B5; color: white; }
+    
+    @media (max-width: 768px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 10px; }
+      .card { padding: 16px; }
+    }
   </style>
 </head>
 <body>
   <div class="nav">
-    <a href="index.html" class="brand">❄️ Cold Matrix</a>
+    <a href="index.html" class="brand">❄️ Cold Matrix Tools</a>
     <div>
       <a href="index.html">Home</a> &nbsp;&nbsp;
       <a href="about.html">About</a> &nbsp;&nbsp;
@@ -80,163 +92,370 @@
     <div class="ad-card">
       <div>
         <ul>
-          <li>PEB Structures</li>
-          <li>Cold Storage & Freezer Rooms</li>
-          <li>PU/PIR Sandwich Panels</li>
-          <li>Prefab Construction Solutions</li>
+          <li>PEB Structures & Prefab Solutions</li>
+          <li>Cold Storage Rooms & Freezer Warehouses</li>
+          <li>High-Grade PU / PIR Sandwich Panels</li>
         </ul>
-        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & All Pakistan</div>
       </div>
-      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20PEB%2FCold%20Storage%2FSandwich%20Panels" class="whatsapp-btn" target="_blank">💬 Get Quote</a>
-    </div>
-
-    <div class="install-bar" id="installBarTool">
-      📱 Add to Home Screen
-      <button onclick="installAppTool()">Install</button>
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27d%20like%20a%20commercial%20quote%20for%20Sandwich%20Panels" class="whatsapp-btn" target="_blank">💬 Get Commercial Quote</a>
     </div>
   </div>
 
   <div class="container">
-    <h1 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:1.8rem; margin-bottom:10px;">🧱 Sandwich Panel Calculator</h1>
-    <p style="color:var(--muted); margin-bottom:30px;">Estimate PPGI/PUF panel weight, quantity, and total order weight instantly from your specification.</p>
+    <h1 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:2rem; margin-bottom:8px;">🧱 Advanced Sandwich Panel Estimator</h1>
+    <p style="color:var(--muted); margin-bottom:25px;">Engineered for precise contractor estimation: dimensions, core thickness, separate top/bottom sheets, weight matrices, and regional pricing.</p>
 
-    <!-- Rate Input -->
-    <!-- Rate Input with Currency & Unit -->
-<div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
-  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-    <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate:</label>
-    <input type="number" id="rateInput" value="100" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
-    <select id="currency" style="padding: 8px; border: 2px solid #00b894; border-radius: 5px; background: white; font-weight: bold;">
-      <option value="PKR">🇵🇰 PKR</option>
-      <option value="USD">🇺🇸 USD</option>
-      <option value="GBP">🇬🇧 GBP</option>
-      <option value="EUR">🇪🇺 EUR</option>
-      <option value="AED">🇦🇪 AED</option>
-      <option value="SAR">🇸🇦 SAR</option>
-      <option value="CNY">🇨🇳 CNY</option>
-    </select>
-    <select id="rateUnit" style="padding: 8px; border: 2px solid #00b894; border-radius: 5px; background: white; font-weight: bold;">
-      <option value="ft">per Foot (ft)</option>
-      <option value="m">per Meter (m)</option>
-    </select>
-  </div>
-</div>
+    <!-- STEP 1: PROJECT DIMENSIONS -->
     <div class="card">
-      <h2>Panel Specification</h2>
-      <div class="field"><label>Panel type</label><select id="panelType"><option value="roof">Roof (corrugated)</option><option value="wall">Wall / Flat (low-rib)</option></select></div>
-      <div class="field"><label>Core thickness</label>
-<select id="coreThickness">
-  <option value="50">50 mm</option>
-  <option value="75">75 mm</option>
-  <option value="100" selected>100 mm</option>
-  <option value="120">120 mm</option>
-  <option value="125">125 mm</option>
-  <option value="150">150 mm</option>
-  <option value="175">175 mm</option>
-  <option value="200">200 mm</option>
-</select></div>
-      <div class="field"><label>GI sheet gauge (both sides)</label><select id="giGauge"><option value="0.3">0.30 mm</option><option value="0.35">0.35 mm</option><option value="0.4">0.40 mm</option><option value="0.45">0.45 mm</option><option value="0.5" selected>0.50 mm (standard)</option><option value="0.6">0.60 mm</option><option value="0.7">0.70 mm</option></select></div>
-      <div class="field"><label>Panel width</label><input type="number" id="widthVal" placeholder="e.g. 1180" value="1180"><div class="row2"><div class="unit-btn active" data-group="width" data-unit="mm">mm</div><div class="unit-btn" data-group="width" data-unit="ft">ft</div></div></div>
-      <div class="field"><label>Panel length</label><input type="number" id="lengthVal" placeholder="e.g. 20" value="20"><div class="row2"><div class="unit-btn" data-group="length" data-unit="mm">mm</div><div class="unit-btn active" data-group="length" data-unit="ft">ft</div></div></div>
-      <div class="field"><label>Total area needed (sq ft)</label><input type="number" id="areaNeeded" placeholder="e.g. 2000" value="2000"></div>
-      <button class="btn-calc" onclick="calculate()">Calculate</button>
+      <h2>1. 📐 Project Dimensions & Area</h2>
+      <div class="field">
+        <label>Input Method</label>
+        <div class="unit-toggle">
+          <div class="unit-btn active" onclick="switchInputMode('area', this)">Total Area Directly</div>
+          <div class="unit-btn" onclick="switchInputMode('dims', this)">Room Dimensions (L x W x H)</div>
+        </div>
+      </div>
+
+      <div id="modeAreaBox" class="field">
+        <label>Total Coverage Area Needed</label>
+        <div style="display:flex; gap:10px;">
+          <input type="number" id="areaNeeded" value="2000" style="flex:2;">
+          <select id="areaUnit" style="flex:1;">
+            <option value="sqft" selected>Square Feet (sq ft)</option>
+            <option value="sqm">Square Meters (m²)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="modeDimsBox" class="field" style="display: none;">
+        <div class="grid-3">
+          <div class="field"><label>Length (<span class="dimLbl">ft</span>)</label><input type="number" id="roomLength" value="40"></div>
+          <div class="field"><label>Width (<span class="dimLbl">ft</span>)</label><input type="number" id="roomWidth" value="30"></div>
+          <div class="field"><label>Height (<span class="dimLbl">ft</span>)</label><input type="number" id="roomHeight" value="12"></div>
+        </div>
+        <div class="field">
+          <label>Unit System for Room Dimensions</label>
+          <div class="unit-toggle">
+            <div class="unit-btn active" onclick="setDimUnit('ft', this)">Feet (ft)</div>
+            <div class="unit-btn" onclick="setDimUnit('m', this)">Meters (m)</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Results Box for WhatsApp & PDF -->
-    <div id="result-area" style="display: none; margin-top: 25px; padding: 20px; background: #f0f4f8; border-radius: 12px; border-left: 5px solid #00b894; color: #222;">
-      <h3 style="margin-top: 0; color: #222;">📊 Your Results Summary</h3>
-      <div id="result-content" style="font-size: 1.1rem; line-height: 1.8;">
-        <p><strong>Total Weight:</strong> <span id="display-weight">0</span> kg</p>
-        <p><strong>Panels Required:</strong> <span id="display-panels">0</span> pcs</p>
-        <p><strong>Rate (PKR/kg):</strong> <span id="display-rate">0</span></p>
-        <p><strong>Estimated Cost:</strong> <span id="display-cost">0</span> PKR</p>
-      </div>
-      <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
-        <button onclick="shareWhatsApp()" style="background: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📤 Share on WhatsApp</button>
-        <button onclick="downloadPDF()" style="background: #0077B5; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📄 Download PDF</button>
-      </div>
-    </div>
-
+    <!-- STEP 2: PANEL SPECIFICATIONS -->
     <div class="card">
-      <h2>Estimate Result</h2>
-      <div id="emptyState" style="text-align:center; padding:40px; color:var(--muted);">Fill in your spec and area, then tap Calculate.</div>
-      <div class="result-block" id="resultBlock">
-        <div style="display:flex; height:70px; border-radius:6px; overflow:hidden; margin:20px 0; border:1px solid var(--line);"><div class="layer-gi"></div><div class="layer-core"></div><div class="layer-gi"></div></div>
-        <div class="stat"><span class="label">WEIGHT PER PANEL</span><span class="value" id="outPanelWeight">—<small>kg</small></span></div>
-        <div class="stat"><span class="label">COVERAGE PER PANEL</span><span class="value" id="outPanelArea">—<small>sq ft</small></span></div>
-        <div class="stat"><span class="label">PANELS REQUIRED</span><span class="value" id="outPanelCount">—<small>pcs</small></span></div>
-        <div class="stat"><span class="label">TOTAL COVERED AREA</span><span class="value" id="outTotalArea">—<small>sq ft</small></span></div>
-        <div class="stat"><span class="label">TOTAL ORDER WEIGHT</span><span class="value" id="outTotalWeight">—<small>kg</small></span></div>
-        <div class="stat"><span class="label">WEIGHT PER SQ FT</span><span class="value" id="outPerSqft">—<small>kg/sqft</small></span></div>
-        <p style="font-size:0.78rem; color:var(--muted); margin-top:18px; padding-top:16px; border-top:1px dashed var(--line);">Estimate based on 42 kg/m³ PUF core and 7850 kg/m³ steel. Confirm with fabricator before ordering.</p>
+      <h2>2. 🧱 Panel Specifications</h2>
+      <div class="grid-2">
+        <div class="field">
+          <label>Panel Type</label>
+          <select id="panelType" onchange="updateDefaultWidth()">
+            <option value="wall" selected>Wall Panel (Flat / Low-Rib)</option>
+            <option value="roof">Roof Panel (Corrugated)</option>
+            <option value="custom">Custom Effective Width</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Effective Coverage Width</label>
+          <div style="display:flex; gap:10px;">
+            <input type="number" id="panelWidthVal" value="1190" style="flex:2;">
+            <select id="panelWidthUnit" style="flex:1;">
+              <option value="mm" selected>mm</option>
+              <option value="ft">ft</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Core Material</label>
+          <select id="coreMaterial">
+            <option value="pir" selected>PIR (Polyisocyanurate)</option>
+            <option value="pu">PUR (Polyurethane / PUF)</option>
+            <option value="eps">EPS (Expanded Polystyrene)</option>
+            <option value="rockwool">Rockwool (Fire Rated)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Core Thickness</label>
+          <select id="coreThickness">
+            <option value="50">50 mm</option>
+            <option value="75">75 mm</option>
+            <option value="100" selected>100 mm</option>
+            <option value="120">120 mm</option>
+            <option value="125">125 mm</option>
+            <option value="150">150 mm</option>
+            <option value="175">175 mm</option>
+            <option value="200">200 mm</option>
+          </select>
+        </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    document.querySelectorAll('.unit-btn').forEach(btn=>{btn.addEventListener('click',function(){const group=this.dataset.group;document.querySelectorAll('.unit-btn[data-group="'+group+'"]').forEach(b=>b.classList.remove('active'));this.classList.add('active');});});
-    function getUnit(group){return document.querySelector('.unit-btn.active[data-group="'+group+'"]').dataset.unit;}
-    function calculate(){
-      const core=parseFloat(document.getElementById('coreThickness').value),gauge=parseFloat(document.getElementById('giGauge').value);
-      const wVal=parseFloat(document.getElementById('widthVal').value),lVal=parseFloat(document.getElementById('lengthVal').value),area=parseFloat(document.getElementById('areaNeeded').value);
-      if(!wVal||!lVal||!area||wVal<=0||lVal<=0||area<=0){alert('Please enter valid numbers.');return;}
-      const wUnit=getUnit('width'),lUnit=getUnit('length');
-      const wM=wUnit==='ft'?wVal*0.3048:wVal/1000,lM=lUnit==='ft'?lVal*0.3048:lVal/1000;
-      const coreD=42,steelD=7850,sqftPerM2=10.7639;
-      const coreW=core/1000*coreD,steelW=2*(gauge/1000)*steelD,weightPerM2=coreW+steelW,weightPerSqft=weightPerM2/sqftPerM2;
-      const panelAreaM2=wM*lM,panelAreaSqft=panelAreaM2*sqftPerM2,panelWeight=panelAreaM2*weightPerM2;
-      const panels=Math.ceil(area/panelAreaSqft),totalArea=panels*panelAreaSqft,totalWeight=panels*panelWeight;
+    <!-- STEP 3: STEEL SHEET & CORE -->
+    <div class="card">
+      <h2>3. 🏗️ Steel Sheet & Core Density</h2>
+      <div class="grid-3">
+        <div class="field">
+          <label>Top Sheet Thickness</label>
+          <select id="topGauge">
+            <option value="0.30">0.30 mm</option>
+            <option value="0.35">0.35 mm</option>
+            <option value="0.40">0.40 mm</option>
+            <option value="0.45" selected>0.45 mm</option>
+            <option value="0.50">0.50 mm (Standard)</option>
+            <option value="0.60">0.60 mm</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Bottom Sheet Thickness</label>
+          <select id="botGauge">
+            <option value="0.30">0.30 mm</option>
+            <option value="0.35">0.35 mm</option>
+            <option value="0.40">0.40 mm</option>
+            <option value="0.45" selected>0.45 mm</option>
+            <option value="0.50">0.50 mm (Standard)</option>
+            <option value="0.60">0.60 mm</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Core Density (kg/m³)</label>
+          <select id="coreDensity">
+            <option value="38">38 kg/m³</option>
+            <option value="40">40 kg/m³</option>
+            <option value="42" selected>42 kg/m³</option>
+            <option value="45">45 kg/m³</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: QUANTITY & WASTAGE -->
+    <div class="card">
+      <h2>4. 📦 Quantity & Wastage Allowance</h2>
+      <div class="grid-2">
+        <div class="field">
+          <label>Standard Panel Length for Cut Calculation</label>
+          <div style="display:flex; gap:10px;">
+            <input type="number" id="panelLengthVal" value="20" style="flex:2;">
+            <select id="panelLengthUnit" style="flex:1;">
+              <option value="ft" selected>Feet (ft)</option>
+              <option value="m">Meters (m)</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Project Wastage Allowance</label>
+          <select id="wastageAllowance">
+            <option value="0.00">0% (Exact Net Area)</option>
+            <option value="0.03" selected>3% (Standard Contractor Allowance)</option>
+            <option value="0.05">5% (Complex / Multi-partition)</option>
+            <option value="0.07">7% (High Cut Waste)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: PRICING -->
+    <div class="card">
+      <h2>5. 💰 Regional Pricing & Currency</h2>
+      <div class="grid-3">
+        <div class="field">
+          <label>Panel Unit Rate</label>
+          <input type="number" id="panelRate" value="5500">
+        </div>
+        <div class="field">
+          <label>Currency</label>
+          <select id="currencySelect">
+            <option value="PKR" selected>🇵🇰 PKR (Rs.)</option>
+            <option value="USD">🇺🇸 USD ($)</option>
+            <option value="AED">🇦🇪 AED (د.إ)</option>
+            <option value="SAR">🇸🇦 SAR (ر.س)</option>
+            <option value="GBP">🇬🇧 GBP (£)</option>
+            <option value="EUR">🇪🇺 EUR (€)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Rate Basis Unit</label>
+          <select id="rateBasis">
+            <option value="sqft" selected>Per Square Foot (sq ft)</option>
+            <option value="sqm">Per Square Meter (m²)</option>
+            <option value="runningft">Per Running Foot</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: RESULTS TRIGGER -->
+    <button class="calc-btn" onclick="runSandwichCalculation()">Calculate Comprehensive Panel Estimate</button>
+
+    <!-- RESULTS SUMMARY BOX -->
+    <div id="resultsContainer" class="results-container">
+      <h2 style="color: #fff; border-bottom: 2px solid var(--frost); padding-bottom: 10px; margin-bottom: 15px; font-family:'Oswald',sans-serif; text-transform:uppercase;">📊 Comprehensive Panel Estimate Summary</h2>
       
-      document.getElementById('emptyState').style.display='none';document.getElementById('resultBlock').style.display='block';
-      document.getElementById('outPanelWeight').innerHTML=panelWeight.toFixed(1)+'<small>kg</small>';
-      document.getElementById('outPanelArea').innerHTML=panelAreaSqft.toFixed(1)+'<small>sq ft</small>';
-      document.getElementById('outPanelCount').innerHTML=panels+'<small>pcs</small>';
-      document.getElementById('outTotalArea').innerHTML=totalArea.toFixed(0)+'<small>sq ft</small>';
-      document.getElementById('outTotalWeight').innerHTML=totalWeight.toFixed(0)+'<small>kg</small>';
-      document.getElementById('outPerSqft').innerHTML=weightPerSqft.toFixed(3)+'<small>kg/sqft</small>';
+      <div class="result-row"><span>Net Coverage Area Required</span><span id="resNetArea">—</span></div>
+      <div class="result-row"><span>Total Area with Wastage</span><span id="resTotalArea">—</span></div>
+      <div class="result-row"><span>Panels Required (pcs)</span><span id="resPanelCount">—</span></div>
+      <div class="result-row"><span>Individual Panel Weight</span><span id="resSingleWeight">—</span></div>
+      <div class="result-row"><span>Total Steel Skin Weight</span><span id="resSteelWeight">—</span></div>
+      <div class="result-row"><span>Total Core Insulation Weight</span><span id="resCoreWeight">—</span></div>
+      <div class="result-row" style="background: rgba(79,195,247,0.06); padding: 12px; border-radius: 6px; margin: 8px 0; border: 1px solid var(--frost);">
+        <span style="color: var(--frost); font-weight: bold; font-size: 1.05rem;">Total Net Order Weight</span>
+        <span id="resTotalWeight" style="color: var(--frost); font-size: 1.1rem;">—</span>
+      </div>
+      <div class="result-row" style="background: rgba(0,184,148,0.1); padding: 12px; border-radius: 6px; margin: 8px 0; border: 1px dashed var(--accent);">
+        <span style="color: var(--accent); font-weight: bold; font-size: 1.05rem;">Estimated Total Project Cost</span>
+        <span id="resGrandTotal" style="color: var(--accent); font-size: 1.2rem;">—</span>
+      </div>
 
-      // Update Results Box for WhatsApp & PDF
-      let rate = document.getElementById('rateInput').value || 0;
-let unit = document.getElementById('rateUnit').value;
-let currency = document.getElementById('currency').value;
-const currencySymbols = { 'PKR': 'Rs', 'USD': '$', 'GBP': '£', 'EUR': '€', 'AED': 'د.إ', 'SAR': 'ر.س', 'CNY': '¥' };
-let symbol = currencySymbols[currency] || 'Rs';
+      <div class="action-buttons">
+        <button class="action-btn whatsapp-action" onclick="shareWhatsAppSummary()">💬 Share Quotation on WhatsApp</button>
+        <button class="action-btn pdf-action" onclick="window.print()">📄 Print / Save as PDF</button>
+      </div>
+    </div>
+  </div>
 
-// Calculate total length
-let totalLengthM = panels * lM; // lM is panel length in meters (already calculated)
-let displayLength = totalLengthM;
-let rateLabel = 'm';
-if (unit === 'ft') {
-  displayLength = totalLengthM * 3.28084;
-  rateLabel = 'ft';
-}
-
-document.getElementById('display-weight').innerText = totalWeight.toFixed(0) + ' kg';
-document.getElementById('display-panels').innerText = panels;
-document.getElementById('display-rate').innerText = rate + ' / ' + rateLabel;
-document.getElementById('display-cost').innerText = symbol + ' ' + (displayLength * rate).toLocaleString();
-document.getElementById('result-area').style.display = 'block';
-
-    // Share on WhatsApp
-    function shareWhatsApp() {
-        let weight = document.getElementById('display-weight').innerText;
-        let panels = document.getElementById('display-panels').innerText;
-        let rate = document.getElementById('display-rate').innerText;
-        let cost = document.getElementById('display-cost').innerText;
-        let message = `My Sandwich Panel Calculation Results:%0A%0A📦 Total Weight: ${weight} kg%0A📋 Panels Required: ${panels} pcs%0A💰 Rate per kg: ${rate} PKR%0A💵 Estimated Cost: ${cost} PKR%0A%0A🔗 Calculated using ColdMatrix Tools - https://coldmatrixtools.com`;
-        window.open(`https://wa.me/?text=${message}`, '_blank');
-    }
-
-    // Download PDF
-    function downloadPDF() {
-        window.print();
-    }
-  </script>
   <script>
-    let deferredPromptTool;const bar=document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPromptTool=e;});
-    function installAppTool(){if(deferredPromptTool){deferredPromptTool.prompt();deferredPromptTool.userChoice.then(()=>{bar.style.display='none';});}else{alert('📲 Open your browser menu and choose "Add to Home Screen" to install ColdMatrix.');}}
-    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+    let inputMode = 'area'; // 'area' or 'dims'
+    let dimUnit = 'ft';     // 'ft' or 'm'
+
+    function switchInputMode(mode, btn) {
+      inputMode = mode;
+      document.querySelectorAll('.unit-toggle')[0].querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (mode === 'area') {
+        document.getElementById('modeAreaBox').style.display = 'block';
+        document.getElementById('modeDimsBox').style.display = 'none';
+      } else {
+        document.getElementById('modeAreaBox').style.display = 'none';
+        document.getElementById('modeDimsBox').style.display = 'block';
+      }
+    }
+
+    function setDimUnit(u, btn) {
+      dimUnit = u;
+      document.querySelectorAll('.unit-toggle')[1].querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.dimLbl').forEach(el => el.textContent = u);
+    }
+
+    function updateDefaultWidth() {
+      const type = document.getElementById('panelType').value;
+      const widthInput = document.getElementById('panelWidthVal');
+      const widthUnit = document.getElementById('panelWidthUnit');
+      if (type === 'wall') {
+        widthInput.value = 1190;
+        widthUnit.value = 'mm';
+      } else if (type === 'roof') {
+        widthInput.value = 970;
+        widthUnit.value = 'mm';
+      }
+    }
+
+    function runSandwichCalculation() {
+      // 1. Determine Net Area in Sq Ft
+      let netAreaSqFt = 0;
+      if (inputMode === 'area') {
+        const val = parseFloat(document.getElementById('areaNeeded').value) || 0;
+        const unit = document.getElementById('areaUnit').value;
+        netAreaSqFt = (unit === 'sqm') ? val * 10.7639 : val;
+      } else {
+        let l = parseFloat(document.getElementById('roomLength').value) || 0;
+        let w = parseFloat(document.getElementById('roomWidth').value) || 0;
+        let h = parseFloat(document.getElementById('roomHeight').value) || 0;
+        if (dimUnit === 'm') { l *= 3.28084; w *= 3.28084; h *= 3.28084; }
+        // Total surface area estimate (walls + roof)
+        let wallArea = 2 * (l + w) * h;
+        let roofArea = l * w;
+        netAreaSqFt = wallArea + roofArea;
+      }
+
+      if (netAreaSqFt <= 0) {
+        alert('Please enter valid project dimensions or area.');
+        return;
+      }
+
+      const wastage = parseFloat(document.getElementById('wastageAllowance').value) || 0;
+      const totalAreaSqFt = netAreaSqFt * (1 + wastage);
+      const totalAreaSqM = totalAreaSqFt / 10.7639;
+
+      // 2. Panel Dimensions & Count
+      let pWidthVal = parseFloat(document.getElementById('panelWidthVal').value) || 1190;
+      let pWidthUnit = document.getElementById('panelWidthUnit'].value;
+      let pWidthM = (pWidthUnit === 'ft') ? pWidthVal * 0.3048 : pWidthVal / 1000;
+
+      let pLengthVal = parseFloat(document.getElementById('panelLengthVal').value) || 20;
+      let pLengthUnit = document.getElementById('panelLengthUnit').value;
+      let pLengthM = (pLengthUnit === 'ft') ? pLengthVal * 0.3048 : pLengthVal;
+
+      const panelAreaSqM = pWidthM * pLengthM;
+      const panelAreaSqFt = panelAreaSqM * 10.7639;
+      const panelCount = Math.ceil(totalAreaSqFt / panelAreaSqFt);
+
+      // 3. Material Weights
+      const topG = parseFloat(document.getElementById('topGauge').value) || 0.45;
+      const botG = parseFloat(document.getElementById('botGauge').value) || 0.45;
+      const coreDensity = parseFloat(document.getElementById('coreDensity').value) || 42;
+      const coreThickMm = parseFloat(document.getElementById('coreThickness').value) || 100;
+
+      const steelDensity = 7850; // kg/m³
+      const steelWeightPerSqM = (topG + botG) * 0.001 * steelDensity;
+      const totalSteelWeight = totalAreaSqM * steelWeightPerSqM;
+
+      const coreVolumeM3 = totalAreaSqM * (coreThickMm * 0.001);
+      const totalCoreWeight = coreVolumeM3 * coreDensity;
+      const totalNetWeight = totalSteelWeight + totalCoreWeight;
+      const singlePanelWeight = totalNetWeight / panelCount;
+
+      // 4. Financial Calculations
+      const rate = parseFloat(document.getElementById('panelRate').value) || 0;
+      const currency = document.getElementById('currencySelect').value;
+      const rateBasis = document.getElementById('rateBasis').value;
+
+      const currencySymbols = { 'PKR': 'Rs.', 'USD': '$', 'AED': 'د.إ', 'SAR': 'ر.س', 'GBP': '£', 'EUR': '€' };
+      const symbol = currencySymbols[currency] || 'Rs.';
+
+      let grandTotal = 0;
+      if (rateBasis === 'sqft') {
+        grandTotal = totalAreaSqFt * rate;
+      } else if (rateBasis === 'sqm') {
+        grandTotal = totalAreaSqM * rate;
+      } else {
+        // Running feet based on panel count * panel length in feet
+        let totalRunningFt = panelCount * (pLengthUnit === 'ft' ? pLengthVal : pLengthVal * 3.28084);
+        grandTotal = totalRunningFt * rate;
+      }
+
+      // 5. Render Output
+      document.getElementById('resNetArea').textContent = Math.round(netAreaSqFt).toLocaleString() + ' sq ft (' + (netAreaSqFt / 10.7639).toFixed(1) + ' m²)';
+      document.getElementById('resTotalArea').textContent = Math.round(totalAreaSqFt).toLocaleString() + ' sq ft (' + totalAreaSqM.toFixed(1) + ' m² including waste)';
+      document.getElementById('resPanelCount').textContent = panelCount + ' pcs';
+      document.getElementById('resSingleWeight').textContent = singlePanelWeight.toFixed(1) + ' kg';
+      document.getElementById('resSteelWeight').textContent = totalSteelWeight.toFixed(1) + ' kg';
+      document.getElementById('resCoreWeight').textContent = totalCoreWeight.toFixed(1) + ' kg';
+      document.getElementById('resTotalWeight').textContent = totalNetWeight.toFixed(1) + ' kg (~' + (totalNetWeight / 1000).toFixed(2) + ' Tons)';
+      document.getElementById('resGrandTotal').textContent = symbol + ' ' + Math.round(grandTotal).toLocaleString();
+
+      document.getElementById('resultsContainer').style.display = 'block';
+      document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function shareWhatsAppSummary() {
+      const area = document.getElementById('resTotalArea').textContent;
+      const panels = document.getElementById('resPanelCount').textContent;
+      const weight = document.getElementById('resTotalWeight').textContent;
+      const cost = document.getElementById('resGrandTotal').textContent;
+
+      const message = `🧱 *ColdMatrix Sandwich Panel Quotation*%0A%0A` +
+        `📐 *Total Area:* ${area}%0A` +
+        `📦 *Panels Required:* ${panels}%0A` +
+        `⚖️ *Total Order Weight:* ${weight}%0A` +
+        `💰 *Estimated Cost:* ${cost}%0A%0A` +
+        `Calculated via ColdMatrix Tools - https://coldmatrixtools.com`;
+
+      window.open(`https://wa.me/?text=${message}`, '_blank');
+    }
   </script>
 </body>
 </html>
