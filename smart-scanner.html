@@ -64,13 +64,6 @@
     <h1>📷 ColdMatrix Smart Scanner</h1>
     <p class="subtitle">One scanner for everything — QR codes, barcodes, text, and generate your own.</p>
 
-    <!-- Rate Input -->
-    <div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate (PKR per scan):</label>
-        <input type="number" id="rateInput" value="450" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
-      </div>
-    </div>
 
     <!-- Results Box for WhatsApp & PDF -->
     <div id="result-area" style="display: none; margin-top: 25px; padding: 20px; background: #f0f4f8; border-radius: 12px; border-left: 5px solid #00b894; color: #222;">
@@ -78,8 +71,7 @@
       <div id="result-content" style="font-size: 1.1rem; line-height: 1.8;">
         <p><strong>Scanned Data:</strong> <span id="display-result">—</span></p>
         <p><strong>Type:</strong> <span id="display-type">—</span></p>
-        <p><strong>Rate (PKR/scan):</strong> <span id="display-rate">0</span></p>
-        <p><strong>Total Cost:</strong> <span id="display-cost">0</span> PKR</p>
+        
       </div>
       <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
         <button onclick="copyResult()" style="background: #6c757d; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📋 Copy</button>
@@ -110,16 +102,11 @@
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
 
   <script>
-    // Shared functions for Results Box
-    function updateScannerResults(text, type) {
-      let rate = document.getElementById('rateInput').value || 0;
-      document.getElementById('display-result').innerText = text;
-      document.getElementById('display-type').innerText = type || 'QR/Barcode';
-      document.getElementById('display-rate').innerText = rate;
-      let cost = parseFloat(text) * rate;
-      document.getElementById('display-cost').innerText = cost.toLocaleString();
-      document.getElementById('result-area').style.display = 'block';
-    }
+function updateScannerResults(text, type) {
+  document.getElementById('display-result').innerText = text;
+  document.getElementById('display-type').innerText = type || 'QR/Barcode';
+  document.getElementById('result-area').style.display = 'block';
+}
 
     function copyResult() {
       let text = document.getElementById('display-result').innerText;

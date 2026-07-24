@@ -6,6 +6,16 @@
 <meta name="description" content="Free Steel Weight Calculator for engineers and builders in Pakistan. Calculate steel weight and quantities accurately.">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>
+  // Currency Symbol Mapping
+const currencySymbols = {
+    'PKR': 'Rs',
+    'USD': '$',
+    'GBP': '£',
+    'EUR': '€',
+    'AED': 'د.إ',
+    'SAR': 'ر.س',
+    'CNY': '¥'
+};
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -114,7 +124,33 @@
     <h1>🛠️ Steel Weight Calculator</h1>
     <p class="subtitle">Calculate weight of steel plates, bars, pipes, and beams — free and accurate.</p>
     <!-- Metal Selection & Rate Input -->
+<!-- Rate Input with Currency -->
 <div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
+  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+    <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate:</label>
+    <input type="number" id="rateInput" value="100" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
+    
+    <!-- CURRENCY DROPDOWN -->
+    <select id="currency" style="padding: 8px; border: 2px solid #00b894; border-radius: 5px; background: white; font-weight: bold;">
+      <option value="PKR">🇵🇰 PKR (Rs)</option>
+      <option value="USD">🇺🇸 USD ($)</option>
+      <option value="GBP">🇬🇧 GBP (£)</option>
+      <option value="EUR">🇪🇺 EUR (€)</option>
+      <option value="AED">🇦🇪 AED (د.إ)</option>
+      <option value="SAR">🇸🇦 SAR (ر.س)</option>
+      <option value="CNY">🇨🇳 CNY (¥)</option>
+    </select>
+    
+    <!-- UNIT DROPDOWN (Only for Steel & Sandwich) -->
+    <!-- If tool is Steel or Sandwich, add this: -->
+    <select id="rateUnit" style="padding: 8px; border: 2px solid #00b894; border-radius: 5px; background: white; font-weight: bold;">
+      <option value="kg">per Kg</option>
+      <option value="lb">per Pound</option>
+      <option value="ton">per Ton</option>
+    </select>
+    <!-- For other tools (Cold Storage, Cooling, etc.), just skip the "rateUnit" dropdown -->
+  </div>
+</div>
   <div style="display: flex; align-items: center; gap: 8px;">
     <label for="metalType" style="font-weight: bold; color: #333;">🧪 Metal:</label>
     <select id="metalType" style="padding: 8px 12px; border: 2px solid #00b894; border-radius: 5px; background: white; font-weight: bold;">
@@ -247,7 +283,11 @@
             
             document.getElementById('display-weight').innerText = weight.toFixed(2);
             document.getElementById('display-rate').innerText = rate.toFixed(2);
-            document.getElementById('display-cost').innerText = (weight * rate).toLocaleString();
+            // Get currency symbol
+let curr = document.getElementById('currency').value;
+const currencySymbols = { 'PKR': 'Rs', 'USD': '$', 'GBP': '£', 'EUR': '€', 'AED': 'د.إ', 'SAR': 'ر.س', 'CNY': '¥' };
+let symbol = currencySymbols[curr] || 'Rs';
+document.getElementById('display-cost').innerText = symbol + ' ' + (weight * rate).toLocaleString();
             document.getElementById('result-area').style.display = 'block';
         }
     }

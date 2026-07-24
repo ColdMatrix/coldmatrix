@@ -106,8 +106,26 @@
 
     <div class="install-bar" id="installBarTool">Install ColdMatrix App <button onclick="installAppTool()">Install</button></div>
 
-    <h1>❄️ Cooling Requirement Calculator (BTU/TR)</h1>
-    <p class="subtitle">Find out how much cooling capacity your room or cold storage needs — in BTU/hr, kW, and Tons of Refrigeration.</p>
+<!-- Rate Input with Currency & Unit -->
+<div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
+  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+    <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate:</label>
+    <input type="number" id="rateInput" value="100" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
+    <select id="currency" style="padding: 8px; border: 2px solid #00b894; border-radius: 5px; background: white; font-weight: bold;">
+      <option value="PKR">🇵🇰 PKR</option>
+      <option value="USD">🇺🇸 USD</option>
+      <option value="GBP">🇬🇧 GBP</option>
+      <option value="EUR">🇪🇺 EUR</option>
+      <option value="AED">🇦🇪 AED</option>
+      <option value="SAR">🇸🇦 SAR</option>
+      <option value="CNY">🇨🇳 CNY</option>
+    </select>
+    <select id="rateUnit" style="padding: 8px; border: 2px solid #00b894; border-radius: 5px; background: white; font-weight: bold;">
+      <option value="tr">per TR (Ton)</option>
+      <option value="hp">per HP</option>
+    </select>
+  </div>
+</div>
 
     <!-- Rate Input -->
     <div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
@@ -148,6 +166,21 @@
         <input type="number" id="ambient" value="40">
       </div>
       <button class="btn-calc" onclick="calculateHeatLoad()">Calculate Cooling Requirement</button>
+      <!-- Results Box for WhatsApp & PDF -->
+<div id="result-area" style="display: none; margin-top: 25px; padding: 20px; background: #f0f4f8; border-radius: 12px; border-left: 5px solid #00b894; color: #222;">
+  <h3 style="margin-top: 0; color: #222;">📊 Your Results Summary</h3>
+  <div id="result-content" style="font-size: 1.1rem; line-height: 1.8;">
+    <p><strong>Cooling Capacity:</strong> <span id="display-kw">0</span> kW</p>
+    <p><strong>Tons of Refrigeration (TR):</strong> <span id="display-tr">0</span></p>
+    <p><strong>BTU/hr:</strong> <span id="display-btu">0</span></p>
+    <p><strong>Rate:</strong> <span id="display-rate">0</span></p>
+    <p><strong>Estimated Cost:</strong> <span id="display-cost">0</span></p>
+  </div>
+  <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+    <button onclick="shareWhatsApp()" style="background: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📤 Share on WhatsApp</button>
+    <button onclick="downloadPDF()" style="background: #0077B5; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📄 Download PDF</button>
+  </div>
+</div>
 
       <div class="result-box" id="resultBox" style="display:none;">
         <div class="result-row"><span class="result-label">Room Volume</span><span class="result-value" id="volOut">—</span></div>
@@ -231,25 +264,29 @@
       document.getElementById('recOut').textContent = recommendation;
 
       // Update Results Box for WhatsApp & PDF
-      let rate = document.getElementById('rateInput').value || 0;
-      document.getElementById('display-kw').innerText = kW.toFixed(2);
-      document.getElementById('display-tr').innerText = tons.toFixed(2);
-      document.getElementById('display-btu').innerText = btuPerHr.toFixed(0);
-      document.getElementById('display-rate').innerText = rate;
-      document.getElementById('display-cost').innerText = (kW * rate).toLocaleString();
-      document.getElementById('result-area').style.display = 'block';
-    }
+      // Update Results Box for WhatsApp & PDF
+let rate = parseFloat(document.getElementById('rateInput').value) || 0;
+let unit = document.getElementById('rateUnit').value;
+let currency = document.getElementById('currency').value;
+const currencySymbols = { 'PKR': 'Rs', 'USD': '$', 'GBP': '£', 'EUR': '€', 'AED': 'د.إ', 'SAR': 'ر.س', 'CNY': '¥' };
+let symbol = currencySymbols[currency] || 'Rs';
 
-    // Share on WhatsApp
-    function shareWhatsApp() {
-        let kw = document.getElementById('display-kw').innerText;
-        let tr = document.getElementById('display-tr').innerText;
-        let btu = document.getElementById('display-btu').innerText;
-        let rate = document.getElementById('display-rate').innerText;
-        let cost = document.getElementById('display-cost').innerText;
-        let message = `My Cooling Requirement Results:%0A%0A❄️ Cooling Capacity: ${kw} kW%0A🧊 Tons of Refrigeration: ${tr} TR%0A🔥 BTU/hr: ${btu}%0A💰 Rate per kW: ${rate} PKR%0A💵 Estimated Cost: ${cost} PKR%0A%0A🔗 Calculated using ColdMatrix Tools - https://coldmatrixtools.com`;
-        window.open(`https://wa.me/?text=${message}`, '_blank');
-    }
+let cost = 0;
+let rateLabel = '';
+if (unit === 'tr') {
+  cost = tons * rate;
+  rateLabel = 'TR';
+} else {
+  cost = tons * rate; // HP is roughly equivalent to TR for simplicity
+  rateLabel = 'HP';
+}
+
+document.getElementById('display-kw').innerText = kW.toFixed(2) + ' kW';
+document.getElementById('display-tr').innerText = tons.toFixed(2) + ' TR';
+document.getElementById('display-btu').innerText = btuPerHr.toFixed(0) + ' BTU/hr';
+document.getElementById('display-rate').innerText = rate + ' / ' + rateLabel;
+document.getElementById('display-cost').innerText = symbol + ' ' + cost.toLocaleString();
+document.getElementById('result-area').style.display = 'block';    }
 
     // Download PDF
     function downloadPDF() {
@@ -259,6 +296,21 @@
     // PWA
     let d;const bar=document.getElementById('installBarTool');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();d=e;});window.installAppTool=function(){if(d){d.prompt();d.userChoice.then(()=>{bar.style.display='none';});}else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');}};
     if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+    // Share on WhatsApp
+function shareWhatsApp() {
+    let kw = document.getElementById('display-kw').innerText;
+    let tr = document.getElementById('display-tr').innerText;
+    let btu = document.getElementById('display-btu').innerText;
+    let rate = document.getElementById('display-rate').innerText;
+    let cost = document.getElementById('display-cost').innerText;
+    let message = `My Cooling Requirement Results:%0A%0A❄️ Cooling Capacity: ${kw}%0A🧊 Tons of Refrigeration: ${tr}%0A🔥 BTU/hr: ${btu}%0A💰 Rate: ${rate}%0A💵 Estimated Cost: ${cost}%0A%0A🔗 Calculated using ColdMatrix Tools - https://coldmatrixtools.com`;
+    window.open(`https://wa.me/?text=${message}`, '_blank');
+}
+
+// Download PDF
+function downloadPDF() {
+    window.print();
+}
   </script>
 </body>
 </html>

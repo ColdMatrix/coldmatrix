@@ -101,17 +101,40 @@
     <p style="color:var(--muted); margin-bottom:30px;">Estimate PPGI/PUF panel weight, quantity, and total order weight instantly from your specification.</p>
 
     <!-- Rate Input -->
-    <div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate (PKR per kg):</label>
-        <input type="number" id="rateInput" value="450" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
-      </div>
-    </div>
-
+    <!-- Rate Input with Currency & Unit -->
+<div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
+  <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+    <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate:</label>
+    <input type="number" id="rateInput" value="100" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
+    <select id="currency" style="padding: 8px; border: 2px solid #00b894; border-radius: 5px; background: white; font-weight: bold;">
+      <option value="PKR">🇵🇰 PKR</option>
+      <option value="USD">🇺🇸 USD</option>
+      <option value="GBP">🇬🇧 GBP</option>
+      <option value="EUR">🇪🇺 EUR</option>
+      <option value="AED">🇦🇪 AED</option>
+      <option value="SAR">🇸🇦 SAR</option>
+      <option value="CNY">🇨🇳 CNY</option>
+    </select>
+    <select id="rateUnit" style="padding: 8px; border: 2px solid #00b894; border-radius: 5px; background: white; font-weight: bold;">
+      <option value="ft">per Foot (ft)</option>
+      <option value="m">per Meter (m)</option>
+    </select>
+  </div>
+</div>
     <div class="card">
       <h2>Panel Specification</h2>
       <div class="field"><label>Panel type</label><select id="panelType"><option value="roof">Roof (corrugated)</option><option value="wall">Wall / Flat (low-rib)</option></select></div>
-      <div class="field"><label>Core thickness</label><select id="coreThickness"><option value="50">50 mm</option><option value="75">75 mm</option><option value="100" selected>100 mm</option><option value="120">120 mm</option><option value="150">150 mm</option><option value="175">175 mm</option><option value="200">200 mm</option></select></div>
+      <div class="field"><label>Core thickness</label>
+<select id="coreThickness">
+  <option value="50">50 mm</option>
+  <option value="75">75 mm</option>
+  <option value="100" selected>100 mm</option>
+  <option value="120">120 mm</option>
+  <option value="125">125 mm</option>
+  <option value="150">150 mm</option>
+  <option value="175">175 mm</option>
+  <option value="200">200 mm</option>
+</select></div>
       <div class="field"><label>GI sheet gauge (both sides)</label><select id="giGauge"><option value="0.3">0.30 mm</option><option value="0.35">0.35 mm</option><option value="0.4">0.40 mm</option><option value="0.45">0.45 mm</option><option value="0.5" selected>0.50 mm (standard)</option><option value="0.6">0.60 mm</option><option value="0.7">0.70 mm</option></select></div>
       <div class="field"><label>Panel width</label><input type="number" id="widthVal" placeholder="e.g. 1180" value="1180"><div class="row2"><div class="unit-btn active" data-group="width" data-unit="mm">mm</div><div class="unit-btn" data-group="width" data-unit="ft">ft</div></div></div>
       <div class="field"><label>Panel length</label><input type="number" id="lengthVal" placeholder="e.g. 20" value="20"><div class="row2"><div class="unit-btn" data-group="length" data-unit="mm">mm</div><div class="unit-btn active" data-group="length" data-unit="ft">ft</div></div></div>
@@ -174,12 +197,25 @@
 
       // Update Results Box for WhatsApp & PDF
       let rate = document.getElementById('rateInput').value || 0;
-      document.getElementById('display-weight').innerText = totalWeight.toFixed(0);
-      document.getElementById('display-panels').innerText = panels;
-      document.getElementById('display-rate').innerText = rate;
-      document.getElementById('display-cost').innerText = (totalWeight * rate).toLocaleString();
-      document.getElementById('result-area').style.display = 'block';
-    }
+let unit = document.getElementById('rateUnit').value;
+let currency = document.getElementById('currency').value;
+const currencySymbols = { 'PKR': 'Rs', 'USD': '$', 'GBP': '£', 'EUR': '€', 'AED': 'د.إ', 'SAR': 'ر.س', 'CNY': '¥' };
+let symbol = currencySymbols[currency] || 'Rs';
+
+// Calculate total length
+let totalLengthM = panels * lM; // lM is panel length in meters (already calculated)
+let displayLength = totalLengthM;
+let rateLabel = 'm';
+if (unit === 'ft') {
+  displayLength = totalLengthM * 3.28084;
+  rateLabel = 'ft';
+}
+
+document.getElementById('display-weight').innerText = totalWeight.toFixed(0) + ' kg';
+document.getElementById('display-panels').innerText = panels;
+document.getElementById('display-rate').innerText = rate + ' / ' + rateLabel;
+document.getElementById('display-cost').innerText = symbol + ' ' + (displayLength * rate).toLocaleString();
+document.getElementById('result-area').style.display = 'block';
 
     // Share on WhatsApp
     function shareWhatsApp() {
