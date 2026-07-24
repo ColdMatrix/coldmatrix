@@ -113,13 +113,26 @@
     <!-- Title -->
     <h1>🛠️ Steel Weight Calculator</h1>
     <p class="subtitle">Calculate weight of steel plates, bars, pipes, and beams — free and accurate.</p>
-
+ 
     <!-- Tabs -->
     <div class="tab-row">
       <button class="tab-btn active" data-tab="tab1">📐 Plate</button>
       <button class="tab-btn" data-tab="tab2">📏 Round Bar</button>
       <button class="tab-btn" data-tab="tab3">🔩 Pipe</button>
       <button class="tab-btn" data-tab="tab4">🏗️ Beam</button>
+      <!-- Results Area with Share & PDF -->
+<div id="result-area" style="display: none; margin-top: 25px; padding: 20px; background: #f0f4f8; border-radius: 12px; border-left: 5px solid #00b894;">
+  <h3 style="margin-top: 0; color: #2d3436;">📊 Your Results</h3>
+  <div id="result-content" style="font-size: 1.1rem; line-height: 1.8;">
+    <p><strong>Total Weight:</strong> <span id="display-weight">0</span> kg</p>
+    <p><strong>Price per kg:</strong> <span id="display-rate">0</span> PKR</p>
+    <p><strong>Estimated Cost:</strong> <span id="display-cost">0</span> PKR</p>
+  </div>
+  <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+    <button onclick="shareWhatsApp()" style="background: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📤 Share on WhatsApp</button>
+    <button onclick="downloadPDF()" style="background: #0077B5; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📄 Download PDF</button>
+  </div>
+</div>
     </div>
 
     <!-- Plate -->
@@ -181,17 +194,37 @@
 
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
 
-  <script>
+<script>
     const density = 7850; // kg/m³
 
     // Plate
-    function calcPlate(){const l=+document.getElementById('pLen').value||0,w=+document.getElementById('pWid').value||0,t=+document.getElementById('pThk').value||0;const vol=l*w*(t/1000);const wt=vol*density;document.getElementById('plateResult').textContent=`Weight: ${wt.toFixed(2)} kg (${(wt*2.20462).toFixed(2)} lbs)`;}
+    function calcPlate(){const l=+document.getElementById('pLen').value||0,w=+document.getElementById('pWid').value||0,t=+document.getElementById('pThk').value||0;const vol=l*w*(t/1000);const wt=vol*density;document.getElementById('plateResult').textContent=`Weight: ${wt.toFixed(2)} kg (${(wt*2.20462).toFixed(2)} lbs)`; updateUnifiedResults();}
+    
     // Bar
-    function calcBar(){const d=+document.getElementById('bDia').value||0,l=+document.getElementById('bLen').value||0;const vol=Math.PI*Math.pow(d/2000,2)*l;const wt=vol*density;document.getElementById('barResult').textContent=`Weight: ${wt.toFixed(2)} kg (${(wt*2.20462).toFixed(2)} lbs)`;}
+    function calcBar(){const d=+document.getElementById('bDia').value||0,l=+document.getElementById('bLen').value||0;const vol=Math.PI*Math.pow(d/2000,2)*l;const wt=vol*density;document.getElementById('barResult').textContent=`Weight: ${wt.toFixed(2)} kg (${(wt*2.20462).toFixed(2)} lbs)`; updateUnifiedResults();}
+    
     // Pipe
-    function calcPipe(){const od=+document.getElementById('piOD').value||0,wt=+document.getElementById('piWT').value||0,l=+document.getElementById('piLen').value||0;const id=od-2*wt;const vol=Math.PI*(Math.pow(od/2000,2)-Math.pow(id/2000,2))*l;const w=vol*density;document.getElementById('pipeResult').textContent=`Weight: ${w.toFixed(2)} kg (${(w*2.20462).toFixed(2)} lbs)`;}
+    function calcPipe(){const od=+document.getElementById('piOD').value||0,wt=+document.getElementById('piWT').value||0,l=+document.getElementById('piLen').value||0;const id=od-2*wt;const vol=Math.PI*(Math.pow(od/2000,2)-Math.pow(id/2000,2))*l;const w=vol*density;document.getElementById('pipeResult').textContent=`Weight: ${w.toFixed(2)} kg (${(w*2.20462).toFixed(2)} lbs)`; updateUnifiedResults();}
+    
     // Beam
-    function calcBeam(){const h=+document.getElementById('bmH').value||0,w=+document.getElementById('bmW').value||0,wt=+document.getElementById('bmWT').value||0,ft=+document.getElementById('bmFT').value||0,l=+document.getElementById('bmLen').value||0;const webVol=(h-2*ft)*(wt/1000)*(l);const flangeVol=2*(w*(ft/1000)*l);const vol=webVol+flangeVol;const weight=vol*density;document.getElementById('beamResult').textContent=`Weight: ${weight.toFixed(2)} kg (${(weight*2.20462).toFixed(2)} lbs)`;}
+    function calcBeam(){const h=+document.getElementById('bmH').value||0,w=+document.getElementById('bmW').value||0,wt=+document.getElementById('bmWT').value||0,ft=+document.getElementById('bmFT').value||0,l=+document.getElementById('bmLen').value||0;const webVol=(h-2*ft)*(wt/1000)*(l);const flangeVol=2*(w*(ft/1000)*l);const vol=webVol+flangeVol;const weight=vol*density;document.getElementById('beamResult').textContent=`Weight: ${weight.toFixed(2)} kg (${(weight*2.20462).toFixed(2)} lbs)`; updateUnifiedResults();}
+
+    // Update unified results area
+    function updateUnifiedResults() {
+        let activeTab = document.querySelector('.tab-content.active');
+        if (!activeTab) return;
+        let resultSpan = activeTab.querySelector('.result');
+        if (!resultSpan) return;
+        let resultText = resultSpan.textContent || '';
+        let weightMatch = resultText.match(/Weight:\s*([\d.]+)\s*kg/);
+        if (weightMatch) {
+            let weight = parseFloat(weightMatch[1]);
+            document.getElementById('display-weight').innerText = weight.toFixed(2);
+            document.getElementById('display-rate').innerText = '450';
+            document.getElementById('display-cost').innerText = (weight * 450).toLocaleString();
+            document.getElementById('result-area').style.display = 'block';
+        }
+    }
 
     // Real-time
     document.querySelectorAll('input').forEach(i=>i.addEventListener('input',()=>{calcPlate();calcBar();calcPipe();calcBeam();}));
@@ -202,6 +235,20 @@
     // PWA
     let d;const bar=document.getElementById('installBarTool');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();d=e;});window.installAppTool=function(){if(d){d.prompt();d.userChoice.then(()=>{bar.style.display='none';});}else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');}};
     if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
-  </script>
+
+    // Function to share results on WhatsApp
+    function shareWhatsApp() {
+        let weight = document.getElementById('display-weight').innerText;
+        let rate = document.getElementById('display-rate').innerText;
+        let cost = document.getElementById('display-cost').innerText;
+        let message = `My Steel Weight Calculation Results:%0A%0A📦 Total Weight: ${weight} kg%0A💰 Price per kg: ${rate} PKR%0A💵 Estimated Cost: ${cost} PKR%0A%0A🔗 Calculated using ColdMatrix Tools - https://coldmatrixtools.com`;
+        window.open(`https://wa.me/?text=${message}`, '_blank');
+    }
+
+    // Function to download PDF
+    function downloadPDF() {
+        window.print();
+    }
+</script>
 </body>
 </html>
