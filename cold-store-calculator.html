@@ -1,108 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="canonical" href="https://coldmatrixtools.com/cold-store-calculator.html">
-  <title>Cold Storage Calculator — Free Tool | ColdMatrix Pakistan</title>
-  ...
-  <link rel="canonical" href="https://coldmatrixtools.com/cold-store-calculator.html">
-  <title>Cold Storage Calculator — Free Tool | ColdMatrix Pakistan</title>
-  <meta name="description" content="Free Cold Storage Calculator for engineers and builders in Pakistan. Calculate cold room dimensions, PUF panel thickness, panel count, and cost.">
-  <meta name="keywords" content="cold storage calculator, cold room calculator Pakistan, cold store calculator, cold room panels, cold store panels, cold storage calculation, cold room calculation, PUF panel thickness calculator, refrigeration load calculator, freezer room size calculator, cold store Karachi Lahore Islamabad">
-  <link rel="canonical" href="https://coldmatrixtools.com/cold-store-calculator.html">
+  <title>Advanced Cold Storage & Panel Calculator — ColdMatrix Pakistan</title>
+  <meta name="description" content="Professional cold room sizing, PUF/PIR sandwich panel weight, thermal heat load, and cost estimation tool for engineers and contractors in Pakistan.">
+  <meta name="keywords" content="cold storage calculator, cold room calculator Pakistan, sandwich panel weight calculator, refrigeration load BTU TR, PUF PIR panels, cold store quotation generator">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
-  <script type="application/ld+json" >
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Cold Room Size Calculator",
-    "url": "https://coldmatrixtools.com/cold-store-calculator.html",
-    "applicationCategory": "Utility",
-    "description": "Free calculator for cold storage room PUF panel thickness, panel count, and refrigeration load based on room size and storage temperature.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" }
-  }
-  </script>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root{ --bg:#0B0F14;--panel:#141B24;--panel-2:#1B242F;--foam:#EDF1F5;--frost:#4FC3F7;--muted:#7C8798;--line:#242F3D; }
+    :root{ --bg:#0B0F14; --panel:#141B24; --panel-2:#1B242F; --foam:#EDF1F5; --frost:#4FC3F7; --muted:#7C8798; --line:#242F3D; --accent:#00b894; }
     *{box-sizing:border-box; margin:0; padding:0;}
-    body{ background: linear-gradient(var(--bg), var(--bg)), repeating-linear-gradient(0deg, rgba(79,195,247,0.035) 0 1px, transparent 1px 40px); color:var(--foam); font-family:'IBM Plex Sans', sans-serif; }
+    body{ background: linear-gradient(var(--bg), var(--bg)), repeating-linear-gradient(0deg, rgba(79,195,247,0.035) 0 1px, transparent 1px 40px); color:var(--foam); font-family:'IBM Plex Sans', sans-serif; line-height: 1.5; padding-bottom: 50px;}
     .nav { background:rgba(10,15,20,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding:12px 20px; display:flex; justify-content:space-between; align-items:center; }
     .nav a { color:var(--muted); text-decoration:none; font-size:0.85rem; }
     .nav a.brand { color:var(--frost); font-weight:700; }
-    .container { max-width:900px; margin:20px auto; padding:0 20px; }
+    .container { max-width:1000px; margin:20px auto; padding:0 20px; }
     .ad-card {
       border-radius:14px; overflow:hidden;
       background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat;
       border:1px solid var(--line); padding:18px;
-      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom: 20px;
     }
     .ad-card ul { list-style:none; padding:0; margin:0; }
     .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
     .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
     .ad-card .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; }
-    .install-bar { background:#4FC3F7; color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; }
+    .install-bar { background:#4FC3F7; color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; display:none; }
     .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; cursor:pointer; font-weight:600; }
-    .card{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:28px; margin-bottom:20px;}
-    .card h2{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; text-transform:uppercase; color:var(--muted); margin-bottom:22px;}
-    .field{margin-bottom:19px;}
-    .field label{display:block; font-size:0.78rem; color:var(--muted); margin-bottom:7px;}
-    select, input{width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--foam); padding:12px; border-radius:6px;}
-    .dim-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
-    .calc-btn{width:100%; background:linear-gradient(135deg,#4FC3F7,#2196F3); color:#0B0F14; border:none; padding:15px; border-radius:6px; font-family:'Oswald',sans-serif; font-weight:600; font-size:0.95rem; text-transform:uppercase; cursor:pointer;}
-    .gauge{position:relative; width:14px; height:260px; background:linear-gradient(to bottom, #3C7FB1 0%, #3C7FB1 30%, #E0A93A 30%, #E0A93A 62%, #D95B43 62%, #D95B43 100%); border-radius:7px; border:1px solid var(--line);}
-    .gauge-marker{position:absolute; left:-6px; width:26px; height:3px; background:var(--foam); box-shadow:0 0 0 2px var(--bg),0 0 8px rgba(255,255,255,0.6);}
-    .unit-toggle{display:flex; gap:8px; margin-bottom:12px;}
-    .unit-btn{flex:1; padding:9px; border:1px solid var(--line); background:var(--panel-2); color:var(--muted); border-radius:6px; cursor:pointer; text-align:center; font-size:0.85rem; user-select:none;}
-    .unit-btn.active{border-color:var(--frost); color:var(--frost);}
-    /* Mobile Responsive Fix */
-@media (max-width: 768px) {
-  .container {
-    padding: 0 12px;
-  }
-  .card {
-    padding: 16px;
-  }
-  .dim-grid {
-    grid-template-columns: 1fr !important;
-    gap: 8px;
-  }
-  .row2 {
-    grid-template-columns: 1fr !important;
-  }
-  .gauge {
-    width: 100% !important;
-    height: 20px !important;
-  }
-  .gauge-marker {
-    display: none;
-  }
-  #resultBody > div:first-child {
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-  h1 {
-    font-size: 1.4rem !important;
-  }
-  .tab-btn {
-    font-size: 0.7rem !important;
-    padding: 6px 4px !important;
-    min-width: 50px !important;
-  }
-  .result-row {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 4px;
-  }
-}
+    
+    .card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:28px; margin-bottom:20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+    .card h2{font-family:'Oswald',sans-serif; font-size:1.1rem; text-transform:uppercase; color:var(--frost); margin-bottom:18px; border-bottom: 1px solid var(--line); padding-bottom: 8px; letter-spacing: 0.5px;}
+    
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+    .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:15px; }
+    .field{margin-bottom:16px;}
+    .field label{display:block; font-size:0.8rem; color:var(--muted); margin-bottom:6px; font-weight: 500;}
+    select, input{width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--foam); padding:11px 14px; border-radius:6px; font-size: 0.95rem; outline: none; transition: border-color 0.2s;}
+    select:focus, input:focus { border-color: var(--frost); }
+    
+    .unit-toggle{display:flex; gap:8px; margin-bottom:10px;}
+    .unit-btn{flex:1; padding:8px; border:1px solid var(--line); background:var(--panel-2); color:var(--muted); border-radius:6px; cursor:pointer; text-align:center; font-size:0.85rem; user-select:none;}
+    .unit-btn.active{border-color:var(--frost); color:var(--frost); background: rgba(79,195,247,0.05);}
+    
+    .calc-btn{width:100%; background:linear-gradient(135deg,#4FC3F7,#2196F3); color:#0B0F14; border:none; padding:16px; border-radius:8px; font-family:'Oswald',sans-serif; font-weight:600; font-size:1.1rem; text-transform:uppercase; cursor:pointer; box-shadow: 0 4px 15px rgba(79,195,247,0.3); transition: transform 0.1s;}
+    .calc-btn:hover { transform: translateY(-1px); }
+    
+    .results-container { background: linear-gradient(145deg, #121821, #0e131a); border: 1px solid #2A3B4C; border-radius: 12px; padding: 25px; margin-top: 25px; display: none; }
+    .result-section-title { font-family: 'Oswald', sans-serif; color: var(--frost); font-size: 1.05rem; margin: 15px 0 10px 0; border-left: 3px solid var(--frost); padding-left: 8px; text-transform: uppercase; }
+    .result-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.95rem; }
+    .result-row span:last-child { font-weight: 600; color: #fff; }
+    
+    .action-buttons { margin-top: 25px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .action-btn { padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; text-transform: uppercase; font-family: 'Oswald', sans-serif; }
+    .whatsapp-action { background: #25D366; color: white; }
+    .pdf-action { background: #0077B5; color: white; }
+    
+    @media (max-width: 768px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 10px; }
+      .card { padding: 16px; }
+    }
   </style>
 </head>
 <body>
   <div class="nav">
-    <a href="index.html" class="brand">❄️ Cold Matrix</a>
+    <a href="index.html" class="brand">❄️ Cold Matrix Tools</a>
     <div>
       <a href="index.html">Home</a> &nbsp;&nbsp;
       <a href="about.html">About</a> &nbsp;&nbsp;
@@ -114,160 +78,399 @@
     <div class="ad-card">
       <div>
         <ul>
-          <li>PEB Structures</li>
-          <li>Cold Storage & Freezer Rooms</li>
-          <li>PU/PIR Sandwich Panels</li>
-          <li>Prefab Construction Solutions</li>
+          <li>PEB Structures & Prefab Solutions</li>
+          <li>Cold Storage Rooms & Freezer Warehouses</li>
+          <li>High-Grade PU / PIR Sandwich Panels</li>
         </ul>
-        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & All Pakistan</div>
       </div>
-      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20PEB%2FCold%20Storage%2FSandwich%20Panels" class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27d%20like%20a%20commercial%20quote%20for%20Cold%20Storage" class="whatsapp-btn" target="_blank">💬 Get Commercial Quote</a>
     </div>
 
     <div class="install-bar" id="installBarTool">
-      📱 Add to Home Screen
+      📱 Add ColdMatrix Tools to your Home Screen
       <button onclick="installAppTool()">Install</button>
     </div>
   </div>
 
   <div class="container">
-    <h1 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:1.8rem; margin-bottom:10px;">❄️ Cold Room Size Calculator</h1>
-    <p style="color:var(--muted); margin-bottom:30px;">Get recommended PUF panel thickness, panel count, and refrigeration load from your room dimensions and storage temperature.</p>
+    <h1 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:2rem; margin-bottom:8px;">❄️ Advanced Cold Room & Panel Estimator</h1>
+    <p style="color:var(--muted); margin-bottom:25px;">Engineered for precise contractor sizing, thermodynamic cooling loads, structural panel weights, and financial cost breakdowns.</p>
 
-    <!-- Rate Input -->
-    <div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate (PKR per panel):</label>
-        <input type="number" id="rateInput" value="450" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
-      </div>
-    </div>
-
+    <!-- SECTION 1: ROOM & CLIMATE -->
     <div class="card">
-      <h2>Storage requirement</h2>
-      <div class="field"><label>Product type</label><select id="product"><option value="meat">Meat</option><option value="fish">Fish / Seafood</option><option value="dairy">Dairy</option><option value="fruitveg">Fruits & Vegetables</option><option value="icecream">Ice Cream / Dessert</option><option value="pharma">Pharma / Vaccine</option><option value="general">General / Mixed Goods</option></select></div>
-      <div class="field"><label>Storage condition</label><select id="condition"><option value="chilled">Chilled (normal, above 0°C)</option><option value="frozen">Frozen (below 0°C)</option></select></div>
-      <div class="field"><label>Required storage temperature (°C)</label><input type="number" id="temp" placeholder="e.g. -15" value="-15"></div>
+      <h2>1. Room Geometry & Climate Preset</h2>
       <div class="field">
-        <label>Room dimensions</label>
+        <label>Unit System</label>
         <div class="unit-toggle">
           <div class="unit-btn active" data-unit="m" onclick="setUnit('m',this)">Meters (m)</div>
           <div class="unit-btn" data-unit="ft" onclick="setUnit('ft',this)">Feet (ft)</div>
         </div>
-        <div class="dim-grid"><div><label style="font-size:0.7rem;">Width (<span id="widthUnitLabel">m</span>)</label><input type="number" id="width" placeholder="8" value="8"></div><div><label style="font-size:0.7rem;">Length (<span id="lengthUnitLabel">m</span>)</label><input type="number" id="length" placeholder="10" value="10"></div><div><label style="font-size:0.7rem;">Height (<span id="heightUnitLabel">m</span>)</label><input type="number" id="height" placeholder="3" value="3"></div></div>
       </div>
-      <button class="calc-btn" onclick="calculate()">Calculate recommendation</button>
+      <div class="grid-3">
+        <div class="field"><label>Length (<span id="lenLbl">m</span>)</label><input type="number" id="length" value="10"></div>
+        <div class="field"><label>Width (<span id="widLbl">m</span>)</label><input type="number" id="width" value="8"></div>
+        <div class="field"><label>Height (<span id="hgtLbl">m</span>)</label><input type="number" id="height" value="3.5"></div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Climate / City Preset (Ambient Temp)</label>
+          <select id="climatePreset" onchange="updateAmbient()">
+            <option value="42">Karachi (Hot & Humid - 42°C)</option>
+            <option value="45" selected>Lahore / Multan (Extreme Summer - 45°C)</option>
+            <option value="40">Islamabad / Peshawar (Moderate - 40°C)</option>
+            <option value="35">Quetta (Cooler - 35°C)</option>
+            <option value="custom">Custom Ambient Temperature</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Outdoor Ambient Temperature (°C)</label>
+          <input type="number" id="ambientTemp" value="45">
+        </div>
+      </div>
     </div>
 
-    <!-- Results Box for WhatsApp & PDF -->
-    <div id="result-area" style="display: none; margin-top: 25px; padding: 20px; background: #f0f4f8; border-radius: 12px; border-left: 5px solid #00b894; color: #222;">
-      <h3 style="margin-top: 0; color: #222;">📊 Your Results Summary</h3>
-      <div id="result-content" style="font-size: 1.1rem; line-height: 1.8;">
-        <p><strong>Panel Thickness:</strong> <span id="display-thickness">—</span></p>
-        <p><strong>Total Panels:</strong> <span id="display-panels">—</span></p>
-        <p><strong>Rate (PKR/panel):</strong> <span id="display-rate">0</span></p>
-        <p><strong>Estimated Cost:</strong> <span id="display-cost">0</span> PKR</p>
+    <!-- SECTION 2: PRODUCT & TEMPERATURE -->
+    <div class="card">
+      <h2>2. Product Storage & Temperature</h2>
+      <div class="grid-2">
+        <div class="field">
+          <label>Product Type Preset</label>
+          <select id="productType" onchange="applyProductPreset()">
+            <option value="meat">Frozen Meat / Poultry (-18°C)</option>
+            <option value="fish">Seafood / Fish (-25°C)</option>
+            <option value="dairy">Dairy Products / Cheese (+2°C)</option>
+            <option value="fruitveg" selected>Fruits & Vegetables (+4°C)</option>
+            <option value="icecream">Ice Cream / Dessert (-25°C)</option>
+            <option value="pharma">Pharmaceuticals / Vaccines (+5°C)</option>
+            <option value="custom">Custom Storage Condition</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Target Room Temperature (°C)</label>
+          <input type="number" id="roomTemp" value="4">
+        </div>
       </div>
-      <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
-        <button onclick="shareWhatsApp()" style="background: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📤 Share on WhatsApp</button>
-        <button onclick="downloadPDF()" style="background: #0077B5; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📄 Download PDF</button>
+      <div class="grid-3">
+        <div class="field"><label>Daily Product Load (kg/day)</label><input type="number" id="dailyProductKg" value="2000"></div>
+        <div class="field"><label>Product Entry Temp (°C)</label><input type="number" id="productEntryTemp" value="28"></div>
+        <div class="field"><label>Safety Factor (%)</label><select id="safetyFactor"><option value="1.05">5%</option><option value="1.10" selected>10%</option><option value="1.15">15%</option></select></div>
       </div>
     </div>
 
-    <div class="card" id="resultCard">
-      <h2>Recommendation</h2>
-      <div id="placeholder" style="text-align:center; padding:40px; color:var(--muted);">Fill in your requirement and calculate to see panel thickness & load estimate.</div>
-      <div id="resultBody" style="display:none;">
-        <div style="display:flex; gap:24px; align-items:center;">
-          <div class="gauge"><div class="gauge-marker" id="gaugeMarker" style="top:0;"></div></div>
-          <div>
-            <div style="text-align:center;"><span id="thicknessNum" style="font-size:2.4rem; font-weight:600; color:var(--frost);">—</span><br><span style="color:var(--muted);">panel thickness</span></div>
-            <div id="crossSection" style="display:flex; align-items:center; justify-content:center; gap:5px; height:110px; background:var(--panel-2); border-radius:8px; margin:20px 0;"></div>
-          </div>
+    <!-- SECTION 3: PANEL SPECIFICATIONS -->
+    <div class="card">
+      <h2>3. Sandwich Panel & Skin Specifications</h2>
+      <div class="grid-3">
+        <div class="field">
+          <label>Core Material</label>
+          <select id="coreMaterial">
+            <option value="pir" selected>PIR (Polyisocyanurate)</option>
+            <option value="pu">PUR (Polyurethane)</option>
+            <option value="eps">EPS (Expanded Polystyrene)</option>
+            <option value="rockwool">Rockwool (Fire Rated)</option>
+          </select>
         </div>
-        <div style="border-top:1px solid var(--line); margin-top:20px; padding-top:18px;">
-          <div style="display:flex; justify-content:space-between; padding:9px 0;"><span>Total insulated area</span><span id="areaVal">—</span></div>
-          <div style="display:flex; justify-content:space-between; padding:9px 0;"><span>Room volume</span><span id="volVal">—</span></div>
-          <div style="display:flex; justify-content:space-between; padding:9px 0;"><span>Approx. panels needed *</span><span id="panelVal">—</span></div>
-          <div style="display:flex; justify-content:space-between; padding:9px 0;"><span>Estimated ref. load</span><span id="loadVal">—</span></div>
-          <div style="display:flex; justify-content:space-between; padding:9px 0;"><span>Recommended compressor **</span><span id="compVal">—</span></div>
+        <div class="field">
+          <label>Core Density (kg/m³)</label>
+          <select id="panelDensity">
+            <option value="38">38 kg/m³</option>
+            <option value="40" selected>40 kg/m³</option>
+            <option value="42">42 kg/m³</option>
+            <option value="45">45 kg/m³</option>
+          </select>
         </div>
-        <p style="font-size:0.76rem; color:var(--muted); margin-top:18px; border-left:2px solid var(--frost); padding-left:12px;">* Panel count based on 1200mm wide panels.<br>** HP/unit is a reference only — consult your refrigeration supplier.</p>
+        <div class="field">
+          <label>Panel Thickness (mm)</label>
+          <select id="panelThickness">
+            <option value="50">50 mm</option>
+            <option value="75">75 mm</option>
+            <option value="100">100 mm</option>
+            <option value="120" selected>120 mm (Standard Chiller)</option>
+            <option value="150">150 mm (Freezer)</option>
+            <option value="200">200 mm (Deep Freeze)</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="field">
+          <label>Steel Skin Type</label>
+          <select id="steelType">
+            <option value="ppgi" selected>PPGI (Prepainted Galvanized Steel)</option>
+            <option value="aluzinc">Aluzinc / PPGL</option>
+            <option value="ss304">Stainless Steel 304 (Food Grade)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Top/Bottom Skin Thickness</label>
+          <select id="skinThickness">
+            <option value="0.40">0.40 mm</option>
+            <option value="0.45" selected>0.45 mm</option>
+            <option value="0.50">0.50 mm</option>
+            <option value="0.60">0.60 mm</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Profile Factor (Corrugation Allowance)</label>
+          <select id="profileFactor">
+            <option value="1.00">Flat (1.00)</option>
+            <option value="1.02" selected>Low Rib / Standard Wall (1.02)</option>
+            <option value="1.05">Corrugated / Heavy Rib (1.05)</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Wastage Allowance (%)</label>
+          <select id="wastageAllowance">
+            <option value="0">0%</option>
+            <option value="0.03" selected>3%</option>
+            <option value="0.05">5%</option>
+            <option value="0.07">7%</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Include Floor Insulation?</label>
+          <select id="includeFloor">
+            <option value="yes" selected>Yes (Insulated Floor Panels)</option>
+            <option value="no">No (Civil Concrete Floor)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: COST ESTIMATOR RATES -->
+    <div class="card">
+      <h2>4. Project Financial Estimator (Rates in PKR)</h2>
+      <div class="grid-3">
+        <div class="field"><label>Panel Rate (PKR per m²)</label><input type="number" id="ratePerSqM" value="5500"></div>
+        <div class="field"><label>Refrigeration Unit Est. (PKR)</label><input type="number" id="costRefrig" value="850000"></div>
+        <div class="field"><label>Door & Accessories Est. (PKR)</label><input type="number" id="costDoorAcc" value="250000"></div>
+      </div>
+      <div class="grid-2">
+        <div class="field"><label>Installation & Labor Cost (PKR)</label><input type="number" id="costLabor" value="200000"></div>
+        <div class="field"><label>Transportation & Freight (PKR)</label><input type="number" id="costFreight" value="75000"></div>
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="runFullCalculation()">Calculate Comprehensive Cold Store Summary</button>
+
+    <!-- RESULTS SUMMARY BOX -->
+    <div id="resultsContainer" class="results-container">
+      <h2 style="color: #fff; border-bottom: 2px solid var(--frost); padding-bottom: 10px; margin-bottom: 15px;">📊 Comprehensive Engineering & Quotation Summary</h2>
+      
+      <div class="result-section-title">1. Room Geometry & Surface Areas</div>
+      <div class="result-row"><span>Total Room Volume</span><span id="resVolume">—</span></div>
+      <div class="result-row"><span>Floor / Ceiling Area</span><span id="resFloorArea">—</span></div>
+      <div class="result-row"><span>Wall Surface Area</span><span id="resWallArea">—</span></div>
+      <div class="result-row"><span>Total Insulated Area (with wastage)</span><span id="resTotalArea">—</span></div>
+
+      <div class="result-section-title">2. Sandwich Panel Quantities & Weight Breakdown</div>
+      <div class="result-row"><span>Estimated Panel Count (1190mm width basis)</span><span id="resPanelCount">—</span></div>
+      <div class="result-row"><span>Total Steel Skin Weight</span><span id="resSteelWeight">—</span></div>
+      <div class="result-row"><span>Total Core Insulation Weight</span><span id="resCoreWeight">—</span></div>
+      <div class="result-row"><span>Total Net Panel Weight</span><span id="resTotalWeight">—</span></div>
+
+      <div class="result-section-title">3. Thermodynamic Refrigeration Heat Load</div>
+      <div class="result-row"><span>Transmission Heat Gain</span><span id="resTransLoad">—</span></div>
+      <div class="result-row"><span>Product Pull-down Load</span><span id="resProductLoad">—</span></div>
+      <div class="result-row"><span>Infiltration, Lighting & Occupancy Load</span><span id="resMiscLoad">—</span></div>
+      <div class="result-row"><span>Total Peak Heat Load (BTU/hr & kW)</span><span id="resTotalBTU">—</span></div>
+      <div class="result-row" style="background: rgba(79,195,247,0.08); padding: 10px; border-radius: 6px; margin-top: 5px;">
+        <span style="color: var(--frost); font-weight: bold;">Recommended Refrigeration Capacity</span>
+        <span id="resTR" style="color: var(--frost); font-size: 1.1rem;">—</span>
+      </div>
+
+      <div class="result-section-title">4. Financial Cost Estimation</div>
+      <div class="result-row"><span>Total Panels Material Cost</span><span id="costPanelTotal">—</span></div>
+      <div class="result-row"><span>Refrigeration Equipment Cost</span><span id="costRefrigTotal">—</span></div>
+      <div class="result-row"><span>Door & Accessories Cost</span><span id="costDoorTotal">—</span></div>
+      <div class="result-row"><span>Installation & Labor Cost</span><span id="costLaborTotal">—</span></div>
+      <div class="result-row"><span>Transportation & Freight</span><span id="costFreightTotal">—</span></div>
+      <div class="result-row" style="background: rgba(0,184,148,0.1); padding: 12px; border-radius: 6px; margin-top: 8px; border: 1px dashed var(--accent);">
+        <span style="color: var(--accent); font-weight: bold; font-size: 1.05rem;">Estimated Grand Total Project Cost</span>
+        <span id="costGrandTotal" style="color: var(--accent); font-size: 1.2rem;">—</span>
+      </div>
+
+      <div class="action-buttons">
+        <button class="action-btn whatsapp-action" onclick="shareWhatsAppQuote()">💬 Share Quotation on WhatsApp</button>
+        <button class="action-btn pdf-action" onclick="window.print()">📄 Print / Save as PDF</button>
       </div>
     </div>
   </div>
 
   <script>
-    let unit='m';
-    function setUnit(u,btn){
-      if(u===unit)return;
-      const factor = u==='ft' ? (1/0.3048) : 0.3048;
-      ['width','length','height'].forEach(id=>{
-        const el=document.getElementById(id);
-        const v=parseFloat(el.value);
-        if(!isNaN(v))el.value=Math.round(v*factor*100)/100;
+    let unit = 'm';
+
+    function setUnit(u, btn) {
+      if (u === unit) return;
+      const factor = u === 'ft' ? (1 / 0.3048) : 0.3048;
+      ['length', 'width', 'height'].forEach(id => {
+        const el = document.getElementById(id);
+        const val = parseFloat(el.value);
+        if (!isNaN(val)) el.value = (val * factor).toFixed(2);
       });
-      unit=u;
-      document.querySelectorAll('.unit-btn').forEach(b=>b.classList.remove('active'));
-      if(btn)btn.classList.add('active');
-      document.getElementById('widthUnitLabel').textContent=u;
-      document.getElementById('lengthUnitLabel').textContent=u;
-      document.getElementById('heightUnitLabel').textContent=u;
+      unit = u;
+      document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('lenLbl').textContent = u;
+      document.getElementById('widLbl').textContent = u;
+      document.getElementById('hgtLbl').textContent = u;
     }
-    function getThickness(temp){if(temp>-15)return{mm:100,label:'100mm'};if(temp>=-25)return{mm:120,label:'120mm'};return{mm:150,label:'150mm'};}
-    function estimateCompressorHP(tr,temp){let hpPerTR=temp>-5?1.2:temp>-15?1.5:temp>-25?2.0:2.6;let totalHP=tr*hpPerTR;const sizes=[1,1.5,2,3,5,7.5,10,12.5,15,20,25,30,40];function nearest(hp){for(let s of sizes)if(s>=hp)return s;return sizes[sizes.length-1];}if(totalHP<=30){let s=nearest(totalHP);return{units:1,hpEach:s,totalHP};}else{let s=nearest(totalHP/2);return{units:2,hpEach:s,totalHP};}}
-    function estimateLoadKW(vol,temp,prod){let base=temp>-5?25:temp>-15?35:temp>-25?50:70;const factor={meat:1.1,fish:1.15,dairy:1,fruitveg:0.9,icecream:1.2,pharma:0.85,general:1}[prod]||1;let watts=vol*base*factor,kw=watts/1000,tr=kw/3.517;return{kw,tr};}
-    function calculate(){
-      const prod=document.getElementById('product').value;
-      const temp=parseFloat(document.getElementById('temp').value);
-      let W=parseFloat(document.getElementById('width').value),L=parseFloat(document.getElementById('length').value),H=parseFloat(document.getElementById('height').value);
-      if(isNaN(temp)||isNaN(L)||isNaN(W)||isNaN(H)||L<=0||W<=0||H<=0){alert('Please enter valid numbers.');return;}
-      if(unit==='ft'){L*=0.3048;W*=0.3048;H*=0.3048;}
-      const vol=L*W*H,area=2*(L*H)+2*(W*H)+2*(L*W);
-      const thickness=getThickness(temp);const panels=Math.ceil(area/(1.2*3));
-      const load=estimateLoadKW(vol,temp,prod);
-      document.getElementById('placeholder').style.display='none';document.getElementById('resultBody').style.display='block';
-      document.getElementById('thicknessNum').textContent=thickness.label;
-      document.getElementById('areaVal').textContent=area.toFixed(1)+' m²';
-      document.getElementById('volVal').textContent=vol.toFixed(1)+' m³';
-      document.getElementById('panelVal').textContent=panels+' panels';
-      document.getElementById('loadVal').textContent=load.tr.toFixed(2)+' TR ('+load.kw.toFixed(2)+' kW)';
-      const comp=estimateCompressorHP(load.tr,temp);document.getElementById('compVal').textContent=comp.units+' unit'+(comp.units>1?'s':'')+' × '+comp.hpEach+' HP';
-      const gaugeTop=Math.max(0,Math.min(260,(-temp/50)*260));document.getElementById('gaugeMarker').style.top=gaugeTop+'px';
-      const cs=document.getElementById('crossSection');cs.innerHTML='';
-      const m1=document.createElement('div');m1.style.width='5px';m1.style.height='80px';m1.style.background='#AEB8C6';m1.style.borderRadius='2px';cs.appendChild(m1);
-      const foam=document.createElement('div');foam.style.width=Math.min(90,Math.max(30,thickness.mm/2))+'px';foam.style.height='80px';foam.style.background='repeating-linear-gradient(135deg, #3a4258 0 6px, #2C3448 6px 12px)';foam.style.borderRadius='2px';cs.appendChild(foam);
-      const m2=document.createElement('div');m2.style.width='5px';m2.style.height='80px';m2.style.background='#AEB8C6';m2.style.borderRadius='2px';cs.appendChild(m2);
+
+    function updateAmbient() {
+      const val = document.getElementById('climatePreset').value;
+      if (val !== 'custom') {
+        document.getElementById('ambientTemp').value = val;
+      }
+    }
+
+    function applyProductPreset() {
+      const val = document.getElementById('productType').value;
+      const tempInput = document.getElementById('roomTemp');
+      if (val === 'meat') tempInput.value = -18;
+      else if (val === 'fish' || val === 'icecream') tempInput.value = -25;
+      else if (val === 'dairy') tempInput.value = 2;
+      else if (val === 'fruitveg') tempInput.value = 4;
+      else if (val === 'pharma') tempInput.value = 5;
+    }
+
+    function runFullCalculation() {
+      let L = parseFloat(document.getElementById('length').value);
+      let W = parseFloat(document.getElementById('width').value);
+      let H = parseFloat(document.getElementById('height').value);
+
+      if (isNaN(L) || isNaN(W) || isNaN(H) || L <= 0 || W <= 0 || H <= 0) {
+        alert('Please enter valid room dimensions.');
+        return;
+      }
+
+      // Convert to meters for calculation if in feet
+      if (unit === 'ft') {
+        L *= 0.3048; W *= 0.3048; H *= 0.3048;
+      }
+
+      const ambient = parseFloat(document.getElementById('ambientTemp').value) || 45;
+      const roomT = parseFloat(document.getElementById('roomTemp').value) || 4;
+      const includeFloor = document.getElementById('includeFloor').value === 'yes';
+      const wastage = parseFloat(document.getElementById('wastageAllowance').value) || 0;
+
+      // Geometry
+      const volume = L * W * H;
+      const floorArea = L * W;
+      const wallArea = 2 * (L + W) * H;
+      const roofArea = L * W;
+      const baseInsulatedArea = wallArea + roofArea + (includeFloor ? floorArea : 0);
+      const totalInsulatedArea = baseInsulatedArea * (1 + wastage);
+
+      // Panel Count estimation (standard effective width 1.19m, length ~ H or span)
+      const panelCount = Math.ceil(totalInsulatedArea / (1.19 * 2.5));
+
+      // Weight Calculation
+      const skinThick = parseFloat(document.getElementById('skinThickness').value) || 0.45;
+      const profileFact = parseFloat(document.getElementById('profileFactor').value) || 1.02;
+      const coreDensity = parseFloat(document.getElementById('panelDensity').value) || 40;
+      const panelThickMm = parseFloat(document.getElementById('panelThickness').value) || 100;
+
+      // Steel density ~ 7850 kg/m3. Two skins (top & bottom)
+      const steelWeightPerSqM = 2 * skinThick * 0.001 * 7850 * profileFact;
+      const totalSteelWeight = totalInsulatedArea * steelWeightPerSqM;
+
+      const coreVolume = totalInsulatedArea * (panelThickMm * 0.001);
+      const totalCoreWeight = coreVolume * coreDensity;
+      const totalNetWeight = totalSteelWeight + totalCoreWeight;
+
+      // Thermodynamics & Heat Load Calculations
+      const deltaT = Math.max(0, ambient - roomT);
+      // U-factor approximation based on panel thickness (W/m²K)
+      let uFactor = 0.22;
+      if (panelThickMm === 50) uFactor = 0.40;
+      else if (panelThickMm === 75) uFactor = 0.28;
+      else if (panelThickMm === 100) uFactor = 0.22;
+      else if (panelThickMm === 120) uFactor = 0.18;
+      else if (panelThickMm === 150) uFactor = 0.15;
+      else if (panelThickMm === 200) uFactor = 0.11;
+
+      // Transmission Heat Gain (Watts) = U * Area * DeltaT
+      const transmissionWatts = uFactor * baseInsulatedArea * deltaT;
+      const transmissionBTUhr = transmissionWatts * 3.412;
+
+      // Product Pull-down Load
+      const dailyKg = parseFloat(document.getElementById('dailyProductKg').value) || 0;
+      const entryT = parseFloat(document.getElementById('productEntryTemp').value) || 25;
+      const productDeltaT = Math.max(0, entryT - roomT);
+      // Specific heat approx 3.2 kJ/kg°C for food/produce
+      const productWatts = (dailyKg * 3.2 * productDeltaT) / 86400 * 1000;
+      const productBTUhr = productWatts * 3.412;
+
+      // Infiltration, Lighting & Occupancy (approx 20% of transmission + product)
+      const miscBTUhr = (transmissionBTUhr + productBTUhr) * 0.25;
+
+      const safety = parseFloat(document.getElementById('safetyFactor').value) || 1.10;
+      const totalPeakBTUhr = (transmissionBTUhr + productBTUhr + miscBTUhr) * safety;
+      const totalPeakKW = totalPeakBTUhr / 3412;
+      const tonsRefrigeration = totalPeakBTUhr / 12000;
+
+      // Cost Estimation
+      const ratePerSqM = parseFloat(document.getElementById('ratePerSqM').value) || 5500;
+      const costPanel = totalInsulatedArea * ratePerSqM;
+      const costRefrig = parseFloat(document.getElementById('costRefrig').value) || 0;
+      const costDoor = parseFloat(document.getElementById('costDoorAcc').value) || 0;
+      const costLabor = parseFloat(document.getElementById('costLabor').value) || 0;
+      const costFreight = parseFloat(document.getElementById('costFreight').value) || 0;
+      const grandTotal = costPanel + costRefrig + costDoor + costLabor + costFreight;
+
+      // Display Results
+      document.getElementById('resVolume').textContent = volume.toFixed(2) + ' m³';
+      document.getElementById('resFloorArea').textContent = floorArea.toFixed(2) + ' m²';
+      document.getElementById('resWallArea').textContent = wallArea.toFixed(2) + ' m²';
+      document.getElementById('resTotalArea').textContent = totalInsulatedArea.toFixed(2) + ' m²';
+
+      document.getElementById('resPanelCount').textContent = panelCount + ' panels';
+      document.getElementById('resSteelWeight').textContent = totalSteelWeight.toFixed(1) + ' kg';
+      document.getElementById('resCoreWeight').textContent = totalCoreWeight.toFixed(1) + ' kg';
+      document.getElementById('resTotalWeight').textContent = totalNetWeight.toFixed(1) + ' kg (~' + (totalNetWeight/1000).toFixed(2) + ' Tons)';
+
+      document.getElementById('resTransLoad').textContent = Math.round(transmissionBTUhr).toLocaleString() + ' BTU/hr';
+      document.getElementById('resProductLoad').textContent = Math.round(productBTUhr).toLocaleString() + ' BTU/hr';
+      document.getElementById('resMiscLoad').textContent = Math.round(miscBTUhr).toLocaleString() + ' BTU/hr';
+      document.getElementById('resTotalBTU').textContent = Math.round(totalPeakBTUhr).toLocaleString() + ' BTU/hr (' + totalPeakKW.toFixed(2) + ' kW)';
+      document.getElementById('resTR').textContent = tonsRefrigeration.toFixed(2) + ' TR (Tons of Refrigeration)';
+
+      document.getElementById('costPanelTotal').textContent = Math.round(costPanel).toLocaleString() + ' PKR';
+      document.getElementById('costRefrigTotal').textContent = Math.round(costRefrig).toLocaleString() + ' PKR';
+      document.getElementById('costDoorTotal').textContent = Math.round(costDoor).toLocaleString() + ' PKR';
+      document.getElementById('costLaborTotal').textContent = Math.round(costLabor).toLocaleString() + ' PKR';
+      document.getElementById('costFreightTotal').textContent = Math.round(costFreight).toLocaleString() + ' PKR';
+      document.getElementById('costGrandTotal').textContent = Math.round(grandTotal).toLocaleString() + ' PKR';
+
+      document.getElementById('resultsContainer').style.display = 'block';
+      document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function shareWhatsAppQuote() {
+      const area = document.getElementById('resTotalArea').textContent;
+      const panels = document.getElementById('resPanelCount').textContent;
+      const weight = document.getElementById('resTotalWeight').textContent;
+      const tr = document.getElementById('resTR').textContent;
+      const grandTotal = document.getElementById('costGrandTotal').textContent;
+
+      const message = `❄️ *ColdMatrix Cold Storage Quotation Summary* ❄️%0A%0A` +
+        `📐 *Insulated Area:* ${area}%0A` +
+        `📦 *Panels Required:* ${panels}%0A` +
+        `⚖️ *Est. Total Weight:* ${weight}%0A` +
+        `❄️ *Refrigeration Load:* ${tr}%0A` +
+        `💰 *Grand Total Est:* ${grandTotal}%0A%0A` +
+        `Calculated via ColdMatrix Tools - https://coldmatrixtools.com`;
       
-      // Update the Results Box for WhatsApp & PDF
-      let panelCount = panels;
-      let rate = document.getElementById('rateInput').value || 0;
-      document.getElementById('display-thickness').innerText = thickness.label;
-      document.getElementById('display-panels').innerText = panelCount;
-      document.getElementById('display-rate').innerText = rate;
-      document.getElementById('display-cost').innerText = (panelCount * rate).toLocaleString();
-      document.getElementById('result-area').style.display = 'block';
-    }
-
-    // Share on WhatsApp
-    function shareWhatsApp() {
-        let thickness = document.getElementById('display-thickness').innerText;
-        let panels = document.getElementById('display-panels').innerText;
-        let rate = document.getElementById('display-rate').innerText;
-        let cost = document.getElementById('display-cost').innerText;
-        let message = `My Cold Storage Calculation Results:%0A%0A📦 Panel Thickness: ${thickness}%0A📋 Total Panels: ${panels}%0A💰 Rate per panel: ${rate} PKR%0A💵 Estimated Cost: ${cost} PKR%0A%0A🔗 Calculated using ColdMatrix Tools - https://coldmatrixtools.com`;
-        window.open(`https://wa.me/?text=${message}`, '_blank');
-    }
-
-    // Download PDF
-    function downloadPDF() {
-        window.print();
+      window.open(`https://wa.me/?text=${message}`, '_blank');
     }
   </script>
   <script>
-    let deferredPromptTool;const bar=document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPromptTool=e;});
-    function installAppTool(){if(deferredPromptTool){deferredPromptTool.prompt();deferredPromptTool.userChoice.then(()=>{bar.style.display='none';});}else{alert('📲 Open your browser menu and choose "Add to Home Screen" to install ColdMatrix.');}}
-    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+    let deferredPromptTool; const bar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPromptTool = e; bar.style.display = 'block'; });
+    function installAppTool() { if (deferredPromptTool) { deferredPromptTool.prompt(); deferredPromptTool.userChoice.then(() => { bar.style.display = 'none'; }); } else { alert('📲 Open your browser menu and choose "Add to Home Screen" to install ColdMatrix.'); } }
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js').catch(() => {}); }
   </script>
 </body>
 </html>
