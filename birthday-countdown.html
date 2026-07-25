@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Birthday Countdown � ColdMatrix Tools</title>
+  <title>Birthday Countdown — ColdMatrix Tools</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -11,19 +11,19 @@
       --bg: #0A0F14; --surface: #12181F; --border: #2A3540;
       --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7;
       --gradient: linear-gradient(135deg, #4FC3F7, #2196F3);
-      --fun: #FFD700;
+      --fun: #FFD700; --whatsapp: #25D366;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; padding: 20px; }
-    .container { max-width: 800px; margin: 40px auto; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; padding: 15px; }
+    .container { max-width: 800px; margin: 20px auto; }
     
     .birthday-card {
-      background: linear-gradient(rgba(10, 15, 20, 0.75), rgba(10, 15, 20, 0.85)), url('birthday_calc.jpg');
+      background: linear-gradient(rgba(10, 15, 20, 0.8), rgba(10, 15, 20, 0.9)), url('birthday_calc.jpg');
       background-size: cover;
       background-position: center;
       border: 1px solid rgba(255, 107, 138, 0.4);
       border-radius: 20px;
-      padding: 40px 30px;
+      padding: 30px 20px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -31,43 +31,47 @@
     }
 
     .birthday-card h1 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 800;
       color: #fff;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       text-shadow: 0 2px 8px rgba(0,0,0,0.6);
     }
 
     .birthday-card p {
       color: #EAEDF0;
-      font-size: 1rem;
-      margin-bottom: 24px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
       text-shadow: 0 1px 4px rgba(0,0,0,0.8);
     }
 
     .input-group {
       display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 12px;
       margin-bottom: 25px;
+      width: 100%;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    input[type="date"] {
-      padding: 12px 18px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(18, 24, 31, 0.9);
-      color: #fff;
+    .input-group input, .input-group button {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
       font-size: 1rem;
       outline: none;
     }
 
+    .input-group input {
+      border: 1px solid var(--border);
+      background: rgba(18, 24, 31, 0.95);
+      color: #fff;
+    }
+
     .btn {
-      padding: 12px 24px;
-      border-radius: 10px;
       font-weight: 600;
-      font-size: 0.95rem;
       background: var(--gradient);
       color: #0A0F14;
       border: none;
@@ -75,78 +79,109 @@
       transition: transform 0.2s;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
-    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-whatsapp { background: var(--whatsapp); color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; padding: 12px 20px; border-radius: 10px; font-weight: 600; }
+    .btn-download { background: #ff9800; color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 20px; border-radius: 10px; font-weight: 600; border: none; cursor: pointer; }
 
     .countdown-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-      gap: 12px;
-      margin-top: 25px;
-      margin-bottom: 25px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+      margin-bottom: 20px;
     }
 
     .time-box {
-      background: rgba(18, 24, 31, 0.85);
+      background: rgba(18, 24, 31, 0.9);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
-      padding: 15px 10px;
+      padding: 12px 5px;
       backdrop-filter: blur(5px);
     }
 
     .time-value {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       font-weight: 800;
       color: var(--fun);
     }
 
     .time-label {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
       color: var(--muted);
       margin-top: 4px;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
     .extra-info {
-      margin-top: 20px;
-      font-size: 0.95rem;
+      margin-top: 15px;
+      font-size: 0.9rem;
       color: #d0d6dc;
-      background: rgba(10, 15, 20, 0.6);
+      background: rgba(10, 15, 20, 0.7);
       padding: 12px;
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.05);
     }
 
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .shortcut-tip {
+      background: rgba(79, 195, 247, 0.08);
+      border: 1px dashed var(--accent);
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #b0e0f8;
+      text-align: left;
+    }
+
     .back-link {
       display: inline-block;
-      margin-top: 25px;
+      margin-top: 20px;
       color: var(--accent);
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 500;
     }
+    .back-link:hover { text-decoration: underline; }
 
-    .back-link:hover {
-      text-decoration: underline;
+    @media (min-width: 600px) {
+      .countdown-grid { grid-template-columns: repeat(6, 1fr); }
+      .action-buttons { flex-direction: row; justify-content: center; }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <div class="birthday-card" id="birthday-card">
-      <h1> Birthday Countdown</h1>
-      <p> Select a birthdate to launch the live countdown, see turning age, zodiac sign, and custom celebration wishes!</p>
+    <div class="birthday-card" id="captureCard">
+      <h1>🎂 Birthday Countdown</h1>
+      <p>Enter name and birthdate to launch the live countdown, see turning age, zodiac sign, and share updates!</p>
       
       <div class="input-group">
+        <input type="text" id="personName" placeholder="Whose birthday? (e.g. Waseem)">
         <input type="date" id="bdayInput">
         <button class="btn" onclick="startCountdownTimer()">Start Countdown</button>
       </div>
 
       <div id="resultArea" style="display:none;">
+        <h3 id="targetTitle" style="color: var(--accent); margin-bottom: 15px; font-size: 1.1rem;"></h3>
+        
         <div class="countdown-grid">
+          <div class="time-box">
+            <div class="time-value" id="months">00</div>
+            <div class="time-label">Months</div>
+          </div>
+          <div class="time-box">
+            <div class="time-value" id="weeks">00</div>
+            <div class="time-label">Weeks</div>
+          </div>
           <div class="time-box">
             <div class="time-value" id="days">00</div>
             <div class="time-label">Days</div>
@@ -157,40 +192,53 @@
           </div>
           <div class="time-box">
             <div class="time-value" id="minutes">00</div>
-            <div class="time-label">Minutes</div>
+            <div class="time-label">Mins</div>
           </div>
           <div class="time-box">
             <div class="time-value" id="seconds">00</div>
-            <div class="time-label">Seconds</div>
+            <div class="time-label">Secs</div>
           </div>
         </div>
+
         <div class="extra-info" id="extraInfo"></div>
+
+        <div class="action-buttons">
+          <a id="whatsappShareBtn" href="#" target="_blank" class="btn-whatsapp">💬 Share to WhatsApp</a>
+          <button class="btn-download" onclick="downloadCountdownCard()">📥 Save Countdown Card</button>
+        </div>
+
+        <div class="shortcut-tip">
+          💡 <strong>Pro Tip:</strong> Tap your browser menu (three dots <b>⋮</b>) and select <b>"Add to Home Screen"</b> or <b>"Install App"</b> to pin this countdown to your device screen for instant access!
+        </div>
       </div>
     </div>
 
     <div style="text-align: center;">
-      <a href="https://coldmatrixtools.com/" class="back-link"> Back to ColdMatrix Tools</a>
+      <a href="https://coldmatrixtools.com/" class="back-link">← Back to ColdMatrix Tools</a>
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
   <script>
     let timerInterval;
+    let currentSharedText = "";
 
     function getZodiacSign(day, month) {
       const signs = [
-        { name: "Capricorn ", start: [1,1], end: [1,19] },
-        { name: "Aquarius ", start: [1,20], end: [2,18] },
-        { name: "Pisces ", start: [2,19], end: [3,20] },
-        { name: "Aries ", start: [3,21], end: [4,19] },
-        { name: "Taurus ", start: [4,20], end: [5,20] },
-        { name: "Gemini ", start: [5,21], end: [6,20] },
-        { name: "Cancer ", start: [6,21], end: [7,22] },
-        { name: "Leo ", start: [7,23], end: [8,22] },
-        { name: "Virgo ", start: [8,23], end: [9,22] },
-        { name: "Libra ", start: [9,23], end: [10,22] },
-        { name: "Scorpio ", start: [10,23], end: [11,21] },
-        { name: "Sagittarius ", start: [11,22], end: [12,21] },
-        { name: "Capricorn ", start: [12,22], end: [12,31] }
+        { name: "Capricorn ♑", start: [1,1], end: [1,19] },
+        { name: "Aquarius ♒", start: [1,20], end: [2,18] },
+        { name: "Pisces ♓", start: [2,19], end: [3,20] },
+        { name: "Aries ♈", start: [3,21], end: [4,19] },
+        { name: "Taurus ♉", start: [4,20], end: [5,20] },
+        { name: "Gemini ♊", start: [5,21], end: [6,20] },
+        { name: "Cancer ♋", start: [6,21], end: [7,22] },
+        { name: "Leo ♌", start: [7,23], end: [8,22] },
+        { name: "Virgo ♍", start: [8,23], end: [9,22] },
+        { name: "Libra ♎", start: [9,23], end: [10,22] },
+        { name: "Scorpio ♏", start: [10,23], end: [11,21] },
+        { name: "Sagittarius ♐", start: [11,22], end: [12,21] },
+        { name: "Capricorn ♑", start: [12,22], end: [12,31] }
       ];
       for (let sign of signs) {
         if ((month === sign.start[0] && day >= sign.start[1]) || (month === sign.end[0] && day <= sign.end[1])) {
@@ -202,14 +250,16 @@
 
     function startCountdownTimer() {
       const inputVal = document.getElementById('bdayInput').value;
+      const nameVal = document.getElementById('personName').value.trim() || "Special";
       const resultArea = document.getElementById('resultArea');
       
       if (!inputVal) {
-        alert(" Please select a valid birthdate first!");
+        alert("⚠️ Please select a valid birthdate first!");
         return;
       }
 
       resultArea.style.display = "block";
+      document.getElementById('targetTitle').innerText = `🎉 Countdown for ${nameVal}'s Special Day!`;
       clearInterval(timerInterval);
 
       const bdayDate = new Date(inputVal);
@@ -231,30 +281,49 @@
         const diff = nextBday - now;
 
         if (diff <= 0) {
+          document.getElementById('months').innerText = "00";
+          document.getElementById('weeks').innerText = "00";
           document.getElementById('days').innerText = "00";
           document.getElementById('hours').innerText = "00";
           document.getElementById('minutes').innerText = "00";
           document.getElementById('seconds').innerText = "00";
-          document.getElementById('extraInfo').innerHTML = " <strong>Happy Birthday!</strong> Wishing you a wonderful and joyful day filled with success and happiness! ";
+          document.getElementById('extraInfo').innerHTML = `🎊 <strong>Happy Birthday ${nameVal}!</strong> Wishing you a wonderful and joyful day filled with success and happiness! 🎂`;
           return;
         }
 
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const months = Math.floor(totalDays / 30.44);
+        const weeks = Math.floor(totalDays / 7);
         const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
         const minutes = Math.floor((diff / 1000 / 60) % 60);
         const seconds = Math.floor((diff / 1000) % 60);
 
-        document.getElementById('days').innerText = String(days).padStart(2, '0');
+        document.getElementById('months').innerText = String(Math.max(0, months)).padStart(2, '0');
+        document.getElementById('weeks').innerText = String(weeks).padStart(2, '0');
+        document.getElementById('days').innerText = String(totalDays).padStart(2, '0');
         document.getElementById('hours').innerText = String(hours).padStart(2, '0');
         document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
         document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
 
         const zodiac = getZodiacSign(bDay, bMonth);
-        document.getElementById('extraInfo').innerHTML = ` Turning <strong>${turningAge}</strong> years old &nbsp;|&nbsp; Zodiac Sign: <strong>${zodiac}</strong>`;
+        document.getElementById('extraInfo').innerHTML = `✨ Turning <strong>${turningAge}</strong> years old &nbsp;|&nbsp; Zodiac Sign: <strong>${zodiac}</strong>`;
+
+        currentSharedText = `⏳ *Countdown to ${nameVal}'s Birthday!*\nOnly *${totalDays} Days* (${weeks} Weeks / ${hours} Hours) left until turning ${turningAge}!\nCalculated via ColdMatrix Tools ❄️`;
+        document.getElementById('whatsappShareBtn').href = `https://wa.me/?text=${encodeURIComponent(currentSharedText)}`;
       }
 
       updateTimer();
       timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function downloadCountdownCard() {
+      const cardElement = document.getElementById('captureCard');
+      html2canvas(cardElement, { scale: 2, backgroundColor: '#0A0F14' }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'birthday-countdown.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
     }
   </script>
 
