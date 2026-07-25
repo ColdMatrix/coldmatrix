@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://coldmatrixtools.com/concrete-calculator.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Concrete Calculator — Free Tool | ColdMatrix Pakistan</title>
+  <meta name="description" content="Free concrete calculator for Pakistan. Calculate cement bags, sand, and aggregate required for your slab, footing, or column.">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0F14;
+      --surface: #12181F;
+      --surface2: #1B232C;
+      --border: #2A3540;
+      --text: #EAEDF0;
+      --muted: #8B98A5;
+      --accent: #4FC3F7;
+      --gradient: linear-gradient(135deg, #4FC3F7, #2196F3);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
+    .container { max-width: 900px; margin:0 auto; padding:0 24px; }
+
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+
+    .ad-card { border-radius:14px; overflow:hidden; background: linear-gradient(90deg, rgba(10,15,20,0.7), rgba(10,15,20,0.4)), url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+    .ad-card ul { list-style:none; padding:0; margin:0; }
+    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
+    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
+    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
+
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; }
+    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
+    .subtitle { color:var(--muted); margin-bottom:30px; }
+
+    .tool-card {
+      background: var(--surface);
+      border-top: 3px solid var(--accent);
+      border-bottom: 3px solid var(--accent);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .tool-card .live-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(79,195,247,0.1);
+      padding: 2px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(79,195,247,0.2);
+    }
+    .tool-card h2 { font-size:1.1rem; font-weight:700; margin-bottom:6px; }
+    .tool-card .desc { color:var(--muted); font-size:0.9rem; margin-bottom:20px; }
+
+    .field { margin-bottom:16px; }
+    .field label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
+    .field input, .field select { width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:14px; border-radius:10px; font-size:1rem; }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); }
+
+    .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+    .btn-primary { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; transition:0.2s; }
+    .btn-primary:hover { transform:scale(1.02); }
+
+    .result-box { background:var(--surface2); border:1px solid var(--accent); border-radius:12px; padding:20px; margin-top:20px; display:none; }
+    .result-row { display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border); }
+    .result-row:last-child { border-bottom:none; }
+    .result-label { color:var(--muted); font-size:0.9rem; }
+    .result-value { font-weight:700; font-size:1.1rem; color:var(--accent); }
+
+    .share-buttons { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+    .share-buttons button { padding:10px 20px; border:none; border-radius:8px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; }
+    .btn-wa { background:#25D366; color:white; }
+    .btn-pdf { background:#0077B5; color:white; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--accent); text-decoration:none; }
+
+    @media (max-width:600px) {
+      .row3 { grid-template-columns:1fr; }
+      .row2 { grid-template-columns:1fr; }
+      h1 { font-size:1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools" class="active">🛠️ Tools</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="ad-card">
+      <div>
+        <ul>
+          <li>PEB Structures</li>
+          <li>Cold Storage & Freezer Rooms</li>
+          <li>PU/PIR Sandwich Panels</li>
+          <li>Prefab Construction Solutions</li>
+        </ul>
+        <div style="font-size:0.8rem;color:#c8d0d8;margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+      </div>
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I'm%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+    </div>
+
+    <div class="install-bar" id="installBar">📱 Add to Home Screen <button onclick="installApp()">Add</button></div>
+
+    <!-- Banner with Background Image -->
+    <div style="width:100%; height:180px; background: linear-gradient(rgba(10,15,20,0.5), rgba(10,15,20,0.6)), url('concrete_calc.jpg') center/cover no-repeat; border-radius:12px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:800; color:white; border:1px solid var(--border);">
+      🏗️ Concrete & Cement Bag Calculator
+    </div>
+    <p class="subtitle" style="margin-top:0;">Calculate cement bags, sand, and aggregate required for slab, footing, or column — free and accurate.</p>
+
+    <!-- Rate Input -->
+    <div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
+      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate:</label>
+        <input type="number" id="rateInput" value="1200" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
+        <select id="currency" style="padding: 8px; border: 2px solid #00b894; border-radius: 5px; background: white; font-weight: bold;">
+          <option value="PKR">🇵🇰 PKR</option>
+          <option value="USD">🇺🇸 USD</option>
+          <option value="GBP">🇬🇧 GBP</option>
+          <option value="EUR">🇪🇺 EUR</option>
+          <option value="AED">🇦🇪 AED</option>
+          <option value="SAR">🇸🇦 SAR</option>
+          <option value="CNY">🇨🇳 CNY</option>
+        </select>
+        <select id="rateUnit" style="padding: 8px; border: 2px solid #00b894; border-radius: 5px; background: white; font-weight: bold;">
+          <option value="bag">per Cement Bag</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tool Card -->
+    <div class="tool-card">
+      <div class="live-badge">● LIVE</div>
+      <h2>📐 Enter Slab Details</h2>
+      <p class="desc">Enter dimensions to calculate concrete volume and cement bags required.</p>
+
+      <div class="row3">
+        <div class="field"><label>Length (ft)</label><input type="number" id="length" value="10"></div>
+        <div class="field"><label>Width (ft)</label><input type="number" id="width" value="10"></div>
+        <div class="field"><label>Thickness (ft)</label><input type="number" id="thickness" value="0.5"></div>
+      </div>
+
+      <button class="btn-primary" onclick="calculateConcrete()">🧱 Calculate Concrete</button>
+
+      <div class="result-box" id="resultBox">
+        <div class="result-row"><span class="result-label">Total Volume</span><span class="result-value" id="volOut">—</span></div>
+        <div class="result-row"><span class="result-label">Cement Bags (50kg)</span><span class="result-value" id="bagsOut">—</span></div>
+        <div class="result-row"><span class="result-label">Sand Required</span><span class="result-value" id="sandOut">—</span></div>
+        <div class="result-row"><span class="result-label">Aggregate Required</span><span class="result-value" id="aggOut">—</span></div>
+        <div class="result-row"><span class="result-label">Total Cost</span><span class="result-value" id="costOut">—</span></div>
+      </div>
+
+      <div id="result-area" style="display: none; margin-top: 20px; padding: 16px; background: #f0f4f8; border-radius: 12px; border-left: 5px solid #00b894; color: #222;">
+        <h3 style="margin:0; color:#222;">📊 Your Results Summary</h3>
+        <div id="result-content" style="font-size:1rem; line-height:1.8;">
+          <p><strong>Total Volume:</strong> <span id="display-vol">0</span> cu ft</p>
+          <p><strong>Cement Bags:</strong> <span id="display-bags">0</span></p>
+          <p><strong>Rate per Bag:</strong> <span id="display-rate">0</span></p>
+          <p><strong>Total Cost:</strong> <span id="display-cost">0</span></p>
+        </div>
+        <div class="share-buttons">
+          <button class="btn-wa" onclick="shareWhatsApp()">📤 Share on WhatsApp</button>
+          <button class="btn-pdf" onclick="downloadPDF()">📄 Download PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+
+  <script>
+    const currencySymbols = {
+      'PKR': 'Rs',
+      'USD': '$',
+      'GBP': '£',
+      'EUR': '€',
+      'AED': 'د.إ',
+      'SAR': 'ر.س',
+      'CNY': '¥'
+    };
+
+    function calculateConcrete() {
+      const length = parseFloat(document.getElementById('length').value) || 0;
+      const width = parseFloat(document.getElementById('width').value) || 0;
+      const thickness = parseFloat(document.getElementById('thickness').value) || 0;
+
+      if (length <= 0 || width <= 0 || thickness <= 0) {
+        alert('Please enter valid dimensions.');
+        return;
+      }
+
+      const volumeCuFt = length * width * thickness;
+      const volumeCuM = volumeCuFt / 35.315;
+
+      // For M15 (1:2:4) — roughly 1 bag per 4.5 cu ft
+      const bags = Math.ceil(volumeCuFt / 4.5);
+      const sand = (volumeCuFt * 0.42).toFixed(1);
+      const aggregate = (volumeCuFt * 0.84).toFixed(1);
+
+      const rate = parseFloat(document.getElementById('rateInput').value) || 0;
+      const currency = document.getElementById('currency').value;
+      const symbol = currencySymbols[currency] || 'Rs';
+      const totalCost = bags * rate;
+
+      document.getElementById('volOut').textContent = volumeCuFt.toFixed(2) + ' cu ft';
+      document.getElementById('bagsOut').textContent = bags + ' bags';
+      document.getElementById('sandOut').textContent = sand + ' cu ft';
+      document.getElementById('aggOut').textContent = aggregate + ' cu ft';
+      document.getElementById('costOut').textContent = symbol + ' ' + totalCost.toLocaleString();
+
+      document.getElementById('resultBox').style.display = 'block';
+
+      // Update results area
+      document.getElementById('display-vol').textContent = volumeCuFt.toFixed(2) + ' cu ft';
+      document.getElementById('display-bags').textContent = bags;
+      document.getElementById('display-rate').textContent = symbol + ' ' + rate;
+      document.getElementById('display-cost').textContent = symbol + ' ' + totalCost.toLocaleString();
+      document.getElementById('result-area').style.display = 'block';
+    }
+
+    function shareWhatsApp() {
+      let vol = document.getElementById('display-vol').innerText;
+      let bags = document.getElementById('display-bags').innerText;
+      let rate = document.getElementById('display-rate').innerText;
+      let cost = document.getElementById('display-cost').innerText;
+      let msg = `🧱 Concrete Calculation Results:%0A%0A📐 Volume: ${vol}%0A🛠️ Cement Bags: ${bags}%0A💰 Rate: ${rate}%0A💵 Total Cost: ${cost}%0A%0A🔗 Calculated using ColdMatrix Tools - https://coldmatrixtools.com/concrete-calculator.html`;
+      window.open(`https://wa.me/?text=${msg}`, '_blank');
+    }
+
+    function downloadPDF() {
+      window.print();
+    }
+
+    let deferredPrompt;
+    const installBar = document.getElementById('installBar');
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBar.style.display = 'block';
+    });
+
+    function installApp() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          installBar.style.display = 'none';
+        });
+      } else {
+        alert('📱 To add to home screen:\n• Android: Tap "Add to Home Screen" in Chrome menu.\n• iPhone: Tap Share → "Add to Home Screen".');
+      }
+    }
+
+    window.addEventListener('appinstalled', () => {
+      installBar.style.display = 'none';
+    });
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>

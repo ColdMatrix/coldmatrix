@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://coldmatrixtools.com/business-card-tool.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Card & Letterhead Studio | ColdMatrix Tools</title>
+  <meta name="description" content="Create professional business cards and letterheads instantly — free tool for professionals in Pakistan.">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- html2canvas for downloading graphics -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0F14;
+      --surface: #12181F;
+      --surface2: #1B232C;
+      --border: #2A3540;
+      --text: #EAEDF0;
+      --muted: #8B98A5;
+      --accent: #4FC3F7;
+      --gradient: linear-gradient(135deg, #4FC3F7, #2196F3);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
+    .container { max-width: 1100px; margin:0 auto; padding:0 20px; }
+
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+
+    .ad-card { border-radius:14px; overflow:hidden; background: linear-gradient(90deg, rgba(10,15,20,0.7), rgba(10,15,20,0.4)), url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+    .ad-card ul { list-style:none; padding:0; margin:0; }
+    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
+    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
+    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
+
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; }
+    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
+    .subtitle { color:var(--muted); margin-bottom:30px; }
+
+    .tool-card {
+      background: var(--surface);
+      border-top: 3px solid var(--accent);
+      border-bottom: 3px solid var(--accent);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .tool-card .live-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(79,195,247,0.1);
+      padding: 2px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(79,195,247,0.2);
+    }
+    .tool-card h2 { font-size:1.1rem; font-weight:700; margin-bottom:6px; }
+    .tool-card .desc { color:var(--muted); font-size:0.9rem; margin-bottom:20px; }
+
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .field { margin-bottom:14px; }
+    .field label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:4px; font-weight:500; }
+    .field input, .field select { width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:12px; border-radius:10px; font-size:0.95rem; }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); }
+
+    .btn-primary { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:14px; border-radius:12px; font-weight:700; font-size:1rem; cursor:pointer; transition:0.2s; margin-top:8px; }
+    .btn-primary:hover { transform:scale(1.02); }
+
+    /* PREVIEW AREA */
+    .preview-container {
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      background:var(--surface2); border:1px solid var(--border); border-radius:12px;
+      padding:24px; margin-top:20px;
+    }
+    .preview-container .preview-label { font-size:0.7rem; color:var(--muted); margin-bottom:12px; letter-spacing:1px; text-transform:uppercase; }
+
+    #cardPreview, #letterPreview {
+      background: #ffffff;
+      border-radius:12px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.5);
+      overflow:hidden;
+      transition:0.3s;
+    }
+    #cardPreview { width:100%; max-width:420px; min-height:220px; padding:20px; display:flex; flex-direction:column; justify-content:space-between; color:#1a1a2e; }
+    #letterPreview { width:100%; max-width:420px; min-height:500px; padding:28px; display:none; flex-direction:column; justify-content:space-between; color:#1a1a2e; background:#ffffff; }
+
+    .preview-accent { width:4px; height:100%; background:var(--accent); border-radius:4px; }
+    .preview-company { font-size:1.1rem; font-weight:700; color:#0A0F14; }
+    .preview-tagline { font-size:0.65rem; color:#7C8798; }
+    .preview-name { font-size:1.2rem; font-weight:700; color:#0A0F14; }
+    .preview-title { font-size:0.7rem; color:var(--accent); font-weight:600; }
+    .preview-contact { font-size:0.6rem; color:#4a4a5a; display:flex; flex-wrap:wrap; gap:4px 12px; border-top:1px solid #e2e8f0; padding-top:10px; margin-top:6px; }
+    .preview-contact i { color:var(--accent); width:16px; }
+
+    .view-toggle { display:flex; gap:8px; margin-bottom:16px; }
+    .view-btn { padding:8px 18px; border:1px solid var(--border); background:var(--surface2); color:var(--muted); border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; transition:0.2s; }
+    .view-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(79,195,247,0.1); }
+
+    .share-buttons { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; justify-content:center; }
+    .share-buttons button { padding:10px 20px; border:none; border-radius:8px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; font-size:0.85rem; }
+    .btn-wa { background:#25D366; color:white; }
+    .btn-pdf { background:#0077B5; color:white; }
+    .btn-download { background:var(--accent); color:#0A0F14; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--accent); text-decoration:none; }
+
+    @media (max-width:600px) {
+      .row2 { grid-template-columns:1fr; }
+      h1 { font-size:1.4rem; }
+      #cardPreview { min-height:180px; padding:16px; }
+      #letterPreview { min-height:400px; padding:20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools" class="active">🛠️ Tools</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="ad-card">
+      <div>
+        <ul>
+          <li>PEB Structures</li>
+          <li>Cold Storage & Freezer Rooms</li>
+          <li>PU/PIR Sandwich Panels</li>
+          <li>Prefab Construction Solutions</li>
+        </ul>
+        <div style="font-size:0.8rem;color:#c8d0d8;margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+      </div>
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I'm%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+    </div>
+
+    <div class="install-bar" id="installBar">📱 Add to Home Screen <button onclick="installApp()">Add</button></div>
+
+    <!-- Banner with Background Image -->
+    <div style="width:100%; height:180px; background: linear-gradient(rgba(10,15,20,0.5), rgba(10,15,20,0.6)), url('business_card.jpg') center/cover no-repeat; border-radius:12px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:800; color:white; border:1px solid var(--border);">
+      📇 Business Card & Letterhead Studio
+    </div>
+    <p class="subtitle" style="margin-top:0;">Create professional business cards and letterheads instantly — free for professionals in Pakistan.</p>
+
+    <!-- Rate Input (kept for consistency) -->
+    <div style="margin:15px 0; display:flex; flex-wrap:wrap; align-items:center; gap:15px; background:#f8f9fa; padding:12px 18px; border-radius:10px; border:1px solid #e0e0e0;">
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <label for="rateInput" style="font-weight:bold; color:#333;">💰 Rate:</label>
+        <input type="number" id="rateInput" value="1000" style="padding:8px; width:100px; border:2px solid #00b894; border-radius:5px; font-size:1rem;">
+        <select id="currency" style="padding:8px; border:2px solid #00b894; border-radius:5px; background:white; font-weight:bold;">
+          <option value="PKR">🇵🇰 PKR</option>
+          <option value="USD">🇺🇸 USD</option>
+          <option value="GBP">🇬🇧 GBP</option>
+          <option value="EUR">🇪🇺 EUR</option>
+          <option value="AED">🇦🇪 AED</option>
+          <option value="SAR">🇸🇦 SAR</option>
+          <option value="CNY">🇨🇳 CNY</option>
+        </select>
+        <select id="rateUnit" style="padding:8px; border:2px solid #00b894; border-radius:5px; background:white; font-weight:bold;">
+          <option value="design">per Design</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Main Tool Card -->
+    <div class="tool-card">
+      <div class="live-badge">● LIVE</div>
+      <h2>🎨 Design Your Professional Identity</h2>
+      <p class="desc">Enter your details below and see the live preview. Download high-resolution graphics for printing or digital use.</p>
+
+      <!-- Controls -->
+      <div class="row2">
+        <div class="field">
+          <label>🏢 Company Name</label>
+          <input type="text" id="inputCompany" value="ColdMatrix" oninput="updatePreview()">
+        </div>
+        <div class="field">
+          <label>📌 Tagline</label>
+          <input type="text" id="inputTagline" value="Engineering & Design" oninput="updatePreview()">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>👤 Full Name</label>
+          <input type="text" id="inputName" value="Ahmed Raza" oninput="updatePreview()">
+        </div>
+        <div class="field">
+          <label>📋 Designation</label>
+          <input type="text" id="inputTitle" value="Director" oninput="updatePreview()">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label>📞 Phone</label>
+          <input type="text" id="inputPhone" value="+92 300 1234567" oninput="updatePreview()">
+        </div>
+        <div class="field">
+          <label>✉️ Email</label>
+          <input type="text" id="inputEmail" value="info@coldmatrix.com" oninput="updatePreview()">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>📍 Address</label>
+        <input type="text" id="inputAddress" value="Karachi, Pakistan" oninput="updatePreview()">
+      </div>
+
+      <!-- View Toggle -->
+      <div class="view-toggle">
+        <button class="view-btn active" data-view="card" onclick="switchView('card')">📇 Business Card</button>
+        <button class="view-btn" data-view="letter" onclick="switchView('letter')">📄 Letterhead</button>
+      </div>
+
+      <!-- Preview -->
+      <div class="preview-container">
+        <span class="preview-label">Live Preview</span>
+
+        <!-- Business Card -->
+        <div id="cardPreview">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div>
+              <div class="preview-company" id="previewCompany">ColdMatrix</div>
+              <div class="preview-tagline" id="previewTagline">Engineering & Design</div>
+            </div>
+            <div style="background:var(--accent); color:white; padding:4px 10px; border-radius:6px; font-size:0.5rem; font-weight:700;">❄️</div>
+          </div>
+          <div style="margin:12px 0 8px;">
+            <div class="preview-name" id="previewName">Ahmed Raza</div>
+            <div class="preview-title" id="previewTitle">Director</div>
+          </div>
+          <div class="preview-contact">
+            <span><i class="fa-solid fa-phone"></i> <span id="previewPhone">+92 300 1234567</span></span>
+            <span><i class="fa-solid fa-envelope"></i> <span id="previewEmail">info@coldmatrix.com</span></span>
+            <span style="flex:1; min-width:100%;"><i class="fa-solid fa-location-dot"></i> <span id="previewAddress">Karachi, Pakistan</span></span>
+          </div>
+        </div>
+
+        <!-- Letterhead -->
+        <div id="letterPreview">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--accent); padding-bottom:12px; margin-bottom:16px;">
+              <div>
+                <div style="font-size:1.2rem; font-weight:700; color:#0A0F14;" id="lPreviewCompany">ColdMatrix</div>
+                <div style="font-size:0.6rem; color:#7C8798;" id="lPreviewTagline">Engineering & Design</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-weight:700; font-size:0.9rem; color:#0A0F14;" id="lPreviewName">Ahmed Raza</div>
+                <div style="font-size:0.6rem; color:var(--accent); font-weight:600;" id="lPreviewTitle">Director</div>
+              </div>
+            </div>
+            <div style="padding:20px 0; color:#7C8798; font-style:italic; font-size:0.75rem; line-height:2;">
+              <p>Place your letter content here...</p>
+              <p style="color:#cbd5e1;">This is a professional letterhead template for your business correspondence.</p>
+            </div>
+          </div>
+          <div style="border-top:1px solid #e2e8f0; padding-top:10px; display:flex; justify-content:space-between; font-size:0.55rem; color:#7C8798;">
+            <div><span id="lPreviewPhone">+92 300 1234567</span> | <span id="lPreviewEmail">info@coldmatrix.com</span></div>
+            <div id="lPreviewAddress">Karachi, Pakistan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="share-buttons">
+        <button class="btn-download" onclick="downloadGraphic()">⬇️ Download High-Res</button>
+        <button class="btn-wa" onclick="shareWhatsApp()">📤 Share on WhatsApp</button>
+        <button class="btn-pdf" onclick="downloadPDF()">📄 Download PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+
+  <script>
+    // Font Awesome for icons
+    document.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">');
+
+    let currentMode = 'card';
+
+    function updatePreview() {
+      const company = document.getElementById('inputCompany').value;
+      const tagline = document.getElementById('inputTagline').value;
+      const name = document.getElementById('inputName').value;
+      const title = document.getElementById('inputTitle').value;
+      const phone = document.getElementById('inputPhone').value;
+      const email = document.getElementById('inputEmail').value;
+      const address = document.getElementById('inputAddress').value;
+
+      // Card
+      document.getElementById('previewCompany').innerText = company;
+      document.getElementById('previewTagline').innerText = tagline;
+      document.getElementById('previewName').innerText = name;
+      document.getElementById('previewTitle').innerText = title;
+      document.getElementById('previewPhone').innerText = phone;
+      document.getElementById('previewEmail').innerText = email;
+      document.getElementById('previewAddress').innerText = address;
+
+      // Letterhead
+      document.getElementById('lPreviewCompany').innerText = company;
+      document.getElementById('lPreviewTagline').innerText = tagline;
+      document.getElementById('lPreviewName').innerText = name;
+      document.getElementById('lPreviewTitle').innerText = title;
+      document.getElementById('lPreviewPhone').innerText = phone;
+      document.getElementById('lPreviewEmail').innerText = email;
+      document.getElementById('lPreviewAddress').innerText = address;
+    }
+
+    function switchView(mode) {
+      currentMode = mode;
+      const cardEl = document.getElementById('cardPreview');
+      const letterEl = document.getElementById('letterPreview');
+      const btns = document.querySelectorAll('.view-btn');
+
+      btns.forEach(b => b.classList.remove('active'));
+      document.querySelector(`.view-btn[data-view="${mode}"]`).classList.add('active');
+
+      if (mode === 'card') {
+        cardEl.style.display = 'flex';
+        letterEl.style.display = 'none';
+      } else {
+        cardEl.style.display = 'none';
+        letterEl.style.display = 'flex';
+      }
+    }
+
+    function downloadGraphic() {
+      const targetId = currentMode === 'card' ? 'cardPreview' : 'letterPreview';
+      const el = document.getElementById(targetId);
+      html2canvas(el, { scale: 3, backgroundColor: '#ffffff', useCORS: true }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `${currentMode}_design.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }).catch(() => {
+        alert('Please try again. Make sure the preview is visible.');
+      });
+    }
+
+    function shareWhatsApp() {
+      const mode = currentMode === 'card' ? 'Business Card' : 'Letterhead';
+      const company = document.getElementById('inputCompany').value || 'My Company';
+      const name = document.getElementById('inputName').value || 'My Name';
+      const msg = `📇 ${mode} Design:%0A%0A🏢 Company: ${company}%0A👤 Name: ${name}%0A%0A🔗 Created with ColdMatrix Tools - https://coldmatrixtools.com/business-card-tool.html`;
+      window.open(`https://wa.me/?text=${msg}`, '_blank');
+    }
+
+    function downloadPDF() {
+      window.print();
+    }
+
+    // PWA Install
+    let deferredPrompt;
+    const installBar = document.getElementById('installBar');
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBar.style.display = 'block';
+    });
+
+    function installApp() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          installBar.style.display = 'none';
+        });
+      } else {
+        alert('📱 To add to home screen:\n• Android: Tap "Add to Home Screen" in Chrome menu.\n• iPhone: Tap Share → "Add to Home Screen".');
+      }
+    }
+
+    window.addEventListener('appinstalled', () => {
+      installBar.style.display = 'none';
+    });
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    }
+
+    // Initial preview
+    updatePreview();
+  </script>
+</body>
+</html>
