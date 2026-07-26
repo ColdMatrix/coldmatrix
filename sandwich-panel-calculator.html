@@ -11,7 +11,17 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sandwich Panel Calculator — Professional Engineering Tool | ColdMatrix Pakistan</title>
+  <title>Sandwich Panel Calculator — Professional Engineering Tool | ColdMatrix</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="Sandwich Panel Calculator — Professional Engineering Tool | ColdMatrix">
+  <meta property="og:description" content="Professional Sandwich Panel Calculator for contractors and builders. Calculate panel thickness, weight, quantity, and total project cost.">
+  <meta property="og:url" content="https://coldmatrixtools.com/sandwich-panel-calculator.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/panel_calc.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sandwich Panel Calculator — Professional Engineering Tool | ColdMatrix">
+  <meta name="twitter:description" content="Professional Sandwich Panel Calculator for contractors and builders. Calculate panel thickness, weight, quantity, and total project cost.">
+  <meta name="twitter:image" content="https://coldmatrixtools.com/panel_calc.jpg">
   <meta name="description" content="Professional Sandwich Panel Calculator for contractors and builders. Calculate panel thickness, weight, quantity, and total project cost.">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
@@ -79,6 +89,7 @@
   </style>
 </head>
 <body>
+<div id="cmInstallBar" style="display:none;background:#4FC3F7;color:#0A0F14;text-align:center;padding:12px;font-weight:600;border-radius:10px;margin:16px auto;max-width:900px;">📱 Add ColdMatrix to your Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
   <div class="nav">
     <a href="index.html" class="brand">❄️ Cold Matrix Tools</a>
     <div>
@@ -457,5 +468,14 @@
       window.open(`https://wa.me/?text=${message}`, '_blank');
     }
   </script>
+<script>
+let cmDeferredPrompt;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();cmDeferredPrompt=e;var b=document.getElementById('cmInstallBar');if(b)b.style.display='block';});
+function cmInstallApp(){
+  if(cmDeferredPrompt){cmDeferredPrompt.prompt();cmDeferredPrompt.userChoice.then(function(){document.getElementById('cmInstallBar').style.display='none';});}
+  else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu \u2192 Add to Home Screen.\niPhone (Safari): Share \u2192 Add to Home Screen.');}
+}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(function(){});}
+</script>
 </body>
 </html>

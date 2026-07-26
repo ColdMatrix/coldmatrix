@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://coldmatrixtools.com/gallery.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Gallery — Cold Stores & Sandwich Panels | ColdMatrix</title>
+  <meta name="description" content="Explore our cold storage projects, sandwich panel installations, PUF/PIR manufacturing, and roofing solutions across Pakistan.">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0A0F14; --surface: #12181F; --surface2: #1B232C; --border: #2A3540;
+      --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: linear-gradient(135deg, rgba(11,15,20,0.9), rgba(11,15,20,0.95)), url('gallery-bg.jpg') center/cover fixed no-repeat; color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
+    .container { max-width: 1200px; margin:0 auto; padding:0 24px; }
+
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+
+    .hero { padding:50px 0 40px; text-align:center; }
+    .hero h1 { font-family:'Oswald',sans-serif; font-size:2.5rem; color:#fff; margin-bottom:10px; }
+    .hero p { color:var(--muted); font-size:1.1rem; max-width:700px; margin:0 auto; }
+
+    .filter-bar { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:20px 0 30px; }
+    .filter-btn { padding:8px 18px; border:1px solid var(--border); background:var(--surface); color:var(--muted); border-radius:25px; cursor:pointer; font-size:0.85rem; font-weight:600; transition:0.2s; }
+    .filter-btn.active, .filter-btn:hover { border-color:var(--accent); color:var(--accent); background:rgba(79,195,247,0.1); }
+
+    .gallery-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; margin:20px 0 40px; }
+    .gallery-item { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:0.3s; cursor:pointer; position:relative; }
+    .gallery-item:hover { transform:translateY(-5px); box-shadow:0 15px 35px rgba(0,0,0,0.5); }
+    .gallery-item img { width:100%; height:220px; object-fit:cover; display:block; }
+    .gallery-item .info { padding:16px; }
+    .gallery-item .info h3 { font-size:1rem; font-weight:700; margin-bottom:4px; color:#fff; }
+    .gallery-item .info p { font-size:0.8rem; color:var(--muted); }
+    .gallery-item .badge { position:absolute; top:12px; right:12px; background:rgba(10,15,20,0.8); color:var(--accent); padding:4px 12px; border-radius:20px; font-size:0.7rem; font-weight:600; }
+
+    .lightbox { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.95); z-index:999; align-items:center; justify-content:center; }
+    .lightbox.active { display:flex; }
+    .lightbox img { max-width:90%; max-height:80vh; border-radius:12px; }
+    .lightbox-close { position:absolute; top:20px; right:30px; color:#fff; font-size:2rem; cursor:pointer; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.85rem; padding:30px 0; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--accent); text-decoration:none; }
+
+    @media(max-width:600px){ .hero h1{font-size:1.6rem;} }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="gallery.html" class="active">📸 Gallery</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <h1>📸 Our Project Gallery</h1>
+      <p>Real cold storage installations, sandwich panel manufacturing, and roofing solutions — from raw material to finished projects.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterGallery('all')">All Projects</button>
+      <button class="filter-btn" onclick="filterGallery('cold-store')">❄️ Cold Stores</button>
+      <button class="filter-btn" onclick="filterGallery('panel')">🧱 Sandwich Panels</button>
+      <button class="filter-btn" onclick="filterGallery('roof')">🏠 Roofing</button>
+      <button class="filter-btn" onclick="filterGallery('office')">🏢 Office Partitions</button>
+      <button class="filter-btn" onclick="filterGallery('manufacturing')">🏭 Manufacturing</button>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Gallery items will be populated by JavaScript -->
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightboxImg" src="" alt="Project Image">
+  </div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Professional Engineering Solutions.</footer>
+
+  <script>
+    const galleryData = [
+      { category:'cold-store', img:'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600', title:'-25°C Deep Freezer Room', desc:'50mm PUF panels, 40ft container conversion — Lahore' },
+      { category:'cold-store', img:'https://images.unsplash.com/photo-1605106702734-205df224ecce?w=600', title:'+4°C Fruit Cold Store', desc:'100mm PIR panels, 2000 sq ft facility — Karachi' },
+      { category:'cold-store', img:'https://images.unsplash.com/photo-1579547621113-e4bb2a19bdd6?w=600', title:'Blast Freezer Installation', desc:'150mm panels, -35°C rapid cooling — Islamabad' },
+      { category:'panel', img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600', title:'PUF Panel Production Line', desc:'Continuous sandwich panel manufacturing' },
+      { category:'panel', img:'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600', title:'Raw PUF Chemical Injection', desc:'High-density foam core processing' },
+      { category:'roof', img:'https://images.unsplash.com/photo-1635107510862-53886e926b74?w=600', title:'Corrugated Roof Panels', desc:'Insulated roofing — weather resistant, 6-8°C cooler inside' },
+      { category:'roof', img:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600', title:'Factory Roof Installation', desc:'Large span PEB with insulated roof panels' },
+      { category:'office', img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600', title:'Site Office Cabins', desc:'Portable cabins with 50mm sandwich panels' },
+      { category:'office', img:'https://images.unsplash.com/photo-1497366754270-5d0b7e3c7f3e?w=600', title:'Office Partition Walls', desc:'Modular office blocks with PU insulated panels' },
+      { category:'manufacturing', img:'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600', title:'Panel Cutting & Finishing', desc:'Precision cutting for custom sizes' },
+      { category:'manufacturing', img:'https://images.unsplash.com/photo-1535813547-99c456a41a4e?w=600', title:'Quality Control Testing', desc:'Thermal resistance and density checks' },
+      { category:'cold-store', img:'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=600', title:'Pharma Cold Room', desc:'+2°C to +8°C, GMP compliant — Multan' },
+    ];
+
+    function renderGallery(filter='all') {
+      const grid = document.getElementById('galleryGrid');
+      const filtered = filter==='all' ? galleryData : galleryData.filter(item => item.category===filter);
+      grid.innerHTML = filtered.map(item => `
+        <div class="gallery-item" onclick="openLightbox('${item.img}')">
+          <div class="badge">${item.category.replace('-',' ').toUpperCase()}</div>
+          <img src="${item.img}" alt="${item.title}" loading="lazy">
+          <div class="info">
+            <h3>${item.title}</h3>
+            <p>${item.desc}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterGallery(category) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      renderGallery(category);
+    }
+
+    function openLightbox(imgSrc) {
+      document.getElementById('lightbox').classList.add('active');
+      document.getElementById('lightboxImg').src = imgSrc;
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+
+    renderGallery();
+  </script>
+</body>
+</html>

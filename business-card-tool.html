@@ -5,6 +5,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Executive Business Card & Letterhead Studio | ColdMatrix</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="Executive Business Card & Letterhead Studio | ColdMatrix">
+  <meta property="og:description" content="Design professional business cards and letterheads online with custom branding, logos, and instant high-res downloads.">
+  <meta property="og:url" content="https://coldmatrixtools.com/business-card-tool.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/business_card.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Executive Business Card & Letterhead Studio | ColdMatrix">
+  <meta name="twitter:description" content="Design professional business cards and letterheads online with custom branding, logos, and instant high-res downloads.">
+  <meta name="twitter:image" content="https://coldmatrixtools.com/business_card.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Executive Business Card & Letterhead Studio",
+    "url": "https://coldmatrixtools.com/business-card-tool.html",
+    "applicationCategory": "Utility",
+    "description": "Design professional business cards and letterheads online with custom branding, logos, and instant high-res downloads.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" }
+  }
+  </script>
   <meta name="description" content="Design professional business cards and letterheads online with custom branding, logos, and instant high-res downloads.">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
@@ -156,6 +177,7 @@
   </style>
 </head>
 <body>
+<div id="cmInstallBar" style="display:none;background:#4FC3F7;color:#0A0F14;text-align:center;padding:12px;font-weight:600;border-radius:10px;margin:16px auto;max-width:900px;">📱 Add ColdMatrix to your Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
 
 <nav class="navbar">
   <div class="container nav-inner">
@@ -294,7 +316,7 @@
       <div class="field"><label>✉️ Email Address</label><input type="text" id="inputEmail" value="contact@coldmatrixtools.com" oninput="syncData()"></div>
       <div class="field"><label>🌐 Website URL</label><input type="text" id="inputWeb" value="coldmatrixtools.com" oninput="syncData()"></div>
     </div>
-    <div class="field"><label>📍 Office Location / Address</label><input type="text" id="inputAddress" value="Karachi, Pakistan" oninput="syncData()"></div>
+    <div class="field"><label>📍 Office Location / Address</label><input type="text" id="inputAddress" value="New York, USA" oninput="syncData()"></div>
 
     <div class="preview-container">
       <div class="preview-header-bar">
@@ -330,7 +352,7 @@
             <span style="display:inline-flex; align-items:center; gap:4px;"><i class="fa-solid fa-phone" id="iconPhone" style="color:#4FC3F7;"></i> <span id="prevPhone">+92 333 3228470</span></span>
             <span style="display:inline-flex; align-items:center; gap:4px;"><i class="fa-solid fa-envelope" id="iconEmail" style="color:#4FC3F7;"></i> <span id="prevEmail">contact@coldmatrixtools.com</span></span>
             <span style="display:inline-flex; align-items:center; gap:4px;"><i class="fa-solid fa-globe" id="iconWeb" style="color:#4FC3F7;"></i> <span id="prevWeb">coldmatrixtools.com</span></span>
-            <span style="display:inline-flex; align-items:center; gap:4px; flex:1; min-width:100%;"><i class="fa-solid fa-location-dot" id="iconAddress" style="color:#4FC3F7;"></i> <span id="prevAddress">Karachi, Pakistan</span></span>
+            <span style="display:inline-flex; align-items:center; gap:4px; flex:1; min-width:100%;"><i class="fa-solid fa-location-dot" id="iconAddress" style="color:#4FC3F7;"></i> <span id="prevAddress">New York, USA</span></span>
           </div>
         </div>
 
@@ -370,7 +392,7 @@
             <span id="lEmail">contact@coldmatrixtools.com</span> &nbsp;|&nbsp;
             <span id="lWeb">coldmatrixtools.com</span>
           </div>
-          <div id="lAddress">Karachi, Pakistan</div>
+          <div id="lAddress">New York, USA</div>
         </div>
       </div>
     </div>
@@ -550,6 +572,15 @@
   applyCustomStyling();
   syncData();
 })();
+</script>
+<script>
+let cmDeferredPrompt;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();cmDeferredPrompt=e;var b=document.getElementById('cmInstallBar');if(b)b.style.display='block';});
+function cmInstallApp(){
+  if(cmDeferredPrompt){cmDeferredPrompt.prompt();cmDeferredPrompt.userChoice.then(function(){document.getElementById('cmInstallBar').style.display='none';});}
+  else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu \u2192 Add to Home Screen.\niPhone (Safari): Share \u2192 Add to Home Screen.');}
+}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(function(){});}
 </script>
 </body>
 </html>

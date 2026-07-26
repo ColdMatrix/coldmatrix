@@ -3,7 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://coldmatrixtools.com/birthday-countdown.html">
+  <meta name="description" content="Free Birthday Countdown tool. Track the days, hours, and minutes until your next birthday with a fun, shareable countdown card.">
   <title>Birthday Countdown — ColdMatrix Tools</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="Birthday Countdown — ColdMatrix Tools">
+  <meta property="og:description" content="Free Birthday Countdown tool. Track the days, hours, and minutes until your next birthday with a fun, shareable countdown card.">
+  <meta property="og:url" content="https://coldmatrixtools.com/birthday-countdown.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/birthday_calc.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Birthday Countdown — ColdMatrix Tools">
+  <meta name="twitter:description" content="Free Birthday Countdown tool. Track the days, hours, and minutes until your next birthday with a fun, shareable countdown card.">
+  <meta name="twitter:image" content="https://coldmatrixtools.com/birthday_calc.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Birthday Countdown",
+    "url": "https://coldmatrixtools.com/birthday-countdown.html",
+    "applicationCategory": "Utility",
+    "description": "Free Birthday Countdown tool. Track the days, hours, and minutes until your next birthday with a fun, shareable countdown card.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -158,6 +181,7 @@
   </style>
 </head>
 <body>
+<div id="cmInstallBar" style="display:none;background:#4FC3F7;color:#0A0F14;text-align:center;padding:12px;font-weight:600;border-radius:10px;margin:16px auto;max-width:900px;">📱 Add ColdMatrix to your Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
 
   <div class="container">
     <div class="birthday-card" id="captureCard">
@@ -327,5 +351,14 @@
     }
   </script>
 
+<script>
+let cmDeferredPrompt;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();cmDeferredPrompt=e;var b=document.getElementById('cmInstallBar');if(b)b.style.display='block';});
+function cmInstallApp(){
+  if(cmDeferredPrompt){cmDeferredPrompt.prompt();cmDeferredPrompt.userChoice.then(function(){document.getElementById('cmInstallBar').style.display='none';});}
+  else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu \u2192 Add to Home Screen.\niPhone (Safari): Share \u2192 Add to Home Screen.');}
+}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(function(){});}
+</script>
 </body>
 </html>
