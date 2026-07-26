@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://coldmatrixtools.com/image-converter-tool.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Converter & Resizer — Free Tool | ColdMatrix Pakistan</title>
+  <meta name="description" content="Convert and resize images online — JPG, PNG, BMP, WebP, PDF. Free tool for contractors and professionals in Pakistan.">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0F14;
+      --surface: #12181F;
+      --surface2: #1B232C;
+      --border: #2A3540;
+      --text: #EAEDF0;
+      --muted: #8B98A5;
+      --accent: #4FC3F7;
+      --gradient: linear-gradient(135deg, #4FC3F7, #2196F3);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
+    .container { max-width: 900px; margin:0 auto; padding:0 24px; }
+
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+
+    .ad-card { border-radius:14px; overflow:hidden; background: linear-gradient(90deg, rgba(10,15,20,0.7), rgba(10,15,20,0.4)), url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+    .ad-card ul { list-style:none; padding:0; margin:0; }
+    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
+    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
+    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
+
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; }
+    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
+    .subtitle { color:var(--muted); margin-bottom:30px; }
+
+    .tool-card {
+      background: var(--surface);
+      border-top: 3px solid var(--accent);
+      border-bottom: 3px solid var(--accent);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .tool-card .live-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(79,195,247,0.1);
+      padding: 2px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(79,195,247,0.2);
+    }
+    .tool-card h2 { font-size:1.1rem; font-weight:700; margin-bottom:6px; }
+    .tool-card .desc { color:var(--muted); font-size:0.9rem; margin-bottom:20px; }
+
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .field { margin-bottom:14px; }
+    .field label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:4px; font-weight:500; }
+    .field input, .field select { width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:12px; border-radius:10px; font-size:0.95rem; }
+
+    .upload-area {
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 40px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+      background: var(--surface2);
+    }
+    .upload-area:hover { border-color: var(--accent); }
+    .upload-area.dragover { border-color: var(--accent); background: rgba(79,195,247,0.05); }
+    .upload-area i { font-size: 3rem; color: var(--accent); display: block; margin-bottom: 12px; }
+
+    .btn-primary { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:14px; border-radius:12px; font-weight:700; font-size:1rem; cursor:pointer; transition:0.2s; }
+    .btn-primary:hover { transform:scale(1.02); }
+
+    .preview-container { margin-top:20px; display:none; }
+    .preview-container img { max-width:100%; max-height:300px; border-radius:12px; border:1px solid var(--border); }
+    .preview-info { display:flex; justify-content:space-between; padding:10px 0; color:var(--muted); font-size:0.85rem; }
+
+    .share-buttons { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+    .share-buttons button { padding:10px 20px; border:none; border-radius:8px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; }
+    .btn-wa { background:#25D366; color:white; }
+    .btn-pdf { background:#0077B5; color:white; }
+    .btn-download { background:var(--accent); color:#0A0F14; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--accent); text-decoration:none; }
+
+    @media (max-width:600px) {
+      .row2 { grid-template-columns:1fr; }
+      h1 { font-size:1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools" class="active">🛠️ Tools</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="ad-card">
+      <div>
+        <ul>
+          <li>PEB Structures</li>
+          <li>Cold Storage & Freezer Rooms</li>
+          <li>PU/PIR Sandwich Panels</li>
+          <li>Prefab Construction Solutions</li>
+        </ul>
+        <div style="font-size:0.8rem;color:#c8d0d8;margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+      </div>
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I'm%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+    </div>
+
+    <div class="install-bar" id="installBar">📱 Add to Home Screen <button onclick="installApp()">Add</button></div>
+
+    <h1>🖼️ Image Converter & Resizer</h1>
+    <p class="subtitle">Convert and resize images — JPG, PNG, BMP, WebP, PDF. Free for all.</p>
+
+    <!-- Rate Input -->
+    <div style="margin:15px 0; display:flex; flex-wrap:wrap; align-items:center; gap:15px; background:#f8f9fa; padding:12px 18px; border-radius:10px; border:1px solid #e0e0e0;">
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <label for="rateInput" style="font-weight:bold; color:#333;">💰 Rate:</label>
+        <input type="number" id="rateInput" value="500" style="padding:8px; width:100px; border:2px solid #00b894; border-radius:5px; font-size:1rem;">
+        <select id="currency" style="padding:8px; border:2px solid #00b894; border-radius:5px; background:white; font-weight:bold;">
+          <option value="PKR">🇵🇰 PKR</option>
+          <option value="USD">🇺🇸 USD</option>
+          <option value="GBP">🇬🇧 GBP</option>
+          <option value="EUR">🇪🇺 EUR</option>
+          <option value="AED">🇦🇪 AED</option>
+          <option value="SAR">🇸🇦 SAR</option>
+          <option value="CNY">🇨🇳 CNY</option>
+        </select>
+        <select id="rateUnit" style="padding:8px; border:2px solid #00b894; border-radius:5px; background:white; font-weight:bold;">
+          <option value="image">per Image</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tool Card -->
+    <div class="tool-card">
+      <div class="live-badge">● LIVE</div>
+      <h2>📤 Upload & Convert</h2>
+      <p class="desc">Upload an image, choose format, resize if needed, and download instantly.</p>
+
+      <!-- Upload Area -->
+      <div class="upload-area" id="uploadArea">
+        <i class="fa-solid fa-cloud-upload-alt"></i>
+        <p style="font-weight:600; color:var(--text);">Click or drag & drop an image</p>
+        <p style="color:var(--muted); font-size:0.8rem;">Supports JPG, PNG, BMP, WebP, GIF, HEIC</p>
+        <input type="file" id="fileInput" accept="image/*" style="display:none;">
+      </div>
+
+      <!-- Options -->
+      <div style="margin-top:20px;">
+        <div class="row2">
+          <div class="field">
+            <label>📐 Width (px)</label>
+            <input type="number" id="widthInput" placeholder="e.g. 800" value="">
+          </div>
+          <div class="field">
+            <label>📐 Height (px)</label>
+            <input type="number" id="heightInput" placeholder="e.g. 600" value="">
+          </div>
+        </div>
+        <div style="margin:10px 0 16px;">
+          <label style="display:flex; align-items:center; gap:10px; color:var(--muted); font-size:0.85rem; cursor:pointer;">
+            <input type="checkbox" id="aspectCheck" checked> Maintain Aspect Ratio
+          </label>
+        </div>
+        <div class="field">
+          <label>🔄 Convert To</label>
+          <select id="formatSelect">
+            <option value="image/jpeg">JPG</option>
+            <option value="image/png">PNG</option>
+            <option value="image/bmp">BMP</option>
+            <option value="image/webp">WebP</option>
+            <option value="application/pdf">PDF</option>
+          </select>
+        </div>
+        <button class="btn-primary" onclick="processImage()">🔄 Convert & Download</button>
+      </div>
+
+      <!-- Preview -->
+      <div class="preview-container" id="previewContainer">
+        <div style="background:var(--surface2); padding:16px; border-radius:12px; margin-top:16px;">
+          <h4 style="margin-bottom:10px;">📷 Preview</h4>
+          <img id="previewImage" src="" alt="Preview">
+          <div class="preview-info">
+            <span id="previewSize">Size: —</span>
+            <span id="previewDimensions">Dimensions: —</span>
+          </div>
+        </div>
+        <div class="share-buttons">
+          <button class="btn-wa" onclick="shareWhatsApp()">📤 Share on WhatsApp</button>
+          <button class="btn-pdf" onclick="downloadPDF()">📄 Download PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+
+  <script>
+    document.write('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">');
+
+    let uploadedFile = null;
+    let originalImage = null;
+    let processedBlob = null;
+
+    // Upload handlers
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+
+    uploadArea.addEventListener('click', () => fileInput.click());
+    uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+    uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener('change', (e) => { if (e.target.files.length) handleFile(e.target.files[0]); });
+
+    function handleFile(file) {
+      uploadedFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          originalImage = img;
+          document.getElementById('previewImage').src = e.target.result;
+          document.getElementById('previewContainer').style.display = 'block';
+          document.getElementById('previewSize').textContent = `Size: ${(file.size / 1024).toFixed(1)} KB`;
+          document.getElementById('previewDimensions').textContent = `Dimensions: ${img.width} × ${img.height} px`;
+          // Auto-fill width/height
+          document.getElementById('widthInput').value = img.width;
+          document.getElementById('heightInput').value = img.height;
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function processImage() {
+      if (!originalImage) { alert('Please upload an image first.'); return; }
+      const format = document.getElementById('formatSelect').value;
+      let width = parseInt(document.getElementById('widthInput').value) || originalImage.width;
+      let height = parseInt(document.getElementById('heightInput').value) || originalImage.height;
+      const aspect = document.getElementById('aspectCheck').checked;
+
+      if (aspect && width && height) {
+        const ratio = originalImage.width / originalImage.height;
+        if (width / height > ratio) width = height * ratio;
+        else height = width / ratio;
+        width = Math.round(width);
+        height = Math.round(height);
+        document.getElementById('widthInput').value = width;
+        document.getElementById('heightInput').value = height;
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(originalImage, 0, 0, width, height);
+
+      const mimeType = format;
+      const quality = mimeType === 'image/jpeg' ? 0.92 : 1.0;
+      const dataUrl = canvas.toDataURL(mimeType, quality);
+
+      const link = document.createElement('a');
+      const ext = mimeType.split('/')[1];
+      link.download = `converted.${ext === 'jpeg' ? 'jpg' : ext}`;
+      link.href = dataUrl;
+      link.click();
+
+      // Store for sharing
+      processedBlob = dataUrl;
+
+      // Update preview
+      document.getElementById('previewImage').src = dataUrl;
+    }
+
+    function shareWhatsApp() {
+      const msg = '🖼️ I just converted an image using ColdMatrix Tools! https://coldmatrixtools.com/image-converter-tool.html';
+      window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function downloadPDF() {
+      window.print();
+    }
+
+    // PWA Install
+    let deferredPrompt;
+    const installBar = document.getElementById('installBar');
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBar.style.display = 'block';
+    });
+
+    function installApp() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+          installBar.style.display = 'none';
+        });
+      } else {
+        alert('📱 To add to home screen:\n• Android: Tap "Add to Home Screen" in Chrome menu.\n• iPhone: Tap Share → "Add to Home Screen".');
+      }
+    }
+
+    window.addEventListener('appinstalled', () => {
+      installBar.style.display = 'none';
+    });
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
