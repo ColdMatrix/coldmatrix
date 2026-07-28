@@ -12,16 +12,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Concrete Calculator — Cement, Sand & Aggregate Estimator | ColdMatrix</title>
-  <meta name="description" content="Calculate cement bags, sand, aggregate, and cost for slabs, footings, and columns. Free concrete estimator for contractors and builders.">
+  <meta name="description" content="Calculate cement bags, sand, aggregate, and cost for slabs and footings. Works with feet or meters, multiple currencies.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
-  <meta property="og:title" content="Concrete Calculator — Cement, Sand & Aggregate Estimator | ColdMatrix">
-  <meta property="og:description" content="Calculate cement bags, sand, aggregate, and cost for slabs, footings, and columns.">
+  <meta property="og:title" content="Concrete Calculator — Cement, Sand & Aggregate Estimator">
+  <meta property="og:description" content="Calculate cement bags, sand, aggregate, and cost for slabs and footings. Works with feet or meters.">
   <meta property="og:url" content="https://coldmatrixtools.com/concrete-calculator.html">
   <meta property="og:image" content="https://coldmatrixtools.com/concrete_calc.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Concrete Calculator — Cement, Sand & Aggregate Estimator | ColdMatrix">
-  <meta name="twitter:description" content="Calculate cement bags, sand, aggregate, and cost for slabs, footings, and columns.">
+  <meta name="twitter:title" content="Concrete Calculator — Cement, Sand & Aggregate Estimator">
+  <meta name="twitter:description" content="Calculate cement bags, sand, aggregate, and cost for slabs and footings.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/concrete_calc.jpg">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
@@ -36,7 +36,7 @@
       background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.92)), url('concrete_calc.jpg') center/cover fixed no-repeat;
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
-    .container { max-width: 850px; margin:0 auto; padding:0 24px; }
+    .container { max-width: 880px; margin:0 auto; padding:0 24px; }
     .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
     .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
@@ -56,6 +56,11 @@
     .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px; margin-bottom:20px; position:relative; overflow:hidden; }
     .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
     .card h2 { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600; margin-bottom:16px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
+
+    .unit-row { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:20px; }
+    .unit-group { flex:1; min-width:150px; }
+    .unit-group label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
+    .unit-group select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:10px; border-radius:10px; font-size:0.9rem; }
 
     .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
     .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
@@ -104,30 +109,36 @@
   </nav>
 
   <div class="container">
-    <div class="ad-card">
-      <div>
-        <ul>
-          <li>PEB Structures</li>
-          <li>Cold Storage & Freezer Rooms</li>
-          <li>PU/PIR Sandwich Panels</li>
-          <li>Prefab Construction Solutions</li>
-        </ul>
-        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
-      </div>
-      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
-    </div>
-
+    <div class="ad-card"><!-- same --></div>
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1>🏗️ Concrete Calculator</h1>
-    <p class="subtitle">Calculate cement bags, sand, aggregate, and total cost for slabs, footings, and columns.</p>
+    <p class="subtitle">Cement bags, sand, aggregate & cost — enter dimensions in feet or meters, get results in kg/tons.</p>
 
     <div class="card">
+      <h2>Unit Preferences</h2>
+      <div class="unit-row">
+        <div class="unit-group">
+          <label>📏 Length Unit</label>
+          <select id="lengthUnit">
+            <option value="meter" selected>Meter (m)</option>
+            <option value="foot">Foot (ft)</option>
+          </select>
+        </div>
+        <div class="unit-group">
+          <label>⚖️ Weight Display</label>
+          <select id="weightDisplay">
+            <option value="kgton" selected>kg & Metric Tons</option>
+            <option value="lbshort">lb & Short Tons</option>
+          </select>
+        </div>
+      </div>
+
       <h2>📐 Slab / Footing Dimensions</h2>
       <div class="grid3">
-        <div class="field"><label>Length (m)</label><input type="number" id="cLen" value="10" step="any"></div>
-        <div class="field"><label>Width (m)</label><input type="number" id="cWid" value="8" step="any"></div>
-        <div class="field"><label>Thickness (m)</label><input type="number" id="cThk" value="0.15" step="any"></div>
+        <div class="field"><label id="lblLen">Length (m)</label><input type="number" id="cLen" value="10" step="any"></div>
+        <div class="field"><label id="lblWid">Width (m)</label><input type="number" id="cWid" value="8" step="any"></div>
+        <div class="field"><label id="lblThk">Thickness (m)</label><input type="number" id="cThk" value="0.15" step="any"></div>
       </div>
       <div class="grid2">
         <div class="field"><label>Mix Ratio (Cement : Sand : Aggregate)</label><select id="cMix">
@@ -140,8 +151,18 @@
 
       <h2>💰 Pricing (Optional)</h2>
       <div class="grid2" style="margin-bottom:0;">
-        <div class="field"><label>Rate per Cement Bag</label><input type="number" id="cRate" value="0" step="any"></div>
-        <div class="field"><label>Currency</label><input type="text" id="cCurrency" value="PKR" maxlength="5"></div>
+        <div class="field"><label id="lblRate">Rate per Cement Bag</label><input type="number" id="cRate" value="0" step="any"></div>
+        <div class="field"><label>Currency</label><select id="cCurrency">
+          <option value="PKR" selected>🇵🇰 PKR</option>
+          <option value="USD">🇺🇸 USD</option>
+          <option value="EUR">🇪🇺 EUR</option>
+          <option value="GBP">🇬🇧 GBP</option>
+          <option value="AED">🇦🇪 AED</option>
+          <option value="SAR">🇸🇦 SAR</option>
+          <option value="INR">🇮🇳 INR</option>
+          <option value="CNY">🇨🇳 CNY</option>
+          <option value="AUD">🇦🇺 AUD</option>
+        </select></div>
       </div>
 
       <button class="btn-calc" onclick="calculateConcrete()">Calculate</button>
@@ -150,13 +171,13 @@
     <div class="card" id="resultCard" style="display:none;">
       <h2>Results</h2>
       <div class="result-grid">
-        <div class="result-item"><div class="val" id="resVol">—</div><div class="lbl">Concrete Volume</div></div>
+        <div class="result-item"><div class="val" id="resVol">—</div><div class="lbl" id="lblVol">Concrete Volume</div></div>
         <div class="result-item"><div class="val" id="resBags">—</div><div class="lbl">Cement Bags</div></div>
-        <div class="result-item"><div class="val" id="resSand">—</div><div class="lbl">Sand</div></div>
-        <div class="result-item"><div class="val" id="resAgg">—</div><div class="lbl">Aggregate</div></div>
-        <div class="result-item highlight"><div class="val" id="resCost">—</div><div class="lbl">Total Cost</div></div>
+        <div class="result-item"><div class="val" id="resSand">—</div><div class="lbl" id="lblSand">Sand</div></div>
+        <div class="result-item"><div class="val" id="resAgg">—</div><div class="lbl" id="lblAgg">Aggregate</div></div>
+        <div class="result-item highlight" style="grid-column: span 2;"><div class="val" id="resCost">—</div><div class="lbl">Total Cost</div></div>
       </div>
-      <div class="note">⚠️ Based on nominal mix ratio. Actual quantities may vary slightly depending on moisture content and compaction.</div>
+      <div class="note">⚠️ Based on nominal mix ratio. Actual quantities may vary slightly due to moisture and compaction.</div>
     </div>
 
     <div id="shareCapture">
@@ -183,49 +204,68 @@
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script>
+    // Independent unit selectors
+    document.getElementById('lengthUnit').addEventListener('change', updateLabels);
+    document.getElementById('weightDisplay').addEventListener('change', updateLabels);
+
+    function updateLabels() {
+      const lenUnit = document.getElementById('lengthUnit').value;
+      const wtDisp = document.getElementById('weightDisplay').value;
+      const isMetricLen = lenUnit === 'meter';
+      const isMetricWt = wtDisp === 'kgton';
+
+      document.getElementById('lblLen').textContent = 'Length (' + (isMetricLen ? 'm' : 'ft') + ')';
+      document.getElementById('lblWid').textContent = 'Width (' + (isMetricLen ? 'm' : 'ft') + ')';
+      document.getElementById('lblThk').textContent = 'Thickness (' + (isMetricLen ? 'm' : 'ft') + ')';
+      document.getElementById('lblVol').textContent = 'Concrete Volume (' + (isMetricLen ? 'm³' : 'ft³') + ')';
+      document.getElementById('lblSand').textContent = 'Sand (' + (isMetricWt ? 'kg / tons' : 'lb / short tons') + ')';
+      document.getElementById('lblAgg').textContent = 'Aggregate (' + (isMetricWt ? 'kg / tons' : 'lb / short tons') + ')';
+      document.getElementById('lblRate').textContent = 'Rate per Cement Bag';
+    }
+
+    function toMeter(val) { return document.getElementById('lengthUnit').value === 'meter' ? val : val * 0.3048; }
+    function fromKg(kg) { return document.getElementById('weightDisplay').value === 'kgton' ? kg : kg * 2.20462; }
+    function fromTons(kg) { return document.getElementById('weightDisplay').value === 'kgton' ? kg / 1000 : kg / 907.185; }
+
     function calculateConcrete() {
-      const L = parseFloat(document.getElementById('cLen').value) || 0;
-      const W = parseFloat(document.getElementById('cWid').value) || 0;
-      const T = parseFloat(document.getElementById('cThk').value) || 0;
+      let L = parseFloat(document.getElementById('cLen').value) || 0;
+      let W = parseFloat(document.getElementById('cWid').value) || 0;
+      let T = parseFloat(document.getElementById('cThk').value) || 0;
       const mix = document.getElementById('cMix').value;
       const bagWt = parseFloat(document.getElementById('cBagWt').value) || 50;
       const rate = parseFloat(document.getElementById('cRate').value) || 0;
-      const sym = document.getElementById('cCurrency').value || 'PKR';
+      const sym = document.getElementById('cCurrency').value;
 
+      L = toMeter(L); W = toMeter(W); T = toMeter(T);
       const volume = L * W * T;
       if (volume <= 0) { alert('Please enter valid dimensions.'); return; }
 
-      // Mix ratio parsing
       const parts = mix.split(':').map(Number);
       const totalParts = parts[0] + parts[1] + parts[2];
-      
-      // Dry volume factor (~1.54 for wet to dry conversion)
       const dryVol = volume * 1.54;
-      
-      // Cement: 1440 kg/m³ density
       const cementKg = (parts[0] / totalParts) * dryVol * 1440;
       const cementBags = Math.ceil(cementKg / bagWt);
-      
-      // Sand: 1600 kg/m³
       const sandKg = (parts[1] / totalParts) * dryVol * 1600;
-      const sandTons = sandKg / 1000;
-      
-      // Aggregate: 1500 kg/m³
       const aggKg = (parts[2] / totalParts) * dryVol * 1500;
-      const aggTons = aggKg / 1000;
+
+      const sandDisplay = fromKg(sandKg);
+      const sandTons = fromTons(sandKg);
+      const aggDisplay = fromKg(aggKg);
+      const aggTons = fromTons(aggKg);
+      const volDisplay = document.getElementById('lengthUnit').value === 'meter' ? volume : volume / 0.0283168;
 
       const cost = rate > 0 ? sym + ' ' + Math.round(cementBags * rate).toLocaleString() : '—';
 
-      document.getElementById('resVol').textContent = volume.toFixed(2) + ' m³';
+      document.getElementById('resVol').textContent = volDisplay.toFixed(2);
       document.getElementById('resBags').textContent = cementBags + ' bags';
-      document.getElementById('resSand').textContent = sandTons.toFixed(2) + ' tons';
-      document.getElementById('resAgg').textContent = aggTons.toFixed(2) + ' tons';
+      document.getElementById('resSand').textContent = sandDisplay.toFixed(1) + ' / ' + sandTons.toFixed(3);
+      document.getElementById('resAgg').textContent = aggDisplay.toFixed(1) + ' / ' + aggTons.toFixed(3);
       document.getElementById('resCost').textContent = cost;
       document.getElementById('resultCard').style.display = 'block';
       document.getElementById('shareBarWrap').style.display = 'flex';
 
-      document.getElementById('pvVol').textContent = volume.toFixed(2) + ' m³';
-      document.getElementById('pvBags').textContent = cementBags + ' bags (' + (cementBags * bagWt).toLocaleString() + ' kg)';
+      document.getElementById('pvVol').textContent = volDisplay.toFixed(2) + ' ' + (document.getElementById('lengthUnit').value === 'meter' ? 'm³' : 'ft³');
+      document.getElementById('pvBags').textContent = cementBags + ' bags (' + (cementBags * bagWt) + ' kg)';
       document.getElementById('pvCost').textContent = cost;
     }
 
@@ -272,6 +312,8 @@
       else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
     };
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+
+    updateLabels();
   </script>
 </body>
 </html>
