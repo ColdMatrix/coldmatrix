@@ -112,16 +112,19 @@
     .why-item:hover { border-color:var(--accent); }
 
     .footer { border-top:1px solid var(--border); padding:40px 0 30px; margin-top:50px; }
-    .footer-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-bottom:30px; }
+    .footer-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:30px; margin-bottom:30px; }
     .footer-col h4 { margin-bottom:12px; color:var(--accent); font-size:0.9rem; }
     .footer-col a { color:var(--muted); text-decoration:none; display:block; margin-bottom:8px; font-size:0.85rem; }
     .footer-col a:hover { color:var(--accent); }
-    .footer-bottom-row { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-bottom:25px; padding-top:20px; border-top:1px solid var(--border); }
+    .footer-bottom-row { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:30px; margin-bottom:25px; padding-top:20px; border-top:1px solid var(--border); }
     .footer-bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:18px; border-top:1px solid var(--border); color:var(--muted); font-size:0.8rem; }
 
     @media (max-width: 768px) {
-      .footer-grid { grid-template-columns:1fr; }
-      .footer-bottom-row { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -132,8 +135,6 @@
       <ul class="nav-links">
         <li><a href="https://coldmatrixtools.com/" class="active">Home</a></li>
         <li><a href="https://coldmatrixtools.com/#tools">Tools</a></li>
-        <li><a href="https://coldmatrixtools.com/gallery.html">Gallery</a></li>
-        <li><a href="https://coldmatrixtools.com/blog.html">Blog</a></li>
         <li><a href="https://coldmatrixtools.com/about.html">About</a></li>
         <li><a href="https://coldmatrixtools.com/contact.html">Contact</a></li>
       </ul>
@@ -172,25 +173,26 @@
   </div>
 
   <div class="container">
-    <div class="install-bar" id="installBar" style="display:none;">📱 Add to Home Screen <button onclick="installApp()">Add</button></div>
+    <div class="install-bar" id="installBar">📱 Add to Home Screen <button onclick="installApp()">Add</button></div>
+  </div>
+
+  <!-- 🌍 WELCOME NOTE -->
+  <div class="container" style="margin-bottom: 10px;">
+    <div style="background: linear-gradient(135deg, rgba(79,195,247,0.06), rgba(33,150,243,0.03)); border: 1px solid rgba(79,195,247,0.2); border-radius: 16px; padding: 28px 24px; margin: 24px 0; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
+      <div style="font-size: 1.4rem; font-weight: 700; color: #4FC3F7; margin-bottom: 10px;">🌍 Welcome to ColdMatrix</div>
+      <p style="color: #EAEDF0; font-size: 1rem; font-weight: 500; margin-bottom: 6px;"><em>More than tools — a world of business, engineering, wisdom, and a community that builds together.</em></p>
+      <p style="color: #8B98A5; font-size: 0.9rem; margin: 0;">Explore free resources, read expert guides, browse real projects, and soon — share your own knowledge with the world.</p>
+    </div>
   </div>
 
   <!-- ───── BUSINESS & ENGINEERING TOOLS ───── -->
   <section class="section cat-biz" id="tools">
     <div class="container">
-      
-      <div style="background: linear-gradient(rgba(10,15,20,0.75), rgba(10,15,20,0.85)), url('hero-bg.jpg') center/cover no-repeat; border: 1px solid var(--border); border-radius: 16px; text-align: center; padding: 35px 24px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-        <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">❄️ ColdMatrix</div>
-        <p style="color:#EAEDF0; font-size: 0.98rem; font-weight: 400; text-shadow: 0 1px 3px rgba(0,0,0,0.9); margin-bottom: 16px; line-height: 1.6; max-width: 850px; margin-left: auto; margin-right: auto;">ColdMatrix brings together professional engineering calculators, business utilities, and everyday smart tools in one place. Whether you're designing a cold room, estimating materials, managing a project, or solving daily tasks, our tools are built to save time, improve accuracy, and simplify your work — completely free.</p>
-        <h3 style="font-family:'Oswald',sans-serif; font-weight:700; font-size:1.2rem; color: #FFFFFF; text-transform: uppercase; letter-spacing: 1px;">Build Smarter. Calculate Faster.</h3>
-      </div>
-
       <div class="section-label">🏗️ Business & Engineering</div>
       <h2 class="section-title">Professional Construction Tools</h2>
       <p class="section-desc">Advanced calculators for cold storage, PEB, steel, and project estimation.</p>
 
       <div class="tools-grid">
-  
         <!-- 1. Cold Room & Panel Calculator -->
         <a href="cold-store-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('cold_room_calc.jpg'); background-size: cover; background-position: center;">
           <div class="tool-icon">❄️</div>
@@ -223,11 +225,11 @@
           <div class="tool-status">● Live</div>
         </a>
 
-        <!-- 5. Profit Margin Calculator -->
-        <a href="profit-margin-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('profit_margin_calc.jpg'); background-size: cover; background-position: center;">
-          <div class="tool-icon">🧮</div>
-          <h3>Profit Margin Calculator</h3>
-          <p>Profit, margin, markup & selling price.</p>
+        <!-- 5. PEB Material Calculator -->
+        <a href="peb-material-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('peb_calculator.jpg'); background-size: cover; background-position: center;">
+          <div class="tool-icon">🏭</div>
+          <h3>PEB Material Calculator</h3>
+          <p>Estimate steel tonnage, roof & wall sheeting for pre-engineered buildings.</p>
           <div class="tool-status">● Live</div>
         </a>
 
@@ -239,7 +241,15 @@
           <div class="tool-status">● Live</div>
         </a>
 
-        <!-- 7. Business Card & Letterhead Studio -->
+        <!-- 7. Profit Margin Calculator -->
+        <a href="profit-margin-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('profit_margin_calc.jpg'); background-size: cover; background-position: center;">
+          <div class="tool-icon">🧮</div>
+          <h3>Profit Margin Calculator</h3>
+          <p>Profit, margin, markup & selling price.</p>
+          <div class="tool-status">● Live</div>
+        </a>
+
+        <!-- 8. Business Card & Letterhead Studio -->
         <a href="business-card-tool.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('business_card.jpg'); background-size: cover; background-position: center;">
           <div class="tool-icon">📇</div>
           <h3>Business Card & Letterhead Studio</h3>
@@ -247,7 +257,7 @@
           <div class="tool-status">● Live</div>
         </a>
 
-        <!-- 8. Quotation Generator -->
+        <!-- 9. Quotation Generator -->
         <a href="quotation-generator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('quotation_maker.jpg'); background-size: cover; background-position: center;">
           <div class="tool-icon">🧾</div>
           <h3>Quotation Generator</h3>
@@ -255,14 +265,29 @@
           <div class="tool-status">● Live</div>
         </a>
 
-        <!-- 9. Smart Scanner -->
+        <!-- 10. QR Business Card Generator -->
+        <a href="qr-business-card-generator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('qr_business_card.jpg'); background-size: cover; background-position: center;">
+          <div class="tool-icon">📱</div>
+          <h3>QR Business Card Generator</h3>
+          <p>Create a scannable digital business card — save contacts instantly.</p>
+          <div class="tool-status">● Live</div>
+        </a>
+
+        <!-- 11. PDF Toolkit -->
+        <a href="pdf-toolkit.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('pdf_toolkit.jpg'); background-size: cover; background-position: center;">
+          <div class="tool-icon">📄</div>
+          <h3>PDF Toolkit</h3>
+          <p>Merge, split, compress & convert PDFs — all in your browser.</p>
+          <div class="tool-status">● Live</div>
+        </a>
+
+        <!-- 12. Smart Scanner -->
         <a href="smart-scanner.html" class="tool-card featured" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('smart_scanner.jpg'); background-size: cover; background-position: center;">
           <div class="tool-icon">📷</div>
           <h3>ColdMatrix Smart Scanner</h3>
           <p>QR, barcode & text — live camera + upload.</p>
           <div class="tool-status">● Live</div>
         </a>
-
       </div>
     </div>
   </section>
@@ -274,71 +299,81 @@
       <h2 class="section-title">Handy Tools for Daily Life</h2>
       <p class="section-desc">Simple, free, and useful for everyone — no registration needed.</p>
       <div class="tools-grid">
-  
-        <!-- 10. BMI Calculator -->
-        <a href="bmi-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('bmi_calc.jpg'); background-size: cover; background-position: center;">
-          <div class="tool-icon">⚖️</div>
-          <h3>BMI Calculator</h3>
-          <p>Check your Body Mass Index — free & instant.</p>
-          <div class="tool-status">● Live</div>
-        </a>
+  <!-- 1. Image Converter & Resizer -->
+  <a href="image-converter-tool.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('image_converter.jpg'); background-size: cover; background-position: center;">
+    <div class="tool-icon">🖼️</div>
+    <h3>Image Converter & Resizer</h3>
+    <p>Convert JPG, PNG, BMP, WebP — free online.</p>
+    <div class="tool-status">● Live</div>
+  </a>
 
-        <!-- 11. Percentage Calculator -->
-        <a href="percentage-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('percentage_calc.jpg'); background-size: cover; background-position: center;">
-          <div class="tool-icon">📊</div>
-          <h3>Percentage Calculator</h3>
-          <p>Quick percentage calculations for everyday use.</p>
-          <div class="tool-status">● Live</div>
-        </a>
+  <!-- 2. Internet Speed Test -->
+  <a href="internet-speed-test.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('speed_test.jpg'); background-size: cover; background-position: center;">
+    <div class="tool-icon">🌐</div>
+    <h3>ColdMatrix Internet Speed Test</h3>
+    <p>Premium download, upload, ping & jitter — fast, accurate, beautiful.</p>
+    <div class="tool-status">● Live</div>
+  </a>
 
-        <!-- 12. Unit Converter -->
-        <a href="unit-converter.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('unit_converter.jpg'); background-size: cover; background-position: center;">
-          <div class="tool-icon">📏</div>
-          <h3>Unit Converter</h3>
-          <p>Length, weight, temperature — convert instantly.</p>
-          <div class="tool-status">● Live</div>
-        </a>
+  <!-- 3. Global Currency Converter -->
+  <a href="currency-converter.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('currency_converter.jpg'); background-size: cover; background-position: center;">
+    <div class="tool-icon">💱</div>
+    <h3>Global Currency Converter</h3>
+    <p>Live exchange rates for 150+ world currencies.</p>
+    <div class="tool-status">● Live</div>
+  </a>
 
-        <!-- 13. Global Currency Converter -->
-        <a href="currency-converter.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('currency_converter.jpg'); background-size: cover; background-position: center;">
-          <div class="tool-icon">💱</div>
-          <h3>Global Currency Converter</h3>
-          <p>Live exchange rates for 150+ world currencies.</p>
-          <div class="tool-status">● Live</div>
-        </a>
+  <!-- 4. Percentage Calculator -->
+  <a href="percentage-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('percentage_calc.jpg'); background-size: cover; background-position: center;">
+    <div class="tool-icon">📊</div>
+    <h3>Percentage Calculator</h3>
+    <p>Quick percentage calculations for everyday use.</p>
+    <div class="tool-status">● Live</div>
+  </a>
 
-        <!-- 14. QR Code Generator -->
-        <a href="qr-code-generator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('qr_generator.jpg'); background-size: cover; background-position: center;">
-          <div class="tool-icon">📱</div>
-          <h3>QR Code Generator</h3>
-          <p>Websites, WhatsApp, contacts, Wi‑Fi — all QR types.</p>
-          <div class="tool-status">● Live</div>
-        </a>
+  <!-- 5. BMI Calculator -->
+  <a href="bmi-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('bmi_calc.jpg'); background-size: cover; background-position: center;">
+    <div class="tool-icon">⚖️</div>
+    <h3>BMI Calculator</h3>
+    <p>Check your Body Mass Index — free & instant.</p>
+    <div class="tool-status">● Live</div>
+  </a>
 
-        <!-- 15. Age Calculator -->
-        <a href="age-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('age_calc.jpg'); background-size: cover; background-position: center;">
-          <div class="tool-icon">🎂</div>
-          <h3>Age Calculator</h3>
-          <p>Calculate your exact age in years, months & days.</p>
-          <div class="tool-status">● Live</div>
-        </a>
+  <!-- 6. Unit Converter -->
+  <a href="unit-converter.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('unit_converter.jpg'); background-size: cover; background-position: center;">
+    <div class="tool-icon">📏</div>
+    <h3>Unit Converter</h3>
+    <p>Length, weight, temperature — convert instantly.</p>
+    <div class="tool-status">● Live</div>
+  </a>
 
-        <!-- 16. Birthday Countdown -->
-        <a href="birthday-countdown.html" class="tool-card featured" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('birthday_calc.jpg'); background-size: cover; background-position: center;">
-          <div class="tool-icon">🎂</div>
-          <h3>🎂 Birthday Countdown</h3>
-          <p>Personalized countdown with photo, zodiac, and custom wishes — make every birthday unforgettable.</p>
-          <div class="tool-status">● Live</div>
-        </a>
+  <!-- 7. QR Code Generator -->
+  <a href="qr-code-generator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('qr_generator.jpg'); background-size: cover; background-position: center;">
+    <div class="tool-icon">📱</div>
+    <h3>QR Code Generator</h3>
+    <p>Websites, WhatsApp, contacts, Wi‑Fi — all QR types.</p>
+    <div class="tool-status">● Live</div>
+  </a>
 
-        <!-- 17. Image Converter & Resizer -->
-        <a href="image-converter-tool.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('image_converter.jpg'); background-size: cover; background-position: center;">
-          <div class="tool-icon">🖼️</div>
-          <h3>Image Converter & Resizer</h3>
-          <p>Convert JPG, PNG, BMP, WebP — free online.</p>
-          <div class="tool-status">● Live</div>
-        </a>
+  <!-- 8. Age Calculator -->
+  <a href="age-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('age_calc.jpg'); background-size: cover; background-position: center;">
+    <div class="tool-icon">🎂</div>
+    <h3>Age Calculator</h3>
+    <p>Calculate your exact age in years, months & days.</p>
+    <div class="tool-status">● Live</div>
+  </a>
 
+  <!-- 9. Birthday Countdown -->
+  <a href="birthday-countdown.html" class="tool-card featured" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('birthday_calc.jpg'); background-size: cover; background-position: center;">
+    <div class="tool-icon">🎂</div>
+    <h3>🎂 Birthday Countdown</h3>
+    <p>Personalized countdown with photo, zodiac, and custom wishes — make every birthday unforgettable.</p>
+    <div class="tool-status">● Live</div>
+  </a>
+</div>
+      </div>
+      <div style="text-align:center; margin-top:20px; color:var(--muted); font-size:0.82rem; padding-top:12px; border-top:1px solid var(--border);">
+        🚀 More smart tools underway — stay tuned!
       </div>
     </div>
   </section>
@@ -396,8 +431,6 @@
   <!-- ───── FOOTER ───── -->
   <footer class="footer">
     <div class="container">
-      
-      <!-- Main Tools Columns -->
       <div class="footer-grid">
         <div class="footer-col">
           <h4>🏗️ Business & Engineering</h4>
@@ -405,10 +438,13 @@
           <a href="sandwich-panel-calculator.html">🧱 Sandwich Panel</a>
           <a href="cooling-requirement-calculator.html">🌡️ Cooling Requirement</a>
           <a href="steel-weight-calculator.html">🛠️ Steel Weight</a>
+          <a href="peb-material-calculator.html">🏭 PEB Material</a>
+          <a href="concrete-calculator.html">🏗️ Concrete</a>
           <a href="profit-margin-calculator.html">🧮 Profit Margin</a>
-          <a href="concrete-calculator.html">🏗️ Concrete Calculator</a>
           <a href="business-card-tool.html">📇 Business Card Studio</a>
           <a href="quotation-generator.html">🧾 Quotation Generator</a>
+          <a href="qr-business-card-generator.html">📱 QR Business Card</a>
+          <a href="pdf-toolkit.html">📄 PDF Toolkit</a>
           <a href="smart-scanner.html">📷 Smart Scanner</a>
         </div>
         <div class="footer-col">
@@ -421,48 +457,25 @@
           <a href="age-calculator.html">🎂 Age Calculator</a>
           <a href="birthday-countdown.html">🎂 Birthday Countdown</a>
           <a href="image-converter-tool.html">🖼️ Image Converter</a>
-        </div>
-      </div>
-
-      <!-- Gallery & Blog Row -->
-      <div class="footer-grid" style="margin-bottom:25px; padding-top:20px; border-top:1px solid var(--border);">
-        <div class="footer-col">
-          <h4>📸 Project Gallery</h4>
-          <a href="gallery.html">Cold Stores</a>
-          <a href="gallery.html">Sandwich Panels</a>
-          <a href="gallery.html">Roofing Projects</a>
-          <a href="gallery.html">Office Partitions</a>
+          <a href="internet-speed-test.html">🌐 Speed Test</a>
         </div>
         <div class="footer-col">
-          <h4>📝 Knowledge Hub</h4>
-          <a href="blog.html">Expert Guides</a>
-          <a href="blog.html">Installation Tips</a>
-          <a href="blog.html">Industry Insights</a>
-          <a href="blog.html">Business Advice</a>
+          <h4>📸 Gallery & Blog</h4>
+          <a href="gallery.html">📸 Project Gallery</a>
+          <a href="blog.html">📝 Knowledge Hub</a>
         </div>
-      </div>
-
-      <!-- Company & Legal Row -->
-      <div class="footer-bottom-row">
         <div class="footer-col">
-          <h4>❄️ ColdMatrix</h4>
-          <p style="color:var(--muted);font-size:0.85rem;">For everyone who builds, plans, or dreams.</p>
+          <h4>Company</h4>
+          <a href="about.html">ℹ️ About</a>
+          <a href="contact.html">📞 Contact</a>
         </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px;">
-          <div class="footer-col">
-            <h4>Company</h4>
-            <a href="about.html">ℹ️ About</a>
-            <a href="contact.html">📞 Contact</a>
-          </div>
-          <div class="footer-col">
-            <h4>Legal</h4>
-            <a href="privacy-policy.html">🔒 Privacy</a>
-            <a href="terms-of-use.html">📄 Terms</a>
-            <a href="contact.html#feedback">📬 Feedback</a>
-          </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy-policy.html">🔒 Privacy</a>
+          <a href="terms-of-use.html">📄 Terms</a>
+          <a href="contact.html#feedback">📬 Feedback</a>
         </div>
       </div>
-
       <div class="footer-bottom">
         <span>© 2026 ColdMatrix Tools. All rights reserved.</span>
         <span>Powered by <strong style="color:var(--accent);">ColdMatrix</strong></span>
@@ -470,29 +483,16 @@
     </div>
   </footer>
 
-  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" style="position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; font-size:1.2rem;">💬</a>
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" style="position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.4rem;">💬</a>
 
   <script>
     let deferredPrompt;
-    window.addEventListener('beforeinstallprompt',function(e){
-      e.preventDefault();
-      deferredPrompt=e;
-      var b=document.getElementById('installBar');
-      if(b)b.style.display='block';
-    });
+    window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;var b=document.getElementById('installBar');if(b)b.style.display='block';});
     function installApp(){
-      if(deferredPrompt){
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(function(){
-          document.getElementById('installBar').style.display='none';
-        });
-      } else {
-        alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');
-      }
+      if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(){document.getElementById('installBar').style.display='none';});}
+      else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');}
     }
-    if('serviceWorker' in navigator){
-      navigator.serviceWorker.register('/service-worker.js').catch(function(){});
-    }
+    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(function(){});}
   </script>
 </body>
 </html>

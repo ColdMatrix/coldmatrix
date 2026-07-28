@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://coldmatrixtools.com/pdf-toolkit.html">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ColdMatrix PDF Toolkit — Merge, Split, Compress & Convert PDFs Free</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="ColdMatrix PDF Toolkit — Merge, Split, Compress & Convert PDFs Free">
+  <meta property="og:description" content="Merge PDFs, split pages, compress file size, convert JPG to PDF and back, and convert PDF to Word — all free, all in your browser, no upload to a server.">
+  <meta property="og:url" content="https://coldmatrixtools.com/pdf-toolkit.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/pdf_toolkit.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ColdMatrix PDF Toolkit — Merge, Split, Compress & Convert PDFs Free">
+  <meta name="twitter:description" content="Merge PDFs, split pages, compress file size, convert JPG to PDF and back, and convert PDF to Word — all free, all in your browser, no upload to a server.">
+  <meta name="twitter:image" content="https://coldmatrixtools.com/pdf_toolkit.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix PDF Toolkit",
+    "url": "https://coldmatrixtools.com/pdf-toolkit.html",
+    "applicationCategory": "Utility",
+    "description": "Merge PDFs, split pages, compress file size, convert JPG to PDF and back, and convert PDF to Word — all free, all in your browser.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <meta name="description" content="Merge PDFs, split pages, compress file size, convert JPG to PDF and back, and convert PDF to Word — all free, all in your browser, no upload to a server.">
+  <meta name="keywords" content="PDF toolkit, merge PDF, split PDF, compress PDF, JPG to PDF, PDF to JPG, PDF to Word, free PDF tools online">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient: linear-gradient(135deg, #4FC3F7, #2196F3); }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { 
+      background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.92)), url('pdf_toolkit.jpg') center/cover fixed no-repeat;
+      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; 
+    }
+    .container { max-width: 900px; margin:0 auto; padding:0 24px; }
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+    .ad-card { border-radius:14px; overflow:hidden; background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+    .ad-card ul { list-style:none; padding:0; margin:0; }
+    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
+    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
+    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; display:none; }
+    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
+    .subtitle { color:var(--muted); margin-bottom:24px; }
+    .tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+    .tab-btn { background:var(--surface2); border:1px solid var(--border); color:var(--muted); padding:10px 16px; border-radius:50px; font-weight:600; font-size:0.85rem; cursor:pointer; }
+    .tab-btn.active { background:var(--gradient); color:#0A0F14; border-color:transparent; }
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:20px; }
+    .card h2 { font-size:1rem; font-weight:600; margin-bottom:14px; color:var(--accent); }
+    .subtabs { display:flex; gap:8px; margin-bottom:16px; }
+    .subtab-btn { flex:1; background:var(--surface2); border:1px solid var(--border); color:var(--muted); padding:10px; border-radius:8px; font-weight:600; font-size:0.85rem; cursor:pointer; }
+    .subtab-btn.active { border-color:var(--accent); color:var(--accent); }
+    .drop-zone { border:2px dashed var(--border); border-radius:12px; padding:30px; text-align:center; color:var(--muted); cursor:pointer; margin-bottom:14px; }
+    .drop-zone:hover { border-color:var(--accent); color:var(--accent); }
+    .drop-zone input { display:none; }
+    .file-list { margin-bottom:14px; }
+    .file-item { display:flex; justify-content:space-between; align-items:center; background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:10px 14px; margin-bottom:8px; font-size:0.85rem; }
+    .file-item button { background:none; border:none; color:#F44336; cursor:pointer; font-size:1rem; }
+    label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; }
+    input[type="text"], input[type="number"], select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:12px; border-radius:10px; font-size:0.95rem; margin-bottom:14px; }
+    input[type="range"] { width:100%; margin-bottom:14px; }
+    .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; }
+    .btn-calc:disabled { opacity:0.5; cursor:not-allowed; }
+    .status-box { margin-top:14px; padding:14px; border-radius:10px; background:var(--surface2); font-size:0.85rem; display:none; }
+    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:14px; }
+    .share-btn { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px; font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
+    .share-whatsapp { background:#25D366; }
+    .share-download { background:var(--gradient); color:#0A0F14; }
+    .note { font-size:0.78rem; color:var(--muted); margin-top:12px; border-top:1px solid var(--border); padding-top:12px; }
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--accent); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+    .spinner { display:inline-block; width:16px; height:16px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite; vertical-align:middle; margin-right:8px; }
+    @keyframes spin { to{ transform:rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="ad-card">
+      <div>
+        <ul>
+          <li>PEB Structures</li>
+          <li>Cold Storage & Freezer Rooms</li>
+          <li>PU/PIR Sandwich Panels</li>
+          <li>Prefab Construction Solutions</li>
+        </ul>
+        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+      </div>
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+    </div>
+
+    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
+    <h1>📄 ColdMatrix PDF Toolkit</h1>
+    <p class="subtitle">Merge, split, compress, and convert PDFs — everything happens right in your browser, your files are never uploaded to any server.</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="merge" onclick="switchTab('merge')">🔗 Merge</button>
+      <button class="tab-btn" data-tab="split" onclick="switchTab('split')">✂️ Split</button>
+      <button class="tab-btn" data-tab="compress" onclick="switchTab('compress')">🗜️ Compress</button>
+      <button class="tab-btn" data-tab="image" onclick="switchTab('image')">🖼️ JPG ⇄ PDF</button>
+      <button class="tab-btn" data-tab="word" onclick="switchTab('word')">📝 PDF ⇄ Word</button>
+    </div>
+
+    <!-- MERGE -->
+    <div class="tab-content active" id="tab-merge">
+      <div class="card">
+        <h2>Merge Multiple PDFs into One</h2>
+        <div class="drop-zone" onclick="document.getElementById('mergeInput').click()">
+          <input type="file" id="mergeInput" accept="application/pdf" multiple onchange="handleMergeFiles(this.files)">
+          📎 Tap to select PDF files (choose multiple)
+        </div>
+        <div class="file-list" id="mergeFileList"></div>
+        <button class="btn-calc" id="mergeBtn" disabled onclick="mergePDFs()">Merge PDFs</button>
+        <div class="status-box" id="mergeStatus"></div>
+        <div class="share-bar" id="mergeShare" style="display:none;">
+          <button class="share-btn share-whatsapp" onclick="shareFile(mergeResultBlob,'ColdMatrix-Merged.pdf')"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+          <button class="share-btn share-download" onclick="downloadBlob(mergeResultBlob,'ColdMatrix-Merged.pdf')"><i class="fa-solid fa-download"></i> Download PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPLIT -->
+    <div class="tab-content" id="tab-split">
+      <div class="card">
+        <h2>Split a PDF</h2>
+        <div class="drop-zone" onclick="document.getElementById('splitInput').click()">
+          <input type="file" id="splitInput" accept="application/pdf" onchange="handleSplitFile(this.files)">
+          📎 Tap to select one PDF file
+        </div>
+        <div id="splitInfo" style="font-size:0.85rem;color:var(--muted);margin-bottom:10px;"></div>
+        <label>Page range (e.g. 1-3,5) — leave blank to split every page separately</label>
+        <input type="text" id="splitRange" placeholder="e.g. 1-3,5">
+        <button class="btn-calc" id="splitBtn" disabled onclick="splitPDF()">Split PDF</button>
+        <div class="status-box" id="splitStatus"></div>
+        <div class="share-bar" id="splitShare" style="display:none;">
+          <button class="share-btn share-whatsapp" onclick="shareFile(splitResultBlob, splitResultName)"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+          <button class="share-btn share-download" onclick="downloadBlob(splitResultBlob, splitResultName)"><i class="fa-solid fa-download"></i> Download</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPRESS -->
+    <div class="tab-content" id="tab-compress">
+      <div class="card">
+        <h2>Compress a PDF</h2>
+        <div class="drop-zone" onclick="document.getElementById('compressInput').click()">
+          <input type="file" id="compressInput" accept="application/pdf" onchange="handleCompressFile(this.files)">
+          📎 Tap to select one PDF file
+        </div>
+        <div id="compressInfo" style="font-size:0.85rem;color:var(--muted);margin-bottom:10px;"></div>
+        <label>Compression Level</label>
+        <select id="compressLevel">
+          <option value="0.8">Low compression (better quality)</option>
+          <option value="0.55" selected>Medium compression (recommended)</option>
+          <option value="0.3">High compression (smaller file)</option>
+        </select>
+        <button class="btn-calc" id="compressBtn" disabled onclick="compressPDF()">Compress PDF</button>
+        <div class="status-box" id="compressStatus"></div>
+        <div class="share-bar" id="compressShare" style="display:none;">
+          <button class="share-btn share-whatsapp" onclick="shareFile(compressResultBlob,'ColdMatrix-Compressed.pdf')"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+          <button class="share-btn share-download" onclick="downloadBlob(compressResultBlob,'ColdMatrix-Compressed.pdf')"><i class="fa-solid fa-download"></i> Download PDF</button>
+        </div>
+        <div class="note">⚠️ This rebuilds your PDF from flattened page images. It works best for scanned documents or photo-heavy PDFs. Text will no longer be selectable/searchable after compressing.</div>
+      </div>
+    </div>
+
+    <!-- IMAGE <-> PDF -->
+    <div class="tab-content" id="tab-image">
+      <div class="card">
+        <div class="subtabs">
+          <button class="subtab-btn active" data-sub="imgToPdf" onclick="switchSubTab('image','imgToPdf')">Images → PDF</button>
+          <button class="subtab-btn" data-sub="pdfToImg" onclick="switchSubTab('image','pdfToImg')">PDF → Images</button>
+        </div>
+        <div id="image-imgToPdf">
+          <h2>Convert JPG/PNG to PDF</h2>
+          <div class="drop-zone" onclick="document.getElementById('imgInput').click()">
+            <input type="file" id="imgInput" accept="image/jpeg,image/png" multiple onchange="handleImgFiles(this.files)">
+            📎 Tap to select image(s) — each becomes one page
+          </div>
+          <div class="file-list" id="imgFileList"></div>
+          <button class="btn-calc" id="imgToPdfBtn" disabled onclick="imagesToPDF()">Convert to PDF</button>
+          <div class="status-box" id="imgToPdfStatus"></div>
+          <div class="share-bar" id="imgToPdfShare" style="display:none;">
+            <button class="share-btn share-whatsapp" onclick="shareFile(imgToPdfResultBlob,'ColdMatrix-Images.pdf')"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <button class="share-btn share-download" onclick="downloadBlob(imgToPdfResultBlob,'ColdMatrix-Images.pdf')"><i class="fa-solid fa-download"></i> Download PDF</button>
+          </div>
+        </div>
+        <div id="image-pdfToImg" style="display:none;">
+          <h2>Convert PDF Pages to JPG/PNG</h2>
+          <div class="drop-zone" onclick="document.getElementById('pdfToImgInput').click()">
+            <input type="file" id="pdfToImgInput" accept="application/pdf" onchange="handlePdfToImgFile(this.files)">
+            📎 Tap to select one PDF file
+          </div>
+          <label>Output format</label>
+          <select id="pdfToImgFormat"><option value="jpg">JPG</option><option value="png">PNG</option></select>
+          <button class="btn-calc" id="pdfToImgBtn" disabled onclick="pdfToImages()">Convert to Images</button>
+          <div class="status-box" id="pdfToImgStatus"></div>
+          <div class="share-bar" id="pdfToImgShare" style="display:none;">
+            <button class="share-btn share-whatsapp" onclick="shareFile(pdfToImgResultBlob, pdfToImgResultName)"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <button class="share-btn share-download" onclick="downloadBlob(pdfToImgResultBlob, pdfToImgResultName)"><i class="fa-solid fa-download"></i> Download</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF <-> WORD -->
+    <div class="tab-content" id="tab-word">
+      <div class="card">
+        <div class="subtabs">
+          <button class="subtab-btn active" data-sub="pdfToWord" onclick="switchSubTab('word','pdfToWord')">PDF → Word</button>
+          <button class="subtab-btn" data-sub="wordToPdf" onclick="switchSubTab('word','wordToPdf')">Word → PDF</button>
+        </div>
+        <div id="word-pdfToWord">
+          <h2>Convert PDF to Word</h2>
+          <div class="drop-zone" onclick="document.getElementById('pdfToWordInput').click()">
+            <input type="file" id="pdfToWordInput" accept="application/pdf" onchange="handlePdfToWordFile(this.files)">
+            📎 Tap to select one PDF file
+          </div>
+          <button class="btn-calc" id="pdfToWordBtn" disabled onclick="pdfToWord()">Convert to Word</button>
+          <div class="status-box" id="pdfToWordStatus"></div>
+          <div class="share-bar" id="pdfToWordShare" style="display:none;">
+            <button class="share-btn share-whatsapp" onclick="shareFile(pdfToWordResultBlob,'ColdMatrix-Document.doc')"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <button class="share-btn share-download" onclick="downloadBlob(pdfToWordResultBlob,'ColdMatrix-Document.doc')"><i class="fa-solid fa-download"></i> Download Word File</button>
+          </div>
+          <div class="note">⚠️ This extracts text from your PDF into an editable Word file. Original layout, images, and complex formatting are not preserved — best for text-based documents.</div>
+        </div>
+        <div id="word-wordToPdf" style="display:none;">
+          <h2>Convert Word to PDF</h2>
+          <div class="drop-zone" onclick="document.getElementById('wordToPdfInput').click()">
+            <input type="file" id="wordToPdfInput" accept=".docx" onchange="handleWordToPdfFile(this.files)">
+            📎 Tap to select one .docx file
+          </div>
+          <button class="btn-calc" id="wordToPdfBtn" disabled onclick="wordToPdf()">Convert to PDF</button>
+          <div class="status-box" id="wordToPdfStatus"></div>
+          <div class="share-bar" id="wordToPdfShare" style="display:none;">
+            <button class="share-btn share-whatsapp" onclick="shareFile(wordToPdfResultBlob,'ColdMatrix-Document.pdf')"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <button class="share-btn share-download" onclick="downloadBlob(wordToPdfResultBlob,'ColdMatrix-Document.pdf')"><i class="fa-solid fa-download"></i> Download PDF</button>
+          </div>
+          <div class="note">⚠️ Works with .docx files only. Basic text and headings convert well; complex tables or embedded objects may not convert perfectly.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <script>
+    if (window['pdfjsLib']) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+    }
+    const { PDFDocument } = PDFLib;
+
+    function switchTab(tab){
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+      document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+      document.getElementById('tab-'+tab).classList.add('active');
+    }
+    function switchSubTab(group, sub){
+      document.querySelectorAll(`#tab-${group} .subtab-btn`).forEach(b=>b.classList.toggle('active', b.dataset.sub===sub));
+      document.querySelectorAll(`#tab-${group} > .card > div[id^="${group}-"]`).forEach(d=>d.style.display='none');
+      document.getElementById(group+'-'+sub).style.display='block';
+    }
+    function downloadBlob(blob, filename){
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href=url; a.download=filename; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url), 3000);
+    }
+    async function shareFile(blob, filename){
+      if(!blob) return;
+      try{
+        const file = new File([blob], filename, {type: blob.type});
+        if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+          await navigator.share({ files:[file], title:'ColdMatrix Tools', text:'Shared via ColdMatrix Tools' });
+          return;
+        }
+      }catch(e){}
+      downloadBlob(blob, filename);
+      window.open('https://wa.me/?text=' + encodeURIComponent('Thank you for using ColdMatrix Tools — your 24/7 business companion.\n📧 contact@coldmatrixtools.com  |  💬 +92 333 3228470'), '_blank');
+    }
+    function setStatus(id, html){ const el=document.getElementById(id); el.style.display='block'; el.innerHTML=html; }
+
+    // ---------- MERGE ----------
+    let mergeFiles = [], mergeResultBlob = null;
+    function handleMergeFiles(fileList){
+      mergeFiles = mergeFiles.concat(Array.from(fileList));
+      renderMergeList();
+    }
+    function renderMergeList(){
+      const list = document.getElementById('mergeFileList');
+      list.innerHTML = mergeFiles.map((f,i)=>`<div class="file-item"><span>${i+1}. ${f.name}</span><button onclick="removeMergeFile(${i})">✕</button></div>`).join('');
+      document.getElementById('mergeBtn').disabled = mergeFiles.length < 2;
+    }
+    function removeMergeFile(i){ mergeFiles.splice(i,1); renderMergeList(); }
+    async function mergePDFs(){
+      setStatus('mergeStatus', '<span class="spinner"></span>Merging PDFs…');
+      try{
+        const merged = await PDFDocument.create();
+        for(const file of mergeFiles){
+          const bytes = await file.arrayBuffer();
+          const src = await PDFDocument.load(bytes);
+          const pages = await merged.copyPages(src, src.getPageIndices());
+          pages.forEach(p=>merged.addPage(p));
+        }
+        const bytes = await merged.save();
+        mergeResultBlob = new Blob([bytes], {type:'application/pdf'});
+        setStatus('mergeStatus', '✅ Merged ' + mergeFiles.length + ' PDFs into one file.');
+        document.getElementById('mergeShare').style.display='flex';
+      }catch(e){ setStatus('mergeStatus', '❌ Could not merge these PDFs. Make sure they are valid, non-password-protected PDF files.'); }
+    }
+
+    // ---------- SPLIT ----------
+    let splitFile = null, splitDoc = null, splitResultBlob = null, splitResultName = 'ColdMatrix-Split.pdf';
+    async function handleSplitFile(fileList){
+      splitFile = fileList[0];
+      if(!splitFile) return;
+      try{
+        const bytes = await splitFile.arrayBuffer();
+        splitDoc = await PDFDocument.load(bytes);
+        document.getElementById('splitInfo').textContent = splitFile.name + ' — ' + splitDoc.getPageCount() + ' pages';
+        document.getElementById('splitBtn').disabled = false;
+      }catch(e){ document.getElementById('splitInfo').textContent = '❌ Could not read this PDF.'; }
+    }
+    function parseRanges(str, max){
+      const pages = new Set();
+      str.split(',').forEach(part=>{
+        part = part.trim(); if(!part) return;
+        if(part.includes('-')){
+          const [a,b] = part.split('-').map(n=>parseInt(n.trim()));
+          for(let i=a;i<=b;i++) if(i>=1 && i<=max) pages.add(i-1);
+        } else {
+          const n = parseInt(part);
+          if(n>=1 && n<=max) pages.add(n-1);
+        }
+      });
+      return Array.from(pages).sort((a,b)=>a-b);
+    }
+    async function splitPDF(){
+      setStatus('splitStatus', '<span class="spinner"></span>Splitting…');
+      try{
+        const rangeStr = document.getElementById('splitRange').value.trim();
+        const total = splitDoc.getPageCount();
+        if(rangeStr){
+          const indices = parseRanges(rangeStr, total);
+          if(!indices.length){ setStatus('splitStatus','❌ Enter a valid page range, e.g. 1-3,5'); return; }
+          const newDoc = await PDFDocument.create();
+          const pages = await newDoc.copyPages(splitDoc, indices);
+          pages.forEach(p=>newDoc.addPage(p));
+          const bytes = await newDoc.save();
+          splitResultBlob = new Blob([bytes], {type:'application/pdf'});
+          splitResultName = 'ColdMatrix-Pages-' + rangeStr.replace(/[^0-9,-]/g,'') + '.pdf';
+          setStatus('splitStatus', '✅ Extracted pages: ' + rangeStr);
+        } else {
+          const zip = new JSZip();
+          for(let i=0;i<total;i++){
+            const newDoc = await PDFDocument.create();
+            const [page] = await newDoc.copyPages(splitDoc, [i]);
+            newDoc.addPage(page);
+            const bytes = await newDoc.save();
+            zip.file('page-' + (i+1) + '.pdf', bytes);
+          }
+          const zipBlob = await zip.generateAsync({type:'blob'});
+          splitResultBlob = zipBlob;
+          splitResultName = 'ColdMatrix-Split-Pages.zip';
+          setStatus('splitStatus', '✅ Split into ' + total + ' separate PDF files (zipped).');
+        }
+        document.getElementById('splitShare').style.display='flex';
+      }catch(e){ setStatus('splitStatus', '❌ Something went wrong splitting this PDF.'); }
+    }
+
+    // ---------- COMPRESS ----------
+    let compressFile = null, compressResultBlob = null;
+    function handleCompressFile(fileList){
+      compressFile = fileList[0];
+      if(compressFile){
+        document.getElementById('compressInfo').textContent = compressFile.name + ' — ' + (compressFile.size/1024/1024).toFixed(2) + ' MB';
+        document.getElementById('compressBtn').disabled = false;
+      }
+    }
+    async function compressPDF(){
+      setStatus('compressStatus', '<span class="spinner"></span>Compressing…');
+      try{
+        const quality = parseFloat(document.getElementById('compressLevel').value);
+        const bytes = await compressFile.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({data: bytes}).promise;
+        const newDoc = await PDFDocument.create();
+        for(let i=1;i<=pdf.numPages;i++){
+          const page = await pdf.getPage(i);
+          const viewport = page.getViewport({scale: 1.4});
+          const canvas = document.createElement('canvas');
+          canvas.width = viewport.width; canvas.height = viewport.height;
+          const ctx = canvas.getContext('2d');
+          await page.render({canvasContext: ctx, viewport}).promise;
+          const jpgData = canvas.toDataURL('image/jpeg', quality);
+          const jpgBytes = await fetch(jpgData).then(r=>r.arrayBuffer());
+          const img = await newDoc.embedJpg(jpgBytes);
+          const pdfPage = newDoc.addPage([viewport.width, viewport.height]);
+          pdfPage.drawImage(img, {x:0, y:0, width:viewport.width, height:viewport.height});
+          setStatus('compressStatus', `<span class="spinner"></span>Processing page ${i} of ${pdf.numPages}…`);
+        }
+        const outBytes = await newDoc.save();
+        compressResultBlob = new Blob([outBytes], {type:'application/pdf'});
+        const origMB = (compressFile.size/1024/1024).toFixed(2);
+        const newMB = (outBytes.length/1024/1024).toFixed(2);
+        setStatus('compressStatus', `✅ Done. ${origMB} MB → ${newMB} MB`);
+        document.getElementById('compressShare').style.display='flex';
+      }catch(e){ setStatus('compressStatus', '❌ Could not compress this PDF.'); }
+    }
+
+    // ---------- IMAGES -> PDF ----------
+    let imgFiles = [], imgToPdfResultBlob = null;
+    function handleImgFiles(fileList){
+      imgFiles = imgFiles.concat(Array.from(fileList));
+      renderImgList();
+    }
+    function renderImgList(){
+      const list = document.getElementById('imgFileList');
+      list.innerHTML = imgFiles.map((f,i)=>`<div class="file-item"><span>${i+1}. ${f.name}</span><button onclick="removeImgFile(${i})">✕</button></div>`).join('');
+      document.getElementById('imgToPdfBtn').disabled = imgFiles.length < 1;
+    }
+    function removeImgFile(i){ imgFiles.splice(i,1); renderImgList(); }
+    async function imagesToPDF(){
+      setStatus('imgToPdfStatus', '<span class="spinner"></span>Converting…');
+      try{
+        const doc = await PDFDocument.create();
+        for(const file of imgFiles){
+          const bytes = await file.arrayBuffer();
+          const img = file.type === 'image/png' ? await doc.embedPng(bytes) : await doc.embedJpg(bytes);
+          const page = doc.addPage([img.width, img.height]);
+          page.drawImage(img, {x:0, y:0, width:img.width, height:img.height});
+        }
+        const bytes = await doc.save();
+        imgToPdfResultBlob = new Blob([bytes], {type:'application/pdf'});
+        setStatus('imgToPdfStatus', '✅ Converted ' + imgFiles.length + ' image(s) into one PDF.');
+        document.getElementById('imgToPdfShare').style.display='flex';
+      }catch(e){ setStatus('imgToPdfStatus', '❌ Could not convert these images.'); }
+    }
+
+    // ---------- PDF -> IMAGES ----------
+    let pdfToImgFile = null, pdfToImgResultBlob = null, pdfToImgResultName = '';
+    function handlePdfToImgFile(fileList){
+      pdfToImgFile = fileList[0];
+      document.getElementById('pdfToImgBtn').disabled = !pdfToImgFile;
+    }
+    async function pdfToImages(){
+      setStatus('pdfToImgStatus', '<span class="spinner"></span>Rendering pages…');
+      try{
+        const format = document.getElementById('pdfToImgFormat').value;
+        const mime = format === 'png' ? 'image/png' : 'image/jpeg';
+        const bytes = await pdfToImgFile.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({data: bytes}).promise;
+        if(pdf.numPages === 1){
+          const page = await pdf.getPage(1);
+          const viewport = page.getViewport({scale: 2});
+          const canvas = document.createElement('canvas');
+          canvas.width = viewport.width; canvas.height = viewport.height;
+          await page.render({canvasContext: canvas.getContext('2d'), viewport}).promise;
+          const dataUrl = canvas.toDataURL(mime, 0.92);
+          const blobBytes = await fetch(dataUrl).then(r=>r.blob());
+          pdfToImgResultBlob = blobBytes;
+          pdfToImgResultName = 'ColdMatrix-Page-1.' + format;
+        } else {
+          const zip = new JSZip();
+          for(let i=1;i<=pdf.numPages;i++){
+            const page = await pdf.getPage(i);
+            const viewport = page.getViewport({scale: 2});
+            const canvas = document.createElement('canvas');
+            canvas.width = viewport.width; canvas.height = viewport.height;
+            await page.render({canvasContext: canvas.getContext('2d'), viewport}).promise;
+            const dataUrl = canvas.toDataURL(mime, 0.92);
+            const base64 = dataUrl.split(',')[1];
+            zip.file('page-' + i + '.' + format, base64, {base64:true});
+            setStatus('pdfToImgStatus', `<span class="spinner"></span>Page ${i} of ${pdf.numPages}…`);
+          }
+          pdfToImgResultBlob = await zip.generateAsync({type:'blob'});
+          pdfToImgResultName = 'ColdMatrix-PDF-Images.zip';
+        }
+        setStatus('pdfToImgStatus', '✅ Converted ' + pdf.numPages + ' page(s) to ' + format.toUpperCase() + '.');
+        document.getElementById('pdfToImgShare').style.display='flex';
+      }catch(e){ setStatus('pdfToImgStatus', '❌ Could not convert this PDF.'); }
+    }
+
+    // ---------- PDF -> WORD ----------
+    let pdfToWordFile = null, pdfToWordResultBlob = null;
+    function handlePdfToWordFile(fileList){
+      pdfToWordFile = fileList[0];
+      document.getElementById('pdfToWordBtn').disabled = !pdfToWordFile;
+    }
+    async function pdfToWord(){
+      setStatus('pdfToWordStatus', '<span class="spinner"></span>Extracting text…');
+      try{
+        const bytes = await pdfToWordFile.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({data: bytes}).promise;
+        let htmlBody = '';
+        for(let i=1;i<=pdf.numPages;i++){
+          const page = await pdf.getPage(i);
+          const content = await page.getTextContent();
+          let lastY = null, line = '';
+          content.items.forEach(item=>{
+            if(lastY !== null && Math.abs(item.transform[5]-lastY) > 5){
+              htmlBody += '<p>' + line + '</p>';
+              line = '';
+            }
+            line += item.str + ' ';
+            lastY = item.transform[5];
+          });
+          if(line) htmlBody += '<p>' + line + '</p>';
+          htmlBody += '<p style="page-break-after:always;"></p>';
+        }
+        const docHtml = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head><meta charset="utf-8"><title>Document</title></head>
+        <body style="font-family:Calibri, Arial, sans-serif; font-size:12pt;">${htmlBody}</body></html>`;
+        pdfToWordResultBlob = new Blob(['\ufeff', docHtml], {type:'application/msword'});
+        setStatus('pdfToWordStatus', '✅ Text extracted (' + pdf.numPages + ' page(s)).');
+        document.getElementById('pdfToWordShare').style.display='flex';
+      }catch(e){ setStatus('pdfToWordStatus', '❌ Could not extract text from this PDF.'); }
+    }
+
+    // ---------- WORD -> PDF ----------
+    let wordToPdfFile = null, wordToPdfResultBlob = null;
+    function handleWordToPdfFile(fileList){
+      wordToPdfFile = fileList[0];
+      document.getElementById('wordToPdfBtn').disabled = !wordToPdfFile;
+    }
+    async function wordToPdf(){
+      setStatus('wordToPdfStatus', '<span class="spinner"></span>Converting…');
+      try{
+        const arrayBuffer = await wordToPdfFile.arrayBuffer();
+        const result = await mammoth.convertToHtml({arrayBuffer});
+        const holder = document.createElement('div');
+        holder.style.cssText = 'position:fixed; left:-9999px; top:0; width:794px; background:#fff; color:#111; padding:40px; font-family:Georgia, serif; font-size:14px; line-height:1.6;';
+        holder.innerHTML = result.value;
+        document.body.appendChild(holder);
+        await new Promise(r=>setTimeout(r,200));
+        const canvas = await html2canvas(holder, {backgroundColor:'#ffffff', scale:2});
+        document.body.removeChild(holder);
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({unit:'px', format:'a4'});
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const imgWidth = pageWidth;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+        while(heightLeft > 0){
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+        wordToPdfResultBlob = pdf.output('blob');
+        setStatus('wordToPdfStatus', '✅ Converted to PDF.');
+        document.getElementById('wordToPdfShare').style.display='flex';
+      }catch(e){ setStatus('wordToPdfStatus', '❌ Could not convert this file.'); }
+    }
+
+    let d; const bar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
+    window.installAppTool = function(){
+      if(d){ d.prompt(); d.userChoice.then(()=>{ bar.style.display='none'; }); }
+      else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
+    };
+    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+  </script>
+</body>
+</html>

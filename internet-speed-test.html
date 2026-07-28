@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://coldmatrixtools.com/internet-speed-test.html">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ColdMatrix Internet Speed Test — Fast. Accurate. Beautiful.</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="ColdMatrix Internet Speed Test — Fast. Accurate. Beautiful.">
+  <meta property="og:description" content="A premium, beautifully animated internet speed test. Check your download speed, upload speed, ping, and jitter — free, right in your browser.">
+  <meta property="og:url" content="https://coldmatrixtools.com/internet-speed-test.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/speed_test.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ColdMatrix Internet Speed Test — Fast. Accurate. Beautiful.">
+  <meta name="twitter:description" content="A premium, beautifully animated internet speed test. Check your download speed, upload speed, ping, and jitter — free, right in your browser.">
+  <meta name="twitter:image" content="https://coldmatrixtools.com/speed_test.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix Internet Speed Test",
+    "url": "https://coldmatrixtools.com/internet-speed-test.html",
+    "applicationCategory": "Utility",
+    "description": "A premium, beautifully animated internet speed test measuring download, upload, ping, and jitter.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <meta name="description" content="A premium, beautifully animated internet speed test. Check your download speed, upload speed, ping, and jitter — free, right in your browser.">
+  <meta name="keywords" content="internet speed test, download speed test, upload speed test, ping test, jitter test, wifi speed test, broadband speed checker">
+  <meta name="theme-color" content="#0D1117">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="speed-test.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="speedtest-body">
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="ad-card">
+      <div>
+        <ul>
+          <li>PEB Structures</li>
+          <li>Cold Storage & Freezer Rooms</li>
+          <li>PU/PIR Sandwich Panels</li>
+          <li>Prefab Construction Solutions</li>
+        </ul>
+        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+      </div>
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+    </div>
+
+    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
+    <div class="brand-header">
+      <div class="brand-title"><span class="cold">Cold</span><span class="matrix">Matrix</span></div>
+      <div class="brand-sub">Internet Speed Test</div>
+      <div class="brand-tagline">Fast · Accurate · Beautiful</div>
+    </div>
+
+    <section class="gauge-section" aria-label="Speed test gauge">
+      <div class="gauge-svg-wrap">
+        <svg id="gaugeSvg" viewBox="0 0 400 400" role="img" aria-label="Speed gauge">
+          <defs>
+            <linearGradient id="arcGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#3B6CFF"/>
+              <stop offset="35%" stop-color="#22D3EE"/>
+              <stop offset="65%" stop-color="#34D399"/>
+              <stop offset="100%" stop-color="#FDE047"/>
+            </linearGradient>
+            <linearGradient id="needleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#4FC3F7"/>
+              <stop offset="100%" stop-color="#22D3EE"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="gauge-center">
+          <div class="gauge-status" id="gaugeStatus">Ready</div>
+          <div class="gauge-value"><span id="gaugeValueNum">0.0</span></div>
+          <div class="gauge-unit" id="gaugeUnit">Mbps</div>
+        </div>
+      </div>
+
+      <button class="btn-premium" id="startBtn">Start Test</button>
+
+      <div class="ping-visual" aria-hidden="true">
+        <span class="ping-node">🖥️</span>
+        <div class="ping-track">
+          <span class="ping-packet"></span>
+          <span class="ping-packet"></span>
+          <span class="ping-packet"></span>
+        </div>
+        <span class="ping-node">📡</span>
+      </div>
+    </section>
+
+    <div class="results-grid" id="resultsGrid">
+      <div class="glass-card rc-download">
+        <div class="rc-icon">⬇️</div>
+        <div><span class="rc-value" id="rDown">-</span><span class="rc-unit">Mbps</span></div>
+        <div class="rc-label">Download</div>
+      </div>
+      <div class="glass-card rc-upload">
+        <div class="rc-icon">⬆️</div>
+        <div><span class="rc-value" id="rUp">-</span><span class="rc-unit">Mbps</span></div>
+        <div class="rc-label">Upload</div>
+      </div>
+      <div class="glass-card rc-ping">
+        <div class="rc-icon">📶</div>
+        <div><span class="rc-value" id="rPing">-</span><span class="rc-unit">ms</span></div>
+        <div class="rc-label">Ping</div>
+      </div>
+      <div class="glass-card" style="grid-column: span 2;">
+        <div class="rc-icon">〰️</div>
+        <div class="rc-label" style="margin-bottom:2px;">Jitter — <span id="rJitter">-</span> ms</div>
+        <svg class="jitter-wave" viewBox="0 0 300 40" preserveAspectRatio="none"><path id="jitterPath"/></svg>
+      </div>
+      <div class="glass-card server-card" style="grid-column: span 3;">
+        <div class="server-globe">🌐</div>
+        <div class="server-info">
+          <strong id="serverCity">Detecting server…</strong>
+          <span id="serverColo"></span>
+        </div>
+        <div class="server-status"><span class="status-dot"></span> Connected</div>
+      </div>
+    </div>
+
+    <div class="share-bar" id="shareBarWrap" style="display:none;">
+      <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+      <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+      <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+    </div>
+
+    <div class="history-section">
+      <div class="history-title">Recent Tests (this device)</div>
+      <div id="historyList"></div>
+    </div>
+
+    <div class="note">⚡ Results are based on browser tests and may vary depending on network conditions. For the most accurate reading, close other apps and avoid VPNs during the test.</div>
+  </div>
+
+  <div id="shareCapture">
+    <div style="background:#fff;color:#111;border-radius:10px;padding:28px;font-family:'Inter',sans-serif;width:340px;">
+      <div style="font-size:1.3rem;font-weight:800;color:#0A0F14;margin-bottom:14px;">❄️ ColdMatrix <span style="color:#2196F3;">Speed Test</span></div>
+      <table style="width:100%;border-collapse:collapse;font-size:0.95rem;">
+        <tr><td style="padding:10px 0;border-bottom:1px solid #eee;">Ping</td><td style="padding:10px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvPing"></td></tr>
+        <tr><td style="padding:10px 0;border-bottom:1px solid #eee;">Download</td><td style="padding:10px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;color:#2196F3;" id="pvDown"></td></tr>
+        <tr><td style="padding:10px 0;">Upload</td><td style="padding:10px 0;text-align:right;font-weight:700;color:#2196F3;" id="pvUp"></td></tr>
+      </table>
+      <div style="font-size:0.72rem;color:#666;margin-top:16px;border-top:1px solid #eee;padding-top:10px;">🙏 Thank you for using ColdMatrix Tools — your 24/7 business companion.<br>📧 contact@coldmatrixtools.com &nbsp; 💬 +92 333 3228470</div>
+    </div>
+  </div>
+
+  <footer class="site-footer">Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <script src="speed-test.js"></script>
+</body>
+</html>
