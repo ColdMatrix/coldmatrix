@@ -2,42 +2,18 @@
 <html lang="en">
 <head>
   <link rel="canonical" href="https://coldmatrixtools.com/unit-converter.html">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DCJ7K7LSCF');
-  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unit Converter — Free Tool | ColdMatrix</title>
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="ColdMatrix Tools">
-  <meta property="og:title" content="Unit Converter — Free Tool | ColdMatrix">
-  <meta property="og:description" content="Free unit converter for engineers and students. Convert length, weight, temperature, and more.">
-  <meta property="og:url" content="https://coldmatrixtools.com/unit-converter.html">
-  <meta property="og:image" content="https://coldmatrixtools.com/unit_converter.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Unit Converter — Free Tool | ColdMatrix">
-  <meta name="twitter:description" content="Free unit converter for engineers and students. Convert length, weight, temperature, and more.">
-  <meta name="twitter:image" content="https://coldmatrixtools.com/unit_converter.jpg">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Unit Converter",
-    "url": "https://coldmatrixtools.com/unit-converter.html",
-    "applicationCategory": "Utility",
-    "description": "Free unit converter for engineers and students. Convert length, weight, temperature, and more.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" }
-  }
-  </script>
-  <meta name="description" content="Free unit converter for engineers and students. Convert length, weight, temperature, and more.">
-  <meta name="keywords" content="unit converter, length converter, weight converter, temperature converter, meters to feet, kg to lbs, celsius to fahrenheit">
+  <title>Unit Converter — Length, Weight, Temperature & More | ColdMatrix</title>
+  <meta name="description" content="Convert length, weight, temperature, area, volume, speed, and more — free online unit converter. Instant results, no sign‑up.">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
       --bg: #0A0F14; --surface: #12181F; --surface2: #1B232C; --border: #2A3540;
@@ -47,69 +23,45 @@
     * { margin:0; padding:0; box-sizing:border-box; }
     body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
     .container { max-width: 900px; margin:0 auto; padding:0 24px; }
-
     .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
     .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--accent); }
-
-    .ad-card {
-      border-radius:14px; overflow:hidden;
-      background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat;
-      border:1px solid var(--border); padding:18px; margin:20px 0;
-      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
-    }
+    .ad-card { border-radius:14px; overflow:hidden; background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
     .ad-card ul { list-style:none; padding:0; margin:0; }
     .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
     .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
     .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
-
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; display:none; }
     .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
-
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
-    .subtitle { color:var(--muted); margin-bottom:30px; }
-
-    .card {
-      background:var(--surface); border:1px solid var(--border); border-radius:12px;
-      padding:24px; margin-bottom:20px;
-    }
-    .card h2 { font-size:1rem; font-weight:600; margin-bottom:18px; color:var(--accent); }
-
-    .tab-row { display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap; }
-    .tab-btn {
-      flex:1; padding:10px; background:var(--surface2); border:1px solid var(--border);
-      color:var(--muted); border-radius:8px; cursor:pointer; text-align:center;
-      font-size:0.85rem; font-weight:500; min-width:100px;
-    }
-    .tab-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(79,195,247,0.1); }
-    .tab-content { display:none; }
-    .tab-content.active { display:block; }
-
-    .field { margin-bottom:14px; }
-    .field label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; }
-    .field input, .field select {
-      width:100%; background:var(--surface2); border:1px solid var(--border);
-      color:var(--text); padding:12px; border-radius:8px; font-size:1rem;
-    }
-    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); }
-
-    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-
-    .result {
-      background:var(--surface2); border:1px solid var(--accent);
-      border-radius:8px; padding:16px; margin-top:16px; text-align:center;
-      font-size:1.2rem; font-weight:600; color:var(--accent);
-    }
-
+    .subtitle { color:var(--muted); margin-bottom:24px; }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:20px; }
+    .card h2 { font-size:1rem; font-weight:600; margin-bottom:14px; color:var(--accent); }
+    label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; }
+    input, select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:12px; border-radius:10px; font-size:0.95rem; }
+    input:focus, select:focus { outline:none; border-color:var(--accent); }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+    .field { margin-bottom:0; }
+    .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; margin-top:8px; }
+    .result-box { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:20px; text-align:center; display:none; }
+    .result-value { font-size:2rem; font-weight:800; color:var(--accent); }
+    .result-label { font-size:0.9rem; color:var(--muted); margin-top:4px; }
+    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
+    .share-btn { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px; font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
+    .share-whatsapp { background:#25D366; }
+    .share-pdf { background:#E53935; }
+    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
+    #shareCapture { display:none; }
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
     footer a { color:var(--accent); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.4rem; }
+    @media (max-width:600px){ .grid2{grid-template-columns:1fr;} }
   </style>
 </head>
 <body>
-
   <nav class="navbar">
     <div class="container nav-inner">
       <a href="index.html" class="logo">❄️ ColdMatrix</a>
@@ -123,7 +75,6 @@
   </nav>
 
   <div class="container">
-
     <div class="ad-card">
       <div>
         <ul>
@@ -134,304 +85,219 @@
         </ul>
         <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
       </div>
-      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27d%20like%20a%20quote" class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
     </div>
 
-    <div class="install-bar" id="installBarTool">
-      📱 Add to Home Screen
-      <button onclick="installAppTool()">Install</button>
-    </div>
+    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1>📏 Unit Converter</h1>
-    <p class="subtitle">Convert length, weight, and temperature instantly — free and accurate.</p>
+    <p class="subtitle">Convert length, weight, temperature, area, volume, speed, and more — instantly and accurately.</p>
 
-    <!-- Rate Input -->
-    <div style="margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: #f8f9fa; padding: 12px 18px; border-radius: 10px; border: 1px solid #e0e0e0;">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <label for="rateInput" style="font-weight: bold; color: #333;">💰 Rate (PKR per unit):</label>
-        <input type="number" id="rateInput" value="450" style="padding: 8px; width: 100px; border: 2px solid #00b894; border-radius: 5px; font-size: 1rem;">
-      </div>
-    </div>
-
-    <!-- Results Box for WhatsApp & PDF -->
-    <div id="result-area" style="display: none; margin-top: 25px; padding: 20px; background: #f0f4f8; border-radius: 12px; border-left: 5px solid #00b894; color: #222;">
-      <h3 style="margin-top: 0; color: #222;">📊 Your Conversion Result</h3>
-      <div id="result-content" style="font-size: 1.1rem; line-height: 1.8;">
-        <p><strong>Converted Value:</strong> <span id="display-result">0</span></p>
-        <p><strong>Rate (PKR/unit):</strong> <span id="display-rate">0</span></p>
-        <p><strong>Total Cost:</strong> <span id="display-cost">0</span> PKR</p>
-      </div>
-      <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
-        <button onclick="copyResult()" style="background: #6c757d; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📋 Copy</button>
-        <button onclick="shareWhatsApp()" style="background: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📤 Share on WhatsApp</button>
-        <button onclick="downloadPDF()" style="background: #0077B5; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">📄 Download PDF</button>
-      </div>
-    </div>
-
-    <!-- Tabs -->
-    <div class="tab-row">
-      <button class="tab-btn active" data-tab="tab1">📐 Length</button>
-      <button class="tab-btn" data-tab="tab2">⚖️ Weight</button>
-      <button class="tab-btn" data-tab="tab3">🌡️ Temperature</button>
-    </div>
-
-    <!-- Length Converter -->
-    <div class="tab-content active" id="tab1">
-      <div class="card">
-        <h2>Length Converter</h2>
-        <div class="row2">
-          <div class="field">
-            <label>From</label>
-            <select id="lenFrom">
-              <option value="meter">Meters (m)</option>
-              <option value="feet">Feet (ft)</option>
-              <option value="inch">Inches (in)</option>
-              <option value="cm">Centimeters (cm)</option>
-              <option value="mm">Millimeters (mm)</option>
-              <option value="yard">Yards (yd)</option>
-              <option value="km">Kilometers (km)</option>
-              <option value="mile">Miles (mi)</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>To</label>
-            <select id="lenTo">
-              <option value="feet">Feet (ft)</option>
-              <option value="meter">Meters (m)</option>
-              <option value="inch">Inches (in)</option>
-              <option value="cm">Centimeters (cm)</option>
-              <option value="mm">Millimeters (mm)</option>
-              <option value="yard">Yards (yd)</option>
-              <option value="km">Kilometers (km)</option>
-              <option value="mile">Miles (mi)</option>
-            </select>
-          </div>
-        </div>
+    <div class="card">
+      <h2>Enter Your Conversion</h2>
+      <div class="grid2">
         <div class="field">
-          <label>Enter Value</label>
-          <input type="number" id="lenVal" placeholder="e.g. 10" value="1">
-        </div>
-        <div class="result" id="lenResult">1 Meter = 3.28084 Feet</div>
-      </div>
-    </div>
-
-    <!-- Weight Converter -->
-    <div class="tab-content" id="tab2">
-      <div class="card">
-        <h2>Weight Converter</h2>
-        <div class="row2">
-          <div class="field">
-            <label>From</label>
-            <select id="wtFrom">
-              <option value="kg">Kilograms (kg)</option>
-              <option value="lbs">Pounds (lbs)</option>
-              <option value="gram">Grams (g)</option>
-              <option value="ounce">Ounces (oz)</option>
-              <option value="ton">Metric Tons</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>To</label>
-            <select id="wtTo">
-              <option value="lbs">Pounds (lbs)</option>
-              <option value="kg">Kilograms (kg)</option>
-              <option value="gram">Grams (g)</option>
-              <option value="ounce">Ounces (oz)</option>
-              <option value="ton">Metric Tons</option>
-            </select>
-          </div>
-        </div>
-        <div class="field">
-          <label>Enter Value</label>
-          <input type="number" id="wtVal" placeholder="e.g. 5" value="1">
-        </div>
-        <div class="result" id="wtResult">1 Kilogram = 2.20462 Pounds</div>
-      </div>
-    </div>
-
-    <!-- Temperature Converter -->
-    <div class="tab-content" id="tab3">
-      <div class="card">
-        <h2>Temperature Converter</h2>
-        <div class="row2">
-          <div class="field">
-            <label>From</label>
-            <select id="tempFrom">
+          <label>From</label>
+          <select id="fromUnit">
+            <optgroup label="Length">
+              <option value="meter">Meter (m)</option>
+              <option value="kilometer">Kilometer (km)</option>
+              <option value="centimeter">Centimeter (cm)</option>
+              <option value="millimeter">Millimeter (mm)</option>
+              <option value="inch">Inch (in)</option>
+              <option value="foot" selected>Foot (ft)</option>
+              <option value="yard">Yard (yd)</option>
+              <option value="mile">Mile (mi)</option>
+            </optgroup>
+            <optgroup label="Weight">
+              <option value="kilogram">Kilogram (kg)</option>
+              <option value="gram">Gram (g)</option>
+              <option value="milligram">Milligram (mg)</option>
+              <option value="pound">Pound (lb)</option>
+              <option value="ounce">Ounce (oz)</option>
+              <option value="ton">Metric Ton (t)</option>
+            </optgroup>
+            <optgroup label="Temperature">
               <option value="celsius">Celsius (°C)</option>
               <option value="fahrenheit">Fahrenheit (°F)</option>
               <option value="kelvin">Kelvin (K)</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>To</label>
-            <select id="tempTo">
-              <option value="fahrenheit">Fahrenheit (°F)</option>
-              <option value="celsius">Celsius (°C)</option>
-              <option value="kelvin">Kelvin (K)</option>
-            </select>
-          </div>
+            </optgroup>
+            <optgroup label="Area">
+              <option value="sqmeter">Square Meter (m²)</option>
+              <option value="sqfoot">Square Foot (ft²)</option>
+              <option value="sqinch">Square Inch (in²)</option>
+              <option value="hectare">Hectare (ha)</option>
+              <option value="acre">Acre</option>
+            </optgroup>
+            <optgroup label="Volume">
+              <option value="liter">Liter (L)</option>
+              <option value="milliliter">Milliliter (mL)</option>
+              <option value="gallon">US Gallon (gal)</option>
+              <option value="cubicmeter">Cubic Meter (m³)</option>
+              <option value="cubicfoot">Cubic Foot (ft³)</option>
+            </optgroup>
+            <optgroup label="Speed">
+              <option value="kmh">km/h</option>
+              <option value="mph">mph</option>
+              <option value="ms">m/s</option>
+            </optgroup>
+          </select>
         </div>
         <div class="field">
-          <label>Enter Value</label>
-          <input type="number" id="tempVal" placeholder="e.g. 25" value="0">
+          <label>To</label>
+          <select id="toUnit">
+            <option value="meter">Meter (m)</option>
+            <option value="kilometer">Kilometer (km)</option>
+            <option value="centimeter">Centimeter (cm)</option>
+            <option value="millimeter">Millimeter (mm)</option>
+            <option value="inch">Inch (in)</option>
+            <option value="foot">Foot (ft)</option>
+            <option value="yard">Yard (yd)</option>
+            <option value="mile">Mile (mi)</option>
+            <option value="kilogram">Kilogram (kg)</option>
+            <option value="gram">Gram (g)</option>
+            <option value="pound" selected>Pound (lb)</option>
+            <option value="ounce">Ounce (oz)</option>
+            <option value="ton">Metric Ton (t)</option>
+            <option value="celsius">Celsius (°C)</option>
+            <option value="fahrenheit">Fahrenheit (°F)</option>
+            <option value="kelvin">Kelvin (K)</option>
+            <option value="sqmeter">Square Meter (m²)</option>
+            <option value="sqfoot">Square Foot (ft²)</option>
+            <option value="sqinch">Square Inch (in²)</option>
+            <option value="hectare">Hectare (ha)</option>
+            <option value="acre">Acre</option>
+            <option value="liter">Liter (L)</option>
+            <option value="milliliter">Milliliter (mL)</option>
+            <option value="gallon">US Gallon (gal)</option>
+            <option value="cubicmeter">Cubic Meter (m³)</option>
+            <option value="cubicfoot">Cubic Foot (ft³)</option>
+            <option value="kmh">km/h</option>
+            <option value="mph">mph</option>
+            <option value="ms">m/s</option>
+          </select>
         </div>
-        <div class="result" id="tempResult">0°C = 32°F</div>
+      </div>
+      <div class="field" style="margin-bottom:14px;">
+        <label>Value</label>
+        <input type="number" id="inputValue" placeholder="e.g. 32" value="1">
+      </div>
+      <button class="btn-calc" onclick="convert()">Convert</button>
+
+      <div class="result-box" id="resultBox">
+        <div class="result-value" id="resultValue">—</div>
+        <div class="result-label" id="resultLabel"></div>
       </div>
     </div>
 
+    <div id="shareCapture">
+      <div style="background:#fff;color:#111;border-radius:10px;padding:28px;font-family:'Inter',sans-serif;width:340px;">
+        <div style="font-size:1.3rem;font-weight:800;color:#0A0F14;margin-bottom:14px;">❄️ ColdMatrix <span style="color:#2196F3;">Unit Converter</span></div>
+        <div style="font-size:0.95rem;color:#333;" id="pvConversion">—</div>
+        <div style="font-size:0.72rem;color:#666;margin-top:16px;border-top:1px solid #eee;padding-top:10px;">🙏 Thank you for using ColdMatrix Tools — your 24/7 business companion.<br>📧 contact@coldmatrixtools.com &nbsp;💬 +92 333 3228470</div>
+      </div>
+    </div>
+
+    <div class="share-bar" id="shareBarWrap" style="display:none;">
+      <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+      <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+      <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+    </div>
   </div>
 
-  <footer>
-    Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.
-  </footer>
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
 
   <script>
-    // Length conversion factors (to meters)
-    const lenToMeter = {
-      meter: 1, feet: 0.3048, inch: 0.0254, cm: 0.01, mm: 0.001, yard: 0.9144, km: 1000, mile: 1609.344
+    // Conversion factors relative to base SI units
+    const toBase = {
+      meter: 1, kilometer: 1000, centimeter: 0.01, millimeter: 0.001,
+      inch: 0.0254, foot: 0.3048, yard: 0.9144, mile: 1609.344,
+      kilogram: 1, gram: 0.001, milligram: 1e-6, pound: 0.453592, ounce: 0.0283495, ton: 1000,
+      celsius: 'temp', fahrenheit: 'temp', kelvin: 'temp',
+      sqmeter: 1, sqfoot: 0.092903, sqinch: 0.00064516, hectare: 10000, acre: 4046.86,
+      liter: 0.001, milliliter: 1e-6, gallon: 0.00378541, cubicmeter: 1, cubicfoot: 0.0283168,
+      kmh: 0.277778, mph: 0.44704, ms: 1
     };
-    const lenNames = { meter:'Meters', feet:'Feet', inch:'Inches', cm:'Centimeters', mm:'Millimeters', yard:'Yards', km:'Kilometers', mile:'Miles' };
 
-    function convertLength() {
-      const val = parseFloat(document.getElementById('lenVal').value) || 0;
-      const from = document.getElementById('lenFrom').value;
-      const to = document.getElementById('lenTo').value;
-      const meters = val * lenToMeter[from];
-      const result = meters / lenToMeter[to];
-      const resultText = `${val} ${lenNames[from]} = ${result.toFixed(4)} ${lenNames[to]}`;
-      document.getElementById('lenResult').textContent = resultText;
-      updateResultsBox(result.toFixed(4));
-    }
+    function convert() {
+      const from = document.getElementById('fromUnit').value;
+      const to = document.getElementById('toUnit').value;
+      const val = parseFloat(document.getElementById('inputValue').value);
+      if (isNaN(val)) { alert('Please enter a valid number.'); return; }
 
-    // Weight conversion factors (to kg)
-    const wtToKg = {
-      kg: 1, lbs: 0.453592, gram: 0.001, ounce: 0.0283495, ton: 1000
-    };
-    const wtNames = { kg:'Kilograms', lbs:'Pounds', gram:'Grams', ounce:'Ounces', ton:'Metric Tons' };
-
-    function convertWeight() {
-      const val = parseFloat(document.getElementById('wtVal').value) || 0;
-      const from = document.getElementById('wtFrom').value;
-      const to = document.getElementById('wtTo').value;
-      const kg = val * wtToKg[from];
-      const result = kg / wtToKg[to];
-      const resultText = `${val} ${wtNames[from]} = ${result.toFixed(4)} ${wtNames[to]}`;
-      document.getElementById('wtResult').textContent = resultText;
-      updateResultsBox(result.toFixed(4));
-    }
-
-    // Temperature conversion
-    const tempNames = { celsius:'°C', fahrenheit:'°F', kelvin:'K' };
-
-    function convertTemperature() {
-      const val = parseFloat(document.getElementById('tempVal').value) || 0;
-      const from = document.getElementById('tempFrom').value;
-      const to = document.getElementById('tempTo').value;
       let result;
-      if (from === 'celsius' && to === 'fahrenheit') result = (val * 9/5) + 32;
-      else if (from === 'celsius' && to === 'kelvin') result = val + 273.15;
-      else if (from === 'fahrenheit' && to === 'celsius') result = (val - 32) * 5/9;
-      else if (from === 'fahrenheit' && to === 'kelvin') result = (val - 32) * 5/9 + 273.15;
-      else if (from === 'kelvin' && to === 'celsius') result = val - 273.15;
-      else if (from === 'kelvin' && to === 'fahrenheit') result = (val - 273.15) * 9/5 + 32;
-      else result = val;
-      const resultText = `${val}${tempNames[from]} = ${result.toFixed(2)}${tempNames[to]}`;
-      document.getElementById('tempResult').textContent = resultText;
-      updateResultsBox(result.toFixed(2));
-    }
-
-    // Update Results Box
-    function updateResultsBox(result) {
-      let rate = document.getElementById('rateInput').value || 0;
-      document.getElementById('display-result').innerText = result;
-      document.getElementById('display-rate').innerText = rate;
-      document.getElementById('display-cost').innerText = (parseFloat(result) * rate).toLocaleString();
-      document.getElementById('result-area').style.display = 'block';
-    }
-
-    // Copy to Clipboard
-    function copyResult() {
-      let result = document.getElementById('display-result').innerText;
-      let rate = document.getElementById('display-rate').innerText;
-      let cost = document.getElementById('display-cost').innerText;
-      let text = `Converted Value: ${result}\nRate: ${rate} PKR/unit\nTotal Cost: ${cost} PKR\n\nCalculated using ColdMatrix Tools`;
-      navigator.clipboard.writeText(text).then(() => {
-        alert('✅ Copied to clipboard!');
-      }).catch(() => {
-        alert('📋 Please copy manually.');
-      });
-    }
-
-    // Share on WhatsApp
-    function shareWhatsApp() {
-      let result = document.getElementById('display-result').innerText;
-      let rate = document.getElementById('display-rate').innerText;
-      let cost = document.getElementById('display-cost').innerText;
-      let message = `My Conversion Result:%0A%0A📊 Converted Value: ${result}%0A💰 Rate per unit: ${rate} PKR%0A💵 Total Cost: ${cost} PKR%0A%0A🔗 Calculated using ColdMatrix Tools - https://coldmatrixtools.com`;
-      window.open(`https://wa.me/?text=${message}`, '_blank');
-    }
-
-    // Download PDF
-    function downloadPDF() {
-      window.print();
-    }
-
-    // Real-time conversion
-    document.getElementById('lenVal').addEventListener('input', convertLength);
-    document.getElementById('lenFrom').addEventListener('change', convertLength);
-    document.getElementById('lenTo').addEventListener('change', convertLength);
-    document.getElementById('wtVal').addEventListener('input', convertWeight);
-    document.getElementById('wtFrom').addEventListener('change', convertWeight);
-    document.getElementById('wtTo').addEventListener('change', convertWeight);
-    document.getElementById('tempVal').addEventListener('input', convertTemperature);
-    document.getElementById('tempFrom').addEventListener('change', convertTemperature);
-    document.getElementById('tempTo').addEventListener('change', convertTemperature);
-
-    // Rate input updates results
-    document.getElementById('rateInput').addEventListener('input', function() {
-      let result = document.getElementById('display-result').innerText;
-      if (result !== '0' && document.getElementById('result-area').style.display === 'block') {
-        updateResultsBox(result);
-      }
-    });
-
-    // Tab switching
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        this.classList.add('active');
-        document.getElementById(this.dataset.tab).classList.add('active');
-        // Re-run conversions to update results
-        convertLength();
-        convertWeight();
-        convertTemperature();
-      });
-    });
-
-    // Initial conversion
-    convertLength();
-    convertWeight();
-    convertTemperature();
-
-    // PWA Install
-    let deferredPromptTool;
-    const bar = document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPromptTool = e;
-    });
-    function installAppTool() {
-      if (deferredPromptTool) {
-        deferredPromptTool.prompt();
-        deferredPromptTool.userChoice.then(() => { bar.style.display = 'none'; });
+      if (from === to) {
+        result = val;
+      } else if (from === 'celsius' || to === 'celsius' || from === 'fahrenheit' || to === 'fahrenheit' || from === 'kelvin' || to === 'kelvin') {
+        // Temperature conversion
+        let celsius;
+        if (from === 'celsius') celsius = val;
+        else if (from === 'fahrenheit') celsius = (val - 32) * 5/9;
+        else if (from === 'kelvin') celsius = val - 273.15;
+        if (to === 'celsius') result = celsius;
+        else if (to === 'fahrenheit') result = celsius * 9/5 + 32;
+        else if (to === 'kelvin') result = celsius + 273.15;
       } else {
-        alert('📱 Android: tap "Add to Home Screen" in Chrome menu.\n📱 iPhone: tap Share → Add to Home Screen.');
+        const baseVal = val * (toBase[from] || 1);
+        result = baseVal / (toBase[to] || 1);
+      }
+
+      const fromName = document.getElementById('fromUnit').selectedOptions[0].textContent;
+      const toName = document.getElementById('toUnit').selectedOptions[0].textContent;
+      document.getElementById('resultValue').textContent = parseFloat(result.toPrecision(10)).toString();
+      document.getElementById('resultLabel').textContent = `${val} ${fromName} = ${result.toPrecision(6)} ${toName}`;
+      document.getElementById('resultBox').style.display = 'block';
+      document.getElementById('shareBarWrap').style.display = 'flex';
+
+      document.getElementById('pvConversion').textContent = `${val} ${fromName} = ${result.toPrecision(6)} ${toName}`;
+    }
+
+    async function captureCanvas(){
+      const el = document.getElementById('shareCapture');
+      el.style.display = 'block';
+      const canvas = await html2canvas(el, {backgroundColor:'#ffffff', scale:2});
+      el.style.display = 'none';
+      return canvas;
+    }
+    async function downloadResult(type){
+      const canvas = await captureCanvas();
+      if(type === 'pdf'){
+        const { jsPDF } = window.jspdf;
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const pdf = new jsPDF({ orientation: canvas.width > canvas.height ? 'l':'p', unit:'px', format:[canvas.width, canvas.height] });
+        pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+        pdf.save('ColdMatrix-Unit-Conversion.pdf');
+      } else {
+        const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
+        const link = document.createElement('a');
+        link.download = 'ColdMatrix-Unit-Conversion.' + type;
+        link.href = canvas.toDataURL(mime, 0.95);
+        link.click();
       }
     }
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    async function shareWhatsApp(){
+      const canvas = await captureCanvas();
+      canvas.toBlob(async (blob)=>{
+        const file = new File([blob], 'ColdMatrix-Unit-Conversion.png', {type:'image/png'});
+        if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+          try{ await navigator.share({ files:[file], title:'Unit Conversion', text:'Unit conversion result from ColdMatrix Tools' }); }catch(e){}
+        } else {
+          const link = document.createElement('a'); link.download='ColdMatrix-Unit-Conversion.png'; link.href = canvas.toDataURL('image/png'); link.click();
+          window.open('https://wa.me/?text=' + encodeURIComponent('Thank you for using ColdMatrix Tools — your 24/7 business companion.\n📧 contact@coldmatrixtools.com  |  💬 +92 333 3228470'), '_blank');
+        }
+      });
     }
+
+    let deferredPrompt;
+    const installBar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; installBar.style.display = 'block'; });
+    window.installAppTool = function() {
+      if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(() => { installBar.style.display = 'none'; }); }
+      else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
+    };
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js').catch(() => {}); }
   </script>
 </body>
 </html>
