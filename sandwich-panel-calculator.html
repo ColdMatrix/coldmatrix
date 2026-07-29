@@ -11,93 +11,102 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sandwich Panel Calculator — Professional Engineering Tool | ColdMatrix</title>
+  <title>Sandwich Panel Calculator — Weight, Quantity & Cost | ColdMatrix</title>
+  <meta name="description" content="Professional sandwich panel estimation: weight, quantity, and total cost for walls and roofs. Supports mm, inches, feet, meters.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
-  <meta property="og:title" content="Sandwich Panel Calculator — Professional Engineering Tool | ColdMatrix">
-  <meta property="og:description" content="Professional Sandwich Panel Calculator for contractors and builders. Calculate panel thickness, weight, quantity, and total project cost.">
+  <meta property="og:title" content="Sandwich Panel Calculator — Weight, Quantity & Cost">
+  <meta property="og:description" content="Professional sandwich panel estimation: weight, quantity, and total cost for walls and roofs. Supports mm, inches, feet, meters.">
   <meta property="og:url" content="https://coldmatrixtools.com/sandwich-panel-calculator.html">
   <meta property="og:image" content="https://coldmatrixtools.com/panel_calc.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Sandwich Panel Calculator — Professional Engineering Tool | ColdMatrix">
-  <meta name="twitter:description" content="Professional Sandwich Panel Calculator for contractors and builders. Calculate panel thickness, weight, quantity, and total project cost.">
+  <meta name="twitter:title" content="Sandwich Panel Calculator — Weight, Quantity & Cost">
+  <meta name="twitter:description" content="Professional sandwich panel estimation: weight, quantity, and total cost for walls and roofs. Supports mm, inches, feet, meters.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/panel_calc.jpg">
-  <meta name="description" content="Professional Sandwich Panel Calculator for contractors and builders. Calculate panel thickness, weight, quantity, and total project cost.">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Sandwich Panel Calculator",
-    "url": "https://coldmatrixtools.com/sandwich-panel-calculator.html",
-    "applicationCategory": "Utility",
-    "description": "Professional calculator for PU/PIR sandwich panel weight, quantity, and total order volume for roof and wall panels.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" }
-  }
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    :root{ --bg:#0B0F14; --panel:#141B24; --panel-2:#1B242F; --foam:#EDF1F5; --frost:#4FC3F7; --muted:#7C8798; --line:#242F3D; --accent:#00b894; }
-    *{box-sizing:border-box; margin:0; padding:0;}
-    body{ background: linear-gradient(var(--bg), var(--bg)), repeating-linear-gradient(0deg, rgba(79,195,247,0.035) 0 1px, transparent 1px 40px); color:var(--foam); font-family:'IBM Plex Sans', sans-serif; line-height: 1.5; padding-bottom: 50px; }
-    .nav { background:rgba(10,15,20,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding:12px 20px; display:flex; justify-content:space-between; align-items:center; }
-    .nav a { color:var(--muted); text-decoration:none; font-size:0.85rem; }
-    .nav a.brand { color:var(--frost); font-weight:700; }
-    .container { max-width:900px; margin:20px auto; padding:0 20px; }
-    .ad-card {
-      border-radius:14px; overflow:hidden;
-      background: linear-gradient(90deg, rgba(10,15,20,0.85) 0%, rgba(10,15,20,0.5) 100%), url('ad-bg.jpg') center/cover no-repeat;
-      border:1px solid var(--line); padding:18px;
-      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom: 20px;
+    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { 
+      background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.92)), url('panel_calc.jpg') center/cover fixed no-repeat;
+      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
+    .container { max-width: 900px; margin:0 auto; padding:0 24px; }
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; max-width:900px; margin:0 auto; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+    .ad-card { border-radius:14px; overflow:hidden; background:linear-gradient(90deg,rgba(10,15,20,0.7),rgba(10,15,20,0.4)),url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
     .ad-card ul { list-style:none; padding:0; margin:0; }
     .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
     .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
-    .ad-card .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; }
-    
-    .card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:28px; margin-bottom:20px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);}
-    .card h2{font-family:'Oswald',sans-serif; font-size:1.1rem; text-transform:uppercase; color:var(--frost); margin-bottom:18px; border-bottom: 1px solid var(--line); padding-bottom: 8px; letter-spacing: 0.5px;}
-    
-    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
-    .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:15px; }
-    .field{margin-bottom:16px;}
-    .field label{display:block; font-size:0.8rem; color:var(--muted); margin-bottom:6px; font-weight: 500;}
-    select, input{width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--foam); padding:11px 14px; border-radius:6px; font-size: 0.95rem; outline: none; transition: border-color 0.2s;}
-    select:focus, input:focus { border-color: var(--frost); }
-    
-    .unit-toggle{display:flex; gap:8px; margin-bottom:10px;}
-    .unit-btn{flex:1; padding:9px; border:1px solid var(--line); background:var(--panel-2); color:var(--muted); border-radius:6px; cursor:pointer; text-align:center; font-size:0.85rem;}
-    .unit-btn.active{border-color:var(--frost); color:var(--frost); background: rgba(79,195,247,0.05);}
-    
-    .calc-btn{width:100%; background:linear-gradient(135deg,#4FC3F7,#2196F3); color:#0B0F14; border:none; padding:16px; border-radius:8px; font-family:'Oswald',sans-serif; font-weight:600; font-size:1.1rem; text-transform:uppercase; cursor:pointer; box-shadow: 0 4px 15px rgba(79,195,247,0.3); transition: transform 0.1s;}
-    .calc-btn:hover { transform: translateY(-1px); }
-    
-    .results-container { background: linear-gradient(145deg, #121821, #0e131a); border: 1px solid #2A3B4C; border-radius: 12px; padding: 25px; margin-top: 25px; display: none; }
-    .result-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; }
-    .result-row span:last-child { font-weight: 600; color: #fff; }
-    
-    .action-buttons { margin-top: 25px; display: flex; gap: 12px; flex-wrap: wrap; }
-    .action-btn { padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; text-transform: uppercase; font-family: 'Oswald', sans-serif; }
-    .whatsapp-action { background: #25D366; color: white; }
-    .pdf-action { background: #0077B5; color: white; }
-    
-    @media (max-width: 768px) {
-      .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 10px; }
-      .card { padding: 16px; }
-    }
+    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; display:none; }
+    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:6px; }
+    h1 span { color: var(--accent); }
+    .subtitle { color:var(--muted); margin-bottom:28px; }
+
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px; margin-bottom:20px; position:relative; overflow:hidden; }
+    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
+    .card h2 { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600; margin-bottom:16px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
+
+    .field { margin-bottom:14px; }
+    .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
+    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); }
+    .field select option { background:var(--surface2); color:var(--text); }
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+    .unit-toggle { display:flex; gap:10px; margin-bottom:16px; }
+    .unit-btn { flex:1; padding:10px; border:1px solid var(--border); background:var(--surface2); color:var(--muted); border-radius:8px; font-weight:600; font-size:0.85rem; cursor:pointer; text-align:center; transition:0.2s; }
+    .unit-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(79,195,247,0.1); box-shadow:0 0 12px rgba(79,195,247,0.2); }
+
+    .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; margin-top:8px; letter-spacing:0.5px; }
+    .btn-calc:hover { transform:scale(1.01); }
+
+    .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
+    .result-item { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center; }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.5rem; font-weight:800; color:var(--accent); }
+    .result-item .lbl { font-size:0.78rem; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
+    .result-item.highlight { border-color:#34D399; background:rgba(52,211,153,0.06); grid-column:1/-1; }
+    .result-item.highlight .val { font-size:1.8rem; color:#34D399; }
+
+    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
+    .share-btn { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px; font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
+    .share-whatsapp { background:#25D366; }
+    .share-pdf { background:#E53935; }
+    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
+
+    .note { font-size:0.75rem; color:var(--muted); margin-top:16px; border-top:1px solid var(--border); padding-top:12px; text-align:center; }
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--accent); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.4rem; }
+
+    @media (max-width:600px){ .row2,.row3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} }
   </style>
 </head>
 <body>
-<div id="cmInstallBar" style="display:none;background:#4FC3F7;color:#0A0F14;text-align:center;padding:12px;font-weight:600;border-radius:10px;margin:16px auto;max-width:900px;">📱 Add ColdMatrix to your Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
-  <div class="nav">
-    <a href="index.html" class="brand">❄️ Cold Matrix Tools</a>
-    <div>
-      <a href="index.html">Home</a> &nbsp;&nbsp;
-      <a href="about.html">About</a> &nbsp;&nbsp;
-      <a href="contact.html">Contact</a>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
     </div>
-  </div>
+  </nav>
 
   <div class="container">
     <div class="ad-card">
@@ -111,54 +120,54 @@
       </div>
       <a href="https://wa.me/923333228470?text=Hi%2C%20I%27d%20like%20a%20commercial%20quote%20for%20Sandwich%20Panels" class="whatsapp-btn" target="_blank">💬 Get Commercial Quote</a>
     </div>
-  </div>
 
-  <div class="container">
-    <h1 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:2rem; margin-bottom:8px;">🧱 Advanced Sandwich Panel Estimator</h1>
-    <p style="color:var(--muted); margin-bottom:25px;">Engineered for precise contractor estimation: dimensions, core thickness, separate top/bottom sheets, weight matrices, and regional pricing.</p>
+    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
+    <h1><span>ColdMatrix</span> Sandwich Panel Calculator</h1>
+    <p class="subtitle">Estimate panel weight, quantity, and total cost — with flexible units for any project.</p>
 
     <!-- STEP 1: PROJECT DIMENSIONS -->
     <div class="card">
-      <h2>1. 📐 Project Dimensions & Area</h2>
+      <h2>1. 📐 Project Area</h2>
       <div class="field">
         <label>Input Method</label>
         <div class="unit-toggle">
-          <div class="unit-btn active" onclick="switchInputMode('area', this)">Total Area Directly</div>
-          <div class="unit-btn" onclick="switchInputMode('dims', this)">Room Dimensions (L x W x H)</div>
+          <button class="unit-btn active" onclick="switchInputMode('area', this)">📏 Total Area Directly</button>
+          <button class="unit-btn" onclick="switchInputMode('dims', this)">🏠 Room Dimensions</button>
         </div>
       </div>
 
       <div id="modeAreaBox" class="field">
-        <label>Total Coverage Area Needed</label>
-        <div style="display:flex; gap:10px;">
-          <input type="number" id="areaNeeded" value="2000" style="flex:2;">
-          <select id="areaUnit" style="flex:1;">
+        <label>Total Coverage Area</label>
+        <div class="row2">
+          <input type="number" id="areaNeeded" value="2000" step="any">
+          <select id="areaUnit">
             <option value="sqft" selected>Square Feet (sq ft)</option>
             <option value="sqm">Square Meters (m²)</option>
           </select>
         </div>
       </div>
 
-      <div id="modeDimsBox" class="field" style="display: none;">
-        <div class="grid-3">
-          <div class="field"><label>Length (<span class="dimLbl">ft</span>)</label><input type="number" id="roomLength" value="40"></div>
-          <div class="field"><label>Width (<span class="dimLbl">ft</span>)</label><input type="number" id="roomWidth" value="30"></div>
-          <div class="field"><label>Height (<span class="dimLbl">ft</span>)</label><input type="number" id="roomHeight" value="12"></div>
+      <div id="modeDimsBox" style="display:none;">
+        <div class="row3">
+          <div class="field"><label id="dimLblLen">Length (ft)</label><input type="number" id="roomLength" value="40" step="any"></div>
+          <div class="field"><label id="dimLblWid">Width (ft)</label><input type="number" id="roomWidth" value="30" step="any"></div>
+          <div class="field"><label id="dimLblHt">Height (ft)</label><input type="number" id="roomHeight" value="12" step="any"></div>
         </div>
         <div class="field">
-          <label>Unit System for Room Dimensions</label>
+          <label>Dimension Unit</label>
           <div class="unit-toggle">
-            <div class="unit-btn active" onclick="setDimUnit('ft', this)">Feet (ft)</div>
-            <div class="unit-btn" onclick="setDimUnit('m', this)">Meters (m)</div>
+            <button class="unit-btn active" onclick="setDimUnit('ft', this)">Feet (ft)</button>
+            <button class="unit-btn" onclick="setDimUnit('m', this)">Meters (m)</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- STEP 2: PANEL SPECIFICATIONS -->
+    <!-- STEP 2: PANEL SPECS -->
     <div class="card">
       <h2>2. 🧱 Panel Specifications</h2>
-      <div class="grid-2">
+      <div class="row2">
         <div class="field">
           <label>Panel Type</label>
           <select id="panelType" onchange="updateDefaultWidth()">
@@ -169,21 +178,23 @@
         </div>
         <div class="field">
           <label>Effective Coverage Width</label>
-          <div style="display:flex; gap:10px;">
-            <input type="number" id="panelWidthVal" value="1190" style="flex:2;">
-            <select id="panelWidthUnit" style="flex:1;">
+          <div class="row2">
+            <input type="number" id="panelWidthVal" value="1190" step="any">
+            <select id="panelWidthUnit">
               <option value="mm" selected>mm</option>
-              <option value="ft">ft</option>
+              <option value="in">inches</option>
+              <option value="ft">feet</option>
+              <option value="m">meters</option>
             </select>
           </div>
         </div>
       </div>
-      <div class="grid-2">
+      <div class="row2">
         <div class="field">
           <label>Core Material</label>
           <select id="coreMaterial">
             <option value="pir" selected>PIR (Polyisocyanurate)</option>
-            <option value="pu">PUR (Polyurethane / PUF)</option>
+            <option value="pu">PUR / PUF (Polyurethane)</option>
             <option value="eps">EPS (Expanded Polystyrene)</option>
             <option value="rockwool">Rockwool (Fire Rated)</option>
           </select>
@@ -191,164 +202,105 @@
         <div class="field">
           <label>Core Thickness</label>
           <select id="coreThickness">
-            <option value="50">50 mm</option>
-            <option value="75">75 mm</option>
-            <option value="100" selected>100 mm</option>
-            <option value="120">120 mm</option>
-            <option value="125">125 mm</option>
-            <option value="150">150 mm</option>
-            <option value="175">175 mm</option>
-            <option value="200">200 mm</option>
+            <option value="50">50 mm</option><option value="75">75 mm</option>
+            <option value="100" selected>100 mm</option><option value="120">120 mm</option>
+            <option value="125">125 mm</option><option value="150">150 mm</option>
+            <option value="175">175 mm</option><option value="200">200 mm</option>
           </select>
         </div>
       </div>
-    </div>
-
-    <!-- STEP 3: STEEL SHEET & CORE -->
-    <div class="card">
-      <h2>3. 🏗️ Steel Sheet & Core Density</h2>
-      <div class="grid-3">
+      <div class="row2">
         <div class="field">
-          <label>Top Sheet Thickness</label>
-          <select id="topGauge">
-            <option value="0.30">0.30 mm</option>
-            <option value="0.35">0.35 mm</option>
-            <option value="0.40">0.40 mm</option>
-            <option value="0.45" selected>0.45 mm</option>
-            <option value="0.50">0.50 mm (Standard)</option>
-            <option value="0.60">0.60 mm</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Bottom Sheet Thickness</label>
-          <select id="botGauge">
-            <option value="0.30">0.30 mm</option>
-            <option value="0.35">0.35 mm</option>
-            <option value="0.40">0.40 mm</option>
-            <option value="0.45" selected>0.45 mm</option>
-            <option value="0.50">0.50 mm (Standard)</option>
-            <option value="0.60">0.60 mm</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Core Density (kg/m³)</label>
-          <select id="coreDensity">
-            <option value="38">38 kg/m³</option>
-            <option value="40">40 kg/m³</option>
-            <option value="42" selected>42 kg/m³</option>
-            <option value="45">45 kg/m³</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <!-- STEP 4: QUANTITY & WASTAGE -->
-    <div class="card">
-      <h2>4. 📦 Quantity & Wastage Allowance</h2>
-      <div class="grid-2">
-        <div class="field">
-          <label>Standard Panel Length for Cut Calculation</label>
-          <div style="display:flex; gap:10px;">
-            <input type="number" id="panelLengthVal" value="20" style="flex:2;">
-            <select id="panelLengthUnit" style="flex:1;">
-              <option value="ft" selected>Feet (ft)</option>
-              <option value="m">Meters (m)</option>
+          <label>Panel Length</label>
+          <div class="row2">
+            <input type="number" id="panelLengthVal" value="20" step="any">
+            <select id="panelLengthUnit">
+              <option value="ft" selected>feet</option>
+              <option value="m">meters</option>
+              <option value="mm">mm</option>
+              <option value="in">inches</option>
             </select>
           </div>
         </div>
         <div class="field">
-          <label>Project Wastage Allowance</label>
+          <label>Wastage Allowance</label>
           <select id="wastageAllowance">
-            <option value="0.00">0% (Exact Net Area)</option>
-            <option value="0.03" selected>3% (Standard Contractor Allowance)</option>
-            <option value="0.05">5% (Complex / Multi-partition)</option>
+            <option value="0">0% (Exact)</option>
+            <option value="0.03" selected>3% (Standard)</option>
+            <option value="0.05">5% (Complex)</option>
             <option value="0.07">7% (High Cut Waste)</option>
           </select>
         </div>
       </div>
     </div>
 
-    <!-- STEP 5: PRICING -->
+    <!-- STEP 3: STEEL & CORE -->
     <div class="card">
-      <h2>5. 💰 Regional Pricing & Currency</h2>
-      <div class="grid-3">
-        <div class="field">
-          <label>Panel Unit Rate</label>
-          <input type="number" id="panelRate" value="5500">
-        </div>
-        <div class="field">
-          <label>Currency</label>
-          <select id="currencySelect">
-            <option value="PKR" selected>🇵🇰 PKR (Rs.)</option>
-            <option value="USD">🇺🇸 USD ($)</option>
-            <option value="AED">🇦🇪 AED (د.إ)</option>
-            <option value="SAR">🇸🇦 SAR (ر.س)</option>
-            <option value="GBP">🇬🇧 GBP (£)</option>
-            <option value="EUR">🇪🇺 EUR (€)</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Rate Basis Unit</label>
-          <select id="rateBasis">
-            <option value="sqft" selected>Per Square Foot (sq ft)</option>
-            <option value="sqm">Per Square Meter (m²)</option>
-            <option value="runningft">Per Running Foot</option>
-          </select>
-        </div>
+      <h2>3. 🏗️ Steel Sheets & Core Density</h2>
+      <div class="row3">
+        <div class="field"><label>Top Sheet (mm)</label><select id="topGauge"><option value="0.30">0.30</option><option value="0.35">0.35</option><option value="0.40">0.40</option><option value="0.45" selected>0.45</option><option value="0.50">0.50</option><option value="0.60">0.60</option></select></div>
+        <div class="field"><label>Bottom Sheet (mm)</label><select id="botGauge"><option value="0.30">0.30</option><option value="0.35">0.35</option><option value="0.40">0.40</option><option value="0.45" selected>0.45</option><option value="0.50">0.50</option><option value="0.60">0.60</option></select></div>
+        <div class="field"><label>Core Density (kg/m³)</label><select id="coreDensity"><option value="38">38</option><option value="40">40</option><option value="42" selected>42</option><option value="45">45</option></select></div>
       </div>
     </div>
 
-    <!-- STEP 6: RESULTS TRIGGER -->
-    <button class="calc-btn" onclick="runSandwichCalculation()">Calculate Comprehensive Panel Estimate</button>
+    <!-- STEP 4: PRICING -->
+    <div class="card">
+      <h2>4. 💰 Pricing</h2>
+      <div class="row3">
+        <div class="field"><label>Panel Rate</label><input type="number" id="panelRate" value="5500" step="any"></div>
+        <div class="field"><label>Currency</label><select id="currencySelect"><option value="PKR" selected>🇵🇰 PKR</option><option value="USD">🇺🇸 USD</option><option value="AED">🇦🇪 AED</option><option value="SAR">🇸🇦 SAR</option><option value="GBP">🇬🇧 GBP</option><option value="EUR">🇪🇺 EUR</option></select></div>
+        <div class="field"><label>Rate Basis</label><select id="rateBasis"><option value="sqft" selected>Per sq ft</option><option value="sqm">Per m²</option><option value="runningft">Per Running Foot</option></select></div>
+      </div>
+    </div>
 
-    <!-- RESULTS SUMMARY BOX -->
-    <div id="resultsContainer" class="results-container">
-      <h2 style="color: #fff; border-bottom: 2px solid var(--frost); padding-bottom: 10px; margin-bottom: 15px; font-family:'Oswald',sans-serif; text-transform:uppercase;">📊 Comprehensive Panel Estimate Summary</h2>
-      
-      <div class="result-row"><span>Net Coverage Area Required</span><span id="resNetArea">—</span></div>
-      <div class="result-row"><span>Total Area with Wastage</span><span id="resTotalArea">—</span></div>
-      <div class="result-row"><span>Panels Required (pcs)</span><span id="resPanelCount">—</span></div>
-      <div class="result-row"><span>Individual Panel Weight</span><span id="resSingleWeight">—</span></div>
-      <div class="result-row"><span>Total Steel Skin Weight</span><span id="resSteelWeight">—</span></div>
-      <div class="result-row"><span>Total Core Insulation Weight</span><span id="resCoreWeight">—</span></div>
-      <div class="result-row" style="background: rgba(79,195,247,0.06); padding: 12px; border-radius: 6px; margin: 8px 0; border: 1px solid var(--frost);">
-        <span style="color: var(--frost); font-weight: bold; font-size: 1.05rem;">Total Net Order Weight</span>
-        <span id="resTotalWeight" style="color: var(--frost); font-size: 1.1rem;">—</span>
-      </div>
-      <div class="result-row" style="background: rgba(0,184,148,0.1); padding: 12px; border-radius: 6px; margin: 8px 0; border: 1px dashed var(--accent);">
-        <span style="color: var(--accent); font-weight: bold; font-size: 1.05rem;">Estimated Total Project Cost</span>
-        <span id="resGrandTotal" style="color: var(--accent); font-size: 1.2rem;">—</span>
-      </div>
+    <button class="btn-calc" onclick="runSandwichCalculation()">Calculate Panel Estimate</button>
 
-      <div class="action-buttons">
-        <button class="action-btn whatsapp-action" onclick="shareWhatsAppSummary()">💬 Share Quotation on WhatsApp</button>
-        <button class="action-btn pdf-action" onclick="window.print()">📄 Print / Save as PDF</button>
+    <!-- RESULTS -->
+    <div class="card" id="resultsContainer" style="display:none;">
+      <h2>📊 Panel Estimate Summary</h2>
+      <div class="result-grid">
+        <div class="result-item"><div class="val" id="resNetArea">—</div><div class="lbl">Net Area Required</div></div>
+        <div class="result-item"><div class="val" id="resTotalArea">—</div><div class="lbl">Total Area (incl. waste)</div></div>
+        <div class="result-item"><div class="val" id="resPanelCount">—</div><div class="lbl">Panels Required</div></div>
+        <div class="result-item"><div class="val" id="resSingleWeight">—</div><div class="lbl">Weight per Panel</div></div>
+        <div class="result-item"><div class="val" id="resSteelWeight">—</div><div class="lbl">Total Steel Weight</div></div>
+        <div class="result-item"><div class="val" id="resCoreWeight">—</div><div class="lbl">Total Core Weight</div></div>
+        <div class="result-item highlight"><div class="val" id="resTotalWeight">—</div><div class="lbl">Total Order Weight</div></div>
+        <div class="result-item highlight" style="border-color:#34D399;"><div class="val" id="resGrandTotal" style="color:#34D399;">—</div><div class="lbl">Estimated Total Cost</div></div>
       </div>
+      <div class="note">⚠️ Based on nominal dimensions. Actual weight may vary slightly. Always confirm with manufacturer data sheets.</div>
+    </div>
+
+    <div class="share-bar" id="shareBarWrap" style="display:none;">
+      <button class="share-btn share-whatsapp" onclick="shareWhatsAppSummary()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-btn share-pdf" onclick="window.print()">📄 PDF</button>
     </div>
   </div>
 
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27d%20like%20a%20commercial%20quote%20for%20Sandwich%20Panels" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
   <script>
-    let inputMode = 'area'; // 'area' or 'dims'
-    let dimUnit = 'ft';     // 'ft' or 'm'
+    let inputMode = 'area';
+    let dimUnit = 'ft';
 
     function switchInputMode(mode, btn) {
       inputMode = mode;
-      document.querySelectorAll('.unit-toggle')[0].querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.card .unit-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      if (mode === 'area') {
-        document.getElementById('modeAreaBox').style.display = 'block';
-        document.getElementById('modeDimsBox').style.display = 'none';
-      } else {
-        document.getElementById('modeAreaBox').style.display = 'none';
-        document.getElementById('modeDimsBox').style.display = 'block';
-      }
+      document.getElementById('modeAreaBox').style.display = mode === 'area' ? 'block' : 'none';
+      document.getElementById('modeDimsBox').style.display = mode === 'dims' ? 'block' : 'none';
     }
 
     function setDimUnit(u, btn) {
       dimUnit = u;
-      document.querySelectorAll('.unit-toggle')[1].querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+      const btns = document.querySelectorAll('#modeDimsBox .unit-btn');
+      btns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      document.querySelectorAll('.dimLbl').forEach(el => el.textContent = u);
+      document.getElementById('dimLblLen').textContent = 'Length (' + u + ')';
+      document.getElementById('dimLblWid').textContent = 'Width (' + u + ')';
+      document.getElementById('dimLblHt').textContent = 'Height (' + u + ')';
     }
 
     function updateDefaultWidth() {
@@ -364,11 +316,21 @@
       }
     }
 
+    function toMeter(value, unit) {
+      switch(unit) {
+        case 'mm': return value / 1000;
+        case 'in': return value * 0.0254;
+        case 'ft': return value * 0.3048;
+        case 'm': return value;
+        default: return value;
+      }
+    }
+
     function runSandwichCalculation() {
-      // 1. Determine Net Area in Sq Ft
+      // 1. Net Area in Sq Ft
       let netAreaSqFt = 0;
       if (inputMode === 'area') {
-        const val = parseFloat(document.getElementById('areaNeeded').value) || 0;
+        let val = parseFloat(document.getElementById('areaNeeded').value) || 0;
         const unit = document.getElementById('areaUnit').value;
         netAreaSqFt = (unit === 'sqm') ? val * 10.7639 : val;
       } else {
@@ -376,10 +338,7 @@
         let w = parseFloat(document.getElementById('roomWidth').value) || 0;
         let h = parseFloat(document.getElementById('roomHeight').value) || 0;
         if (dimUnit === 'm') { l *= 3.28084; w *= 3.28084; h *= 3.28084; }
-        // Total surface area estimate (walls + roof)
-        let wallArea = 2 * (l + w) * h;
-        let roofArea = l * w;
-        netAreaSqFt = wallArea + roofArea;
+        netAreaSqFt = 2 * (l + w) * h + (l * w); // walls + roof
       }
 
       if (netAreaSqFt <= 0) {
@@ -391,65 +350,61 @@
       const totalAreaSqFt = netAreaSqFt * (1 + wastage);
       const totalAreaSqM = totalAreaSqFt / 10.7639;
 
-      // 2. Panel Dimensions & Count
+      // 2. Panel Dimensions
       let pWidthVal = parseFloat(document.getElementById('panelWidthVal').value) || 1190;
-      let pWidthUnit = document.getElementById('panelWidthUnit'].value;
-      let pWidthM = (pWidthUnit === 'ft') ? pWidthVal * 0.3048 : pWidthVal / 1000;
+      let pWidthUnit = document.getElementById('panelWidthUnit').value;
+      let pWidthM = toMeter(pWidthVal, pWidthUnit);
 
       let pLengthVal = parseFloat(document.getElementById('panelLengthVal').value) || 20;
       let pLengthUnit = document.getElementById('panelLengthUnit').value;
-      let pLengthM = (pLengthUnit === 'ft') ? pLengthVal * 0.3048 : pLengthVal;
+      let pLengthM = toMeter(pLengthVal, pLengthUnit);
 
       const panelAreaSqM = pWidthM * pLengthM;
       const panelAreaSqFt = panelAreaSqM * 10.7639;
       const panelCount = Math.ceil(totalAreaSqFt / panelAreaSqFt);
 
-      // 3. Material Weights
+      // 3. Weights
       const topG = parseFloat(document.getElementById('topGauge').value) || 0.45;
       const botG = parseFloat(document.getElementById('botGauge').value) || 0.45;
       const coreDensity = parseFloat(document.getElementById('coreDensity').value) || 42;
       const coreThickMm = parseFloat(document.getElementById('coreThickness').value) || 100;
 
-      const steelDensity = 7850; // kg/m³
+      const steelDensity = 7850;
       const steelWeightPerSqM = (topG + botG) * 0.001 * steelDensity;
       const totalSteelWeight = totalAreaSqM * steelWeightPerSqM;
-
       const coreVolumeM3 = totalAreaSqM * (coreThickMm * 0.001);
       const totalCoreWeight = coreVolumeM3 * coreDensity;
       const totalNetWeight = totalSteelWeight + totalCoreWeight;
       const singlePanelWeight = totalNetWeight / panelCount;
 
-      // 4. Financial Calculations
+      // 4. Cost
       const rate = parseFloat(document.getElementById('panelRate').value) || 0;
       const currency = document.getElementById('currencySelect').value;
       const rateBasis = document.getElementById('rateBasis').value;
-
-      const currencySymbols = { 'PKR': 'Rs.', 'USD': '$', 'AED': 'د.إ', 'SAR': 'ر.س', 'GBP': '£', 'EUR': '€' };
-      const symbol = currencySymbols[currency] || 'Rs.';
+      const symbols = { 'PKR':'Rs','USD':'$','AED':'د.إ','SAR':'ر.س','GBP':'£','EUR':'€' };
+      const sym = symbols[currency] || 'Rs';
 
       let grandTotal = 0;
-      if (rateBasis === 'sqft') {
-        grandTotal = totalAreaSqFt * rate;
-      } else if (rateBasis === 'sqm') {
-        grandTotal = totalAreaSqM * rate;
-      } else {
-        // Running feet based on panel count * panel length in feet
-        let totalRunningFt = panelCount * (pLengthUnit === 'ft' ? pLengthVal : pLengthVal * 3.28084);
+      if (rateBasis === 'sqft') grandTotal = totalAreaSqFt * rate;
+      else if (rateBasis === 'sqm') grandTotal = totalAreaSqM * rate;
+      else {
+        let totalRunningFt = panelCount * (pLengthUnit === 'ft' ? pLengthVal : pLengthM / 0.3048);
         grandTotal = totalRunningFt * rate;
       }
 
-      // 5. Render Output
-      document.getElementById('resNetArea').textContent = Math.round(netAreaSqFt).toLocaleString() + ' sq ft (' + (netAreaSqFt / 10.7639).toFixed(1) + ' m²)';
-      document.getElementById('resTotalArea').textContent = Math.round(totalAreaSqFt).toLocaleString() + ' sq ft (' + totalAreaSqM.toFixed(1) + ' m² including waste)';
+      // Render
+      document.getElementById('resNetArea').textContent = Math.round(netAreaSqFt).toLocaleString() + ' sq ft';
+      document.getElementById('resTotalArea').textContent = Math.round(totalAreaSqFt).toLocaleString() + ' sq ft';
       document.getElementById('resPanelCount').textContent = panelCount + ' pcs';
       document.getElementById('resSingleWeight').textContent = singlePanelWeight.toFixed(1) + ' kg';
       document.getElementById('resSteelWeight').textContent = totalSteelWeight.toFixed(1) + ' kg';
       document.getElementById('resCoreWeight').textContent = totalCoreWeight.toFixed(1) + ' kg';
-      document.getElementById('resTotalWeight').textContent = totalNetWeight.toFixed(1) + ' kg (~' + (totalNetWeight / 1000).toFixed(2) + ' Tons)';
-      document.getElementById('resGrandTotal').textContent = symbol + ' ' + Math.round(grandTotal).toLocaleString();
+      document.getElementById('resTotalWeight').textContent = totalNetWeight.toFixed(1) + ' kg (' + (totalNetWeight/1000).toFixed(2) + ' Tons)';
+      document.getElementById('resGrandTotal').textContent = sym + ' ' + Math.round(grandTotal).toLocaleString();
 
       document.getElementById('resultsContainer').style.display = 'block';
-      document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('shareBarWrap').style.display = 'flex';
+      document.getElementById('resultsContainer').scrollIntoView({behavior:'smooth'});
     }
 
     function shareWhatsAppSummary() {
@@ -457,25 +412,19 @@
       const panels = document.getElementById('resPanelCount').textContent;
       const weight = document.getElementById('resTotalWeight').textContent;
       const cost = document.getElementById('resGrandTotal').textContent;
-
-      const message = `🧱 *ColdMatrix Sandwich Panel Quotation*%0A%0A` +
-        `📐 *Total Area:* ${area}%0A` +
-        `📦 *Panels Required:* ${panels}%0A` +
-        `⚖️ *Total Order Weight:* ${weight}%0A` +
-        `💰 *Estimated Cost:* ${cost}%0A%0A` +
-        `Calculated via ColdMatrix Tools - https://coldmatrixtools.com`;
-
-      window.open(`https://wa.me/?text=${message}`, '_blank');
+      const msg = `🧱 *ColdMatrix Sandwich Panel Estimate*%0A%0A📐 Total Area: ${area}%0A📦 Panels: ${panels}%0A⚖️ Weight: ${weight}%0A💰 Cost: ${cost}%0A%0A🔗 coldmatrixtools.com`;
+      window.open(`https://wa.me/?text=${msg}`, '_blank');
     }
+
+    let deferredPrompt;
+    const installBar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt=e; installBar.style.display='block'; });
+    function installAppTool(){
+      if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(()=>{ installBar.style.display='none'; }); }
+      else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
+    }
+    window.installAppTool = installAppTool;
+    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
   </script>
-<script>
-let cmDeferredPrompt;
-window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();cmDeferredPrompt=e;var b=document.getElementById('cmInstallBar');if(b)b.style.display='block';});
-function cmInstallApp(){
-  if(cmDeferredPrompt){cmDeferredPrompt.prompt();cmDeferredPrompt.userChoice.then(function(){document.getElementById('cmInstallBar').style.display='none';});}
-  else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu \u2192 Add to Home Screen.\niPhone (Safari): Share \u2192 Add to Home Screen.');}
-}
-if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(function(){});}
-</script>
 </body>
 </html>
