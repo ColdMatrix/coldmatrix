@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="canonical" href="https://coldmatrixtools.com/qr-code-generator.html">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -10,76 +11,153 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Code Generator — Free Tool | ColdMatrix</title>
+  <title>ColdMatrix Digital QR Scanner | Generate & Share QR Codes</title>
+  <meta name="description" content="Generate QR codes for websites, WhatsApp, WiFi, contacts, maps, SMS, and more. High resolution, instant sharing.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
-  <meta property="og:title" content="QR Code Generator — Free Tool | ColdMatrix">
-  <meta property="og:description" content="Free QR code generator for websites, WhatsApp, Wi-Fi, contacts, and more. Download your QR code as PNG or JPG instantly, no signup, no watermark.">
+  <meta property="og:title" content="ColdMatrix Digital QR Scanner | Generate & Share QR Codes">
+  <meta property="og:description" content="Generate QR codes for websites, WhatsApp, WiFi, contacts, maps, SMS, and more. Instant sharing via WhatsApp, PDF, JPG, PNG.">
   <meta property="og:url" content="https://coldmatrixtools.com/qr-code-generator.html">
   <meta property="og:image" content="https://coldmatrixtools.com/qr_generator.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="QR Code Generator — Free Tool | ColdMatrix">
-  <meta name="twitter:description" content="Free QR code generator for websites, WhatsApp, Wi-Fi, contacts, and more. Download your QR code as PNG or JPG instantly, no signup, no watermark.">
+  <meta name="twitter:title" content="ColdMatrix Digital QR Scanner | Generate & Share QR Codes">
+  <meta name="twitter:description" content="Generate QR codes for websites, WhatsApp, WiFi, contacts, maps, SMS, and more.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/qr_generator.jpg">
-  <meta name="description" content="Free QR code generator for websites, WhatsApp, Wi-Fi, contacts, and more. Download your QR code as PNG or JPG instantly, no signup, no watermark.">
-  <meta name="keywords" content="QR code generator, QR code maker, QR code reader, QR code scanner, QR code scanner generator, QR code downloader, download QR code PNG, download QR code JPG, WhatsApp QR code generator, Wi-Fi QR code generator, free QR code generator">
-  <link rel="canonical" href="https://coldmatrixtools.com/qr-code-generator.html">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "ColdMatrix QR Code Generator",
-    "url": "https://coldmatrixtools.com/qr-code-generator.html",
-    "applicationCategory": "Utility",
-    "description": "Free multipurpose QR code generator for websites, WhatsApp, Wi-Fi, contacts, and more, with PNG and JPG download.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" }
-  }
-  </script>
-  <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    :root{ --bg:#0B0F14;--panel:#141B24;--panel-2:#1B242F;--foam:#EDF1F5;--frost:#4FC3F7;--muted:#7C8798;--line:#242F3D; }
-    *{box-sizing:border-box; margin:0; padding:0;}
-    body{ background: linear-gradient(var(--bg), var(--bg)); color:var(--foam); font-family:'IBM Plex Sans', sans-serif; }
-    .nav { background:rgba(10,15,20,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding:12px 20px; display:flex; justify-content:space-between; align-items:center; }
-    .nav a { color:var(--muted); text-decoration:none; font-size:0.85rem; }
-    .nav a.brand { color:var(--frost); font-weight:700; }
-    .container { max-width:900px; margin:20px auto; padding:0 20px; }
-    .ad-card {
-      border-radius:14px; overflow:hidden;
-      background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat;
-      border:1px solid var(--line); padding:18px;
-      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    :root {
+      --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
+      --text:#EAEDF0; --muted:#A0B0C0; --accent:#4FC3F7; --accent-glow:rgba(79,195,247,0.35);
+      --gradient:linear-gradient(135deg,#4FC3F7,#2196F3);
     }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.92)), url('qr_generator.jpg') center/cover fixed no-repeat;
+      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
+    }
+    .container { max-width: 800px; margin:0 auto; padding:0 20px; }
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:10px 0; flex-wrap:wrap; }
+    .logo { font-size:1.2rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.9rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+    .ad-card { border-radius:12px; overflow:hidden; background:linear-gradient(90deg,rgba(10,15,20,0.7),rgba(10,15,20,0.4)),url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:14px; margin:16px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
     .ad-card ul { list-style:none; padding:0; margin:0; }
-    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
-    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
-    .ad-card .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; }
-    .install-bar { background:#4FC3F7; color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; }
-    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; cursor:pointer; font-weight:600; }
-    .card{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:24px; margin-bottom:20px;}
-    .card h2{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; text-transform:uppercase; color:var(--muted); margin-bottom:18px;}
-    .type-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:22px;}
-    .type-card{background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:12px 8px; text-align:center; cursor:pointer; font-size:0.78rem; color:var(--muted);}
-    .type-card.active{border-color:var(--frost); color:var(--frost);}
-    .field{margin-bottom:14px;}
-    .field label{display:block; font-size:0.8rem; color:var(--muted); margin-bottom:6px;}
-    input, select, textarea{width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--foam); padding:11px 13px; border-radius:6px; font-size:0.94rem;}
-    .btn-gen{width:100%; background:linear-gradient(135deg,#4FC3F7,#2196F3); color:#0B0F14; border:none; padding:14px; border-radius:6px; font-family:'Oswald',sans-serif; font-weight:600; font-size:0.95rem; text-transform:uppercase; cursor:pointer;}
-    #qrcode{display:inline-block; background:#fff; padding:16px; border-radius:8px;}
+    .ad-card li { font-size:0.8rem; font-weight:600; color:#fff; margin-bottom:3px; }
+    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:5px; }
+    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:8px 18px; text-decoration:none; font-weight:600; white-space:nowrap; font-size:0.85rem; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:10px; border-radius:8px; margin:14px 0; font-weight:600; font-size:0.85rem; display:none; }
+    .install-bar button { background:#0A0F14; color:white; border:none; padding:5px 14px; border-radius:5px; margin-left:10px; font-weight:600; cursor:pointer; }
+
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:4px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    h1 .icon { font-size:2rem; }
+    h1 .coldmatrix { color: var(--accent); }
+    h1 .title { color: var(--text); }
+    /* Vibrant subtitle */
+    .subtitle {
+      background: linear-gradient(135deg, #c0e0ff, #a0d0ff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; font-weight: 500; margin-bottom:22px; font-size:0.95rem;
+    }
+
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; margin-bottom:18px; position:relative; overflow:hidden; }
+    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
+    .card h2 { font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:600; margin-bottom:14px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
+
+    /* QR Type Grid with vibrant individual colors */
+    .qr-type-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:18px; }
+    .qr-type-btn {
+      padding:14px 8px; border:2px solid var(--border); background:var(--surface2);
+      color:var(--muted); border-radius:12px; font-weight:700; font-size:0.85rem;
+      cursor:pointer; text-align:center; transition:all 0.25s; position:relative;
+    }
+    .qr-type-btn i { display:block; font-size:1.5rem; margin-bottom:6px; transition:color 0.2s; }
+
+    /* Vibrant default border & icon colors per type */
+    .qr-type-btn[data-type="url"] i { color: #4FC3F7; }        /* Blue */
+    .qr-type-btn[data-type="whatsapp"] i { color: #25D366; }  /* Green */
+    .qr-type-btn[data-type="phone"] i { color: #FFA726; }     /* Orange */
+    .qr-type-btn[data-type="email"] i { color: #EF5350; }     /* Red */
+    .qr-type-btn[data-type="wifi"] i { color: #42A5F5; }      /* Blue wave */
+    .qr-type-btn[data-type="contact"] i { color: #AB47BC; }   /* Purple */
+    .qr-type-btn[data-type="map"] i { color: #26A69A; }       /* Teal */
+    .qr-type-btn[data-type="sms"] i { color: #FF7043; }       /* Deep orange */
+    .qr-type-btn[data-type="text"] i { color: #78909C; }      /* Blue grey */
+
+    .qr-type-btn:hover {
+      border-color: rgba(255,255,255,0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Active state with double border & glow */
+    .qr-type-btn.active {
+      border-width: 2px;
+      box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px currentColor;
+      transform: scale(1.03);
+      background: rgba(255,255,255,0.05);
+    }
+    .qr-type-btn.active[data-type="url"] { color: #4FC3F7; border-color: #4FC3F7; }
+    .qr-type-btn.active[data-type="whatsapp"] { color: #25D366; border-color: #25D366; }
+    .qr-type-btn.active[data-type="phone"] { color: #FFA726; border-color: #FFA726; }
+    .qr-type-btn.active[data-type="email"] { color: #EF5350; border-color: #EF5350; }
+    .qr-type-btn.active[data-type="wifi"] { color: #42A5F5; border-color: #42A5F5; }
+    .qr-type-btn.active[data-type="contact"] { color: #AB47BC; border-color: #AB47BC; }
+    .qr-type-btn.active[data-type="map"] { color: #26A69A; border-color: #26A69A; }
+    .qr-type-btn.active[data-type="sms"] { color: #FF7043; border-color: #FF7043; }
+    .qr-type-btn.active[data-type="text"] { color: #78909C; border-color: #78909C; }
+
+    .field { margin-bottom:14px; }
+    .field label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:4px; font-weight:500; }
+    .field input, .field textarea { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; }
+    .field input:focus, .field textarea:focus { outline:none; border-color:var(--accent); }
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+    .btn-generate { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:15px; border-radius:12px; font-weight:700; font-size:1.05rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; }
+    .btn-generate:hover { transform:scale(1.01); }
+
+    .qr-result { text-align:center; margin-top:22px; display:none; }
+    .qr-code-wrapper { background:#fff; display:inline-block; padding:18px; border-radius:16px; margin-bottom:14px; box-shadow:0 0 35px var(--accent-glow); }
+
+    .share-bar { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:18px 0; }
+    .share-btn { display:flex; align-items:center; gap:6px; padding:11px 18px; border-radius:50px; font-weight:600; font-size:0.85rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
+    .share-whatsapp { background:#25D366; }
+    .share-pdf { background:#E53935; }
+    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
+
+    #shareCapture { display:none; }
+    .note { font-size:0.75rem; color:var(--muted); margin-top:14px; border-top:1px solid var(--border); padding-top:10px; text-align:center; }
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--accent); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:44px; height:44px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+
+    @media (max-width:500px) {
+      .qr-type-grid { grid-template-columns:repeat(3, 1fr); gap:6px; }
+      .qr-type-btn { padding:10px 5px; font-size:0.7rem; }
+      .qr-type-btn i { font-size:1.2rem; }
+    }
   </style>
 </head>
 <body>
-  <div class="nav">
-    <a href="index.html" class="brand">❄️ Cold Matrix</a>
-    <div>
-      <a href="index.html">Home</a> &nbsp;&nbsp;
-      <a href="about.html">About</a> &nbsp;&nbsp;
-      <a href="contact.html">Contact</a>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
     </div>
-  </div>
+  </nav>
 
   <div class="container">
     <div class="ad-card">
@@ -92,81 +170,271 @@
         </ul>
         <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
       </div>
-      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27d%20like%20a%20quote%20for%20PEB%2FCold%20Storage%2FSandwich%20Panels" class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
     </div>
 
-    <div class="install-bar" id="installBarTool">
-      📱 Add to Home Screen
-      <button onclick="installAppTool()">Install</button>
-    </div>
-  </div>
+    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
-  <div class="container">
-    <h1 style="font-family:'Oswald',sans-serif; font-weight:600; font-size:1.8rem; margin-bottom:10px;">📱 Digital QR Scanner</h1>
-    <p style="color:var(--muted); margin-bottom:30px;">Multipurpose QR code maker – websites, WhatsApp, Wi‑Fi, contacts, maps, and more. No watermark, high resolution.</p>
+    <h1>
+      <span class="icon">📱</span>
+      <span class="coldmatrix">ColdMatrix</span>
+      <span class="title">Digital QR Scanner</span>
+    </h1>
+    <p class="subtitle">Multipurpose QR code maker — websites, WhatsApp, Wi‑Fi, contacts, maps, and more. High resolution, instant sharing.</p>
 
     <div class="card">
       <h2>QR Type</h2>
-      <div class="type-grid" id="typeGrid">
-        <div class="type-card active" data-type="url"><span class="ic">🌐</span>Website</div>
-        <div class="type-card" data-type="whatsapp"><span class="ic">💬</span>WhatsApp</div>
-        <div class="type-card" data-type="phone"><span class="ic">📞</span>Phone</div>
-        <div class="type-card" data-type="email"><span class="ic">📧</span>Email</div>
-        <div class="type-card" data-type="wifi"><span class="ic">📶</span>Wi-Fi</div>
-        <div class="type-card" data-type="vcard"><span class="ic">👤</span>Contact</div>
-        <div class="type-card" data-type="maps"><span class="ic">📍</span>Maps</div>
-        <div class="type-card" data-type="sms"><span class="ic">📱</span>SMS</div>
-        <div class="type-card" data-type="text"><span class="ic">📝</span>Text</div>
+      <div class="qr-type-grid" id="qrTypeGrid">
+        <button class="qr-type-btn active" data-type="url"><i class="fa-solid fa-globe"></i> Website</button>
+        <button class="qr-type-btn" data-type="whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="qr-type-btn" data-type="phone"><i class="fa-solid fa-phone"></i> Phone</button>
+        <button class="qr-type-btn" data-type="email"><i class="fa-solid fa-envelope"></i> Email</button>
+        <button class="qr-type-btn" data-type="wifi"><i class="fa-solid fa-wifi"></i> Wi‑Fi</button>
+        <button class="qr-type-btn" data-type="contact"><i class="fa-solid fa-address-card"></i> Contact</button>
+        <button class="qr-type-btn" data-type="map"><i class="fa-solid fa-map-pin"></i> Maps</button>
+        <button class="qr-type-btn" data-type="sms"><i class="fa-solid fa-comment-sms"></i> SMS</button>
+        <button class="qr-type-btn" data-type="text"><i class="fa-solid fa-align-left"></i> Text</button>
       </div>
 
-      <div id="fields-url"><div class="field"><label>Website URL</label><input type="text" id="f-url" placeholder="https://coldmatrixtools.com"></div></div>
-      <div id="fields-whatsapp" style="display:none;"><div class="field"><label>Phone (with country code)</label><input type="text" id="f-wa-phone" placeholder="+923001234567"></div><div class="field"><label>Message (optional)</label><input type="text" id="f-wa-msg" placeholder="Hello"></div></div>
-      <div id="fields-phone" style="display:none;"><div class="field"><label>Phone number</label><input type="tel" id="f-phone" placeholder="+923333228470"></div></div>
-      <div id="fields-email" style="display:none;"><div class="field"><label>Email</label><input type="email" id="f-email" placeholder="contact@coldmatrixtools.com"></div></div>
-      <div id="fields-wifi" style="display:none;"><div class="field"><label>SSID</label><input type="text" id="f-wifi-ssid" placeholder="Office Wi-Fi"></div><div class="field"><label>Password</label><input type="text" id="f-wifi-pass" placeholder="pass123"></div></div>
-      <div id="fields-vcard" style="display:none;"><div class="field"><label>First Name</label><input type="text" id="f-vc-first" placeholder="Waseem"></div><div class="field"><label>Phone</label><input type="tel" id="f-vc-phone" placeholder="+923333228470"></div></div>
-      <div id="fields-maps" style="display:none;"><div class="field"><label>Address</label><input type="text" id="f-maps" placeholder="City, Country"></div></div>
-      <div id="fields-sms" style="display:none;"><div class="field"><label>Phone</label><input type="tel" id="f-sms-phone" placeholder="+923333228470"></div><div class="field"><label>Message</label><input type="text" id="f-sms-msg" placeholder="Hi"></div></div>
-      <div id="fields-text" style="display:none;"><div class="field"><label>Text</label><textarea id="f-text" rows="3" placeholder="Type anything..."></textarea></div></div>
+      <div id="dynamicFields"></div>
 
-      <button class="btn-gen" onclick="generateQR()">Generate QR Code</button>
-      <div style="text-align:center; margin-top:20px;"><div id="qrcode"></div></div>
-      <div id="downloadRow" style="display:none; justify-content:center; gap:10px; margin-top:16px;">
-        <button class="btn-gen" style="background:#25D366; width:auto; padding:12px 22px;" onclick="downloadQR('png')">⬇ Download PNG</button>
-        <button class="btn-gen" style="background:linear-gradient(135deg,#8b98a5,#5b6b78); width:auto; padding:12px 22px;" onclick="downloadQR('jpeg')">⬇ Download JPG</button>
+      <button class="btn-generate" onclick="generateQR()">Generate QR Code</button>
+
+      <div class="qr-result" id="qrResult">
+        <div class="qr-code-wrapper" id="qrCodeBox"></div>
+        <div id="shareBarWrap" class="share-bar" style="display:none;">
+          <span style="width:100%; text-align:center; font-size:0.8rem; color:var(--muted); margin-bottom:2px;">📋 Take your QR code:</span>
+          <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+          <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+          <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+          <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+        </div>
       </div>
     </div>
+
+    <div id="shareCapture">
+      <div style="background:#fff;color:#111;border-radius:12px;padding:24px;font-family:'Inter',sans-serif;width:340px; text-align:center;">
+        <div style="font-size:1.2rem;font-weight:800;color:#0A0F14;margin-bottom:10px;">📱 <span style="color:#2196F3;">ColdMatrix</span> QR Code</div>
+        <div id="pvQrImg" style="display:inline-block; padding:8px; background:#fff; border-radius:10px; margin-bottom:10px;"></div>
+        <div style="font-size:0.8rem; color:#555; margin-bottom:8px;" id="pvType"></div>
+        <div style="font-size:0.7rem;color:#888;margin-top:14px;border-top:1px solid #eee;padding-top:10px;">
+          🙏 Thank you for using ColdMatrix Tools — your 24/7 business companion.<br>
+          📧 contact@coldmatrixtools.com &nbsp;|&nbsp; 💬 +92 333 3228470
+        </div>
+      </div>
+    </div>
+
+    <div class="note">ℹ️ Your QR code is generated instantly in your browser — no data is ever uploaded to a server.</div>
   </div>
 
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
   <script>
-    let currentType='url';
-    let currentQR=null;
-    document.querySelectorAll('.type-card').forEach(card=>{card.addEventListener('click',function(){document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('active'));this.classList.add('active');currentType=this.dataset.type;['url','whatsapp','phone','email','wifi','vcard','maps','sms','text'].forEach(t=>{document.getElementById('fields-'+t).style.display=(t===currentType?'block':'none');});});});
-    function generateQR(){
-      let content='';
-      if(currentType==='url'){let u=document.getElementById('f-url').value.trim();if(!u)return alert('Enter URL');if(!/^https?:\/\//i.test(u))u='https://'+u;content=u;}
-      else if(currentType==='whatsapp'){let p=document.getElementById('f-wa-phone').value.replace(/\D/g,''),m=document.getElementById('f-wa-msg').value;if(!p)return alert('Enter phone');content='https://wa.me/'+p+(m?'?text='+encodeURIComponent(m):'');}
-      else if(currentType==='phone'){let p=document.getElementById('f-phone').value.trim();if(!p)return alert('Enter phone');content='tel:'+p;}
-      else if(currentType==='email'){let e=document.getElementById('f-email').value.trim();if(!e)return alert('Enter email');content='mailto:'+e;}
-      else if(currentType==='wifi'){let s=document.getElementById('f-wifi-ssid').value.trim(),p=document.getElementById('f-wifi-pass').value;if(!s)return alert('Enter SSID');content=`WIFI:T:WPA;S:${s};P:${p};;`;}
-      else if(currentType==='vcard'){let f=document.getElementById('f-vc-first').value.trim(),p=document.getElementById('f-vc-phone').value.trim();if(!f&&!p)return alert('Enter name or phone');content=`BEGIN:VCARD\nVERSION:3.0\nFN:${f}\nTEL:${p}\nEND:VCARD`;}
-      else if(currentType==='maps'){let a=document.getElementById('f-maps').value.trim();if(!a)return alert('Enter address');content='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(a);}
-      else if(currentType==='sms'){let p=document.getElementById('f-sms-phone').value.trim(),m=document.getElementById('f-sms-msg').value;if(!p)return alert('Enter phone');content='sms:'+p+(m?'?body='+encodeURIComponent(m):'');}
-      else if(currentType==='text'){let t=document.getElementById('f-text').value.trim();if(!t)return alert('Enter text');content=t;}
-      currentQR=new QRCodeStyling({width:256,height:256,data:content,dotsOptions:{type:'rounded',color:'#0B0F14'},backgroundOptions:{color:'#ffffff'}});
-      document.getElementById('qrcode').innerHTML='';currentQR.append(document.getElementById('qrcode'));
-      document.getElementById('downloadRow').style.display='flex';
+    let currentType = 'url';
+    let qrCodeInstance = null;
+
+    const qrTypes = {
+      url: {
+        label: 'Website URL',
+        fields: [{ id:'urlInput', type:'url', placeholder:'https://coldmatrixtools.com', label:'Website URL' }],
+        formatter: (vals)=>vals.urlInput
+      },
+      whatsapp: {
+        label: 'WhatsApp Number',
+        fields: [
+          { id:'waNumber', type:'text', placeholder:'+923333228470', label:'Phone Number (with country code)' },
+          { id:'waMessage', type:'text', placeholder:'Hi, I\'m interested...', label:'Pre‑filled Message (optional)' }
+        ],
+        formatter: (vals)=>`https://wa.me/${vals.waNumber.replace(/\+/g,'')}${vals.waMessage ? '?text='+encodeURIComponent(vals.waMessage) : ''}`
+      },
+      phone: {
+        label: 'Phone Number',
+        fields: [{ id:'phNumber', type:'tel', placeholder:'+923333228470', label:'Phone Number' }],
+        formatter: (vals)=>`tel:${vals.phNumber}`
+      },
+      email: {
+        label: 'Email Address',
+        fields: [
+          { id:'emAddr', type:'email', placeholder:'contact@coldmatrixtools.com', label:'Email Address' },
+          { id:'emSub', type:'text', placeholder:'Subject', label:'Subject (optional)' },
+          { id:'emBody', type:'text', placeholder:'Message body...', label:'Message (optional)' }
+        ],
+        formatter: (vals)=>`mailto:${vals.emAddr}${vals.emSub ? '?subject='+encodeURIComponent(vals.emSub) : ''}${vals.emBody ? (vals.emSub?'&':'?')+'body='+encodeURIComponent(vals.emBody) : ''}`
+      },
+      wifi: {
+        label: 'Wi‑Fi Network',
+        fields: [
+          { id:'wifiSSID', type:'text', placeholder:'Network Name (SSID)', label:'Network Name' },
+          { id:'wifiPass', type:'text', placeholder:'Password', label:'Password' },
+          { id:'wifiEnc', type:'select', options:[{v:'WPA',t:'WPA/WPA2'},{v:'WEP',t:'WEP'},{v:'nopass',t:'None'}], value:'WPA', label:'Encryption' }
+        ],
+        formatter: (vals)=>`WIFI:T:${vals.wifiEnc};S:${vals.wifiSSID};P:${vals.wifiPass};;`
+      },
+      contact: {
+        label: 'Contact (vCard)',
+        fields: [
+          { id:'vcName', type:'text', placeholder:'Full Name', label:'Full Name' },
+          { id:'vcPhone', type:'tel', placeholder:'Phone', label:'Phone' },
+          { id:'vcEmail', type:'email', placeholder:'Email', label:'Email' },
+          { id:'vcOrg', type:'text', placeholder:'Company', label:'Company' },
+          { id:'vcTitle', type:'text', placeholder:'Job Title', label:'Title' }
+        ],
+        formatter: (vals)=>`BEGIN:VCARD\nVERSION:3.0\nFN:${vals.vcName}\nTEL:${vals.vcPhone}\nEMAIL:${vals.vcEmail}\nORG:${vals.vcOrg}\nTITLE:${vals.vcTitle}\nEND:VCARD`
+      },
+      map: {
+        label: 'Map Location',
+        fields: [
+          { id:'mapLat', type:'text', placeholder:'24.8607', label:'Latitude' },
+          { id:'mapLng', type:'text', placeholder:'67.0011', label:'Longitude' }
+        ],
+        formatter: (vals)=>`geo:${vals.mapLat},${vals.mapLng}`
+      },
+      sms: {
+        label: 'SMS Message',
+        fields: [
+          { id:'smsNumber', type:'tel', placeholder:'+923333228470', label:'Phone Number' },
+          { id:'smsBody', type:'text', placeholder:'Your message...', label:'Message' }
+        ],
+        formatter: (vals)=>`sms:${vals.smsNumber}${vals.smsBody ? '?body='+encodeURIComponent(vals.smsBody) : ''}`
+      },
+      text: {
+        label: 'Plain Text',
+        fields: [{ id:'txtMsg', type:'textarea', placeholder:'Type anything...', label:'Your Text' }],
+        formatter: (vals)=>vals.txtMsg
+      }
+    };
+
+    function buildFields(typeKey) {
+      const def = qrTypes[typeKey];
+      if (!def) return;
+      let html = '';
+      def.fields.forEach(f => {
+        if (f.type === 'select') {
+          html += `<div class="field"><label>${f.label}</label><select id="${f.id}">`;
+          f.options.forEach(o => html += `<option value="${o.v}" ${o.v===f.value?'selected':''}>${o.t}</option>`);
+          html += `</select></div>`;
+        } else if (f.type === 'textarea') {
+          html += `<div class="field"><label>${f.label}</label><textarea id="${f.id}" rows="3" placeholder="${f.placeholder}"></textarea></div>`;
+        } else {
+          html += `<div class="field"><label>${f.label}</label><input type="${f.type}" id="${f.id}" placeholder="${f.placeholder}"></div>`;
+        }
+      });
+      document.getElementById('dynamicFields').innerHTML = html;
     }
-    function downloadQR(ext){
-      if(!currentQR)return;
-      currentQR.download({name:'coldmatrix-qr',extension:ext});
+
+    document.getElementById('qrTypeGrid').addEventListener('click', function(e) {
+      const btn = e.target.closest('.qr-type-btn');
+      if (!btn) return;
+      currentType = btn.dataset.type;
+      document.querySelectorAll('.qr-type-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      buildFields(currentType);
+      document.getElementById('qrResult').style.display = 'none';
+    });
+
+    buildFields('url');
+
+    function generateQR() {
+      const def = qrTypes[currentType];
+      const vals = {};
+      def.fields.forEach(f => {
+        const el = document.getElementById(f.id);
+        if (el) vals[f.id] = el.value || '';
+      });
+      const data = def.formatter(vals);
+      if (!data || data.trim() === '') {
+        alert('Please fill in the required fields.');
+        return;
+      }
+
+      const qrBox = document.getElementById('qrCodeBox');
+      qrBox.innerHTML = '';
+      qrCodeInstance = new QRCode(qrBox, {
+        text: data,
+        width: 220,
+        height: 220,
+        colorDark : "#0A0F14",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+      });
+
+      document.getElementById('qrResult').style.display = 'block';
+      document.getElementById('shareBarWrap').style.display = 'flex';
     }
-  </script>
-  <script>
-    let deferredPromptTool;const bar=document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPromptTool=e;});
-    function installAppTool(){if(deferredPromptTool){deferredPromptTool.prompt();deferredPromptTool.userChoice.then(()=>{bar.style.display='none';});}else{alert('📲 Open your browser menu and choose "Add to Home Screen" to install ColdMatrix.');}}
-    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+
+    async function updateCapture() {
+      const qrCanvas = document.querySelector('#qrCodeBox canvas');
+      if (!qrCanvas) return;
+      const pvImg = document.getElementById('pvQrImg');
+      pvImg.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = qrCanvas.toDataURL();
+      img.style.width = '100px';
+      img.style.height = '100px';
+      pvImg.appendChild(img);
+      document.getElementById('pvType').textContent = qrTypes[currentType].label + ' QR Code';
+    }
+
+    async function captureCanvas() {
+      await updateCapture();
+      const el = document.getElementById('shareCapture');
+      el.style.display = 'block';
+      const canvas = await html2canvas(el, { backgroundColor: '#ffffff', scale: 2 });
+      el.style.display = 'none';
+      return canvas;
+    }
+
+    async function downloadResult(type) {
+      const canvas = await captureCanvas();
+      if (type === 'pdf') {
+        const { jsPDF } = window.jspdf;
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const pdf = new jsPDF({ orientation: canvas.width > canvas.height ? 'l' : 'p', unit: 'px', format: [canvas.width, canvas.height] });
+        pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+        pdf.save('ColdMatrix-QR-Code.pdf');
+      } else {
+        const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
+        const link = document.createElement('a');
+        link.download = 'ColdMatrix-QR-Code.' + type;
+        link.href = canvas.toDataURL(mime, 0.95);
+        link.click();
+      }
+    }
+
+    async function shareWhatsApp() {
+      const canvas = await captureCanvas();
+      canvas.toBlob(async (blob) => {
+        const file = new File([blob], 'ColdMatrix-QR-Code.png', { type: 'image/png' });
+        const caption = 'Thank you for using ColdMatrix Tools — your 24/7 business companion.\n📧 contact@coldmatrixtools.com  |  💬 +92 333 3228470';
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+          try { await navigator.share({ files: [file], title: 'QR Code', text: caption }); } catch (e) {}
+        } else {
+          const link = document.createElement('a');
+          link.download = 'ColdMatrix-QR-Code.png';
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          window.open('https://wa.me/?text=' + encodeURIComponent(caption), '_blank');
+        }
+      });
+    }
+
+    let deferredPrompt;
+    const installBar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBar.style.display = 'block';
+    });
+    window.installAppTool = function() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => { installBar.style.display = 'none'; });
+      } else {
+        alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');
+      }
+    };
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js').catch(() => {}); }
   </script>
 </body>
 </html>
