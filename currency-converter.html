@@ -84,7 +84,28 @@
     footer a { color:var(--accent); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.4rem; }
     @media (max-width:600px){ .conv-row{grid-template-columns:1fr; } .swap-btn{justify-self:center;} }
-  </style>
+      .share-tool-card{
+      background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
+      border: 2px solid;
+      border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
+      border-radius:12px;
+      padding:22px 20px;
+      margin-bottom:26px;
+      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .share-tool-title{font-family:'Playfair Display',serif; font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
+    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+    .share-tool-btn{
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+      transition:all 0.25s ease; font-family:'Inter',sans-serif;
+    }
+    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
+    .share-tool-btn i{font-size:1rem;}
+</style>
 </head>
 <body>
   <nav class="navbar">
@@ -117,6 +138,13 @@
 
     <h1>💱 ColdMatrix Global Currency Converter</h1>
     <p class="subtitle">Live exchange rates for 150+ currencies worldwide — free and instant.</p>
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share ColdMatrix Currency Converter</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
 
     <div class="card" id="shareCapture">
       <h2>Convert Currency</h2>
@@ -245,6 +273,14 @@
       else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
     };
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
-  </script>
-</body>
-</html>
+  
+    function shareToolWhatsApp(){
+      const text = encodeURIComponent('Check out this Currency Converter from ColdMatrix Tools! ' + window.location.href);
+      window.open('https://wa.me/?text='+text, '_blank');
+    }
+    function copyToolLink(){
+      navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{
+        alert(window.location.href);
+      });
+    }
+</script>

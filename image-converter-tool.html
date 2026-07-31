@@ -4,15 +4,15 @@
   <link rel="canonical" href="https://coldmatrixtools.com/image-converter-tool.html">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Image Converter & Resizer — Free Tool | ColdMatrix</title>
+  <title>ColdMatrix Image Converter & Resizer — Free Tool | ColdMatrix</title>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
-  <meta property="og:title" content="Image Converter & Resizer — Free Tool | ColdMatrix">
+  <meta property="og:title" content="ColdMatrix Image Converter & Resizer — Free Tool | ColdMatrix">
   <meta property="og:description" content="Convert and resize images online — JPG, PNG, BMP, WebP. 100% free, no sign‑up.">
   <meta property="og:url" content="https://coldmatrixtools.com/image-converter-tool.html">
   <meta property="og:image" content="https://coldmatrixtools.com/image_converter.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Image Converter & Resizer — Free Tool | ColdMatrix">
+  <meta name="twitter:title" content="ColdMatrix Image Converter & Resizer — Free Tool | ColdMatrix">
   <meta name="twitter:description" content="Convert and resize images online — JPG, PNG, BMP, WebP. 100% free, no sign‑up.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/image_converter.jpg">
   <script type="application/ld+json">
@@ -128,7 +128,28 @@
       .row2 { grid-template-columns:1fr; }
       h1 { font-size:1.4rem; }
     }
-  </style>
+      .share-tool-card{
+      background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
+      border: 2px solid;
+      border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
+      border-radius:12px;
+      padding:22px 20px;
+      margin-bottom:26px;
+      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .share-tool-title{font-family:'Playfair Display',serif; font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
+    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+    .share-tool-btn{
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+      transition:all 0.25s ease; font-family:'Inter',sans-serif;
+    }
+    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
+    .share-tool-btn i{font-size:1rem;}
+</style>
 </head>
 <body>
 <div id="cmInstallBar" style="display:none;background:#4FC3F7;color:#0A0F14;text-align:center;padding:12px;font-weight:600;border-radius:10px;margin:16px auto;max-width:900px;">📱 Add ColdMatrix to your Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
@@ -146,8 +167,15 @@
 </nav>
 
 <div class="container">
-  <h1>🖼️ Image Converter & Resizer</h1>
+  <h1>🖼️ ColdMatrix Image Converter & Resizer</h1>
   <p class="subtitle">Convert and resize images — JPG, PNG, BMP, WebP. 100% free for everyone.</p>
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share ColdMatrix Image Converter</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
 
   <div class="tool-card">
     <div class="live-badge">● LIVE</div>
@@ -285,6 +313,14 @@ function cmInstallApp(){
   else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu \u2192 Add to Home Screen.\niPhone (Safari): Share \u2192 Add to Home Screen.');}
 }
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(function(){});}
+
+    function shareToolWhatsApp(){
+      const text = encodeURIComponent('Check out this Image Converter & Resizer from ColdMatrix Tools! ' + window.location.href);
+      window.open('https://wa.me/?text='+text, '_blank');
+    }
+    function copyToolLink(){
+      navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{
+        alert(window.location.href);
+      });
+    }
 </script>
-</body>
-</html>

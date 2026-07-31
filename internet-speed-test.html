@@ -42,6 +42,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="speed-test.css">
+  <style>
+    .share-tool-card{
+      background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
+      border: 2px solid;
+      border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
+      border-radius:12px;
+      padding:22px 20px;
+      margin:0 0 26px;
+      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .share-tool-title{font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
+    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+    .share-tool-btn{
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+      transition:all 0.25s ease; font-family:'Inter',sans-serif;
+    }
+    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
+    .share-tool-btn i{font-size:1rem;}
+  </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -77,9 +100,17 @@
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <div class="brand-header">
-      <div class="brand-title"><span class="cold">Cold</span><span class="matrix">Matrix</span></div>
+      <h1 class="brand-title"><span class="cold">Cold</span><span class="matrix">Matrix</span></h1>
       <div class="brand-sub">Internet Speed Test</div>
       <div class="brand-tagline">Fast · Accurate · Beautiful</div>
+    </div>
+
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share ColdMatrix Speed Test</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
     </div>
 
     <section class="gauge-section" aria-label="Speed test gauge">
@@ -180,5 +211,16 @@
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script src="speed-test.js"></script>
+  <script>
+    function shareToolWhatsApp(){
+      const text = encodeURIComponent('Check out this Internet Speed Test from ColdMatrix Tools! ' + window.location.href);
+      window.open('https://wa.me/?text='+text, '_blank');
+    }
+    function copyToolLink(){
+      navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{
+        alert(window.location.href);
+      });
+    }
+  </script>
 </body>
 </html>
