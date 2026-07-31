@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Pricing, Profit & Margin Calculator Suite | ColdMatrix</title>
+    <meta name="description" content="Premium business calculator suite: profit, margin, markup, selling price, discounts, taxes, commissions, ROI, break-even. Multi-currency, free, instant.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ColdMatrix Tools">
+    <meta property="og:title" content="Business Pricing, Profit & Margin Calculator Suite">
+    <meta property="og:description" content="Calculate profit, margin, markup, discounts, taxes, ROI & break-even instantly. Free premium business tool.">
+    <meta property="og:url" content="https://coldmatrixtools.com/business-calculator-suite.html">
+    <meta property="og:image" content="https://coldmatrixtools.com/profit_margin_calc.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Business Pricing, Profit & Margin Calculator Suite">
+    <meta name="twitter:description" content="Calculate profit, margin, markup, discounts, taxes, ROI & break-even instantly.">
+    <meta name="twitter:image" content="https://coldmatrixtools.com/profit_margin_calc.jpg">
+    <link rel="canonical" href="https://coldmatrixtools.com/business-calculator-suite.html">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Business Pricing, Profit & Margin Calculator Suite",
+            "url": "https://coldmatrixtools.com/business-calculator-suite.html",
+            "applicationCategory": "BusinessApplication",
+            "description": "Premium business calculator suite with profit, margin, markup, discount, tax, commission, ROI and break-even calculators.",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+        }
+    </script>
+    <meta name="theme-color" content="#0A0F14">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #080c14; --surface: rgba(18,24,35,0.6); --surface2: rgba(22,30,44,0.7);
+            --border: rgba(255,255,255,0.08); --text: #EAEDF0; --muted: #9AA0B0;
+            --accent: #C8A84E; --accent2: #E2C87A; --accent-glow: rgba(200,168,78,0.4);
+            --gradient: linear-gradient(135deg, #C8A84E, #E2C87A);
+            --card-bg: rgba(18,24,35,0.55); --card-border: rgba(255,255,255,0.1);
+            --input-bg: rgba(15,20,30,0.7); --input-border: rgba(200,168,78,0.4);
+            --green: #34D399; --red: #EF4444; --blue: #4FC3F7; --purple: #A78BFA; --orange: #FFA726;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background: url('grid-background.jpg') center/cover fixed, radial-gradient(ellipse at 50% 0%, #1a2030 0%, #080c14 55%);
+            color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;
+            position: relative;
+        }
+        body::before {
+            content: ''; position: fixed; top:0;left:0;right:0;bottom:0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(26,32,48,0.85) 0%, rgba(8,12,20,0.95) 55%);
+            z-index:0;
+        }
+        .container{max-width:900px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
+        .navbar{position:sticky;top:0;z-index:100;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.06)}
+        .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 0;flex-wrap:wrap;max-width:900px;margin:0 auto}
+        .logo{font-size:1.2rem;font-weight:700;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:.5px}
+        .nav-links{display:flex;gap:20px;list-style:none;flex-wrap:wrap}
+        .nav-links a{color:var(--muted);text-decoration:none;font-weight:500;font-size:.9rem;transition:color .2s}
+        .nav-links a:hover{color:var(--accent)}
+        h1{font-size:1.8rem;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+        h1 .icon{font-size:2rem}
+        h1 .coldmatrix{color:var(--accent);font-family:'Playfair Display',serif;letter-spacing:.5px}
+        h1 .title{color:var(--text);font-weight:600}
+        .subtitle{color:var(--muted);margin-bottom:14px;font-size:.9rem;text-align:center}
+
+        /* Compact Share Card – smaller, sharp corners */
+        .share-compact-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(14px);
+            border: 1px solid #D4AF37;
+            padding: 10px 12px;
+            margin-top: 16px;
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            border-radius: 0;
+        }
+        .share-compact-heading {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: #D4AF37;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        .share-compact-btns {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+        }
+        .share-compact-btn {
+            flex: 1;
+            max-width: 48%;
+            height: 42px;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(15,20,30,0.8);
+            backdrop-filter: blur(6px);
+            color: #FFFFFF;
+            text-decoration: none;
+            border: none;
+        }
+        .share-compact-btn.whatsapp-compact {
+            border: 1px solid #25D366;
+            color: #FFFFFF;
+        }
+        .share-compact-btn.copy-compact {
+            border: 1px solid #D4AF37;
+            color: #FFFFFF;
+        }
+        .share-compact-btn i {
+            font-size: 16px;
+        }
+        .share-compact-btn.whatsapp-compact i {
+            color: #25D366;
+        }
+        .share-compact-btn.copy-compact i {
+            color: #D4AF37;
+        }
+        .share-compact-btn:hover {
+            filter: brightness(1.1);
+        }
+        @media (max-width: 380px) {
+            .share-compact-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            .share-compact-btn {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+
+        .card{background:var(--card-bg);backdrop-filter:blur(20px);border:1px solid var(--card-border);border-radius:18px;padding:22px 18px;margin-bottom:18px;position:relative;overflow:hidden;box-shadow:0 8px 35px rgba(0,0,0,0.5)}
+        .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient);opacity:.8}
+        .card h2{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;margin-bottom:14px;color:var(--accent);text-transform:uppercase;letter-spacing:.5px}
+        .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+        .tab-btn{flex:1;min-width:90px;padding:10px 8px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);border-radius:10px;font-weight:600;font-size:.72rem;cursor:pointer;text-align:center;transition:.2s}
+        .tab-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(200,168,78,0.1);box-shadow:0 0 12px var(--accent-glow)}
+        .field{margin-bottom:12px}
+        .field label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:4px;font-weight:500}
+        .field input,.field select{width:100%;background:var(--input-bg);backdrop-filter:blur(8px);border:2px solid var(--input-border);color:var(--text);padding:12px 14px;border-radius:10px;font-size:.9rem;transition:all .3s ease}
+        .field input:focus,.field select:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 20px var(--accent-glow)}
+        .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+        .btn-calc{width:100%;background:var(--gradient);color:#0A0F14;border:none;padding:13px;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;margin-top:4px;letter-spacing:.6px;box-shadow:0 6px 20px var(--accent-glow);transition:.3s}
+        .btn-calc:hover{transform:translateY(-2px);box-shadow:0 10px 28px var(--accent-glow)}
+        .result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:.85rem}
+        .result-row .val{font-weight:700;color:var(--accent)}.val.green{color:var(--green)}.val.red{color:var(--red)}
+        .insight-box{padding:10px 14px;border-radius:10px;margin-top:10px;font-size:.8rem;font-weight:600;text-align:center}
+        .insight-box.success{background:rgba(52,211,153,0.1);border:1px solid var(--green);color:var(--green)}
+        .insight-box.warning{background:rgba(255,167,38,0.1);border:1px solid var(--orange);color:var(--orange)}
+        .insight-box.danger{background:rgba(239,68,68,0.1);border:1px solid var(--red);color:var(--red)}
+        canvas{display:block;margin:10px auto;max-width:100%}
+        .share-bar{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:16px 0}
+        .share-btn{display:flex;align-items:center;gap:5px;padding:9px 14px;border-radius:50px;font-weight:600;font-size:.75rem;cursor:pointer;border:none;text-decoration:none;color:#fff;transition:.2s}
+        .share-btn:hover{transform:translateY(-2px)}.share-whatsapp{background:#25D366}.share-pdf{background:#E53935}.share-copy{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+        .history-item{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:.75rem;display:flex;justify-content:space-between;align-items:center}
+        .history-item .del-btn{background:none;border:none;color:var(--red);cursor:pointer;font-weight:700}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#D4AF37;color:#000;font-weight:700;padding:10px 24px;border-radius:50px;box-shadow:0 8px 25px rgba(0,0,0,0.5);z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none}
+        .toast.show{opacity:1}
+        .note{font-size:.7rem;color:var(--muted);margin-top:12px;border-top:1px solid var(--border);padding-top:10px;text-align:center}
+        footer{text-align:center;color:var(--muted);font-size:.7rem;padding:30px 0 20px;border-top:1px solid rgba(255,255,255,0.06);margin-top:40px}
+        footer a{color:var(--accent);text-decoration:none}
+        @media(max-width:600px){.row2,.row3{grid-template-columns:1fr}.tabs .tab-btn{font-size:.65rem;padding:8px 5px}}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="logo">❄️ ColdMatrix</a>
+            <ul class="nav-links">
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="index.html#tools">🛠️ Tools</a></li>
+                <li><a href="about.html">ℹ️ About</a></li>
+                <li><a href="contact.html">📞 Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>
+            <span class="icon">🧮</span>
+            <span class="coldmatrix">ColdMatrix</span>
+            <span class="title">Business Calculator Suite</span>
+        </h1>
+        <p class="subtitle">Calculate profit, margin, markup, selling price, discounts, taxes, commissions, ROI and break-even instantly.</p>
+
+        <!-- Compact Share Card (small & sharp) -->
+        <div class="share-compact-card">
+            <div class="share-compact-heading">SHARE THIS TOOL</div>
+            <div class="share-compact-btns">
+                <button class="share-compact-btn whatsapp-compact" onclick="shareToolWhatsApp()">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </button>
+                <button class="share-compact-btn copy-compact" onclick="copyToolLink()">
+                    <i class="fa-solid fa-link"></i> Copy Link
+                </button>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                <div class="field" style="flex:1;min-width:140px;margin-bottom:0;">
+                    <label>💱 Currency</label>
+                    <select id="currencySelect" onchange="updateCurrency()">
+                        <option value="PKR" selected>🇵🇰 PKR (Rs)</option>
+                        <option value="USD">🇺🇸 USD ($)</option>
+                        <option value="EUR">🇪🇺 EUR (€)</option>
+                        <option value="GBP">🇬🇧 GBP (£)</option>
+                        <option value="AED">🇦🇪 AED (د.إ)</option>
+                        <option value="SAR">🇸🇦 SAR (ر.س)</option>
+                        <option value="INR">🇮🇳 INR (₹)</option>
+                    </select>
+                </div>
+                <span id="curSymbol" style="font-weight:700;color:var(--accent);font-size:1.2rem;">Rs</span>
+            </div>
+        </div>
+
+        <div class="tabs" id="tabBar">
+            <button class="tab-btn active" data-tab="profit">💰 Profit</button>
+            <button class="tab-btn" data-tab="sellprice">🏷️ Sell Price</button>
+            <button class="tab-btn" data-tab="margin">📊 Margin</button>
+            <button class="tab-btn" data-tab="markup">📈 Markup</button>
+            <button class="tab-btn" data-tab="discount">🏷️ Discount</button>
+            <button class="tab-btn" data-tab="revdiscount">🔄 Rev Discount</button>
+            <button class="tab-btn" data-tab="gst">🧾 GST/VAT</button>
+            <button class="tab-btn" data-tab="commission">💼 Commission</button>
+            <button class="tab-btn" data-tab="roi">📊 ROI</button>
+            <button class="tab-btn" data-tab="breakeven">🎯 Break-even</button>
+            <button class="tab-btn" data-tab="dashboard">📋 Dashboard</button>
+        </div>
+
+        <div id="tabContent"></div>
+
+        <div id="chartArea" style="display:none;margin-top:16px;">
+            <div class="card"><h2>📊 Visual Summary</h2><canvas id="gaugeCanvas" width="300" height="150"></canvas><div id="chartInsight" style="text-align:center;font-size:.85rem;color:var(--accent);margin-top:8px;"></div></div>
+        </div>
+
+        <div id="insightArea" style="display:none;"></div>
+
+        <div class="share-bar" id="shareBar" style="display:none;">
+            <button class="share-btn share-whatsapp" onclick="shareResult()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <button class="share-btn share-copy" onclick="copyResult()"><i class="fa-solid fa-copy"></i> Copy</button>
+            <button class="share-btn share-pdf" onclick="window.print()"><i class="fa-solid fa-file-pdf"></i> Print / PDF</button>
+        </div>
+
+        <div class="card" id="historyCard" style="display:none;">
+            <h2>📜 Recent Calculations</h2>
+            <div id="historyList"></div>
+            <button class="btn-calc" style="margin-top:10px;background:var(--red);" onclick="clearHistory()">Clear History</button>
+        </div>
+        <div class="note">ℹ️ All calculations are performed instantly in your browser. Results are estimates and should be verified for critical business decisions.</div>
+    </div>
+
+    <div class="toast" id="toast">Link copied successfully.</div>
+
+    <footer>Powered by <a href="index.html">ColdMatrix</a> — Luxury Executive Tools.</footer>
+
+    <script>
+        const currencySymbols = { PKR: 'Rs', USD: '$', EUR: '€', GBP: '£', AED: 'د.إ', SAR: 'ر.س', INR: '₹' };
+        let currentTab = 'profit';
+        let lastResult = null;
+        let calcHistory = JSON.parse(localStorage.getItem('bizCalcHistory') || '[]');
+
+        function sym() { return currencySymbols[document.getElementById('currencySelect').value] || 'Rs'; }
+        function updateCurrency() { document.getElementById('curSymbol').textContent = sym(); if (lastResult) renderTab(currentTab); }
+        function fmt(n) { return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+        function fmtInt(n) { return n.toLocaleString(undefined, { maximumFractionDigits: 0 }); }
+
+        function saveHistory(entry) {
+            calcHistory.unshift({ ...entry, time: new Date().toLocaleString() });
+            if (calcHistory.length > 20) calcHistory = calcHistory.slice(0, 20);
+            localStorage.setItem('bizCalcHistory', JSON.stringify(calcHistory));
+            renderHistory();
+        }
+        function clearHistory() { calcHistory = []; localStorage.removeItem('bizCalcHistory'); renderHistory(); }
+        function renderHistory() {
+            const list = document.getElementById('historyList');
+            if (calcHistory.length === 0) { list.innerHTML = '<p style="color:var(--muted);font-size:.8rem;">No calculations yet.</p>'; document.getElementById('historyCard').style.display = 'none'; return; }
+            document.getElementById('historyCard').style.display = 'block';
+            list.innerHTML = calcHistory.map((h, i) => `<div class="history-item"><span>${h.time} — ${h.label}</span><button class="del-btn" onclick="deleteHistory(${i})">✕</button></div>`).join('');
+        }
+        function deleteHistory(i) { calcHistory.splice(i, 1); localStorage.setItem('bizCalcHistory', JSON.stringify(calcHistory)); renderHistory(); }
+
+        function drawGauge(value, max, label, color) {
+            const canvas = document.getElementById('gaugeCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width, h = canvas.height;
+            ctx.clearRect(0, 0, w, h);
+            const cx = w / 2, cy = h - 20, r = 90;
+            const startAngle = Math.PI, endAngle = 0;
+            const pct = Math.min(value / max, 1);
+            const fillAngle = startAngle + (endAngle - startAngle) * pct;
+
+            ctx.beginPath(); ctx.arc(cx, cy, r, startAngle, endAngle); ctx.strokeStyle = '#1a2a3a'; ctx.lineWidth = 18; ctx.stroke();
+            ctx.beginPath(); ctx.arc(cx, cy, r, startAngle, fillAngle); ctx.strokeStyle = color; ctx.lineWidth = 18; ctx.lineCap = 'round'; ctx.stroke();
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 18px Inter'; ctx.textAlign = 'center'; ctx.fillText(value.toFixed(1) + '%', cx, cy - 15);
+            ctx.fillStyle = color; ctx.font = '11px Inter'; ctx.fillText(label, cx, cy + 25);
+            document.getElementById('chartArea').style.display = 'block';
+        }
+
+        function generateInsight(type, data) {
+            const area = document.getElementById('insightArea');
+            area.style.display = 'block';
+            let html = '';
+            if (type === 'profit') {
+                const pct = data.profitPct;
+                if (pct >= 30) html = '<div class="insight-box success">🌟 Excellent Profit Margin! Your pricing strategy is strong.</div>';
+                else if (pct >= 15) html = '<div class="insight-box success">✅ Good Profit Margin. Your business is on the right track.</div>';
+                else if (pct > 0) html = '<div class="insight-box warning">⚠️ Low Profit Margin. Consider reducing costs or increasing selling price.</div>';
+                else html = '<div class="insight-box danger">🔴 Loss detected! Review your cost and pricing immediately.</div>';
+            } else if (type === 'margin') {
+                if (data.margin >= 40) html = '<div class="insight-box success">🌟 High Gross Margin — excellent pricing power!</div>';
+                else if (data.margin >= 20) html = '<div class="insight-box success">✅ Healthy Margin. Your markup is working well.</div>';
+                else html = '<div class="insight-box warning">⚠️ Low Margin. Markup may not cover all expenses.</div>';
+            } else if (type === 'roi') {
+                if (data.roi >= 50) html = '<div class="insight-box success">🚀 High ROI investment! Great returns.</div>';
+                else if (data.roi >= 15) html = '<div class="insight-box success">✅ Good ROI. Investment is performing well.</div>';
+                else if (data.roi > 0) html = '<div class="insight-box warning">📊 Modest ROI. Consider optimising.</div>';
+                else html = '<div class="insight-box danger">🔴 Negative ROI. Review your investment.</div>';
+            } else if (type === 'breakeven') {
+                html = `<div class="insight-box success">🎯 Break-even at <strong>${fmtInt(data.units)}</strong> units (${sym()} ${fmt(data.revenue)}).</div>`;
+            }
+            area.innerHTML = html;
+        }
+
+        function renderTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+            const s = sym();
+            let html = '';
+            const area = document.getElementById('tabContent');
+
+            switch (tab) {
+                case 'profit':
+                    html = `<div class="card"><h2>💰 Profit Calculator</h2>
+                        <div class="row2"><div class="field"><label>Cost Price</label><input type="number" id="cp" value="1000" step="any"></div>
+                        <div class="field"><label>Selling Price</label><input type="number" id="sp" value="1500" step="any"></div></div>
+                        <button class="btn-calc" onclick="calcProfit()">Calculate Profit</button>
+                        <div id="profitResult" style="display:none;margin-top:12px;"></div></div>`;
+                    break;
+                case 'sellprice':
+                    html = `<div class="card"><h2>🏷️ Selling Price Calculator</h2>
+                        <div class="field"><label>Cost Price</label><input type="number" id="spCost" value="1000" step="any"></div>
+                        <div class="row2"><div class="field"><label>Desired Profit %</label><input type="number" id="spProfitPct" value="20" step="any"></div>
+                        <div class="field"><label>or Desired Margin %</label><input type="number" id="spMarginPct" placeholder="Overrides profit %" step="any"></div></div>
+                        <button class="btn-calc" onclick="calcSellPrice()">Calculate Selling Price</button>
+                        <div id="spResult" style="display:none;margin-top:12px;"></div></div>`;
+                    break;
+                case 'margin':
+                    html = `<div class="card"><h2>📊 Margin Calculator</h2>
+                        <div class="row2"><div class="field"><label>Cost Price</label><input type="number" id="mCost" value="1000" step="any"></div>
+                        <div class="field"><label>Selling Price</label><input type="number" id="mSell" value="1500" step="any"></div></div>
+                        <button class="btn-calc" onclick="calcMargin()">Calculate Margin</button>
+                        <div id="mResult" style="display:none;margin-top:12px;"></div></div>`;
+                    break;
+                case 'markup':
+                    html = `<div class="card"><h2>📈 Markup Calculator</h2>
+                        <div class="row2"><div class="field"><label>Cost Price</label><input type="number" id="mkCost" value="1000" step="any"></div>
+                        <div class="field"><label>Markup %</label><input type="number" id="mkPct" value="50" step="any"></div></div>
+                        <button class="btn-calc" onclick="calcMarkup()">Calculate Selling Price</button>
+                        <div id="mkResult" style="display:none;margin-top:12px;"></div></div>`;
+                    break;
+                case 'discount':
+                    html = `<div class="card"><h2>🏷️ Discount Calculator</h2>
+                        <div class="row2"><div class="field"><label>Original Price</label><input type="number" id="dOrig" value="2000" step="any"></div>
+                        <div class="field"><label>Discount %</label><input type="number" id="dPct" value="15" step="any"></div></div>
+                        <button class="btn-calc" onclick="calcDiscount()">Calculate Discount</button>
+                        <div id="dResult" style="display:none;margin-top:12px;"></div></div>`;
+                    break;
+                case 'revdiscount':
+                    html = `<div class="card"><h2>🔄 Reverse Discount Calculator</h2>
+                        <div class="row2"><div class="field"><label>Final Price (after discount)</label><input type="number" id="rdFinal" value="1700" step="any"></div>
+                        <div class="field"><label>Discount %</label><input type="number" id="rdPct" value="15" step="any"></div></div>
+                        <button class="btn-calc" onclick="calcRevDiscount()">Calculate Original Price</button>
+                        <div id="rdResult" style="display:none;margin-top:12px;"></div></div>`;
+                    break;
+                case 'gst':
+                    html = `<div class="card"><h2>🧾 GST / VAT Calculator</h2>
+                        <div class="field"><label>Amount</label><input type="number" id="gstAmt" value="1000" step="any"></div>
+                        <div class="row2"><div class="field"><label>Tax %</label><input type="number" id="gstPct" value="18" step="any"></div>
+                        <div class="field"><label>Mode</label><select id="gstMode"><option value="add">Add Tax</option><option value="remove">Remove Tax</option></select></div></div>
+                        <button class="btn-calc" onclick="calcGST()">Calculate</button>
+                        <div id="gstResult" style="display:none;margin-top:12px;"></div></div>`;
+                    break;
+                case 'commission':
+                    html = `<div class="card"><h2>💼 Commission Calculator</h2>
+                        <div class="row2"><div class="field"><label>Sale Amount</label><input type="number" id="comSale" value="10000" step="any"></div>
+                        <div class="field"><label>Commission %</label><input type="number" id="comPct" value="10" step="any"></div></div>
+                        <button class="btn-calc" onclick="calcCommission()">Calculate Commission</button>
+                        <div id="comResult" style="display:none;margin-top:12px;"></div></div>`;
+                    break;
+                case 'roi':
+                    html = `<div class="card"><h2>📊 ROI Calculator</h2>
+                        <div class="row2"><div class="field"><label>Investment Amount</label><input type="number" id="roiInv" value="100000" step="any"></div>
+                        <div class="field"><label>Return Amount</label><input type="number" id="roiRet" value="150000" step="any"></div></div>
+                        <button class="btn-calc" onclick="calcROI()">Calculate ROI</button>
+                        <div id="roiResult" style="display:none;margin-top:12px;"></div></div>`;
+                    break;
+                case 'breakeven':
+                    html = `<div class="card"><h2>🎯 Break-even Calculator</h2>
+                        <div class="row3"><div class="field"><label>Fixed Cost</label><input type="number" id="beFixed" value="50000" step="any"></div>
+                        <div class="field"><label>Variable Cost/Unit</label><input type="number" id="beVar" value="200" step="any"></div>
+                        <div class="field"><label>Selling Price/Unit</label><input type="number" id="bePrice" value="500" step="any"></div></div>
+                        <button class="btn-calc" onclick="calcBreakEven()">Calculate Break-even</button>
+                        <div id="beResult" style="display:none;margin-top:12px;"></div></div>`;
+                    break;
+                case 'dashboard':
+                    html = `<div class="card"><h2>📋 Quick Dashboard</h2><p style="color:var(--muted);font-size:.8rem;">Run any calculation above to see results here. The dashboard updates with your latest calculation.</p>
+                        <div id="dashContent" style="margin-top:12px;"></div></div>`;
+                    break;
+            }
+            area.innerHTML = html;
+            if (lastResult) updateDashboard();
+            document.getElementById('chartArea').style.display = 'none';
+            document.getElementById('insightArea').style.display = 'none';
+            document.getElementById('shareBar').style.display = 'none';
+        }
+
+        function showResult(html, data, type) {
+            lastResult = { ...data, type, label: type };
+            document.getElementById('shareBar').style.display = 'flex';
+            generateInsight(type, data);
+            saveHistory({ label: type, summary: html.replace(/<[^>]*>/g, ' ').substring(0, 100) });
+            if (data.profitPct !== undefined) drawGauge(data.profitPct, 50, 'Profit %', data.profitPct >= 0 ? '#34D399' : '#EF4444');
+            else if (data.margin !== undefined) drawGauge(data.margin, 50, 'Margin %', '#4FC3F7');
+            else if (data.roi !== undefined) drawGauge(data.roi, 100, 'ROI %', '#A78BFA');
+            updateDashboard();
+        }
+
+        function updateDashboard() {
+            if (!lastResult) return;
+            const d = lastResult;
+            const s = sym();
+            let dashHtml = '<div class="row2">';
+            if (d.profitAmt !== undefined) dashHtml += `<div class="card" style="text-align:center;"><div style="font-size:1.5rem;font-weight:800;color:${d.profitAmt>=0?'var(--green)':'var(--red)'};">${s} ${fmt(d.profitAmt)}</div><div style="font-size:.7rem;color:var(--muted);">Profit/Loss</div></div>`;
+            if (d.margin !== undefined) dashHtml += `<div class="card" style="text-align:center;"><div style="font-size:1.5rem;font-weight:800;color:var(--accent);">${d.margin.toFixed(1)}%</div><div style="font-size:.7rem;color:var(--muted);">Gross Margin</div></div>`;
+            if (d.roi !== undefined) dashHtml += `<div class="card" style="text-align:center;"><div style="font-size:1.5rem;font-weight:800;color:var(--purple);">${d.roi.toFixed(1)}%</div><div style="font-size:.7rem;color:var(--muted);">ROI</div></div>`;
+            dashHtml += '</div>';
+            const dashEl = document.getElementById('dashContent');
+            if (dashEl) dashEl.innerHTML = dashHtml;
+        }
+
+        // ---- Calculator Functions ----
+        function calcProfit() {
+            const cp = parseFloat(document.getElementById('cp').value) || 0;
+            const sp = parseFloat(document.getElementById('sp').value) || 0;
+            const profit = sp - cp;
+            const pct = cp > 0 ? (profit / cp) * 100 : 0;
+            const marginPct = sp > 0 ? (profit / sp) * 100 : 0;
+            const s = sym();
+            const html = `<div class="result-row"><span>Profit / Loss</span><span class="val ${profit>=0?'green':'red'}">${s} ${fmt(profit)}</span></div>
+                <div class="result-row"><span>Profit % (on Cost)</span><span class="val">${pct.toFixed(2)}%</span></div>
+                <div class="result-row"><span>Gross Margin %</span><span class="val">${marginPct.toFixed(2)}%</span></div>
+                <div class="result-row"><span>Status</span><span class="val ${profit>=0?'green':'red'}">${profit>=0?'✅ Profit':'🔴 Loss'}</span></div>`;
+            document.getElementById('profitResult').innerHTML = html;
+            document.getElementById('profitResult').style.display = 'block';
+            showResult(html, { profitAmt: profit, profitPct: pct, margin: marginPct }, 'profit');
+        }
+        function calcSellPrice() {
+            const cp = parseFloat(document.getElementById('spCost').value) || 0;
+            const pp = parseFloat(document.getElementById('spProfitPct').value) || 0;
+            const mp = parseFloat(document.getElementById('spMarginPct').value);
+            const s = sym();
+            let sp;
+            if (!isNaN(mp) && mp > 0 && mp < 100) { sp = cp / (1 - mp / 100); }
+            else { sp = cp * (1 + pp / 100); }
+            const html = `<div class="result-row"><span>Required Selling Price</span><span class="val green">${s} ${fmt(sp)}</span></div>`;
+            document.getElementById('spResult').innerHTML = html; document.getElementById('spResult').style.display = 'block';
+            showResult(html, { profitAmt: sp - cp, profitPct: cp > 0 ? ((sp - cp) / cp) * 100 : 0, margin: sp > 0 ? ((sp - cp) / sp) * 100 : 0 }, 'sellprice');
+        }
+        function calcMargin() {
+            const cp = parseFloat(document.getElementById('mCost').value) || 0;
+            const sp = parseFloat(document.getElementById('mSell').value) || 0;
+            const profit = sp - cp;
+            const margin = sp > 0 ? (profit / sp) * 100 : 0;
+            const markup = cp > 0 ? (profit / cp) * 100 : 0;
+            const s = sym();
+            const html = `<div class="result-row"><span>Gross Margin %</span><span class="val green">${margin.toFixed(2)}%</span></div>
+                <div class="result-row"><span>Markup %</span><span class="val">${markup.toFixed(2)}%</span></div>
+                <div class="result-row"><span>Profit Amount</span><span class="val">${s} ${fmt(profit)}</span></div>
+                <p style="font-size:.7rem;color:var(--muted);margin-top:8px;">💡 Margin = (Profit ÷ Selling Price) × 100 | Markup = (Profit ÷ Cost) × 100</p>`;
+            document.getElementById('mResult').innerHTML = html; document.getElementById('mResult').style.display = 'block';
+            showResult(html, { profitAmt: profit, margin, markup }, 'margin');
+        }
+        function calcMarkup() {
+            const cp = parseFloat(document.getElementById('mkCost').value) || 0;
+            const mk = parseFloat(document.getElementById('mkPct').value) || 0;
+            const sp = cp * (1 + mk / 100);
+            const s = sym();
+            const html = `<div class="result-row"><span>Selling Price</span><span class="val green">${s} ${fmt(sp)}</span></div>
+                <div class="result-row"><span>Profit Amount</span><span class="val">${s} ${fmt(sp-cp)}</span></div>`;
+            document.getElementById('mkResult').innerHTML = html; document.getElementById('mkResult').style.display = 'block';
+            showResult(html, { profitAmt: sp - cp, profitPct: mk, margin: sp > 0 ? ((sp - cp) / sp) * 100 : 0 }, 'markup');
+        }
+        function calcDiscount() {
+            const orig = parseFloat(document.getElementById('dOrig').value) || 0;
+            const pct = parseFloat(document.getElementById('dPct').value) || 0;
+            const discAmt = orig * (pct / 100); const final = orig - discAmt;
+            const s = sym();
+            const html = `<div class="result-row"><span>Discount Amount</span><span class="val red">- ${s} ${fmt(discAmt)}</span></div>
+                <div class="result-row"><span>Final Price</span><span class="val green">${s} ${fmt(final)}</span></div>
+                <div class="result-row"><span>You Save</span><span class="val">${s} ${fmt(discAmt)}</span></div>`;
+            document.getElementById('dResult').innerHTML = html; document.getElementById('dResult').style.display = 'block';
+            showResult(html, { profitAmt: discAmt, discountPct: pct }, 'discount');
+        }
+        function calcRevDiscount() {
+            const final = parseFloat(document.getElementById('rdFinal').value) || 0;
+            const pct = parseFloat(document.getElementById('rdPct').value) || 0;
+            const orig = pct < 100 ? final / (1 - pct / 100) : 0;
+            const s = sym();
+            const html = `<div class="result-row"><span>Original Price</span><span class="val green">${s} ${fmt(orig)}</span></div>`;
+            document.getElementById('rdResult').innerHTML = html; document.getElementById('rdResult').style.display = 'block';
+            showResult(html, { profitAmt: orig - final }, 'revdiscount');
+        }
+        function calcGST() {
+            const amt = parseFloat(document.getElementById('gstAmt').value) || 0;
+            const pct = parseFloat(document.getElementById('gstPct').value) || 0;
+            const mode = document.getElementById('gstMode').value;
+            const s = sym();
+            let tax, final;
+            if (mode === 'add') { tax = amt * (pct / 100); final = amt + tax; }
+            else { tax = amt - amt / (1 + pct / 100); final = amt; }
+            const html = `<div class="result-row"><span>Tax Amount</span><span class="val">${s} ${fmt(tax)}</span></div>
+                <div class="result-row"><span>${mode==='add'?'Final Price (incl. tax)':'Base Price (excl. tax)'}</span><span class="val green">${s} ${fmt(mode==='add'?final:amt-tax)}</span></div>`;
+            document.getElementById('gstResult').innerHTML = html; document.getElementById('gstResult').style.display = 'block';
+            showResult(html, { profitAmt: tax }, 'gst');
+        }
+        function calcCommission() {
+            const sale = parseFloat(document.getElementById('comSale').value) || 0;
+            const pct = parseFloat(document.getElementById('comPct').value) || 0;
+            const comm = sale * (pct / 100); const rem = sale - comm;
+            const s = sym();
+            const html = `<div class="result-row"><span>Commission Amount</span><span class="val">${s} ${fmt(comm)}</span></div>
+                <div class="result-row"><span>Remaining Amount</span><span class="val green">${s} ${fmt(rem)}</span></div>`;
+            document.getElementById('comResult').innerHTML = html; document.getElementById('comResult').style.display = 'block';
+            showResult(html, { profitAmt: comm }, 'commission');
+        }
+        function calcROI() {
+            const inv = parseFloat(document.getElementById('roiInv').value) || 0;
+            const ret = parseFloat(document.getElementById('roiRet').value) || 0;
+            const profit = ret - inv;
+            const roi = inv > 0 ? (profit / inv) * 100 : 0;
+            const s = sym();
+            const html = `<div class="result-row"><span>Net Profit</span><span class="val green">${s} ${fmt(profit)}</span></div>
+                <div class="result-row"><span>ROI %</span><span class="val">${roi.toFixed(2)}%</span></div>`;
+            document.getElementById('roiResult').innerHTML = html; document.getElementById('roiResult').style.display = 'block';
+            showResult(html, { roi, profitAmt: profit }, 'roi');
+        }
+        function calcBreakEven() {
+            const fixed = parseFloat(document.getElementById('beFixed').value) || 0;
+            const vc = parseFloat(document.getElementById('beVar').value) || 0;
+            const price = parseFloat(document.getElementById('bePrice').value) || 0;
+            const contrib = price - vc;
+            const units = contrib > 0 ? Math.ceil(fixed / contrib) : 0;
+            const revenue = units * price;
+            const s = sym();
+            const html = `<div class="result-row"><span>Break-even Units</span><span class="val green">${fmtInt(units)}</span></div>
+                <div class="result-row"><span>Break-even Revenue</span><span class="val">${s} ${fmt(revenue)}</span></div>`;
+            document.getElementById('beResult').innerHTML = html; document.getElementById('beResult').style.display = 'block';
+            showResult(html, { units, revenue }, 'breakeven');
+        }
+
+        // ---- Compact Tool Sharing ----
+        function shareToolWhatsApp() {
+            const text = encodeURIComponent("🧮 Business Pricing, Profit & Margin Calculator Suite — free, multi-currency, premium tools for your business.\n\n👉 https://coldmatrixtools.com/business-calculator-suite.html");
+            window.open('https://wa.me/?text=' + text, '_blank');
+        }
+        function copyToolLink() {
+            const url = "https://coldmatrixtools.com/business-calculator-suite.html";
+            navigator.clipboard.writeText(url).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => { toast.classList.remove('show'); }, 2000);
+            }).catch(() => {
+                prompt('Copy this link:', url);
+            });
+        }
+
+        // ---- Result Sharing ----
+        function shareResult() {
+            if (!lastResult) return;
+            const s = sym();
+            const msg = `🧮 Business Calculation Result\n${lastResult.label}\n\n🔗 https://coldmatrixtools.com/business-calculator-suite.html\n\n🙏 ColdMatrix Tools — your 24/7 business companion.`;
+            window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+        }
+        function copyResult() {
+            if (!lastResult) return;
+            const s = sym();
+            const msg = `Business Calculation (${lastResult.label})\nColdMatrix Tools\nhttps://coldmatrixtools.com/business-calculator-suite.html`;
+            navigator.clipboard.writeText(msg).then(() => alert('Result copied!')).catch(() => prompt('Copy:', msg));
+        }
+
+        document.getElementById('tabBar').addEventListener('click', function(e) {
+            const btn = e.target.closest('.tab-btn');
+            if (!btn) return;
+            renderTab(btn.dataset.tab);
+        });
+
+        renderTab('profit');
+        renderHistory();
+        updateCurrency();
+    </script>
+</body>
+</html>
