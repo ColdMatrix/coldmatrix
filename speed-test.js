@@ -202,11 +202,14 @@ async function fetchServerMeta(){
 async function testPing(samples=6){
   const times = [];
   for(let i=0;i<samples;i++){
+    if(testCancelled) break;
     const t0 = performance.now();
     try{
-      await fetch('https://speed.cloudflare.com/__down?bytes=1000&cachebust=' + Math.random(), {cache:'no-store'});
+      currentAbortController = new AbortController();
+      await fetch('https://speed.cloudflare.com/__down?bytes=1000&cachebust=' + Math.random(), {cache:'no-store', signal: currentAbortController.signal});
       times.push(performance.now()-t0);
     }catch(e){}
+    if(testCancelled) break;
     await new Promise(r=>setTimeout(r,60));
   }
   if(!times.length) return { ping:null, jitter:null, samples:[] };
@@ -219,10 +222,12 @@ async function testPing(samples=6){
 async function testDownload(onProgress){
   const sizeBytes = 24 * 1000 * 1000;
   const t0 = performance.now();
-  const res = await fetch('https://speed.cloudflare.com/__down?bytes=' + sizeBytes + '&cachebust=' + Math.random(), {cache:'no-store'});
+  currentAbortController = new AbortController();
+  const res = await fetch('https://speed.cloudflare.com/__down?bytes=' + sizeBytes + '&cachebust=' + Math.random(), {cache:'no-store', signal: currentAbortController.signal});
   const reader = res.body.getReader();
   let received = 0;
   while(true){
+    if(testCancelled){ try{ reader.cancel(); }catch(e){} break; }
     const {done, value} = await reader.read();
     if(done) break;
     received += value.length;
@@ -238,14 +243,16 @@ async function testUpload(onProgress){
     const sizeBytes = 8 * 1000 * 1000;
     const data = new Blob([new Uint8Array(sizeBytes)]);
     const xhr = new XMLHttpRequest();
+    currentXHR = xhr;
     const t0 = performance.now();
     xhr.open('POST', 'https://speed.cloudflare.com/__up', true);
     xhr.upload.onprogress = function(e){
       const elapsed = (performance.now()-t0)/1000;
       if(elapsed > 0.05 && e.loaded) onProgress((e.loaded*8)/elapsed/1e6);
     };
-    xhr.onloadend = function(){ resolve((sizeBytes*8)/((performance.now()-t0)/1000)/1e6); };
+    xhr.onloadend = function(){ if(!testCancelled) resolve((sizeBytes*8)/((performance.now()-t0)/1000)/1e6); };
     xhr.onerror = function(){ resolve(null); };
+    xhr.onabort = function(){ resolve(null); };
     xhr.send(data);
   });
 }
@@ -254,11 +261,30 @@ async function testUpload(onProgress){
 // MAIN TEST FLOW
 // ============================================================
 let lastResults = null;
+let testCancelled = false;
+let currentAbortController = null;
+let currentXHR = null;
+
+function cancelTest(){
+  testCancelled = true;
+  if(currentAbortController) currentAbortController.abort();
+  if(currentXHR) currentXHR.abort();
+  const startBtn = document.getElementById('startBtn');
+  startBtn.classList.remove('cancel');
+  startBtn.disabled = false;
+  startBtn.textContent = 'Test Again';
+  document.getElementById('gaugeStatus').textContent = 'Test Cancelled';
+  document.getElementById('gaugeUnit').textContent = '';
+  setNeedleVisible(false);
+  animateNumberTo(0, 0);
+}
 
 async function runSpeedTest(){
+  testCancelled = false;
   const startBtn = document.getElementById('startBtn');
-  startBtn.disabled = true;
-  startBtn.textContent = 'Testing…';
+  startBtn.disabled = false;
+  startBtn.textContent = 'Cancel Test';
+  startBtn.classList.add('cancel');
   document.getElementById('resultsGrid').classList.remove('show');
   document.getElementById('shareBarWrap').style.display = 'none';
   setNeedleVisible(true);
@@ -271,6 +297,7 @@ async function runSpeedTest(){
 
   document.getElementById('gaugeStatus').textContent = 'Testing Ping...';
   const pingResult = await testPing();
+  if(testCancelled) return;
   document.getElementById('rPing').textContent = pingResult.ping ? pingResult.ping.toFixed(0) : '—';
   document.getElementById('rJitter').textContent = pingResult.jitter ? pingResult.jitter.toFixed(1) : '—';
   renderJitterWave(pingResult.samples);
@@ -279,18 +306,22 @@ async function runSpeedTest(){
   document.getElementById('gaugeUnit').textContent = 'Mbps ↓ Download';
   let down = 0;
   try{ down = await testDownload((mbps)=>{ animateNumberTo(mbps, 120); }); }catch(e){ down = 0; }
+  if(testCancelled) return;
   animateNumberTo(down, 300);
   pulseValue();
   document.getElementById('rDown').textContent = down ? down.toFixed(1) : '—';
 
   await new Promise(r=>setTimeout(r,500));
+  if(testCancelled) return;
 
   document.getElementById('gaugeStatus').textContent = 'Testing Upload...';
   document.getElementById('gaugeUnit').textContent = 'Mbps ↑ Upload';
   animateNumberTo(0, 250);
   await new Promise(r=>setTimeout(r,300));
+  if(testCancelled) return;
   let up = null;
   try{ up = await testUpload((mbps)=>{ animateNumberTo(mbps, 120); }); }catch(e){ up = null; }
+  if(testCancelled) return;
   if(up){ animateNumberTo(up, 300); pulseValue(); }
   document.getElementById('rUp').textContent = up ? up.toFixed(1) : '—';
 
@@ -300,6 +331,7 @@ async function runSpeedTest(){
 
   document.getElementById('resultsGrid').classList.add('show');
   document.getElementById('shareBarWrap').style.display = 'flex';
+  startBtn.classList.remove('cancel');
   startBtn.disabled = false;
   startBtn.textContent = 'Test Again';
 
@@ -385,5 +417,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
   buildGaugeFace();
   initParticles();
   renderHistory();
-  document.getElementById('startBtn').addEventListener('click', runSpeedTest);
+  document.getElementById('startBtn').addEventListener('click', function(){
+    if(this.classList.contains('cancel')){ cancelTest(); }
+    else{ runSpeedTest(); }
+  });
 });
