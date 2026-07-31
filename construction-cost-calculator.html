@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://coldmatrixtools.com/construction-cost-calculator.html">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ColdMatrix Construction Cost Calculator — Estimate Building Cost by Area, Quality & Currency</title>
+  <meta name="description" content="Free construction cost calculator. Estimate total building cost by area, quality grade, structure type, foundation, finishing & MEP. Supports PKR, USD, EUR, GBP, AED, SAR, INR, CNY, AUD, CAD.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="ColdMatrix Construction Cost Calculator — Estimate Building Cost">
+  <meta property="og:description" content="Estimate total construction cost with detailed breakdown: structure, foundation, finishing, MEP, fees & material quantities. 10 currencies supported.">
+  <meta property="og:url" content="https://coldmatrixtools.com/construction-cost-calculator.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ColdMatrix Construction Cost Calculator — Estimate Building Cost">
+  <meta name="twitter:description" content="Estimate total construction cost with detailed breakdown: structure, foundation, finishing, MEP, fees & material quantities. 10 currencies supported.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix Construction Cost Calculator",
+    "url": "https://coldmatrixtools.com/construction-cost-calculator.html",
+    "applicationCategory": "Utility",
+    "description": "A comprehensive construction cost estimator covering structure, foundation, finishing, MEP works, professional fees and material quantities, with multi-currency and multi-unit support.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <meta name="keywords" content="construction cost calculator, building cost estimator, construction cost estimator, house construction cost, building estimate calculator">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); --good:#34D399; --gold:#E8B93A; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.10), transparent 55%), radial-gradient(circle at 90% 100%, rgba(232,185,58,0.08), transparent 55%), var(--bg);
+      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
+    }
+    .container { max-width: 880px; margin:0 auto; padding:0 24px; }
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; max-width:880px; margin:0 auto; padding-left:24px; padding-right:24px; }
+    .logo { font-size:1.2rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:6px; }
+    .nav-links { display:flex; gap:18px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.9rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+    .ad-card { border-radius:12px; overflow:hidden; background:linear-gradient(120deg,rgba(20,28,40,0.9),rgba(10,15,20,0.75)); border:1px solid var(--border); padding:14px; margin:16px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; font-size:0.85rem; }
+    .ad-card ul { list-style:none; padding:0; margin:0; }
+    .ad-card li { font-size:0.8rem; font-weight:600; color:#fff; margin-bottom:3px; }
+    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:5px; }
+    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:8px 18px; text-decoration:none; font-weight:600; white-space:nowrap; font-size:0.85rem; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:10px; border-radius:8px; margin:14px 0; font-weight:600; font-size:0.85rem; display:none; }
+    .install-bar button { background:#0A0F14; color:white; border:none; padding:5px 14px; border-radius:5px; margin-left:10px; font-weight:600; cursor:pointer; }
+
+    h1 { font-size:1.6rem; font-weight:800; margin-bottom:6px; }
+    h1 span { color: var(--accent); }
+    .subtitle { color:var(--muted); margin-bottom:20px; font-size:0.9rem; }
+
+    .share-tool-card{
+      background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
+      border: 2px solid;
+      border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
+      border-radius:12px;
+      padding:22px 20px;
+      margin-bottom:26px;
+      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .share-tool-title{font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
+    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+    .share-tool-btn{
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+      transition:all 0.25s ease; font-family:'Inter',sans-serif;
+    }
+    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
+    .share-tool-btn i{font-size:1rem;}
+
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; position:relative; overflow:hidden; }
+    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
+    .card h2 { font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:600; margin-bottom:4px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
+    .card .card-sub { font-size:0.75rem; color:var(--muted); margin-bottom:14px; }
+
+    .field { margin-bottom:12px; }
+    .field label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:4px; font-weight:500; }
+    .field label .tag { color:var(--gold); font-size:0.7rem; }
+    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:10px 12px; border-radius:8px; font-size:0.9rem; }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); }
+    .field select option { background:var(--surface2); color:var(--text); }
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+    .row4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:10px; }
+    .checkline { display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:0.85rem; color:var(--text); }
+    .checkline input { width:auto; }
+
+    .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:15px; border-radius:10px; font-weight:700; font-size:1.05rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; }
+    .btn-calc:hover { transform:scale(1.01); }
+
+    .result-hero { background:linear-gradient(135deg, rgba(52,211,153,0.10), rgba(79,195,247,0.08)); border:1px solid var(--good); border-radius:14px; padding:22px; text-align:center; margin-bottom:16px; }
+    .result-hero .val { font-family:'Oswald',sans-serif; font-size:2.1rem; font-weight:800; color:var(--good); word-break:break-word; }
+    .result-hero .lbl { font-size:0.8rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-top:4px; }
+    .result-hero .sub { font-size:0.85rem; color:var(--text); margin-top:8px; }
+
+    .breakdown-table { width:100%; border-collapse:collapse; font-size:0.85rem; margin-top:6px; }
+    .breakdown-table td { padding:9px 4px; border-bottom:1px solid var(--border); }
+    .breakdown-table td:last-child { text-align:right; font-weight:700; white-space:nowrap; }
+    .breakdown-table tr.subtotal td { border-top:2px solid var(--border); font-weight:700; color:var(--accent); }
+    .breakdown-table tr.total td { border-top:2px solid var(--good); font-weight:800; color:var(--good); font-size:1rem; }
+    .breakdown-table tr.section-head td { color:var(--gold); font-weight:700; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px; padding-top:14px; border-bottom:none; }
+
+    .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+    .result-item { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center; word-break:break-word; }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.15rem; font-weight:800; color:var(--accent); line-height:1.2; }
+    .result-item .lbl { font-size:0.68rem; color:var(--muted); margin-top:3px; text-transform:uppercase; letter-spacing:0.5px; }
+
+    .share-bar { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
+    .share-btn { display:flex; align-items:center; gap:6px; padding:10px 16px; border-radius:50px; font-weight:600; font-size:0.8rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
+    .share-whatsapp { background:#25D366; }
+    .share-pdf { background:#E53935; }
+    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
+
+    .note { font-size:0.72rem; color:var(--muted); margin-top:12px; border-top:1px solid var(--border); padding-top:10px; }
+    .disclaimer { font-size:0.72rem; color:var(--muted); background:rgba(232,185,58,0.06); border:1px solid rgba(232,185,58,0.3); border-radius:8px; padding:12px; margin-top:14px; }
+    #shareCapture { display:none; }
+    footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:30px 0 20px; border-top:1px solid var(--border); margin-top:40px; }
+    footer a { color:var(--accent); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:18px; right:18px; z-index:999; width:44px; height:44px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.2rem; }
+
+    @media (max-width:460px) {
+      .row2, .row3, .row4 { grid-template-columns:1fr 1fr; }
+      .result-grid { grid-template-columns:1fr 1fr; }
+      h1 { font-size:1.35rem; }
+      .result-hero .val { font-size:1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="ad-card">
+      <div>
+        <ul>
+          <li>PEB Structures</li>
+          <li>Cold Storage & Freezer Rooms</li>
+          <li>PU/PIR Sandwich Panels</li>
+          <li>Prefab Construction Solutions</li>
+        </ul>
+        <div style="font-size:0.7rem;color:#c8d0d8;margin-top:2px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+      </div>
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+    </div>
+
+    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
+    <h1><span>ColdMatrix</span> Construction Cost Calculator</h1>
+    <p class="subtitle">A complete building cost estimator — structure, foundation, finishing, MEP works, professional fees & material quantities. 10 currencies, metric & imperial units.</p>
+
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share ColdMatrix Construction Cost Calculator</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
+
+    <!-- CARD: Currency & Units -->
+    <div class="card">
+      <h2>Currency & Units</h2>
+      <div class="card-sub">Change these first — rates below adjust automatically.</div>
+      <div class="row3">
+        <div class="field">
+          <label>Currency</label>
+          <select id="currency">
+            <option value="PKR" selected>🇵🇰 PKR</option>
+            <option value="USD">🇺🇸 USD</option>
+            <option value="EUR">🇪🇺 EUR</option>
+            <option value="GBP">🇬🇧 GBP</option>
+            <option value="AED">🇦🇪 AED</option>
+            <option value="SAR">🇸🇦 SAR</option>
+            <option value="INR">🇮🇳 INR</option>
+            <option value="CNY">🇨🇳 CNY</option>
+            <option value="AUD">🇦🇺 AUD</option>
+            <option value="CAD">🇨🇦 CAD</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Area Unit</label>
+          <select id="areaUnit">
+            <option value="sqft" selected>Square Feet (ft²)</option>
+            <option value="sqm">Square Meters (m²)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Weight Unit</label>
+          <select id="weightUnit">
+            <option value="kg" selected>Kilograms (kg)</option>
+            <option value="lb">Pounds (lb)</option>
+          </select>
+        </div>
+      </div>
+      <div class="note">💱 Suggested rates convert automatically using approximate exchange rates. Always adjust the rate fields to match your local market for an accurate estimate.</div>
+    </div>
+
+    <!-- CARD: Project Details -->
+    <div class="card">
+      <h2>Project Details</h2>
+      <div class="row2">
+        <div class="field">
+          <label>Building Type</label>
+          <select id="buildingType">
+            <option value="residential" selected>Residential</option>
+            <option value="commercial">Commercial</option>
+            <option value="industrial">Industrial</option>
+            <option value="warehouse">Warehouse / Cold Storage</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Structure Type</label>
+          <select id="structureType">
+            <option value="rcc" selected>RCC Framed Structure</option>
+            <option value="loadbearing">Load Bearing (Brick/Block)</option>
+            <option value="steel">Steel Structure</option>
+            <option value="peb">Pre-Engineered Building (PEB)</option>
+          </select>
+        </div>
+      </div>
+      <div class="row3">
+        <div class="field"><label>Covered Area (per floor)</label><input type="number" id="coveredArea" value="1500" step="any" min="0"></div>
+        <div class="field"><label>Number of Floors</label><input type="number" id="floors" value="1" step="1" min="1"></div>
+        <div class="field"><label>Plot Area <span class="tag">(reference only)</span></label><input type="number" id="plotArea" value="" step="any" min="0" placeholder="optional"></div>
+      </div>
+    </div>
+
+    <!-- CARD: Quality Grade -->
+    <div class="card">
+      <h2>Construction Quality Grade</h2>
+      <div class="card-sub">Sets the base structure rate — this is your grey-structure cost before finishing.</div>
+      <div class="field">
+        <label>Quality Grade</label>
+        <select id="qualityGrade">
+          <option value="economy">Economy — basic materials, minimal finishing</option>
+          <option value="standard" selected>Standard — good quality, common choice</option>
+          <option value="premium">Premium — high-end materials & finish</option>
+          <option value="luxury">Luxury — top-tier materials & design</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Base Structure Rate <span class="tag">(auto-suggested, editable)</span></label>
+        <input type="number" id="baseRate" step="any" min="0">
+      </div>
+    </div>
+
+    <!-- CARD: Foundation & Structure -->
+    <div class="card">
+      <h2>Foundation & Structure</h2>
+      <div class="row3">
+        <div class="field">
+          <label>Foundation Type</label>
+          <select id="foundationType">
+            <option value="shallow" selected>Shallow / Isolated Footing</option>
+            <option value="strip">Strip Foundation</option>
+            <option value="raft">Raft Foundation</option>
+            <option value="pile">Pile Foundation</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Wall Material</label>
+          <select id="wallMaterial">
+            <option value="brick" selected>Brick Masonry</option>
+            <option value="block">Concrete Block</option>
+            <option value="aac">AAC Block</option>
+            <option value="panel">Sandwich Panel Wall</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Roofing Type</label>
+          <select id="roofType">
+            <option value="rcc" selected>RCC Slab</option>
+            <option value="steeltruss">Steel Truss + Sheet</option>
+            <option value="panelroof">Sandwich Panel Roof</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD: Finishing & MEP -->
+    <div class="card">
+      <h2>Finishing & MEP Works</h2>
+      <div class="card-sub">Each rate auto-suggests based on your grade & currency — edit any field to match your actual quotes.</div>
+
+      <div class="row2">
+        <div class="field"><label>Flooring</label>
+          <select id="flooringType">
+            <option value="ceramic" selected>Ceramic Tile</option>
+            <option value="vitrified">Vitrified Tile</option>
+            <option value="marble">Marble</option>
+            <option value="granite">Granite</option>
+            <option value="wood">Wood / Laminate</option>
+            <option value="concrete">Polished Concrete</option>
+          </select>
+        </div>
+        <div class="field"><label>Flooring Rate <span class="tag">(per area)</span></label><input type="number" id="flooringRate" step="any" min="0"></div>
+      </div>
+
+      <div class="row2">
+        <div class="field"><label>Electrical Installation</label>
+          <select id="electricalGrade">
+            <option value="basic">Basic</option>
+            <option value="standard" selected>Standard</option>
+            <option value="premium">Premium</option>
+          </select>
+        </div>
+        <div class="field"><label>Electrical Rate <span class="tag">(per area)</span></label><input type="number" id="electricalRate" step="any" min="0"></div>
+      </div>
+
+      <div class="row2">
+        <div class="field"><label>Plumbing & Sanitary</label>
+          <select id="plumbingGrade">
+            <option value="basic">Basic</option>
+            <option value="standard" selected>Standard</option>
+            <option value="premium">Premium</option>
+          </select>
+        </div>
+        <div class="field"><label>Plumbing Rate <span class="tag">(per area)</span></label><input type="number" id="plumbingRate" step="any" min="0"></div>
+      </div>
+
+      <div class="row2">
+        <div class="field"><label>HVAC / Air Conditioning</label>
+          <select id="hvacType">
+            <option value="none">None</option>
+            <option value="split" selected>Split AC Provision</option>
+            <option value="central">Ducted Central HVAC</option>
+          </select>
+        </div>
+        <div class="field"><label>HVAC Rate <span class="tag">(per area)</span></label><input type="number" id="hvacRate" step="any" min="0"></div>
+      </div>
+
+      <div class="row2">
+        <div class="field"><label>Doors & Windows</label>
+          <select id="doorsGrade">
+            <option value="standard" selected>Standard</option>
+            <option value="premium">Premium (Aluminum/UPVC)</option>
+          </select>
+        </div>
+        <div class="field"><label>Doors/Windows Rate <span class="tag">(per area)</span></label><input type="number" id="doorsRate" step="any" min="0"></div>
+      </div>
+
+      <div class="row2">
+        <div class="field"><label>Paint & Wall Finishing</label>
+          <select id="paintGrade">
+            <option value="basic">Basic Distemper</option>
+            <option value="premium" selected>Premium Emulsion</option>
+            <option value="textured">Textured Finish</option>
+          </select>
+        </div>
+        <div class="field"><label>Paint Rate <span class="tag">(per area)</span></label><input type="number" id="paintRate" step="any" min="0"></div>
+      </div>
+    </div>
+
+    <!-- CARD: Fees & Extras -->
+    <div class="card">
+      <h2>Professional Fees & Extras</h2>
+      <div class="row4">
+        <div class="field"><label>Architectural Fee %</label><input type="number" id="archFee" value="3" step="any" min="0"></div>
+        <div class="field"><label>Structural Fee %</label><input type="number" id="structFee" value="2" step="any" min="0"></div>
+        <div class="field"><label>Overhead & Profit %</label><input type="number" id="overheadFee" value="10" step="any" min="0"></div>
+        <div class="field"><label>Contingency %</label><input type="number" id="contingencyFee" value="5" step="any" min="0"></div>
+      </div>
+      <div class="checkline"><input type="checkbox" id="siteDevEnable"> Include Site Development / Boundary Wall</div>
+      <div class="field" id="siteDevField" style="display:none;"><label>Site Development Cost <span class="tag">(fixed amount)</span></label><input type="number" id="siteDevAmount" value="0" step="any" min="0"></div>
+      <div class="field"><label>Government Approval / NOC Fees <span class="tag">(fixed amount, optional)</span></label><input type="number" id="govFees" value="0" step="any" min="0"></div>
+    </div>
+
+    <button class="btn-calc" onclick="calculateConstruction()">Calculate Total Cost</button>
+
+    <!-- RESULTS -->
+    <div id="resultsWrap" style="display:none;">
+      <div class="result-hero">
+        <div class="val" id="resTotal">—</div>
+        <div class="lbl">Total Estimated Project Cost</div>
+        <div class="sub" id="resSummaryLine">—</div>
+      </div>
+
+      <div class="card">
+        <h2>Cost Breakdown</h2>
+        <table class="breakdown-table" id="breakdownTable"></table>
+      </div>
+
+      <div class="card">
+        <h2>Estimated Material Quantities</h2>
+        <div class="card-sub">Approximate industry rule-of-thumb figures based on structure type — for preliminary planning only.</div>
+        <div class="result-grid">
+          <div class="result-item"><div class="val" id="matCement">—</div><div class="lbl">Cement</div></div>
+          <div class="result-item"><div class="val" id="matSteel">—</div><div class="lbl">Steel / Reinforcement</div></div>
+          <div class="result-item"><div class="val" id="matBricks">—</div><div class="lbl">Bricks</div></div>
+          <div class="result-item"><div class="val" id="matSand">—</div><div class="lbl">Sand</div></div>
+          <div class="result-item"><div class="val" id="matAgg">—</div><div class="lbl">Aggregate / Crush</div></div>
+          <div class="result-item"><div class="val" id="matArea">—</div><div class="lbl">Total Covered Area</div></div>
+        </div>
+      </div>
+
+      <div class="disclaimer">⚠️ This is a preliminary estimate using general industry rule-of-thumb rates and thumb-rule material factors. Actual costs vary significantly by location, market rates, site conditions, and design specifics. For an accurate quotation, please consult a professional contractor or structural engineer.</div>
+    </div>
+
+    <div id="shareCapture">
+      <div style="background:#fff;color:#111;border-radius:10px;padding:24px;font-family:'Inter',sans-serif;width:360px;">
+        <div style="font-size:1.2rem;font-weight:800;color:#0A0F14;margin-bottom:12px;">❄️ <span style="color:#2196F3;">ColdMatrix</span> Construction Estimate</div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+          <tr><td style="padding:7px 0;border-bottom:1px solid #eee;">Building Type</td><td style="padding:7px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvType"></td></tr>
+          <tr><td style="padding:7px 0;border-bottom:1px solid #eee;">Total Covered Area</td><td style="padding:7px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvArea"></td></tr>
+          <tr><td style="padding:7px 0;border-bottom:1px solid #eee;">Quality Grade</td><td style="padding:7px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvGrade"></td></tr>
+          <tr><td style="padding:7px 0;">Total Estimated Cost</td><td style="padding:7px 0;text-align:right;font-weight:800;color:#2196F3;" id="pvTotal"></td></tr>
+        </table>
+        <div style="font-size:0.66rem;color:#666;margin-top:14px;border-top:1px solid #eee;padding-top:10px;">🙏 Thank you for using ColdMatrix Tools — your 24/7 business companion.<br>📧 contact@coldmatrixtools.com &nbsp;💬 +92 333 3228470</div>
+      </div>
+    </div>
+
+    <div class="share-bar" id="shareBarWrap" style="display:none;">
+      <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+      <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+      <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+    </div>
+  </div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+<script>
+  // ---------- Reference data (all base values in PKR per sqft) ----------
+  const FX = { PKR:1, USD:285, EUR:310, GBP:360, AED:77.6, SAR:76, INR:3.42, CNY:39.6, AUD:187.5, CAD:208 }; // approx PKR per 1 unit of currency
+  const CUR_SYMBOL = { PKR:'PKR', USD:'USD', EUR:'EUR', GBP:'GBP', AED:'AED', SAR:'SAR', INR:'INR', CNY:'CNY', AUD:'AUD', CAD:'CAD' };
+
+  const BASE_RATES = {
+    residential: { economy:2200, standard:3200, premium:4500, luxury:6500 },
+    commercial:  { economy:2800, standard:3800, premium:5200, luxury:7500 },
+    industrial:  { economy:1800, standard:2500, premium:3500, luxury:5000 },
+    warehouse:   { economy:1600, standard:2200, premium:3000, luxury:4200 }
+  };
+
+  const FOUNDATION_PCT = { shallow:0, strip:0.03, raft:0.08, pile:0.15 };
+  const WALL_ADJ = { brick:0, block:-50, aac:80, panel:150 };
+  const ROOF_ADJ = { rcc:0, steeltruss:-200, panelroof:50 };
+
+  const FLOOR_RATE   = { ceramic:150, vitrified:250, marble:450, granite:500, wood:350, concrete:80 };
+  const ELEC_RATE     = { basic:80, standard:150, premium:280 };
+  const PLUMB_RATE    = { basic:70, standard:130, premium:220 };
+  const HVAC_RATE      = { none:0, split:60, central:350 };
+  const DOORS_RATE    = { standard:120, premium:280 };
+  const PAINT_RATE    = { basic:30, premium:60, textured:100 };
+
+  const MATERIAL_FACTORS = {
+    concrete: { cementBagsPerSqft:0.40, steelKgPerSqft:4,  sandCftPerSqft:1.5, aggCftPerSqft:1.3, brickPerSqft:8 },
+    steel:    { cementBagsPerSqft:0.15, steelKgPerSqft:8,  sandCftPerSqft:0.5, aggCftPerSqft:0.4, brickPerSqft:0 }
+  };
+
+  function structFactorKey(structureType){
+    return (structureType === 'steel' || structureType === 'peb') ? 'steel' : 'concrete';
+  }
+
+  // Converts a PKR-per-sqft constant into "currency per selected area unit"
+  function convertRate(pkrPerSqft){
+    const areaUnit = document.getElementById('areaUnit').value;
+    const currency = document.getElementById('currency').value;
+    let val = pkrPerSqft;
+    if(areaUnit === 'sqm') val = val * 10.7639; // PKR per sqm
+    return val / FX[currency];
+  }
+
+  function fmt(num){
+    return num.toLocaleString(undefined, {minimumFractionDigits:0, maximumFractionDigits:0});
+  }
+  function money(num){
+    const cur = CUR_SYMBOL[document.getElementById('currency').value];
+    return cur + ' ' + fmt(num);
+  }
+
+  // ---------- Auto-suggest rates ----------
+  function updateSuggestedRates(){
+    const buildingType = document.getElementById('buildingType').value;
+    const grade = document.getElementById('qualityGrade').value;
+
+    document.getElementById('baseRate').value = convertRate(BASE_RATES[buildingType][grade]).toFixed(2);
+    document.getElementById('flooringRate').value = convertRate(FLOOR_RATE[document.getElementById('flooringType').value]).toFixed(2);
+    document.getElementById('electricalRate').value = convertRate(ELEC_RATE[document.getElementById('electricalGrade').value]).toFixed(2);
+    document.getElementById('plumbingRate').value = convertRate(PLUMB_RATE[document.getElementById('plumbingGrade').value]).toFixed(2);
+    document.getElementById('hvacRate').value = convertRate(HVAC_RATE[document.getElementById('hvacType').value]).toFixed(2);
+    document.getElementById('doorsRate').value = convertRate(DOORS_RATE[document.getElementById('doorsGrade').value]).toFixed(2);
+    document.getElementById('paintRate').value = convertRate(PAINT_RATE[document.getElementById('paintGrade').value]).toFixed(2);
+  }
+
+  ['buildingType','qualityGrade','currency','areaUnit'].forEach(id=>{
+    document.getElementById(id).addEventListener('change', updateSuggestedRates);
+  });
+  document.getElementById('flooringType').addEventListener('change', ()=>{ document.getElementById('flooringRate').value = convertRate(FLOOR_RATE[document.getElementById('flooringType').value]).toFixed(2); });
+  document.getElementById('electricalGrade').addEventListener('change', ()=>{ document.getElementById('electricalRate').value = convertRate(ELEC_RATE[document.getElementById('electricalGrade').value]).toFixed(2); });
+  document.getElementById('plumbingGrade').addEventListener('change', ()=>{ document.getElementById('plumbingRate').value = convertRate(PLUMB_RATE[document.getElementById('plumbingGrade').value]).toFixed(2); });
+  document.getElementById('hvacType').addEventListener('change', ()=>{ document.getElementById('hvacRate').value = convertRate(HVAC_RATE[document.getElementById('hvacType').value]).toFixed(2); });
+  document.getElementById('doorsGrade').addEventListener('change', ()=>{ document.getElementById('doorsRate').value = convertRate(DOORS_RATE[document.getElementById('doorsGrade').value]).toFixed(2); });
+  document.getElementById('paintGrade').addEventListener('change', ()=>{ document.getElementById('paintRate').value = convertRate(PAINT_RATE[document.getElementById('paintGrade').value]).toFixed(2); });
+
+  document.getElementById('siteDevEnable').addEventListener('change', function(){
+    document.getElementById('siteDevField').style.display = this.checked ? 'block' : 'none';
+  });
+
+  window.addEventListener('DOMContentLoaded', updateSuggestedRates);
+
+  // ---------- Main calculation ----------
+  function calculateConstruction(){
+    const buildingType = document.getElementById('buildingType').value;
+    const structureType = document.getElementById('structureType').value;
+    const coveredArea = parseFloat(document.getElementById('coveredArea').value) || 0;
+    const floors = parseFloat(document.getElementById('floors').value) || 1;
+    const areaUnit = document.getElementById('areaUnit').value;
+    const areaUnitLabel = areaUnit === 'sqm' ? 'm²' : 'ft²';
+    const weightUnit = document.getElementById('weightUnit').value;
+
+    if(coveredArea <= 0){
+      alert('Please enter a valid covered area.');
+      return;
+    }
+
+    const totalArea = coveredArea * floors; // in user's chosen area unit
+
+    const baseRate = parseFloat(document.getElementById('baseRate').value) || 0;
+    const foundationType = document.getElementById('foundationType').value;
+    const wallMaterial = document.getElementById('wallMaterial').value;
+    const roofType = document.getElementById('roofType').value;
+
+    const foundationAdj = baseRate * FOUNDATION_PCT[foundationType];
+    const wallAdj = convertRate(WALL_ADJ[wallMaterial]);
+    const roofAdj = convertRate(ROOF_ADJ[roofType]);
+
+    const flooringRate = parseFloat(document.getElementById('flooringRate').value) || 0;
+    const electricalRate = parseFloat(document.getElementById('electricalRate').value) || 0;
+    const plumbingRate = parseFloat(document.getElementById('plumbingRate').value) || 0;
+    const hvacRate = parseFloat(document.getElementById('hvacRate').value) || 0;
+    const doorsRate = parseFloat(document.getElementById('doorsRate').value) || 0;
+    const paintRate = parseFloat(document.getElementById('paintRate').value) || 0;
+
+    const archFeePct = parseFloat(document.getElementById('archFee').value) || 0;
+    const structFeePct = parseFloat(document.getElementById('structFee').value) || 0;
+    const overheadPct = parseFloat(document.getElementById('overheadFee').value) || 0;
+    const contingencyPct = parseFloat(document.getElementById('contingencyFee').value) || 0;
+    const siteDevEnabled = document.getElementById('siteDevEnable').checked;
+    const siteDevAmount = siteDevEnabled ? (parseFloat(document.getElementById('siteDevAmount').value) || 0) : 0;
+    const govFees = parseFloat(document.getElementById('govFees').value) || 0;
+
+    // Cost line items (per area unit, in currency)
+    const items = [
+      { label:'Base Structure (' + document.getElementById('qualityGrade').selectedOptions[0].text.split(' —')[0] + ')', rate: baseRate },
+      { label:'Foundation Adjustment', rate: foundationAdj },
+      { label:'Wall Material Adjustment', rate: wallAdj },
+      { label:'Roofing Adjustment', rate: roofAdj },
+      { label:'Flooring', rate: flooringRate },
+      { label:'Electrical Installation', rate: electricalRate },
+      { label:'Plumbing & Sanitary', rate: plumbingRate },
+      { label:'HVAC / Air Conditioning', rate: hvacRate },
+      { label:'Doors & Windows', rate: doorsRate },
+      { label:'Paint & Wall Finishing', rate: paintRate }
+    ];
+
+    let subtotal = 0;
+    items.forEach(it=>{ it.amount = it.rate * totalArea; subtotal += it.amount; });
+    subtotal += siteDevAmount;
+
+    const archFeeAmt = subtotal * archFeePct / 100;
+    const structFeeAmt = subtotal * structFeePct / 100;
+    const overheadAmt = subtotal * overheadPct / 100;
+    const contingencyAmt = subtotal * contingencyPct / 100;
+
+    const total = subtotal + archFeeAmt + structFeeAmt + overheadAmt + contingencyAmt + govFees;
+    const perAreaCost = total / totalArea;
+
+    // ---------- Render breakdown table ----------
+    const rows = [];
+    rows.push('<tr class="section-head"><td colspan="2">Construction Cost Items</td></tr>');
+    items.forEach(it=>{
+      rows.push('<tr><td>' + it.label + '</td><td>' + money(it.amount) + '</td></tr>');
+    });
+    if(siteDevEnabled){ rows.push('<tr><td>Site Development / Boundary Wall</td><td>' + money(siteDevAmount) + '</td></tr>'); }
+    rows.push('<tr class="subtotal"><td>Subtotal</td><td>' + money(subtotal) + '</td></tr>');
+    rows.push('<tr class="section-head"><td colspan="2">Professional Fees & Extras</td></tr>');
+    rows.push('<tr><td>Architectural Fee (' + archFeePct + '%)</td><td>' + money(archFeeAmt) + '</td></tr>');
+    rows.push('<tr><td>Structural Engineering Fee (' + structFeePct + '%)</td><td>' + money(structFeeAmt) + '</td></tr>');
+    rows.push('<tr><td>Contractor Overhead & Profit (' + overheadPct + '%)</td><td>' + money(overheadAmt) + '</td></tr>');
+    rows.push('<tr><td>Contingency Reserve (' + contingencyPct + '%)</td><td>' + money(contingencyAmt) + '</td></tr>');
+    if(govFees > 0){ rows.push('<tr><td>Government Approval / NOC Fees</td><td>' + money(govFees) + '</td></tr>'); }
+    rows.push('<tr class="total"><td>TOTAL ESTIMATED COST</td><td>' + money(total) + '</td></tr>');
+    document.getElementById('breakdownTable').innerHTML = rows.join('');
+
+    document.getElementById('resTotal').textContent = money(total);
+    document.getElementById('resSummaryLine').textContent = fmt(totalArea) + ' ' + areaUnitLabel + ' total covered area  ·  ' + money(perAreaCost) + ' per ' + areaUnitLabel;
+
+    // ---------- Material quantities ----------
+    const factKey = structFactorKey(structureType);
+    const f = MATERIAL_FACTORS[factKey];
+    const areaSqft = areaUnit === 'sqm' ? totalArea * 10.7639 : totalArea;
+
+    const cementBags = areaSqft * f.cementBagsPerSqft;
+    const cementKg = cementBags * 50;
+    const steelKgTotal = areaSqft * f.steelKgPerSqft;
+    const sandCft = areaSqft * f.sandCftPerSqft;
+    const aggCft = areaSqft * f.aggCftPerSqft;
+    const bricksTotal = (wallMaterial === 'brick') ? areaSqft * f.brickPerSqft : 0;
+
+    document.getElementById('matCement').textContent = fmt(cementBags) + ' bags (' + fmt(cementKg) + ' kg)';
+    if(weightUnit === 'lb'){
+      document.getElementById('matSteel').textContent = fmt(steelKgTotal * 2.20462) + ' lb';
+    } else {
+      document.getElementById('matSteel').textContent = fmt(steelKgTotal) + ' kg (' + (steelKgTotal/1000).toFixed(2) + ' tons)';
+    }
+    document.getElementById('matBricks').textContent = (wallMaterial === 'brick') ? fmt(bricksTotal) + ' bricks' : '— (using ' + document.getElementById('wallMaterial').selectedOptions[0].text + ')';
+    document.getElementById('matSand').textContent = fmt(sandCft) + ' cft';
+    document.getElementById('matAgg').textContent = fmt(aggCft) + ' cft';
+    document.getElementById('matArea').textContent = fmt(totalArea) + ' ' + areaUnitLabel;
+
+    // ---------- Share preview ----------
+    document.getElementById('pvType').textContent = document.getElementById('buildingType').selectedOptions[0].text;
+    document.getElementById('pvArea').textContent = fmt(totalArea) + ' ' + areaUnitLabel;
+    document.getElementById('pvGrade').textContent = document.getElementById('qualityGrade').selectedOptions[0].text.split(' —')[0];
+    document.getElementById('pvTotal').textContent = money(total);
+
+    document.getElementById('resultsWrap').style.display = 'block';
+    document.getElementById('shareBarWrap').style.display = 'flex';
+    document.getElementById('resultsWrap').scrollIntoView({behavior:'smooth'});
+  }
+
+  // ---------- Share / download ----------
+  async function captureCanvas(){
+    const el = document.getElementById('shareCapture');
+    el.style.display = 'block';
+    const canvas = await html2canvas(el, {backgroundColor:'#ffffff', scale:2});
+    el.style.display = 'none';
+    return canvas;
+  }
+  async function downloadResult(type){
+    const canvas = await captureCanvas();
+    if(type === 'pdf'){
+      const { jsPDF } = window.jspdf;
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      const pdf = new jsPDF({ orientation: canvas.width > canvas.height ? 'l':'p', unit:'px', format:[canvas.width, canvas.height] });
+      pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+      pdf.save('ColdMatrix-Construction-Estimate.pdf');
+    } else {
+      const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
+      const link = document.createElement('a');
+      link.download = 'ColdMatrix-Construction-Estimate.' + type;
+      link.href = canvas.toDataURL(mime, 0.95);
+      link.click();
+    }
+  }
+  async function shareWhatsApp(){
+    const canvas = await captureCanvas();
+    canvas.toBlob(async (blob)=>{
+      const file = new File([blob], 'ColdMatrix-Construction-Estimate.png', {type:'image/png'});
+      if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+        try{ await navigator.share({ files:[file], title:'Construction Cost Estimate', text:'Construction cost estimate from ColdMatrix Tools' }); }catch(e){}
+      } else {
+        const link = document.createElement('a'); link.download='ColdMatrix-Construction-Estimate.png'; link.href = canvas.toDataURL('image/png'); link.click();
+        window.open('https://wa.me/?text=' + encodeURIComponent('Thank you for using ColdMatrix Tools — your 24/7 business companion.\n📧 contact@coldmatrixtools.com  |  💬 +92 333 3228470'), '_blank');
+      }
+    });
+  }
+
+  let d; const bar = document.getElementById('installBarTool');
+  window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
+  window.installAppTool = function(){
+    if(d){ d.prompt(); d.userChoice.then(()=>{ bar.style.display='none'; }); }
+    else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
+  };
+  if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+
+  function shareToolWhatsApp(){
+    const text = encodeURIComponent('Check out this Construction Cost Calculator from ColdMatrix Tools! ' + window.location.href);
+    window.open('https://wa.me/?text='+text, '_blank');
+  }
+  function copyToolLink(){
+    navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{
+      alert(window.location.href);
+    });
+  }
+</script>
+</body>
+</html>
