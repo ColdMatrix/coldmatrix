@@ -1,0 +1,219 @@
+<!-- COLDMATRIX INVOICE STUDIO - FIXED - Narrow Share Box + No Overlap + JPG -->
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- PLAYABLE_TOUCH_PATCH_V1 --><script>
+(function() {
+  if (window.__playableTouchPatchInstalled) return;
+  window.__playableTouchPatchInstalled = true;
+  var origAdd = EventTarget.prototype.addEventListener;
+  var blockedTypes = { touchstart: 1, touchmove: 1, wheel: 1 };
+  EventTarget.prototype.addEventListener = function(type, listener, options) {
+    if (blockedTypes[type]) {
+      if (options === undefined || options === null) {
+        options = { passive: true };
+      } else if (typeof options === 'boolean') {
+        options = { capture: options, passive: true };
+      } else {
+        options = Object.assign({}, options, { passive: true });
+      }
+    }
+    return origAdd.call(this, type, listener, options);
+  };
+})();
+</script><script>window.Intl=window.Intl||{};Intl.t=function(s){return(Intl._locale&&Intl._locale[s])||s;};</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ColdMatrix Invoice Studio - Free Invoice, Quotation & Proposal Maker</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap');
+:root{--gold:#D4AF37;--blue:#00C2FF}
+body{font-family:'Outfit',sans-serif;background:#060d1a;color:#fff}
+.invoice-paper{font-family:'Inter',sans-serif;color:#111}
+.mono{font-family:'JetBrains Mono',monospace}
+.gold-shine{background:linear-gradient(130deg,#D4AF37 0%,#FFD700 20%,#FFF8DC 35%,#D4AF37 50%,#8B6914 65%,#FFD700 85%,#D4AF37 100%);background-size:200% 200%;animation:goldShine 3s linear infinite}
+@keyframes goldShine{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+.live-dot{animation:livePulse 1.6s infinite}
+@keyframes livePulse{0%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.2)}100%{opacity:1;transform:scale(1)}}
+.input-dark{background:#0f1a2e;border:1px solid #1e2f4a;color:#fff}
+.template-active{border-color:var(--gold)!important;box-shadow:0 0 0 2px var(--gold)}
+
+/* FIXED SHARE BOX - NARROW & HORIZONTAL */
+.share-gold-wrapper{position:relative;padding:2px;background:linear-gradient(90deg,#D4AF37 0%,#3b82f6 50%,#D4AF37 100%);border-radius:8px;margin:14px 0}
+.share-gold-inner{background:linear-gradient(180deg,#102043 0%,#0a1628 100%);border-radius:6px;padding:12px 12px;text-align:center}
+.share-gold-title{color:#D4AF37;font-weight:800;font-size:14px;letter-spacing:0.06em;line-height:1.2;text-transform:uppercase;margin-bottom:10px}
+.share-btn-row{display:flex;flex-direction:row;gap:8px;justify-content:center;flex-wrap:nowrap}
+.btn-wa{flex:1;border:2px solid #22c55e;background:transparent;color:#fff;padding:10px 10px;border-radius:10px;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;transition:.2s;min-width:0}
+.btn-wa:hover{background:rgba(34,197,94,.12)}
+.btn-copy{flex:1;border:2px solid rgba(212,175,55,.7);background:transparent;color:#fff;padding:10px 10px;border-radius:10px;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:6px;transition:.2s;min-width:0}
+.btn-copy:hover{background:rgba(212,175,55,.12)}
+
+.live-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;background:rgba(0,194,255,.1);border:1px solid rgba(0,194,255,.4);color:#00C2FF;font-weight:700;font-size:13px}
+.state-badge{position:absolute;top:0;right:18px;transform:translateY(-50%);background:#FFC91A;color:#000;font-weight:900;font-size:11px;letter-spacing:0.08em;padding:7px 16px;border-radius:20px;z-index:10;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.tool-card-wrap{position:relative;padding-top:14px;margin-top:10px}
+.tool-card-inner{background:#0c1a30;border:1px solid #1e3a5f;border-radius:16px;overflow:hidden}
+</style>
+</head>
+<body>
+<header class="sticky top-0 z-50 bg-[#060d1a]/90 backdrop-blur-xl border-b border-white/10">
+<div class="max-w-[1600px] mx-auto px-4 py-3 flex items-center justify-between">
+<a href="/" class="flex items-center gap-2 font-extrabold text-lg"><span class="w-8 h-8 rounded-lg gold-shine flex items-center justify-center text-black">C</span> ColdMatrix</a>
+<a href="/" class="px-4 py-2 rounded-full bg-white text-black text-sm font-bold">Home</a>
+</div>
+</header>
+
+<div class="max-w-[1600px] mx-auto px-4 py-6">
+<div class="max-w-4xl mx-auto text-center mb-2">
+<h1 class="text-3xl md:text-5xl font-extrabold leading-tight">❄️ ColdMatrix Invoice Studio</h1>
+<p class="text-white/60 mt-2 text-sm md:text-[15px]">Professional Invoice, Quotation, Estimate & Proposal — PDF, PNG, JPG. Free, no watermark, works on mobile.</p>
+</div>
+
+<div class="max-w-3xl mx-auto">
+<div class="share-gold-wrapper">
+<div class="share-gold-inner">
+<div class="share-gold-title">SHARE COLDMATRIX INVOICE STUDIO</div>
+<div class="share-btn-row">
+<button onclick="shareTool('whatsapp')" class="btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+<button onclick="shareTool('copy')" id="copyToolBtn" class="btn-copy"><i class="fa-solid fa-link"></i> <span id="copyToolText">Copy Link</span></button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="mt-6">
+<div class="flex items-center gap-3 mb-1">
+<div class="live-badge"><span class="w-2 h-2 bg-[#00C2FF] rounded-full live-dot"></span> Live</div>
+<span class="text-white/30 text-sm">• Free • No Watermark • 2,431 using now</span>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-6 items-start">
+
+<!-- LEFT -->
+<div class="tool-card-wrap">
+<div class="state-badge">STATE OF THE ART TOOL</div>
+<div class="tool-card-inner">
+<div class="p-2 grid grid-cols-4 gap-2 bg-black/30">
+<button onclick="setDocType('invoice')" data-type="invoice" class="doc-tab py-2 rounded-lg bg-[#00C2FF] text-black font-bold text-xs md:text-sm">Invoice</button>
+<button onclick="setDocType('quotation')" data-type="quotation" class="doc-tab py-2 rounded-lg bg-white/10 text-white/70 font-semibold text-xs md:text-sm">Quotation</button>
+<button onclick="setDocType('estimate')" data-type="estimate" class="doc-tab py-2 rounded-lg bg-white/10 text-white/70 font-semibold text-xs md:text-sm">Estimate</button>
+<button onclick="setDocType('proposal')" data-type="proposal" class="doc-tab py-2 rounded-lg bg-white/10 text-white/70 font-semibold text-xs md:text-sm">Proposal</button>
+</div>
+<div class="p-3 space-y-4 max-h-[85vh] overflow-y-auto">
+<div>
+<p class="text-[11px] font-bold tracking-widest text-[#00C2FF] mb-2">TEMPLATE STYLE</p>
+<div class="grid grid-cols-3 gap-2">
+<div onclick="setTemplate('minimal')" data-tmpl="minimal" class="tmpl-card template-active rounded-xl border-2 border-white/10 p-2 cursor-pointer bg-white"><div class="h-10 rounded-lg bg-gray-100 mb-1"></div><p class="text-[10px] text-black font-bold text-center">Minimal</p></div>
+<div onclick="setTemplate('gold')" data-tmpl="gold" class="tmpl-card rounded-xl border-2 border-white/10 p-2 cursor-pointer bg-[#0a0a0a]"><div class="h-10 rounded-lg gold-shine mb-1"></div><p class="text-[10px] font-bold text-center">Gold Pro</p></div>
+<div onclick="setTemplate('dark')" data-tmpl="dark" class="tmpl-card rounded-xl border-2 border-white/10 p-2 cursor-pointer bg-[#1a1a1a]"><div class="h-10 rounded-lg bg-[#222] border border-white/10 mb-1"></div><p class="text-[10px] font-bold text-center">Dark Exec</p></div>
+</div>
+</div>
+<details open class="bg-[#0a1628] rounded-xl border border-[#1e3a5f]/50">
+<summary class="p-3 cursor-pointer font-bold text-sm">🏢 Your Business</summary>
+<div class="p-3 space-y-2">
+<div class="flex gap-2">
+<label class="w-14 h-14 rounded-xl bg-white/5 border border-dashed border-white/20 flex flex-col items-center justify-center cursor-pointer overflow-hidden relative">
+<input type="file" accept="image/*" class="hidden" onchange="uploadLogo(event)"><img id="logoPreview" class="hidden w-full h-full object-cover"><span id="logoPlace" class="text-[9px] text-center"><i class="fa-solid fa-camera block"></i>Logo</span>
+</label>
+<div class="flex-1 space-y-2">
+<input id="bizName" oninput="render()" class="w-full input-dark rounded-xl px-3 py-2 text-sm" value="ColdMatrix Studio">
+<input id="bizTag" oninput="render()" class="w-full input-dark rounded-xl px-3 py-1.5 text-xs" value="Premium Business Solutions">
+</div>
+</div>
+<input id="bizEmail" oninput="render()" class="w-full input-dark rounded-full px-3 py-2 text-sm" value="hello@coldmatrixtools.com">
+<div class="grid grid-cols-2 gap-2">
+<input id="bizPhone" oninput="render()" class="input-dark rounded-full px-3 py-2 text-xs" value="+92 300 1234567">
+<input id="bizGst" oninput="render()" class="input-dark rounded-full px-3 py-2 text-xs" value="GSTIN: 123456">
+</div>
+<textarea id="bizAddr" oninput="render()" class="w-full input-dark rounded-2xl px-3 py-2 text-xs h-14 resize-none">Tharu Shah, Sindh, Pakistan</textarea>
+</div>
+</details>
+<details open class="bg-[#0a1628] rounded-xl border border-[#1e3a5f]/50">
+<summary class="p-3 cursor-pointer font-bold text-sm">👤 Bill To</summary>
+<div class="p-3 space-y-2">
+<input id="clientName" oninput="render()" class="w-full input-dark rounded-full px-3 py-2 text-sm" value="Acme Corporation">
+<input id="clientCompany" oninput="render()" class="w-full input-dark rounded-full px-3 py-2 text-sm" value="Acme Pvt Ltd">
+<textarea id="clientAddr" oninput="render()" class="w-full input-dark rounded-2xl px-3 py-2 text-xs h-14 resize-none">123 Business Street, Karachi</textarea>
+</div>
+</details>
+<details open class="bg-[#0a1628] rounded-xl border border-[#1e3a5f]/50">
+<summary class="p-3 cursor-pointer font-bold text-sm">#️⃣ Invoice Details</summary>
+<div class="p-3 grid grid-cols-2 gap-2">
+<input id="invNumber" oninput="render()" class="input-dark rounded-full px-3 py-2 text-xs mono" value="INV-2026-001">
+<input id="invPo" oninput="render()" placeholder="PO" class="input-dark rounded-full px-3 py-2 text-xs">
+<input id="invDate" type="date" oninput="render()" class="input-dark rounded-full px-3 py-2 text-xs">
+<input id="invDue" type="date" oninput="render()" class="input-dark rounded-full px-3 py-2 text-xs">
+<select id="invCurrency" onchange="render()" class="input-dark rounded-full px-3 py-2 text-xs col-span-2"><option value="PKR">PKR Rs</option><option value="USD" selected>USD $</option><option value="INR">INR ₹</option><option value="EUR">EUR €</option><option value="GBP">GBP £</option></select>
+</div>
+</details>
+<div class="bg-[#0a1628] rounded-xl border border-[#1e3a5f]/50 p-3">
+<div class="flex justify-between items-center mb-2"><p class="font-bold text-sm">📋 Items</p><button onclick="addItem()" class="px-3 py-1 rounded-full bg-[#00C2FF] text-black text-xs font-bold">+ Add</button></div>
+<div id="itemsContainer" class="space-y-2"></div>
+<div class="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-white/10">
+<input id="discount" type="number" oninput="render()" value="0" placeholder="Disc" class="input-dark rounded-full px-3 py-1.5 text-xs">
+<input id="taxRate" type="number" oninput="render()" value="10" placeholder="Tax%" class="input-dark rounded-full px-3 py-1.5 text-xs">
+<input id="shipping" type="number" oninput="render()" value="0" placeholder="Ship" class="input-dark rounded-full px-3 py-1.5 text-xs">
+<input id="paid" type="number" oninput="render()" value="0" placeholder="Paid" class="input-dark rounded-full px-3 py-1.5 text-xs">
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- RIGHT -->
+<div class="tool-card-wrap">
+<div class="state-badge" style="background:#00C2FF">YOUR INVOICE PREVIEW</div>
+<div class="tool-card-inner">
+<div class="p-3 flex justify-between items-center text-[11px] text-white/40"><span>LIVE PREVIEW • REAL TIME</span><div class="flex gap-2"><button onclick="setZoom(-0.1)" class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">-</button><button onclick="setZoom(0.1)" class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">+</button></div></div>
+<div id="paperWrap" class="bg-[#d9e0ea] p-2 md:p-4 flex justify-center overflow-auto max-h-[70vh]">
+<div id="invoicePaper" class="invoice-paper w-full max-w-[800px] bg-white shadow-2xl rounded-lg overflow-hidden" style="transform-origin:top center"></div>
+</div>
+<div class="p-3">
+<div class="share-gold-wrapper">
+<div class="share-gold-inner">
+<div class="share-gold-title">SHARE THIS INVOICE / DOWNLOAD</div>
+<div class="grid grid-cols-2 gap-2 mb-2">
+<button onclick="downloadAs('png')" class="py-2.5 rounded-xl bg-white text-black font-bold text-xs flex items-center justify-center gap-1"><i class="fa-solid fa-image"></i> PNG</button>
+<button onclick="downloadAs('jpg')" class="py-2.5 rounded-xl bg-white/10 border border-white/20 font-bold text-xs flex items-center justify-center gap-1"><i class="fa-solid fa-file-image"></i> JPG</button>
+<button onclick="downloadAs('pdf')" class="py-2.5 rounded-xl gold-shine text-black font-extrabold text-xs flex items-center justify-center gap-1"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+<button onclick="window.print()" class="py-2.5 rounded-xl bg-white/10 border border-white/20 font-bold text-xs flex items-center justify-center gap-1"><i class="fa-solid fa-print"></i> Print</button>
+</div>
+<div class="share-btn-row">
+<button onclick="shareInvoice('whatsapp')" class="btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp Invoice</button>
+<button onclick="shareInvoice('copy')" class="btn-copy"><i class="fa-solid fa-link"></i> Copy Link</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+<script>
+let state={docType:'invoice',template:'minimal',zoom:1,logo:'',items:[{name:'Website Design',qty:1,rate:500,desc:'Premium website'}, {name:'Business Card Kit',qty:1,rate:150,desc:'Gold branding'}]};
+const currencies={PKR:'Rs',USD:'$',INR:'₹',EUR:'€',GBP:'£'};
+function init(){document.getElementById('invDate').valueAsDate=new Date();let d=new Date();d.setDate(d.getDate()+7);document.getElementById('invDue').valueAsDate=d;renderItems();render();}
+function setDocType(t){state.docType=t;document.querySelectorAll('.doc-tab').forEach(b=>{b.className='doc-tab py-2 rounded-lg bg-white/10 text-white/70 font-semibold text-xs md:text-sm';});document.querySelector(`[data-type=${t}]`).className='doc-tab py-2 rounded-lg bg-[#00C2FF] text-black font-bold text-xs md:text-sm';render();}
+function setTemplate(t){state.template=t;document.querySelectorAll('.tmpl-card').forEach(c=>c.classList.remove('template-active'));document.querySelector(`[data-tmpl=${t}]`).classList.add('template-active');render();}
+function setZoom(d){state.zoom=Math.min(1.5,Math.max(0.5,state.zoom+d));document.getElementById('invoicePaper').style.transform=`scale(${state.zoom})`;}
+function uploadLogo(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=ev=>{state.logo=ev.target.result;document.getElementById('logoPreview').src=state.logo;document.getElementById('logoPreview').classList.remove('hidden');document.getElementById('logoPlace').classList.add('hidden');render();};r.readAsDataURL(f);}
+function renderItems(){let c=document.getElementById('itemsContainer');c.innerHTML='';state.items.forEach((it,i)=>{c.innerHTML+=`<div class="bg-[#0f1e38] rounded-xl p-2 border border-white/5"><div class="flex justify-between gap-2"><input value="${it.name}" oninput="state.items[${i}].name=this.value;render()" class="flex-1 bg-transparent font-semibold text-xs outline-none"><button onclick="removeItem(${i})" class="text-white/30"><i class="fa-solid fa-trash text-[10px]"></i></button></div><input value="${it.desc||''}" oninput="state.items[${i}].desc=this.value;render()" class="w-full bg-transparent text-[11px] text-white/50 outline-none mt-1"><div class="grid grid-cols-3 gap-2 mt-2"><input type="number" value="${it.qty}" oninput="state.items[${i}].qty=parseFloat(this.value)||0;render()" class="input-dark rounded-full px-2 py-1 text-xs"><input type="number" value="${it.rate}" oninput="state.items[${i}].rate=parseFloat(this.value)||0;render()" class="input-dark rounded-full px-2 py-1 text-xs"><div class="bg-white text-black rounded-full px-2 py-1 text-[10px] font-bold text-center mono">${curr()}${(it.qty*it.rate).toFixed(0)}</div></div></div>`});}
+function addItem(){state.items.push({name:'New Item',qty:1,rate:100,desc:''});renderItems();render();}
+function removeItem(i){state.items.splice(i,1);renderItems();render();}
+function curr(){return currencies[document.getElementById('invCurrency').value]||'$';}
+function calc(){let sub=0;state.items.forEach(it=>sub+=it.qty*it.rate);let disc=parseFloat(document.getElementById('discount').value)||0;let taxRate=parseFloat(document.getElementById('taxRate').value)||0;let ship=parseFloat(document.getElementById('shipping').value)||0;let tax=sub*taxRate/100;let total=sub+tax+ship-disc;let paid=parseFloat(document.getElementById('paid').value)||0;return{sub,tax,ship,total,balance:total-paid,disc};}
+function render(){let t=calc();let cur=curr();let type=state.docType.toUpperCase();let isGold=state.template==='gold';let isDark=state.template==='dark';
+document.getElementById('invoicePaper').innerHTML=`<div class="${isDark?'bg-[#0f0f0f] text-white':'bg-white text-[#111]'} p-5 md:p-6">${isGold?`<div class="h-2 -mx-5 -mt-5 md:-mx-6 md:-mt-6 mb-4 gold-shine"></div>`:''}<div class="flex justify-between items-start gap-3"><div class="flex gap-2 items-center">${state.logo?`<img src="${state.logo}" class="w-12 h-12 rounded-xl object-cover border">`:`<div class="w-12 h-12 rounded-xl gold-shine flex items-center justify-center text-black font-extrabold">${(document.getElementById('bizName').value||'C')[0]}</div>`}<div><h2 class="font-extrabold text-sm leading-tight">${document.getElementById('bizName').value}</h2><p class="text-[11px] ${isDark?'text-white/60':'text-black/60'}">${document.getElementById('bizTag').value}</p></div></div><div class="text-right"><h1 class="text-xl font-extrabold ${isGold?'text-[#8B6914]':''}">${type}</h1><p class="mono text-[11px] ${isDark?'text-white/60':'text-black/60'}">#${document.getElementById('invNumber').value}</p></div></div><div class="grid grid-cols-2 gap-4 mt-6 text-xs"><div><p class="text-[10px] font-bold tracking-widest ${isDark?'text-white/40':'text-black/40'}">FROM</p><p class="font-bold mt-1">${document.getElementById('bizName').value}</p><p class="text-[11px] ${isDark?'text-white/60':'text-black/60'}">${document.getElementById('bizEmail').value}<br>${document.getElementById('bizPhone').value}<br>${document.getElementById('bizAddr').value}</p></div><div><p class="text-[10px] font-bold tracking-widest ${isDark?'text-white/40':'text-black/40'}">BILL TO</p><p class="font-bold mt-1">${document.getElementById('clientName').value}</p><p class="text-[11px] ${isDark?'text-white/60':'text-black/60'}">${document.getElementById('clientCompany').value}<br>${document.getElementById('clientAddr').value}</p></div></div><div class="mt-4 overflow-hidden rounded-xl border ${isDark?'border-white/10':'border-black/10'}"><div class="grid grid-cols-[1fr_50px_70px_70px] gap-1 p-2 text-[10px] font-bold tracking-widest ${isDark?'bg-white/5 text-white/40':'bg-black/5 text-black/40'}"><span>ITEM</span><span class="text-center">QTY</span><span class="text-right">RATE</span><span class="text-right">AMT</span></div>${state.items.map(it=>`<div class="grid grid-cols-[1fr_50px_70px_70px] gap-1 p-2 text-xs border-t ${isDark?'border-white/5':'border-black/5'}"><div><p class="font-semibold text-xs">${it.name}</p><p class="text-[10px] ${isDark?'text-white/50':'text-black/50'}">${it.desc||''}</p></div><div class="text-center mono text-xs">${it.qty}</div><div class="text-right mono text-xs">${cur}${it.rate}</div><div class="text-right font-bold mono text-xs">${cur}${(it.qty*it.rate).toFixed(0)}</div></div>`).join('')}</div><div class="flex justify-end mt-3"><div class="w-48 space-y-1 text-xs"><div class="flex justify-between"><span>Subtotal</span><span class="mono">${cur}${t.sub.toFixed(2)}</span></div><div class="flex justify-between"><span>Tax</span><span class="mono">${cur}${t.tax.toFixed(2)}</span></div><div class="flex justify-between font-extrabold text-sm pt-1 border-t"><span>Total</span><span class="mono">${cur}${t.total.toFixed(2)}</span></div><div class="flex justify-between font-bold p-1.5 rounded bg-black text-white"><span>Balance</span><span class="mono">${cur}${t.balance.toFixed(2)}</span></div></div></div></div>`;}
+function shareTool(type){let url=window.location.href;if(type==='whatsapp'){window.open(`https://wa.me/?text=${encodeURIComponent('Free Invoice Maker - '+url)}`,'_blank');}else{navigator.clipboard.writeText(url);let t=document.getElementById('copyToolText');t.innerText='Copied!';setTimeout(()=>t.innerText='Copy Link',2000);}}
+function shareInvoice(type){let inv=document.getElementById('invNumber').value;let total=calc().total;let cur=curr();let msg=`Invoice ${inv} - ${cur}${total.toFixed(2)} - ${window.location.href}`;if(type==='whatsapp'){window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`,'_blank');}else{navigator.clipboard.writeText(msg);alert('Copied!');}}
+async function downloadAs(fmt){let paper=document.getElementById('invoicePaper');try{let canvas=await html2canvas(paper,{scale:2,useCORS:true,backgroundColor:'#ffffff'});if(fmt==='png'){let a=document.createElement('a');a.download=`${document.getElementById('invNumber').value}.png`;a.href=canvas.toDataURL('image/png');a.click();}else if(fmt==='jpg'){let a=document.createElement('a');a.download=`${document.getElementById('invNumber').value}.jpg`;a.href=canvas.toDataURL('image/jpeg',0.9);a.click();}else{const {jsPDF}=window.jspdf;let imgData=canvas.toDataURL('image/png');let pdf=new jsPDF('p','mm','a4');let w=pdf.internal.pageSize.getWidth();let h=canvas.height*w/canvas.width;pdf.addImage(imgData,'PNG',0,0,w,h);pdf.save(`${document.getElementById('invNumber').value}.pdf`);}}catch(e){alert(e.message);}}
+init();
+</script>
+</body>
+</html>
