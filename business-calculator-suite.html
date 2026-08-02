@@ -43,14 +43,10 @@
         }
         *{margin:0;padding:0;box-sizing:border-box}
         body{
-            background: url('grid-background.jpg') center/cover fixed, radial-gradient(ellipse at 50% 0%, #1a2030 0%, #080c14 55%);
+            background: url('grid-background.jpg') center/cover fixed;
+            background-color: #080c14;
             color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;
             position: relative;
-        }
-        body::before {
-            content: ''; position: fixed; top:0;left:0;right:0;bottom:0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(26,32,48,0.85) 0%, rgba(8,12,20,0.95) 55%);
-            z-index:0;
         }
         .container{max-width:900px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
         .navbar{position:sticky;top:0;z-index:100;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.06)}
@@ -65,7 +61,6 @@
         h1 .title{color:var(--text);font-weight:600}
         .subtitle{color:var(--muted);margin-bottom:14px;font-size:.9rem;text-align:center}
 
-        /* Compact Share Card – smaller, sharp corners */
         .share-compact-card {
             background: var(--card-bg);
             backdrop-filter: blur(14px);
@@ -79,70 +74,20 @@
             gap: 8px;
             border-radius: 0;
         }
-        .share-compact-heading {
-            text-align: center;
-            font-size: 14px;
-            font-weight: 700;
-            color: #D4AF37;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            margin: 0;
-        }
-        .share-compact-btns {
-            display: flex;
-            gap: 8px;
-            width: 100%;
-            justify-content: center;
-        }
+        .share-compact-heading { text-align: center; font-size: 14px; font-weight: 700; color: #D4AF37; letter-spacing: 0.5px; text-transform: uppercase; margin: 0; }
+        .share-compact-btns { display: flex; gap: 8px; width: 100%; justify-content: center; }
         .share-compact-btn {
-            flex: 1;
-            max-width: 48%;
-            height: 42px;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            background: rgba(15,20,30,0.8);
-            backdrop-filter: blur(6px);
-            color: #FFFFFF;
-            text-decoration: none;
-            border: none;
+            flex: 1; max-width: 48%; height: 42px; border-radius: 0;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s ease;
+            background: rgba(15,20,30,0.8); backdrop-filter: blur(6px); color: #FFFFFF; text-decoration: none; border: none;
         }
-        .share-compact-btn.whatsapp-compact {
-            border: 1px solid #25D366;
-            color: #FFFFFF;
-        }
-        .share-compact-btn.copy-compact {
-            border: 1px solid #D4AF37;
-            color: #FFFFFF;
-        }
-        .share-compact-btn i {
-            font-size: 16px;
-        }
-        .share-compact-btn.whatsapp-compact i {
-            color: #25D366;
-        }
-        .share-compact-btn.copy-compact i {
-            color: #D4AF37;
-        }
-        .share-compact-btn:hover {
-            filter: brightness(1.1);
-        }
-        @media (max-width: 380px) {
-            .share-compact-btns {
-                flex-direction: column;
-                align-items: center;
-            }
-            .share-compact-btn {
-                max-width: 100%;
-                width: 100%;
-            }
-        }
+        .share-compact-btn.whatsapp-compact { border: 1px solid #25D366; }
+        .share-compact-btn.copy-compact { border: 1px solid #D4AF37; }
+        .share-compact-btn i { font-size: 16px; }
+        .share-compact-btn.whatsapp-compact i { color: #25D366; }
+        .share-compact-btn.copy-compact i { color: #D4AF37; }
+        .share-compact-btn:hover { filter: brightness(1.1); }
 
         .card{background:var(--card-bg);backdrop-filter:blur(20px);border:1px solid var(--card-border);border-radius:18px;padding:22px 18px;margin-bottom:18px;position:relative;overflow:hidden;box-shadow:0 8px 35px rgba(0,0,0,0.5)}
         .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient);opacity:.8}
@@ -199,7 +144,6 @@
         </h1>
         <p class="subtitle">Calculate profit, margin, markup, selling price, discounts, taxes, commissions, ROI and break-even instantly.</p>
 
-        <!-- Compact Share Card (small & sharp) -->
         <div class="share-compact-card">
             <div class="share-compact-heading">SHARE THIS TOOL</div>
             <div class="share-compact-btns">
@@ -306,7 +250,6 @@
             const startAngle = Math.PI, endAngle = 0;
             const pct = Math.min(value / max, 1);
             const fillAngle = startAngle + (endAngle - startAngle) * pct;
-
             ctx.beginPath(); ctx.arc(cx, cy, r, startAngle, endAngle); ctx.strokeStyle = '#1a2a3a'; ctx.lineWidth = 18; ctx.stroke();
             ctx.beginPath(); ctx.arc(cx, cy, r, startAngle, fillAngle); ctx.strokeStyle = color; ctx.lineWidth = 18; ctx.lineCap = 'round'; ctx.stroke();
             ctx.fillStyle = '#fff'; ctx.font = 'bold 18px Inter'; ctx.textAlign = 'center'; ctx.fillText(value.toFixed(1) + '%', cx, cy - 15);
@@ -456,7 +399,6 @@
             if (dashEl) dashEl.innerHTML = dashHtml;
         }
 
-        // ---- Calculator Functions ----
         function calcProfit() {
             const cp = parseFloat(document.getElementById('cp').value) || 0;
             const sp = parseFloat(document.getElementById('sp').value) || 0;
@@ -576,7 +518,6 @@
             showResult(html, { units, revenue }, 'breakeven');
         }
 
-        // ---- Compact Tool Sharing ----
         function shareToolWhatsApp() {
             const text = encodeURIComponent("🧮 Business Pricing, Profit & Margin Calculator Suite — free, multi-currency, premium tools for your business.\n\n👉 https://coldmatrixtools.com/business-calculator-suite.html");
             window.open('https://wa.me/?text=' + text, '_blank');
@@ -592,7 +533,6 @@
             });
         }
 
-        // ---- Result Sharing ----
         function shareResult() {
             if (!lastResult) return;
             const s = sym();
