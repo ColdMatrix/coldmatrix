@@ -1,104 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="canonical" href="https://coldmatrixtools.com/cooling-requirement-calculator.html">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DCJ7K7LSCF');
-  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ColdMatrix Cooling Requirement Calculator — Free Tool | ColdMatrix</title>
+  <title>❄️ Cooling Requirement Calculator | ColdMatrix</title>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
-  <meta property="og:title" content="ColdMatrix Cooling Requirement Calculator — Free Tool | ColdMatrix">
-  <meta property="og:description" content="Free Cooling Requirement Calculator for engineers. Calculate cooling load, BTU/hr, kW, Tons of Refrigeration, and total cost.">
+  <meta property="og:title" content="❄️ Cooling Requirement Calculator | ColdMatrix">
+  <meta property="og:description" content="Professional cooling load calculator for cold rooms and freezers. Realistic BTU/hr, kW, TR, and cost estimates.">
   <meta property="og:url" content="https://coldmatrixtools.com/cooling-requirement-calculator.html">
   <meta property="og:image" content="https://coldmatrixtools.com/cooling_req_calc.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ColdMatrix Cooling Requirement Calculator — Free Tool | ColdMatrix">
-  <meta name="twitter:description" content="Free Cooling Requirement Calculator for engineers. Calculate cooling load, BTU/hr, kW, Tons of Refrigeration, and total cost.">
+  <meta name="twitter:title" content="❄️ Cooling Requirement Calculator | ColdMatrix">
+  <meta name="twitter:description" content="Professional cooling load calculator for cold rooms and freezers. Realistic BTU/hr, kW, TR, and cost estimates.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/cooling_req_calc.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Cooling Requirement Calculator",
+    "name": "❄️ Cooling Requirement Calculator",
     "url": "https://coldmatrixtools.com/cooling-requirement-calculator.html",
     "applicationCategory": "Utility",
-    "description": "Free Cooling Requirement Calculator for engineers. Calculate cooling load, BTU/hr, kW, Tons of Refrigeration, and total cost.",
+    "description": "Professional cooling load calculator for cold rooms and freezers. Realistic BTU/hr, kW, TR, and cost estimates.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" }
   }
   </script>
-  <meta name="description" content="Free Cooling Requirement Calculator for engineers. Calculate cooling load, BTU/hr, kW, Tons of Refrigeration, and total cost.">
-  <meta name="keywords" content="cooling requirement calculator, BTU calculator, tons of refrigeration, cold room cooling, AC load calculator, cooling capacity">
-  <meta name="theme-color" content="#0A0F14">
-  <link rel="manifest" href="manifest.json">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://coldmatrixtools.com/cooling-requirement-calculator.html">
+  <meta name="description" content="Professional cooling load calculator for cold rooms and freezers. Realistic BTU/hr, kW, TR, and cost estimates.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0A0F14; --surface: #12181F; --surface2: #1B232C; --border: #2A3540;
-      --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7; --accent-green: #00b894;
-      --gradient: linear-gradient(135deg, #4FC3F7, #2196F3);
+      --bg: #0B0F14;
+      --foam: #F0F4F8;
+      --frost: #4FC3F7;
+      --line: rgba(79,195,247,0.35);
+      --accent: #00b894;
+      --card-bg: rgba(15,22,30,0.92);
+      --warn: #FFA500;
+      --danger: #FF6B6B;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; padding-bottom: 50px; }
-    .container { max-width: 900px; margin:0 auto; padding:0 24px; }
-
-    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
-    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
-    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
-    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
-    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
-
-    .ad-card {
-      border-radius:14px; overflow:hidden;
-      background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat;
-      border:1px solid var(--border); padding:18px; margin:20px 0;
-      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    body {
+      background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.95)), url('cold_room_calc.jpg') center/cover fixed no-repeat;
+      color: var(--foam);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      padding-bottom: 50px;
     }
-    .ad-card ul { list-style:none; padding:0; margin:0; }
-    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
-    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
-    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
+    .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
 
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; display:none; }
-    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04);
+      backdrop-filter: blur(8px);
+      position: relative;
+    }
 
-    h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
-    .subtitle { color:var(--muted); margin-bottom:30px; }
+    .live-badge {
+      display: inline-block;
+      color: var(--frost);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding: 4px 12px;
+      border: 1px solid var(--frost);
+      border-radius: 4px;
+      background: rgba(79,195,247,0.1);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    }
+    .live-badge::before { content: "• "; color: var(--frost); font-weight: 900; }
 
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:20px; }
-    .card h2 { font-size:1rem; font-weight:600; margin-bottom:18px; color:var(--accent); }
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin-bottom: 6px;
+      color: #FFFFFF;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+    }
+    .subtitle {
+      color: #FFFFFF;
+      font-size: 1.02rem;
+      font-weight: 500;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+      margin-bottom: 20px;
+    }
 
-    .field { margin-bottom:14px; }
-    .field label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; }
-    .field input, .field select { width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:12px; border-radius:8px; font-size:1rem; }
-    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block;
+      font-size: 0.9rem;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+      font-weight: 600;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+    }
+    select, input {
+      width: 100%;
+      background: rgba(20,28,38,0.95);
+      border: 1px solid var(--line);
+      color: #FFFFFF;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.98rem;
+      font-weight: 500;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    select:focus, input:focus {
+      border-color: var(--frost);
+      background: rgba(25,35,48,0.98);
+    }
+    select option { background: #141C26; color: #FFFFFF; }
 
-    .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
-    .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:14px; border-radius:8px; font-weight:600; font-size:0.95rem; cursor:pointer; margin-top:8px; text-transform: uppercase; }
+    .unit-toggle { display: flex; gap: 10px; margin-bottom: 16px; }
+    .unit-btn {
+      flex: 1; padding: 12px;
+      border: 1px solid var(--line);
+      background: rgba(20,28,38,0.9);
+      color: #FFFFFF;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .unit-btn.active {
+      border-color: var(--frost);
+      color: var(--frost);
+      background: rgba(79,195,247,0.18);
+      box-shadow: 0 0 12px rgba(79,195,247,0.3);
+    }
 
-    .result-box { background:var(--surface2); border:1px solid var(--accent); border-radius:12px; padding:20px; margin-top:20px; display:none; }
-    .result-row { display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border); }
-    .result-row:last-child { border-bottom:none; }
-    .result-label { color:var(--muted); font-size:0.9rem; }
-    .result-value { font-weight:700; font-size:1.1rem; color:var(--accent); }
+    .suggestion-box {
+      background: rgba(79,195,247,0.12);
+      border: 1px solid var(--frost);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 18px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: #FFFFFF;
+    }
+    .suggestion-box .title { font-weight: 700; color: var(--frost); white-space: nowrap; }
+    .btn-small {
+      background: linear-gradient(135deg, #4FC3F7, #2196F3);
+      color: #0A0F14;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
 
-    .pricing-box { margin: 15px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 15px; background: var(--surface); padding: 15px 18px; border-radius: 10px; border: 1px solid var(--border); }
-    
-    .result-area { display: none; margin-top: 25px; padding: 20px; background: var(--surface2); border-radius: 12px; border-left: 5px solid var(--accent-green); color: var(--text); border: 1px solid var(--border); }
-    
-    .note { font-size:0.8rem; color:var(--muted); margin-top:16px; padding:12px; background:var(--surface); border-radius:8px; border-left:3px solid var(--accent); }
+    .live-stats {
+      background: rgba(20,28,38,0.7);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+      display: flex;
+      justify-content: space-between;
+      backdrop-filter: blur(4px);
+    }
+    .live-stats .stat { text-align: center; flex: 1; }
+    .live-stats .stat .label { color: #8B98A5; font-size: 0.8rem; font-weight: 600; }
+    .live-stats .stat .value { font-weight: 700; color: var(--frost); font-size: 1.2rem; }
 
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--accent); text-decoration:none; }
-    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color: white; font-size: 1.5rem; }
-      .share-tool-card{
+    .coldmatrix-note {
+      background: rgba(79,195,247,0.08);
+      border: 1px solid var(--frost);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin: 10px 0;
+      font-size: 0.92rem;
+      color: #FFFFFF;
+    }
+    .coldmatrix-note strong { color: var(--frost); font-weight: 700; }
+
+    .warning-box {
+      background: rgba(255,165,0,0.12);
+      border: 1px solid var(--warn);
+      border-radius: 8px;
+      padding: 8px 14px;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--warn);
+    }
+    .danger-box {
+      background: rgba(255,107,107,0.12);
+      border: 1px solid var(--danger);
+      border-radius: 8px;
+      padding: 8px 14px;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--danger);
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #4FC3F7, #2196F3);
+      color: #0B0F14;
+      border: none;
+      padding: 16px;
+      border-radius: 10px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 4px 24px rgba(79,195,247,0.4);
+      transition: transform 0.1s;
+    }
+    .btn-primary:disabled { opacity:0.45; cursor:not-allowed; }
+
+    .results-container {
+      background: var(--card-bg);
+      border: 1px solid var(--frost);
+      border-radius: 16px;
+      padding: 28px;
+      margin-top: 28px;
+      display: none;
+      backdrop-filter: blur(8px);
+      color: #FFFFFF;
+    }
+    .result-section-title {
+      font-family: 'Oswald', sans-serif;
+      color: #FFFFFF;
+      font-size: 1.15rem;
+      margin: 20px 0 12px 0;
+      border-left: 4px solid var(--frost);
+      padding-left: 10px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.98rem;
+      font-weight: 500;
+    }
+    .result-row span:last-child { font-weight: 700; }
+    .highlight-row {
+      background: rgba(79,195,247,0.12);
+      padding: 14px;
+      border-radius: 10px;
+      margin: 14px 0;
+      border: 1px solid var(--frost);
+      display: flex;
+      justify-content: space-between;
+    }
+    .highlight-row .label { color: var(--frost); font-weight: 700; font-size: 1.1rem; }
+    .highlight-row .value { color: var(--frost); font-size: 1.2rem; font-weight: 700; }
+
+    .action-buttons { margin-top: 25px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .action-btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      font-family: 'Oswald', sans-serif;
+    }
+    .whatsapp-action { background: #25D366; color: white; }
+    .download-jpg-action { background: #6C5CE7; color: white; }
+    .pdf-action { background: #0077B5; color: white; }
+
+    .report-label { font-weight: 700; margin-top: 20px; color: #FFFFFF; font-size: 1rem; }
+    .contact-note {
+      margin-top: 24px;
+      padding: 18px;
+      background: rgba(33,150,243,0.1);
+      border: 1px dashed var(--frost);
+      border-radius: 12px;
+      text-align: center;
+      color: #FFFFFF;
+    }
+
+    footer {
+      text-align: center;
+      color: #FFFFFF;
+      font-size: 0.85rem;
+      padding: 40px 0 20px;
+      border-top: 1px solid var(--line);
+      margin-top: 50px;
+      font-weight: 500;
+    }
+    footer a { color: var(--frost); text-decoration: none; font-weight: 600; }
+
+    @media (max-width: 768px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 12px; }
+      .card { padding: 18px; }
+    }
+
+    .share-tool-card{
       background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
       border: 2px solid;
       border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
@@ -107,7 +319,7 @@
       margin-bottom:26px;
       box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
     }
-    .share-tool-title{font-family:'Playfair Display',serif; font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
+    .share-tool-title{font-family:'Inter',sans-serif; font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
     .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
     .share-tool-btn{
       display:flex; align-items:center; justify-content:center; gap:9px;
@@ -119,252 +331,533 @@
     .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
     .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
     .share-tool-btn i{font-size:1rem;}
-</style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  </style>
 </head>
 <body>
-
-  <nav class="navbar">
-    <div class="container nav-inner">
-      <a href="index.html" class="logo">❄️ ColdMatrix</a>
-      <ul class="nav-links">
-        <li><a href="index.html">🏠 Home</a></li>
-        <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="about.html">ℹ️ About</a></li>
-        <li><a href="contact.html">📞 Contact</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div class="container">
-
-    <div class="ad-card">
-      <div>
-        <ul>
-          <li>PEB Structures</li>
-          <li>Cold Storage & Freezer Rooms</li>
-          <li>PU/PIR Sandwich Panels</li>
-          <li>Prefab Construction Solutions</li>
-        </ul>
-        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
-      </div>
-      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
-    </div>
-
-    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
-
-    <h1 style="margin-top: 20px;">❄️ ColdMatrix Cooling Requirement Calculator</h1>
-    <p class="subtitle">Calculate thermal load, required refrigeration capacity, and estimated equipment cost instantly.</p>
+<div id="cmInstallBar" style="display:none;background:#4FC3F7;color:#0A0F14;text-align:center;padding:12px;font-weight:600;border-radius:10px;margin:16px auto;max-width:900px;">📱 Add ColdMatrix to your Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
+<div class="container">
+  <h1>❄️ ColdMatrix Cooling Requirement Calculator</h1>
+  <p class="subtitle">Professional thermal load, refrigeration capacity, and cost estimation for cold rooms and freezers.</p>
     <div class="share-tool-card">
-      <div class="share-tool-title">Share ColdMatrix Cooling Requirement Calculator</div>
+      <div class="share-tool-title">Share Cooling Requirement Calculator</div>
       <div class="share-tool-buttons">
         <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
       </div>
     </div>
+  <div><span class="live-badge">Live</span></div>
 
-    <!-- Cleaned Unified Pricing Input Box -->
-    <div class="pricing-box">
-      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; width: 100%;">
-        <label for="rateInput" style="font-weight: bold; color: var(--text);">💰 Unit Rate:</label>
-        <input type="number" id="rateInput" value="45000" style="padding: 8px; width: 120px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface2); color: var(--text);">
-        <select id="currency" style="padding: 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface2); color: var(--text); font-weight: bold;">
-          <option value="PKR">🇵🇰 PKR</option>
-          <option value="USD">🇺🇸 USD</option>
-          <option value="GBP">🇬🇧 GBP</option>
-          <option value="EUR">🇪🇺 EUR</option>
-          <option value="AED">🇦🇪 AED</option>
-          <option value="SAR">🇸🇦 SAR</option>
-          <option value="CNY">🇨🇳 CNY</option>
-        </select>
-        <select id="rateUnit" style="padding: 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface2); color: var(--text); font-weight: bold;">
-          <option value="tr">per TR (Ton)</option>
-          <option value="hp">per HP</option>
-        </select>
+  <!-- MAIN CARD -->
+  <div class="card">
+
+    <div class="coldmatrix-note">
+      ❄️ <strong>ColdMatrix Note:</strong> Enter dimensions for all 4 walls. Mark any shared wall as existing so it is excluded from the thermal envelope. For a full cold store quotation, use our Cold Store & Panels Calculator.
+    </div>
+
+    <!-- ROOM DIMENSIONS (4 walls) -->
+    <div class="result-section-title" style="margin-top:0;">📐 Room Dimensions (4 Walls)</div>
+    <div class="field">
+      <label>Unit System</label>
+      <div class="unit-toggle">
+        <div class="unit-btn active" data-unit="ft" onclick="switchUnit('ft', this)">Feet (ft)</div>
+        <div class="unit-btn" data-unit="m" onclick="switchUnit('m', this)">Meters (m)</div>
       </div>
     </div>
 
-    <div class="card">
-      <h2>Room Specifications</h2>
-      <div class="row3">
-        <div class="field"><label>Length (m)</label><input type="number" id="length" value="6"></div>
-        <div class="field"><label>Width (m)</label><input type="number" id="width" value="4"></div>
-        <div class="field"><label>Height (m)</label><input type="number" id="height" value="3"></div>
-      </div>
+    <div class="grid-2" style="margin-bottom: 16px;">
+        <!-- Side 1 -->
+        <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+            <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 1 – Length × Height</label>
+            <div class="grid-2" style="margin-bottom: 10px;">
+                <input type="number" id="w1L" value="20" step="any" placeholder="Length">
+                <input type="number" id="w1H" value="15" step="any" placeholder="Height">
+            </div>
+            <label style="font-size:0.8rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="w1Shared" style="width:auto;"> Shared / Existing Wall
+            </label>
+        </div>
+        <!-- Side 2 -->
+        <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+            <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 2 – Length × Height</label>
+            <div class="grid-2" style="margin-bottom: 10px;">
+                <input type="number" id="w2L" value="40" step="any" placeholder="Length">
+                <input type="number" id="w2H" value="15" step="any" placeholder="Height">
+            </div>
+            <label style="font-size:0.8rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="w2Shared" style="width:auto;"> Shared / Existing Wall
+            </label>
+        </div>
+        <!-- Side 3 -->
+        <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+            <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 3 – Length × Height (opp. Side 1)</label>
+            <div class="grid-2" style="margin-bottom: 10px;">
+                <input type="number" id="w3L" value="20" step="any" placeholder="Length">
+                <input type="number" id="w3H" value="15" step="any" placeholder="Height">
+            </div>
+            <label style="font-size:0.8rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="w3Shared" style="width:auto;"> Shared / Existing Wall
+            </label>
+        </div>
+        <!-- Side 4 -->
+        <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+            <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 4 – Length × Height (opp. Side 2)</label>
+            <div class="grid-2" style="margin-bottom: 10px;">
+                <input type="number" id="w4L" value="40" step="any" placeholder="Length">
+                <input type="number" id="w4H" value="15" step="any" placeholder="Height">
+            </div>
+            <label style="font-size:0.8rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" id="w4Shared" style="width:auto;"> Shared / Existing Wall
+            </label>
+        </div>
+    </div>
+
+    <div class="live-stats" id="liveStats">
+      <div class="stat"><div class="label">Thermal Envelope Area</div><div class="value" id="liveArea">—</div></div>
+      <div class="stat"><div class="label">Approx. Volume</div><div class="value" id="liveVolume">—</div></div>
+    </div>
+
+    <!-- CLIMATE PRESET -->
+    <div class="result-section-title">🌍 Ambient Temperature</div>
+    <div class="field">
+      <label>City / Climate Preset</label>
+      <select id="climatePreset" onchange="applyClimatePreset()">
+        <option value="45" selected>Lahore / Multan (Extreme Summer 45°C)</option>
+        <option value="42">Karachi (Hot & Humid 42°C)</option>
+        <option value="40">Islamabad / Delhi (Moderate 40°C)</option>
+        <option value="35">Quetta / London (Cooler 35°C)</option>
+        <option value="32">New York / Paris (Mild 32°C)</option>
+        <option value="30">Toronto / Moscow (Cool 30°C)</option>
+        <option value="custom">Custom Ambient Temperature</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Ambient (Outside) Temp (°C)</label>
+      <input type="number" id="ambientTemp" value="45" step="any">
+    </div>
+
+    <!-- STORAGE TEMP & PRODUCT -->
+    <div class="result-section-title">🌡️ Storage Temperature & Product</div>
+    <div class="field">
+      <label>Required Room Temp (°C)</label>
+      <input type="number" id="roomTemp" value="-20" step="any" oninput="updateLiveStats(); updateSuggestion(); checkMinusAdvisories();">
+      <div id="floorAdvisory" class="danger-box" style="display:none;">❄️ Floor must be insulated (preferably 100 mm insulation sheets).</div>
+    </div>
+    <div class="grid-2">
       <div class="field">
-        <label>Insulation Quality</label>
-        <select id="insulation">
-          <option value="good">Good (PUF/PIR panels, well sealed)</option>
-          <option value="average" selected>Average (standard panels)</option>
-          <option value="poor">Poor (minimal insulation)</option>
+        <label>📦 Product Type</label>
+        <select id="productType" onchange="autoSetTemperature(); updateLiveStats(); updateSuggestion(); checkMinusAdvisories();">
+          <option value="icecream" selected>Ice Cream (-15°C to -25°C)</option>
+          <option value="meat">Frozen Meat (-18°C)</option>
+          <option value="fish">Seafood (-25°C)</option>
+          <option value="dairy">Dairy (+2°C)</option>
+          <option value="eggs">Eggs (+4°C)</option>
+          <option value="fruitveg">Fruits & Vegetables (+1°C)</option>
+          <option value="pharma">Pharma (+5°C)</option>
+          <option value="general">General Cold Storage</option>
         </select>
       </div>
       <div class="field">
-        <label>Desired Room Temperature</label>
-        <select id="roomTemp">
-          <option value="20">Cool room (20°C)</option>
-          <option value="4">Chilled (4°C)</option>
-          <option value="0">Cold storage (0°C)</option>
-          <option value="-18" selected>Freezer (-18°C)</option>
-          <option value="-25">Deep freezer (-25°C)</option>
-          <option value="-40">Blast freezer (-40°C)</option>
-        </select>
+        <label>🛡️ Safety Factor (%)</label>
+        <input type="number" id="safetyFactor" value="20" step="any">
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="field">
+        <label>Daily Product Load (kg/day) – optional</label>
+        <input type="number" id="dailyProductKg" placeholder="For accurate estimate enter daily product mass">
       </div>
       <div class="field">
-        <label>Ambient Outside Temperature (°C)</label>
-        <input type="number" id="ambient" value="40">
-      </div>
-      
-      <button class="btn-calc" onclick="calculateHeatLoad()">Calculate Cooling Requirement</button>
-
-      <!-- Technical Breakdown Result Box -->
-      <div class="result-box" id="resultBox">
-        <div class="result-row"><span class="result-label">Room Volume</span><span class="result-value" id="volOut">—</span></div>
-        <div class="result-row"><span class="result-label">Temperature Difference (ΔT)</span><span class="result-value" id="deltaOut">—</span></div>
-        <div class="result-row"><span class="result-label">Insulation Factor</span><span class="result-value" id="insOut">—</span></div>
-        <div class="result-row"><span class="result-label">Cooling Load</span><span class="result-value" id="btuOut">—</span></div>
-        <div class="result-row"><span class="result-label">Cooling Capacity</span><span class="result-value" id="kwOut">—</span></div>
-        <div class="result-row"><span class="result-label">Tons of Refrigeration</span><span class="result-value" id="trOut">—</span></div>
-        <div class="result-row"><span class="result-label">Recommended Unit</span><span class="result-value" id="recOut">—</span></div>
-      </div>
-
-      <!-- Commercial Quotation & Action Box -->
-      <div id="result-area" class="result-area">
-        <h3 style="margin-top: 0; color: var(--text); font-size: 1.05rem; margin-bottom: 10px;">📊 Quotation Summary</h3>
-        <div id="result-content" style="font-size: 0.95rem; line-height: 1.8;">
-          <p><strong>Cooling Capacity:</strong> <span id="display-kw">0</span> kW</p>
-          <p><strong>Tons of Refrigeration:</strong> <span id="display-tr">0</span> TR</p>
-          <p><strong>BTU/hr:</strong> <span id="display-btu">0</span></p>
-          <p><strong>Rate Unit:</strong> <span id="display-rate">0</span></p>
-          <p><strong>Estimated Total Cost:</strong> <span id="display-cost">0</span></p>
-        </div>
-        <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
-          <button onclick="shareWhatsApp()" style="background: #25D366; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85rem;">📤 Share on WhatsApp</button>
-          <button onclick="downloadPDF()" style="background: #0077B5; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85rem;">📄 Download PDF</button>
-        </div>
-      </div>
-
-      <div class="note">
-        ⚠️ This is an estimate based on conduction heat gain. Actual load may vary due to product load, door openings, lighting, and equipment. Consult a refrigeration engineer for final sizing.
+        <label>Product Entry Temp (°C)</label>
+        <input type="number" id="productEntryTemp" value="28" step="any">
       </div>
     </div>
 
+    <!-- SUGGESTION BOX -->
+    <div class="suggestion-box" id="suggestionBox">
+      <span class="title">❄️ ColdMatrix Suggests:</span>
+      <span id="suggestedThickness" style="font-weight:700;">125mm Panels</span>
+      <span style="color:#8B98A5;">|</span>
+      <span id="suggestedUnit" style="font-weight:700;">— HP / — TR</span>
+      <button class="btn-small" onclick="applySuggestion()">Apply</button>
+    </div>
+
+    <!-- MANUAL OVERRIDE -->
+    <div class="result-section-title">⚙️ Refrigeration Unit (Manual Override)</div>
+    <div class="grid-2">
+      <div class="field"><label>Unit HP (e.g. 6)</label><input type="number" id="manualHP" placeholder="Auto calculated"></div>
+      <div class="field"><label>Unit TR (e.g. 5.2)</label><input type="number" id="manualTR" placeholder="Auto calculated"></div>
+    </div>
+    <div class="field">
+      <label style="display:flex; align-items:center; gap:8px;">
+        <input type="checkbox" id="dualCompressor" style="width:auto;"> Redundant Dual Compressor Setup
+      </label>
+    </div>
+
+    <!-- COST -->
+    <div class="result-section-title">💰 Price</div>
+    <div class="grid-2">
+      <div class="field">
+        <label>Rate Basis</label>
+        <select id="rateBasis">
+          <option value="tr">Per TR (Ton)</option>
+          <option value="hp">Per HP</option>
+          <option value="job">Complete Job</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Amount</label>
+        <input type="number" id="rateAmount" value="45000" step="any">
+      </div>
+    </div>
+    <div class="field">
+      <label>Currency</label>
+      <select id="currency"><option value="PKR">🇵🇰 PKR</option><option value="USD">🇺🇸 USD</option><option value="EUR">🇪🇺 EUR</option><option value="GBP">🇬🇧 GBP</option><option value="AED">🇦🇪 AED</option></select>
+    </div>
+
+    <!-- ADVISORIES -->
+    <div class="coldmatrix-note" id="compressorAdvice" style="display:none;">
+      <strong>❄️ Compressor:</strong> Use reliable brands – Bitzer, Copeland, Frascold. Ensure proper oil heater and crankcase heater for low ambient.
+    </div>
+    <div class="coldmatrix-note" id="condenserAdvice" style="display:none;">
+      <strong>❄️ Condensing Unit:</strong> Must be installed in a well‑ventilated area with minimum clearance as per manufacturer guidelines.
+    </div>
+    <div class="coldmatrix-note" id="evapAdvice" style="display:none;">
+      <strong>❄️ Evaporator:</strong> Choose correct fin spacing for the room temperature. Electric defrost required for freezer applications.
+    </div>
+
+    <button class="btn-primary" id="calcBtn">Calculate Cooling Requirement</button>
+
+    <!-- RESULTS -->
+    <div class="results-container" id="resultCard">
+      <div class="result-section-title" style="margin-top:0;">❄️ Cooling Requirement Summary</div>
+
+      <div class="result-row"><span>📐 Room Volume</span><span id="sVolume">—</span></div>
+      <div class="result-row"><span>🌡️ Temperature Difference (ΔT)</span><span id="sDeltaT">—</span></div>
+      <div class="result-row"><span>🧱 Suggested Panel Thickness</span><span id="sThickness">—</span></div>
+
+      <div class="result-section-title">🌡️ Cooling Load Breakdown</div>
+      <div class="result-row"><span>Transmission Load</span><span id="sTransLoad">—</span></div>
+      <div class="result-row"><span>Product Load</span><span id="sProdLoad">—</span></div>
+      <div class="result-row"><span>Infiltration Load</span><span id="sInfLoad">—</span></div>
+      <div class="result-row"><span>Equipment Load (15%)</span><span id="sEquipLoad">—</span></div>
+      <div class="result-row"><span>Safety Factor Applied</span><span id="sSafetyLoad">—</span></div>
+      <div class="highlight-row">
+        <span class="label">⚙️ Total Cooling Load</span>
+        <span class="value" id="sRefLoad">—</span>
+      </div>
+      <div class="highlight-row">
+        <span class="label">⚙️ Recommended Refrigeration Unit</span>
+        <span class="value" id="sUnit">—</span>
+      </div>
+
+      <div class="result-row"><span>💰 Estimated Cost</span><span id="sCost">—</span></div>
+
+      <div class="report-label">📋 Take your cooling requirement summary:</div>
+      <div class="action-buttons">
+        <button class="action-btn whatsapp-action" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+        <button class="action-btn pdf-action" onclick="downloadPDF()">📄 PDF</button>
+        <button class="action-btn download-jpg-action" onclick="downloadJPG()"><i class="fas fa-camera"></i> JPG</button>
+      </div>
+
+      <div class="contact-note">
+        ❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>
+        For queries: <strong>+92 333 3228470</strong> | <strong>contact@coldmatrixtools.com</strong>
+      </div>
+    </div>
   </div>
+</div>
 
-  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free engineering tools for everyone.</footer>
+<footer>Powered by <a href="index.html">ColdMatrix</a> — Professional Engineering Tools.</footer>
 
-  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script>
+  (function() {
+    const currencySymbols = { PKR:'Rs', USD:'$', EUR:'€', GBP:'£', AED:'د.إ' };
+    // Product load factors (W per ft² of floor area) – field proven
+    const freezerFloorLoad = 30;   // W/ft² for freezers (ice cream, meat, fish)
+    const chillerFloorLoad = 15;   // W/ft² for chillers (dairy, eggs, etc.)
 
-  <script>
-    function calculateHeatLoad() {
-      const L = parseFloat(document.getElementById('length').value) || 0;
-      const W = parseFloat(document.getElementById('width').value) || 0;
-      const H = parseFloat(document.getElementById('height').value) || 0;
-      const insulation = document.getElementById('insulation').value;
-      const roomTemp = parseFloat(document.getElementById('roomTemp').value);
-      const ambient = parseFloat(document.getElementById('ambient').value) || 0;
+    let currentUnit = 'ft';
 
-      if (L <= 0 || W <= 0 || H <= 0) {
-        alert('Please enter valid room dimensions.');
-        return;
+    const wallInputs = [
+      { l: document.getElementById('w1L'), h: document.getElementById('w1H'), shared: document.getElementById('w1Shared') },
+      { l: document.getElementById('w2L'), h: document.getElementById('w2H'), shared: document.getElementById('w2Shared') },
+      { l: document.getElementById('w3L'), h: document.getElementById('w3H'), shared: document.getElementById('w3Shared') },
+      { l: document.getElementById('w4L'), h: document.getElementById('w4H'), shared: document.getElementById('w4Shared') }
+    ];
+
+    function toFeet(v, u) { switch(u){ case'mm':return v/304.8; case'in':return v/12; case'ft':return v; case'm':return v*3.28084; default:return v; } }
+    function formatNum(n) { return Math.round(n).toLocaleString('en-US'); }
+
+    function getThermalEnvelopeArea() {
+      let wallArea = 0;
+      wallInputs.forEach(w => {
+        if (!w.shared.checked) wallArea += (parseFloat(w.l.value)||0) * (parseFloat(w.h.value)||0);
+      });
+      let roofL1 = parseFloat(wallInputs[0].l.value)||0;
+      let roofL2 = parseFloat(wallInputs[1].l.value)||0;
+      let roofArea = roofL1 * roofL2;
+      return wallArea + roofArea;
+    }
+
+    function getFloorArea() {
+      let l1 = parseFloat(wallInputs[0].l.value)||0;
+      let l2 = parseFloat(wallInputs[1].l.value)||0;
+      return l1 * l2;
+    }
+
+    function getVolumeEstimate() {
+      let l1 = parseFloat(wallInputs[0].l.value)||0;
+      let l2 = parseFloat(wallInputs[1].l.value)||0;
+      let totalH = 0;
+      wallInputs.forEach(w => totalH += (parseFloat(w.h.value)||0));
+      let avgH = totalH / 4;
+      return l1 * l2 * avgH;
+    }
+
+    window.switchUnit = function(unit, btn) {
+      if (unit === currentUnit) return;
+      let cf = (unit==='m') ? 0.3048 : 3.28084;
+      wallInputs.forEach(w => {
+        w.l.value = ((parseFloat(w.l.value)||0)*cf).toFixed(2);
+        w.h.value = ((parseFloat(w.h.value)||0)*cf).toFixed(2);
+      });
+      currentUnit = unit;
+      document.querySelectorAll('.unit-btn[data-unit]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateLiveStats();
+      updateSuggestion();
+    };
+
+    window.applyClimatePreset = function() {
+      let val = document.getElementById('climatePreset').value;
+      if (val !== 'custom') document.getElementById('ambientTemp').value = val;
+    };
+
+    window.autoSetTemperature = function() {
+      let prod = document.getElementById('productType').value;
+      let defaultTemp = productTempDefaults[prod] || 0;
+      document.getElementById('roomTemp').value = defaultTemp;
+    };
+
+    window.checkMinusAdvisories = function() {
+      let temp = parseFloat(document.getElementById('roomTemp').value);
+      let show = (!isNaN(temp) && temp < 0);
+      document.getElementById('floorAdvisory').style.display = show ? 'block' : 'none';
+      document.getElementById('compressorAdvice').style.display = show ? 'block' : 'none';
+      document.getElementById('condenserAdvice').style.display = show ? 'block' : 'none';
+      document.getElementById('evapAdvice').style.display = show ? 'block' : 'none';
+    };
+
+    function getSuggestedThickness(temp) {
+      if (temp >= 20) return 50;
+      else if (temp >= 5) return 75;
+      else if (temp >= -10) return 100;
+      else if (temp >= -25) return 125;
+      else if (temp >= -35) return 150;
+      else if (temp >= -50) return 200;
+      else return 200;
+    }
+
+    const productTempDefaults = {
+      icecream: -20, meat: -18, fish: -22,
+      dairy: 2, eggs: 4, fruitveg: 2, pharma: 5, general: 0
+    };
+
+    function updateLiveStats() {
+      let area = getThermalEnvelopeArea();
+      let vol = getVolumeEstimate();
+      let unitArea = currentUnit === 'ft' ? 'ft²' : 'm²';
+      let unitVol = currentUnit === 'ft' ? 'ft³' : 'm³';
+      document.getElementById('liveArea').textContent = area > 0 ? area.toFixed(2) + ' ' + unitArea : '—';
+      document.getElementById('liveVolume').textContent = vol > 0 ? vol.toFixed(2) + ' ' + unitVol : '—';
+    }
+
+    function getSafeProductLoad(floorAreaFt2, prodType, dailyKg, roomTemp, entryTemp) {
+      // If daily mass is provided, use precise formula
+      if (dailyKg > 0) {
+        let deltaProd = Math.max(0, parseFloat(entryTemp) - parseFloat(roomTemp));
+        return (dailyKg * 3.5 * deltaProd) / 86400 * 1000; // Watts
       }
+      // Otherwise, use floor-area-based rule (W/ft²)
+      let loadPerFt2;
+      if (['icecream','meat','fish'].includes(prodType)) {
+        loadPerFt2 = freezerFloorLoad;
+      } else {
+        loadPerFt2 = chillerFloorLoad;
+      }
+      return floorAreaFt2 * loadPerFt2; // Watts
+    }
 
-      const volume = L * W * H;
-      const surfaceArea = 2 * (L*W + L*H + W*H);
-      const deltaT = ambient - roomTemp;
+    function updateSuggestion() {
+      let room = parseFloat(document.getElementById('roomTemp').value)||-20;
+      let amb = parseFloat(document.getElementById('ambientTemp').value)||45;
+      let thick = getSuggestedThickness(room);
+      document.getElementById('suggestedThickness').textContent = thick+'mm Panels';
 
-      const insulationFactors = { good: 0.5, average: 0.8, poor: 1.3 };
-      const factor = insulationFactors[insulation] || 0.8;
+      let area = getThermalEnvelopeArea();
+      let vol = getVolumeEstimate();
+      let floorArea = getFloorArea();
+      if (area > 0 && vol > 0) {
+        let saf = parseFloat(document.getElementById('safetyFactor').value)||20;
+        let areaM2 = currentUnit === 'm' ? area : area * 0.092903;
+        let volM3 = currentUnit === 'm' ? vol : vol * 0.0283168;
+        let U = 0.022 / (thick/1000);
+        let deltaT = Math.max(10, amb - room);
+        let Qtrans = U * areaM2 * deltaT;
+        let dailyKg = parseFloat(document.getElementById('dailyProductKg').value)||0;
+        let entryT = document.getElementById('productEntryTemp').value||28;
+        // Convert floor area to ft² for the load function
+        let floorAreaFt2 = currentUnit === 'ft' ? floorArea : floorArea * 10.7639;
+        let Qprod = getSafeProductLoad(floorAreaFt2, document.getElementById('productType').value, dailyKg, room, entryT);
+        let Qinf = 0.0000335 * volM3 * deltaT * 1000;
+        let subtotal = Qtrans + Qprod + Qinf;
+        let Qequip = subtotal * 0.15;
+        let totalW = (subtotal * (1 + saf/100)) + Qequip;
+        let TR = totalW / 3517;
+        let HP = Math.ceil(TR * 1.25);
+        document.getElementById('suggestedUnit').textContent = HP + ' HP / ' + TR.toFixed(1) + ' TR';
+      } else {
+        document.getElementById('suggestedUnit').textContent = '— HP / — TR';
+      }
+    }
 
-      const watts = surfaceArea * deltaT * factor * 1.2;
-      const btuPerHr = watts * 3.412;
-      const kW = watts / 1000;
-      const tons = kW / 3.517;
+    window.applySuggestion = function() {
+      let u = document.getElementById('suggestedUnit').textContent;
+      let hpM = u.match(/(\d+)\s*HP/), trM = u.match(/(\d+\.?\d*)\s*TR/);
+      if (hpM) document.getElementById('manualHP').value = hpM[1];
+      if (trM) document.getElementById('manualTR').value = trM[1];
+    };
 
-      // Populate Technical Breakdown
-      document.getElementById('resultBox').style.display = 'block';
-      document.getElementById('volOut').textContent = volume.toFixed(1) + ' m³';
-      document.getElementById('deltaOut').textContent = deltaT.toFixed(0) + ' °C';
-      document.getElementById('insOut').textContent = insulation.charAt(0).toUpperCase() + insulation.slice(1);
-      document.getElementById('btuOut').textContent = btuPerHr.toFixed(0) + ' BTU/hr';
-      document.getElementById('kwOut').textContent = kW.toFixed(2) + ' kW';
-      document.getElementById('trOut').textContent = tons.toFixed(2) + ' TR';
+    function calculate() {
+      let thermalArea = getThermalEnvelopeArea();
+      let volumeEst = getVolumeEstimate();
+      let floorArea = getFloorArea();
+      if (thermalArea <= 0) return;
 
-      let recommendation = '';
-      if (tons <= 1) recommendation = '1 HP (1 Ton) Unit';
-      else if (tons <= 1.5) recommendation = '1.5 HP (1.5 Ton) Unit';
-      else if (tons <= 2) recommendation = '2 HP (2 Ton) Unit';
-      else if (tons <= 3) recommendation = '3 HP (3 Ton) Unit';
-      else if (tons <= 5) recommendation = '5 HP (5 Ton) Unit';
-      else recommendation = Math.ceil(tons) + ' HP Commercial Unit';
+      let thick = getSuggestedThickness(parseFloat(document.getElementById('roomTemp').value)||-20);
+      document.getElementById('suggestedThickness').textContent = thick + 'mm Panels';
 
-      document.getElementById('recOut').textContent = recommendation;
+      let amb = parseFloat(document.getElementById('ambientTemp').value)||45;
+      let room = parseFloat(document.getElementById('roomTemp').value)||-20;
+      let saf = parseFloat(document.getElementById('safetyFactor').value)||20;
+      let prodType = document.getElementById('productType').value;
+      let dailyKg = parseFloat(document.getElementById('dailyProductKg').value)||0;
+      let entryT = parseFloat(document.getElementById('productEntryTemp').value)||28;
 
-      // Populate Commercial Quotation Summary Box
-      let rate = parseFloat(document.getElementById('rateInput').value) || 0;
-      let unit = document.getElementById('rateUnit').value;
+      let areaM2 = currentUnit === 'ft' ? thermalArea * 0.092903 : thermalArea;
+      let volM3 = currentUnit === 'ft' ? volumeEst * 0.0283168 : volumeEst;
+      let deltaT = Math.max(10, amb - room);
+      let U = 0.022 / (thick/1000);
+      let Qtrans = U * areaM2 * deltaT;
+
+      // Convert floor area to ft²
+      let floorAreaFt2 = currentUnit === 'ft' ? floorArea : floorArea * 10.7639;
+      let Qprod = getSafeProductLoad(floorAreaFt2, prodType, dailyKg, room, entryT);
+      let Qinf = 0.0000335 * volM3 * deltaT * 1000;
+      let subtotal = Qtrans + Qprod + Qinf;
+      let Qequip = subtotal * 0.15;
+      let totalW = (subtotal * (1 + saf/100)) + Qequip;
+      let autoTR = totalW / 3517;
+      let autoHP = Math.ceil(autoTR * 1.25);
+
+      let mHP = parseFloat(document.getElementById('manualHP').value);
+      let mTR = parseFloat(document.getElementById('manualTR').value);
+      let finalHP = autoHP, finalTR = autoTR;
+      if (!isNaN(mHP) && mHP>0) { finalHP = mHP; finalTR = isNaN(mTR)||mTR<=0 ? mHP/1.25 : mTR; }
+      else if (!isNaN(mTR) && mTR>0) { finalTR = mTR; finalHP = mTR*1.25; }
+
+      let dualMode = document.getElementById('dualCompressor').checked;
+      let unitDisplay = dualMode ? `2 × ${Math.ceil(finalHP/2)} HP / ${(finalTR/2).toFixed(2)} TR each` : finalHP + ' HP / ' + finalTR.toFixed(2) + ' TR';
+
+      let rateBasis = document.getElementById('rateBasis').value;
+      let amount = parseFloat(document.getElementById('rateAmount').value)||0;
+      let cost = 0;
+      if (rateBasis === 'tr') cost = finalTR * amount;
+      else if (rateBasis === 'hp') cost = finalHP * amount;
+      else cost = amount;
+
       let currency = document.getElementById('currency').value;
-      const currencySymbols = { 'PKR': 'Rs', 'USD': '$', 'GBP': '£', 'EUR': '€', 'AED': 'د.إ', 'SAR': 'ر.س', 'CNY': '¥' };
       let symbol = currencySymbols[currency] || 'Rs';
 
-      let cost = tons * rate;
-      let rateLabel = unit.toUpperCase();
+      let volUnit = currentUnit === 'ft' ? 'ft³' : 'm³';
+      document.getElementById('sVolume').textContent = volumeEst.toFixed(2) + ' ' + volUnit;
+      document.getElementById('sDeltaT').textContent = deltaT.toFixed(0) + ' °C';
+      document.getElementById('sThickness').textContent = thick + ' mm';
 
-      document.getElementById('display-kw').innerText = kW.toFixed(2) + ' kW';
-      document.getElementById('display-tr').innerText = tons.toFixed(2) + ' TR';
-      document.getElementById('display-btu').innerText = btuPerHr.toFixed(0) + ' BTU/hr';
-      document.getElementById('display-rate').innerText = symbol + ' ' + rate.toLocaleString() + ' per ' + rateLabel;
-      document.getElementById('display-cost').innerText = symbol + ' ' + Math.round(cost).toLocaleString();
-      
-      document.getElementById('result-area').style.display = 'block';
-      document.getElementById('result-area').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('sTransLoad').textContent = (Qtrans/3517).toFixed(2) + ' TR';
+      document.getElementById('sProdLoad').textContent = (Qprod/3517).toFixed(2) + ' TR';
+      document.getElementById('sInfLoad').textContent = (Qinf/3517).toFixed(2) + ' TR';
+      document.getElementById('sEquipLoad').textContent = (Qequip/3517).toFixed(2) + ' TR';
+      document.getElementById('sSafetyLoad').textContent = ((subtotal * saf/100)/3517).toFixed(2) + ' TR';
+      document.getElementById('sRefLoad').textContent = autoTR.toFixed(2) + ' TR';
+      document.getElementById('sUnit').textContent = unitDisplay;
+      document.getElementById('sCost').textContent = symbol + ' ' + formatNum(cost);
+
+      document.getElementById('resultCard').style.display = 'block';
+      document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
     }
 
-    // Download PDF
-    function downloadPDF() {
-      window.print();
-    }
+    document.getElementById('calcBtn').addEventListener('click', calculate);
 
-    // PWA & Install Prompt
-    let deferredPromptTool;
-    const bar = document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPromptTool = e; bar.style.display = 'block'; });
-    function installAppTool() {
-      if (deferredPromptTool) {
-        deferredPromptTool.prompt();
-        deferredPromptTool.userChoice.then(choiceResult => {
-          if (choiceResult.outcome === 'accepted') { bar.style.display = 'none'; }
-        });
-      } else {
-        alert('📱 Android: Tap browser menu and select "Add to Home Screen".\n📱 iPhone: Tap Share → "Add to Home Screen".');
-      }
-    }
-    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js').catch(() => {}); }
+    window.shareWhatsApp = function() {
+      let msg = `❄️ *Cooling Requirement Summary*%0A%0A` +
+        `📐 Volume: ${document.getElementById('sVolume').textContent}%0A` +
+        `🌡️ ΔT: ${document.getElementById('sDeltaT').textContent}%0A` +
+        `⚙️ Recommended Unit: ${document.getElementById('sUnit').textContent}%0A` +
+        `💰 Est. Cost: ${document.getElementById('sCost').textContent}%0A%0A` +
+        `🔗 coldmatrixtools.com`;
+      window.open(`https://wa.me/?text=${msg}`, '_blank');
+    };
+    window.downloadPDF = function() { window.print(); };
+    window.downloadJPG = function() {
+      html2canvas(document.getElementById('resultCard'), { scale: 2, backgroundColor: '#0B0F14' }).then(canvas => {
+        let link = document.createElement('a');
+        link.download = 'ColdMatrix_Cooling_Requirement_Report.jpg';
+        link.href = canvas.toDataURL('image/jpeg', 0.92);
+        link.click();
+      }).catch(() => alert('Image generation failed.'));
+    };
 
-    // Share on WhatsApp
-    function shareWhatsApp() {
-      let kw = document.getElementById('display-kw').innerText;
-      let tr = document.getElementById('display-tr').innerText;
-      let btu = document.getElementById('display-btu').innerText;
-      let rate = document.getElementById('display-rate').innerText;
-      let cost = document.getElementById('display-cost').innerText;
-      let message = `❄️ *Cooling Requirement Calculation Summary*%0A%0A` +
-        `• Cooling Capacity: ${kw}%0A` +
-        `• Tons of Refrigeration: ${tr}%0A` +
-        `• BTU/hr: ${btu}%0A` +
-        `• Rate: ${rate}%0A` +
-        `• Estimated Cost: ${cost}%0A%0A` +
-        `🔗 Calculated using ColdMatrix Tools - https://coldmatrixtools.com`;
-      window.open(`https://wa.me/?text=${message}`, '_blank');
-    }
-  
-    function shareToolWhatsApp(){
-      const text = encodeURIComponent('Check out this Cooling Requirement Calculator from ColdMatrix Tools! ' + window.location.href);
-      window.open('https://wa.me/?text='+text, '_blank');
-    }
-    function copyToolLink(){
-      navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{
-        alert(window.location.href);
-      });
-    }
+    // Initial calls
+    updateLiveStats();
+    updateSuggestion();
+    checkMinusAdvisories();
+    document.getElementById('ambientTemp').addEventListener('input', function() {
+      if (document.getElementById('climatePreset').value !== 'custom') document.getElementById('climatePreset').value = 'custom';
+    });
+    document.getElementById('roomTemp').addEventListener('input', function() {
+      updateLiveStats(); updateSuggestion(); checkMinusAdvisories();
+    });
+    document.querySelectorAll('#w1L,#w1H,#w2L,#w2H,#w3L,#w3H,#w4L,#w4H,#w1Shared,#w2Shared,#w3Shared,#w4Shared,#productType,#safetyFactor,#dailyProductKg,#productEntryTemp').forEach(el => {
+      el.addEventListener('input', function() { updateLiveStats(); updateSuggestion(); });
+      el.addEventListener('change', function() { updateLiveStats(); updateSuggestion(); });
+    });
+    document.getElementById('manualHP').addEventListener('input', function() {
+      let hp = parseFloat(this.value);
+      if (!isNaN(hp) && hp>0) document.getElementById('manualTR').value = (hp/1.25).toFixed(2);
+    });
+    document.getElementById('manualTR').addEventListener('input', function() {
+      let tr = parseFloat(this.value);
+      if (!isNaN(tr) && tr>0) document.getElementById('manualHP').value = (tr*1.25).toFixed(2);
+    });
+  })();
+
+  // PWA & Tool Sharing
+  let cmDeferredPrompt;
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();cmDeferredPrompt=e;var b=document.getElementById('cmInstallBar');if(b)b.style.display='block';});
+  function cmInstallApp(){
+    if(cmDeferredPrompt){cmDeferredPrompt.prompt();cmDeferredPrompt.userChoice.then(function(){document.getElementById('cmInstallBar').style.display='none';});}
+    else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');}
+  }
+  if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(function(){});}
+  function shareToolWhatsApp(){
+    const text = encodeURIComponent('Check out this Cooling Requirement Calculator from ColdMatrix Tools! ' + window.location.href);
+    window.open('https://wa.me/?text='+text, '_blank');
+  }
+  function copyToolLink(){
+    navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
+  }
 </script>
+</body>
+</html>
