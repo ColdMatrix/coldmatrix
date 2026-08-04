@@ -34,14 +34,22 @@
 <meta name="description" content="Contact ColdMatrix for prefab construction, sandwich panels, cold storage, and engineering tools. Call, WhatsApp, or email us today.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-  :root{--bg:#0B0F14; --panel:#141B24; --panel-2:#1B242F; --foam:#EDF1F5; --orange:#FF6A2B; --frost:#4FC3F7; --muted:#7C8798; --line:#242F3D;}
+  :root{--bg:#0B0F14; --panel:#141B24; --panel-2:#1B242F; --foam:#EDF1F5; --orange:#FF6A2B; --frost:#4FC3F7; --mint:#34D399; --gold:#D4AF37; --muted:#9FB0C0; --line:#242F3D;}
   *{box-sizing:border-box; margin:0; padding:0;}
-  body{background:var(--bg); color:var(--foam); font-family:'IBM Plex Sans', sans-serif; min-height:100vh;}
-  .wrap{max-width:760px; margin:0 auto; padding:50px 20px 90px;}
-  h1{font-family:'Oswald',sans-serif; font-weight:600; font-size:2rem; margin-bottom:20px;}
+  body{
+    background:
+      radial-gradient(900px 500px at 15% -10%, rgba(79,195,247,0.08) 0%, transparent 60%),
+      radial-gradient(700px 500px at 100% 10%, rgba(212,175,55,0.06) 0%, transparent 60%),
+      var(--bg);
+    color:var(--foam); font-family:'IBM Plex Sans', sans-serif; min-height:100vh;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding:50px 20px 90px;}
+  h1{font-family:'Oswald',sans-serif; font-weight:600; font-size:2.1rem; margin-bottom:10px;}
   h1 em{font-style:normal; color:var(--frost);}
   p{color:var(--muted); line-height:1.75; margin-bottom:18px; font-size:1rem;}
+  .lede{max-width:60ch; margin-bottom:34px;}
 
   .card{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:28px; margin-top:20px;}
   .row{display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid var(--line);}
@@ -50,6 +58,86 @@
   .row a, .row span{color:var(--foam); text-decoration:none; font-size:0.98rem;}
   .row a:hover{color:var(--frost);}
   .row .label{display:block; color:var(--muted); font-family:'IBM Plex Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:3px;}
+
+  /* ===== Premium Contact Department Cards ===== */
+  .dept-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px,1fr)); gap:20px; margin-top:8px;}
+  .dept-card{
+    position:relative; overflow:hidden;
+    background:rgba(20,27,36,0.55);
+    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:16px; padding:26px 24px;
+    transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+  }
+  .dept-card::before{content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--accent), var(--accent2)); opacity:.9;}
+  .dept-card:hover{ transform:translateY(-4px); border-color:rgba(255,255,255,0.16); box-shadow:0 16px 40px rgba(0,0,0,0.45), 0 0 0 1px var(--accent-glow, transparent); }
+  .dept-card.general{ --accent:#4FC3F7; --accent2:#8FE0FF; --accent-glow:rgba(79,195,247,0.25); }
+  .dept-card.support{ --accent:#34D399; --accent2:#8CF2C6; --accent-glow:rgba(52,211,153,0.25); }
+  .dept-card.sales{ --accent:#FF6A2B; --accent2:#FFAE7A; --accent-glow:rgba(255,106,43,0.25); }
+  .dept-card.ceo{ --accent:#D4AF37; --accent2:#F3DA8A; --accent-glow:rgba(212,175,55,0.25); }
+
+  .dept-icon{
+    width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+    font-size:1.6rem; margin-bottom:16px;
+  }
+  .dept-title{font-family:'Oswald',sans-serif; font-weight:600; font-size:1.12rem; color:var(--foam); margin-bottom:6px; letter-spacing:.2px;}
+  .dept-desc{font-size:0.87rem; color:#C3CBD4; line-height:1.65; margin-bottom:18px; min-height:58px;}
+  .dept-email-row{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.06);
+    border-radius:10px; padding:10px 12px; margin-bottom:14px;
+  }
+  .dept-email-row span{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:var(--foam); word-break:break-all;}
+  .dept-actions{display:flex; gap:10px; flex-wrap:wrap;}
+  .dept-btn{
+    flex:1; min-width:110px; display:flex; align-items:center; justify-content:center; gap:7px;
+    padding:11px 10px; border-radius:9px; font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:0.82rem;
+    cursor:pointer; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.03); color:var(--foam);
+    text-decoration:none; transition:.2s;
+  }
+  .dept-btn:hover{ border-color:var(--accent); color:var(--accent); }
+  .dept-btn.primary{ background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#06121a; border:none; font-weight:700; }
+  .dept-btn.primary:hover{ color:#06121a; filter:brightness(1.06); }
+  .dept-btn.copied{ border-color:var(--mint); color:var(--mint); }
+
+  /* ===== Contact Info strip (phone + location) ===== */
+  .info-strip{
+    margin-top:26px; background:rgba(20,27,36,0.55); backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:26px 24px;
+    display:flex; flex-wrap:wrap; gap:26px; align-items:center; justify-content:space-between;
+  }
+  .info-block{display:flex; align-items:center; gap:14px;}
+  .info-block .dept-icon{margin-bottom:0; color:var(--frost);}
+  .info-block .info-label{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-bottom:3px;}
+  .info-block .info-value{font-size:1rem; font-weight:600; color:var(--foam);}
+  .info-actions{display:flex; gap:10px; flex-wrap:wrap;}
+
+  .section-label{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin:36px 0 4px;}
+
+  @media (max-width:640px){
+    .dept-desc{min-height:auto;}
+    .info-strip{flex-direction:column; align-items:stretch; text-align:left;}
+    .info-actions{width:100%;}
+    .info-actions .dept-btn{flex:1;}
+  }
+
+  /* ===== Feedback form ===== */
+  .fb-field{margin-bottom:16px;}
+  .fb-field label{display:block; font-size:0.85rem; color:var(--foam); font-weight:600; margin-bottom:7px;}
+  .fb-input{
+    width:100%; background:var(--panel-2); color:var(--foam);
+    border:2px solid var(--gold); border-radius:9px; padding:12px 14px;
+    font-family:'IBM Plex Sans',sans-serif; font-size:0.92rem;
+  }
+  .fb-input::placeholder{color:#7C8798;}
+  .fb-input:focus{outline:none; border-color:var(--frost); box-shadow:0 0 0 3px rgba(79,195,247,0.2);}
+  .fb-submit{
+    background:linear-gradient(135deg, var(--gold), #F3DA8A); color:#1a1400; border:none;
+    padding:14px 28px; border-radius:9px; font-weight:700; font-size:1rem; cursor:pointer;
+    font-family:'IBM Plex Sans',sans-serif;
+  }
+  .fb-submit:hover{ filter:brightness(1.05); }
 
   .topnav{position:sticky; top:0; z-index:100; background:rgba(11,15,20,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
   .topnav-inner{max-width:1140px; margin:0 auto; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;}
@@ -92,29 +180,73 @@
 
 <div class="wrap">
   <h1>Get in <em>touch</em></h1>
-  <p>Have a question, need a quotation, or want to suggest a new tool? Reach out through any of the channels below.</p>
+  <p class="lede">Have a question, need a quotation, or want to reach the right department directly? Choose a card below — each one goes straight to the team that can help.</p>
 
-  <div class="card">
-    <div class="row">
-      <div class="icon">✉️</div>
-      <div>
-        <span class="label">Email</span>
-        <a href="mailto:contact@coldmatrixtools.com" style="color:var(--accent);">contact@coldmatrixtools.com</a>
+  <div class="dept-grid">
+    <div class="dept-card general">
+      <div class="dept-icon">📩</div>
+      <div class="dept-title">General Enquiries</div>
+      <div class="dept-desc">For general questions, business inquiries, partnerships, collaborations, and website-related information.</div>
+      <div class="dept-email-row"><span>info@coldmatrixtools.com</span></div>
+      <div class="dept-actions">
+        <button class="dept-btn" onclick="copyEmail('info@coldmatrixtools.com', this)">📋 Copy</button>
+        <a class="dept-btn primary" href="mailto:info@coldmatrixtools.com">✉️ Send Email</a>
       </div>
     </div>
-    <div class="row">
-      <div class="icon">📞</div>
-      <div>
-        <span class="label">Phone / WhatsApp</span>
-        <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20PU%2FPIR%20sandwich%20panels" target="_blank">+923333228470</a>
+
+    <div class="dept-card support">
+      <div class="dept-icon">🛠️</div>
+      <div class="dept-title">Technical Support</div>
+      <div class="dept-desc">For technical assistance, bug reports, feature requests, tool issues, and troubleshooting.</div>
+      <div class="dept-email-row"><span>support@coldmatrixtools.com</span></div>
+      <div class="dept-actions">
+        <button class="dept-btn" onclick="copyEmail('support@coldmatrixtools.com', this)">📋 Copy</button>
+        <a class="dept-btn primary" href="mailto:support@coldmatrixtools.com">✉️ Send Email</a>
       </div>
     </div>
-    <div class="row">
-      <div class="icon">📍</div>
-      <div>
-        <span class="label">Locations Served</span>
-        <span>Karachi &middot; Lahore &middot; Islamabad</span>
+
+    <div class="dept-card sales">
+      <div class="dept-icon">💼</div>
+      <div class="dept-title">Sales &amp; Quotations</div>
+      <div class="dept-desc">For quotations, pricing, cold storage projects, prefab construction, sandwich panels, industrial refrigeration, and commercial inquiries.</div>
+      <div class="dept-email-row"><span>sales@coldmatrixtools.com</span></div>
+      <div class="dept-actions">
+        <button class="dept-btn" onclick="copyEmail('sales@coldmatrixtools.com', this)">📋 Copy</button>
+        <a class="dept-btn primary" href="mailto:sales@coldmatrixtools.com">✉️ Send Email</a>
       </div>
+    </div>
+
+    <div class="dept-card ceo">
+      <div class="dept-icon">👨‍💼</div>
+      <div class="dept-title">CEO's Office</div>
+      <div class="dept-desc">For executive communication, strategic partnerships, investment opportunities, media inquiries, and high-priority business matters.</div>
+      <div class="dept-email-row"><span>ceo@coldmatrixtools.com</span></div>
+      <div class="dept-actions">
+        <button class="dept-btn" onclick="copyEmail('ceo@coldmatrixtools.com', this)">📋 Copy</button>
+        <a class="dept-btn primary" href="mailto:ceo@coldmatrixtools.com">✉️ Send Email</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-label">Contact Information</p>
+  <div class="info-strip">
+    <div class="info-block">
+      <div class="dept-icon">☎️</div>
+      <div>
+        <div class="info-label">Phone / WhatsApp</div>
+        <div class="info-value">+92 333 3228470</div>
+      </div>
+    </div>
+    <div class="info-block">
+      <div class="dept-icon">📍</div>
+      <div>
+        <div class="info-label">Location</div>
+        <div class="info-value">Karachi, Pakistan</div>
+      </div>
+    </div>
+    <div class="info-actions">
+      <a class="dept-btn" href="tel:+923333228470">📞 Call</a>
+      <a class="dept-btn primary" href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." target="_blank">💬 WhatsApp</a>
     </div>
   </div>
 
@@ -134,24 +266,24 @@
 <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST" style="max-width:500px; margin-top:20px;">
   <!-- Hide captcha for simplicity -->
   <input type="hidden" name="_captcha" value="false">
-  
+
   <!-- Optional: User CAN choose to reveal themselves, but it's not required -->
-  <div class="field">
+  <div class="fb-field">
     <label>Your Name (Optional)</label>
-    <input type="text" name="name" placeholder="Anonymous" style="width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:12px; border-radius:8px;">
+    <input type="text" name="name" placeholder="Anonymous" class="fb-input">
   </div>
-  
-  <div class="field">
+
+  <div class="fb-field">
     <label>Your City / Country (Optional)</label>
-    <input type="text" name="location" placeholder="e.g. City, Country" style="width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:12px; border-radius:8px;">
+    <input type="text" name="location" placeholder="e.g. City, Country" class="fb-input">
   </div>
-  
-  <div class="field">
+
+  <div class="fb-field">
     <label>Your Feedback *</label>
-    <textarea name="feedback" rows="4" placeholder="What do you like? What can we improve? Any bugs?" required style="width:100%; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:12px; border-radius:8px;"></textarea>
+    <textarea name="feedback" rows="4" placeholder="What do you like? What can we improve? Any bugs?" required class="fb-input"></textarea>
   </div>
-  
-  <button type="submit" style="background:var(--gradient); color:#0A0F14; border:none; padding:14px 28px; border-radius:8px; font-weight:bold; font-size:1rem; cursor:pointer;">
+
+  <button type="submit" class="fb-submit">
     📤 Send Feedback (Anonymous)
   </button>
 </form>
@@ -169,6 +301,20 @@ function cmInstallApp(){
   else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu \u2192 Add to Home Screen.\niPhone (Safari): Share \u2192 Add to Home Screen.');}
 }
 if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(function(){});}
+
+function copyEmail(email, btn){
+  const finish = ()=>{
+    const original = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = '✅ Copied';
+    setTimeout(()=>{ btn.classList.remove('copied'); btn.innerHTML = original; }, 1800);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(email).then(finish).catch(()=>{ prompt('Copy this email:', email); });
+  } else {
+    prompt('Copy this email:', email);
+  }
+}
 </script>
 </body>
 </html>
