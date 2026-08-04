@@ -382,6 +382,20 @@
     .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
     .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
     .share-tool-btn i{font-size:1rem;}
+
+    /* ===== Quick nav ===== */
+    html{scroll-behavior:smooth;}
+    .quick-nav{position:sticky; top:0; z-index:50; display:flex; gap:8px; overflow-x:auto; padding:10px 4px; margin-bottom:18px; background:rgba(11,15,20,0.92); backdrop-filter:blur(10px); border-radius:10px; border:1px solid var(--line);}
+    .quick-nav a{flex-shrink:0; padding:8px 14px; border-radius:20px; font-size:0.8rem; font-weight:600; color:var(--frost); text-decoration:none; border:1px solid var(--line); white-space:nowrap;}
+    .quick-nav a:hover{background:rgba(79,195,247,0.15); border-color:var(--frost);}
+
+    /* ===== Executive summary card ===== */
+    .exec-summary{background:linear-gradient(135deg, rgba(79,195,247,0.14), rgba(0,184,148,0.08)); border:1.5px solid var(--frost); border-radius:14px; padding:22px; margin-bottom:24px;}
+    .exec-summary-title{font-family:'Oswald',sans-serif; font-weight:700; font-size:1.1rem; color:var(--frost); margin-bottom:14px; text-transform:uppercase; letter-spacing:0.5px;}
+    .exec-summary-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:14px;}
+    .exec-item .exec-label{font-size:0.72rem; color:#9AB0C2; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;}
+    .exec-item .exec-value{font-size:1.05rem; font-weight:700; color:#FFFFFF;}
+    .exec-note{margin-top:14px; font-size:0.82rem; color:#C7D6E0; line-height:1.6;}
   </style>
 </head>
 <body>
@@ -398,6 +412,15 @@
     </div>
   <div><span class="live-badge">Live</span></div>
 
+  <div class="quick-nav">
+    <a href="#secRoom">📐 Room</a>
+    <a href="#secClimate">🌍 Climate</a>
+    <a href="#secStorage">🌡️ Storage</a>
+    <a href="#secRefrig">⚙️ Refrigeration</a>
+    <a href="#secPanel">🧱 Panels</a>
+    <a href="#secCost">💰 Cost</a>
+  </div>
+
   <!-- MAIN CARD -->
   <div class="card" style="position:relative;">
     <div class="state-badge">State of the Art Tool</div>
@@ -407,7 +430,7 @@
     </div>
 
     <!-- ROOM DIMENSIONS -->
-    <div class="result-section-title" style="margin-top:0;">📐 Room Dimensions (4 Walls)</div>
+    <div class="result-section-title" id="secRoom" style="margin-top:0;">📐 Room Dimensions (4 Walls)</div>
     <div class="field">
       <label>Unit System</label>
       <div class="unit-toggle">
@@ -469,17 +492,56 @@
     </div>
 
     <!-- CLIMATE PRESET -->
-    <div class="result-section-title">🌍 Ambient Climate Preset</div>
+    <div class="result-section-title" id="secClimate">🌍 Ambient Climate Preset</div>
     <div class="grid-2">
       <div class="field">
         <label>City / Climate Preset</label>
         <select id="climatePreset" onchange="applyClimatePreset()">
-          <option value="45" selected>Lahore / Multan (Extreme Summer 45°C)</option>
-          <option value="42">Karachi (Hot & Humid 42°C)</option>
-          <option value="40">Islamabad / Delhi (Moderate 40°C)</option>
-          <option value="35">Quetta / London (Cooler 35°C)</option>
-          <option value="32">New York / Paris (Mild 32°C)</option>
-          <option value="30">Toronto / Moscow (Cool 30°C)</option>
+          <optgroup label="Pakistan">
+            <option value="45" selected>Lahore / Multan (Extreme Summer 45°C)</option>
+            <option value="42">Karachi (Hot & Humid 42°C)</option>
+            <option value="40">Islamabad (Moderate 40°C)</option>
+            <option value="38">Quetta (Cooler 38°C)</option>
+          </optgroup>
+          <optgroup label="South Asia">
+            <option value="45">Delhi / New Delhi (45°C)</option>
+            <option value="36">Dhaka (36°C)</option>
+            <option value="34">Colombo (34°C)</option>
+          </optgroup>
+          <optgroup label="Middle East">
+            <option value="48">Dubai / UAE (Extreme 48°C)</option>
+            <option value="50">Riyadh (Extreme 50°C)</option>
+            <option value="46">Doha (46°C)</option>
+            <option value="44">Kuwait City (44°C)</option>
+          </optgroup>
+          <optgroup label="Africa">
+            <option value="40">Lagos (40°C)</option>
+            <option value="38">Cairo (38°C)</option>
+            <option value="35">Nairobi (35°C)</option>
+            <option value="42">Khartoum (42°C)</option>
+          </optgroup>
+          <optgroup label="Southeast & East Asia">
+            <option value="35">Singapore / Kuala Lumpur (35°C)</option>
+            <option value="38">Jakarta / Manila (38°C)</option>
+            <option value="35">Shanghai (35°C)</option>
+            <option value="36">Bangkok (36°C)</option>
+          </optgroup>
+          <optgroup label="Europe">
+            <option value="35">London (Cooler 35°C)</option>
+            <option value="36">Madrid / Rome (36°C)</option>
+            <option value="32">Paris / Berlin (32°C)</option>
+            <option value="30">Moscow (30°C)</option>
+          </optgroup>
+          <optgroup label="Americas">
+            <option value="35">New York (35°C)</option>
+            <option value="42">Houston / Phoenix (Extreme 42°C)</option>
+            <option value="32">Toronto (32°C)</option>
+            <option value="35">Mexico City / São Paulo (35°C)</option>
+          </optgroup>
+          <optgroup label="Oceania">
+            <option value="38">Sydney (38°C)</option>
+            <option value="35">Auckland (35°C)</option>
+          </optgroup>
           <option value="custom">Custom Ambient Temperature</option>
         </select>
       </div>
@@ -490,7 +552,7 @@
     </div>
 
     <!-- STORAGE TEMP & PRODUCT -->
-    <div class="result-section-title">🌡️ Storage Temperature & Product</div>
+    <div class="result-section-title" id="secStorage">🌡️ Storage Temperature & Product</div>
     <div class="field" style="margin-bottom:14px;">
       <label>Required Temp (°C)</label>
       <input type="number" id="roomTemp" value="-15" step="any" oninput="checkMinusAdvisories()">
@@ -526,6 +588,11 @@
         <input type="number" id="productEntryTemp" value="28" step="any">
       </div>
     </div>
+    <div class="field">
+      <label style="display:flex; align-items:center; gap:8px;">
+        <input type="checkbox" id="includeLatentHeat" style="width:auto;" checked> Include Freezing Latent Heat (for products entering warm and freezing below 0°C — recommended for accuracy)
+      </label>
+    </div>
 
     <!-- SUGGESTION BOX -->
     <div class="suggestion-box" id="suggestionBox">
@@ -537,19 +604,32 @@
     </div>
 
     <!-- REFRIGERATION UNIT FIELDS (Manual Overrides) -->
-    <div class="result-section-title">⚙️ Refrigeration Unit (Manual Override)</div>
+    <div class="result-section-title" id="secRefrig">⚙️ Refrigeration Unit (Manual Override)</div>
     <div class="grid-2">
       <div class="field"><label>Unit HP (e.g. 20)</label><input type="number" id="manualHP" placeholder="Enter HP"></div>
       <div class="field"><label>Unit TR (e.g. 16)</label><input type="number" id="manualTR" placeholder="Enter TR"></div>
     </div>
-    <div class="field">
-      <label style="display:flex; align-items:center; gap:8px;">
-        <input type="checkbox" id="dualCompressor" style="width:auto;"> Redundant Dual Compressor Setup
-      </label>
+    <div class="grid-2">
+      <div class="field">
+        <label>🧪 Refrigerant Type</label>
+        <select id="refrigerantType">
+          <option value="R448A" selected>R448A / R449A (Modern, Low-GWP)</option>
+          <option value="R404A">R404A (Legacy, being phased out)</option>
+          <option value="R507A">R507A (Common commercial)</option>
+          <option value="NH3">NH3 / Ammonia (Large industrial, high efficiency)</option>
+          <option value="CO2">CO2 Transcritical (Eco-friendly)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label style="display:flex; align-items:center; gap:8px; margin-top:30px;">
+          <input type="checkbox" id="dualCompressor" style="width:auto;"> Redundant Dual Compressor Setup
+        </label>
+      </div>
     </div>
+    <div id="refrigerantNote" class="coldmatrix-note" style="display:none;"></div>
 
     <!-- PANEL SPECS -->
-    <div class="result-section-title">🧱 Panel Specifications</div>
+    <div class="result-section-title" id="secPanel">🧱 Panel Specifications</div>
     <div class="grid-2">
       <div class="field">
         <label>📏 Thickness (mm)</label>
@@ -598,7 +678,7 @@
     </div>
 
     <!-- COST -->
-    <div class="result-section-title">💰 Cost Estimator</div>
+    <div class="result-section-title" id="secCost">💰 Cost Estimator</div>
     <div class="field">
       <label id="panelRateLabel">📊 Panel Rate (per ft²)</label>
       <input type="number" id="panelRate" value="750" step="any">
@@ -648,6 +728,14 @@
         </select>
       </div>
       <div class="field">
+        <label>🚶 Door Usage Frequency</label>
+        <select id="doorUsage">
+          <option value="light">Light (occasional access)</option>
+          <option value="medium" selected>Medium (regular commercial)</option>
+          <option value="heavy">Heavy (constant forklift/staff traffic)</option>
+        </select>
+      </div>
+      <div class="field">
         <label>Cost per Door (incl. accessories)</label>
         <input type="number" id="costPerDoor" value="300000" step="any">
       </div>
@@ -688,6 +776,18 @@
       <input type="number" id="transportCost" value="50000" step="any">
     </div>
 
+    <div class="result-section-title">⚡ Operating Cost Estimator (Optional)</div>
+    <div class="grid-2">
+      <div class="field">
+        <label>Electricity Rate (per kWh, in selected currency)</label>
+        <input type="number" id="electricityRate" placeholder="e.g. 45 for PKR, 0.15 for USD" step="any">
+      </div>
+      <div class="field">
+        <label>Estimated Compressor Run Hours/Day</label>
+        <input type="number" id="runHoursPerDay" value="18" step="any" min="1" max="24">
+      </div>
+    </div>
+
     <div class="field">
       <label>💱 Currency</label>
       <select id="currency"><option value="PKR">🇵🇰 PKR</option><option value="USD">🇺🇸 USD</option><option value="EUR">🇪🇺 EUR</option><option value="GBP">🇬🇧 GBP</option><option value="AED">🇦🇪 AED</option></select>
@@ -701,6 +801,18 @@
 
     <!-- RESULTS -->
     <div class="results-container" id="resultCard">
+      <div class="exec-summary" id="execSummary">
+        <div class="exec-summary-title">⚡ Executive Summary — At a Glance</div>
+        <div class="exec-summary-grid">
+          <div class="exec-item"><div class="exec-label">Recommended Panel</div><div class="exec-value" id="execPanel">—</div></div>
+          <div class="exec-item"><div class="exec-label">Recommended System</div><div class="exec-value" id="execSystem">—</div></div>
+          <div class="exec-item"><div class="exec-label">Total Cooling Load</div><div class="exec-value" id="execLoad">—</div></div>
+          <div class="exec-item"><div class="exec-label">Est. Grand Total</div><div class="exec-value" id="execTotal">—</div></div>
+          <div class="exec-item"><div class="exec-label">Est. Monthly Running Cost</div><div class="exec-value" id="execRunning">—</div></div>
+        </div>
+        <div class="exec-note" id="execNote"></div>
+      </div>
+
       <div class="result-section-title" style="margin-top:0;">❄️ ColdMatrix Comprehensive Engineering & Cold Store Summary</div>
 
       <div class="result-row"><span>📦 Stored Product</span><span id="sProduct">—</span></div>
@@ -716,7 +828,7 @@
       <div class="result-section-title">🌡️ Cooling Load Breakdown</div>
       <div class="result-row"><span>Transmission Load</span><span id="sTransLoad">—</span></div>
       <div class="result-row"><span>Product Load</span><span id="sProdLoad">—</span></div>
-      <div class="result-row"><span>Infiltration Load</span><span id="sInfLoad">—</span></div>
+      <div class="result-row"><span>Infiltration Load (door count &amp; usage adjusted)</span><span id="sInfLoad">—</span></div>
       <div class="result-row"><span>Equipment Load (15%)</span><span id="sEquipLoad">—</span></div>
       <div class="result-row"><span>Safety Factor Applied</span><span id="sSafetyLoad">—</span></div>
       <div class="highlight-row">
@@ -727,6 +839,7 @@
         <span class="label">⚙️ Recommended Refrigeration Unit</span>
         <span class="value" id="sUnit">—</span>
       </div>
+      <div class="result-row"><span>🧪 Refrigerant &amp; System Type</span><span id="sSystemType">—</span></div>
 
       <div class="result-row"><span>💰 Panel Cost</span><span id="sPanelCost">—</span></div>
       <div class="result-row"><span>🔧 Sandwich Panel Installation</span><span id="sInstallation">—</span></div>
@@ -737,8 +850,18 @@
       <div class="result-row"><span>🚛 Transportation</span><span id="sTransport">—</span></div>
 
       <div class="highlight-row" style="border-color: var(--accent); background: rgba(0,184,148,0.15);">
-        <span class="label" style="color: var(--accent);">💵 GRAND TOTAL</span>
+        <span class="label" style="color: var(--accent);">💵 GRAND TOTAL (Capital Cost)</span>
         <span class="value" id="sGrandTotal" style="color: var(--accent);">—</span>
+      </div>
+
+      <div id="operatingCostSection" style="display:none;">
+        <div class="result-section-title">⚡ Estimated Operating Cost</div>
+        <div class="result-row"><span>Electrical Input Power</span><span id="sElecPower">—</span></div>
+        <div class="result-row"><span>Est. Daily Energy Use</span><span id="sDailyEnergy">—</span></div>
+        <div class="highlight-row">
+          <span class="label">⚡ Est. Monthly Running Cost</span>
+          <span class="value" id="sMonthlyCost">—</span>
+        </div>
       </div>
 
       <div id="roofAdvisory" class="coldmatrix-note" style="display:none;"></div>
@@ -782,6 +905,36 @@
     const productTempRanges = {
       icecream: [-25, -15], meat: [-20, -15], fish: [-30, -20],
       dairy: [2, 6], eggs: [4, 10], fruitveg: [1, 8], pharma: [2, 8], general: [-30, 30]
+    };
+
+    // Approx latent heat of fusion by product category (kJ/kg) - used only when
+    // "Include Freezing Latent Heat" is checked and a daily kg load is entered.
+    const latentHeatKJkg = {
+      icecream: 260, meat: 233, fish: 235, dairy: 300, eggs: 0, fruitveg: 280, pharma: 0, general: 250
+    };
+
+    // Refrigerant characteristics: ratio = approx HP-per-TR multiplier, cop = approx
+    // coefficient of performance used for the operating-cost estimate. Indicative
+    // industry figures, not a substitute for manufacturer selection software.
+    const refrigerantData = {
+      R448A: { ratio: 1.22, cop: 3.0, note: 'R448A/R449A is the modern low-GWP replacement for R404A — recommended for new installations.' },
+      R404A: { ratio: 1.25, cop: 2.8, note: 'R404A has high global warming potential and is being phased out in many countries. Consider R448A/R449A for new systems.' },
+      R507A: { ratio: 1.24, cop: 2.85, note: 'R507A performs similarly to R404A and is common in existing commercial refrigeration.' },
+      NH3:   { ratio: 1.05, cop: 3.6, note: 'Ammonia (NH3) is highly efficient and standard for large industrial cold storage (typically 20 TR+), but requires trained handling.' },
+      CO2:   { ratio: 1.35, cop: 2.6, note: 'CO2 transcritical is eco-friendly with near-zero GWP, growing in adoption, but has higher equipment cost.' }
+    };
+
+    const doorUsageFactor = { light: 0.8, medium: 1.0, heavy: 1.4 };
+
+    window.applyClimatePreset = function() {
+      const sel = document.getElementById('climatePreset');
+      if (sel.value !== 'custom') {
+        document.getElementById('ambientTemp').value = sel.value;
+        updateLiveStats();
+        updateSuggestion();
+        document.getElementById('calcBtn').disabled = false;
+        document.getElementById('resultCard').style.display = 'none';
+      }
     };
 
     let currentUnit = 'ft';
@@ -928,7 +1081,8 @@
       let room = parseFloat(document.getElementById('roomTemp').value)||-15;
       let amb = parseFloat(document.getElementById('ambientTemp').value)||45;
       let thick = getSuggestedThickness(room);
-      document.getElementById('suggestedThickness').textContent = thick+'mm Panels';
+      let coreRec = room <= -25 ? 'PIR' : (room >= 5 ? 'EPS/PUF' : 'PUF');
+      document.getElementById('suggestedThickness').textContent = thick+'mm '+coreRec+' Panels';
 
       let area = getThermalEnvelopeArea(), vol = getVolumeEstimate();
       if (area>0 && vol>0) {
@@ -944,13 +1098,28 @@
         let floorAreaFt2 = (currentUnit==='ft') ?
           (parseFloat(wallInputs[0].l.value)||20) * (parseFloat(wallInputs[1].l.value)||40) :
           ((parseFloat(wallInputs[0].l.value)||20)*3.28084) * ((parseFloat(wallInputs[1].l.value)||40)*3.28084);
-        let Qprod = dailyKg>0 ? (dailyKg * 3.5 * Math.max(0, parseFloat(document.getElementById('productEntryTemp').value)||28 - room)) / 86400 * 1000 : floorAreaFt2 * (productLoadFactorsPerFt2[prodType]||40);
-        let Qinf = 0.0000335 * volM3 * deltaT * 1000;
+        let entryT = parseFloat(document.getElementById('productEntryTemp').value)||28;
+        let Qprod;
+        if (dailyKg>0) {
+          Qprod = (dailyKg * 3.5 * Math.max(0, entryT - room)) / 86400 * 1000;
+          let includeLatent = document.getElementById('includeLatentHeat').checked;
+          if (includeLatent && room < 0 && entryT > 0) {
+            let latentKJkg = latentHeatKJkg[prodType] || 0;
+            Qprod += (dailyKg * latentKJkg * 1000) / 86400;
+          }
+        } else {
+          Qprod = floorAreaFt2 * (productLoadFactorsPerFt2[prodType]||40);
+        }
+        let numDoors = parseInt(document.getElementById('numDoors').value)||1;
+        let doorUsage = document.getElementById('doorUsage').value;
+        let doorFactor = (1 + (numDoors-1)*0.15) * (doorUsageFactor[doorUsage]||1.0);
+        let Qinf = 0.0000335 * volM3 * deltaT * 1000 * doorFactor;
         let subtotal = Qtrans + Qprod + Qinf;
         let Qequip = subtotal * 0.15;
         let totalW = (subtotal * (1 + saf/100)) + Qequip;
         let TR = totalW/3517;
-        let HP = Math.ceil(TR * 1.25);
+        let refrig = refrigerantData[document.getElementById('refrigerantType').value] || refrigerantData.R448A;
+        let HP = Math.ceil(TR * refrig.ratio);
         document.getElementById('suggestedUnit').textContent = HP+' HP / '+TR.toFixed(1)+' TR';
       } else {
         document.getElementById('suggestedUnit').textContent = '— HP / — TR';
@@ -993,16 +1162,26 @@
         else if(input.id==='costPerEvapUnit') input.value='800000';
         else if(input.id==='refInstallCost') input.value='300000';
         else if(input.id==='transportCost') input.value='50000';
+        else if(input.id==='runHoursPerDay') input.value='18';
+        else if(input.id==='electricityRate') input.value='';
         else if(input.id.includes('L')) input.value='20';
         else if(input.id.includes('H')) input.value='15';
         else input.value='';
       });
       document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked=false);
+      document.getElementById('includeLatentHeat').checked = true;
+      document.getElementById('refrigerantType').value = 'R448A';
+      document.getElementById('doorUsage').value = 'medium';
+      document.getElementById('climatePreset').value = '45';
       document.getElementById('resultCard').style.display='none';
       document.getElementById('calcBtn').disabled=false;
       document.getElementById('tempWarning').style.display='none';
       document.getElementById('floorAdvisory').style.display='none';
       document.getElementById('doorHeaterAdvisory').style.display='none';
+      updateRefrigerantNote();
+      updateLiveStats();
+      updateSuggestion();
+      updateInstallCostPreview();
       window.scrollTo({top:0,behavior:'smooth'});
     };
 
@@ -1069,19 +1248,33 @@
       let Qtrans = U * areaM2 * deltaT;
 
       let floorAreaFt2 = (currentUnit==='ft') ? roofSpanX * roofSpanY : (roofSpanX*3.28084) * (roofSpanY*3.28084);
-      let Qprod = dailyKg>0 ? (dailyKg * 3.5 * Math.max(0, entryT-room)) / 86400 * 1000 : floorAreaFt2 * (productLoadFactorsPerFt2[prodType]||40);
+      let Qprod;
+      if (dailyKg>0) {
+        Qprod = (dailyKg * 3.5 * Math.max(0, entryT-room)) / 86400 * 1000;
+        let includeLatent = document.getElementById('includeLatentHeat').checked;
+        if (includeLatent && room < 0 && entryT > 0) {
+          let latentKJkg = latentHeatKJkg[prodType] || 0;
+          Qprod += (dailyKg * latentKJkg * 1000) / 86400;
+        }
+      } else {
+        Qprod = floorAreaFt2 * (productLoadFactorsPerFt2[prodType]||40);
+      }
 
-      let Qinf = 0.0000335 * volM3 * deltaT * 1000;
+      let numDoors = parseInt(document.getElementById('numDoors').value)||1;
+      let doorUsage = document.getElementById('doorUsage').value;
+      let doorFactor = (1 + (numDoors-1)*0.15) * (doorUsageFactor[doorUsage]||1.0);
+      let Qinf = 0.0000335 * volM3 * deltaT * 1000 * doorFactor;
       let subtotal = Qtrans + Qprod + Qinf;
       let Qequip = subtotal * 0.15;
       let totalW = (subtotal * (1 + saf/100)) + Qequip;
       let autoTR = totalW / 3517;
-      let autoHP = Math.ceil(autoTR * 1.25);
+      let refrig = refrigerantData[document.getElementById('refrigerantType').value] || refrigerantData.R448A;
+      let autoHP = Math.ceil(autoTR * refrig.ratio);
 
       let mHP = parseFloat(document.getElementById('manualHP').value), mTR = parseFloat(document.getElementById('manualTR').value);
       let finalHP = autoHP, finalTR = autoTR;
-      if (!isNaN(mHP) && mHP>0) { finalHP = mHP; finalTR = isNaN(mTR)||mTR<=0 ? mHP/1.25 : mTR; }
-      else if (!isNaN(mTR) && mTR>0) { finalTR = mTR; finalHP = mTR*1.25; }
+      if (!isNaN(mHP) && mHP>0) { finalHP = mHP; finalTR = isNaN(mTR)||mTR<=0 ? mHP/refrig.ratio : mTR; }
+      else if (!isNaN(mTR) && mTR>0) { finalTR = mTR; finalHP = mTR*refrig.ratio; }
 
       let dualMode = document.getElementById('dualCompressor').checked;
       let unitDisplay = dualMode ? `2 × ${Math.ceil(finalHP/2)} HP / ${(finalTR/2).toFixed(2)} TR each` : finalHP + ' HP / ' + finalTR.toFixed(2) + ' TR';
@@ -1094,7 +1287,6 @@
 
       let installCost = currentInstallMethod==='perunit' ? (parseFloat(document.getElementById('installRate').value)||0) * totalPanelArea : (parseFloat(document.getElementById('installFixedCost').value)||0);
 
-      let numDoors = parseInt(document.getElementById('numDoors').value)||1;
       let doorCost = numDoors * (parseFloat(document.getElementById('costPerDoor').value)||0);
 
       let numCond = parseFloat(document.getElementById('numCondUnits').value)||0;
@@ -1137,6 +1329,40 @@
       document.getElementById('sTransport').textContent = symbol+' '+formatNum(transport);
       document.getElementById('sGrandTotal').textContent = symbol+' '+formatNum(grandTotal);
 
+      // ===== System type recommendation =====
+      let refrigSelect = document.getElementById('refrigerantType');
+      let refrigLabel = refrigSelect.options[refrigSelect.selectedIndex].text;
+      let systemTypeText;
+      if (finalTR <= 5) systemTypeText = refrigLabel + ' — Single Compressor Unit (sufficient for this load)';
+      else if (finalTR <= 15) systemTypeText = refrigLabel + ' — ' + (dualMode ? 'Dual Compressor Redundant Setup' : 'Dual Compressor Setup recommended for uptime above 5 TR');
+      else systemTypeText = refrigLabel + ' — Multi-Compressor Rack System recommended (high capacity, 15+ TR)';
+      document.getElementById('sSystemType').textContent = systemTypeText;
+
+      // ===== Operating (running) cost estimate =====
+      let elecRate = parseFloat(document.getElementById('electricityRate').value)||0;
+      let runHours = parseFloat(document.getElementById('runHoursPerDay').value)||18;
+      let monthlyCost = 0;
+      if (elecRate > 0) {
+        let elecKW = (finalTR * 3.517) / refrig.cop;
+        let dailyKWh = elecKW * runHours;
+        monthlyCost = dailyKWh * 30 * elecRate;
+        document.getElementById('operatingCostSection').style.display = 'block';
+        document.getElementById('sElecPower').textContent = elecKW.toFixed(2)+' kW';
+        document.getElementById('sDailyEnergy').textContent = dailyKWh.toFixed(1)+' kWh/day';
+        document.getElementById('sMonthlyCost').textContent = symbol+' '+formatNum(monthlyCost)+' / month';
+        document.getElementById('execRunning').textContent = symbol+' '+formatNum(monthlyCost)+'/mo';
+      } else {
+        document.getElementById('operatingCostSection').style.display = 'none';
+        document.getElementById('execRunning').textContent = 'Enter electricity rate below';
+      }
+
+      // ===== Executive Summary =====
+      document.getElementById('execPanel').textContent = thick+'mm '+document.getElementById('coreMaterial').value+' Panels';
+      document.getElementById('execSystem').textContent = unitDisplay;
+      document.getElementById('execLoad').textContent = autoTR.toFixed(2)+' TR';
+      document.getElementById('execTotal').textContent = symbol+' '+formatNum(grandTotal);
+      document.getElementById('execNote').textContent = systemTypeText;
+
       let advisoryDiv = document.getElementById('roofAdvisory');
       if (shortSide > 14) {
         advisoryDiv.style.display = 'block';
@@ -1178,16 +1404,27 @@
     updateSuggestion();
     checkMinusAdvisories();
     updateInstallCostPreview();
+    updateRefrigerantNote();
+    document.getElementById('refrigerantType').addEventListener('change', updateRefrigerantNote);
+
+    function updateRefrigerantNote() {
+      let refrig = refrigerantData[document.getElementById('refrigerantType').value] || refrigerantData.R448A;
+      let noteEl = document.getElementById('refrigerantNote');
+      noteEl.innerHTML = '<strong>❄️ Note:</strong> ' + refrig.note;
+      noteEl.style.display = 'block';
+    }
     document.getElementById('ambientTemp').addEventListener('input', function() {
       if (document.getElementById('climatePreset').value !== 'custom') document.getElementById('climatePreset').value = 'custom';
     });
     document.getElementById('manualHP').addEventListener('input', function() {
       let hp = parseFloat(this.value);
-      if (!isNaN(hp) && hp>0) document.getElementById('manualTR').value = (hp/1.25).toFixed(2);
+      let r = refrigerantData[document.getElementById('refrigerantType').value] || refrigerantData.R448A;
+      if (!isNaN(hp) && hp>0) document.getElementById('manualTR').value = (hp/r.ratio).toFixed(2);
     });
     document.getElementById('manualTR').addEventListener('input', function() {
       let tr = parseFloat(this.value);
-      if (!isNaN(tr) && tr>0) document.getElementById('manualHP').value = (tr*1.25).toFixed(2);
+      let r = refrigerantData[document.getElementById('refrigerantType').value] || refrigerantData.R448A;
+      if (!isNaN(tr) && tr>0) document.getElementById('manualHP').value = (tr*r.ratio).toFixed(2);
     });
   })();
 </script>
