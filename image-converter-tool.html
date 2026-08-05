@@ -4,569 +4,304 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Converter & Resizer | ColdMatrix</title>
-    <meta name="description" content="Batch resize, fit & compress images online without cropping. Reduce file size to exact KB/MB limits, social media presets, ZIP download. Free, private, instant.">
+    <meta name="description" content="Convert images to JPG, PNG, WebP, PDF instantly. Resize without cropping. Free, private, executive-grade tool.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ColdMatrix Tools">
     <meta property="og:title" content="Image Converter & Resizer | ColdMatrix">
-    <meta property="og:description" content="Batch resize, fit & compress images online with social media presets and target file size mode.">
+    <meta property="og:description" content="Convert images to JPG, PNG, WebP, PDF instantly. Resize without cropping. Free, private, executive-grade tool.">
     <meta property="og:url" content="https://coldmatrixtools.com/image-converter-tool.html">
+    <meta property="og:image" content="https://coldmatrixtools.com/image_converter.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Image Converter & Resizer | ColdMatrix">
+    <meta name="twitter:description" content="Convert images to JPG, PNG, WebP, PDF instantly. Resize without cropping. Free, private, executive-grade tool.">
+    <meta name="twitter:image" content="https://coldmatrixtools.com/image_converter.jpg">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Image Converter & Resizer",
+        "url": "https://coldmatrixtools.com/image-converter-tool.html",
+        "applicationCategory": "Utility",
+        "description": "Convert images to JPG, PNG, WebP, PDF instantly. Resize without cropping. Free, private, executive-grade tool.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" }
+    }
+    </script>
     <link rel="canonical" href="https://coldmatrixtools.com/image-converter-tool.html">
     <meta name="theme-color" content="#0A0F14">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #080c14; --surface: rgba(18,24,35,0.6); --surface2: rgba(22,30,44,0.7);
-            --text: #EAEDF0; --muted: #9AA0B0;
-            --accent: #C8A84E; --accent2: #E2C87A; --accent-glow: rgba(200,168,78,0.4);
-            --gradient: linear-gradient(135deg, #C8A84E, #E2C87A);
-            --card-bg: rgba(18,24,35,0.55); --card-border: rgba(255,255,255,0.1);
-            --input-bg: rgba(15,20,30,0.7); --input-border: rgba(200,168,78,0.4);
-            --green: #34D399; --red: #EF4444; --blue: #4FC3F7; --purple: #A78BFA; --orange: #FFA726;
+            --bg: #0B0F14; --foam: #F0F4F8; --frost: #4FC3F7;
+            --line: rgba(79,195,247,0.35); --accent: #00b894;
+            --card-bg: rgba(15,22,30,0.92); --gold: #D4AF37;
+            --gold-bright: #FFD700; --silver: #a8acb5;
+            --dark-silver: #545860; --input-bg: #f5f5f5;
+            --input-text: #1a1a1a; --chrome: #c0c3c8;
+            --display-bg: #0a0d11; --green: #34D399; --red: #EF4444;
+            --whatsapp-green: #25D366; --download-blue: #2196F3;
+            --label-color: #1a1a1a;
         }
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{
-            background: radial-gradient(ellipse at 50% 0%, #1a2030 0%, #080c14 55%);
-            color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: #111418;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" fill="none"/><path d="M0 0 L20 0 L20 20 L0 20 Z" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/></svg>');
+            background-size: 40px 40px;
+            color: var(--foam); font-family: 'Inter', sans-serif;
+            line-height: 1.6; min-height: 100vh;
         }
-        .container{max-width:800px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
-        .navbar{position:sticky;top:0;z-index:100;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.06)}
-        .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 0;flex-wrap:wrap;max-width:800px;margin:0 auto}
-        .logo{font-size:1.2rem;font-weight:700;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:.5px}
-        .nav-links{display:flex;gap:20px;list-style:none;flex-wrap:wrap}
-        .nav-links a{color:var(--muted);text-decoration:none;font-weight:500;font-size:.9rem;transition:color .2s}
-        .nav-links a:hover{color:var(--accent)}
-        h1{font-size:1.9rem;font-weight:800;margin:22px 0 10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;line-height:1.15}
-        h1 .icon{font-size:2rem}
-        h1 .coldmatrix{color:var(--accent);font-family:'Playfair Display',serif;letter-spacing:.5px}
-        h1 .title{color:var(--text);font-weight:600}
-        .header-rule{width:56px;height:3px;background:var(--gradient);border-radius:3px;margin:2px 0 12px}
-        .subtitle{color:#C9CDD6;margin-bottom:18px;font-size:.92rem;text-align:center;letter-spacing:.15px;line-height:1.6}
+        .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
 
-        .install-bar { background:var(--blue); color:#0A0F14; text-align:center; padding:12px; font-weight:600; border-radius:10px; margin:10px 0 20px; }
-        .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+        .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+        .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+        .logo { font-size:1.3rem; font-weight:700; color:var(--frost); text-decoration:none; display:flex; align-items:center; gap:8px; }
+        .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+        .nav-links a { color:#8B98A5; text-decoration:none; font-weight:500; font-size:0.95rem; }
+        .nav-links a:hover { color:var(--frost); }
 
-        .share-compact-card {
-            background: var(--card-bg); backdrop-filter: blur(14px);
-            border: 1px solid #D4AF37;
-            padding: 10px 12px; margin-top: 16px; margin-bottom: 18px;
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
+        .tool-title { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:700; color:#FFFFFF; text-shadow:0 2px 10px rgba(0,0,0,0.6); margin-bottom:6px; display:flex; align-items:center; gap:10px; }
+        .subtitle { color:#ccc; font-size:1rem; font-weight:500; text-shadow:0 1px 4px rgba(0,0,0,0.6); margin-bottom:20px; }
+        .live-badge { display:inline-block; color:var(--frost); font-size:0.85rem; font-weight:700; margin-bottom:20px; padding:4px 12px; border:1px solid var(--frost); border-radius:4px; background:rgba(79,195,247,0.1); }
+
+        .laptop-body {
+            background: linear-gradient(160deg, #a8acb5 0%, #7e828b 40%, #545860 100%);
+            border-radius: 28px; padding: 32px 30px; margin-top: 24px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.2), inset 0 1px 0 rgba(255,255,255,0.4);
+            position: relative;
         }
-        .share-compact-heading { text-align: center; font-size: 14px; font-weight: 700; color: #D4AF37; letter-spacing: 0.5px; text-transform: uppercase; margin: 0; }
-        .share-compact-btns { display: flex; gap: 8px; width: 100%; justify-content: center; }
-        .share-compact-btn {
-            flex: 1; max-width: 48%; height: 42px;
-            display: flex; align-items: center; justify-content: center; gap: 6px;
-            font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s ease;
-            background: rgba(15,20,30,0.8); backdrop-filter: blur(6px); color: #FFFFFF; text-decoration: none; border: none;
-        }
-        .share-compact-btn.whatsapp-compact { border: 1px solid #25D366; }
-        .share-compact-btn.copy-compact { border: 1px solid #D4AF37; }
-        .share-compact-btn i { font-size: 16px; }
-        .share-compact-btn.whatsapp-compact i { color: #25D366; }
-        .share-compact-btn.copy-compact i { color: #D4AF37; }
-        .share-compact-btn:hover { filter: brightness(1.1); }
+        .laptop-body::after { content:''; position:absolute; top:0;left:0;right:0;height:35%; background:linear-gradient(180deg,rgba(255,255,255,0.2) 0%,transparent 100%); border-radius:28px 28px 0 0; pointer-events:none; }
+        .state-badge { position:absolute; top:-10px; right:20px; background:linear-gradient(135deg,#FFD700,#FFA500); color:#0A0F14; font-family:'Oswald',sans-serif; font-weight:700; font-size:0.7rem; padding:4px 14px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; z-index:2; }
 
-        .card{background:var(--card-bg);backdrop-filter:blur(20px);border:1px solid var(--card-border);border-radius:18px;padding:22px 18px;margin-bottom:18px;position:relative;overflow:hidden;box-shadow:0 8px 35px rgba(0,0,0,0.5)}
-        .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient);opacity:.8}
-        .card h2{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;margin-bottom:14px;color:var(--accent);text-transform:uppercase;letter-spacing:.5px}
+        .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:18px 20px; margin-bottom:24px; box-shadow:0 10px 34px rgba(0,0,0,0.55); }
+        .share-tool-title { font-family:'Inter',sans-serif; font-weight:800; font-size:1rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:14px; text-transform:uppercase; }
+        .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; border-radius:8px; font-weight:700; font-size:0.85rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); }
+        .share-tool-btn:hover { border-color:#E8B93A; }
+        .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
 
-        .field{margin-bottom:14px}
-        .field label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:4px;font-weight:500}
-        .field input,.field select,.field textarea{width:100%;background:var(--input-bg);backdrop-filter:blur(8px);border:2px solid var(--input-border);color:var(--text);padding:12px 14px;border-radius:10px;font-size:.9rem;transition:all .3s ease}
-        .field input:focus,.field select:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 20px var(--accent-glow)}
-        .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        /* FORMAT TABS — Inactive buttons now have golden border */
+        .format-tabs { display:flex; gap:10px; margin-bottom:20px; position:relative; z-index:1; }
+        .format-tab { flex:1; padding:16px 10px; border:2px solid var(--gold); background:linear-gradient(180deg,#d0d2d6,#9ea0a5); color:#111; border-radius:14px; font-weight:700; font-size:0.85rem; cursor:pointer; text-align:center; box-shadow:0 3px 6px rgba(0,0,0,0.3); transition:0.2s; display:flex; flex-direction:column; align-items:center; gap:4px; }
+        .format-tab i { font-size:1.2rem; }
+        .format-tab.active { background:linear-gradient(180deg,#4FC3F7,#2196F3); color:#fff; border-color:#2196F3; box-shadow:0 5px 15px rgba(33,150,243,0.5); transform:translateY(-3px); }
+        .format-tab small { font-size:0.62rem; opacity:0.8; font-weight:500; }
 
-        .btn-calc{width:100%;background:var(--gradient);color:#0A0F14;border:none;padding:13px;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;margin-top:4px;letter-spacing:.6px;box-shadow:0 6px 20px var(--accent-glow);transition:.3s}
-        .btn-calc:hover{transform:translateY(-2px);box-shadow:0 10px 28px var(--accent-glow)}
-        .btn-calc:disabled{opacity:.5;cursor:not-allowed;transform:none}
+        .upload-area { border:2px dashed var(--gold); border-radius:16px; padding:30px 20px; text-align:center; cursor:pointer; transition:0.3s; background:rgba(0,0,0,0.12); position:relative; z-index:1; margin-bottom:14px; animation:pulseBorder 2.5s infinite; }
+        @keyframes pulseBorder { 0%,100%{border-color:var(--gold);box-shadow:0 0 8px rgba(212,175,55,0.15)} 50%{border-color:var(--gold-bright);box-shadow:0 0 18px rgba(255,215,0,0.35)} }
+        .upload-area:hover { border-color:#fff; background:rgba(79,195,247,0.04); }
+        .upload-area i { font-size:2.2rem; color:var(--gold); margin-bottom:8px; }
+        .upload-area p { color:#333; font-weight:600; font-size:0.85rem; }
 
-        .file-drop-area {
-            border: 2px dashed var(--input-border);
-            border-radius: 12px;
-            padding: 28px;
-            text-align: center;
-            cursor: pointer;
-            transition: .3s;
-            background: rgba(15,20,30,0.6);
-            margin-bottom: 12px;
-        }
-        .file-drop-area:hover, .file-drop-area.drag-over { border-color: var(--accent2); background: rgba(15,20,30,0.8); }
-        .file-drop-area i { font-size: 2rem; color: var(--accent); }
-        .file-drop-area p { color: var(--muted); margin-top: 6px; font-size: .85rem; }
+        .original-preview { display:none; margin-bottom:16px; position:relative; z-index:1; }
+        .original-preview .label { font-family:'Oswald',sans-serif; font-size:0.85rem; font-weight:700; color:var(--label-color); text-transform:uppercase; margin-bottom:8px; }
+        .original-preview img { width:100%; max-height:220px; object-fit:contain; border-radius:10px; background:rgba(0,0,0,0.3); border:1px solid #999; }
+        .original-preview .img-size { margin-top:8px; font-weight:700; font-size:0.9rem; color:var(--label-color); }
 
-        .slider-container { display: flex; align-items: center; gap: 12px; }
-        .slider-container input[type=range] { flex:1; -webkit-appearance:none; height:6px; background: var(--input-bg); border-radius:3px; outline:none; }
-        .slider-container input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; background: var(--accent); border-radius:50%; cursor:pointer; }
-        .slider-value { font-weight:700; color: var(--accent); min-width: 45px; text-align: center; }
+        .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .field { margin-bottom:14px; position:relative; z-index:1; }
+        .field label { display:block; font-size:0.85rem; color:var(--label-color); font-weight:700; margin-bottom:6px; }
+        .field input, .field select { width:100%; background:var(--input-bg); border:2px solid var(--chrome); color:var(--input-text); padding:12px 14px; border-radius:8px; font-size:0.95rem; font-weight:500; outline:none; }
+        .field input:focus, .field select:focus { border-color:#2196F3; box-shadow:0 0 10px rgba(33,150,243,0.4); }
 
-        .feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px,1fr)); gap: 10px; margin-bottom: 14px; }
-        .feature-item { background: rgba(200,168,78,0.08); border: 1px solid var(--accent); border-radius: 12px; padding: 14px 8px; min-height:86px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; text-align:center; }
-        .feature-item .fi-icon{font-size:1.35rem; line-height:1;}
-        .feature-item .fi-label{font-size:.72rem; font-weight:600; line-height:1.35; color:var(--text);}
+        .btn-gold { width:100%; background:linear-gradient(180deg,#FFD700,#D4AF37); color:#0A0F14; border:2px solid #B8960F; padding:18px; border-radius:14px; font-family:'Oswald',sans-serif; font-weight:700; font-size:1.1rem; cursor:pointer; text-transform:uppercase; letter-spacing:1px; box-shadow:0 6px 20px rgba(212,175,55,0.5); transition:0.2s; margin-top:8px; position:relative; z-index:1; }
+        .btn-gold:hover { background:linear-gradient(180deg,#FFE44D,#E8C84A); box-shadow:0 10px 28px rgba(255,215,0,0.6); transform:translateY(-2px); }
+        .btn-gold:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
 
-        /* Presets */
-        .preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
-        .preset-btn{background:rgba(15,20,30,0.7);border:1.5px solid var(--input-border);color:var(--text);border-radius:10px;padding:10px 8px;font-size:.78rem;font-weight:600;cursor:pointer;text-align:left;transition:.2s;display:flex;flex-direction:column;gap:2px}
-        .preset-btn:hover{border-color:var(--accent2);background:rgba(200,168,78,0.1)}
-        .preset-btn.active{border-color:var(--accent);background:rgba(200,168,78,0.18);box-shadow:0 0 0 1px var(--accent)}
-        .preset-btn small{color:var(--muted);font-weight:500}
+        .result-section { display:none; margin-top:20px; position:relative; z-index:1; }
+        .result-box { background:var(--display-bg); border-radius:14px; padding:20px; border:2px solid #888; box-shadow:inset 0 0 20px rgba(0,0,0,0.6),0 4px 8px rgba(0,0,0,0.4); color:#e0e0e0; }
+        .result-box .label { font-family:'Oswald',sans-serif; font-size:0.85rem; font-weight:700; color:var(--gold); text-transform:uppercase; margin-bottom:10px; }
+        .result-box img { width:100%; max-height:200px; object-fit:contain; border-radius:8px; background:rgba(0,0,0,0.3); }
+        .result-box .img-size { margin-top:8px; font-weight:700; font-size:0.9rem; color:var(--green); }
 
-        /* Toggle pills */
-        .pill-toggle{display:flex;background:rgba(15,20,30,0.7);border:1.6px solid var(--input-border);border-radius:10px;padding:4px;gap:4px}
-        .pill-toggle button{flex:1;background:transparent;border:none;color:var(--muted);padding:9px 6px;border-radius:7px;font-weight:700;font-size:.82rem;cursor:pointer;transition:.2s}
-        .pill-toggle button.active{background:var(--gradient);color:#0A0F14}
+        .size-compare { text-align:center; padding:14px; margin:12px 0; background:rgba(212,175,55,0.08); border:1px solid var(--gold); border-radius:10px; font-weight:700; font-size:0.95rem; color:#fff; }
+        .size-compare .arrow { color:var(--gold); margin:0 8px; }
+        .size-compare .saved { color:var(--green); font-size:0.8rem; margin-top:4px; }
 
-        .fit-note{font-size:.75rem;color:var(--muted);margin-top:6px;line-height:1.5}
+        /* ACTION BUTTONS — Download is now blue, WhatsApp is green */
+        .action-buttons { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+        .action-btn { padding:12px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:700; font-size:0.8rem; display:flex; align-items:center; gap:6px; text-transform:uppercase; color:#fff; }
+        .download-action { background:var(--download-blue); }
+        .whatsapp-action { background:var(--whatsapp-green); }
+        .jpg-action { background:#6C5CE7; }
 
-        /* Batch results grid */
-        .batch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:6px}
-        .batch-item{background:rgba(15,20,30,0.6);border:1px solid var(--card-border);border-radius:12px;padding:10px;position:relative}
-        .batch-item img{width:100%;border-radius:8px;display:block;background:#000;object-fit:contain;height:120px;}
-        .batch-item .name{font-size:.72rem;color:var(--muted);margin-top:6px;word-break:break-all}
-        .reduction-badge{position:absolute;top:6px;right:6px;background:var(--green);color:#06210f;font-weight:800;font-size:.68rem;padding:3px 8px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,0.4)}
-        .pending-badge{margin-top:8px;background:rgba(200,168,78,0.14);border:1px solid var(--accent);color:var(--accent2);font-weight:700;font-size:.68rem;padding:6px 8px;border-radius:8px;text-align:center;line-height:1.4}
-        .batch-item .mini-actions{display:flex;gap:6px;margin-top:8px}
-        .batch-item .mini-actions button{flex:1;background:var(--input-bg);border:1px solid var(--input-border);color:var(--text);border-radius:7px;padding:6px 4px;font-size:.7rem;cursor:pointer}
-        .batch-item .mini-actions button:hover{border-color:var(--accent2)}
-        .batch-remove{position:absolute;top:6px;left:6px;background:rgba(0,0,0,0.6);color:#fff;border:none;width:22px;height:22px;border-radius:50%;font-size:.75rem;cursor:pointer;z-index:2}
+        .contact-note { margin-top:20px; padding:14px; background:rgba(0,0,0,0.4); border:1px dashed var(--frost); border-radius:12px; text-align:center; color:#fff; position:relative; z-index:1; }
+        footer { text-align:center; color:#ccc; font-size:0.8rem; margin-top:30px; padding:20px 0; border-top:1px solid #444; }
+        footer a { color:var(--frost); text-decoration:none; }
 
-        .file-list-chip{display:inline-flex;align-items:center;gap:6px;background:rgba(200,168,78,0.1);border:1px solid var(--accent);border-radius:20px;padding:5px 10px 5px 12px;font-size:.75rem;margin:3px}
-        .file-list-chip button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.8rem}
-
-        #downloadAllBtn{background:var(--gradient);color:#0A0F14;border:none;border-radius:10px;padding:13px;font-weight:800;width:100%;margin-top:12px;cursor:pointer;letter-spacing:.5px}
-
-        footer{text-align:center;color:var(--muted);font-size:.7rem;padding:30px 0 20px;border-top:1px solid rgba(255,255,255,0.06);margin-top:40px}
-        footer a{color:var(--accent);text-decoration:none}
-        .thankyou{font-size:.72rem;color:var(--muted);text-align:center;margin-top:6px;line-height:1.6}
-        @media(max-width:600px){.row2{grid-template-columns:1fr}.preset-grid{grid-template-columns:1fr 1fr}}
+        @media (max-width:768px) { .laptop-body { padding:24px 16px; } .grid-2 { grid-template-columns:1fr; } .format-tabs { flex-wrap:wrap; } .format-tab { flex:1 1 45%; } }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container nav-inner">
-            <a href="index.html" class="logo">❄️ ColdMatrix</a>
-            <ul class="nav-links">
-                <li><a href="index.html">🏠 Home</a></li>
-                <li><a href="index.html#tools">🛠️ Tools</a></li>
-                <li><a href="about.html">ℹ️ About</a></li>
-                <li><a href="contact.html">📞 Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+<div id="cmInstallBar" style="display:none;background:#4FC3F7;color:#0A0F14;text-align:center;padding:12px;font-weight:600;border-radius:10px;margin:16px auto;max-width:900px;">📱 Add ColdMatrix to your Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
 
-    <div class="container">
-        <div class="install-bar" id="installBar" style="display:none;">📱 Add to Home Screen <button onclick="installApp()">Add</button></div>
+<nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
 
-        <h1>
-            <span class="icon">🖼️</span>
-            <span class="coldmatrix">ColdMatrix</span>
-            <span class="title">Image Converter &amp; Resizer</span>
-        </h1>
-        <div class="header-rule"></div>
-        <p class="subtitle">Batch resize, strict no-crop fit &amp; KB/MB compression — ZIP download.</p>
+<div class="container">
+    <div class="tool-title"><span>🖼️</span> ColdMatrix Image Converter & Resizer</div>
+    <p class="subtitle">Convert images to JPG, PNG, WebP, or PDF — resize without cropping. Instant, private, executive‑grade.</p>
+    <div class="share-tool-card"><div class="share-tool-title">Share Image Converter</div><div class="share-tool-buttons"><button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button><button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button></div></div>
+    <div><span class="live-badge">● Live</span></div>
 
-        <div class="share-compact-card">
-            <div class="share-compact-heading">SHARE THIS TOOL</div>
-            <div class="share-compact-btns">
-                <button class="share-compact-btn whatsapp-compact" onclick="shareToolWhatsApp()">
-                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
-                </button>
-                <button class="share-compact-btn copy-compact" onclick="copyToolLink()">
-                    <i class="fa-solid fa-link"></i> Copy Link
-                </button>
-            </div>
+    <div class="laptop-body">
+        <div class="state-badge">State of the Art Tool</div>
+        <div style="background:rgba(0,0,0,0.2);padding:10px 14px;border-radius:8px;margin-bottom:18px;font-size:0.85rem;position:relative;z-index:1;">❄️ <strong style="color:#4FC3F7;">ColdMatrix Note:</strong> All processing happens inside your browser. Nothing is uploaded anywhere.</div>
+
+        <!-- FORMAT TABS with golden border on inactive -->
+        <div style="font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:var(--label-color);margin-bottom:8px;position:relative;z-index:1;">SELECT OUTPUT FORMAT</div>
+        <div class="format-tabs" id="formatTabs">
+            <button class="format-tab active" data-format="image/jpeg"><i class="far fa-file-image"></i> JPG<small>Best for photos</small></button>
+            <button class="format-tab" data-format="image/png"><i class="far fa-file-image"></i> PNG<small>Transparency</small></button>
+            <button class="format-tab" data-format="image/webp"><i class="far fa-file-image"></i> WebP<small>Smaller size</small></button>
+            <button class="format-tab" data-format="application/pdf"><i class="far fa-file-pdf"></i> PDF<small>Document</small></button>
         </div>
 
-        <div class="card">
-            <h2>✨ What You Can Do</h2>
-            <div class="feature-list">
-                <div class="feature-item"><span class="fi-icon">📦</span><span class="fi-label">Batch Convert<br>Multiple Images</span></div>
-                <div class="feature-item"><span class="fi-icon">📐</span><span class="fi-label">Social Media<br>Presets</span></div>
-                <div class="feature-item"><span class="fi-icon">🛡️</span><span class="fi-label">No-Crop Fit<br>Guaranteed</span></div>
-                <div class="feature-item"><span class="fi-icon">🎯</span><span class="fi-label">Exact Target<br>Size (KB/MB)</span></div>
-                <div class="feature-item"><span class="fi-icon">📸</span><span class="fi-label">JPG / PNG /<br>WebP</span></div>
-                <div class="feature-item"><span class="fi-icon">🗜️</span><span class="fi-label">ZIP<br>Download</span></div>
-            </div>
-            <p style="font-size:.8rem;color:var(--muted);">Upload images, select your target size or format, and convert instantly. Fully private inside your browser.</p>
+        <!-- UPLOAD -->
+        <div style="font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:var(--label-color);margin-bottom:8px;position:relative;z-index:1;">📤 UPLOAD IMAGE</div>
+        <div class="upload-area" id="dropArea">
+            <input type="file" id="fileInput" accept="image/*" style="display:none;">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Tap here to upload an image<br><small>JPG, PNG, BMP, WebP, GIF — one at a time</small></p>
         </div>
 
-        <div class="card">
-            <h2>📤 Upload Images</h2>
-            <div class="file-drop-area" id="dropArea">
-                <input type="file" id="fileInput" accept="image/*" multiple style="display:none;">
-                <i class="fa-solid fa-cloud-arrow-up"></i>
-                <p>Tap to upload or drop images here (multiple allowed)<br><small>JPG, PNG, BMP, WebP, GIF</small></p>
-            </div>
-            <div id="fileChips"></div>
+        <!-- ORIGINAL PREVIEW -->
+        <div class="original-preview" id="originalPreview">
+            <div class="label">📤 Original Image</div>
+            <img id="previewOriginal" alt="Original image">
+            <div class="img-size" id="previewOriginalSize">—</div>
         </div>
 
-        <div class="card" id="previewCard" style="display:none;">
-            <h2>👁️ Ready to Convert</h2>
-            <p style="font-size:.78rem;color:var(--muted);margin-bottom:12px;">Your uploaded files. The badge below shows how they will be optimized.</p>
-            <div class="batch-grid" id="previewGrid"></div>
+        <!-- OPTIONS with brighter labels -->
+        <div id="optionsSection" style="display:none;">
+            <div style="font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:var(--label-color);margin-bottom:8px;">⚙️ RESIZE (OPTIONAL)</div>
+            <div class="grid-2">
+                <div class="field"><label>Width (px)</label><input type="number" id="resizeW" placeholder="e.g. 1080"></div>
+                <div class="field"><label>Height (px)</label><input type="number" id="resizeH" placeholder="e.g. 1080"></div>
+            </div>
+            <div class="field" id="qualityField"><label>Compression Quality (%)</label><input type="number" id="quality" value="85" min="10" max="100"></div>
+            <button class="btn-gold" id="convertBtn" onclick="convertImage()"><i class="fas fa-magic"></i> Convert & Download</button>
         </div>
 
-        <div class="card" id="optionsCard" style="display:none;">
-            <h2>📐 Quick Presets</h2>
-            <div class="preset-grid" id="presetGrid"></div>
-
-            <h2 style="margin-top:18px;">⚙️ Settings</h2>
-            <div class="row2">
-                <div class="field">
-                    <label>Width (px) – blank keeps original</label>
-                    <input type="number" id="widthPx" placeholder="e.g. 1080">
-                </div>
-                <div class="field">
-                    <label>Height (px) – blank keeps original</label>
-                    <input type="number" id="heightPx" placeholder="e.g. 1080">
-                </div>
+        <!-- RESULT SECTION -->
+        <div class="result-section" id="resultSection">
+            <div class="result-box">
+                <div class="label">✅ Converted Result</div>
+                <img id="previewConverted" alt="Converted image" style="display:none;">
+                <p id="convertedPlaceholder" style="color:#555;font-size:0.8rem;margin:20px 0;">📄 Processing result...</p>
+                <div class="img-size" id="previewConvertedSize" style="color:var(--green);">—</div>
             </div>
-
-            <!-- Fit Mode defaulted to 'contain' to prevent unwanted cropping -->
-            <div class="field" id="fitModeField">
-                <label>Fit Mode (Prevents Cropping)</label>
-                <div class="pill-toggle" id="fitModeToggle">
-                    <button data-fit="contain" class="active">Contain (No Crop / Letterbox)</button>
-                    <button data-fit="cover">Cover (Fill &amp; Crop)</button>
-                </div>
+            <div class="size-compare" id="sizeCompare" style="display:none;">
+                <span id="origSizeDisplay">—</span><span class="arrow">→</span><span id="convSizeDisplay" style="color:var(--green);">—</span>
+                <div class="saved" id="savedDisplay"></div>
             </div>
-
-            <div class="field">
-                <label>Output Format</label>
-                <select id="outputFormat">
-                    <option value="image/jpeg">JPG (JPEG)</option>
-                    <option value="image/png">PNG</option>
-                    <option value="image/webp">WebP</option>
-                </select>
+            <!-- ACTION BUTTONS with proper colors -->
+            <div class="action-buttons" id="actionButtons" style="display:none;">
+                <button class="action-btn download-action" onclick="downloadImage()"><i class="fas fa-download"></i> Download</button>
+                <button class="action-btn whatsapp-action" onclick="shareResult()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+                <button class="action-btn jpg-action" onclick="copyToClipboard()"><i class="fas fa-copy"></i> Copy</button>
             </div>
-
-            <div class="field">
-                <label>Compression Mode</label>
-                <div class="pill-toggle" id="compressModeToggle">
-                    <button data-mode="quality" class="active">Quality %</button>
-                    <button data-mode="target">Target File Size (KB)</button>
-                </div>
-            </div>
-
-            <div class="field" id="qualityField">
-                <label>Compression Quality (%) <span style="color:var(--accent);font-weight:600;">– lower = smaller file size</span></label>
-                <div class="slider-container">
-                    <input type="range" id="qualitySlider" min="10" max="100" value="85" step="1">
-                    <span class="slider-value" id="qualityValue">85%</span>
-                </div>
-            </div>
-
-            <div class="field" id="targetField" style="display:none;">
-                <label>Target Max File Size (KB) <span style="color:var(--accent);font-weight:600;">– auto-fits down to your limit</span></label>
-                <input type="number" id="targetKB" placeholder="e.g. 200" min="10">
-                <p class="fit-note">Achieves target KB size dynamically (ideal for strict upload forms).</p>
-            </div>
-
-            <button class="btn-calc" onclick="processAll()">🔄 Convert All Images Now</button>
         </div>
 
-        <div class="card" id="resultCard" style="display:none;">
-            <h2>📸 Converted Results</h2>
-            <div class="batch-grid" id="batchGrid"></div>
-            <button id="downloadAllBtn" style="display:none;" onclick="downloadAllZip()"><i class="fa-solid fa-file-zipper"></i> Download All as ZIP</button>
-        </div>
-
-        <div style="font-size:.7rem;color:var(--muted);margin-top:12px;border-top:1px solid rgba(255,255,255,0.06);padding-top:10px;text-align:center;">
-            ℹ️ All processing happens directly inside your web browser. Nothing is uploaded anywhere.
-        </div>
+        <div class="contact-note">❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>For queries: <strong>+92 333 3228470</strong> | <strong>contact@coldmatrixtools.com</strong></div>
     </div>
+    <footer>Powered by <a href="index.html">ColdMatrix</a> — Professional Engineering Tools.</footer>
+</div>
 
-    <footer>
-        Powered by <a href="index.html">ColdMatrix</a> — Luxury Executive Tools.
-        <div class="thankyou">Thank you for using ColdMatrix Tools 🙏<br>
-        Questions or feedback? <a href="mailto:contact@coldmatrixtools.com">contact@coldmatrixtools.com</a> · WhatsApp <a href="https://wa.me/923333228470">+92 333 3228470</a></div>
-    </footer>
+<script>
+    let currentFile = null, currentBlob = null, currentUrl = null, selectedFormat = 'image/jpeg';
 
-    <script>
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt',function(e){
-            e.preventDefault();
-            deferredPrompt=e;
-            document.getElementById('installBar').style.display='block';
-        });
-        function installApp(){
-            if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(){document.getElementById('installBar').style.display='none';});}
+    document.getElementById('formatTabs').addEventListener('click', function(e) {
+        const tab = e.target.closest('.format-tab');
+        if (!tab) return;
+        document.querySelectorAll('.format-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        selectedFormat = tab.dataset.format;
+        document.getElementById('qualityField').style.display = selectedFormat === 'application/pdf' ? 'none' : 'block';
+    });
+
+    const dropArea = document.getElementById('dropArea');
+    const fileInput = document.getElementById('fileInput');
+    dropArea.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+    function handleFile(file) {
+        if (!file || !file.type.startsWith('image/')) return;
+        currentFile = file;
+        currentBlob = null; currentUrl = null;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('previewOriginal').src = e.target.result;
+            document.getElementById('originalPreview').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+        document.getElementById('previewOriginalSize').textContent = formatBytes(file.size);
+        document.getElementById('optionsSection').style.display = 'block';
+        document.getElementById('resultSection').style.display = 'none';
+    }
+
+    async function convertImage() {
+        if (!currentFile) return;
+        const btn = document.getElementById('convertBtn');
+        btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Converting...';
+
+        const format = selectedFormat;
+        const quality = parseInt(document.getElementById('quality').value) / 100;
+        const targetW = parseInt(document.getElementById('resizeW').value) || null;
+        const targetH = parseInt(document.getElementById('resizeH').value) || null;
+
+        const img = new Image();
+        const reader = new FileReader();
+        await new Promise((resolve) => { reader.onload = (e) => { img.src = e.target.result; }; reader.readAsDataURL(currentFile); img.onload = resolve; });
+
+        let canvasW = targetW || img.naturalWidth, canvasH = targetH || img.naturalHeight;
+        if (targetW && !targetH) canvasH = Math.round(targetW / img.naturalWidth * img.naturalHeight);
+        else if (targetH && !targetW) canvasW = Math.round(targetH / img.naturalHeight * img.naturalWidth);
+
+        const canvas = document.createElement('canvas'); canvas.width = canvasW; canvas.height = canvasH;
+        const ctx = canvas.getContext('2d');
+        if (format !== 'image/png') { ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+        const scale = Math.min(canvasW / img.naturalWidth, canvasH / img.naturalHeight);
+        const dw = Math.round(img.naturalWidth * scale), dh = Math.round(img.naturalHeight * scale);
+        const dx = Math.round((canvasW - dw) / 2), dy = Math.round((canvasH - dh) / 2);
+        ctx.drawImage(img, dx, dy, dw, dh);
+
+        let blob;
+        if (format === 'application/pdf') {
+            const pdfCanvas = document.createElement('canvas'); pdfCanvas.width = canvasW; pdfCanvas.height = canvasH;
+            const pdfCtx = pdfCanvas.getContext('2d'); pdfCtx.fillStyle = '#FFFFFF'; pdfCtx.fillRect(0, 0, pdfCanvas.width, pdfCanvas.height);
+            pdfCtx.drawImage(canvas, 0, 0);
+            blob = await new Promise(resolve => pdfCanvas.toBlob(resolve, 'image/jpeg', 0.92));
+        } else {
+            blob = await new Promise(resolve => canvas.toBlob(resolve, format, quality));
         }
+        currentBlob = blob; currentUrl = URL.createObjectURL(blob);
 
-        function shareToolWhatsApp() {
-            const text = encodeURIComponent("🖼️ Image Converter & Resizer — batch resize & KB target without cropping. Free tool by ColdMatrix.\n👉 https://coldmatrixtools.com/image-converter-tool.html");
-            window.open('https://wa.me/?text=' + text, '_blank');
-        }
-        function copyToolLink() {
-            const url = "https://coldmatrixtools.com/image-converter-tool.html";
-            navigator.clipboard.writeText(url).then(() => alert('Tool link copied!')).catch(() => prompt('Copy this link:', url));
-        }
+        document.getElementById('resultSection').style.display = 'block';
+        const convImg = document.getElementById('previewConverted');
+        if (format !== 'application/pdf') { convImg.src = currentUrl; convImg.style.display = 'block'; document.getElementById('convertedPlaceholder').style.display = 'none'; }
+        else { convImg.style.display = 'none'; document.getElementById('convertedPlaceholder').style.display = 'block'; document.getElementById('convertedPlaceholder').textContent = '📄 PDF ready for download'; }
+        document.getElementById('previewConvertedSize').textContent = formatBytes(blob.size);
 
-        const PRESETS = [
-            { key:'custom', label:'Custom Size', sub:'Set your own dimensions', w:null, h:null },
-            { key:'ig-square', label:'Instagram Post', sub:'1080 × 1080', w:1080, h:1080 },
-            { key:'whatsapp-dp', label:'WhatsApp DP', sub:'500 × 500', w:500, h:500 },
-            { key:'passport', label:'Passport Photo', sub:'413 × 531', w:413, h:531 },
-            { key:'hd', label:'HD Standard', sub:'1280 × 720', w:1280, h:720 }
-        ];
-        let activePreset = 'custom';
-        const presetGrid = document.getElementById('presetGrid');
-        PRESETS.forEach(p=>{
-            const btn=document.createElement('button');
-            btn.className='preset-btn'+(p.key==='custom'?' active':'');
-            btn.dataset.key=p.key;
-            btn.innerHTML=`${p.label}<small>${p.sub}</small>`;
-            btn.onclick=()=>{
-                activePreset=p.key;
-                document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));
-                btn.classList.add('active');
-                document.getElementById('widthPx').value = p.w || '';
-                document.getElementById('heightPx').value = p.h || '';
-                updatePendingBadges();
-            };
-            presetGrid.appendChild(btn);
-        });
+        document.getElementById('origSizeDisplay').textContent = formatBytes(currentFile.size);
+        document.getElementById('convSizeDisplay').textContent = formatBytes(blob.size);
+        const saved = ((1 - blob.size / currentFile.size) * 100).toFixed(1);
+        document.getElementById('savedDisplay').textContent = saved > 0 ? `Saved ${saved}%` : '';
+        document.getElementById('sizeCompare').style.display = 'block';
+        document.getElementById('actionButtons').style.display = 'flex';
 
-        // Fit mode toggle (Defaults to contain so it never crops)
-        let fitMode='contain';
-        document.getElementById('fitModeToggle').addEventListener('click', e=>{
-            const btn=e.target.closest('button[data-fit]');
-            if(!btn) return;
-            setFitMode(btn.dataset.fit);
-        });
-        function setFitMode(mode){
-            fitMode=mode;
-            document.querySelectorAll('#fitModeToggle button').forEach(b=>b.classList.toggle('active', b.dataset.fit===mode));
-            updatePendingBadges();
-        }
+        btn.disabled = false; btn.innerHTML = '<i class="fas fa-magic"></i> Convert & Download';
+        document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+    }
 
-        let compressMode='quality';
-        document.getElementById('compressModeToggle').addEventListener('click', e=>{
-            const btn=e.target.closest('button[data-mode]');
-            if(!btn) return;
-            compressMode=btn.dataset.mode;
-            document.querySelectorAll('#compressModeToggle button').forEach(b=>b.classList.toggle('active', b.dataset.mode===compressMode));
-            document.getElementById('qualityField').style.display = compressMode==='quality' ? 'block' : 'none';
-            document.getElementById('targetField').style.display = compressMode==='target' ? 'block' : 'none';
-            updatePendingBadges();
-        });
+    function downloadImage() { if (!currentUrl) return; const ext = selectedFormat === 'application/pdf' ? 'pdf' : selectedFormat.split('/')[1]; const a = document.createElement('a'); a.href = currentUrl; a.download = (currentFile.name.replace(/\.[^/.]+$/, '')) + '_converted.' + ext; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
+    function shareResult() { window.open('https://wa.me/?text=' + encodeURIComponent("🖼️ Image converted with ColdMatrix Tools!\n\n🔗 https://coldmatrixtools.com/image-converter-tool.html")); }
+    async function copyToClipboard() { if (!currentBlob) return; try { await navigator.clipboard.write([new ClipboardItem({ [currentBlob.type]: currentBlob })]); alert('Image copied!'); } catch { alert('Copy failed. Please download.'); } }
+    function formatBytes(bytes) { if (bytes === 0) return '0 Bytes'; const k = 1024, sizes = ['Bytes', 'KB', 'MB', 'GB']; const i = Math.floor(Math.log(bytes) / Math.log(k)); return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]; }
+    function shareToolWhatsApp() { window.open('https://wa.me/?text=' + encodeURIComponent("🖼️ Image Converter & Resizer — free, instant, private.\n👉 https://coldmatrixtools.com/image-converter-tool.html")); }
+    function copyToolLink() { navigator.clipboard.writeText("https://coldmatrixtools.com/image-converter-tool.html").then(() => alert('Link copied!')); }
 
-        const qualitySlider = document.getElementById('qualitySlider');
-        const qualityValue = document.getElementById('qualityValue');
-        qualitySlider.addEventListener('input', () => { qualityValue.textContent = qualitySlider.value + '%'; updatePendingBadges(); });
-        document.getElementById('outputFormat').addEventListener('change', updatePendingBadges);
-        document.getElementById('targetKB').addEventListener('input', updatePendingBadges);
-        document.getElementById('widthPx').addEventListener('input', updatePendingBadges);
-        document.getElementById('heightPx').addEventListener('input', updatePendingBadges);
-
-        function describeTransform(){
-            const width = parseInt(document.getElementById('widthPx').value)||null;
-            const height = parseInt(document.getElementById('heightPx').value)||null;
-            const format = document.getElementById('outputFormat').value.split('/')[1].toUpperCase();
-            let sizePart = (width || height) ? `${width||'auto'}×${height||'auto'}` : 'Original size';
-            let modeText = fitMode === 'contain' ? 'No Crop' : 'Crop Fill';
-            let compressPart = compressMode === 'target' ? `target ≤ ${document.getElementById('targetKB').value||'?'}KB` : `${qualitySlider.value}% quality`;
-            return `→ ${sizePart} (${modeText}) · ${format} · ${compressPart}`;
-        }
-
-        function updatePendingBadges(){
-            document.querySelectorAll('#previewGrid .pending-badge').forEach(el=>{ el.textContent = describeTransform(); });
-        }
-
-        let items = [];
-        let idCounter = 0;
-
-        const dropArea = document.getElementById('dropArea');
-        const fileInput = document.getElementById('fileInput');
-        dropArea.addEventListener('click', () => fileInput.click());
-        fileInput.addEventListener('change', () => handleFiles(fileInput.files));
-
-        function handleFiles(fileList){
-            const files = Array.from(fileList).filter(f=>f.type.startsWith('image/'));
-            if(!files.length) return;
-            files.forEach(file=>{
-                const id = 'img'+(idCounter++);
-                const img = new Image();
-                const reader = new FileReader();
-                const it = { id, file, img, originalSize:file.size, resultBlob:null };
-                reader.onload = e=>{ img.src = e.target.result; renderPreviewGrid(); };
-                reader.readAsDataURL(file);
-                items.push(it);
-            });
-            renderChips();
-            renderPreviewGrid();
-            document.getElementById('optionsCard').style.display = items.length ? 'block' : 'none';
-        }
-
-        function renderPreviewGrid(){
-            const card = document.getElementById('previewCard');
-            const grid = document.getElementById('previewGrid');
-            if(!items.length){ card.style.display='none'; return; }
-            card.style.display='block';
-            grid.innerHTML='';
-            items.forEach(it=>{
-                const div = document.createElement('div');
-                div.className = 'batch-item';
-                div.innerHTML = `
-                    <button class="batch-remove" title="Remove">✕</button>
-                    <img src="${it.img.src || ''}" alt="">
-                    <div class="name">${it.file.name}</div>
-                    <div class="size-info">${formatBytes(it.originalSize)}</div>
-                    <div class="pending-badge">${describeTransform()}</div>
-                `;
-                div.querySelector('.batch-remove').onclick=()=>{
-                    items = items.filter(x=>x.id!==it.id);
-                    renderChips(); renderPreviewGrid();
-                    if(!items.length) document.getElementById('optionsCard').style.display='none';
-                };
-                grid.appendChild(div);
-            });
-        }
-
-        function renderChips(){
-            const wrap = document.getElementById('fileChips');
-            wrap.innerHTML='';
-            items.forEach(it=>{
-                const chip=document.createElement('span');
-                chip.className='file-list-chip';
-                chip.innerHTML = `${it.file.name} (${formatBytes(it.originalSize)}) `;
-                const rm=document.createElement('button');
-                rm.innerHTML='✕';
-                rm.onclick=()=>{ items=items.filter(x=>x.id!==it.id); renderChips(); renderPreviewGrid(); };
-                chip.appendChild(rm);
-                wrap.appendChild(chip);
-            });
-        }
-
-        // --- Core Resizing Math (Ensures NO Cropping on Contain mode) ---
-        function computeDraw(img, targetW, targetH, mode){
-            const natW = img.naturalWidth, natH = img.naturalHeight;
-            if(!targetW && !targetH){
-                return { canvasW:natW, canvasH:natH, sx:0, sy:0, sw:natW, sh:natH, dx:0, dy:0, dw:natW, dh:natH };
-            }
-            if(targetW && !targetH){
-                const h = Math.round(targetW / natW * natH);
-                return { canvasW:targetW, canvasH:h, sx:0, sy:0, sw:natW, sh:natH, dx:0, dy:0, dw:targetW, dh:h };
-            }
-            if(targetH && !targetW){
-                const w = Math.round(targetH / natH * natW);
-                return { canvasW:w, canvasH:targetH, sx:0, sy:0, sw:natW, sh:natH, dx:0, dy:0, dw:w, dh:targetH };
-            }
-
-            if(mode === 'cover'){
-                const targetRatio = targetW / targetH, srcRatio = natW / natH;
-                let sx, sy, sw, sh;
-                if(srcRatio > targetRatio){ sh = natH; sw = sh * targetRatio; sx = (natW - sw) / 2; sy = 0; }
-                else { sw = natW; sh = sw / targetRatio; sx = 0; sy = (natH - sh) / 2; }
-                return { canvasW: targetW, canvasH: targetH, sx, sy, sw, sh, dx: 0, dy: 0, dw: targetW, dh: targetH };
-            } else {
-                // CONTAIN MODE: Prevents cropping entirely by scaling to fit inside boundaries with padding if needed
-                const scale = Math.min(targetW / natW, targetH / natH);
-                const dw = Math.round(natW * scale);
-                const dh = Math.round(natH * scale);
-                const dx = Math.round((targetW - dw) / 2);
-                const dy = Math.round((targetH - dh) / 2);
-                return { canvasW: targetW, canvasH: targetH, sx: 0, sy: 0, sw: natW, sh: natH, dx, dy, dw, dh };
-            }
-        }
-
-        function blobAtQuality(canvas, format, quality){
-            return new Promise(resolve => canvas.toBlob(b => resolve(b), format, format === 'image/png' ? undefined : quality));
-        }
-
-        async function findQualityForTarget(canvas, format, targetBytes){
-            let low = 0.05, high = 0.97, best = null;
-            for(let i = 0; i < 6; i++){
-                const mid = (low + high) / 2;
-                const blob = await blobAtQuality(canvas, format, mid);
-                if(blob.size > targetBytes){ high = mid; }
-                else { best = blob; low = mid; }
-            }
-            return best || await blobAtQuality(canvas, format, low);
-        }
-
-        async function processAll(){
-            if(!items.length) return;
-            const width = parseInt(document.getElementById('widthPx').value) || null;
-            const height = parseInt(document.getElementById('heightPx').value) || null;
-            const format = document.getElementById('outputFormat').value;
-            const quality = parseInt(qualitySlider.value)/100;
-            const targetKB = parseInt(document.getElementById('targetKB').value) || null;
-            const useTarget = compressMode === 'target' && format !== 'image/png' && targetKB;
-
-            const btn = document.querySelector('#optionsCard .btn-calc');
-            btn.disabled = true; btn.textContent = '⏳ Processing...';
-
-            const grid = document.getElementById('batchGrid');
-            grid.innerHTML = '';
-
-            for(const it of items){
-                await new Promise(res => { if(it.img.complete && it.img.naturalWidth) res(); else it.img.onload = res; });
-                const draw = computeDraw(it.img, width, height, fitMode);
-                const canvas = document.createElement('canvas');
-                canvas.width = draw.canvasW; canvas.height = draw.canvasH;
-                const ctx = canvas.getContext('2d');
-                
-                // Clean white background for contain padding
-                ctx.fillStyle = '#FFFFFF'; 
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                ctx.drawImage(it.img, draw.sx, draw.sy, draw.sw, draw.sh, draw.dx, draw.dy, draw.dw, draw.dh);
-
-                let blob = useTarget ? await findQualityForTarget(canvas, format, targetKB * 1024) : await blobAtQuality(canvas, format, quality);
-
-                it.resultBlob = blob;
-                it.resultSize = blob.size;
-                it.resultUrl = URL.createObjectURL(blob);
-                const ext = format.split('/')[1];
-                it.filename = it.file.name.replace(/\.[^/.]+$/, '') + '_converted.' + ext;
-
-                renderBatchItem(it, grid);
-            }
-
-            btn.disabled = false; btn.textContent = '🔄 Convert All Images Now';
-            document.getElementById('resultCard').style.display = 'block';
-            document.getElementById('downloadAllBtn').style.display = items.length > 1 ? 'block' : 'none';
-        }
-
-        function renderBatchItem(it, grid){
-            const reduction = Math.round((1 - it.resultSize/it.originalSize)*100);
-            const card = document.createElement('div');
-            card.className = 'batch-item';
-            card.innerHTML = `
-                ${reduction>0 ? `<div class="reduction-badge">↓${reduction}%</div>` : ''}
-                <img src="${it.resultUrl}">
-                <div class="name">${it.filename}</div>
-                <div class="size-info">${formatBytes(it.originalSize)} → <span>${formatBytes(it.resultSize)}</span></div>
-                <div class="mini-actions">
-                    <button onclick="downloadOne('${it.resultUrl}', '${it.filename}')"><i class="fa-solid fa-download"></i></button>
-                    <button onclick="copyOne('${it.resultUrl}')"><i class="fa-solid fa-copy"></i></button>
-                </div>
-            `;
-            grid.appendChild(card);
-        }
-
-        function downloadOne(url, filename){
-            const a=document.createElement('a'); a.href=url; a.download=filename;
-            document.body.appendChild(a); a.click(); document.body.removeChild(a);
-        }
-
-        async function downloadAllZip(){
-            const zip = new JSZip();
-            items.forEach(it=>{ if(it.resultBlob) zip.file(it.filename, it.resultBlob); });
-            const content = await zip.generateAsync({type:'blob'});
-            const url = URL.createObjectURL(content);
-            const a=document.createElement('a'); a.href=url; a.download='coldmatrix-images.zip';
-            document.body.appendChild(a); a.click(); document.body.removeChild(a);
-        }
-
-        function formatBytes(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024, sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-    </script>
+    let cmDeferredPrompt;
+    window.addEventListener('beforeinstallprompt', function(e) { e.preventDefault(); cmDeferredPrompt = e; document.getElementById('cmInstallBar').style.display = 'block'; });
+    function cmInstallApp() { if (cmDeferredPrompt) { cmDeferredPrompt.prompt(); cmDeferredPrompt.userChoice.then(() => { document.getElementById('cmInstallBar').style.display = 'none'; }); } else { alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.'); } }
+</script>
 </body>
 </html>
