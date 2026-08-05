@@ -16,161 +16,150 @@
     <meta name="twitter:description" content="Calculate profit, margin, markup, discounts, taxes, ROI & break-even instantly.">
     <meta name="twitter:image" content="https://coldmatrixtools.com/profit_margin_calc.jpg">
     <link rel="canonical" href="https://coldmatrixtools.com/business-calculator-suite.html">
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": "Business Pricing, Profit & Margin Calculator Suite",
-            "url": "https://coldmatrixtools.com/business-calculator-suite.html",
-            "applicationCategory": "BusinessApplication",
-            "description": "Premium business calculator suite with profit, margin, markup, discount, tax, commission, ROI and break-even calculators.",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-        }
-    </script>
-    <meta name="theme-color" content="#0A0F14">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #080c14; --surface: rgba(18,24,35,0.6); --surface2: rgba(22,30,44,0.7);
-            --border: rgba(255,255,255,0.08); --text: #EAEDF0; --muted: #9AA0B0;
-            --accent: #C8A84E; --accent2: #E2C87A; --accent-glow: rgba(200,168,78,0.4);
-            --gradient: linear-gradient(135deg, #C8A84E, #E2C87A);
-            --card-bg: rgba(18,24,35,0.55); --card-border: rgba(255,255,255,0.1);
-            --input-bg: rgba(15,20,30,0.7); --input-border: rgba(200,168,78,0.4);
-            --green: #34D399; --red: #EF4444; --blue: #4FC3F7; --purple: #A78BFA; --orange: #FFA726;
+            --bg: #1a1e26; --desk: #111418;
+            --laptop-body: linear-gradient(160deg, #a8acb5 0%, #7e828b 40%, #545860 100%);
+            --chrome: #c0c3c8; --input-bg: #f5f5f5; --input-text: #1a1a1a;
+            --frost: #4FC3F7; --accent: #00b894; --gold: #D4AF37;
+            --red: #EF4444; --green: #34D399; --display-bg: #0a0d11; --display-text: #e0e0e0;
         }
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{
-            background: url('grid-background.jpg') center/cover fixed;
-            background-color: #080c14;
-            color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;
-            position: relative;
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: var(--desk);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" fill="none"/><path d="M0 0 L20 0 L20 20 L0 20 Z" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/></svg>');
+            background-size: 40px 40px;
+            color: #1a1a1a; font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
         }
-        .container{max-width:900px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
-        .navbar{position:sticky;top:0;z-index:100;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.06)}
-        .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 0;flex-wrap:wrap;max-width:900px;margin:0 auto}
-        .logo{font-size:1.2rem;font-weight:700;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:.5px}
-        .nav-links{display:flex;gap:20px;list-style:none;flex-wrap:wrap}
-        .nav-links a{color:var(--muted);text-decoration:none;font-weight:500;font-size:.9rem;transition:color .2s}
-        .nav-links a:hover{color:var(--accent)}
-        h1{font-size:1.8rem;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-        h1 .icon{font-size:2rem}
-        h1 .coldmatrix{color:var(--accent);font-family:'Playfair Display',serif;letter-spacing:.5px}
-        h1 .title{color:var(--text);font-weight:600}
-        .subtitle{color:var(--muted);margin-bottom:14px;font-size:.9rem;text-align:center}
+        .container { width: 100%; max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
+        .navbar { position: sticky; top:0; z-index:100; background: rgba(17,20,26,0.94); backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,0.08); }
+        .nav-inner { max-width: 1000px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; }
+        .logo { font-size:1.2rem; font-weight:700; color:var(--frost); text-decoration:none; }
+        .nav-links { display:flex; gap:20px; list-style:none; }
+        .nav-links a { color:#bbb; text-decoration:none; font-weight:500; font-size:0.9rem; }
+        .nav-links a:hover { color:var(--frost); }
 
-        .share-compact-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(14px);
-            border: 1px solid #D4AF37;
-            padding: 10px 12px;
-            margin-top: 16px;
-            margin-bottom: 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            border-radius: 0;
-        }
-        .share-compact-heading { text-align: center; font-size: 14px; font-weight: 700; color: #D4AF37; letter-spacing: 0.5px; text-transform: uppercase; margin: 0; }
-        .share-compact-btns { display: flex; gap: 8px; width: 100%; justify-content: center; }
-        .share-compact-btn {
-            flex: 1; max-width: 48%; height: 42px; border-radius: 0;
-            display: flex; align-items: center; justify-content: center; gap: 6px;
-            font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s ease;
-            background: rgba(15,20,30,0.8); backdrop-filter: blur(6px); color: #FFFFFF; text-decoration: none; border: none;
-        }
-        .share-compact-btn.whatsapp-compact { border: 1px solid #25D366; }
-        .share-compact-btn.copy-compact { border: 1px solid #D4AF37; }
-        .share-compact-btn i { font-size: 16px; }
-        .share-compact-btn.whatsapp-compact i { color: #25D366; }
-        .share-compact-btn.copy-compact i { color: #D4AF37; }
-        .share-compact-btn:hover { filter: brightness(1.1); }
+        .title-section { text-align:center; padding:10px 0 5px; }
+        .tool-title { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:700; color:#fff; margin-bottom:6px; text-shadow:0 2px 10px rgba(0,0,0,0.6); }
+        .subtitle { color:#ccc; font-size:1.05rem; font-weight:500; text-shadow:0 1px 4px rgba(0,0,0,0.6); }
+        .live-badge { display:inline-block; color:#fff; font-size:0.8rem; font-weight:700; margin-top:10px; padding:4px 12px; border:1px solid var(--frost); border-radius:4px; background:rgba(79,195,247,0.2); }
 
-        .card{background:var(--card-bg);backdrop-filter:blur(20px);border:1px solid var(--card-border);border-radius:18px;padding:22px 18px;margin-bottom:18px;position:relative;overflow:hidden;box-shadow:0 8px 35px rgba(0,0,0,0.5)}
-        .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient);opacity:.8}
-        .card h2{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;margin-bottom:14px;color:var(--accent);text-transform:uppercase;letter-spacing:.5px}
-        .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-        .tab-btn{flex:1;min-width:90px;padding:10px 8px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);border-radius:10px;font-weight:600;font-size:.72rem;cursor:pointer;text-align:center;transition:.2s}
-        .tab-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(200,168,78,0.1);box-shadow:0 0 12px var(--accent-glow)}
-        .field{margin-bottom:12px}
-        .field label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:4px;font-weight:500}
-        .field input,.field select{width:100%;background:var(--input-bg);backdrop-filter:blur(8px);border:2px solid var(--input-border);color:var(--text);padding:12px 14px;border-radius:10px;font-size:.9rem;transition:all .3s ease}
-        .field input:focus,.field select:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 20px var(--accent-glow)}
-        .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-        .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-        .btn-calc{width:100%;background:var(--gradient);color:#0A0F14;border:none;padding:13px;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;margin-top:4px;letter-spacing:.6px;box-shadow:0 6px 20px var(--accent-glow);transition:.3s}
-        .btn-calc:hover{transform:translateY(-2px);box-shadow:0 10px 28px var(--accent-glow)}
-        .result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:.85rem}
-        .result-row .val{font-weight:700;color:var(--accent)}.val.green{color:var(--green)}.val.red{color:var(--red)}
-        .insight-box{padding:10px 14px;border-radius:10px;margin-top:10px;font-size:.8rem;font-weight:600;text-align:center}
-        .insight-box.success{background:rgba(52,211,153,0.1);border:1px solid var(--green);color:var(--green)}
-        .insight-box.warning{background:rgba(255,167,38,0.1);border:1px solid var(--orange);color:var(--orange)}
-        .insight-box.danger{background:rgba(239,68,68,0.1);border:1px solid var(--red);color:var(--red)}
-        canvas{display:block;margin:10px auto;max-width:100%}
-        .share-bar{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:16px 0}
-        .share-btn{display:flex;align-items:center;gap:5px;padding:9px 14px;border-radius:50px;font-weight:600;font-size:.75rem;cursor:pointer;border:none;text-decoration:none;color:#fff;transition:.2s}
-        .share-btn:hover{transform:translateY(-2px)}.share-whatsapp{background:#25D366}.share-pdf{background:#E53935}.share-copy{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
-        .history-item{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:.75rem;display:flex;justify-content:space-between;align-items:center}
-        .history-item .del-btn{background:none;border:none;color:var(--red);cursor:pointer;font-weight:700}
-        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#D4AF37;color:#000;font-weight:700;padding:10px 24px;border-radius:50px;box-shadow:0 8px 25px rgba(0,0,0,0.5);z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none}
-        .toast.show{opacity:1}
-        .note{font-size:.7rem;color:var(--muted);margin-top:12px;border-top:1px solid var(--border);padding-top:10px;text-align:center}
-        footer{text-align:center;color:var(--muted);font-size:.7rem;padding:30px 0 20px;border-top:1px solid rgba(255,255,255,0.06);margin-top:40px}
-        footer a{color:var(--accent);text-decoration:none}
-        @media(max-width:600px){.row2,.row3{grid-template-columns:1fr}.tabs .tab-btn{font-size:.65rem;padding:8px 5px}}
+        .laptop-body {
+            background: var(--laptop-body); border-radius:28px; padding:32px 30px; margin-top:24px;
+            box-shadow:0 25px 50px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.2),inset 0 1px 0 rgba(255,255,255,0.4);
+            position:relative;
+        }
+        .state-badge { position:absolute; top:-10px; right:20px; background:linear-gradient(135deg,#FFD700,#FFA500); color:#0A0F14; font-family:'Oswald',sans-serif; font-weight:700; font-size:0.7rem; padding:4px 14px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; z-index:2; }
+
+        .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:18px 20px; margin-bottom:24px; box-shadow:0 10px 34px rgba(0,0,0,0.55); }
+        .share-tool-title { font-family:'Inter',sans-serif; font-weight:800; font-size:1rem; color:#E8B93A; text-align:center; margin-bottom:14px; text-transform:uppercase; }
+        .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; border-radius:8px; font-weight:700; font-size:0.85rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); }
+        .share-tool-btn:hover { border-color:#E8B93A; }
+
+        .currency-row { display:flex; align-items:center; gap:16px; margin-bottom:18px; position:relative; z-index:1; }
+        .currency-row select { background:var(--input-bg); border:2px solid var(--chrome); color:var(--input-text); padding:10px 14px; border-radius:8px; font-weight:600; font-size:0.9rem; min-width:160px; }
+        .currency-symbol-display { font-weight:700; font-size:1.1rem; color:#111; }
+        .symbol-position-toggle { display:flex; align-items:center; gap:6px; font-size:0.8rem; color:#222; font-weight:600; }
+        .symbol-position-toggle input { width:auto; }
+
+        .tabs { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:20px; position:relative; z-index:1; }
+        .tab-btn { padding:10px 12px; border:2px solid #777; background:linear-gradient(180deg,#d0d2d6,#9ea0a5); color:#111; border-radius:10px; font-weight:700; font-size:0.72rem; cursor:pointer; box-shadow:0 3px 6px rgba(0,0,0,0.3); }
+        .tab-btn.active { background:linear-gradient(180deg,#4FC3F7,#2196F3); color:#fff; border-color:#2196F3; }
+
+        .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+        .field { margin-bottom:14px; position:relative; z-index:1; }
+        .field label { display:block; font-size:0.8rem; color:#111; font-weight:700; margin-bottom:6px; }
+        .field input, .field select { width:100%; background:var(--input-bg); border:2px solid var(--chrome); color:var(--input-text); padding:12px 14px; border-radius:8px; font-size:0.95rem; font-weight:500; outline:none; }
+        .field input:focus, .field select:focus { border-color:#2196F3; box-shadow:0 0 10px rgba(33,150,243,0.4); }
+
+        .btn-primary { width:100%; background:linear-gradient(180deg,#6b6e75,#4a4d55); color:#fff; border:2px solid #888; padding:14px; border-radius:10px; font-weight:700; font-size:0.95rem; cursor:pointer; text-transform:uppercase; box-shadow:0 4px 10px rgba(0,0,0,0.4); margin-top:6px; position:relative; z-index:1; }
+        .btn-primary:hover { background:linear-gradient(180deg,#7e828b,#545860); }
+
+        .display-screen { background:var(--display-bg); border-radius:14px; padding:20px; margin-top:20px; border:2px solid #888; box-shadow:inset 0 0 20px rgba(0,0,0,0.6); color:var(--display-text); display:none; position:relative; z-index:1; }
+        .display-screen.active { display:block; }
+        .result-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.1); font-size:0.9rem; }
+        .result-row .val { font-weight:700; color:var(--frost); }
+        .val.green { color:var(--green); }
+        .val.red { color:var(--red); }
+
+        .action-buttons { display:flex; gap:10px; margin-top:18px; flex-wrap:wrap; }
+        .action-btn { padding:12px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:700; font-size:0.8rem; display:flex; align-items:center; gap:6px; text-transform:uppercase; color:#fff; }
+        .whatsapp-action { background:#25D366; }
+        .pdf-action { background:#0077B5; }
+        .jpg-action { background:#6C5CE7; }
+        .copy-action { background:#555; }
+
+        .history-item { background:rgba(0,0,0,0.3); border:1px solid #777; border-radius:8px; padding:10px 14px; margin-bottom:8px; font-size:0.8rem; display:flex; justify-content:space-between; color:#ddd; }
+        .history-item .del-btn { background:none; border:none; color:var(--red); cursor:pointer; font-weight:700; }
+
+        .contact-note { margin-top:20px; padding:14px; background:rgba(0,0,0,0.4); border:1px dashed var(--frost); border-radius:12px; text-align:center; color:#fff; position:relative; z-index:1; }
+        footer { text-align:center; color:#ccc; font-size:0.8rem; margin-top:30px; padding:20px 0; border-top:1px solid #444; }
+        footer a { color:var(--frost); text-decoration:none; }
+        .toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#D4AF37; color:#000; font-weight:700; padding:10px 24px; border-radius:50px; box-shadow:0 8px 25px rgba(0,0,0,0.5); z-index:9999; opacity:0; pointer-events:none; }
+        .toast.show { opacity:1; }
+
+        @media (max-width:768px) {
+            .laptop-body { padding:24px 16px; }
+            .grid-2, .grid-3 { grid-template-columns:1fr; }
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container nav-inner">
-            <a href="index.html" class="logo">❄️ ColdMatrix</a>
-            <ul class="nav-links">
-                <li><a href="index.html">🏠 Home</a></li>
-                <li><a href="index.html#tools">🛠️ Tools</a></li>
-                <li><a href="about.html">ℹ️ About</a></li>
-                <li><a href="contact.html">📞 Contact</a></li>
-            </ul>
+<div id="cmInstallBar" style="display:none;background:#4FC3F7;color:#0A0F14;text-align:center;padding:12px;font-weight:600;border-radius:10px;margin:16px auto;max-width:900px;">📱 Add ColdMatrix to your Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="logo">❄️ ColdMatrix</a>
+        <ul class="nav-links">
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="index.html#tools">🛠️ Tools</a></li>
+            <li><a href="about.html">ℹ️ About</a></li>
+            <li><a href="contact.html">📞 Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="title-section">
+        <h1 class="tool-title">🧮 ColdMatrix Business Calculator Suite</h1>
+        <p class="subtitle">Profit, Margin, Markup, Discounts, Taxes, ROI, Break‑even — Premium Metallic Edition</p>
+        <div class="live-badge">● Live</div>
+    </div>
+
+    <div class="share-tool-card">
+        <div class="share-tool-title">Share Business Calculator Suite</div>
+        <div class="share-tool-buttons">
+            <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
         </div>
-    </nav>
+    </div>
 
-    <div class="container">
-        <h1>
-            <span class="icon">🧮</span>
-            <span class="coldmatrix">ColdMatrix</span>
-            <span class="title">Business Calculator Suite</span>
-        </h1>
-        <p class="subtitle">Calculate profit, margin, markup, selling price, discounts, taxes, commissions, ROI and break-even instantly.</p>
+    <div class="laptop-body">
+        <div class="state-badge">State of the Art Tool</div>
 
-        <div class="share-compact-card">
-            <div class="share-compact-heading">SHARE THIS TOOL</div>
-            <div class="share-compact-btns">
-                <button class="share-compact-btn whatsapp-compact" onclick="shareToolWhatsApp()">
-                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
-                </button>
-                <button class="share-compact-btn copy-compact" onclick="copyToolLink()">
-                    <i class="fa-solid fa-link"></i> Copy Link
-                </button>
-            </div>
+        <div style="background:rgba(0,0,0,0.2);padding:10px 14px;border-radius:8px;margin-bottom:18px;font-size:0.85rem;position:relative;z-index:1;">
+            ❄️ <strong style="color:#4FC3F7;">ColdMatrix Note:</strong> All calculations are instant. For critical business decisions, verify independently.
         </div>
 
-        <div class="card" style="margin-bottom:12px;">
-            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-                <div class="field" style="flex:1;min-width:140px;margin-bottom:0;">
-                    <label>💱 Currency</label>
-                    <select id="currencySelect" onchange="updateCurrency()">
-                        <option value="PKR" selected>🇵🇰 PKR (Rs)</option>
-                        <option value="USD">🇺🇸 USD ($)</option>
-                        <option value="EUR">🇪🇺 EUR (€)</option>
-                        <option value="GBP">🇬🇧 GBP (£)</option>
-                        <option value="AED">🇦🇪 AED (د.إ)</option>
-                        <option value="SAR">🇸🇦 SAR (ر.س)</option>
-                        <option value="INR">🇮🇳 INR (₹)</option>
-                    </select>
-                </div>
-                <span id="curSymbol" style="font-weight:700;color:var(--accent);font-size:1.2rem;">Rs</span>
+        <div class="currency-row">
+            <select id="currencySelect" onchange="updateCurrency()">
+                <option value="PKR" selected>🇵🇰 PKR (Rs)</option>
+                <option value="USD">🇺🇸 USD ($)</option>
+                <option value="EUR">🇪🇺 EUR (€)</option>
+                <option value="GBP">🇬🇧 GBP (£)</option>
+                <option value="AED">🇦🇪 AED (د.إ)</option>
+                <option value="SAR">🇸🇦 SAR (ر.س)</option>
+                <option value="INR">🇮🇳 INR (₹)</option>
+            </select>
+            <span class="currency-symbol-display" id="curSymbol">Rs</span>
+            <div class="symbol-position-toggle">
+                <label style="display:flex;align-items:center;gap:4px;">
+                    <input type="checkbox" id="symbolBefore" checked onchange="updateCurrency()"> Before amount
+                </label>
             </div>
         </div>
 
@@ -185,376 +174,115 @@
             <button class="tab-btn" data-tab="commission">💼 Commission</button>
             <button class="tab-btn" data-tab="roi">📊 ROI</button>
             <button class="tab-btn" data-tab="breakeven">🎯 Break-even</button>
-            <button class="tab-btn" data-tab="dashboard">📋 Dashboard</button>
+            <button class="tab-btn" data-tab="multiitem">📋 Multi‑Item</button>
         </div>
 
         <div id="tabContent"></div>
 
-        <div id="chartArea" style="display:none;margin-top:16px;">
-            <div class="card"><h2>📊 Visual Summary</h2><canvas id="gaugeCanvas" width="300" height="150"></canvas><div id="chartInsight" style="text-align:center;font-size:.85rem;color:var(--accent);margin-top:8px;"></div></div>
+        <div class="display-screen" id="displayScreen">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <h3 style="font-family:'Oswald',sans-serif;color:var(--frost);margin:0;">🧮 Result</h3>
+                <button class="copy-action action-btn" onclick="quickCopy()" style="padding:6px 12px;font-size:0.7rem;">📋 Copy</button>
+            </div>
+            <div id="displayContent"></div>
+            <div style="margin-top:12px;display:flex;gap:8px;">
+                <input type="text" id="historyLabel" placeholder="Label (optional)" style="flex:1;background:#222;border:1px solid #666;color:#fff;padding:6px 10px;border-radius:4px;font-size:0.8rem;">
+            </div>
+            <div class="action-buttons" style="margin-top:10px;">
+                <button class="action-btn whatsapp-action" onclick="shareResult()"><i class="fab fa-whatsapp"></i> Share</button>
+                <button class="action-btn pdf-action" onclick="window.print()"><i class="fas fa-print"></i> PDF</button>
+                <button class="action-btn jpg-action" onclick="downloadJPG()"><i class="fas fa-camera"></i> JPG</button>
+            </div>
         </div>
 
-        <div id="insightArea" style="display:none;"></div>
-
-        <div class="share-bar" id="shareBar" style="display:none;">
-            <button class="share-btn share-whatsapp" onclick="shareResult()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-            <button class="share-btn share-copy" onclick="copyResult()"><i class="fa-solid fa-copy"></i> Copy</button>
-            <button class="share-btn share-pdf" onclick="window.print()"><i class="fa-solid fa-file-pdf"></i> Print / PDF</button>
-        </div>
-
-        <div class="card" id="historyCard" style="display:none;">
-            <h2>📜 Recent Calculations</h2>
+        <div id="historyCard" style="display:none;margin-top:20px;">
+            <h4 style="color:#ddd;font-family:'Oswald',sans-serif;">📜 History</h4>
             <div id="historyList"></div>
-            <button class="btn-calc" style="margin-top:10px;background:var(--red);" onclick="clearHistory()">Clear History</button>
+            <button class="btn-primary" style="background:#444;margin-top:8px;" onclick="clearHistory()">Clear</button>
         </div>
-        <div class="note">ℹ️ All calculations are performed instantly in your browser. Results are estimates and should be verified for critical business decisions.</div>
+
+        <div class="contact-note">
+            ❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>
+            For queries: <strong>+92 333 3228470</strong> | <strong>contact@coldmatrixtools.com</strong>
+        </div>
     </div>
+    <footer>Powered by <a href="index.html">ColdMatrix</a> — Professional Engineering Tools.</footer>
+</div>
 
-    <div class="toast" id="toast">Link copied successfully.</div>
+<div class="toast" id="toast">Copied</div>
 
-    <footer>Powered by <a href="index.html">ColdMatrix</a> — Luxury Executive Tools.</footer>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script>
+    const currencySymbols = { PKR: 'Rs', USD: '$', EUR: '€', GBP: '£', AED: 'د.إ', SAR: 'ر.س', INR: '₹' };
+    let currentTab = 'profit', lastResult = null;
+    let calcHistory = JSON.parse(localStorage.getItem('bizCalcHistory') || '[]');
+    function sym() { return currencySymbols[document.getElementById('currencySelect').value] || 'Rs'; }
+    function updateCurrency() { document.getElementById('curSymbol').textContent = sym(); if(lastResult) showResult(lastResult.html,lastResult.data,lastResult.type); }
+    function fmt(n) { return n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); }
+    function fmtInt(n) { return n.toLocaleString(undefined,{maximumFractionDigits:0}); }
+    function formatMoney(amount) { const s = sym(); const before = document.getElementById('symbolBefore').checked; return before ? `${s} ${fmt(amount)}` : `${fmt(amount)} ${s}`; }
 
-    <script>
-        const currencySymbols = { PKR: 'Rs', USD: '$', EUR: '€', GBP: '£', AED: 'د.إ', SAR: 'ر.س', INR: '₹' };
-        let currentTab = 'profit';
-        let lastResult = null;
-        let calcHistory = JSON.parse(localStorage.getItem('bizCalcHistory') || '[]');
+    function saveHistory(entry) { const label = document.getElementById('historyLabel')?.value || entry.type; calcHistory.unshift({...entry,label,time:new Date().toLocaleString()}); if(calcHistory.length>30) calcHistory = calcHistory.slice(0,30); localStorage.setItem('bizCalcHistory',JSON.stringify(calcHistory)); renderHistory(); }
+    function clearHistory() { calcHistory=[]; localStorage.removeItem('bizCalcHistory'); renderHistory(); }
+    function renderHistory() {
+        const list = document.getElementById('historyList');
+        if(calcHistory.length===0) { list.innerHTML='<p style="color:#999;">No records yet.</p>'; document.getElementById('historyCard').style.display='none'; return; }
+        document.getElementById('historyCard').style.display='block';
+        list.innerHTML = calcHistory.map((h,i)=>`<div class="history-item"><span>${h.time} — ${h.label}</span><button class="del-btn" onclick="deleteHistory(${i})">✕</button></div>`).join('');
+    }
+    function deleteHistory(i) { calcHistory.splice(i,1); localStorage.setItem('bizCalcHistory',JSON.stringify(calcHistory)); renderHistory(); }
+    function showResult(html,data,type) { lastResult = {html,data,type}; document.getElementById('displayContent').innerHTML = html; document.getElementById('displayScreen').classList.add('active'); saveHistory({type,summary:html.replace(/<[^>]*>/g,' ').substring(0,80)}); }
+    function quickCopy() { if(!lastResult) return; const text = lastResult.html.replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim(); navigator.clipboard.writeText(text).then(()=>{ document.getElementById('toast').classList.add('show'); setTimeout(()=>document.getElementById('toast').classList.remove('show'),2000); }); }
 
-        function sym() { return currencySymbols[document.getElementById('currencySelect').value] || 'Rs'; }
-        function updateCurrency() { document.getElementById('curSymbol').textContent = sym(); if (lastResult) renderTab(currentTab); }
-        function fmt(n) { return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
-        function fmtInt(n) { return n.toLocaleString(undefined, { maximumFractionDigits: 0 }); }
+    function renderTab(tab) {
+        currentTab = tab;
+        document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+        const area = document.getElementById('tabContent');
+        let html = '';
+        switch(tab) {
+            case 'profit': html = `<div class="grid-2"><div class="field"><label>Cost Price</label><input type="number" id="cp" value="1000" step="any"></div><div class="field"><label>Selling Price</label><input type="number" id="sp" value="1500" step="any"></div></div><button class="btn-primary" onclick="calcProfit()">Calculate</button>`; break;
+            case 'sellprice': html = `<div class="field"><label>Cost Price</label><input type="number" id="spCost" value="1000" step="any"></div><div class="grid-2"><div class="field"><label>Profit %</label><input type="number" id="spProfitPct" value="20" step="any"></div><div class="field"><label>or Margin %</label><input type="number" id="spMarginPct" placeholder="Overrides profit%" step="any"></div></div><button class="btn-primary" onclick="calcSellPrice()">Calculate</button>`; break;
+            case 'margin': html = `<div class="grid-2"><div class="field"><label>Cost Price</label><input type="number" id="mCost" value="1000" step="any"></div><div class="field"><label>Selling Price</label><input type="number" id="mSell" value="1500" step="any"></div></div><button class="btn-primary" onclick="calcMargin()">Calculate</button>`; break;
+            case 'markup': html = `<div class="grid-2"><div class="field"><label>Cost Price</label><input type="number" id="mkCost" value="1000" step="any"></div><div class="field"><label>Markup %</label><input type="number" id="mkPct" value="50" step="any"></div></div><button class="btn-primary" onclick="calcMarkup()">Calculate</button>`; break;
+            case 'discount': html = `<div class="grid-2"><div class="field"><label>Original Price</label><input type="number" id="dOrig" value="2000" step="any"></div><div class="field"><label>Discount %</label><input type="number" id="dPct" value="15" step="any"></div></div><button class="btn-primary" onclick="calcDiscount()">Calculate</button>`; break;
+            case 'revdiscount': html = `<div class="grid-2"><div class="field"><label>Final Price</label><input type="number" id="rdFinal" value="1700" step="any"></div><div class="field"><label>Discount %</label><input type="number" id="rdPct" value="15" step="any"></div></div><button class="btn-primary" onclick="calcRevDiscount()">Calculate</button>`; break;
+            case 'gst': html = `<div class="field"><label>Amount</label><input type="number" id="gstAmt" value="1000" step="any"></div><div class="grid-2"><div class="field"><label>Tax %</label><input type="number" id="gstPct" value="18" step="any"></div><div class="field"><label>Mode</label><select id="gstMode"><option value="add">Add Tax</option><option value="remove">Remove Tax</option></select></div></div><button class="btn-primary" onclick="calcGST()">Calculate</button>`; break;
+            case 'commission': html = `<div class="grid-2"><div class="field"><label>Sale Amount</label><input type="number" id="comSale" value="10000" step="any"></div><div class="field"><label>Commission %</label><input type="number" id="comPct" value="10" step="any"></div></div><button class="btn-primary" onclick="calcCommission()">Calculate</button>`; break;
+            case 'roi': html = `<div class="grid-2"><div class="field"><label>Investment</label><input type="number" id="roiInv" value="100000" step="any"></div><div class="field"><label>Return</label><input type="number" id="roiRet" value="150000" step="any"></div></div><button class="btn-primary" onclick="calcROI()">Calculate</button>`; break;
+            case 'breakeven': html = `<div class="grid-3"><div class="field"><label>Fixed Cost</label><input type="number" id="beFixed" value="50000" step="any"></div><div class="field"><label>Variable Cost/Unit</label><input type="number" id="beVar" value="200" step="any"></div><div class="field"><label>Price/Unit</label><input type="number" id="bePrice" value="500" step="any"></div></div><button class="btn-primary" onclick="calcBreakEven()">Calculate</button>`; break;
+            case 'multiitem': html = `<div id="multiItemContainer"><div class="grid-3" style="margin-bottom:10px;"><div class="field"><label>Cost</label><input type="number" class="miCost" placeholder="0"></div><div class="field"><label>Selling Price</label><input type="number" class="miSp" placeholder="0"></div><div class="field"><label>Qty</label><input type="number" class="miQty" value="1" step="any"></div></div><button class="btn-primary" onclick="addMultiItemRow()">+ Add Row</button><button class="btn-primary" style="background:#555;" onclick="calcMultiItem()">Calculate Total</button></div>`; break;
+        }
+        area.innerHTML = html;
+    }
 
-        function saveHistory(entry) {
-            calcHistory.unshift({ ...entry, time: new Date().toLocaleString() });
-            if (calcHistory.length > 20) calcHistory = calcHistory.slice(0, 20);
-            localStorage.setItem('bizCalcHistory', JSON.stringify(calcHistory));
-            renderHistory();
-        }
-        function clearHistory() { calcHistory = []; localStorage.removeItem('bizCalcHistory'); renderHistory(); }
-        function renderHistory() {
-            const list = document.getElementById('historyList');
-            if (calcHistory.length === 0) { list.innerHTML = '<p style="color:var(--muted);font-size:.8rem;">No calculations yet.</p>'; document.getElementById('historyCard').style.display = 'none'; return; }
-            document.getElementById('historyCard').style.display = 'block';
-            list.innerHTML = calcHistory.map((h, i) => `<div class="history-item"><span>${h.time} — ${h.label}</span><button class="del-btn" onclick="deleteHistory(${i})">✕</button></div>`).join('');
-        }
-        function deleteHistory(i) { calcHistory.splice(i, 1); localStorage.setItem('bizCalcHistory', JSON.stringify(calcHistory)); renderHistory(); }
+    // Calculation functions
+    function calcProfit() { const cp=parseFloat(document.getElementById('cp').value)||0, sp=parseFloat(document.getElementById('sp').value)||0; const profit=sp-cp, pct=cp?(profit/cp)*100:0, margin=sp?(profit/sp)*100:0; const html=`<div class="result-row"><span>Profit</span><span class="val ${profit>=0?'green':'red'}">${formatMoney(profit)}</span></div><div class="result-row"><span>Profit %</span><span class="val">${pct.toFixed(2)}%</span></div><div class="result-row"><span>Margin</span><span class="val">${margin.toFixed(2)}%</span></div>`; showResult(html,{profitAmt:profit},'profit'); }
+    function calcSellPrice() { const cp=parseFloat(document.getElementById('spCost').value)||0, pp=parseFloat(document.getElementById('spProfitPct').value)||0, mp=parseFloat(document.getElementById('spMarginPct').value); let sp=!isNaN(mp)&&mp>0&&mp<100?cp/(1-mp/100):cp*(1+pp/100); const html=`<div class="result-row"><span>Selling Price</span><span class="val green">${formatMoney(sp)}</span></div>`; showResult(html,{},'sellprice'); }
+    function calcMargin() { const cp=parseFloat(document.getElementById('mCost').value)||0, sp=parseFloat(document.getElementById('mSell').value)||0; const profit=sp-cp, margin=sp?(profit/sp)*100:0, markup=cp?(profit/cp)*100:0; const html=`<div class="result-row"><span>Margin</span><span class="val green">${margin.toFixed(2)}%</span></div><div class="result-row"><span>Markup</span><span class="val">${markup.toFixed(2)}%</span></div><div class="result-row"><span>Profit</span><span class="val">${formatMoney(profit)}</span></div>`; showResult(html,{},'margin'); }
+    function calcMarkup() { const cp=parseFloat(document.getElementById('mkCost').value)||0, mk=parseFloat(document.getElementById('mkPct').value)||0; const sp=cp*(1+mk/100); const html=`<div class="result-row"><span>Selling Price</span><span class="val green">${formatMoney(sp)}</span></div><div class="result-row"><span>Profit</span><span class="val">${formatMoney(sp-cp)}</span></div>`; showResult(html,{},'markup'); }
+    function calcDiscount() { const orig=parseFloat(document.getElementById('dOrig').value)||0, pct=parseFloat(document.getElementById('dPct').value)||0; const disc=orig*pct/100, final=orig-disc; const html=`<div class="result-row"><span>Discount</span><span class="val red">- ${formatMoney(disc)}</span></div><div class="result-row"><span>Final Price</span><span class="val green">${formatMoney(final)}</span></div>`; showResult(html,{},'discount'); }
+    function calcRevDiscount() { const final=parseFloat(document.getElementById('rdFinal').value)||0, pct=parseFloat(document.getElementById('rdPct').value)||0; const orig=pct<100?final/(1-pct/100):0; const html=`<div class="result-row"><span>Original Price</span><span class="val green">${formatMoney(orig)}</span></div>`; showResult(html,{},'revdiscount'); }
+    function calcGST() { const amt=parseFloat(document.getElementById('gstAmt').value)||0, pct=parseFloat(document.getElementById('gstPct').value)||0, mode=document.getElementById('gstMode').value; let tax,final; if(mode==='add'){tax=amt*pct/100;final=amt+tax;}else{tax=amt-amt/(1+pct/100);final=amt;} const html=`<div class="result-row"><span>Tax</span><span class="val">${formatMoney(tax)}</span></div><div class="result-row"><span>${mode==='add'?'Total':'Base'}</span><span class="val green">${formatMoney(mode==='add'?final:amt-tax)}</span></div>`; showResult(html,{},'gst'); }
+    function calcCommission() { const sale=parseFloat(document.getElementById('comSale').value)||0, pct=parseFloat(document.getElementById('comPct').value)||0; const comm=sale*pct/100; const html=`<div class="result-row"><span>Commission</span><span class="val">${formatMoney(comm)}</span></div><div class="result-row"><span>Remaining</span><span class="val green">${formatMoney(sale-comm)}</span></div>`; showResult(html,{},'commission'); }
+    function calcROI() { const inv=parseFloat(document.getElementById('roiInv').value)||0, ret=parseFloat(document.getElementById('roiRet').value)||0; const profit=ret-inv, roi=inv?(profit/inv)*100:0; const html=`<div class="result-row"><span>Net Profit</span><span class="val green">${formatMoney(profit)}</span></div><div class="result-row"><span>ROI</span><span class="val">${roi.toFixed(2)}%</span></div>`; showResult(html,{},'roi'); }
+    function calcBreakEven() { const fixed=parseFloat(document.getElementById('beFixed').value)||0, vc=parseFloat(document.getElementById('beVar').value)||0, price=parseFloat(document.getElementById('bePrice').value)||0; const contrib=price-vc, units=contrib>0?Math.ceil(fixed/contrib):0, revenue=units*price; const html=`<div class="result-row"><span>Units</span><span class="val green">${fmtInt(units)}</span></div><div class="result-row"><span>Revenue</span><span class="val">${formatMoney(revenue)}</span></div>`; showResult(html,{},'breakeven'); }
+    function addMultiItemRow() { const container=document.getElementById('multiItemContainer'); const row=document.createElement('div'); row.className='grid-3'; row.style.marginBottom='8px'; row.innerHTML=`<div class="field"><input type="number" class="miCost" placeholder="Cost"></div><div class="field"><input type="number" class="miSp" placeholder="Selling Price"></div><div class="field"><input type="number" class="miQty" value="1" step="any"></div>`; container.insertBefore(row,container.children[container.children.length-2]); }
+    function calcMultiItem() { const costs=document.querySelectorAll('.miCost'), sps=document.querySelectorAll('.miSp'), qtys=document.querySelectorAll('.miQty'); let totalProfit=0,totalCost=0,totalRevenue=0; for(let i=0;i<costs.length;i++){const c=parseFloat(costs[i].value)||0,s=parseFloat(sps[i].value)||0,q=parseFloat(qtys[i].value)||1;totalCost+=c*q;totalRevenue+=s*q;totalProfit+=(s-c)*q;} const avgMargin=totalRevenue?(totalProfit/totalRevenue)*100:0; const html=`<div class="result-row"><span>Total Profit</span><span class="val green">${formatMoney(totalProfit)}</span></div><div class="result-row"><span>Avg Margin</span><span class="val">${avgMargin.toFixed(2)}%</span></div><div class="result-row"><span>Total Revenue</span><span class="val">${formatMoney(totalRevenue)}</span></div>`; showResult(html,{},'multiitem'); }
 
-        function drawGauge(value, max, label, color) {
-            const canvas = document.getElementById('gaugeCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const w = canvas.width, h = canvas.height;
-            ctx.clearRect(0, 0, w, h);
-            const cx = w / 2, cy = h - 20, r = 90;
-            const startAngle = Math.PI, endAngle = 0;
-            const pct = Math.min(value / max, 1);
-            const fillAngle = startAngle + (endAngle - startAngle) * pct;
-            ctx.beginPath(); ctx.arc(cx, cy, r, startAngle, endAngle); ctx.strokeStyle = '#1a2a3a'; ctx.lineWidth = 18; ctx.stroke();
-            ctx.beginPath(); ctx.arc(cx, cy, r, startAngle, fillAngle); ctx.strokeStyle = color; ctx.lineWidth = 18; ctx.lineCap = 'round'; ctx.stroke();
-            ctx.fillStyle = '#fff'; ctx.font = 'bold 18px Inter'; ctx.textAlign = 'center'; ctx.fillText(value.toFixed(1) + '%', cx, cy - 15);
-            ctx.fillStyle = color; ctx.font = '11px Inter'; ctx.fillText(label, cx, cy + 25);
-            document.getElementById('chartArea').style.display = 'block';
-        }
+    function shareToolWhatsApp() { window.open('https://wa.me/?text='+encodeURIComponent("🧮 Business Calculator Suite — premium silver edition.\nhttps://coldmatrixtools.com/business-calculator-suite.html")); }
+    function copyToolLink() { navigator.clipboard.writeText("https://coldmatrixtools.com/business-calculator-suite.html"); document.getElementById('toast').classList.add('show'); setTimeout(()=>document.getElementById('toast').classList.remove('show'),2000); }
+    function shareResult() { if(!lastResult)return; const text = `🧮 Business Calculation\n${lastResult.html.replace(/<[^>]*>/g,'')}\nColdMatrix Tools`; window.open('https://wa.me/?text='+encodeURIComponent(text)); }
+    function downloadJPG() { html2canvas(document.getElementById('displayScreen'),{scale:2,backgroundColor:'#0a0d11'}).then(canvas=>{const link=document.createElement('a');link.download='ColdMatrix_Business_Result.jpg';link.href=canvas.toDataURL('image/jpeg',0.92);link.click();}); }
 
-        function generateInsight(type, data) {
-            const area = document.getElementById('insightArea');
-            area.style.display = 'block';
-            let html = '';
-            if (type === 'profit') {
-                const pct = data.profitPct;
-                if (pct >= 30) html = '<div class="insight-box success">🌟 Excellent Profit Margin! Your pricing strategy is strong.</div>';
-                else if (pct >= 15) html = '<div class="insight-box success">✅ Good Profit Margin. Your business is on the right track.</div>';
-                else if (pct > 0) html = '<div class="insight-box warning">⚠️ Low Profit Margin. Consider reducing costs or increasing selling price.</div>';
-                else html = '<div class="insight-box danger">🔴 Loss detected! Review your cost and pricing immediately.</div>';
-            } else if (type === 'margin') {
-                if (data.margin >= 40) html = '<div class="insight-box success">🌟 High Gross Margin — excellent pricing power!</div>';
-                else if (data.margin >= 20) html = '<div class="insight-box success">✅ Healthy Margin. Your markup is working well.</div>';
-                else html = '<div class="insight-box warning">⚠️ Low Margin. Markup may not cover all expenses.</div>';
-            } else if (type === 'roi') {
-                if (data.roi >= 50) html = '<div class="insight-box success">🚀 High ROI investment! Great returns.</div>';
-                else if (data.roi >= 15) html = '<div class="insight-box success">✅ Good ROI. Investment is performing well.</div>';
-                else if (data.roi > 0) html = '<div class="insight-box warning">📊 Modest ROI. Consider optimising.</div>';
-                else html = '<div class="insight-box danger">🔴 Negative ROI. Review your investment.</div>';
-            } else if (type === 'breakeven') {
-                html = `<div class="insight-box success">🎯 Break-even at <strong>${fmtInt(data.units)}</strong> units (${sym()} ${fmt(data.revenue)}).</div>`;
-            }
-            area.innerHTML = html;
-        }
+    document.getElementById('tabBar').addEventListener('click',function(e){const btn=e.target.closest('.tab-btn');if(btn)renderTab(btn.dataset.tab);});
+    renderTab('profit');
+    renderHistory();
+    updateCurrency();
 
-        function renderTab(tab) {
-            currentTab = tab;
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-            const s = sym();
-            let html = '';
-            const area = document.getElementById('tabContent');
-
-            switch (tab) {
-                case 'profit':
-                    html = `<div class="card"><h2>💰 Profit Calculator</h2>
-                        <div class="row2"><div class="field"><label>Cost Price</label><input type="number" id="cp" value="1000" step="any"></div>
-                        <div class="field"><label>Selling Price</label><input type="number" id="sp" value="1500" step="any"></div></div>
-                        <button class="btn-calc" onclick="calcProfit()">Calculate Profit</button>
-                        <div id="profitResult" style="display:none;margin-top:12px;"></div></div>`;
-                    break;
-                case 'sellprice':
-                    html = `<div class="card"><h2>🏷️ Selling Price Calculator</h2>
-                        <div class="field"><label>Cost Price</label><input type="number" id="spCost" value="1000" step="any"></div>
-                        <div class="row2"><div class="field"><label>Desired Profit %</label><input type="number" id="spProfitPct" value="20" step="any"></div>
-                        <div class="field"><label>or Desired Margin %</label><input type="number" id="spMarginPct" placeholder="Overrides profit %" step="any"></div></div>
-                        <button class="btn-calc" onclick="calcSellPrice()">Calculate Selling Price</button>
-                        <div id="spResult" style="display:none;margin-top:12px;"></div></div>`;
-                    break;
-                case 'margin':
-                    html = `<div class="card"><h2>📊 Margin Calculator</h2>
-                        <div class="row2"><div class="field"><label>Cost Price</label><input type="number" id="mCost" value="1000" step="any"></div>
-                        <div class="field"><label>Selling Price</label><input type="number" id="mSell" value="1500" step="any"></div></div>
-                        <button class="btn-calc" onclick="calcMargin()">Calculate Margin</button>
-                        <div id="mResult" style="display:none;margin-top:12px;"></div></div>`;
-                    break;
-                case 'markup':
-                    html = `<div class="card"><h2>📈 Markup Calculator</h2>
-                        <div class="row2"><div class="field"><label>Cost Price</label><input type="number" id="mkCost" value="1000" step="any"></div>
-                        <div class="field"><label>Markup %</label><input type="number" id="mkPct" value="50" step="any"></div></div>
-                        <button class="btn-calc" onclick="calcMarkup()">Calculate Selling Price</button>
-                        <div id="mkResult" style="display:none;margin-top:12px;"></div></div>`;
-                    break;
-                case 'discount':
-                    html = `<div class="card"><h2>🏷️ Discount Calculator</h2>
-                        <div class="row2"><div class="field"><label>Original Price</label><input type="number" id="dOrig" value="2000" step="any"></div>
-                        <div class="field"><label>Discount %</label><input type="number" id="dPct" value="15" step="any"></div></div>
-                        <button class="btn-calc" onclick="calcDiscount()">Calculate Discount</button>
-                        <div id="dResult" style="display:none;margin-top:12px;"></div></div>`;
-                    break;
-                case 'revdiscount':
-                    html = `<div class="card"><h2>🔄 Reverse Discount Calculator</h2>
-                        <div class="row2"><div class="field"><label>Final Price (after discount)</label><input type="number" id="rdFinal" value="1700" step="any"></div>
-                        <div class="field"><label>Discount %</label><input type="number" id="rdPct" value="15" step="any"></div></div>
-                        <button class="btn-calc" onclick="calcRevDiscount()">Calculate Original Price</button>
-                        <div id="rdResult" style="display:none;margin-top:12px;"></div></div>`;
-                    break;
-                case 'gst':
-                    html = `<div class="card"><h2>🧾 GST / VAT Calculator</h2>
-                        <div class="field"><label>Amount</label><input type="number" id="gstAmt" value="1000" step="any"></div>
-                        <div class="row2"><div class="field"><label>Tax %</label><input type="number" id="gstPct" value="18" step="any"></div>
-                        <div class="field"><label>Mode</label><select id="gstMode"><option value="add">Add Tax</option><option value="remove">Remove Tax</option></select></div></div>
-                        <button class="btn-calc" onclick="calcGST()">Calculate</button>
-                        <div id="gstResult" style="display:none;margin-top:12px;"></div></div>`;
-                    break;
-                case 'commission':
-                    html = `<div class="card"><h2>💼 Commission Calculator</h2>
-                        <div class="row2"><div class="field"><label>Sale Amount</label><input type="number" id="comSale" value="10000" step="any"></div>
-                        <div class="field"><label>Commission %</label><input type="number" id="comPct" value="10" step="any"></div></div>
-                        <button class="btn-calc" onclick="calcCommission()">Calculate Commission</button>
-                        <div id="comResult" style="display:none;margin-top:12px;"></div></div>`;
-                    break;
-                case 'roi':
-                    html = `<div class="card"><h2>📊 ROI Calculator</h2>
-                        <div class="row2"><div class="field"><label>Investment Amount</label><input type="number" id="roiInv" value="100000" step="any"></div>
-                        <div class="field"><label>Return Amount</label><input type="number" id="roiRet" value="150000" step="any"></div></div>
-                        <button class="btn-calc" onclick="calcROI()">Calculate ROI</button>
-                        <div id="roiResult" style="display:none;margin-top:12px;"></div></div>`;
-                    break;
-                case 'breakeven':
-                    html = `<div class="card"><h2>🎯 Break-even Calculator</h2>
-                        <div class="row3"><div class="field"><label>Fixed Cost</label><input type="number" id="beFixed" value="50000" step="any"></div>
-                        <div class="field"><label>Variable Cost/Unit</label><input type="number" id="beVar" value="200" step="any"></div>
-                        <div class="field"><label>Selling Price/Unit</label><input type="number" id="bePrice" value="500" step="any"></div></div>
-                        <button class="btn-calc" onclick="calcBreakEven()">Calculate Break-even</button>
-                        <div id="beResult" style="display:none;margin-top:12px;"></div></div>`;
-                    break;
-                case 'dashboard':
-                    html = `<div class="card"><h2>📋 Quick Dashboard</h2><p style="color:var(--muted);font-size:.8rem;">Run any calculation above to see results here. The dashboard updates with your latest calculation.</p>
-                        <div id="dashContent" style="margin-top:12px;"></div></div>`;
-                    break;
-            }
-            area.innerHTML = html;
-            if (lastResult) updateDashboard();
-            document.getElementById('chartArea').style.display = 'none';
-            document.getElementById('insightArea').style.display = 'none';
-            document.getElementById('shareBar').style.display = 'none';
-        }
-
-        function showResult(html, data, type) {
-            lastResult = { ...data, type, label: type };
-            document.getElementById('shareBar').style.display = 'flex';
-            generateInsight(type, data);
-            saveHistory({ label: type, summary: html.replace(/<[^>]*>/g, ' ').substring(0, 100) });
-            if (data.profitPct !== undefined) drawGauge(data.profitPct, 50, 'Profit %', data.profitPct >= 0 ? '#34D399' : '#EF4444');
-            else if (data.margin !== undefined) drawGauge(data.margin, 50, 'Margin %', '#4FC3F7');
-            else if (data.roi !== undefined) drawGauge(data.roi, 100, 'ROI %', '#A78BFA');
-            updateDashboard();
-        }
-
-        function updateDashboard() {
-            if (!lastResult) return;
-            const d = lastResult;
-            const s = sym();
-            let dashHtml = '<div class="row2">';
-            if (d.profitAmt !== undefined) dashHtml += `<div class="card" style="text-align:center;"><div style="font-size:1.5rem;font-weight:800;color:${d.profitAmt>=0?'var(--green)':'var(--red)'};">${s} ${fmt(d.profitAmt)}</div><div style="font-size:.7rem;color:var(--muted);">Profit/Loss</div></div>`;
-            if (d.margin !== undefined) dashHtml += `<div class="card" style="text-align:center;"><div style="font-size:1.5rem;font-weight:800;color:var(--accent);">${d.margin.toFixed(1)}%</div><div style="font-size:.7rem;color:var(--muted);">Gross Margin</div></div>`;
-            if (d.roi !== undefined) dashHtml += `<div class="card" style="text-align:center;"><div style="font-size:1.5rem;font-weight:800;color:var(--purple);">${d.roi.toFixed(1)}%</div><div style="font-size:.7rem;color:var(--muted);">ROI</div></div>`;
-            dashHtml += '</div>';
-            const dashEl = document.getElementById('dashContent');
-            if (dashEl) dashEl.innerHTML = dashHtml;
-        }
-
-        function calcProfit() {
-            const cp = parseFloat(document.getElementById('cp').value) || 0;
-            const sp = parseFloat(document.getElementById('sp').value) || 0;
-            const profit = sp - cp;
-            const pct = cp > 0 ? (profit / cp) * 100 : 0;
-            const marginPct = sp > 0 ? (profit / sp) * 100 : 0;
-            const s = sym();
-            const html = `<div class="result-row"><span>Profit / Loss</span><span class="val ${profit>=0?'green':'red'}">${s} ${fmt(profit)}</span></div>
-                <div class="result-row"><span>Profit % (on Cost)</span><span class="val">${pct.toFixed(2)}%</span></div>
-                <div class="result-row"><span>Gross Margin %</span><span class="val">${marginPct.toFixed(2)}%</span></div>
-                <div class="result-row"><span>Status</span><span class="val ${profit>=0?'green':'red'}">${profit>=0?'✅ Profit':'🔴 Loss'}</span></div>`;
-            document.getElementById('profitResult').innerHTML = html;
-            document.getElementById('profitResult').style.display = 'block';
-            showResult(html, { profitAmt: profit, profitPct: pct, margin: marginPct }, 'profit');
-        }
-        function calcSellPrice() {
-            const cp = parseFloat(document.getElementById('spCost').value) || 0;
-            const pp = parseFloat(document.getElementById('spProfitPct').value) || 0;
-            const mp = parseFloat(document.getElementById('spMarginPct').value);
-            const s = sym();
-            let sp;
-            if (!isNaN(mp) && mp > 0 && mp < 100) { sp = cp / (1 - mp / 100); }
-            else { sp = cp * (1 + pp / 100); }
-            const html = `<div class="result-row"><span>Required Selling Price</span><span class="val green">${s} ${fmt(sp)}</span></div>`;
-            document.getElementById('spResult').innerHTML = html; document.getElementById('spResult').style.display = 'block';
-            showResult(html, { profitAmt: sp - cp, profitPct: cp > 0 ? ((sp - cp) / cp) * 100 : 0, margin: sp > 0 ? ((sp - cp) / sp) * 100 : 0 }, 'sellprice');
-        }
-        function calcMargin() {
-            const cp = parseFloat(document.getElementById('mCost').value) || 0;
-            const sp = parseFloat(document.getElementById('mSell').value) || 0;
-            const profit = sp - cp;
-            const margin = sp > 0 ? (profit / sp) * 100 : 0;
-            const markup = cp > 0 ? (profit / cp) * 100 : 0;
-            const s = sym();
-            const html = `<div class="result-row"><span>Gross Margin %</span><span class="val green">${margin.toFixed(2)}%</span></div>
-                <div class="result-row"><span>Markup %</span><span class="val">${markup.toFixed(2)}%</span></div>
-                <div class="result-row"><span>Profit Amount</span><span class="val">${s} ${fmt(profit)}</span></div>
-                <p style="font-size:.7rem;color:var(--muted);margin-top:8px;">💡 Margin = (Profit ÷ Selling Price) × 100 | Markup = (Profit ÷ Cost) × 100</p>`;
-            document.getElementById('mResult').innerHTML = html; document.getElementById('mResult').style.display = 'block';
-            showResult(html, { profitAmt: profit, margin, markup }, 'margin');
-        }
-        function calcMarkup() {
-            const cp = parseFloat(document.getElementById('mkCost').value) || 0;
-            const mk = parseFloat(document.getElementById('mkPct').value) || 0;
-            const sp = cp * (1 + mk / 100);
-            const s = sym();
-            const html = `<div class="result-row"><span>Selling Price</span><span class="val green">${s} ${fmt(sp)}</span></div>
-                <div class="result-row"><span>Profit Amount</span><span class="val">${s} ${fmt(sp-cp)}</span></div>`;
-            document.getElementById('mkResult').innerHTML = html; document.getElementById('mkResult').style.display = 'block';
-            showResult(html, { profitAmt: sp - cp, profitPct: mk, margin: sp > 0 ? ((sp - cp) / sp) * 100 : 0 }, 'markup');
-        }
-        function calcDiscount() {
-            const orig = parseFloat(document.getElementById('dOrig').value) || 0;
-            const pct = parseFloat(document.getElementById('dPct').value) || 0;
-            const discAmt = orig * (pct / 100); const final = orig - discAmt;
-            const s = sym();
-            const html = `<div class="result-row"><span>Discount Amount</span><span class="val red">- ${s} ${fmt(discAmt)}</span></div>
-                <div class="result-row"><span>Final Price</span><span class="val green">${s} ${fmt(final)}</span></div>
-                <div class="result-row"><span>You Save</span><span class="val">${s} ${fmt(discAmt)}</span></div>`;
-            document.getElementById('dResult').innerHTML = html; document.getElementById('dResult').style.display = 'block';
-            showResult(html, { profitAmt: discAmt, discountPct: pct }, 'discount');
-        }
-        function calcRevDiscount() {
-            const final = parseFloat(document.getElementById('rdFinal').value) || 0;
-            const pct = parseFloat(document.getElementById('rdPct').value) || 0;
-            const orig = pct < 100 ? final / (1 - pct / 100) : 0;
-            const s = sym();
-            const html = `<div class="result-row"><span>Original Price</span><span class="val green">${s} ${fmt(orig)}</span></div>`;
-            document.getElementById('rdResult').innerHTML = html; document.getElementById('rdResult').style.display = 'block';
-            showResult(html, { profitAmt: orig - final }, 'revdiscount');
-        }
-        function calcGST() {
-            const amt = parseFloat(document.getElementById('gstAmt').value) || 0;
-            const pct = parseFloat(document.getElementById('gstPct').value) || 0;
-            const mode = document.getElementById('gstMode').value;
-            const s = sym();
-            let tax, final;
-            if (mode === 'add') { tax = amt * (pct / 100); final = amt + tax; }
-            else { tax = amt - amt / (1 + pct / 100); final = amt; }
-            const html = `<div class="result-row"><span>Tax Amount</span><span class="val">${s} ${fmt(tax)}</span></div>
-                <div class="result-row"><span>${mode==='add'?'Final Price (incl. tax)':'Base Price (excl. tax)'}</span><span class="val green">${s} ${fmt(mode==='add'?final:amt-tax)}</span></div>`;
-            document.getElementById('gstResult').innerHTML = html; document.getElementById('gstResult').style.display = 'block';
-            showResult(html, { profitAmt: tax }, 'gst');
-        }
-        function calcCommission() {
-            const sale = parseFloat(document.getElementById('comSale').value) || 0;
-            const pct = parseFloat(document.getElementById('comPct').value) || 0;
-            const comm = sale * (pct / 100); const rem = sale - comm;
-            const s = sym();
-            const html = `<div class="result-row"><span>Commission Amount</span><span class="val">${s} ${fmt(comm)}</span></div>
-                <div class="result-row"><span>Remaining Amount</span><span class="val green">${s} ${fmt(rem)}</span></div>`;
-            document.getElementById('comResult').innerHTML = html; document.getElementById('comResult').style.display = 'block';
-            showResult(html, { profitAmt: comm }, 'commission');
-        }
-        function calcROI() {
-            const inv = parseFloat(document.getElementById('roiInv').value) || 0;
-            const ret = parseFloat(document.getElementById('roiRet').value) || 0;
-            const profit = ret - inv;
-            const roi = inv > 0 ? (profit / inv) * 100 : 0;
-            const s = sym();
-            const html = `<div class="result-row"><span>Net Profit</span><span class="val green">${s} ${fmt(profit)}</span></div>
-                <div class="result-row"><span>ROI %</span><span class="val">${roi.toFixed(2)}%</span></div>`;
-            document.getElementById('roiResult').innerHTML = html; document.getElementById('roiResult').style.display = 'block';
-            showResult(html, { roi, profitAmt: profit }, 'roi');
-        }
-        function calcBreakEven() {
-            const fixed = parseFloat(document.getElementById('beFixed').value) || 0;
-            const vc = parseFloat(document.getElementById('beVar').value) || 0;
-            const price = parseFloat(document.getElementById('bePrice').value) || 0;
-            const contrib = price - vc;
-            const units = contrib > 0 ? Math.ceil(fixed / contrib) : 0;
-            const revenue = units * price;
-            const s = sym();
-            const html = `<div class="result-row"><span>Break-even Units</span><span class="val green">${fmtInt(units)}</span></div>
-                <div class="result-row"><span>Break-even Revenue</span><span class="val">${s} ${fmt(revenue)}</span></div>`;
-            document.getElementById('beResult').innerHTML = html; document.getElementById('beResult').style.display = 'block';
-            showResult(html, { units, revenue }, 'breakeven');
-        }
-
-        function shareToolWhatsApp() {
-            const text = encodeURIComponent("🧮 Business Pricing, Profit & Margin Calculator Suite — free, multi-currency, premium tools for your business.\n\n👉 https://coldmatrixtools.com/business-calculator-suite.html");
-            window.open('https://wa.me/?text=' + text, '_blank');
-        }
-        function copyToolLink() {
-            const url = "https://coldmatrixtools.com/business-calculator-suite.html";
-            navigator.clipboard.writeText(url).then(() => {
-                const toast = document.getElementById('toast');
-                toast.classList.add('show');
-                setTimeout(() => { toast.classList.remove('show'); }, 2000);
-            }).catch(() => {
-                prompt('Copy this link:', url);
-            });
-        }
-
-        function shareResult() {
-            if (!lastResult) return;
-            const s = sym();
-            const msg = `🧮 Business Calculation Result\n${lastResult.label}\n\n🔗 https://coldmatrixtools.com/business-calculator-suite.html\n\n🙏 ColdMatrix Tools — your 24/7 business companion.`;
-            window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
-        }
-        function copyResult() {
-            if (!lastResult) return;
-            const s = sym();
-            const msg = `Business Calculation (${lastResult.label})\nColdMatrix Tools\nhttps://coldmatrixtools.com/business-calculator-suite.html`;
-            navigator.clipboard.writeText(msg).then(() => alert('Result copied!')).catch(() => prompt('Copy:', msg));
-        }
-
-        document.getElementById('tabBar').addEventListener('click', function(e) {
-            const btn = e.target.closest('.tab-btn');
-            if (!btn) return;
-            renderTab(btn.dataset.tab);
-        });
-
-        renderTab('profit');
-        renderHistory();
-        updateCurrency();
-    </script>
+    let cmDeferredPrompt;
+    window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();cmDeferredPrompt=e;document.getElementById('cmInstallBar').style.display='block';});
+    function cmInstallApp(){if(cmDeferredPrompt){cmDeferredPrompt.prompt();cmDeferredPrompt.userChoice.then(()=>{document.getElementById('cmInstallBar').style.display='none';});}else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');}}
+    if('serviceWorker'in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+</script>
 </body>
 </html>
