@@ -39,81 +39,200 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient: linear-gradient(135deg, #4FC3F7, #2196F3); }
+    :root {
+      --bg:#0B0F14;
+      --surface:#0F1620;
+      --text:#EAEDF0;
+      --muted:#8B98A5;
+      --accent:#4FC3F7;
+      --gold:#D4AF37;
+      --gold-bright:#FFD700;
+      --gold-border: linear-gradient(145deg, #C8993A, #E8C96A 30%, #A07828 70%, #D4A843);
+      --grey-light:#d0d2d6;
+      --grey-mid:#9ea0a5;
+      --grey-dark:#545860;
+      --grey-gradient: linear-gradient(180deg, #d0d2d6, #9ea0a5);
+      --whatsapp-green:#25D366;
+    }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
-    .container { max-width: 900px; margin:0 auto; padding:0 24px; }
-    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
-    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
-    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
-    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
-    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
-    .ad-card { border-radius:14px; overflow:hidden; background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+    body {
+      background: #111418;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" fill="none"/><path d="M0 0 L20 0 L20 20 L0 20 Z" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/></svg>');
+      background-size: 40px 40px;
+      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
+    }
+    .container { max-width: 850px; margin:0 auto; padding:30px 20px; }
+
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image: var(--gold-border) 1; }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; }
+    .logo { font-size:1.35rem; font-weight:800; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:26px; list-style:none; flex-wrap:wrap; align-items:center; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.92rem; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--gold-bright); }
+
+    .ad-card { border-radius:14px; overflow:hidden; background:linear-gradient(90deg,rgba(10,15,20,0.85),rgba(10,15,20,0.5)),url('ad-bg.jpg') center/cover no-repeat; border:2px solid; border-image: var(--gold-border) 1; padding:18px 22px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; box-shadow:0 4px 20px rgba(212,168,67,0.08); }
     .ad-card ul { list-style:none; padding:0; margin:0; }
     .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
-    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
-    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; display:none; }
-    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
-    h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
-    .subtitle { color:var(--muted); margin-bottom:30px; }
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:20px; }
-    .card h2 { font-size:1rem; font-weight:600; margin-bottom:18px; color:var(--accent); }
-    label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; }
-    input, select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:14px; border-radius:12px; font-size:1.1rem; }
-    input:focus, select:focus { outline:none; border-color:var(--accent); }
-    .conv-row { display:grid; grid-template-columns:1fr auto 1fr; gap:14px; align-items:end; margin-bottom:10px; }
-    .swap-btn { background:var(--surface2); border:1px solid var(--border); color:var(--accent); width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:1.1rem; margin-bottom:2px; }
-    .result-box { text-align:center; margin-top:22px; display:none; }
-    .result-number { font-size:2.4rem; font-weight:800; color:var(--accent); }
-    .result-sub { color:var(--muted); font-size:0.9rem; margin-top:6px; }
-    .rate-updated { text-align:center; font-size:0.75rem; color:var(--muted); margin-top:8px; }
-    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
-    .share-btn { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px; font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
-    .share-whatsapp { background:#25D366; }
-    .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
-    #shareCapture { background:var(--surface); }
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--accent); text-decoration:none; }
-    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.4rem; }
-    @media (max-width:600px){ .conv-row{grid-template-columns:1fr; } .swap-btn{justify-self:center;} }
-      .share-tool-card{
-      background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
-      border: 2px solid;
-      border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
+    .ad-card li::before { content:"✦"; color:var(--gold-bright); font-weight:700; margin-right:6px; }
+    .whatsapp-btn { background:var(--whatsapp-green); color:white; border-radius:50px; padding:11px 24px; text-decoration:none; font-weight:700; white-space:nowrap; box-shadow:0 4px 15px rgba(37,211,102,0.3); transition:all 0.25s; }
+    .whatsapp-btn:hover { transform:translateY(-2px); }
+
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:13px; border-radius:10px; margin:20px 0; font-weight:700; display:none; }
+    .install-bar button { background:#0A0F14; color:var(--accent); border:none; padding:7px 20px; border-radius:6px; margin-left:12px; font-weight:700; cursor:pointer; }
+
+    .title-row { display:flex; align-items:center; gap:12px; margin-bottom:6px; }
+    .currency-icon { display:inline-flex; align-items:center; justify-content:center; min-width:44px; width:44px; height:44px; background:var(--grey-gradient); border:2px solid var(--gold); border-radius:50%; font-size:1.3rem; color:#0A0F14; box-shadow:0 3px 10px rgba(212,175,55,0.3); }
+    h1 { font-family:'Oswald',sans-serif; font-size:2rem; font-weight:700; letter-spacing:-0.3px; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,0.6); }
+    h1 span { color: var(--accent); }
+    .subtitle { color:#ccc; font-size:1rem; font-weight:500; margin-bottom:6px; text-shadow:0 1px 4px rgba(0,0,0,0.6); }
+    .made-in { font-size:0.78rem; color:var(--gold-bright); margin-bottom:22px; font-weight:600; letter-spacing:0.5px; opacity:0.9; }
+
+    .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:16px 18px; margin-bottom:22px; box-shadow:0 10px 34px rgba(0,0,0,0.55); }
+    .share-tool-title { font-family:'Inter',sans-serif; font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:12px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:11px; border-radius:8px; font-weight:700; font-size:0.82rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); transition:all 0.25s ease; }
+    .share-tool-btn:hover { border-color:#E8B93A; }
+    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn i { font-size:0.95rem; }
+
+    /* ══════ MAIN CONVERTER CARD — MEDIUM GREY ══════ */
+    .card {
+      background: linear-gradient(160deg, #a8acb5 0%, #7e828b 40%, #545860 100%);
+      border:2px solid var(--gold);
+      border-radius:16px;
+      padding:28px 26px;
+      margin-bottom:22px;
+      box-shadow:0 8px 32px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.2), inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+    /* FIX 1: Heading — bright gold, bold, visible */
+    .card h2 {
+      font-family:'Oswald',sans-serif;
+      font-size:1.15rem;
+      font-weight:700;
+      margin-bottom:18px;
+      color:var(--gold-bright);
+      text-transform:uppercase;
+      letter-spacing:0.8px;
+      text-shadow:0 1px 2px rgba(0,0,0,0.4);
+    }
+    /* FIX 2: Labels — bright white, heavy weight, clearly visible */
+    .card label {
+      display:block;
+      font-size:0.9rem;
+      color:#ffffff;
+      margin-bottom:6px;
+      font-weight:700;
+      text-shadow:0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    .card input, .card select {
+      width:100%;
+      background:#e8eaef;
+      border:2px solid #8a8e96;
+      color:#1a1a1a;
+      padding:14px 16px;
+      border-radius:8px;
+      font-size:1rem;
+      font-weight:500;
+      outline:none;
+      transition:all 0.25s;
+    }
+    .card input:focus, .card select:focus { border-color:var(--gold); box-shadow:0 0 10px rgba(212,175,55,0.25); }
+    .card select option { background:#2a303a; color:#EAEDF0; }
+
+    .conv-row { display:grid; grid-template-columns:1fr auto 1fr; gap:16px; align-items:end; margin-bottom:12px; }
+
+    .swap-btn {
+      background:var(--grey-gradient);
+      border:2px solid var(--gold);
+      color:#0A0F14;
+      width:48px; height:48px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:1.2rem;
+      margin-bottom:2px;
+      transition:all 0.3s;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 3px 8px rgba(0,0,0,0.3);
+      font-weight:700;
+    }
+    .swap-btn:hover { border-color:var(--gold-bright); box-shadow:0 0 20px rgba(212,175,55,0.4); transform:rotate(180deg); }
+
+    /* Result — slightly darker grey, strong emphasis */
+    .result-box {
+      text-align:center;
+      margin-top:24px;
+      display:none;
+      padding:22px;
+      background:#4a4f58;
       border-radius:12px;
-      padding:22px 20px;
-      margin-bottom:26px;
-      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+      border:2px solid var(--gold);
     }
-    .share-tool-title{font-family:'Playfair Display',serif; font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
-    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-    .share-tool-btn{
-      display:flex; align-items:center; justify-content:center; gap:9px;
-      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
-      background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
-      transition:all 0.25s ease; font-family:'Inter',sans-serif;
+    .result-number { font-family:'Oswald',sans-serif; font-size:2.4rem; font-weight:700; color:var(--gold-bright); }
+    .result-sub { color:#e8eaef; font-size:0.9rem; margin-top:8px; font-weight:500; }
+
+    /* FIX 4: Rate updated & thank you — BRIGHT & READABLE */
+    .rate-updated {
+      text-align:center;
+      font-size:0.8rem;
+      color:#ffffff;
+      margin-top:12px;
+      font-weight:600;
+      text-shadow:0 1px 2px rgba(0,0,0,0.5);
     }
-    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
-    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
-    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-    .share-tool-btn i{font-size:1rem;}
-</style>
+    .branding-line {
+      font-size:0.82rem;
+      color:#ffffff;
+      text-align:center;
+      margin-top:18px;
+      border-top:1px solid rgba(255,255,255,0.2);
+      padding-top:14px;
+      font-weight:600;
+      text-shadow:0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
+    .share-btn { display:flex; align-items:center; gap:7px; padding:11px 18px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer; border:none; text-decoration:none; color:#fff; text-transform:uppercase; transition:all 0.25s; }
+    .share-whatsapp { background:var(--whatsapp-green); }
+    .share-pdf { background:#E53935; }
+    .share-jpg, .share-png { background:var(--grey-dark); color:#fff; border:1.5px solid #888; }
+    .share-btn:hover { transform:translateY(-2px); }
+
+    .about-card { background:var(--surface); border:2px solid; border-image:var(--gold-border) 1; border-radius:14px; padding:22px 24px; margin-bottom:22px; box-shadow:0 4px 20px rgba(0,0,0,0.4); }
+    .about-card h2 { font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:700; margin-bottom:10px; color:var(--gold-bright); text-transform:uppercase; }
+
+    footer { text-align:center; color:#ccc; font-size:0.8rem; padding:30px 0 20px; border-top:2px solid; border-image:var(--gold-border) 1; margin-top:40px; }
+    footer a { color:var(--accent); text-decoration:none; font-weight:600; }
+    .pakistan-tag { text-align:center; margin-top:6px; font-size:0.72rem; color:var(--gold-bright); opacity:0.85; font-weight:600; }
+
+    .whatsapp-float { position:fixed; bottom:22px; right:22px; z-index:999; width:52px; height:52px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(37,211,102,0.45); text-decoration:none; color:#fff; font-size:1.5rem; border:2px solid rgba(255,255,255,0.15); transition:all 0.25s; }
+    .whatsapp-float:hover { transform:scale(1.08); }
+
+    #shareCapture { background:transparent; }
+
+    @media (max-width:600px){
+      .conv-row{grid-template-columns:1fr;}
+      .swap-btn{justify-self:center; transform:rotate(90deg);}
+      .swap-btn:hover{transform:rotate(270deg);}
+      .nav-links{gap:14px;}
+      h1{font-size:1.5rem;}
+      .result-number{font-size:1.8rem;}
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
     <div class="container nav-inner">
-      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a>
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
       </ul>
@@ -129,17 +248,22 @@
           <li>PU/PIR Sandwich Panels</li>
           <li>Prefab Construction Solutions</li>
         </ul>
-        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
+        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✦ Karachi, Lahore, Islamabad & all Pakistan</div>
       </div>
       <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
     </div>
 
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
-    <h1>💱 ColdMatrix Global Currency Converter</h1>
-    <p class="subtitle">Live exchange rates for 150+ currencies worldwide — free and instant.</p>
+    <div class="title-row">
+      <span class="currency-icon">💲</span>
+      <h1><span>ColdMatrix</span> Global Currency Converter</h1>
+    </div>
+    <p class="subtitle">Live exchange rates for 150+ currencies worldwide — free, fast & accurate.</p>
+    <p class="made-in">🇵🇰 Made in Pakistan with pride 🇵🇰</p>
+
     <div class="share-tool-card">
-      <div class="share-tool-title">Share ColdMatrix Currency Converter</div>
+      <div class="share-tool-title">Share Currency Converter</div>
       <div class="share-tool-buttons">
         <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
@@ -147,11 +271,11 @@
     </div>
 
     <div class="card" id="shareCapture">
-      <h2>Convert Currency</h2>
-      <div class="field" style="margin-bottom:16px;"><label>Amount</label><input id="amount" type="number" value="100" oninput="convert()"></div>
+      <h2>💱 Convert Currency</h2>
+      <div style="margin-bottom:18px;"><label>Amount</label><input id="amount" type="number" value="100" oninput="convert()"></div>
       <div class="conv-row">
         <div><label>From</label><select id="fromCur" onchange="convert()"></select></div>
-        <button class="swap-btn" onclick="swapCur()" title="Swap">⇄</button>
+        <button class="swap-btn" onclick="swapCur()" title="Swap Currencies">⇄</button>
         <div><label>To</label><select id="toCur" onchange="convert()"></select></div>
       </div>
       <div class="result-box" id="resultBox">
@@ -159,28 +283,27 @@
         <div class="result-sub" id="resultSub"></div>
       </div>
       <div class="rate-updated" id="rateUpdated">Loading live rates…</div>
-      <div style="font-size:0.72rem;color:var(--muted);text-align:center;margin-top:14px;border-top:1px solid var(--border);padding-top:10px;">🙏 Thank you so much for using and trusting ColdMatrix Tools — your 24/7 business companion.<br>📧 contact@coldmatrixtools.com &nbsp;💬 +92 333 3228470</div>
+      <div class="branding-line">🙏 Thank you so much for using and trusting ColdMatrix Tools — your 24/7 business companion.<br>📧 contact@coldmatrixtools.com &nbsp;|&nbsp; 💬 +92 333 3228470</div>
     </div>
 
     <div class="share-bar" id="shareBarWrap" style="display:none;">
-      <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Share on WhatsApp</button>
-      <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> Save as PDF</button>
+      <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
       <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
 
-    <div class="card">
+    <div class="about-card">
       <h2>ℹ️ About this tool</h2>
       <p style="font-size:0.85rem; color:var(--muted);">Exchange rates are provided by a public rates API and refresh regularly. Rates are indicative and may differ slightly from bank or transfer-service rates, which often include their own margin.</p>
     </div>
   </div>
 
-  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
-  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.<br><span class="pakistan-tag">🇵🇰 Made in Pakistan 🇵🇰</span></footer>
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script>
     let rates = null;
-    let baseCur = 'USD';
     const popular = ["USD","EUR","GBP","PKR","AED","SAR","INR","CNY","JPY","AUD","CAD","CHF","SGD","MYR","TRY","ZAR","NGN","BDT","EGP","QAR"];
 
     async function loadRates(){
@@ -189,20 +312,18 @@
         const data = await res.json();
         if(data && data.rates){
           rates = data.rates;
-          baseCur = data.base_code || 'USD';
           populateSelects();
           document.getElementById('rateUpdated').textContent = 'Live rates updated: ' + (data.time_last_update_utc || new Date().toUTCString());
           convert();
         } else {
-          document.getElementById('rateUpdated').textContent = 'Could not load live rates. Please refresh the page.';
+          document.getElementById('rateUpdated').textContent = 'Could not load live rates. Please refresh.';
         }
       }catch(e){
-        document.getElementById('rateUpdated').textContent = 'Could not load live rates — check your internet connection and refresh.';
+        document.getElementById('rateUpdated').textContent = 'Could not load live rates — check internet and refresh.';
       }
     }
 
     function populateSelects(){
-      const codes = Object.keys(rates).sort((a,b)=> popular.indexOf(b)!==-1 || popular.indexOf(a)!==-1 ? popular.indexOf(a===undefined?999:a) - popular.indexOf(b===undefined?999:b) : a.localeCompare(b));
       const allCodes = Object.keys(rates).sort();
       const ordered = [...popular.filter(c=>rates[c]), ...allCodes.filter(c=>!popular.includes(c))];
       const fromSel = document.getElementById('fromCur');
@@ -218,9 +339,7 @@
       const amount = parseFloat(document.getElementById('amount').value) || 0;
       const from = document.getElementById('fromCur').value;
       const to = document.getElementById('toCur').value;
-      // rates are relative to USD base
-      const amountInUsd = amount / rates[from];
-      const result = amountInUsd * rates[to];
+      const result = (amount / rates[from]) * rates[to];
       document.getElementById('resultNumber').textContent = result.toLocaleString(undefined,{maximumFractionDigits:2}) + ' ' + to;
       document.getElementById('resultSub').textContent = `1 ${from} = ${(rates[to]/rates[from]).toLocaleString(undefined,{maximumFractionDigits:4})} ${to}`;
       document.getElementById('resultBox').style.display = 'block';
@@ -230,13 +349,13 @@
     function swapCur(){
       const f = document.getElementById('fromCur');
       const t = document.getElementById('toCur');
-      const tmp = f.value; f.value = t.value; t.value = tmp;
+      [f.value, t.value] = [t.value, f.value];
       convert();
     }
 
     loadRates();
 
-    async function captureCanvas(){ return await html2canvas(document.getElementById('shareCapture'), {backgroundColor:'#12181F', scale:2}); }
+    async function captureCanvas(){ return await html2canvas(document.getElementById('shareCapture'), {backgroundColor:'#7e828b', scale:2}); }
     async function downloadResult(type){
       const canvas = await captureCanvas();
       if(type === 'pdf'){
@@ -261,26 +380,26 @@
           try{ await navigator.share({ files:[file], title:'Currency Conversion', text:'Check this currency conversion from ColdMatrix Tools!' }); }catch(e){}
         } else {
           const link = document.createElement('a'); link.download='ColdMatrix-Currency.png'; link.href = canvas.toDataURL('image/png'); link.click();
-          window.open('https://wa.me/?text=' + encodeURIComponent('Thank you so much for using and trusting ColdMatrix Tools \u2014 your 24/7 business companion.\n\ud83d\udce7 contact@coldmatrixtools.com  |  \ud83d\udcac +92 333 3228470'), '_blank');
+          window.open('https://wa.me/?text=' + encodeURIComponent('Thank you for using ColdMatrix Tools!\n📧 contact@coldmatrixtools.com | 💬 +92 333 3228470'), '_blank');
         }
       });
     }
 
-    let d; const bar = document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
+    let deferredPrompt;
+    const installBar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt = e; installBar.style.display='block'; });
     window.installAppTool = function(){
-      if(d){ d.prompt(); d.userChoice.then(()=>{ bar.style.display='none'; }); }
-      else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
+      if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(()=>{ installBar.style.display='none'; }); }
+      else { alert('📱 Add to Home Screen via browser menu.'); }
     };
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
-  
+
     function shareToolWhatsApp(){
-      const text = encodeURIComponent('Check out this Currency Converter from ColdMatrix Tools! ' + window.location.href);
-      window.open('https://wa.me/?text='+text, '_blank');
+      window.open('https://wa.me/?text=' + encodeURIComponent('Check out ColdMatrix Currency Converter! ' + window.location.href));
     }
     function copyToolLink(){
-      navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{
-        alert(window.location.href);
-      });
+      navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
     }
-</script>
+  </script>
+</body>
+</html>
