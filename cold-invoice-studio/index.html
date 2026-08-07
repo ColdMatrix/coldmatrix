@@ -3,7 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ColdMatrix Invoice Studio - Executive Black Premium</title>
+<link rel="canonical" href="https://coldmatrixtools.com/cold-invoice-studio/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0A0F14">
+<title>ColdMatrix Invoice Studio — Invoices, Quotations, BOQs & Business Proposals</title>
+<meta name="description" content="Create professional invoices, quotations, BOQs, estimates, and business proposals free — export as PDF, share on WhatsApp. Fast, simple, no signup.">
+<meta property="og:title" content="ColdMatrix Invoice Studio — Invoices, Quotations, BOQs & Business Proposals">
+<meta property="og:description" content="Create professional invoices, quotations, BOQs, estimates, and business proposals free — export as PDF, share on WhatsApp.">
+<meta property="og:url" content="https://coldmatrixtools.com/cold-invoice-studio/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ColdMatrix Tools">
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -170,6 +179,27 @@ h1,h2,.poppins{font-family:'Poppins',sans-serif}
 <a href="/" class="px-5 py-2 rounded-full bg-white text-black text-[13px] font-bold hover:bg-slate-100 transition">Home</a>
 </div>
 </header>
+
+<div id="cmInstallBar" style="display:none;background:#D4AF37;color:#0A0A0A;text-align:center;padding:12px;font-weight:600;border-radius:10px;margin:12px auto;max-width:1600px;font-family:sans-serif;">📱 Add ColdMatrix to your Home Screen <button onclick="window.cmInstallApp()" style="background:#0A0A0A;color:#D4AF37;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
+<script>
+  window.cmDeferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    window.cmDeferredPrompt = e;
+    var b = document.getElementById('cmInstallBar');
+    if (b) b.style.display = 'block';
+  });
+  window.cmInstallApp = function() {
+    if (window.cmDeferredPrompt) {
+      window.cmDeferredPrompt.prompt();
+      window.cmDeferredPrompt.userChoice.then(function(){
+        document.getElementById('cmInstallBar').style.display = 'none';
+      });
+    } else {
+      alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');
+    }
+  };
+</script>
 
 <div class="max-w-[1600px] mx-auto px-4 md:px-6 py-8">
 
@@ -393,5 +423,13 @@ async function downloadAs(fmt){
 }
 init();
 </script>
+
+<div style="max-width:1600px;margin:20px auto;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;font-family:sans-serif;">
+  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#D4AF37;">About the ColdMatrix Invoice Studio</h2>
+  <p>Create professional invoices, quotations, and BOQs (Bills of Quantities) with executive-grade paper templates — export as PDF, PNG, or JPG, and share directly via WhatsApp. Built for contractors, consultants, and business owners who need polished business documents fast.</p>
+  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#D4AF37;">Common Questions</h3>
+  <p><strong>Can I customize the currency and branding?</strong> Yes — set your business name, logo, and currency symbol, and they carry through every document you create.</p>
+  <p><strong>Need a simpler quotation tool?</strong> Try our standalone <a href="../quotation-generator.html" style="color:#D4AF37;">Quotation Generator</a>.</p>
+</div>
 </body>
 </html>
