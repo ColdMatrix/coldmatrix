@@ -31,7 +31,15 @@
     .back-link { display:inline-block; margin:20px 0; color:var(--accent); text-decoration:none; font-weight:600; }
     footer { text-align:center; color:var(--muted); font-size:0.85rem; padding:30px 0; border-top:1px solid var(--border); margin-top:40px; }
     footer a { color:var(--accent); text-decoration:none; }
-  </style>
+  
+    .nav-hamburger{display:none;background:none;border:none;color:var(--accent,#00b894);font-size:1.5rem;cursor:pointer;padding:4px 8px;line-height:1;}
+    @media (max-width:700px){
+      .nav-hamburger{display:block;}
+      .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(8,12,20,0.98);backdrop-filter:blur(18px);padding:16px 20px;gap:14px;border-bottom:1px solid rgba(255,255,255,0.08);box-shadow:0 12px 24px rgba(0,0,0,0.4);}
+      .nav-links.cm-open{display:flex;}
+      .nav-inner{position:relative;}
+    }
+</style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -46,7 +54,21 @@
   </script>
 </head>
 <body>
-  <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li></ul></div></nav>
+  <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><button class="nav-hamburger" onclick="cmToggleNav(this)" aria-label="Menu">☰</button><ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li></ul></div></nav>
+<script>
+function cmToggleNav(btn){
+  var nav = btn.parentElement.querySelector('.nav-links');
+  if(nav) nav.classList.toggle('cm-open');
+}
+document.addEventListener('click', function(e){
+  document.querySelectorAll('.nav-links.cm-open').forEach(function(nav){
+    if(!nav.contains(e.target) && !e.target.classList.contains('nav-hamburger')){
+      nav.classList.remove('cm-open');
+    }
+  });
+});
+</script>
+
   <div class="container">
     <a href="blog.html" class="back-link">← Back to Knowledge Hub</a>
     <div class="article-header"><div class="category">🔧 Installation</div><h1>Common Cold Storage Installation Mistakes & How to Avoid Them</h1><div class="meta">Published by ColdMatrix • 5 min read</div></div>

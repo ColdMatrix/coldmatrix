@@ -78,10 +78,32 @@
     .whatsapp-float { position:fixed; bottom:18px; right:18px; z-index:999; width:48px; height:48px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.3rem; text-decoration:none; }
     #shareCapture { display:none; } .note { font-size:0.72rem; color:var(--muted); margin-top:12px; text-align:center; padding-top:10px; border-top:1px solid rgba(255,255,255,0.05); }
     @media (max-width:600px){ .results-grid{grid-template-columns:1fr 1fr;} .gauge-value{font-size:2.2rem;} .brand-title{font-size:1.6rem;} }
-  </style>
+  
+    .nav-hamburger{display:none;background:none;border:none;color:var(--accent,#00b894);font-size:1.5rem;cursor:pointer;padding:4px 8px;line-height:1;}
+    @media (max-width:700px){
+      .nav-hamburger{display:block;}
+      .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(8,12,20,0.98);backdrop-filter:blur(18px);padding:16px 20px;gap:14px;border-bottom:1px solid rgba(255,255,255,0.08);box-shadow:0 12px 24px rgba(0,0,0,0.4);}
+      .nav-links.cm-open{display:flex;}
+      .nav-inner{position:relative;}
+    }
+</style>
 </head>
 <body>
-  <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+  <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><button class="nav-hamburger" onclick="cmToggleNav(this)" aria-label="Menu">☰</button><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+<script>
+function cmToggleNav(btn){
+  var nav = btn.parentElement.querySelector('.nav-links');
+  if(nav) nav.classList.toggle('cm-open');
+}
+document.addEventListener('click', function(e){
+  document.querySelectorAll('.nav-links.cm-open').forEach(function(nav){
+    if(!nav.contains(e.target) && !e.target.classList.contains('nav-hamburger')){
+      nav.classList.remove('cm-open');
+    }
+  });
+});
+</script>
+
   <div class="container">
     <div class="ad-card"><div><ul><li>PEB Structures</li><li>Cold Storage & Freezer Rooms</li><li>PU/PIR Sandwich Panels</li></ul></div><a href="https://wa.me/923333228470" class="whatsapp-btn" target="_blank">💬 Get Quote</a></div>
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
@@ -201,6 +223,8 @@
     async function cap(){const e=document.getElementById('shareCapture');e.style.display='block';const c=await html2canvas(e,{backgroundColor:'#fff',scale:2});e.style.display='none';return c;}
     async function dlR(t){const c=await cap();if(t==='pdf'){const{jsPDF}=window.jspdf;const i=c.toDataURL('image/jpeg',0.9);const p=new jsPDF({orientation:c.width>c.height?'l':'p',unit:'px',format:[c.width,c.height]});p.addImage(i,'JPEG',0,0,c.width,c.height);p.save('Speed-Test.pdf');}else{const a=document.createElement('a');a.download='Speed-Test.'+t;a.href=c.toDataURL(t==='jpg'?'image/jpeg':'image/png',0.9);a.click();}}
     async function shWA(){const c=await cap();c.toBlob(async(b)=>{const f=new File([b],'test.png',{type:'image/png'});const cap='ColdMatrix Speed Test\ncontact@coldmatrixtools.com | +92 333 3228470';if(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Speed Test',text:cap});}catch(e){}}else{const a=document.createElement('a');a.download='test.png';a.href=c.toDataURL('image/png');a.click();window.open('https://wa.me/?text='+encodeURIComponent(cap));}});}
+    function shareWhatsApp(){shWA();}
+    function downloadResult(t){dlR(t);}
 
     let dp;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;document.getElementById('installBarTool').style.display='block';});
     function installAppTool(){if(dp){dp.prompt();dp.userChoice.then(()=>{document.getElementById('installBarTool').style.display='none';});}else{alert('Add to Home Screen via browser menu.');}}

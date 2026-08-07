@@ -115,7 +115,15 @@
     .share-tool-btn:hover{border-color:#E8B93A;box-shadow:0 0 18px rgba(200,168,78,0.35);transform:translateY(-2px)}
     .share-tool-btn.wa{border-color:rgba(37,211,102,0.55)}.share-tool-btn.wa:hover{border-color:#25D366}
     .share-tool-btn i{font-size:1rem}
-  </style>
+  
+    .nav-hamburger{display:none;background:none;border:none;color:var(--accent,#00b894);font-size:1.5rem;cursor:pointer;padding:4px 8px;line-height:1;}
+    @media (max-width:700px){
+      .nav-hamburger{display:block;}
+      .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(8,12,20,0.98);backdrop-filter:blur(18px);padding:16px 20px;gap:14px;border-bottom:1px solid rgba(255,255,255,0.08);box-shadow:0 12px 24px rgba(0,0,0,0.4);}
+      .nav-links.cm-open{display:flex;}
+      .nav-inner{position:relative;}
+    }
+</style>
 </head>
 <body>
   <div class="sparkles" id="sparklesContainer"></div>
@@ -133,7 +141,21 @@
       <button class="celeb-back" onclick="closeCelebration()">✨ Back</button>
     </div>
   </div>
-  <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+  <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><button class="nav-hamburger" onclick="cmToggleNav(this)" aria-label="Menu">☰</button><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+<script>
+function cmToggleNav(btn){
+  var nav = btn.parentElement.querySelector('.nav-links');
+  if(nav) nav.classList.toggle('cm-open');
+}
+document.addEventListener('click', function(e){
+  document.querySelectorAll('.nav-links.cm-open').forEach(function(nav){
+    if(!nav.contains(e.target) && !e.target.classList.contains('nav-hamburger')){
+      nav.classList.remove('cm-open');
+    }
+  });
+});
+</script>
+
   <div class="container">
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
     <h1><span class="icon">🎂</span><span class="coldmatrix">ColdMatrix</span><span class="title">Birthday Countdown</span></h1>
@@ -149,7 +171,14 @@
       <div class="compliment-box" id="complimentBox"></div>
       <div class="info-row" id="infoRow" style="display:none"></div>
     </div>
-    <div id="shareCapture"><div style="background:#fff;color:#111;border-radius:16px;padding:24px;font-family:'Inter',sans-serif;width:360px;text-align:center"><div style="font-size:1.2rem;font-weight:800;color:#0A0F14;margin-bottom:10px">🎂 <span style="color:#C8A84E">ColdMatrix</span> Birthday Countdown</div><div style="font-size:1rem;font-weight:700;color:#111;margin-bottom:4px" id="pvCelebrant"></div><div style="font-size:0.85rem;color:#555;margin-bottom:8px" id="pvDob"></div><div style="font-size:1rem;font-weight:800;color:#C8A84E;margin-bottom:4px" id="pvCountdown"></div><div style="font-size:0.7rem;color:#888;margin-top:14px;border-top:1px solid #eee;padding-top:10px">🙏 Thank you for using ColdMatrix Tools<br>📧 contact@coldmatrixtools.com &nbsp;|&nbsp; 💬 +92 333 3228470</div></div></div>
+    <div id="shareCapture"><div id="shareCaptureInner" style="width:400px;padding:36px 28px;text-align:center;font-family:'Inter',sans-serif;border-radius:20px;position:relative;overflow:hidden;">
+      <div style="font-size:0.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:0.85;margin-bottom:8px;" id="pvBrand">🎂 ColdMatrix Birthday Countdown</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:800;margin:8px 0 4px;" id="pvCelebrant"></div>
+      <div style="font-size:0.85rem;opacity:0.8;margin-bottom:18px;" id="pvDob"></div>
+      <div id="pvCountdownGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 18px;"></div>
+      <div style="font-size:0.9rem;font-style:italic;line-height:1.5;margin-bottom:20px;" id="pvWish"></div>
+      <div style="font-size:0.68rem;opacity:0.75;border-top:1px solid rgba(0,0,0,0.12);padding-top:12px;">🙏 Made with ColdMatrix Tools — coldmatrixtools.com<br>📧 contact@coldmatrixtools.com &nbsp;|&nbsp; 💬 +92 333 3228470</div>
+    </div></div>
     <div class="share-bar" id="shareBarWrap" style="display:none"><span style="width:100%;text-align:center;font-size:0.8rem;color:var(--muted);margin-bottom:2px">📋 Share the party:</span><button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button><button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button><button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button><button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button></div>
     <div class="appreciation">✨ <strong class="gold">Thank you</strong> for using our Birthday Countdown. Every moment is worth celebrating!<br><span style="font-size:0.75rem">Explore more <a href="index.html" style="color:var(--accent)">premium tools</a> designed for you.</span></div>
     <div class="note">🎂 The countdown updates live in your browser. All data stays private.</div>
@@ -273,7 +302,33 @@
     function buildShareUrl(){return`https://coldmatrixtools.com/birthday-countdown.html?name=${encodeURIComponent(celebrantName)}&dob=${document.getElementById('inputDob').value}&gender=${currentGender}&rel=${encodeURIComponent(currentRelation)}&age=${document.getElementById('inputAgeGroup').value}`}
     function getShareText(){return`🎂 ${celebrantName}'s Birthday Countdown is LIVE!\n⏳ Watch the seconds tick away…\n\n🔗 ${buildShareUrl()}\n\n✨ Created with ColdMatrix Tools`}
     function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(getShareText()),'_blank')}
-    async function downloadResult(type){document.getElementById('pvCelebrant').textContent=celebrantName+' — '+currentRelation;document.getElementById('pvDob').textContent='Next Birthday: '+(nextBirthday?nextBirthday.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}):'');const pills=document.querySelectorAll('.countdown-pill');let cd='';pills.forEach(p=>cd+=p.querySelector('.value').textContent+' '+p.querySelector('.unit').textContent+' | ');document.getElementById('pvCountdown').textContent=cd.slice(0,-3);const el=document.getElementById('shareCapture');el.style.display='block';const canvas=await html2canvas(el,{backgroundColor:'#ffffff',scale:2});el.style.display='none';if(type==='pdf'){const{jsPDF}=window.jspdf;const img=canvas.toDataURL('image/jpeg',0.95);const pdf=new jsPDF({orientation:canvas.width>canvas.height?'l':'p',unit:'px',format:[canvas.width,canvas.height]});pdf.addImage(img,'JPEG',0,0,canvas.width,canvas.height);pdf.save('ColdMatrix-Birthday-Countdown.pdf')}else{const mime=type==='jpg'?'image/jpeg':'image/png';const link=document.createElement('a');link.download='ColdMatrix-Birthday-Countdown.'+type;link.href=canvas.toDataURL(mime,0.95);link.click()}}
+    async function downloadResult(type){
+      const inner=document.getElementById('shareCaptureInner');
+      const isChild=isChildTheme();
+      let gradient, textColor, pillBg, pillBorder;
+      if(currentGender==='female'&&isChild){gradient='linear-gradient(145deg,#FF8AB5,#FFD0E8 60%,#FFF0F6)';textColor='#7A1F45';pillBg='rgba(255,255,255,0.55)';pillBorder='#FF9EC0';}
+      else if(currentGender==='male'&&isChild){gradient='linear-gradient(145deg,#5FB8FF,#D0EFFF 60%,#F0FAFF)';textColor='#0D3A5C';pillBg='rgba(255,255,255,0.55)';pillBorder='#7EC8FF';}
+      else if(currentGender==='female'){gradient='linear-gradient(145deg,#2A1440,#C08AD8 65%,#E8C0F0)';textColor='#FFFFFF';pillBg='rgba(255,255,255,0.15)';pillBorder='#E8C0F0';}
+      else{gradient='linear-gradient(145deg,#1a1408,#C8A84E 65%,#E2C87A)';textColor='#FFFFFF';pillBg='rgba(255,255,255,0.15)';pillBorder='#FFD700';}
+      inner.style.background=gradient;
+      inner.style.color=textColor;
+      document.getElementById('pvBrand').style.color=textColor;
+      document.getElementById('pvCelebrant').textContent=celebrantName;
+      document.getElementById('pvDob').textContent='🎉 '+(nextBirthday?nextBirthday.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}):'');
+      document.getElementById('pvWish').textContent=getWishLine();
+      const pills=document.querySelectorAll('#countdownGrid .countdown-pill');
+      let gridHtml='';
+      pills.forEach(p=>{
+        gridHtml+=`<div style="background:${pillBg};border:1.5px solid ${pillBorder};border-radius:12px;padding:10px 4px;"><div style="font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:800;">${p.querySelector('.value').textContent}</div><div style="font-size:0.55rem;text-transform:uppercase;letter-spacing:0.5px;opacity:0.85;">${p.querySelector('.unit').textContent}</div></div>`;
+      });
+      document.getElementById('pvCountdownGrid').innerHTML=gridHtml;
+      const el=document.getElementById('shareCapture');
+      el.style.display='block';
+      const canvas=await html2canvas(inner,{backgroundColor:null,scale:2});
+      el.style.display='none';
+      if(type==='pdf'){const{jsPDF}=window.jspdf;const img=canvas.toDataURL('image/jpeg',0.95);const pdf=new jsPDF({orientation:canvas.width>canvas.height?'l':'p',unit:'px',format:[canvas.width,canvas.height]});pdf.addImage(img,'JPEG',0,0,canvas.width,canvas.height);pdf.save('ColdMatrix-Birthday-Countdown.pdf')}
+      else{const mime=type==='jpg'?'image/jpeg':'image/png';const link=document.createElement('a');link.download='ColdMatrix-Birthday-Countdown.'+type;link.href=canvas.toDataURL(mime,0.95);link.click()}
+    }
     function checkUrlParams(){const p=new URLSearchParams(window.location.search);if(p.has('name')&&p.has('dob')){document.getElementById('inputCelebrantName').value=decodeURIComponent(p.get('name'));document.getElementById('inputDob').value=p.get('dob');if(p.has('age')){document.getElementById('inputAgeGroup').value=p.get('age')}if(p.has('gender')){document.getElementById('inputGender').value=p.get('gender');applyGenderTheme()}if(p.has('rel')){document.getElementById('inputRelation').value=decodeURIComponent(p.get('rel'));updateGenderByRelation()}startCountdown()}}
     let deferredPrompt;const installBar=document.getElementById('installBarTool');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBar.style.display='block'});window.installAppTool=function(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{installBar.style.display='none'})}else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.')}};if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{})}
     window.addEventListener('DOMContentLoaded',checkUrlParams);
