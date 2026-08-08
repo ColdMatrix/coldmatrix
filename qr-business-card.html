@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://coldmatrixtools.com/qr-business-card.html">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ColdMatrix QR Business Card Generator — Free Digital Business Card</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="ColdMatrix QR Business Card Generator — Free Digital Business Card">
+  <meta property="og:description" content="Create a scannable digital business card with a QR code that saves your contact straight to any phone. Free, shareable, downloadable.">
+  <meta property="og:url" content="https://coldmatrixtools.com/qr-business-card.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ColdMatrix QR Business Card Generator — Free Digital Business Card">
+  <meta name="twitter:description" content="Create a scannable digital business card with a QR code that saves your contact straight to any phone. Free, shareable, downloadable.">
+  <meta name="description" content="Create a scannable digital business card with a QR code that saves your contact straight to any phone. Free, shareable, downloadable.">
+  <meta name="keywords" content="QR business card, digital business card generator, vCard QR code, contact QR code maker">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root { --bg:#0B0F14; --surface:#12181F; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gold:#D4AF37; --gold-bright:#FFD700; --gold-border:linear-gradient(145deg,#C8993A,#E8C96A 30%,#A07828 70%,#D4A843); --grey-gradient:linear-gradient(180deg,#d0d2d6,#9ea0a5); --whatsapp-green:#25D366; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#0B0F14; color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; min-height:100vh; }
+    .container { max-width:900px; margin:0 auto; padding:0 24px; }
+
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(11,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:var(--gold-border) 1; }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; }
+    .logo { font-size:1.35rem; font-weight:800; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:22px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.9rem; }
+    .nav-links a:hover { color:var(--gold-bright); }
+
+    .ad-card { border-radius:14px; background:rgba(18,24,31,0.8); border:2px solid; border-image:var(--gold-border) 1; padding:18px 22px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+    .ad-card ul { list-style:none; } .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
+    .ad-card li::before { content:"✦"; color:var(--gold-bright); font-weight:700; margin-right:6px; }
+    .whatsapp-btn { background:var(--whatsapp-green); color:white; border-radius:50px; padding:11px 24px; text-decoration:none; font-weight:700; }
+
+    .install-bar { background:var(--gold); color:#0A0F14; text-align:center; padding:13px; border-radius:12px; margin:18px 0; font-weight:700; display:none; }
+    .install-bar button { background:#0A0F14; color:var(--gold-bright); border:none; padding:7px 20px; border-radius:6px; margin-left:12px; font-weight:700; cursor:pointer; }
+
+    h1 { font-size:1.9rem; font-weight:800; margin-bottom:6px; }
+    .subtitle { color:var(--muted); margin-bottom:24px; }
+
+    .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:16px 18px; margin-bottom:22px; }
+    .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; margin-bottom:12px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:11px; border-radius:8px; font-weight:700; font-size:0.82rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); transition:all 0.25s; }
+    .share-tool-btn:hover { border-color:#E8B93A; }
+    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+
+    .card { background:var(--surface); border:2px solid; border-image:var(--gold-border) 1; border-radius:14px; padding:24px; margin-bottom:22px; }
+    .card h2 { font-size:1rem; font-weight:700; margin-bottom:16px; color:var(--gold-bright); }
+    label { display:block; font-size:0.85rem; color:var(--gold-bright); margin-bottom:6px; font-weight:600; }
+    input { width:100%; background:#1B232C; border:2px solid #2A3540; color:var(--text); padding:13px; border-radius:10px; font-size:0.95rem; }
+    input:focus { outline:none; border-color:var(--gold); }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+    .btn-row { display:grid; grid-template-columns:1fr auto; gap:10px; margin-top:8px; }
+    .btn-calc { background:var(--grey-gradient); color:#0A0F14; border:2px solid var(--gold); padding:15px 24px; border-radius:12px; font-weight:700; font-size:1rem; cursor:pointer; }
+    .btn-reset { background:transparent; color:var(--muted); border:2px solid rgba(255,255,255,0.2); padding:15px 20px; border-radius:12px; font-weight:600; cursor:pointer; }
+    .btn-reset:hover { border-color:var(--accent); color:var(--accent); }
+
+    #bizCardPreview { background:linear-gradient(135deg,#0A0F14,#1B232C); border:2px solid var(--gold); border-radius:16px; padding:28px; display:none; margin-top:10px; }
+    .bc-inner { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
+    .bc-name { font-size:1.3rem; font-weight:800; color:#fff; }
+    .bc-title { font-size:0.9rem; color:var(--accent); margin-bottom:8px; }
+    .bc-detail { font-size:0.8rem; color:#c8d0d8; margin-bottom:3px; }
+    .bc-qr { background:#fff; padding:10px; border-radius:12px; }
+    .bc-brand { font-size:0.7rem; color:var(--muted); margin-top:14px; letter-spacing:1px; }
+
+    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
+    .share-btn { display:flex; align-items:center; gap:7px; padding:11px 18px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer; border:none; color:#fff; text-transform:uppercase; }
+    .share-whatsapp { background:var(--whatsapp-green); } .share-pdf { background:#E53935; } .share-jpg,.share-png { background:#545860; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:30px 0 20px; border-top:2px solid; border-image:var(--gold-border) 1; margin-top:40px; }
+    footer a { color:var(--accent); }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.3rem; text-decoration:none; }
+
+    @media (max-width:600px){ .grid2{grid-template-columns:1fr;} .bc-inner{flex-direction:column;text-align:center;} .btn-row{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+
+    <div class="ad-card">
+      <div><ul><li>PEB Structures</li><li>Cold Storage & Freezer Rooms</li><li>PU/PIR Sandwich Panels</li><li>Prefab Construction Solutions</li></ul><div style="font-size:0.8rem;color:#c8d0d8;margin-top:4px;">✦ Karachi, Lahore, Islamabad & all Pakistan</div></div>
+      <a href="https://wa.me/923333228470" class="whatsapp-btn" target="_blank">💬 Get Quote</a>
+    </div>
+
+    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
+    <h1>📱 ColdMatrix QR Business Card Generator</h1>
+    <p class="subtitle">Make a scannable digital business card — anyone can scan it to save your contact instantly.</p>
+
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share This Tool</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Your Details</h2>
+      <div class="grid2"><div><label>Full Name</label><input id="bcName" placeholder="Wasi Ahmed"></div><div><label>Job Title</label><input id="bcTitle" placeholder="Founder"></div></div>
+      <div class="grid2"><div><label>Company</label><input id="bcCompany" placeholder="ColdMatrix Contracting"></div><div><label>Phone</label><input id="bcPhone" placeholder="+92 333 3228470"></div></div>
+      <div class="grid2"><div><label>Email</label><input id="bcEmail" type="email" placeholder="you@email.com"></div><div><label>Website</label><input id="bcWebsite" placeholder="coldmatrixtools.com"></div></div>
+      <div style="margin-bottom:14px;"><label>Address (optional)</label><input id="bcAddress" placeholder="City, Country"></div>
+      <div class="btn-row"><button class="btn-calc" onclick="generateCard()">Generate My QR Business Card</button><button class="btn-reset" onclick="window.location.reload()">🔄 Reset</button></div>
+    </div>
+
+    <div id="bizCardPreview">
+      <div class="bc-inner" id="shareCapture">
+        <div>
+          <div class="bc-name" id="pvName">Your Name</div>
+          <div class="bc-title" id="pvTitle"></div>
+          <div class="bc-detail" id="pvCompany"></div>
+          <div class="bc-detail" id="pvPhone"></div>
+          <div class="bc-detail" id="pvEmail"></div>
+          <div class="bc-detail" id="pvWebsite"></div>
+          <div class="bc-detail" id="pvAddress"></div>
+          <div class="bc-brand">❄️ MADE WITH COLDMATRIX TOOLS</div>
+        </div>
+        <div class="bc-qr" id="qrCanvas"></div>
+      </div>
+    </div>
+
+    <div class="share-bar" id="shareBarWrap" style="display:none;">
+      <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+      <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+      <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+    </div>
+
+    <div class="card">
+      <h2>ℹ️ How it works</h2>
+      <p style="font-size:0.85rem;color:var(--muted);">Anyone who scans your QR code with their phone camera can save your full contact details directly to their phone — no app needed. Great for print cards, email signatures, or sharing digitally.</p>
+    </div>
+  </div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+  <a href="https://wa.me/923333228470" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <script>
+    function generateCard(){
+      const name=document.getElementById('bcName').value.trim();
+      const title=document.getElementById('bcTitle').value.trim();
+      const company=document.getElementById('bcCompany').value.trim();
+      const phone=document.getElementById('bcPhone').value.trim();
+      const email=document.getElementById('bcEmail').value.trim();
+      const website=document.getElementById('bcWebsite').value.trim();
+      const address=document.getElementById('bcAddress').value.trim();
+      if(!name&&!phone){alert('Please enter at least your name or phone number.');return;}
+
+      document.getElementById('pvName').textContent=name||'Your Name';
+      document.getElementById('pvTitle').textContent=title;
+      document.getElementById('pvCompany').textContent=company;
+      document.getElementById('pvPhone').textContent=phone?'📞 '+phone:'';
+      document.getElementById('pvEmail').textContent=email?'✉️ '+email:'';
+      document.getElementById('pvWebsite').textContent=website?'🌐 '+website:'';
+      document.getElementById('pvAddress').textContent=address?'📍 '+address:'';
+
+      // Generate QR using Google Charts API (no external library needed)
+      const vcard=`BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTITLE:${title}\nORG:${company}\nTEL:${phone}\nEMAIL:${email}\nURL:${website}\nADR:;;${address};;;;\nEND:VCARD`;
+      const qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(vcard)}`;
+      document.getElementById('qrCanvas').innerHTML=`<img src="${qrUrl}" alt="QR Code" style="width:160px;height:160px;">`;
+
+      document.getElementById('bizCardPreview').style.display='block';
+      document.getElementById('shareBarWrap').style.display='flex';
+    }
+
+    async function captureCanvas(){
+      await new Promise(r=>setTimeout(r,300));
+      return await html2canvas(document.getElementById('shareCapture'),{backgroundColor:'#0A0F14',scale:2});
+    }
+    async function downloadResult(type){
+      const canvas=await captureCanvas();
+      if(type==='pdf'){
+        const{jsPDF}=window.jspdf;
+        const imgData=canvas.toDataURL('image/jpeg',0.95);
+        const pdf=new jsPDF({orientation:canvas.width>canvas.height?'l':'p',unit:'px',format:[canvas.width,canvas.height]});
+        pdf.addImage(imgData,'JPEG',0,0,canvas.width,canvas.height);
+        pdf.save('ColdMatrix-Business-Card.pdf');
+      }else{
+        const mime=type==='jpg'?'image/jpeg':'image/png';
+        const link=document.createElement('a');
+        link.download='ColdMatrix-Business-Card.'+type;
+        link.href=canvas.toDataURL(mime,0.95);
+        link.click();
+      }
+    }
+    async function shareWhatsApp(){
+      const canvas=await captureCanvas();
+      canvas.toBlob(async(blob)=>{
+        const file=new File([blob],'ColdMatrix-Business-Card.png',{type:'image/png'});
+        if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+          try{await navigator.share({files:[file],title:'My Business Card',text:'Here is my digital business card'});}catch(e){}
+        }else{
+          const link=document.createElement('a');link.download='Card.png';link.href=canvas.toDataURL('image/png');link.click();
+          window.open('https://wa.me/?text='+encodeURIComponent('ColdMatrix Tools — contact@coldmatrixtools.com | +92 333 3228470'),'_blank');
+        }
+      });
+    }
+
+    let dp;const ib=document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;ib.style.display='block';});
+    window.installAppTool=function(){if(dp){dp.prompt();dp.userChoice.then(()=>{ib.style.display='none';});}else{alert('📱 Add to Home Screen via browser menu.');}};
+    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+
+    function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('QR Business Card Generator: '+location.href));}
+    function copyToolLink(){navigator.clipboard.writeText(location.href).then(()=>alert('Link copied!')).catch(()=>{alert(location.href);});}
+  </script>
+</body>
+</html>
