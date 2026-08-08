@@ -34,7 +34,7 @@
     .nav-links{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
     .nav-links a{color:var(--muted);text-decoration:none;font-weight:500;font-size:0.85rem;transition:color 0.2s}
     .nav-links a:hover{color:var(--accent)}
-    .install-bar{background:var(--accent);color:#0A0F14;text-align:center;padding:10px;border-radius:8px;margin:14px 0;font-weight:600;font-size:0.85rem;display:none}
+    .install-bar{background:var(--accent);color:#0A0F14;text-align:center;padding:10px;border-radius:8px;margin:14px 0;font-weight:600;font-size:0.85rem;display:block}
     .install-bar button{background:#0A0F14;color:var(--accent);border:none;padding:5px 14px;border-radius:5px;margin-left:10px;font-weight:600;cursor:pointer}
     h1{font-size:2rem;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     h1 .icon{font-size:2.2rem}h1 .coldmatrix{color:var(--accent);font-family:'Playfair Display',serif;letter-spacing:0.5px}h1 .title{color:var(--text);font-weight:600}
@@ -47,6 +47,10 @@
     .field input:focus,.field select:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 24px var(--accent-glow)}
     .field select option{background:#121820;color:var(--text)}.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
     .btn-calc{width:100%;background:var(--gradient);color:#0A0F14;border:none;padding:16px;border-radius:50px;font-weight:700;font-size:1rem;cursor:pointer;margin-top:6px;letter-spacing:0.8px;box-shadow:0 6px 24px var(--accent-glow)}
+    .btn-row{display:flex;gap:10px;margin-top:6px}
+    .btn-row .btn-calc{margin-top:0;flex:1}
+    .btn-reset{background:transparent;border:2px solid var(--accent);color:var(--accent);padding:14px 18px;border-radius:50px;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap}
+    .btn-reset:hover{background:rgba(255,255,255,0.06)}
     .btn-calc:hover{transform:translateY(-2px);box-shadow:0 10px 32px var(--accent-glow)}
 
     .welcome-msg{text-align:center;margin:20px 0 6px;display:none;line-height:2}
@@ -100,6 +104,8 @@
   <div class="sparkles" id="sparklesContainer"></div>
   <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
   <div class="container">
+  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+  
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
     <h1><span class="icon">⏳</span><span class="coldmatrix">ColdMatrix</span><span class="title">Premium Age Calculator</span></h1>
     <p class="subtitle">Discover your age with precision, elegance, and beautiful insights.</p>
@@ -107,7 +113,7 @@
     <div class="card"><h2>Your Details</h2>
       <div class="row2"><div class="field"><label>👤 Full Name</label><input type="text" id="inputName" placeholder="e.g. Sara Ahmed"></div><div class="field"><label>⚧ Gender</label><select id="inputGender" onchange="applyGenderTheme()"><option value="male">Male</option><option value="female">Female</option></select></div></div>
       <div class="field"><label>🎂 Date of Birth</label><input type="date" id="inputDob"></div>
-      <button class="btn-calc" onclick="calculateAge()">✨ Calculate Age</button>
+      <div class="btn-row"><button class="btn-calc" onclick="calculateAge()">✨ Calculate Age</button><button class="btn-reset" onclick="resetAgeForm()">🔄 Reset</button></div>
 
       <div class="welcome-msg" id="welcomeMsg">
         <div class="greet">Welcome, <span class="highlight" id="greetingName"></span>! 🌟</div>
@@ -145,6 +151,18 @@
     function getDayName(d){return d.toLocaleDateString('en-US',{weekday:'long'})}
     function getFormattedDateTime(){const now=new Date();const options={weekday:'long',year:'numeric',month:'long',day:'numeric'};const dateStr=now.toLocaleDateString('en-US',options);const timeStr=now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});return dateStr+' at '+timeStr}
 
+    function resetAgeForm(){
+      document.getElementById('inputName').value='';
+      document.getElementById('inputDob').value='';
+      document.getElementById('inputGender').value='male';
+      document.getElementById('welcomeMsg').style.display='none';
+      document.getElementById('ageRow').style.display='none';
+      document.getElementById('complimentBox').style.display='none';
+      document.getElementById('totalRow').style.display='none';
+      document.getElementById('infoRow').style.display='none';
+      document.getElementById('shareBarWrap').style.display='none';
+      if(typeof applyGenderTheme==='function')applyGenderTheme();
+    }
     function calculateAge(){
       const name=document.getElementById('inputName').value.trim()||'Friend';
       const dobStr=document.getElementById('inputDob').value;

@@ -34,7 +34,7 @@
     .ad-card ul { list-style:none; } .ad-card li { font-size:0.85rem; font-weight:600; color:#fff; margin-bottom:3px; }
     .ad-card li::before { content:"✦"; color:var(--gold-bright); margin-right:6px; }
     .whatsapp-btn { background:var(--whatsapp-green); color:white; border-radius:50px; padding:10px 20px; text-decoration:none; font-weight:700; }
-    .install-bar { background:var(--gold); color:#0A0F14; text-align:center; padding:14px; border-radius:12px; margin:16px 0; font-weight:700; display:none; }
+    .install-bar { background:var(--gold); color:#0A0F14; text-align:center; padding:14px; border-radius:12px; margin:16px 0; font-weight:700; display:block; }
     .install-bar button { background:#0A0F14; color:var(--gold-bright); border:none; padding:8px 20px; border-radius:8px; margin-left:10px; font-weight:700; cursor:pointer; }
     .brand-header { text-align:center; margin:24px 0 4px; }
     .brand-title { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:700; color:#fff; }
@@ -78,36 +78,16 @@
     .whatsapp-float { position:fixed; bottom:18px; right:18px; z-index:999; width:48px; height:48px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.3rem; text-decoration:none; }
     #shareCapture { display:none; } .note { font-size:0.72rem; color:var(--muted); margin-top:12px; text-align:center; padding-top:10px; border-top:1px solid rgba(255,255,255,0.05); }
     @media (max-width:600px){ .results-grid{grid-template-columns:1fr 1fr;} .gauge-value{font-size:2.2rem;} .brand-title{font-size:1.6rem;} }
-  
-    .nav-hamburger{display:none;background:none;border:none;color:var(--accent,#00b894);font-size:1.5rem;cursor:pointer;padding:4px 8px;line-height:1;}
-    @media (max-width:700px){
-      .nav-hamburger{display:block;}
-      .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(8,12,20,0.98);backdrop-filter:blur(18px);padding:16px 20px;gap:14px;border-bottom:1px solid rgba(255,255,255,0.08);box-shadow:0 12px 24px rgba(0,0,0,0.4);}
-      .nav-links.cm-open{display:flex;}
-      .nav-inner{position:relative;}
-    }
-</style>
+  </style>
 </head>
 <body>
-  <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><button class="nav-hamburger" onclick="cmToggleNav(this)" aria-label="Menu">☰</button><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
-<script>
-function cmToggleNav(btn){
-  var nav = btn.parentElement.querySelector('.nav-links');
-  if(nav) nav.classList.toggle('cm-open');
-}
-document.addEventListener('click', function(e){
-  document.querySelectorAll('.nav-links.cm-open').forEach(function(nav){
-    if(!nav.contains(e.target) && !e.target.classList.contains('nav-hamburger')){
-      nav.classList.remove('cm-open');
-    }
-  });
-});
-</script>
-
+  <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
   <div class="container">
+  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+  
     <div class="ad-card"><div><ul><li>PEB Structures</li><li>Cold Storage & Freezer Rooms</li><li>PU/PIR Sandwich Panels</li></ul></div><a href="https://wa.me/923333228470" class="whatsapp-btn" target="_blank">💬 Get Quote</a></div>
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
-    <div class="brand-header"><h1 class="brand-title">Cold<span>Matrix</span></h1><div class="brand-sub">Internet Speed Test</div><div class="made-in">🇵🇰 Made in Pakistan with pride 🇵🇰</div></div>
+    <div class="brand-header"><h1 class="brand-title">Cold<span>Matrix</span></h1><div class="brand-sub">Internet Speed Test</div></div>
     <div class="share-tool-card"><div class="share-tool-title">Share Speed Test</div><div class="share-tool-buttons"><button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button><button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button></div></div>
 
     <div class="gauge-section">
@@ -133,11 +113,10 @@ document.addEventListener('click', function(e){
   </div>
   <div id="shareCapture"><div style="background:#fff;color:#111;border-radius:10px;padding:20px;font-family:'Inter',sans-serif;width:300px;"><div style="font-size:1.1rem;font-weight:800;">❄️ ColdMatrix Speed Test</div><table style="width:100%;margin-top:10px;font-size:0.85rem;"><tr><td>Ping</td><td style="text-align:right;font-weight:700;" id="pvPing"></td></tr><tr><td>Download</td><td style="text-align:right;font-weight:700;color:#2196F3;" id="pvDown"></td></tr><tr><td>Upload</td><td style="text-align:right;font-weight:700;color:#2196F3;" id="pvUp"></td></tr></table><div style="font-size:0.6rem;color:#888;margin-top:12px;border-top:1px solid #eee;padding-top:8px;">contact@coldmatrixtools.com | +92 333 3228470</div></div></div>
   <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(0,184,148,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the Internet Speed Test</h2>
-    <p>Test your internet connection's download speed, upload speed, and ping (latency) instantly in your browser — no app download needed. Works on mobile and desktop, anywhere in the world.</p>
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#00b894;">Common Questions</h3>
-    <p><strong>What's a good internet speed?</strong> For HD streaming, 5-10 Mbps download is typically enough; for 4K streaming or multiple devices, 25+ Mbps is recommended. Ping under 50ms is ideal for gaming and video calls.</p>
-    <p><strong>Why does my speed vary between tests?</strong> Network congestion, Wi-Fi signal strength, and the number of connected devices can all affect results — run the test a few times for an average.</p>
+  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the Internet Speed Test</h2>
+  <p>Test your download speed, upload speed, and ping instantly in your browser — no app needed.</p>
+  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#00b894;">Common Questions</h3>
+  <p><strong>What's a good speed?</strong> 5-10 Mbps for HD streaming, 25+ Mbps for 4K/multiple devices. Ping under 50ms is ideal for gaming.</p>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
