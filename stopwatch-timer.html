@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColdMatrix Stopwatch & Timer — Free Online Chronograph</title>
+    <meta name="description" content="Free online stopwatch and countdown timer with lap tracking. Perfect for sports, cooking, workouts, presentations, and classroom activities.">
+    <meta property="og:title" content="ColdMatrix Stopwatch & Timer — Free Online Chronograph">
+    <meta property="og:description" content="Precision stopwatch with lap tracking and countdown timer. Free, no ads, works offline.">
+    <meta property="og:url" content="https://coldmatrixtools.com/stopwatch-timer.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#0A0F14">
+    <link rel="canonical" href="https://coldmatrixtools.com/stopwatch-timer.html">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root { --bg:#0B0F14; --surface:#111820; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gold:#D4AF37; --gold-bright:#FFD700; --gold-border:linear-gradient(145deg,#C8993A,#E8C96A 30%,#A07828 70%,#D4A843); --grey-gradient:linear-gradient(180deg,#d0d2d6,#9ea0a5); --whatsapp-green:#25D366; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { background:#0B0F14; color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; }
+        .container { max-width:650px; width:100%; margin:0 auto; padding:0 20px; }
+
+        .navbar { position:sticky; top:0; z-index:100; width:100%; background:rgba(11,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:var(--gold-border) 1; }
+        .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; max-width:650px; margin:0 auto; }
+        .logo { font-size:1.3rem; font-weight:800; color:var(--accent); text-decoration:none; }
+        .nav-links { display:flex; gap:18px; list-style:none; flex-wrap:wrap; }
+        .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; }
+        .nav-links a:hover { color:var(--gold-bright); }
+
+        /* BIG VISIBLE INSTALL BAR */
+        .install-bar {
+            background:linear-gradient(135deg,#FFD700,#D4AF37); color:#0A0F14;
+            text-align:center; padding:16px 20px; border-radius:14px; margin:18px 0;
+            font-weight:800; display:none; font-size:0.95rem;
+            box-shadow:0 6px 24px rgba(212,175,55,0.5);
+            animation:glowPulse 2s ease-in-out infinite;
+        }
+        @keyframes glowPulse { 0%,100%{box-shadow:0 6px 24px rgba(212,175,55,0.5);} 50%{box-shadow:0 8px 32px rgba(255,215,0,0.7);} }
+        .install-bar button {
+            background:#0A0F14; color:#FFD700; border:2px solid #0A0F14;
+            padding:10px 24px; border-radius:8px; margin-left:12px;
+            font-weight:800; cursor:pointer; font-size:0.9rem; letter-spacing:0.5px;
+        }
+        .install-bar button:hover { background:#1a1f2a; }
+
+        .brand-header { text-align:center; padding:24px 0 6px; }
+        .title-row { display:flex; align-items:center; justify-content:center; gap:12px; }
+        .timer-icon { display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; background:var(--grey-gradient); border:2px solid var(--gold); border-radius:50%; font-size:1.5rem; color:#0A0F14; box-shadow:0 4px 16px rgba(212,175,55,0.35); }
+        .brand-title { font-family:'Oswald',sans-serif; font-size:2rem; color:#fff; }
+        .brand-title span { color:var(--accent); }
+        .subtitle { color:var(--muted); font-size:0.95rem; }
+        .made-in { font-size:0.72rem; color:var(--gold-bright); margin:4px 0 14px; font-weight:600; }
+
+        .mode-tabs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+        .mode-tab { padding:16px; border-radius:14px; font-weight:700; font-size:1rem; cursor:pointer; text-align:center; border:2px solid var(--gold); color:var(--gold-bright); background:rgba(212,175,55,0.05); transition:all 0.2s; }
+        .mode-tab.active { background:var(--grey-gradient); color:#0A0F14; border-color:var(--gold-bright); font-weight:800; box-shadow:0 4px 16px rgba(212,175,55,0.3); }
+
+        .display-card { background:var(--surface); border:2px solid; border-image:var(--gold-border) 1; border-radius:20px; padding:30px 20px; text-align:center; margin-bottom:16px; box-shadow:0 4px 20px rgba(0,0,0,0.3); }
+        .time-display { font-family:'Oswald',monospace; font-size:5rem; font-weight:700; color:#fff; letter-spacing:3px; line-height:1; text-shadow:0 0 30px rgba(79,195,247,0.3); }
+        .time-ms { font-size:2rem; color:var(--accent); }
+        .time-label { font-size:0.85rem; color:var(--muted); margin-top:6px; font-weight:600; letter-spacing:1px; }
+
+        /* Timer inputs with GOLDEN borders */
+        .timer-inputs { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:16px; }
+        .timer-inputs .input-group { text-align:center; }
+        .timer-inputs input {
+            width:100%; background:#1B232C; border:2px solid var(--gold); color:#fff;
+            padding:16px 10px; border-radius:12px; font-size:1.3rem; text-align:center;
+            font-weight:700; font-family:'Oswald',sans-serif; transition:all 0.3s;
+        }
+        .timer-inputs input:focus { border-color:var(--gold-bright); outline:none; box-shadow:0 0 16px rgba(212,175,55,0.3); }
+        .timer-inputs label { display:block; text-align:center; font-size:0.75rem; color:var(--gold-bright); margin-top:6px; text-transform:uppercase; font-weight:700; letter-spacing:1px; }
+
+        /* BUTTONS - bright & beautiful */
+        .btn-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px; }
+        .btn { padding:15px 10px; border-radius:14px; font-weight:700; font-size:0.95rem; cursor:pointer; border:none; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.5px; }
+        .btn-start { background:#22C55E; color:#fff; box-shadow:0 4px 14px rgba(34,197,94,0.3); }
+        .btn-start:hover { background:#16A34A; transform:translateY(-1px); }
+        .btn-pause { background:#F59E0B; color:#fff; box-shadow:0 4px 14px rgba(245,158,11,0.3); }
+        .btn-pause:hover { background:#D97706; transform:translateY(-1px); }
+        .btn-lap { background:#6366F1; color:#fff; box-shadow:0 4px 14px rgba(99,102,241,0.3); }
+        .btn-lap:hover { background:#4F46E5; transform:translateY(-1px); }
+        .btn-reset { background:var(--grey-gradient); color:#0A0F14; border:2px solid var(--gold); box-shadow:0 4px 14px rgba(0,0,0,0.3); }
+        .btn-reset:hover { border-color:var(--gold-bright); transform:translateY(-1px); }
+        .btn:active { transform:scale(0.96); }
+        .btn:disabled { opacity:0.3; cursor:not-allowed; transform:none; box-shadow:none; }
+
+        .laps-card { background:var(--surface); border:2px solid; border-image:var(--gold-border) 1; border-radius:16px; padding:16px; max-height:250px; overflow-y:auto; }
+        .laps-card h3 { font-family:'Oswald',sans-serif; font-size:0.95rem; color:var(--gold-bright); margin-bottom:10px; }
+        .lap-item { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:0.85rem; }
+        .lap-item .lap-num { color:var(--accent); font-weight:700; }
+        .lap-item .lap-time { color:#fff; font-family:'Oswald',monospace; }
+        .no-laps { color:var(--muted); font-size:0.8rem; text-align:center; padding:10px; }
+
+        .about-card { background:var(--surface); border:2px solid; border-image:var(--gold-border) 1; border-radius:16px; padding:22px 20px; margin-top:20px; }
+        .about-card h2 { font-family:'Oswald',sans-serif; font-size:1.1rem; color:var(--gold-bright); margin-bottom:12px; }
+        .about-card p { color:var(--muted); font-size:0.85rem; line-height:1.7; margin-bottom:10px; }
+        .about-card ul { list-style:none; padding:0; }
+        .about-card ul li { padding:7px 0; font-size:0.83rem; color:#c0c8d4; border-bottom:1px solid rgba(255,255,255,0.03); }
+        .about-card ul li::before { content:"⏱️ "; margin-right:6px; }
+
+        footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:20px 0; margin-top:20px; }
+        footer a { color:var(--accent); }
+        .pakistan-tag { font-size:0.65rem; color:var(--gold-bright); margin-top:2px; }
+
+        @media (max-width:500px) { .time-display { font-size:3.2rem; } .btn-row { grid-template-columns:1fr 1fr; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar"><div class="nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+
+    <div class="container">
+        <!-- BIG VISIBLE INSTALL BAR -->
+        <div class="install-bar" id="installBarTool">📱 Add ColdMatrix to your Home Screen <button onclick="installAppTool()">Install Now</button></div>
+
+        <div class="brand-header">
+            <div class="title-row">
+                <span class="timer-icon">⏱️</span>
+                <h1 class="brand-title">Cold<span>Matrix</span></h1>
+            </div>
+            <p class="subtitle">Stopwatch & Timer — Free Online Chronograph</p>
+            <p class="made-in">🇵🇰 Made in Pakistan with pride 🇵🇰</p>
+        </div>
+
+        <div class="mode-tabs">
+            <div class="mode-tab active" id="tabStopwatch" onclick="switchMode('stopwatch')">⏱️ Stopwatch</div>
+            <div class="mode-tab" id="tabTimer" onclick="switchMode('timer')">⏲️ Countdown Timer</div>
+        </div>
+
+        <!-- STOPWATCH -->
+        <div id="stopwatchMode">
+            <div class="display-card">
+                <div class="time-display" id="stopwatchDisplay">00:00:00<span class="time-ms">.00</span></div>
+                <div class="time-label">HOURS : MINUTES : SECONDS</div>
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-start" id="swStart" onclick="swStart()">▶ Start</button>
+                <button class="btn btn-lap" id="swLap" onclick="swLap()" disabled>🏁 Lap</button>
+                <button class="btn btn-reset" id="swReset" onclick="swReset()">↺ Reset</button>
+            </div>
+            <div class="laps-card"><h3>📋 Laps</h3><div id="lapsList"><div class="no-laps">No laps recorded yet</div></div></div>
+        </div>
+
+        <!-- TIMER -->
+        <div id="timerMode" style="display:none;">
+            <div class="timer-inputs">
+                <div class="input-group"><input type="number" id="timerHours" value="0" min="0" max="99" placeholder="0"><label>Hours</label></div>
+                <div class="input-group"><input type="number" id="timerMinutes" value="5" min="0" max="59" placeholder="5"><label>Minutes</label></div>
+                <div class="input-group"><input type="number" id="timerSeconds" value="0" min="0" max="59" placeholder="0"><label>Seconds</label></div>
+            </div>
+            <div class="display-card">
+                <div class="time-display" id="timerDisplay">00:05:00<span class="time-ms">.00</span></div>
+                <div class="time-label" id="timerStatus">Ready</div>
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-start" id="tmStart" onclick="tmStart()">▶ Start</button>
+                <button class="btn btn-pause" id="tmPause" onclick="tmPause()" disabled>⏸ Pause</button>
+                <button class="btn btn-reset" id="tmReset" onclick="tmReset()">↺ Reset</button>
+            </div>
+        </div>
+
+        <!-- ABOUT -->
+        <div class="about-card">
+            <h2>⏱️ About This Tool</h2>
+            <p>ColdMatrix Stopwatch & Timer is a <strong>free, professional chronograph</strong> for anyone who needs precise timing — athletes, chefs, students, speakers, and teachers.</p>
+            <ul>
+                <li>🏃 Track lap times & intervals for sports and fitness</li>
+                <li>🍳 Perfect cooking & baking timer — never burn a dish</li>
+                <li>🎤 Time presentations & speeches like a pro</li>
+                <li>📚 Pomodoro study sessions & timed practice exams</li>
+                <li>🧘 Meditation, yoga & breathing exercise timer</li>
+                <li>🏫 Classroom quizzes, group activities & brain breaks</li>
+            </ul>
+            <p style="margin-top:12px;"><strong>🔒 100% Private:</strong> Everything runs in your browser. No data is sent anywhere. Works offline after first load.</p>
+        </div>
+    </div>
+
+    <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.<br><span class="pakistan-tag">🇵🇰 Made in Pakistan 🇵🇰</span></footer>
+
+    <script>
+        let swInterval=null,swRunning=false,swStartTime=0,swElapsed=0,lapCount=0;
+
+        function formatTime(ms){
+            const h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000),cs=Math.floor((ms%1000)/10);
+            return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}<span class="time-ms">.${String(cs).padStart(2,'0')}</span>`;
+        }
+
+        function swStart(){
+            const btn=document.getElementById('swStart');
+            if(swRunning){swRunning=false;clearInterval(swInterval);btn.textContent='▶ Resume';btn.className='btn btn-start';document.getElementById('swLap').disabled=true;}
+            else{swRunning=true;if(swElapsed===0)swStartTime=Date.now();else swStartTime=Date.now()-(swElapsed-(Date.now()-swStartTime));
+                swInterval=setInterval(()=>{document.getElementById('stopwatchDisplay').innerHTML=formatTime(swElapsed+(swRunning?Date.now()-swStartTime:0));},10);
+                btn.textContent='⏸ Pause';btn.className='btn btn-pause';document.getElementById('swLap').disabled=false;}
+        }
+
+        function swLap(){lapCount++;const now=Date.now();if(lapCount===1)document.getElementById('lapsList').innerHTML='';document.getElementById('lapsList').innerHTML+=`<div class="lap-item"><span class="lap-num">Lap ${lapCount}</span><span class="lap-time">${formatTime(swElapsed+(swRunning?now-swStartTime:0))}</span></div>`;}
+
+        function swReset(){swRunning=false;clearInterval(swInterval);swElapsed=0;swStartTime=0;lapCount=0;document.getElementById('stopwatchDisplay').innerHTML='00:00:00<span class="time-ms">.00</span>';document.getElementById('swStart').textContent='▶ Start';document.getElementById('swStart').className='btn btn-start';document.getElementById('swLap').disabled=true;document.getElementById('lapsList').innerHTML='<div class="no-laps">No laps recorded yet</div>';}
+
+        let tmInterval=null,tmRunning=false,tmRemaining=0;
+        function getTimerInput(){const h=parseInt(document.getElementById('timerHours').value)||0,m=parseInt(document.getElementById('timerMinutes').value)||0,s=parseInt(document.getElementById('timerSeconds').value)||0;return(h*3600+m*60+s)*1000;}
+        function updateTimerDisplay(){tmRemaining=getTimerInput();document.getElementById('timerDisplay').innerHTML=formatTime(tmRemaining);}
+        document.getElementById('timerHours').addEventListener('input',updateTimerDisplay);
+        document.getElementById('timerMinutes').addEventListener('input',updateTimerDisplay);
+        document.getElementById('timerSeconds').addEventListener('input',updateTimerDisplay);
+        updateTimerDisplay();
+
+        function tmStart(){
+            const btn=document.getElementById('tmStart');
+            if(tmRunning){tmRunning=false;clearInterval(tmInterval);btn.textContent='▶ Resume';btn.className='btn btn-start';document.getElementById('tmPause').disabled=true;document.getElementById('timerStatus').textContent='Paused';}
+            else{if(tmRemaining<=0)tmRemaining=getTimerInput();if(tmRemaining<=0)return;tmRunning=true;const endTime=Date.now()+tmRemaining;
+                tmInterval=setInterval(()=>{const now=Date.now();tmRemaining=Math.max(0,endTime-now);document.getElementById('timerDisplay').innerHTML=formatTime(tmRemaining);
+                    if(tmRemaining<=0){clearInterval(tmInterval);tmRunning=false;document.getElementById('timerDisplay').innerHTML='00:00:00<span class="time-ms">.00</span>';document.getElementById('timerStatus').textContent='⏰ Time\'s Up!';
+                        btn.textContent='▶ Start';btn.className='btn btn-start';document.getElementById('tmPause').disabled=true;
+                        document.getElementById('timerDisplay').parentElement.style.borderColor='#FFD700';
+                        setTimeout(()=>{document.getElementById('timerDisplay').parentElement.style.borderColor='';},2000);}},10);
+                btn.textContent='⏸ Pause';btn.className='btn btn-pause';document.getElementById('tmPause').disabled=false;document.getElementById('timerStatus').textContent='Counting down...';}
+        }
+
+        function tmPause(){tmRunning=false;clearInterval(tmInterval);document.getElementById('tmStart').textContent='▶ Resume';document.getElementById('tmStart').className='btn btn-start';document.getElementById('tmPause').disabled=true;document.getElementById('timerStatus').textContent='Paused';}
+        function tmReset(){tmRunning=false;clearInterval(tmInterval);tmRemaining=getTimerInput();document.getElementById('timerDisplay').innerHTML=formatTime(tmRemaining);document.getElementById('tmStart').textContent='▶ Start';document.getElementById('tmStart').className='btn btn-start';document.getElementById('tmPause').disabled=true;document.getElementById('timerStatus').textContent='Ready';}
+
+        function switchMode(mode){
+            document.getElementById('tabStopwatch').classList.toggle('active',mode==='stopwatch');
+            document.getElementById('tabTimer').classList.toggle('active',mode==='timer');
+            document.getElementById('stopwatchMode').style.display=mode==='stopwatch'?'block':'none';
+            document.getElementById('timerMode').style.display=mode==='timer'?'block':'none';
+            if(mode==='timer')swReset();if(mode==='stopwatch')tmReset();
+        }
+
+        let dp;const ib=document.getElementById('installBarTool');
+        window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;ib.style.display='block';});
+        function installAppTool(){if(dp){dp.prompt();dp.userChoice.then(()=>{ib.style.display='none';});}else{alert('📱 Add to Home Screen via browser menu.');}}
+        if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+    </script>
+</body>
+</html>
