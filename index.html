@@ -120,7 +120,7 @@
     .cat-blog .section-label, .cat-blog .section-title { color:var(--blog); }
 
     .tools-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
-    .tool-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px; text-decoration:none; color:var(--text); transition:all 0.3s; display:flex; flex-direction:column; gap:10px; position:relative; overflow:hidden; }
+    .tool-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:18px; text-decoration:none; color:var(--text); transition:all 0.3s; display:flex; flex-direction:column; gap:10px; position:relative; overflow:hidden; min-height:220px; }
     .tool-card:hover { transform:translateY(-4px); box-shadow:0 12px 24px rgba(0,0,0,0.4); }
     .tool-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
     .cat-biz .tool-card::before { background:var(--biz); }
@@ -240,6 +240,13 @@
     </div>
   </div>
 
+  <div class="container" style="padding-top:20px;">
+    <div style="max-width:500px;margin:0 auto 10px;position:relative;">
+      <input type="text" id="toolSearchInput" onkeyup="filterTools()" placeholder="🔍 Search all 30+ tools by name..." style="width:100%;padding:14px 18px;border-radius:50px;border:2px solid var(--accent,#4FC3F7);background:rgba(15,20,30,0.85);color:#EAEDF0;font-size:0.95rem;font-family:'Inter',sans-serif;outline:none;">
+      <div id="searchResultCount" style="text-align:center;font-size:0.8rem;color:var(--muted,#8B98A5);margin-top:8px;display:none;"></div>
+    </div>
+  </div>
+
   <section class="section cat-biz" id="tools">
     <div class="container">
       <div class="section-label">🏗️ Business & Engineering</div>
@@ -247,7 +254,7 @@
       <p class="section-desc">Advanced calculators for cold storage, PEB, steel, and project estimation.</p>
       <div class="tools-grid">
         <a href="cold-store-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('cold_room_calc.jpg'); background-size: cover; background-position: center;"><div class="tool-icon">❄️</div><h3>Cold Room & Panel Calculator</h3><p>Advanced contractor tool for room dimensions, PUF/PIR sandwich panel weight, thermal BTU/TR refrigeration loads, and instant cost quotations.</p><div class="tool-status">● Live</div></a>
-        <a href="sandwich-panel-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('panel_calc.jpg'); background-size: cover; background-position: center;min-height: 230px"><div class="tool-icon">🧱</div><h3>Sandwich Panel Calculator</h3><p>Estimate weight, quantity, and total order weight.</p><div class="tool-status">● Live</div></a>
+        <a href="sandwich-panel-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('panel_calc.jpg'); background-size: cover; background-position: center;"><div class="tool-icon">🧱</div><h3>Sandwich Panel Calculator</h3><p>Estimate weight, quantity, and total order weight.</p><div class="tool-status">● Live</div></a>
         <a href="cooling-requirement-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('cooling_req_calc.jpg'); background-size: cover; background-position: center;"><div class="tool-icon">🌡️</div><h3>Cooling Requirement (BTU/TR)</h3><p>Cooling capacity needed for any room or cold storage.</p><div class="tool-status">● Live</div></a>
         <a href="steel-weight-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('steel_weight_calc.jpg'); background-size: cover; background-position: center;"><div class="tool-icon">🛠️</div><h3>Steel Weight Calculator</h3><p>Plates, bars, pipes & beams — instant weight.</p><div class="tool-status">● Live</div></a>
         <a href="peb-material-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('peb_calculator.jpg'); background-size: cover; background-position: center;"><div class="tool-icon">🏭</div><h3>PEB Material Calculator</h3><p>Estimate steel tonnage, roof & wall sheeting for pre-engineered buildings.</p><div class="tool-status">● Live</div></a>
@@ -275,7 +282,7 @@
   <p>Open & read any PDF instantly in your browser. 100% free</p>
   <div class="tool-status">● Live</div>
 </a>
-<a href="qr-code-generator.html" class="tool-card noline" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('qr_generator.jpg'); background-size: cover; background-position: center; border: 2px solid #D4AF37; box-shadow: 0 0 18px rgba(212,175,55,0.3);">
+<a href="qr-code-generator.html" class="tool-card noline" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('qr_generator.jpg'); background-size: cover; background-position: center; border: 2px solid #D4AF37; box-shadow: 0 0 18px rgba(212,175,55,0.3); min-height:230px;">
   <div class="tool-icon">📱</div>
   <h3>QR & Barcode Studio — Generate & Scan</h3>
   <p>Create QR codes + live camera scan for QR & barcodes.</p>
@@ -315,11 +322,11 @@
   </section>
 
   <section class="section cat-gallery">
-    <div class="container"><div class="section-label">📸 Our Portfolio</div><h2 class="section-title">Project Gallery</h2><p class="section-desc">Real cold storage installations, sandwich panel manufacturing, and roofing projects — from raw material to finished builds.</p><div class="tools-grid"><a href="gallery.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('project_gallery.jpg'); background-size: cover; background-position: center;"><div class="tool-icon">📸</div><h3>View Project Gallery</h3><p>Cold stores, sandwich panels, roofing, office partitions & more — explore our work across Pakistan.</p><div class="tool-status">● Browse Photos</div></a></div></div>
+    <div class="container"><div class="section-label">📸 Our Portfolio</div><h2 class="section-title">Project Gallery</h2><p class="section-desc">Real cold storage installations, sandwich panel manufacturing, and roofing projects — from raw material to finished builds.</p><div class="tools-grid"><a href="gallery.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('project_gallery.jpg'); background-size: cover; background-position: center; min-height:auto;"><div class="tool-icon">📸</div><h3>View Project Gallery</h3><p>Cold stores, sandwich panels, roofing, office partitions & more — explore our work across Pakistan.</p><div class="tool-status">● Browse Photos</div></a></div></div>
   </section>
 
   <section class="section cat-blog">
-    <div class="container"><div class="section-label">📝 Expert Insights</div><h2 class="section-title">Knowledge Hub</h2><p class="section-desc">Expert guides, industry insights, and practical tips on cold storage, sandwich panels, and prefab construction.</p><div class="tools-grid"><a href="blog.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('knowledge_hub.jpg'); background-size: cover; background-position: center;"><div class="tool-icon">📝</div><h3>Explore Knowledge Hub</h3><p>Articles, guides & tips from 15+ years of industry experience. Learn, comment, and share your own knowledge.</p><div class="tool-status">● Read Articles</div></a></div></div>
+    <div class="container"><div class="section-label">📝 Expert Insights</div><h2 class="section-title">Knowledge Hub</h2><p class="section-desc">Expert guides, industry insights, and practical tips on cold storage, sandwich panels, and prefab construction.</p><div class="tools-grid"><a href="blog.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('knowledge_hub.jpg'); background-size: cover; background-position: center; min-height:auto;"><div class="tool-icon">📝</div><h3>Explore Knowledge Hub</h3><p>Articles, guides & tips from 15+ years of industry experience. Learn, comment, and share your own knowledge.</p><div class="tool-status">● Read Articles</div></a></div></div>
   </section>
 
   <section class="section"><div class="container"><div class="section-label" style="color:var(--accent);">Why ColdMatrix</div><h2 class="section-title">Built for professionals, free for everyone</h2><div class="why-grid" style="margin-top:16px;"><div class="why-item">❄️ Free Forever</div><div class="why-item">❄️ No Registration</div><div class="why-item">❄️ Mobile Friendly</div><div class="why-item">❄️ Privacy First</div><div class="why-item">❄️ Fast & Accurate</div><div class="why-item">❄️ Growing Tool Library</div></div></div></section>
@@ -386,6 +393,37 @@
       else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');}
     }
     if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(function(){});}
+
+    function filterTools(){
+      var query = document.getElementById('toolSearchInput').value.trim().toLowerCase();
+      var cards = document.querySelectorAll('.tools-grid .tool-card');
+      var countEl = document.getElementById('searchResultCount');
+      var visibleCount = 0;
+
+      cards.forEach(function(card){
+        var titleEl = card.querySelector('h3');
+        var descEl = card.querySelector('p');
+        var title = titleEl ? titleEl.textContent.toLowerCase() : '';
+        var desc = descEl ? descEl.textContent.toLowerCase() : '';
+        var matches = query === '' || title.indexOf(query) !== -1 || desc.indexOf(query) !== -1;
+        card.style.display = matches ? '' : 'none';
+        if (matches) visibleCount++;
+      });
+
+      // Hide/show entire section if none of its cards match
+      document.querySelectorAll('.section').forEach(function(section){
+        var visibleCards = section.querySelectorAll('.tool-card:not([style*="display: none"])');
+        var anyVisible = Array.prototype.some.call(section.querySelectorAll('.tool-card'), function(c){ return c.style.display !== 'none'; });
+        section.style.display = (query === '' || anyVisible) ? '' : 'none';
+      });
+
+      if (query === '') {
+        countEl.style.display = 'none';
+      } else {
+        countEl.style.display = 'block';
+        countEl.textContent = visibleCount === 0 ? '😕 No tools found — try a different word' : ('✅ ' + visibleCount + ' tool' + (visibleCount === 1 ? '' : 's') + ' found');
+      }
+    }
   </script>
 </body>
 </html>
