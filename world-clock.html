@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://coldmatrixtools.com/world-clock.html">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ColdMatrix World Clock & Time Zone Converter — Free</title>
+  <meta name="description" content="See live time in any city worldwide, and convert time between time zones instantly. Free, accurate, and built for global teams, calls, and travel planning.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="ColdMatrix World Clock & Time Zone Converter — Free">
+  <meta property="og:description" content="See live time in any city worldwide, and convert time between time zones instantly.">
+  <meta property="og:url" content="https://coldmatrixtools.com/world-clock.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/world_clock.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ColdMatrix World Clock & Time Zone Converter — Free">
+  <meta name="twitter:description" content="See live time in any city worldwide, and convert time between time zones instantly.">
+  <meta name="twitter:image" content="https://coldmatrixtools.com/world_clock.jpg">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg:#0B0F14; --surface:#0F1620; --text:#EAEDF0; --muted:#8B98A5;
+      --accent:#4FC3F7; --accent2:#2196F3; --gold:#D4AF37; --gold-bright:#FFD700;
+      --whatsapp-green:#25D366;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#111418; color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; min-height:100vh; }
+    .container { max-width:900px; margin:0 auto; padding:20px; }
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:1px solid rgba(255,255,255,0.06); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; max-width:900px; margin:0 auto; }
+    .logo { font-size:1.3rem; font-weight:800; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; }
+    .nav-links a:hover { color:var(--accent); }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:10px; border-radius:8px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; }
+    .install-bar button { background:#0A0F14; color:var(--accent); border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    h1 { font-family:'Oswald',sans-serif; font-size:1.9rem; font-weight:700; margin-bottom:6px; color:#fff; }
+    h1 span { color:var(--accent); }
+    .subtitle { color:#ccc; font-size:0.95rem; margin-bottom:22px; }
+
+    .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:16px 18px; margin-bottom:22px; box-shadow:0 10px 34px rgba(0,0,0,0.55); }
+    .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:12px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:11px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); }
+    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+
+    .section-heading { display:flex; align-items:center; justify-content:space-between; margin:26px 0 14px; }
+    .section-heading h2 { font-size:1.1rem; font-weight:700; color:#fff; }
+    .add-city-btn { background:var(--accent); color:#0A0F14; border:none; padding:8px 16px; border-radius:50px; font-weight:700; font-size:0.82rem; cursor:pointer; white-space:nowrap; }
+
+    .clock-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:12px; margin-bottom:10px; }
+    .clock-card { background:var(--surface); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:16px 14px; position:relative; text-align:center; }
+    .clock-card .remove-btn { position:absolute; top:8px; right:10px; background:none; border:none; color:var(--muted); font-size:0.9rem; cursor:pointer; }
+    .clock-card .remove-btn:hover { color:#FF6B6B; }
+    .clock-card .city-name { font-weight:700; font-size:0.85rem; color:#fff; margin-bottom:2px; }
+    .clock-card .city-country { font-size:0.68rem; color:var(--muted); margin-bottom:10px; }
+    .clock-card .time-display { font-family:'Oswald',sans-serif; font-size:1.5rem; font-weight:700; color:var(--accent); letter-spacing:1px; }
+    .clock-card .date-display { font-size:0.7rem; color:var(--muted); margin-top:4px; }
+    .clock-card .day-badge { display:inline-block; margin-top:8px; font-size:0.65rem; padding:2px 10px; border-radius:20px; font-weight:700; }
+    .day-badge.today { background:rgba(52,211,153,0.15); color:#34D399; }
+    .day-badge.tomorrow { background:rgba(255,167,38,0.15); color:#FFA726; }
+    .day-badge.yesterday { background:rgba(255,107,107,0.15); color:#FF6B6B; }
+
+    .card { background:var(--surface); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:22px 20px; margin-bottom:18px; box-shadow:0 8px 30px rgba(0,0,0,0.4); }
+    .field { margin-bottom:16px; }
+    .field label { display:block; font-size:0.85rem; font-weight:600; color:#E0E4EB; margin-bottom:6px; }
+    .field select, .field input { width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.12); background:#0a0d13; color:#EAEDF0; font-size:0.9rem; font-family:'Inter',sans-serif; }
+    .field select:focus, .field input:focus { outline:none; border-color:var(--accent); }
+    .convert-result { margin-top:16px; background:rgba(79,195,247,0.08); border:1.5px solid var(--accent); border-radius:12px; padding:16px; text-align:center; }
+    .convert-result .result-time { font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:700; color:var(--gold-bright); }
+    .convert-result .result-sub { font-size:0.8rem; color:var(--muted); margin-top:4px; }
+
+    .add-city-panel { display:none; background:var(--surface); border:1px solid var(--accent); border-radius:14px; padding:16px; margin-bottom:16px; }
+    .add-city-panel.open { display:block; }
+    .add-city-panel select { width:100%; padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.12); background:#0a0d13; color:#EAEDF0; margin-bottom:10px; }
+    .btn-calc { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#0A0F14; border:none; padding:13px; border-radius:50px; font-weight:800; font-size:0.9rem; cursor:pointer; width:100%; }
+
+    .appreciation { text-align:center; margin:20px 0 10px; font-size:0.85rem; color:#ccc; border-top:1px solid rgba(255,255,255,0.08); padding-top:16px; line-height:1.8; }
+    .appreciation .gold { color:var(--gold-bright); }
+    footer { text-align:center; color:var(--muted); font-size:0.72rem; padding:25px 0 20px; border-top:1px solid rgba(255,255,255,0.06); margin-top:20px; }
+    footer a { color:var(--accent); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:44px; height:44px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix World Clock & Time Zone Converter",
+    "url": "https://coldmatrixtools.com/world-clock.html",
+    "applicationCategory": "Utility",
+    "description": "See live time in any city worldwide, and convert time between time zones instantly.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+</head>
+<body>
+<nav class="navbar"><div class="nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+<div class="container">
+  <a href="index.html#tools" class="back-link">← Back to Tools</a>
+  <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+  <h1>🌍 ColdMatrix <span>World Clock</span></h1>
+  <p class="subtitle">Live time in any city worldwide, plus instant time zone conversion for calls, meetings, and travel.</p>
+
+  <div class="share-tool-card">
+    <div class="share-tool-title">Share World Clock</div>
+    <div class="share-tool-buttons">
+      <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+    </div>
+  </div>
+
+  <div class="section-heading">
+    <h2>🕐 Live World Clock</h2>
+    <button class="add-city-btn" onclick="togglePanel()">+ Add City</button>
+  </div>
+
+  <div class="add-city-panel" id="addCityPanel">
+    <select id="citySelect"></select>
+    <button class="btn-calc" onclick="addCity()">Add to My Clocks</button>
+  </div>
+
+  <div class="clock-grid" id="clockGrid"></div>
+
+  <div class="section-heading"><h2>🔄 Convert a Time</h2></div>
+  <div class="card">
+    <div class="field">
+      <label>From Time Zone</label>
+      <select id="fromZone"></select>
+    </div>
+    <div class="field">
+      <label>Time</label>
+      <input type="time" id="convertTime">
+    </div>
+    <div class="field">
+      <label>To Time Zone</label>
+      <select id="toZone"></select>
+    </div>
+    <button class="btn-calc" onclick="convertTime()">Convert Now</button>
+    <div class="convert-result" id="convertResult" style="display:none;">
+      <div class="result-time" id="resultTime"></div>
+      <div class="result-sub" id="resultSub"></div>
+    </div>
+  </div>
+
+  <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(79,195,247,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
+    <h2 style="font-size:1.05rem;margin-bottom:10px;color:var(--accent);">About the World Clock & Time Zone Converter</h2>
+    <p>Track live time across multiple cities at once, and convert a specific time from one zone to another — useful for scheduling international calls, coordinating with remote teams, or planning travel. Add any city to your personal clock board, and it stays saved for your next visit.</p>
+    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:var(--accent);">Common Questions</h3>
+    <p><strong>Does this account for Daylight Saving Time?</strong> Yes — times are calculated using your browser's built-in time zone database, which automatically adjusts for daylight saving changes in each region.</p>
+    <p><strong>Is my selected city list saved?</strong> Yes, locally in your own browser only — nothing is sent to a server, so your city list stays private to your device.</p>
+  </div>
+
+  <div class="appreciation">✨ <strong class="gold">Thank you</strong> for using our World Clock. Stay connected across the globe!<br><span style="font-size:0.75rem">Explore more <a href="index.html" style="color:var(--accent)">premium tools</a> designed for you.</span></div>
+</div>
+<footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+<script>
+  const CITIES = [
+    { name: 'New York', country: 'USA', tz: 'America/New_York' },
+    { name: 'Los Angeles', country: 'USA', tz: 'America/Los_Angeles' },
+    { name: 'London', country: 'UK', tz: 'Europe/London' },
+    { name: 'Paris', country: 'France', tz: 'Europe/Paris' },
+    { name: 'Dubai', country: 'UAE', tz: 'Asia/Dubai' },
+    { name: 'Karachi', country: 'Pakistan', tz: 'Asia/Karachi' },
+    { name: 'Lahore', country: 'Pakistan', tz: 'Asia/Karachi' },
+    { name: 'Delhi', country: 'India', tz: 'Asia/Kolkata' },
+    { name: 'Dhaka', country: 'Bangladesh', tz: 'Asia/Dhaka' },
+    { name: 'Singapore', country: 'Singapore', tz: 'Asia/Singapore' },
+    { name: 'Hong Kong', country: 'China', tz: 'Asia/Hong_Kong' },
+    { name: 'Shanghai', country: 'China', tz: 'Asia/Shanghai' },
+    { name: 'Tokyo', country: 'Japan', tz: 'Asia/Tokyo' },
+    { name: 'Seoul', country: 'South Korea', tz: 'Asia/Seoul' },
+    { name: 'Sydney', country: 'Australia', tz: 'Australia/Sydney' },
+    { name: 'Auckland', country: 'New Zealand', tz: 'Pacific/Auckland' },
+    { name: 'Toronto', country: 'Canada', tz: 'America/Toronto' },
+    { name: 'Sao Paulo', country: 'Brazil', tz: 'America/Sao_Paulo' },
+    { name: 'Johannesburg', country: 'South Africa', tz: 'Africa/Johannesburg' },
+    { name: 'Cairo', country: 'Egypt', tz: 'Africa/Cairo' },
+    { name: 'Istanbul', country: 'Turkey', tz: 'Europe/Istanbul' },
+    { name: 'Moscow', country: 'Russia', tz: 'Europe/Moscow' },
+    { name: 'Riyadh', country: 'Saudi Arabia', tz: 'Asia/Riyadh' },
+    { name: 'Jakarta', country: 'Indonesia', tz: 'Asia/Jakarta' },
+    { name: 'Frankfurt', country: 'Germany', tz: 'Europe/Berlin' },
+    { name: 'UTC', country: 'Universal', tz: 'UTC' }
+  ];
+
+  const DEFAULT_CITIES = ['America/New_York', 'Europe/London', 'Asia/Dubai', 'Asia/Karachi', 'Asia/Kolkata', 'Asia/Singapore', 'Asia/Tokyo', 'Australia/Sydney'];
+
+  function getSavedCities() {
+    try {
+      const saved = localStorage.getItem('cm_world_clock_cities');
+      return saved ? JSON.parse(saved) : DEFAULT_CITIES.slice();
+    } catch (e) { return DEFAULT_CITIES.slice(); }
+  }
+
+  function saveCities(list) {
+    try { localStorage.setItem('cm_world_clock_cities', JSON.stringify(list)); } catch (e) {}
+  }
+
+  let myCities = getSavedCities();
+
+  function cityInfoFor(tz) {
+    return CITIES.find(c => c.tz === tz) || { name: tz.split('/').pop().replace('_',' '), country: '', tz: tz };
+  }
+
+  function renderClocks() {
+    const grid = document.getElementById('clockGrid');
+    grid.innerHTML = '';
+    const now = new Date();
+    const localDay = now.getDate();
+
+    myCities.forEach(tz => {
+      const info = cityInfoFor(tz);
+      const card = document.createElement('div');
+      card.className = 'clock-card';
+
+      const timeStr = new Intl.DateTimeFormat('en-US', { timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: true }).format(now);
+      const dateStr = new Intl.DateTimeFormat('en-US', { timeZone: tz, weekday: 'short', month: 'short', day: 'numeric' }).format(now);
+      const zoneDay = parseInt(new Intl.DateTimeFormat('en-US', { timeZone: tz, day: 'numeric' }).format(now), 10);
+
+      let badge = '';
+      if (zoneDay === localDay) badge = '<span class="day-badge today">Today</span>';
+      else if (zoneDay > localDay || (localDay > 25 && zoneDay < 5)) badge = '<span class="day-badge tomorrow">Tomorrow</span>';
+      else badge = '<span class="day-badge yesterday">Yesterday</span>';
+
+      card.innerHTML = `
+        <button class="remove-btn" onclick="removeCity('${tz}')" title="Remove"><i class="fa-solid fa-xmark"></i></button>
+        <div class="city-name">${info.name}</div>
+        <div class="city-country">${info.country}</div>
+        <div class="time-display">${timeStr}</div>
+        <div class="date-display">${dateStr}</div>
+        ${badge}
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function togglePanel() {
+    document.getElementById('addCityPanel').classList.toggle('open');
+  }
+
+  function populateCitySelect() {
+    const sel = document.getElementById('citySelect');
+    sel.innerHTML = CITIES.map(c => `<option value="${c.tz}">${c.name}, ${c.country}</option>`).join('');
+  }
+
+  function addCity() {
+    const tz = document.getElementById('citySelect').value;
+    if (!myCities.includes(tz)) {
+      myCities.push(tz);
+      saveCities(myCities);
+      renderClocks();
+    }
+    document.getElementById('addCityPanel').classList.remove('open');
+  }
+
+  function removeCity(tz) {
+    myCities = myCities.filter(c => c !== tz);
+    saveCities(myCities);
+    renderClocks();
+  }
+
+  function populateZoneSelects() {
+    const options = CITIES.map(c => `<option value="${c.tz}">${c.name}, ${c.country}</option>`).join('');
+    document.getElementById('fromZone').innerHTML = options;
+    document.getElementById('toZone').innerHTML = options;
+    document.getElementById('fromZone').value = 'Asia/Karachi';
+    document.getElementById('toZone').value = 'America/New_York';
+  }
+
+  function convertTime() {
+    const fromTz = document.getElementById('fromZone').value;
+    const toTz = document.getElementById('toZone').value;
+    const timeVal = document.getElementById('convertTime').value;
+    if (!timeVal) { alert('Please pick a time first.'); return; }
+
+    const [hh, mm] = timeVal.split(':').map(Number);
+
+    // Build a reference date at the chosen time, interpreted in the FROM timezone,
+    // by finding the UTC offset for that zone today.
+    const now = new Date();
+    const todayStr = now.toISOString().slice(0, 10);
+    const naiveLocal = new Date(`${todayStr}T${timeVal}:00`);
+
+    // Get the offset of fromTz vs UTC using Intl
+    const fromOffset = getTzOffsetMinutes(fromTz, naiveLocal);
+    const utcMillis = naiveLocal.getTime() - (naiveLocal.getTimezoneOffset() * 60000) - (fromOffset * 60000);
+    const utcDate = new Date(utcMillis);
+
+    const resultTimeStr = new Intl.DateTimeFormat('en-US', { timeZone: toTz, hour: '2-digit', minute: '2-digit', hour12: true }).format(utcDate);
+    const resultDateStr = new Intl.DateTimeFormat('en-US', { timeZone: toTz, weekday: 'long', month: 'short', day: 'numeric' }).format(utcDate);
+    const fromInfo = cityInfoFor(fromTz);
+    const toInfo = cityInfoFor(toTz);
+
+    document.getElementById('resultTime').textContent = resultTimeStr + ' in ' + toInfo.name;
+    document.getElementById('resultSub').textContent = resultDateStr + ' — converted from ' + timeVal + ' ' + fromInfo.name + ' time';
+    document.getElementById('convertResult').style.display = 'block';
+  }
+
+  function getTzOffsetMinutes(tz, date) {
+    const dtf = new Intl.DateTimeFormat('en-US', { timeZone: tz, hour12: false, year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit' });
+    const parts = dtf.formatToParts(date);
+    const map = {};
+    parts.forEach(p => { if (p.type !== 'literal') map[p.type] = p.value; });
+    const asUTC = Date.UTC(map.year, map.month - 1, map.day, map.hour === '24' ? 0 : map.hour, map.minute, map.second);
+    return (asUTC - date.getTime()) / 60000;
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    populateCitySelect();
+    populateZoneSelects();
+    renderClocks();
+    setInterval(renderClocks, 30000);
+  });
+
+  let deferredPrompt;
+  const installBar = document.getElementById('installBarTool');
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault(); deferredPrompt = e; installBar.style.display = 'block';
+  });
+  window.installAppTool = function(){
+    if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(() => { installBar.style.display = 'none'; }); }
+    else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
+  };
+  if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+
+  function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this World Clock from ColdMatrix Tools! ' + window.location.href), '_blank'); }
+  function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(() => alert('Link copied!')).catch(() => alert(window.location.href)); }
+</script>
+</body>
+</html>
