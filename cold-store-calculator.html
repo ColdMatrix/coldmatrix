@@ -29,6 +29,8 @@
   <meta name="description" content="Professional cold room sizing, PUF/PIR sandwich panel weight, thermal heat load, and cost estimation tool for engineers and contractors worldwide.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
       --bg: #0B0F14;
@@ -39,6 +41,12 @@
       --card-bg: rgba(15,22,30,0.92);
       --warn: #FFA500;
       --danger: #FF6B6B;
+      /* Metallic silver palette */
+      --silver-light: #b0b5bc;
+      --silver-mid: #8d939a;
+      --silver-dark: #5f656d;
+      --silver-gradient: linear-gradient(145deg, #d1d6dc, #9da3ab 40%, #6c737b 100%);
+      --silver-border: #7a8189;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -117,10 +125,11 @@
       font-weight: 600;
       text-shadow: 0 1px 2px rgba(0,0,0,0.7);
     }
+    /* All input boxes with metallic borders */
     select, input {
       width: 100%;
       background: rgba(20,28,38,0.95);
-      border: 1px solid var(--line);
+      border: 1px solid var(--silver-mid);
       color: #FFFFFF;
       padding: 12px 14px;
       border-radius: 8px;
@@ -138,15 +147,16 @@
     .unit-toggle { display: flex; gap: 10px; margin-bottom: 16px; }
     .unit-btn {
       flex: 1; padding: 12px;
-      border: 1px solid var(--line);
-      background: rgba(20,28,38,0.9);
-      color: #FFFFFF;
+      border: 1px solid var(--silver-border);
+      background: var(--silver-gradient);
+      color: #ffffff;
       border-radius: 8px;
       cursor: pointer;
       text-align: center;
       font-size: 0.95rem;
       font-weight: 600;
       transition: all 0.2s;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
     .unit-btn.active {
       border-color: var(--frost);
@@ -155,9 +165,10 @@
       box-shadow: 0 0 12px rgba(79,195,247,0.3);
     }
 
+    /* Metallic silver suggestion box */
     .suggestion-box {
-      background: rgba(79,195,247,0.12);
-      border: 1px solid var(--frost);
+      background: var(--silver-gradient);
+      border: 1px solid var(--silver-border);
       border-radius: 12px;
       padding: 16px;
       margin: 18px 0;
@@ -165,43 +176,35 @@
       align-items: center;
       gap: 12px;
       flex-wrap: wrap;
-      color: #FFFFFF;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.6);
     }
-    .suggestion-box .title { font-weight: 700; color: var(--frost); white-space: nowrap; }
+    .suggestion-box .title { font-weight: 700; color: #ffffff; white-space: nowrap; }
     .btn-small {
-      background: linear-gradient(135deg, #4FC3F7, #2196F3);
-      color: #0A0F14;
+      background: #343a40;
+      color: #ffffff;
       border: none;
       padding: 8px 18px;
       border-radius: 8px;
       font-weight: 700;
       cursor: pointer;
       font-size: 0.85rem;
+      transition: background 0.2s;
     }
+    .btn-small:hover { background: #23272b; }
 
-    .live-stats {
-      background: rgba(20,28,38,0.7);
-      border-radius: 12px;
-      padding: 16px;
-      margin: 16px 0;
-      display: flex;
-      justify-content: space-between;
-      backdrop-filter: blur(4px);
-    }
-    .live-stats .stat { text-align: center; flex: 1; }
-    .live-stats .stat .label { color: #8B98A5; font-size: 0.8rem; font-weight: 600; }
-    .live-stats .stat .value { font-weight: 700; color: var(--frost); font-size: 1.2rem; }
-
+    /* Metallic silver note */
     .coldmatrix-note {
-      background: rgba(79,195,247,0.08);
-      border: 1px solid var(--frost);
+      background: var(--silver-gradient);
+      border: 1px solid var(--silver-border);
       border-radius: 12px;
       padding: 12px 16px;
       margin: 10px 0;
       font-size: 0.92rem;
-      color: #FFFFFF;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.6);
     }
-    .coldmatrix-note strong { color: var(--frost); font-weight: 700; }
+    .coldmatrix-note strong { color: #ffffff; font-weight: 700; }
 
     .warning-box {
       background: rgba(255,165,0,0.12);
@@ -222,11 +225,12 @@
       color: var(--danger);
     }
 
+    /* Calculate / Reset buttons metallic silver */
     .btn-primary {
       flex: 2;
-      background: linear-gradient(135deg, #4FC3F7, #2196F3);
-      color: #0B0F14;
-      border: none;
+      background: var(--silver-gradient);
+      color: #ffffff;
+      border: 1px solid var(--silver-border);
       padding: 16px;
       border-radius: 10px;
       font-family: 'Oswald', sans-serif;
@@ -234,23 +238,24 @@
       font-size: 1.15rem;
       text-transform: uppercase;
       cursor: pointer;
-      box-shadow: 0 4px 24px rgba(79,195,247,0.4);
-      transition: transform 0.1s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: background 0.2s;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
     .btn-primary:disabled {
-      opacity: 0.45;
+      opacity: 0.5;
       cursor: not-allowed;
-      background: #2A3540;
-      color: #8B98A5;
+      background: #495057;
+      color: #adb5bd;
       box-shadow: none;
     }
-    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); }
+    .btn-primary:hover:not(:disabled) { background: linear-gradient(145deg, #e0e4e8, #a3a9b1 40%, #7a8189 100%); }
 
     .btn-reset {
       flex: 1;
-      background: rgba(255,255,255,0.08);
-      color: #FFFFFF;
-      border: 1px solid var(--line);
+      background: #495057;
+      color: #ffffff;
+      border: 1px solid var(--silver-border);
       border-radius: 10px;
       font-family: 'Oswald', sans-serif;
       font-weight: 700;
@@ -259,12 +264,12 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-    .btn-reset:hover { background: rgba(255,255,255,0.15); border-color: var(--frost); }
+    .btn-reset:hover { background: #5a6268; }
 
     .adv-toggle {
-      background: none;
-      border: 1px solid var(--line);
-      color: var(--frost);
+      background: var(--silver-gradient);
+      border: 1px solid var(--silver-border);
+      color: #ffffff;
       padding: 10px 20px;
       border-radius: 8px;
       cursor: pointer;
@@ -272,7 +277,10 @@
       font-weight: 600;
       margin: 10px 0 16px;
       display: inline-block;
+      transition: background 0.2s;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
+    .adv-toggle:hover { background: linear-gradient(145deg, #e0e4e8, #a3a9b1 40%, #7a8189 100%); }
     .adv-section { display: none; }
 
     .results-container {
@@ -329,10 +337,17 @@
       gap: 8px;
       text-transform: uppercase;
       font-family: 'Oswald', sans-serif;
+      background: var(--silver-gradient);
+      color: #ffffff;
+      border: 1px solid var(--silver-border);
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
-    .whatsapp-action { background: #25D366; color: white; }
-    .download-jpg-action { background: #6C5CE7; color: white; }
-    .pdf-action { background: #0077B5; color: white; }
+    .action-btn:hover { background: linear-gradient(145deg, #e0e4e8, #a3a9b1 40%, #7a8189 100%); }
+    .whatsapp-action { background: #25D366; color: white; border: none; text-shadow: none; }
+    .pdf-action { background: #0077B5; color: white; border: none; text-shadow: none; }
+    .download-jpg-action { background: #6C5CE7; color: white; border: none; text-shadow: none; }
 
     .report-label { font-weight: 700; margin-top: 20px; color: #FFFFFF; font-size: 1rem; }
     .contact-note {
@@ -343,6 +358,49 @@
       border-radius: 12px;
       text-align: center;
       color: #FFFFFF;
+    }
+
+    /* Business bridge - fixed overlap */
+    .business-bridge {
+      margin-top: 20px;
+      padding: 20px 24px;
+      background: linear-gradient(135deg, rgba(79,195,247,0.1), rgba(0,184,148,0.08));
+      border: 1.5px solid var(--accent);
+      border-radius: 14px;
+      text-align: center;
+      color: #FFFFFF;
+    }
+    .business-bridge h4 {
+      font-family: 'Oswald', sans-serif;
+      color: var(--accent);
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+    .business-bridge p { font-size: 0.9rem; margin-bottom: 12px; color: #cfd6dd; }
+    .bridge-btn-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .business-bridge .bridge-btn {
+      display: inline-block;
+      background: var(--silver-gradient);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 0.9rem;
+      border: 1px solid var(--silver-border);
+      transition: all 0.2s;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+    .business-bridge .bridge-btn:hover { background: linear-gradient(145deg, #e0e4e8, #a3a9b1 40%, #7a8189 100%); }
+    .business-bridge .wa-btn {
+      background: #25D366;
+      border: none;
+      text-shadow: none;
     }
 
     footer {
@@ -359,6 +417,7 @@
     @media (max-width: 768px) {
       .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 12px; }
       .card { padding: 18px; }
+      .suggestion-box { flex-direction: column; align-items: flex-start; }
     }
 
     .share-tool-card{
@@ -405,7 +464,7 @@
   </style>
 </head>
 <body>
-<nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+<nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="solutions.html">🏢 Solutions</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
 <div class="container">
   <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
   
@@ -599,20 +658,20 @@
     </div>
     <div class="field">
       <label style="display:flex; align-items:center; gap:8px;">
-        <input type="checkbox" id="includeLatentHeat" style="width:auto;" checked> Include Freezing Latent Heat (for products entering warm and freezing below 0°C — recommended for accuracy)
+        <input type="checkbox" id="includeLatentHeat" style="width:auto;" checked> Include Freezing Latent Heat
       </label>
     </div>
 
     <!-- SUGGESTION BOX -->
     <div class="suggestion-box" id="suggestionBox">
       <span class="title">❄️ ColdMatrix Suggests:</span>
-      <span id="suggestedThickness" style="font-weight:700;">150mm Panels</span>
-      <span style="color:#8B98A5;">|</span>
-      <span id="suggestedUnit" style="font-weight:700;">— HP / — TR</span>
+      <span id="suggestedThickness" style="font-weight:700; color:#fff;">150mm Panels</span>
+      <span style="color:#ced4da;">|</span>
+      <span id="suggestedUnit" style="font-weight:700; color:#fff;">— HP / — TR</span>
       <button class="btn-small" onclick="applySuggestion()">Apply</button>
     </div>
 
-    <!-- REFRIGERATION UNIT FIELDS (Manual Overrides) -->
+    <!-- REFRIGERATION UNIT FIELDS -->
     <div class="result-section-title" id="secRefrig">⚙️ Refrigeration Unit (Manual Override)</div>
     <div class="grid-2">
       <div class="field"><label>Unit HP (e.g. 20)</label><input type="number" id="manualHP" placeholder="Enter HP"></div>
@@ -672,7 +731,9 @@
     <button class="adv-toggle" id="advToggle" onclick="toggleAdvanced()">⚙️ Advanced Panel Settings</button>
     <div class="adv-section" id="advancedPanel">
       <div class="grid-3">
-        <div class="field"><label>Core Material</label><select id="coreMaterial"><option value="PUF" selected>PUF (λ=0.022)</option><option value="PIR">PIR (λ=0.020)</option><option value="EPS">EPS (λ=0.035)</option></select></div>
+        <div class="field">
+          <label>Core Material</label>
+          <select id="coreMaterial"><option value="PUF" selected>PUF (λ=0.022)</option><option value="PIR">PIR (λ=0.020)</option><option value="EPS">EPS (λ=0.035)</option></select></div>
         <div class="field"><label>Core Density (kg/m³)</label><input type="number" id="coreDensity" value="42" step="any"></div>
         <div class="field"><label>Steel Skin Thickness (mm)</label><input type="number" id="skinThickness" value="0.5" step="any"></div>
       </div>
@@ -774,7 +835,7 @@
     <div class="field"><label>💱 Currency</label><select id="currency"><option value="PKR">🇵🇰 PKR</option><option value="USD">🇺🇸 USD</option><option value="EUR">🇪🇺 EUR</option><option value="GBP">🇬🇧 GBP</option><option value="AED">🇦🇪 AED</option></select></div>
 
     <div style="display: flex; gap: 12px; margin-top: 16px;">
-      <button class="btn-primary" id="calcBtn">Calculate</button>
+      <button class="btn-primary" id="calcBtn" onclick="calculate()">Calculate</button>
       <button type="button" class="btn-reset" onclick="resetCalculator()">Reset</button>
     </div>
 
@@ -838,8 +899,18 @@
       <div class="report-label">📋 Take your ColdMatrix cold store summary:</div>
       <div class="action-buttons">
         <button class="action-btn whatsapp-action" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
-        <button class="action-btn pdf-action" onclick="downloadPDF()">📄 PDF</button>
+        <button class="action-btn pdf-action" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> PDF Report</button>
         <button class="action-btn download-jpg-action" onclick="downloadJPG()"><i class="fas fa-camera"></i> JPG</button>
+      </div>
+
+      <!-- Business Bridge -->
+      <div class="business-bridge">
+        <h4>🏢 Need This Built in Real Life?</h4>
+        <p>Cold Matrix Advanced Solutions designs and installs complete cold storage projects across Pakistan — from panels to refrigeration. Get a professional quotation today.</p>
+        <div class="bridge-btn-group">
+          <a href="solutions.html" class="bridge-btn">📋 Our Solutions</a>
+          <a href="https://wa.me/923333228470?text=Hello%20Cold%20Matrix%2C%20I%20need%20a%20quotation%20for%20a%20cold%20storage%20project." class="bridge-btn wa-btn" target="_blank">💬 WhatsApp Quote</a>
+        </div>
       </div>
 
       <div class="contact-note">
@@ -860,7 +931,6 @@
 
 <footer>Powered by <a href="index.html">ColdMatrix</a> — Professional Engineering Tools.</footer>
 
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
   (function() {
     const currencySymbols = { PKR:'Rs', USD:'$', EUR:'€', GBP:'£', AED:'د.إ' };
@@ -901,10 +971,9 @@
     window.toggleAdvanced=function(){let s=document.getElementById('advancedPanel');s.style.display=s.style.display==='block'?'none':'block';};
     window.resetCalculator=function(){document.querySelectorAll('input[type="number"]').forEach(i=>{if(i.id==='ambientTemp')i.value='45';else if(i.id==='roomTemp')i.value='-15';else if(i.id==='safetyFactor')i.value='20';else if(i.id==='productEntryTemp')i.value='28';else if(i.id==='panelWidth')i.value='1190';else if(i.id==='coreDensity')i.value='42';else if(i.id==='skinThickness')i.value='0.5';else if(i.id==='wastage')i.value='3';else if(i.id==='maxRoofPanelLength')i.value='14';else if(i.id==='panelRate')i.value='750';else if(i.id==='installRate')i.value='140';else if(i.id==='installFixedCost')i.value='400000';else if(i.id==='costPerDoor')i.value='300000';else if(i.id==='numCondUnits')i.value='1';else if(i.id==='costPerCondUnit')i.value='1200000';else if(i.id==='numEvapUnits')i.value='1';else if(i.id==='costPerEvapUnit')i.value='800000';else if(i.id==='refInstallCost')i.value='300000';else if(i.id==='transportCost')i.value='50000';else if(i.id==='runHoursPerDay')i.value='18';else if(i.id==='electricityRate')i.value='';else if(i.id.includes('L'))i.value='20';else if(i.id.includes('H'))i.value='15';else i.value='';});document.querySelectorAll('input[type="checkbox"]').forEach(cb=>cb.checked=false);document.getElementById('includeLatentHeat').checked=true;document.getElementById('refrigerantType').value='R448A';document.getElementById('doorUsage').value='medium';document.getElementById('climatePreset').value='45';document.getElementById('resultCard').style.display='none';document.getElementById('calcBtn').disabled=false;document.getElementById('tempWarning').style.display='none';document.getElementById('floorAdvisory').style.display='none';document.getElementById('doorHeaterAdvisory').style.display='none';updateRefrigerantNote();updateLiveStats();updateSuggestion();updateInstallCostPreview();window.scrollTo({top:0,behavior:'smooth'});};
     const allInputs=document.querySelectorAll('input, select');allInputs.forEach(inp=>{inp.addEventListener('input',()=>{if(inp===document.getElementById('roomTemp')||inp===document.getElementById('productType')||inp===document.getElementById('doorType'))checkMinusAdvisories();if(inp!==manualHP&&inp!==manualTR){updateLiveStats();updateSuggestion();updateInstallCostPreview();}document.getElementById('calcBtn').disabled=false;document.getElementById('resultCard').style.display='none';});inp.addEventListener('change',()=>{if(inp===document.getElementById('roomTemp')||inp===document.getElementById('productType')||inp===document.getElementById('doorType'))checkMinusAdvisories();if(inp!==manualHP&&inp!==manualTR){updateLiveStats();updateSuggestion();updateInstallCostPreview();}document.getElementById('calcBtn').disabled=false;document.getElementById('resultCard').style.display='none';});});
-    function calculate(){let thermalArea=getThermalEnvelopeArea(),volumeEst=getVolumeEstimate();if(thermalArea<=0)return;let thick=parseInt(document.getElementById('panelThickness').value)||150,pW=parseFloat(document.getElementById('panelWidth').value)||1190,pwf=toFeet(pW,document.getElementById('panelWidthUnit').value);if(pwf<=0)return;let amb=parseFloat(document.getElementById('ambientTemp').value)||45,room=parseFloat(document.getElementById('roomTemp').value)||-15,saf=parseFloat(document.getElementById('safetyFactor').value)||20,prodType=document.getElementById('productType').value,dailyKg=parseFloat(document.getElementById('dailyProductKg').value)||0,entryT=parseFloat(document.getElementById('productEntryTemp').value)||28,lambda=lambdas[document.getElementById('coreMaterial').value]||0.022,dens=parseFloat(document.getElementById('coreDensity').value)||42,skin=parseFloat(document.getElementById('skinThickness').value)||0.5,prof=parseFloat(document.getElementById('profileFactor').value)||1.02,waste=parseFloat(document.getElementById('wastage').value)||3,maxRoofLen=parseFloat(document.getElementById('maxRoofPanelLength').value)||14,perimeter=getActivePerimeter(),wallPanelsCount=Math.ceil(perimeter/pwf),billableWallArea=getBillableWallArea(),roofSpanX=parseFloat(wallInputs[0].l.value)||20,roofSpanY=parseFloat(wallInputs[1].l.value)||40,shortSide=Math.min(roofSpanX,roofSpanY),longSide=Math.max(roofSpanX,roofSpanY),rows=Math.ceil(shortSide/maxRoofLen),panelLengthPerRow=shortSide/rows,panelsPerRow=Math.ceil(longSide/pwf),roofPanelsCount=rows*panelsPerRow,roofPanelArea=roofPanelsCount*pwf*panelLengthPerRow,basePanelArea=billableWallArea+roofPanelArea,totalPanelArea=basePanelArea*(1+waste/100),areaM2=currentUnit==='ft'?thermalArea*0.092903:thermalArea,volM3=currentUnit==='ft'?volumeEst*0.0283168:volumeEst,U=lambda/(thick/1000),deltaT=Math.max(10,amb-room),Qtrans=U*areaM2*deltaT,floorAreaFt2=(currentUnit==='ft')?roofSpanX*roofSpanY:(roofSpanX*3.28084)*(roofSpanY*3.28084),Qprod;if(dailyKg>0){Qprod=(dailyKg*3.5*Math.max(0,entryT-room))/86400*1000;let includeLatent=document.getElementById('includeLatentHeat').checked;if(includeLatent&&room<0&&entryT>0){let lKJ=latentHeatKJkg[prodType]||0;Qprod+=(dailyKg*lKJ*1000)/86400;}}else{Qprod=floorAreaFt2*(productLoadFactorsPerFt2[prodType]||40);}let numDoors=parseInt(document.getElementById('numDoors').value)||1,doorUsage=document.getElementById('doorUsage').value,doorFactor=(1+(numDoors-1)*0.15)*(doorUsageFactor[doorUsage]||1.0),Qinf=0.0000335*volM3*deltaT*1000*doorFactor,subtotal=Qtrans+Qprod+Qinf,Qequip=subtotal*0.15,totalW=(subtotal*(1+saf/100))+Qequip,autoTR=totalW/3517,refrig=refrigerantData[document.getElementById('refrigerantType').value]||refrigerantData.R448A,autoHP=Math.ceil(autoTR*refrig.ratio),mHP=parseFloat(document.getElementById('manualHP').value),mTR=parseFloat(document.getElementById('manualTR').value),finalHP=autoHP,finalTR=autoTR;if(!isNaN(mHP)&&mHP>0){finalHP=mHP;finalTR=isNaN(mTR)||mTR<=0?mHP/refrig.ratio:mTR;}else if(!isNaN(mTR)&&mTR>0){finalTR=mTR;finalHP=mTR*refrig.ratio;}let dualMode=document.getElementById('dualCompressor').checked,unitDisplay=dualMode?`2 × ${Math.ceil(finalHP/2)} HP / ${(finalTR/2).toFixed(2)} TR each`:finalHP+' HP / '+finalTR.toFixed(2)+' TR',panelAreaM2=totalPanelArea*0.092903,panelWeight=(2*(skin/1000)*STEEL_DENSITY*prof+(thick/1000)*dens)*panelAreaM2,rate=parseFloat(document.getElementById('panelRate').value)||0,panelCost=totalPanelArea*rate,installCost=currentInstallMethod==='perunit'?(parseFloat(document.getElementById('installRate').value)||0)*totalPanelArea:(parseFloat(document.getElementById('installFixedCost').value)||0),doorCost=numDoors*(parseFloat(document.getElementById('costPerDoor').value)||0),numCond=parseFloat(document.getElementById('numCondUnits').value)||0,costCond=parseFloat(document.getElementById('costPerCondUnit').value)||0,numEvap=parseFloat(document.getElementById('numEvapUnits').value)||0,costEvap=parseFloat(document.getElementById('costPerEvapUnit').value)||0,refInstall=parseFloat(document.getElementById('refInstallCost').value)||0,refTotalCost=(numCond*costCond)+(numEvap*costEvap)+refInstall,transport=parseFloat(document.getElementById('transportCost').value)||0,grandTotal=panelCost+installCost+doorCost+refTotalCost+transport,currency=document.getElementById('currency').value,symbol=currencySymbols[currency]||'Rs',productText=document.getElementById('productType').options[document.getElementById('productType').selectedIndex].text;document.getElementById('sProduct').textContent=productText;document.getElementById('sReqTemp').textContent=room+' °C';document.getElementById('sArea').textContent=thermalArea.toFixed(2)+' '+(currentUnit==='ft'?'ft²':'m²');document.getElementById('sVolume').textContent=volumeEst.toFixed(2)+' '+(currentUnit==='ft'?'ft³':'m³')+' (approx)';document.getElementById('sWallPanels').textContent=wallPanelsCount+' panels';document.getElementById('sRoofPanels').textContent=roofPanelsCount+' panels';document.getElementById('sTotalPanels').textContent=(wallPanelsCount+roofPanelsCount)+' panels total';document.getElementById('sPanelArea').textContent=totalPanelArea.toFixed(2)+' '+(currentUnit==='ft'?'ft²':'m²')+' (incl. waste)';document.getElementById('sPanelWeight').textContent=panelWeight.toFixed(1)+' kg';document.getElementById('sTransLoad').textContent=(Qtrans/3517).toFixed(2)+' TR';document.getElementById('sProdLoad').textContent=(Qprod/3517).toFixed(2)+' TR';document.getElementById('sInfLoad').textContent=(Qinf/3517).toFixed(2)+' TR';document.getElementById('sEquipLoad').textContent=(Qequip/3517).toFixed(2)+' TR';document.getElementById('sSafetyLoad').textContent=((subtotal*saf/100)/3517).toFixed(2)+' TR';document.getElementById('sRefLoad').textContent=autoTR.toFixed(2)+' TR';document.getElementById('sUnit').textContent=unitDisplay;document.getElementById('sPanelCost').textContent=symbol+' '+formatNum(panelCost);document.getElementById('sInstallation').textContent=symbol+' '+formatNum(installCost);document.getElementById('sDoorCost').textContent=symbol+' '+formatNum(doorCost);document.getElementById('sCondCost').textContent=symbol+' '+formatNum(numCond*costCond);document.getElementById('sEvapCost').textContent=symbol+' '+formatNum(numEvap*costEvap);document.getElementById('sRefInstallCost').textContent=symbol+' '+formatNum(refInstall);document.getElementById('sTransport').textContent=symbol+' '+formatNum(transport);document.getElementById('sGrandTotal').textContent=symbol+' '+formatNum(grandTotal);let refrigSelect=document.getElementById('refrigerantType'),refrigLabel=refrigSelect.options[refrigSelect.selectedIndex].text,systemTypeText;if(finalTR<=5)systemTypeText=refrigLabel+' — Single Compressor Unit (sufficient for this load)';else if(finalTR<=15)systemTypeText=refrigLabel+' — '+(dualMode?'Dual Compressor Redundant Setup':'Dual Compressor Setup recommended for uptime above 5 TR');else systemTypeText=refrigLabel+' — Multi-Compressor Rack System recommended (high capacity, 15+ TR)';document.getElementById('sSystemType').textContent=systemTypeText;let elecRate=parseFloat(document.getElementById('electricityRate').value)||0,runHours=parseFloat(document.getElementById('runHoursPerDay').value)||18,monthlyCost=0;if(elecRate>0){let elecKW=(finalTR*3.517)/refrig.cop,dailyKWh=elecKW*runHours;monthlyCost=dailyKWh*30*elecRate;document.getElementById('operatingCostSection').style.display='block';document.getElementById('sElecPower').textContent=elecKW.toFixed(2)+' kW';document.getElementById('sDailyEnergy').textContent=dailyKWh.toFixed(1)+' kWh/day';document.getElementById('sMonthlyCost').textContent=symbol+' '+formatNum(monthlyCost)+' / month';document.getElementById('execRunning').textContent=symbol+' '+formatNum(monthlyCost)+'/mo';}else{document.getElementById('operatingCostSection').style.display='none';document.getElementById('execRunning').textContent='Enter electricity rate below';}document.getElementById('execPanel').textContent=thick+'mm '+document.getElementById('coreMaterial').value+' Panels';document.getElementById('execSystem').textContent=unitDisplay;document.getElementById('execLoad').textContent=autoTR.toFixed(2)+' TR';document.getElementById('execTotal').textContent=symbol+' '+formatNum(grandTotal);document.getElementById('execNote').textContent=systemTypeText;let advisoryDiv=document.getElementById('roofAdvisory');if(shortSide>14){advisoryDiv.style.display='block';advisoryDiv.innerHTML=`<strong>❄️ ColdMatrix Note:</strong> Roof panel length ${shortSide.toFixed(1)} ft exceeds 14 ft. Structural support (purlins, suspension‑T) is required. Cut panels accordingly.`;}else{advisoryDiv.style.display='none';}document.getElementById('resultCard').style.display='block';document.getElementById('calcBtn').disabled=true;document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});}
-    document.getElementById('calcBtn').addEventListener('click',calculate);
+    window.calculate=function(){let thermalArea=getThermalEnvelopeArea(),volumeEst=getVolumeEstimate();if(thermalArea<=0)return;let thick=parseInt(document.getElementById('panelThickness').value)||150,pW=parseFloat(document.getElementById('panelWidth').value)||1190,pwf=toFeet(pW,document.getElementById('panelWidthUnit').value);if(pwf<=0)return;let amb=parseFloat(document.getElementById('ambientTemp').value)||45,room=parseFloat(document.getElementById('roomTemp').value)||-15,saf=parseFloat(document.getElementById('safetyFactor').value)||20,prodType=document.getElementById('productType').value,dailyKg=parseFloat(document.getElementById('dailyProductKg').value)||0,entryT=parseFloat(document.getElementById('productEntryTemp').value)||28,lambda=lambdas[document.getElementById('coreMaterial').value]||0.022,dens=parseFloat(document.getElementById('coreDensity').value)||42,skin=parseFloat(document.getElementById('skinThickness').value)||0.5,prof=parseFloat(document.getElementById('profileFactor').value)||1.02,waste=parseFloat(document.getElementById('wastage').value)||3,maxRoofLen=parseFloat(document.getElementById('maxRoofPanelLength').value)||14,perimeter=getActivePerimeter(),wallPanelsCount=Math.ceil(perimeter/pwf),billableWallArea=getBillableWallArea(),roofSpanX=parseFloat(wallInputs[0].l.value)||20,roofSpanY=parseFloat(wallInputs[1].l.value)||40,shortSide=Math.min(roofSpanX,roofSpanY),longSide=Math.max(roofSpanX,roofSpanY),rows=Math.ceil(shortSide/maxRoofLen),panelLengthPerRow=shortSide/rows,panelsPerRow=Math.ceil(longSide/pwf),roofPanelsCount=rows*panelsPerRow,roofPanelArea=roofPanelsCount*pwf*panelLengthPerRow,basePanelArea=billableWallArea+roofPanelArea,totalPanelArea=basePanelArea*(1+waste/100),areaM2=currentUnit==='ft'?thermalArea*0.092903:thermalArea,volM3=currentUnit==='ft'?volumeEst*0.0283168:volumeEst,U=lambda/(thick/1000),deltaT=Math.max(10,amb-room),Qtrans=U*areaM2*deltaT,floorAreaFt2=(currentUnit==='ft')?roofSpanX*roofSpanY:(roofSpanX*3.28084)*(roofSpanY*3.28084),Qprod;if(dailyKg>0){Qprod=(dailyKg*3.5*Math.max(0,entryT-room))/86400*1000;let includeLatent=document.getElementById('includeLatentHeat').checked;if(includeLatent&&room<0&&entryT>0){let lKJ=latentHeatKJkg[prodType]||0;Qprod+=(dailyKg*lKJ*1000)/86400;}}else{Qprod=floorAreaFt2*(productLoadFactorsPerFt2[prodType]||40);}let numDoors=parseInt(document.getElementById('numDoors').value)||1,doorUsage=document.getElementById('doorUsage').value,doorFactor=(1+(numDoors-1)*0.15)*(doorUsageFactor[doorUsage]||1.0),Qinf=0.0000335*volM3*deltaT*1000*doorFactor,subtotal=Qtrans+Qprod+Qinf,Qequip=subtotal*0.15,totalW=(subtotal*(1+saf/100))+Qequip,autoTR=totalW/3517,refrig=refrigerantData[document.getElementById('refrigerantType').value]||refrigerantData.R448A,autoHP=Math.ceil(autoTR*refrig.ratio),mHP=parseFloat(document.getElementById('manualHP').value),mTR=parseFloat(document.getElementById('manualTR').value),finalHP=autoHP,finalTR=autoTR;if(!isNaN(mHP)&&mHP>0){finalHP=mHP;finalTR=isNaN(mTR)||mTR<=0?mHP/refrig.ratio:mTR;}else if(!isNaN(mTR)&&mTR>0){finalTR=mTR;finalHP=mTR*refrig.ratio;}let dualMode=document.getElementById('dualCompressor').checked,unitDisplay=dualMode?`2 × ${Math.ceil(finalHP/2)} HP / ${(finalTR/2).toFixed(2)} TR each`:finalHP+' HP / '+finalTR.toFixed(2)+' TR',panelAreaM2=totalPanelArea*0.092903,panelWeight=(2*(skin/1000)*STEEL_DENSITY*prof+(thick/1000)*dens)*panelAreaM2,rate=parseFloat(document.getElementById('panelRate').value)||0,panelCost=totalPanelArea*rate,installCost=currentInstallMethod==='perunit'?(parseFloat(document.getElementById('installRate').value)||0)*totalPanelArea:(parseFloat(document.getElementById('installFixedCost').value)||0),doorCost=numDoors*(parseFloat(document.getElementById('costPerDoor').value)||0),numCond=parseFloat(document.getElementById('numCondUnits').value)||0,costCond=parseFloat(document.getElementById('costPerCondUnit').value)||0,numEvap=parseFloat(document.getElementById('numEvapUnits').value)||0,costEvap=parseFloat(document.getElementById('costPerEvapUnit').value)||0,refInstall=parseFloat(document.getElementById('refInstallCost').value)||0,refTotalCost=(numCond*costCond)+(numEvap*costEvap)+refInstall,transport=parseFloat(document.getElementById('transportCost').value)||0,grandTotal=panelCost+installCost+doorCost+refTotalCost+transport,currency=document.getElementById('currency').value,symbol=currencySymbols[currency]||'Rs',productText=document.getElementById('productType').options[document.getElementById('productType').selectedIndex].text;document.getElementById('sProduct').textContent=productText;document.getElementById('sReqTemp').textContent=room+' °C';document.getElementById('sArea').textContent=thermalArea.toFixed(2)+' '+(currentUnit==='ft'?'ft²':'m²');document.getElementById('sVolume').textContent=volumeEst.toFixed(2)+' '+(currentUnit==='ft'?'ft³':'m³')+' (approx)';document.getElementById('sWallPanels').textContent=wallPanelsCount+' panels';document.getElementById('sRoofPanels').textContent=roofPanelsCount+' panels';document.getElementById('sTotalPanels').textContent=(wallPanelsCount+roofPanelsCount)+' panels total';document.getElementById('sPanelArea').textContent=totalPanelArea.toFixed(2)+' '+(currentUnit==='ft'?'ft²':'m²')+' (incl. waste)';document.getElementById('sPanelWeight').textContent=panelWeight.toFixed(1)+' kg';document.getElementById('sTransLoad').textContent=(Qtrans/3517).toFixed(2)+' TR';document.getElementById('sProdLoad').textContent=(Qprod/3517).toFixed(2)+' TR';document.getElementById('sInfLoad').textContent=(Qinf/3517).toFixed(2)+' TR';document.getElementById('sEquipLoad').textContent=(Qequip/3517).toFixed(2)+' TR';document.getElementById('sSafetyLoad').textContent=((subtotal*saf/100)/3517).toFixed(2)+' TR';document.getElementById('sRefLoad').textContent=autoTR.toFixed(2)+' TR';document.getElementById('sUnit').textContent=unitDisplay;document.getElementById('sPanelCost').textContent=symbol+' '+formatNum(panelCost);document.getElementById('sInstallation').textContent=symbol+' '+formatNum(installCost);document.getElementById('sDoorCost').textContent=symbol+' '+formatNum(doorCost);document.getElementById('sCondCost').textContent=symbol+' '+formatNum(numCond*costCond);document.getElementById('sEvapCost').textContent=symbol+' '+formatNum(numEvap*costEvap);document.getElementById('sRefInstallCost').textContent=symbol+' '+formatNum(refInstall);document.getElementById('sTransport').textContent=symbol+' '+formatNum(transport);document.getElementById('sGrandTotal').textContent=symbol+' '+formatNum(grandTotal);let refrigSelect=document.getElementById('refrigerantType'),refrigLabel=refrigSelect.options[refrigSelect.selectedIndex].text,systemTypeText;if(finalTR<=5)systemTypeText=refrigLabel+' — Single Compressor Unit (sufficient for this load)';else if(finalTR<=15)systemTypeText=refrigLabel+' — '+(dualMode?'Dual Compressor Redundant Setup':'Dual Compressor Setup recommended for uptime above 5 TR');else systemTypeText=refrigLabel+' — Multi-Compressor Rack System recommended (high capacity, 15+ TR)';document.getElementById('sSystemType').textContent=systemTypeText;let elecRate=parseFloat(document.getElementById('electricityRate').value)||0,runHours=parseFloat(document.getElementById('runHoursPerDay').value)||18,monthlyCost=0;if(elecRate>0){let elecKW=(finalTR*3.517)/refrig.cop,dailyKWh=elecKW*runHours;monthlyCost=dailyKWh*30*elecRate;document.getElementById('operatingCostSection').style.display='block';document.getElementById('sElecPower').textContent=elecKW.toFixed(2)+' kW';document.getElementById('sDailyEnergy').textContent=dailyKWh.toFixed(1)+' kWh/day';document.getElementById('sMonthlyCost').textContent=symbol+' '+formatNum(monthlyCost)+' / month';document.getElementById('execRunning').textContent=symbol+' '+formatNum(monthlyCost)+'/mo';}else{document.getElementById('operatingCostSection').style.display='none';document.getElementById('execRunning').textContent='Enter electricity rate below';}document.getElementById('execPanel').textContent=thick+'mm '+document.getElementById('coreMaterial').value+' Panels';document.getElementById('execSystem').textContent=unitDisplay;document.getElementById('execLoad').textContent=autoTR.toFixed(2)+' TR';document.getElementById('execTotal').textContent=symbol+' '+formatNum(grandTotal);document.getElementById('execNote').textContent=systemTypeText;let advisoryDiv=document.getElementById('roofAdvisory');if(shortSide>14){advisoryDiv.style.display='block';advisoryDiv.innerHTML=`<strong>❄️ ColdMatrix Note:</strong> Roof panel length ${shortSide.toFixed(1)} ft exceeds 14 ft. Structural support (purlins, suspension‑T) is required. Cut panels accordingly.`;}else{advisoryDiv.style.display='none';}document.getElementById('resultCard').style.display='block';document.getElementById('calcBtn').disabled=true;document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});};
     window.shareWhatsApp=function(){let msg=`🧊 *ColdMatrix Cold Store Summary*%0A%0A📦 Product: ${document.getElementById('sProduct').textContent}%0A🌡️ Required Temp: ${document.getElementById('sReqTemp').textContent}%0A⚙️ Recommended Unit: ${document.getElementById('sUnit').textContent}%0A💰 Grand Total: ${document.getElementById('sGrandTotal').textContent}%0A%0A❄️ Thank you for using ColdMatrix – Your 24/7 Business Companion.%0A📞 +92 333 3228470 | ✉️ contact@coldmatrixtools.com%0A🔗 coldmatrixtools.com`;window.open(`https://wa.me/?text=${msg}`,'_blank');};
-    window.downloadPDF=function(){window.print();};
+    window.downloadPDF=function(){const resultCard=document.getElementById('resultCard');html2canvas(resultCard,{scale:2,backgroundColor:'#0B0F14',logging:false}).then(canvas=>{const imgData=canvas.toDataURL('image/jpeg',0.92);const{jsPDF}=window.jspdf;const imgWidth=210;const pageHeight=297;const imgHeight=(canvas.height*imgWidth)/canvas.width;let heightLeft=imgHeight;const pdf=new jsPDF('p','mm','a4');let position=0;pdf.addImage(imgData,'JPEG',0,position,imgWidth,imgHeight);heightLeft-=pageHeight;while(heightLeft>0){position=heightLeft-imgHeight;pdf.addPage();pdf.addImage(imgData,'JPEG',0,position,imgWidth,imgHeight);heightLeft-=pageHeight;}pdf.save('ColdMatrix_ColdStore_Report.pdf');}).catch(()=>{alert('PDF generation failed. Please try JPG download instead.');});};
     window.downloadJPG=function(){html2canvas(document.getElementById('resultCard'),{scale:2,backgroundColor:'#0B0F14'}).then(canvas=>{let link=document.createElement('a');link.download='ColdMatrix_ColdStore_Report.jpg';link.href=canvas.toDataURL('image/jpeg',0.92);link.click();}).catch(()=>alert('Image generation failed.'));};
     updatePanelRateLabel();updateLiveStats();updateSuggestion();checkMinusAdvisories();updateInstallCostPreview();updateRefrigerantNote();document.getElementById('refrigerantType').addEventListener('change',updateRefrigerantNote);
     function updateRefrigerantNote(){let refrig=refrigerantData[document.getElementById('refrigerantType').value]||refrigerantData.R448A,noteEl=document.getElementById('refrigerantNote');noteEl.innerHTML='<strong>❄️ Note:</strong> '+refrig.note;noteEl.style.display='block';}
