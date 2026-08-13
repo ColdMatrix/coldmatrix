@@ -39,13 +39,15 @@
       --line: rgba(79,195,247,0.35);
       --accent: #00b894;
       --card-bg: rgba(15,22,30,0.92);
-      --warn: #FFA500;
-      --danger: #FF6B6B;
-      /* Metallic silver palette */
-      --silver-light: #b0b5bc;
-      --silver-mid: #8d939a;
-      --silver-dark: #5f656d;
-      --silver-gradient: linear-gradient(145deg, #d1d6dc, #9da3ab 40%, #6c737b 100%);
+      --warn: #00b894;
+      --danger: #00b894;
+      --grey-bg: linear-gradient(180deg, #9da3ab, #5c626a);
+      --grey-bg-hover: linear-gradient(180deg, #b5bcc4, #70767e);
+      --gold-border: #D4AF37;
+      --gold-glow: rgba(212,175,55,0.35);
+      --success-green: #00b894;
+      --success-bg: rgba(0,184,148,0.12);
+      --silver-mid: #9da3ab;
       --silver-border: #7a8189;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -125,21 +127,21 @@
       font-weight: 600;
       text-shadow: 0 1px 2px rgba(0,0,0,0.7);
     }
-    /* All input boxes with metallic borders */
     select, input {
       width: 100%;
       background: rgba(20,28,38,0.95);
-      border: 1px solid var(--silver-mid);
+      border: 1px solid var(--gold-border);
       color: #FFFFFF;
       padding: 12px 14px;
       border-radius: 8px;
       font-size: 0.98rem;
       font-weight: 500;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
     select:focus, input:focus {
-      border-color: var(--frost);
+      border-color: #FFD700;
+      box-shadow: 0 0 18px var(--gold-glow);
       background: rgba(25,35,48,0.98);
     }
     select option { background: #141C26; color: #FFFFFF; }
@@ -147,8 +149,8 @@
     .unit-toggle { display: flex; gap: 10px; margin-bottom: 16px; }
     .unit-btn {
       flex: 1; padding: 12px;
-      border: 1px solid var(--silver-border);
-      background: var(--silver-gradient);
+      border: 2px solid var(--gold-border);
+      background: var(--grey-bg);
       color: #ffffff;
       border-radius: 8px;
       cursor: pointer;
@@ -157,18 +159,18 @@
       font-weight: 600;
       transition: all 0.2s;
       text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 12px rgba(0,0,0,0.35);
     }
     .unit-btn.active {
       border-color: var(--frost);
       color: var(--frost);
-      background: rgba(79,195,247,0.18);
-      box-shadow: 0 0 12px rgba(79,195,247,0.3);
+      background: rgba(79,195,247,0.15);
+      box-shadow: 0 0 14px rgba(79,195,247,0.4);
     }
 
-    /* Metallic silver suggestion box */
     .suggestion-box {
-      background: var(--silver-gradient);
-      border: 1px solid var(--silver-border);
+      background: var(--grey-bg);
+      border: 2px solid var(--gold-border);
       border-radius: 12px;
       padding: 16px;
       margin: 18px 0;
@@ -177,13 +179,14 @@
       gap: 12px;
       flex-wrap: wrap;
       color: #ffffff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 12px rgba(0,0,0,0.35);
     }
     .suggestion-box .title { font-weight: 700; color: #ffffff; white-space: nowrap; }
     .btn-small {
       background: #343a40;
       color: #ffffff;
-      border: none;
+      border: 1px solid var(--gold-border);
       padding: 8px 18px;
       border-radius: 8px;
       font-weight: 700;
@@ -193,95 +196,85 @@
     }
     .btn-small:hover { background: #23272b; }
 
-    /* Metallic silver note */
     .coldmatrix-note {
-      background: var(--silver-gradient);
-      border: 1px solid var(--silver-border);
+      background: var(--grey-bg);
+      border: 2px solid var(--gold-border);
       border-radius: 12px;
       padding: 12px 16px;
       margin: 10px 0;
       font-size: 0.92rem;
       color: #ffffff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 12px rgba(0,0,0,0.35);
     }
     .coldmatrix-note strong { color: #ffffff; font-weight: 700; }
 
-    .warning-box {
-      background: rgba(255,165,0,0.12);
-      border: 1px solid var(--warn);
+    .warning-box,
+    .danger-box,
+    #floorAdvisory,
+    #doorHeaterAdvisory,
+    #tempWarning {
+      background: var(--success-bg) !important;
+      border: 1px solid var(--success-green) !important;
+      color: var(--success-green) !important;
+      font-weight: 600;
       border-radius: 8px;
       padding: 8px 14px;
       margin-top: 8px;
       font-size: 0.85rem;
-      color: var(--warn);
-    }
-    .danger-box {
-      background: rgba(255,107,107,0.12);
-      border: 1px solid var(--danger);
-      border-radius: 8px;
-      padding: 8px 14px;
-      margin-top: 8px;
-      font-size: 0.85rem;
-      color: var(--danger);
     }
 
-    /* Calculate / Reset buttons metallic silver */
-    .btn-primary {
-      flex: 2;
-      background: var(--silver-gradient);
-      color: #ffffff;
-      border: 1px solid var(--silver-border);
-      padding: 16px;
-      border-radius: 10px;
-      font-family: 'Oswald', sans-serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition: background 0.2s;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    .btn-primary,
+    .btn-reset,
+    .action-btn,
+    .btn-small,
+    .adv-toggle {
+      background: var(--grey-bg) !important;
+      color: #ffffff !important;
+      border: 2px solid var(--gold-border) !important;
+      border-radius: 10px !important;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.6) !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 12px rgba(0,0,0,0.35) !important;
+      transition: all 0.2s ease !important;
     }
+
+    .btn-primary:hover,
+    .btn-reset:hover,
+    .action-btn:hover,
+    .btn-small:hover,
+    .adv-toggle:hover {
+      background: var(--grey-bg-hover) !important;
+      border-color: #FFD700 !important;
+      box-shadow: 0 0 20px var(--gold-glow) !important;
+      transform: translateY(-2px) !important;
+    }
+
     .btn-primary:disabled {
       opacity: 0.5;
       cursor: not-allowed;
-      background: #495057;
-      color: #adb5bd;
-      box-shadow: none;
+      background: #495057 !important;
+      color: #adb5bd !important;
+      border-color: #495057 !important;
+      box-shadow: none !important;
     }
-    .btn-primary:hover:not(:disabled) { background: linear-gradient(145deg, #e0e4e8, #a3a9b1 40%, #7a8189 100%); }
 
-    .btn-reset {
-      flex: 1;
-      background: #495057;
-      color: #ffffff;
-      border: 1px solid var(--silver-border);
-      border-radius: 10px;
-      font-family: 'Oswald', sans-serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-reset:hover { background: #5a6268; }
-
-    .adv-toggle {
-      background: var(--silver-gradient);
-      border: 1px solid var(--silver-border);
-      color: #ffffff;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin: 10px 0 16px;
-      display: inline-block;
-      transition: background 0.2s;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    }
-    .adv-toggle:hover { background: linear-gradient(145deg, #e0e4e8, #a3a9b1 40%, #7a8189 100%); }
+    .adv-toggle { display: inline-block; margin: 10px 0 16px; }
     .adv-section { display: none; }
+
+    /* New button sizes */
+    .btn-calc-big {
+      font-size: 1.4rem;
+      padding: 18px;
+      letter-spacing: 1px;
+    }
+    .btn-reset-medium {
+      font-size: 1.1rem;
+      padding: 18px 10px;
+    }
+    .btn-sleek {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
 
     .results-container {
       background: var(--card-bg);
@@ -337,17 +330,18 @@
       gap: 8px;
       text-transform: uppercase;
       font-family: 'Oswald', sans-serif;
-      background: var(--silver-gradient);
+      background: var(--grey-bg);
       color: #ffffff;
-      border: 1px solid var(--silver-border);
+      border: 1px solid var(--gold-border);
       transition: all 0.2s;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
-    .action-btn:hover { background: linear-gradient(145deg, #e0e4e8, #a3a9b1 40%, #7a8189 100%); }
-    .whatsapp-action { background: #25D366; color: white; border: none; text-shadow: none; }
-    .pdf-action { background: #0077B5; color: white; border: none; text-shadow: none; }
-    .download-jpg-action { background: #6C5CE7; color: white; border: none; text-shadow: none; }
+    .action-btn:hover { background: var(--grey-bg-hover); }
+    .whatsapp-action,
+    .wa-btn { background: #25D366 !important; border: none !important; color: #fff !important; }
+    .pdf-action { background: #0077B5 !important; border: none !important; color: #fff !important; }
+    .download-jpg-action { background: #6C5CE7 !important; border: none !important; color: #fff !important; }
 
     .report-label { font-weight: 700; margin-top: 20px; color: #FFFFFF; font-size: 1rem; }
     .contact-note {
@@ -360,7 +354,6 @@
       color: #FFFFFF;
     }
 
-    /* Business bridge - fixed overlap */
     .business-bridge {
       margin-top: 20px;
       padding: 20px 24px;
@@ -377,31 +370,22 @@
       margin-bottom: 8px;
     }
     .business-bridge p { font-size: 0.9rem; margin-bottom: 12px; color: #cfd6dd; }
-    .bridge-btn-group {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+    .bridge-btn-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
     .business-bridge .bridge-btn {
       display: inline-block;
-      background: var(--silver-gradient);
+      background: var(--grey-bg);
       color: #ffffff;
       padding: 10px 20px;
       border-radius: 8px;
       font-weight: 700;
       text-decoration: none;
       font-size: 0.9rem;
-      border: 1px solid var(--silver-border);
+      border: 2px solid var(--gold-border);
       transition: all 0.2s;
       text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
-    .business-bridge .bridge-btn:hover { background: linear-gradient(145deg, #e0e4e8, #a3a9b1 40%, #7a8189 100%); }
-    .business-bridge .wa-btn {
-      background: #25D366;
-      border: none;
-      text-shadow: none;
-    }
+    .business-bridge .bridge-btn:hover { background: var(--grey-bg-hover); }
+    .business-bridge .wa-btn { background: #25D366; border: none; text-shadow: none; }
 
     footer {
       text-align: center;
@@ -414,6 +398,46 @@
     }
     footer a { color: var(--frost); text-decoration: none; font-weight: 600; }
 
+    .tooltip-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(79,195,247,0.25);
+      color: var(--frost);
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: help;
+      margin-left: 6px;
+      vertical-align: middle;
+      position: relative;
+      line-height: 1;
+    }
+    .tooltip-trigger:hover .tooltip-text,
+    .tooltip-trigger:active .tooltip-text { display: block; }
+    .tooltip-text {
+      display: none;
+      position: absolute;
+      bottom: 130%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a2535;
+      color: #FFFFFF;
+      border: 1px solid var(--frost);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.78rem;
+      font-weight: 400;
+      white-space: normal;
+      width: 240px;
+      z-index: 999;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+      text-align: left;
+      line-height: 1.5;
+      pointer-events: none;
+    }
     @media (max-width: 768px) {
       .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 12px; }
       .card { padding: 18px; }
@@ -464,9 +488,7 @@
   </style>
 </head>
 <body>
-<nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li>
-<li><a href="solutions.html">❄️ Cold Matrix</a></li>
-<li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+<nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="solutions.html">❄️ Cold Matrix</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
 <div class="container">
   <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
   
@@ -510,7 +532,6 @@
     </div>
 
     <div class="grid-2" style="margin-bottom: 16px;">
-        <!-- Side 1 -->
         <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 1 – Length × Height</label>
             <div class="grid-2" style="margin-bottom: 10px;">
@@ -519,9 +540,9 @@
             </div>
             <label style="font-size:0.8rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
               <input type="checkbox" id="w1Shared" style="width:auto;"> Shared / Existing Wall (No Panels)
+              <span class="tooltip-trigger">?<span class="tooltip-text">A shared wall is one that already exists (e.g., adjoining another cold room or building wall). It's included in the cooling load calculation but excluded from panel billing.</span></span>
             </label>
         </div>
-        <!-- Side 2 -->
         <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 2 – Length × Height</label>
             <div class="grid-2" style="margin-bottom: 10px;">
@@ -532,7 +553,6 @@
               <input type="checkbox" id="w2Shared" style="width:auto;"> Shared / Existing Wall (No Panels)
             </label>
         </div>
-        <!-- Side 3 -->
         <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 3 – Length × Height (opposite Side 1)</label>
             <div class="grid-2" style="margin-bottom: 10px;">
@@ -543,7 +563,6 @@
               <input type="checkbox" id="w3Shared" style="width:auto;"> Shared / Existing Wall (No Panels)
             </label>
         </div>
-        <!-- Side 4 -->
         <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 4 – Length × Height (opposite Side 2)</label>
             <div class="grid-2" style="margin-bottom: 10px;">
@@ -624,7 +643,9 @@
     <!-- STORAGE TEMP & PRODUCT -->
     <div class="result-section-title" id="secStorage">🌡️ Storage Temperature & Product</div>
     <div class="field" style="margin-bottom:14px;">
-      <label>Required Temp (°C)</label>
+      <label>Required Temp (°C)
+        <span class="tooltip-trigger">?<span class="tooltip-text">This is the target temperature inside the cold room. For frozen products, use -15°C to -25°C. For chilled products, use 0°C to +5°C. The larger the gap between ambient and room temperature, the more cooling power you need.</span></span>
+      </label>
       <input type="number" id="roomTemp" value="-15" step="any" oninput="checkMinusAdvisories()">
       <div id="tempWarning" class="warning-box" style="display:none;"></div>
       <div id="floorAdvisory" class="danger-box" style="display:none;">❄️ Floor must be insulated (preferably 100 mm insulation sheets).</div>
@@ -644,7 +665,9 @@
         </select>
       </div>
       <div class="field">
-        <label>🛡️ Safety Factor (%)</label>
+        <label>🛡️ Safety Factor (%)
+          <span class="tooltip-trigger">?<span class="tooltip-text">Safety factor accounts for uncertainties in heat load calculations — aging equipment, unexpected door openings, or future expansion. Standard range: 15–25%. Higher values mean a more conservative (oversized) system.</span></span>
+        </label>
         <input type="number" id="safetyFactor" value="20" step="any">
       </div>
     </div>
@@ -661,6 +684,7 @@
     <div class="field">
       <label style="display:flex; align-items:center; gap:8px;">
         <input type="checkbox" id="includeLatentHeat" style="width:auto;" checked> Include Freezing Latent Heat
+        <span class="tooltip-trigger">?<span class="tooltip-text">When warm products enter a freezer (above 0°C) and need to be frozen, extra energy is required to change water into ice. This is called latent heat of freezing. Keep this checked for accurate freezer load calculations.</span></span>
       </label>
     </div>
 
@@ -677,11 +701,15 @@
     <div class="result-section-title" id="secRefrig">⚙️ Refrigeration Unit (Manual Override)</div>
     <div class="grid-2">
       <div class="field"><label>Unit HP (e.g. 20)</label><input type="number" id="manualHP" placeholder="Enter HP"></div>
-      <div class="field"><label>Unit TR (e.g. 16)</label><input type="number" id="manualTR" placeholder="Enter TR"></div>
+      <div class="field"><label>Unit TR (e.g. 16)
+        <span class="tooltip-trigger">?<span class="tooltip-text">TR = Ton of Refrigeration. 1 TR = 12,000 BTU/hr = 3.517 kW of cooling capacity. It's the standard unit for commercial refrigeration. Approximately 1 TR ≈ 1.2 HP depending on the refrigerant used.</span></span>
+      </label><input type="number" id="manualTR" placeholder="Enter TR"></div>
     </div>
     <div class="grid-2">
       <div class="field">
-        <label>🧪 Refrigerant Type</label>
+        <label>🧪 Refrigerant Type
+          <span class="tooltip-trigger">?<span class="tooltip-text">R448A/R449A are modern low-GWP replacements for R404A, recommended for new installations. R404A is being phased out due to high global warming potential. NH3 (ammonia) is best for large industrial plants above 20 TR.</span></span>
+        </label>
         <select id="refrigerantType">
           <option value="R448A" selected>R448A / R449A (Modern, Low-GWP)</option>
           <option value="R404A">R404A (Legacy, being phased out)</option>
@@ -702,7 +730,9 @@
     <div class="result-section-title" id="secPanel">🧱 Panel Specifications</div>
     <div class="grid-2">
       <div class="field">
-        <label>📏 Thickness (mm)</label>
+        <label>📏 Thickness (mm)
+          <span class="tooltip-trigger">?<span class="tooltip-text">Panel thickness determines insulation performance (U-value). Thicker panels = better insulation = lower cooling costs. For freezers (-15°C to -25°C), 125–150mm PUF/PIR is standard. For chillers (0°C to +5°C), 75–100mm is usually sufficient.</span></span>
+        </label>
         <select id="panelThickness">
           <option value="50">50mm</option>
           <option value="60">60mm</option>
@@ -734,9 +764,13 @@
     <div class="adv-section" id="advancedPanel">
       <div class="grid-3">
         <div class="field">
-          <label>Core Material</label>
+          <label>Core Material
+            <span class="tooltip-trigger">?<span class="tooltip-text">PUF (Polyurethane Foam) is the most common and cost-effective. PIR (Polyisocyanurate) offers better fire resistance. EPS (Expanded Polystyrene) is cheaper but has lower insulation value (higher lambda). Lambda (λ) measures thermal conductivity — lower is better.</span></span>
+          </label>
           <select id="coreMaterial"><option value="PUF" selected>PUF (λ=0.022)</option><option value="PIR">PIR (λ=0.020)</option><option value="EPS">EPS (λ=0.035)</option></select></div>
-        <div class="field"><label>Core Density (kg/m³)</label><input type="number" id="coreDensity" value="42" step="any"></div>
+        <div class="field"><label>Core Density (kg/m³)
+          <span class="tooltip-trigger">?<span class="tooltip-text">Standard PUF density for cold rooms is 40–45 kg/m³. Higher density = stronger panel and slightly better insulation, but also heavier and more expensive.</span></span>
+        </label><input type="number" id="coreDensity" value="42" step="any"></div>
         <div class="field"><label>Steel Skin Thickness (mm)</label><input type="number" id="skinThickness" value="0.5" step="any"></div>
       </div>
       <div class="grid-2">
@@ -836,9 +870,13 @@
 
     <div class="field"><label>💱 Currency</label><select id="currency"><option value="PKR">🇵🇰 PKR</option><option value="USD">🇺🇸 USD</option><option value="EUR">🇪🇺 EUR</option><option value="GBP">🇬🇧 GBP</option><option value="AED">🇦🇪 AED</option></select></div>
 
-    <div style="display: flex; gap: 12px; margin-top: 16px;">
-      <button class="btn-primary" id="calcBtn" onclick="calculate()">Calculate</button>
-      <button type="button" class="btn-reset" onclick="resetCalculator()">Reset</button>
+    <div style="display:flex; gap:12px; margin-top:16px;">
+      <button class="btn-primary btn-calc-big" id="calcBtn" onclick="calculate()" style="flex:3;">Calculate</button>
+      <button type="button" class="btn-reset btn-reset-medium" onclick="resetCalculator()" style="flex:1;">Reset</button>
+    </div>
+    <div style="display:flex; gap:12px; margin-top:12px;">
+      <button type="button" class="btn-reset btn-sleek" onclick="saveProject()" style="flex:1;">💾 Save Project</button>
+      <button type="button" class="btn-reset btn-sleek" onclick="loadProject()" style="flex:1;">📂 Load Project</button>
     </div>
 
     <!-- RESULTS -->
@@ -983,6 +1021,50 @@
     document.getElementById('manualHP').addEventListener('input',function(){let hp=parseFloat(this.value),r=refrigerantData[document.getElementById('refrigerantType').value]||refrigerantData.R448A;if(!isNaN(hp)&&hp>0)document.getElementById('manualTR').value=(hp/r.ratio).toFixed(2);});
     document.getElementById('manualTR').addEventListener('input',function(){let tr=parseFloat(this.value),r=refrigerantData[document.getElementById('refrigerantType').value]||refrigerantData.R448A;if(!isNaN(tr)&&tr>0)document.getElementById('manualHP').value=(tr*r.ratio).toFixed(2);});
   })();
+
+  // Save / Load Project
+  function saveProject() {
+    const inputs = document.querySelectorAll('input, select');
+    const projectData = {};
+    inputs.forEach(el => {
+      if (el.id) {
+        if (el.type === 'checkbox') {
+          projectData[el.id] = el.checked;
+        } else {
+          projectData[el.id] = el.value;
+        }
+      }
+    });
+    localStorage.setItem('coldmatrix_coldstore_project', JSON.stringify(projectData));
+    alert('✅ Project saved! You can load it anytime from this browser.');
+  }
+  function loadProject() {
+    const saved = localStorage.getItem('coldmatrix_coldstore_project');
+    if (!saved) {
+      alert('❌ No saved project found. Please save a project first.');
+      return;
+    }
+    try {
+      const projectData = JSON.parse(saved);
+      const inputs = document.querySelectorAll('input, select');
+      inputs.forEach(el => {
+        if (el.id && projectData[el.id] !== undefined) {
+          if (el.type === 'checkbox') {
+            el.checked = projectData[el.id];
+          } else {
+            el.value = projectData[el.id];
+          }
+        }
+      });
+      updateLiveStats();
+      updateSuggestion();
+      updateInstallCostPreview();
+      checkMinusAdvisories();
+      alert('✅ Project loaded successfully!');
+    } catch (e) {
+      alert('❌ Error loading project: ' + e.message);
+    }
+  }
 </script>
 <script>
 let cmDeferredPrompt;
