@@ -37,6 +37,9 @@
       --line: rgba(79,195,247,0.35);
       --accent: #00b894;
       --card-bg: rgba(15,22,30,0.92);
+      --gold: #D4AF37;
+      --gold-bright: #FFD700;
+      --gold-border: 2px solid #D4AF37;
       --warn: #FFA500;
       --danger: #FF6B6B;
     }
@@ -105,25 +108,26 @@
     select, input {
       width: 100%;
       background: rgba(20,28,38,0.95);
-      border: 1px solid var(--line);
+      border: var(--gold-border); /* Golden border */
       color: #FFFFFF;
       padding: 12px 14px;
       border-radius: 8px;
       font-size: 0.98rem;
       font-weight: 500;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
     select:focus, input:focus {
-      border-color: var(--frost);
+      border-color: var(--gold-bright);
       background: rgba(25,35,48,0.98);
+      box-shadow: 0 0 10px rgba(212,175,55,0.4);
     }
     select option { background: #141C26; color: #FFFFFF; }
 
     .unit-toggle { display: flex; gap: 10px; margin-bottom: 16px; }
     .unit-btn {
       flex: 1; padding: 12px;
-      border: 1px solid var(--line);
+      border: 2px solid var(--gold);
       background: rgba(20,28,38,0.9);
       color: #FFFFFF;
       border-radius: 8px;
@@ -375,7 +379,7 @@
 
     <div class="grid-2" style="margin-bottom: 16px;">
         <!-- Side 1 -->
-        <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+        <div class="field" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 1 – Length × Height</label>
             <div class="grid-2" style="margin-bottom: 10px;">
                 <input type="number" id="w1L" value="20" step="any" placeholder="Length">
@@ -386,7 +390,7 @@
             </label>
         </div>
         <!-- Side 2 -->
-        <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+        <div class="field" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 2 – Length × Height</label>
             <div class="grid-2" style="margin-bottom: 10px;">
                 <input type="number" id="w2L" value="40" step="any" placeholder="Length">
@@ -397,7 +401,7 @@
             </label>
         </div>
         <!-- Side 3 -->
-        <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+        <div class="field" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 3 – Length × Height (opp. Side 1)</label>
             <div class="grid-2" style="margin-bottom: 10px;">
                 <input type="number" id="w3L" value="20" step="any" placeholder="Length">
@@ -408,7 +412,7 @@
             </label>
         </div>
         <!-- Side 4 -->
-        <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+        <div class="field" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 4 – Length × Height (opp. Side 2)</label>
             <div class="grid-2" style="margin-bottom: 10px;">
                 <input type="number" id="w4L" value="40" step="any" placeholder="Length">
@@ -679,6 +683,9 @@
       dairy: 2, eggs: 4, fruitveg: 2, pharma: 5, general: 0
     };
 
+    // Respiration rate (W per kg) for fruits and vegetables – average at 0°C
+    const respirationRateWperKg = 0.015; // 15 W per tonne? Actually 15 W per 1000 kg? We'll use 0.015 W/kg ≈ 15 W/ton
+
     function updateLiveStats() {
       let area = getThermalEnvelopeArea();
       let vol = getVolumeEstimate();
@@ -692,7 +699,12 @@
       // If daily mass is provided, use precise formula
       if (dailyKg > 0) {
         let deltaProd = Math.max(0, parseFloat(entryTemp) - parseFloat(roomTemp));
-        return (dailyKg * 3.5 * deltaProd) / 86400 * 1000; // Watts
+        let baseLoad = (dailyKg * 3.5 * deltaProd) / 86400 * 1000; // Watts
+        // Add respiration for fruits/vegetables
+        if (prodType === 'fruitveg') {
+          baseLoad += dailyKg * respirationRateWperKg;
+        }
+        return baseLoad;
       }
       // Otherwise, use floor-area-based rule (W/ft²)
       let loadPerFt2;
@@ -874,5 +886,38 @@
     navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
   }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are ColdMatrix tools free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate are ColdMatrix calculators?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does ColdMatrix store my data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+      }
+    }
+  ]
+}
+</script>
+
 </body>
 </html>

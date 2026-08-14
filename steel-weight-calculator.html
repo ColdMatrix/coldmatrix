@@ -30,7 +30,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); }
+    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); --gold:#D4AF37; }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { 
       background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.92)), url('steel_weight_calc.jpg') center/cover fixed no-repeat;
@@ -60,7 +60,7 @@
     .unit-row { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:20px; }
     .unit-group { flex:1; min-width:150px; }
     .unit-group label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
-    .unit-group select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:10px; border-radius:10px; font-size:0.9rem; }
+    .unit-group select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:10px; border-radius:10px; font-size:0.9rem; }
 
     .tab-row { display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap; }
     .tab-btn { flex:1; min-width:70px; padding:11px 10px; border:1px solid var(--border); background:var(--surface2); color:var(--muted); border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; text-align:center; transition:all 0.2s; }
@@ -70,8 +70,8 @@
     .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
     .field { margin-bottom:0; }
     .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
-    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; }
-    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); }
+    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); box-shadow:0 0 10px rgba(79,195,247,0.3); }
     .field select option { background:var(--surface2); color:var(--text); }
 
     .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; }
@@ -118,7 +118,7 @@
     .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
     .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
     .share-tool-btn i{font-size:1rem;}
-</style>
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -138,7 +138,7 @@
   <div class="container">
   <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
   
-    <div class="ad-card"><!-- same as before --></div>
+    <div class="ad-card"><ul><li>Steel Weight &amp; PEB Material Estimation</li><li>Cold Storage &amp; Sandwich Panel Solutions</li><li>Karachi, Lahore, Islamabad &amp; all Pakistan</li></ul><a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a></div>
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1>🛠️ ColdMatrix Steel Weight Calculator</h1>
@@ -204,7 +204,22 @@
       </div>
       <div class="grid2" style="margin-bottom:0;">
         <div class="field"><label>Quantity</label><input type="number" id="qty" value="1" step="any"></div>
-        <div class="field"><label>Material</label><select id="material"><option value="7850" selected>Mild Steel</option><option value="8030">Stainless Steel 304</option><option value="7800">Carbon Steel</option><option value="2700">Aluminum</option></select></div>
+        <div class="field"><label>Material</label>
+          <select id="material" onchange="toggleCustomDensity()">
+            <option value="7850" selected>Mild Steel (7850 kg/m³)</option>
+            <option value="8030">Stainless Steel 304 (8030 kg/m³)</option>
+            <option value="7980">Stainless Steel 316 (7980 kg/m³)</option>
+            <option value="7800">Carbon Steel (7800 kg/m³)</option>
+            <option value="7700">Alloy Steel (7700 kg/m³)</option>
+            <option value="2700">Aluminum (2700 kg/m³)</option>
+            <option value="8960">Copper (8960 kg/m³)</option>
+            <option value="8500">Brass (8500 kg/m³)</option>
+            <option value="custom">Custom Density</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid2" id="customDensityWrap" style="display:none; margin-top:14px;">
+        <div class="field"><label>Custom Density (kg/m³)</label><input type="number" id="customDensity" value="7850" step="any"></div>
       </div>
 
       <!-- PRICING -->
@@ -253,7 +268,7 @@
   <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the Steel Weight Calculator</h2>
   <p>Calculate the weight and estimated cost of structural steel — angles, channels, beams, pipes, and plates — commonly used in PEB structures and prefab construction.</p>
   <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#00b894;">Common Questions</h3>
-  <p><strong>How is steel weight calculated?</strong> Based on cross-sectional area, length, and steel density (typically 7850 kg/m³).</p>
+  <p><strong>How is steel weight calculated?</strong> Based on cross-sectional area, length, and material density. You can select from common grades or enter a custom density.</p>
   <p><strong>Need a full PEB estimate?</strong> Pair with our <a href="peb-material-calculator.html" style="color:#00b894;">PEB Material Calculator</a>.</p>
   </div>
 
@@ -262,7 +277,21 @@
 
   <script>
     let currentShape = 'plate';
-    const densityVal = () => parseFloat(document.getElementById('material').value) || 7850;
+    const materialSelect = document.getElementById('material');
+    const customDensityInput = document.getElementById('customDensity');
+    const customDensityWrap = document.getElementById('customDensityWrap');
+
+    function densityVal() {
+      if (materialSelect.value === 'custom') {
+        return parseFloat(customDensityInput.value) || 7850;
+      }
+      return parseFloat(materialSelect.value) || 7850;
+    }
+
+    window.toggleCustomDensity = function() {
+      const isCustom = materialSelect.value === 'custom';
+      customDensityWrap.style.display = isCustom ? 'grid' : 'none';
+    };
 
     // Shape tabs
     document.getElementById('shapeTabs').addEventListener('click', function(e) {
@@ -447,4 +476,39 @@
         alert(window.location.href);
       });
     }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are ColdMatrix tools free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate are ColdMatrix calculators?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does ColdMatrix store my data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+      }
+    }
+  ]
+}
 </script>
+  
+</body>
+</html>

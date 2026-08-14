@@ -39,16 +39,16 @@
       --line: rgba(79,195,247,0.35);
       --accent: #00b894;
       --card-bg: rgba(15,22,30,0.92);
-      --warn: #00b894;
-      --danger: #00b894;
-      --grey-bg: linear-gradient(180deg, #9da3ab, #5c626a);
-      --grey-bg-hover: linear-gradient(180deg, #b5bcc4, #70767e);
       --gold-border: #D4AF37;
-      --gold-glow: rgba(212,175,55,0.35);
+      --gold-bright: #FFD700;
+      --gold-glow: rgba(212,175,55,0.45);
       --success-green: #00b894;
       --success-bg: rgba(0,184,148,0.12);
       --silver-mid: #9da3ab;
       --silver-border: #7a8189;
+      /* Shining metallic silver */
+      --silver-gradient: linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%);
+      --silver-gradient-hover: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -84,6 +84,7 @@
       border-radius: 20px;
       text-transform: uppercase;
       letter-spacing: 1px;
+      z-index:2;
     }
 
     .live-badge {
@@ -130,18 +131,19 @@
     select, input {
       width: 100%;
       background: rgba(20,28,38,0.95);
-      border: 1px solid var(--gold-border);
+      border: 2px solid var(--gold-border);
       color: #FFFFFF;
       padding: 12px 14px;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 0.98rem;
       font-weight: 500;
       outline: none;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     select:focus, input:focus {
-      border-color: #FFD700;
-      box-shadow: 0 0 18px var(--gold-glow);
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 18px var(--gold-glow), inset 0 1px 3px rgba(0,0,0,0.4);
       background: rgba(25,35,48,0.98);
     }
     select option { background: #141C26; color: #FFFFFF; }
@@ -150,26 +152,27 @@
     .unit-btn {
       flex: 1; padding: 12px;
       border: 2px solid var(--gold-border);
-      background: var(--grey-bg);
+      background: var(--silver-gradient);
       color: #ffffff;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       text-align: center;
       font-size: 0.95rem;
       font-weight: 600;
-      transition: all 0.2s;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 12px rgba(0,0,0,0.35);
+      transition: all 0.25s;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3);
     }
+    .unit-btn:hover { background: var(--silver-gradient-hover); border-color: #FFD700; box-shadow: 0 0 22px rgba(212,175,55,0.6); transform: translateY(-2px); }
     .unit-btn.active {
       border-color: var(--frost);
       color: var(--frost);
-      background: rgba(79,195,247,0.15);
-      box-shadow: 0 0 14px rgba(79,195,247,0.4);
+      background: rgba(79,195,247,0.18);
+      box-shadow: 0 0 18px rgba(79,195,247,0.55);
     }
 
     .suggestion-box {
-      background: var(--grey-bg);
+      background: var(--silver-gradient);
       border: 2px solid var(--gold-border);
       border-radius: 12px;
       padding: 16px;
@@ -180,34 +183,35 @@
       flex-wrap: wrap;
       color: #ffffff;
       text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 12px rgba(0,0,0,0.35);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3);
     }
     .suggestion-box .title { font-weight: 700; color: #ffffff; white-space: nowrap; }
     .btn-small {
-      background: #343a40;
-      color: #ffffff;
-      border: 1px solid var(--gold-border);
+      background: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 35%, #8a929c 100%);
+      color: #0A0F14;
+      border: 2px solid var(--gold-border);
       padding: 8px 18px;
       border-radius: 8px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       font-size: 0.85rem;
-      transition: background 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
-    .btn-small:hover { background: #23272b; }
+    .btn-small:hover { background: var(--silver-gradient-hover); }
 
     .coldmatrix-note {
-      background: var(--grey-bg);
+      background: var(--silver-gradient);
       border: 2px solid var(--gold-border);
       border-radius: 12px;
       padding: 12px 16px;
       margin: 10px 0;
       font-size: 0.92rem;
-      color: #ffffff;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 12px rgba(0,0,0,0.35);
+      color: #111;
+      font-weight:600;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35);
     }
-    .coldmatrix-note strong { color: #ffffff; font-weight: 700; }
+    .coldmatrix-note strong { color:#000; font-weight:800; }
 
     .warning-box,
     .danger-box,
@@ -227,28 +231,24 @@
     .btn-primary,
     .btn-reset,
     .action-btn,
-    .btn-small,
     .adv-toggle {
-      background: var(--grey-bg) !important;
+      background: var(--silver-gradient) !important;
       color: #ffffff !important;
       border: 2px solid var(--gold-border) !important;
       border-radius: 10px !important;
       text-shadow: 0 1px 2px rgba(0,0,0,0.6) !important;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 12px rgba(0,0,0,0.35) !important;
-      transition: all 0.2s ease !important;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3) !important;
+      transition: all 0.25s ease !important;
     }
-
     .btn-primary:hover,
     .btn-reset:hover,
     .action-btn:hover,
-    .btn-small:hover,
     .adv-toggle:hover {
-      background: var(--grey-bg-hover) !important;
-      border-color: #FFD700 !important;
-      box-shadow: 0 0 20px var(--gold-glow) !important;
+      background: var(--silver-gradient-hover) !important;
+      border-color: var(--gold-bright) !important;
+      box-shadow: 0 0 22px rgba(212,175,55,0.6) !important;
       transform: translateY(-2px) !important;
     }
-
     .btn-primary:disabled {
       opacity: 0.5;
       cursor: not-allowed;
@@ -261,85 +261,79 @@
     .adv-toggle { display: inline-block; margin: 10px 0 16px; }
     .adv-section { display: none; }
 
-    /* New button sizes */
-    .btn-calc-big {
-      font-size: 1.4rem;
-      padding: 18px;
-      letter-spacing: 1px;
-    }
-    .btn-reset-medium {
-      font-size: 1.1rem;
-      padding: 18px 10px;
-    }
-    .btn-sleek {
-      padding: 10px 20px;
-      font-size: 0.9rem;
-    }
+    .btn-calc-big { font-size: 1.4rem; padding: 18px; letter-spacing: 1px; }
+    .btn-reset-medium { font-size: 1.1rem; padding: 18px 10px; }
+    .btn-sleek { padding: 10px 20px; font-size: 0.9rem; }
 
     .results-container {
-      background: var(--card-bg);
-      border: 1px solid var(--frost);
-      border-radius: 16px;
+      background: linear-gradient(160deg, rgba(15,22,30,0.98), rgba(20,28,38,0.96));
+      border: 2px solid var(--gold-border);
+      border-radius: 18px;
       padding: 28px;
       margin-top: 28px;
       display: none;
       backdrop-filter: blur(8px);
       color: #FFFFFF;
+      box-shadow: 0 0 30px rgba(212,175,55,0.25), 0 12px 40px rgba(0,0,0,0.6);
     }
     .result-section-title {
       font-family: 'Oswald', sans-serif;
-      color: #FFFFFF;
-      font-size: 1.15rem;
+      color: var(--gold-bright);
+      font-size: 1.1rem;
       margin: 20px 0 12px 0;
-      border-left: 4px solid var(--frost);
-      padding-left: 10px;
+      border-left: 4px solid var(--gold-bright);
+      padding-left: 12px;
       text-transform: uppercase;
       font-weight: 600;
+      letter-spacing: 0.5px;
     }
     .result-row {
       display: flex;
       justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      font-size: 0.98rem;
+      padding: 12px 4px;
+      border-bottom: 1px solid rgba(212,175,55,0.2);
+      font-size: 0.96rem;
       font-weight: 500;
+      transition: background 0.2s;
+      border-radius: 6px;
     }
-    .result-row span:last-child { font-weight: 700; }
+    .result-row:hover { background: rgba(212,175,55,0.05); }
+    .result-row span:last-child { font-weight: 700; color:#fff; }
     .highlight-row {
-      background: rgba(79,195,247,0.12);
-      padding: 14px;
-      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(79,195,247,0.08));
+      padding: 16px;
+      border-radius: 12px;
       margin: 14px 0;
-      border: 1px solid var(--frost);
+      border: 1px solid var(--gold-border);
       display: flex;
       justify-content: space-between;
+      box-shadow: 0 0 12px rgba(212,175,55,0.2);
     }
-    .highlight-row .label { color: var(--frost); font-weight: 700; font-size: 1.1rem; }
-    .highlight-row .value { color: var(--frost); font-size: 1.2rem; font-weight: 700; }
+    .highlight-row .label { color: var(--gold-bright); font-weight: 800; font-size: 1rem; }
+    .highlight-row .value { color: var(--gold-bright); font-size: 1.2rem; font-weight: 800; }
 
     .action-buttons { margin-top: 25px; display: flex; gap: 12px; flex-wrap: wrap; }
     .action-btn {
-      padding: 12px 24px;
+      padding: 13px 24px;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      font-weight: 700;
-      font-size: 0.9rem;
+      font-weight: 800;
+      font-size: 0.88rem;
       display: flex;
       align-items: center;
       gap: 8px;
       text-transform: uppercase;
       font-family: 'Oswald', sans-serif;
-      background: var(--grey-bg);
+      background: var(--silver-gradient);
       color: #ffffff;
-      border: 1px solid var(--gold-border);
+      border: 2px solid var(--gold-border);
       transition: all 0.2s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
       text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
-    .action-btn:hover { background: var(--grey-bg-hover); }
-    .whatsapp-action,
-    .wa-btn { background: #25D366 !important; border: none !important; color: #fff !important; }
+    .action-btn:hover { background: var(--silver-gradient-hover); transform: translateY(-2px); }
+    .whatsapp-action, .wa-btn { background: #25D366 !important; border: none !important; color: #fff !important; }
     .pdf-action { background: #0077B5 !important; border: none !important; color: #fff !important; }
     .download-jpg-action { background: #6C5CE7 !important; border: none !important; color: #fff !important; }
 
@@ -348,7 +342,7 @@
       margin-top: 24px;
       padding: 18px;
       background: rgba(33,150,243,0.1);
-      border: 1px dashed var(--frost);
+      border: 1px dashed var(--gold-border);
       border-radius: 12px;
       text-align: center;
       color: #FFFFFF;
@@ -358,7 +352,7 @@
       margin-top: 20px;
       padding: 20px 24px;
       background: linear-gradient(135deg, rgba(79,195,247,0.1), rgba(0,184,148,0.08));
-      border: 1.5px solid var(--accent);
+      border: 1.5px solid var(--gold-border);
       border-radius: 14px;
       text-align: center;
       color: #FFFFFF;
@@ -373,7 +367,7 @@
     .bridge-btn-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
     .business-bridge .bridge-btn {
       display: inline-block;
-      background: var(--grey-bg);
+      background: var(--silver-gradient);
       color: #ffffff;
       padding: 10px 20px;
       border-radius: 8px;
@@ -384,7 +378,7 @@
       transition: all 0.2s;
       text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
-    .business-bridge .bridge-btn:hover { background: var(--grey-bg-hover); }
+    .business-bridge .bridge-btn:hover { background: var(--silver-gradient-hover); }
     .business-bridge .wa-btn { background: #25D366; border: none; text-shadow: none; }
 
     footer {
@@ -466,17 +460,15 @@
     .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
     .share-tool-btn i{font-size:1rem;}
 
-    /* Quick nav */
     html{scroll-behavior:smooth;}
     .quick-nav{position:sticky; top:0; z-index:50; display:flex; gap:8px; overflow-x:auto; padding:10px 4px; margin-bottom:18px; background:rgba(11,15,20,0.92); backdrop-filter:blur(10px); border-radius:10px; border:1px solid var(--line);}
     .quick-nav a{flex-shrink:0; padding:8px 14px; border-radius:20px; font-size:0.8rem; font-weight:600; color:var(--frost); text-decoration:none; border:1px solid var(--line); white-space:nowrap;}
     .quick-nav a:hover{background:rgba(79,195,247,0.15); border-color:var(--frost);}
 
-    /* Executive summary card */
-    .exec-summary{background:linear-gradient(135deg, rgba(79,195,247,0.14), rgba(0,184,148,0.08)); border:1.5px solid var(--frost); border-radius:14px; padding:22px; margin-bottom:24px;}
-    .exec-summary-title{font-family:'Oswald',sans-serif; font-weight:700; font-size:1.1rem; color:var(--frost); margin-bottom:14px; text-transform:uppercase; letter-spacing:0.5px;}
+    .exec-summary{background:linear-gradient(135deg, rgba(212,175,55,0.18), rgba(79,195,247,0.08)); border:1.5px solid var(--gold-border); border-radius:14px; padding:22px; margin-bottom:24px; box-shadow:0 0 15px rgba(212,175,55,0.2);}
+    .exec-summary-title{font-family:'Oswald',sans-serif; font-weight:700; font-size:1.1rem; color:var(--gold-bright); margin-bottom:14px; text-transform:uppercase; letter-spacing:0.5px;}
     .exec-summary-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:14px;}
-    .exec-item .exec-label{font-size:0.72rem; color:#9AB0C2; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;}
+    .exec-item .exec-label{font-size:0.72rem; color:#C7D6E0; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;}
     .exec-item .exec-value{font-size:1.05rem; font-weight:700; color:#FFFFFF;}
     .exec-note{margin-top:14px; font-size:0.82rem; color:#C7D6E0; line-height:1.6;}
     .navbar{position:sticky;top:0;z-index:100;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.06)}
@@ -532,7 +524,7 @@
     </div>
 
     <div class="grid-2" style="margin-bottom: 16px;">
-        <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+        <div class="field" style="border: 2px solid var(--gold-border); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 1 – Length × Height</label>
             <div class="grid-2" style="margin-bottom: 10px;">
                 <input type="number" id="w1L" value="20" step="any" placeholder="Length">
@@ -543,7 +535,7 @@
               <span class="tooltip-trigger">?<span class="tooltip-text">A shared wall is one that already exists (e.g., adjoining another cold room or building wall). It's included in the cooling load calculation but excluded from panel billing.</span></span>
             </label>
         </div>
-        <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+        <div class="field" style="border: 2px solid var(--gold-border); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 2 – Length × Height</label>
             <div class="grid-2" style="margin-bottom: 10px;">
                 <input type="number" id="w2L" value="40" step="any" placeholder="Length">
@@ -553,7 +545,7 @@
               <input type="checkbox" id="w2Shared" style="width:auto;"> Shared / Existing Wall (No Panels)
             </label>
         </div>
-        <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+        <div class="field" style="border: 2px solid var(--gold-border); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 3 – Length × Height (opposite Side 1)</label>
             <div class="grid-2" style="margin-bottom: 10px;">
                 <input type="number" id="w3L" value="20" step="any" placeholder="Length">
@@ -563,7 +555,7 @@
               <input type="checkbox" id="w3Shared" style="width:auto;"> Shared / Existing Wall (No Panels)
             </label>
         </div>
-        <div class="field" style="border: 1px solid var(--line); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+        <div class="field" style="border: 2px solid var(--gold-border); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 4 – Length × Height (opposite Side 2)</label>
             <div class="grid-2" style="margin-bottom: 10px;">
                 <input type="number" id="w4L" value="40" step="any" placeholder="Length">
@@ -691,9 +683,9 @@
     <!-- SUGGESTION BOX -->
     <div class="suggestion-box" id="suggestionBox">
       <span class="title">❄️ ColdMatrix Suggests:</span>
-      <span id="suggestedThickness" style="font-weight:700; color:#fff;">150mm Panels</span>
-      <span style="color:#ced4da;">|</span>
-      <span id="suggestedUnit" style="font-weight:700; color:#fff;">— HP / — TR</span>
+      <span id="suggestedThickness" style="font-weight:700; color:#111;">150mm Panels</span>
+      <span style="color:#333;">|</span>
+      <span id="suggestedUnit" style="font-weight:700; color:#111;">— HP / — TR</span>
       <button class="btn-small" onclick="applySuggestion()">Apply</button>
     </div>
 
@@ -907,7 +899,7 @@
       <div class="result-section-title">🌡️ Cooling Load Breakdown</div>
       <div class="result-row"><span>Transmission Load</span><span id="sTransLoad">—</span></div>
       <div class="result-row"><span>Product Load</span><span id="sProdLoad">—</span></div>
-      <div class="result-row"><span>Infiltration Load (door count & usage adjusted)</span><span id="sInfLoad">—</span></div>
+      <div class="result-row"><span>Infiltration Load (air-change method)</span><span id="sInfLoad">—</span></div>
       <div class="result-row"><span>Equipment Load (15%)</span><span id="sEquipLoad">—</span></div>
       <div class="result-row"><span>Safety Factor Applied</span><span id="sSafetyLoad">—</span></div>
       <div class="highlight-row"><span class="label">⚙️ Total Cooling Load</span><span class="value" id="sRefLoad">—</span></div>
@@ -986,7 +978,9 @@
       NH3:{ratio:1.05,cop:3.6,note:'Ammonia (NH3) is highly efficient and standard for large industrial cold storage (typically 20 TR+), but requires trained handling.'},
       CO2:{ratio:1.35,cop:2.6,note:'CO2 transcritical is eco-friendly with near-zero GWP, growing in adoption, but has higher equipment cost.'}
     };
-    const doorUsageFactor = { light:0.8, medium:1.0, heavy:1.4 };
+    // Improved infiltration air-change rates
+    const airChangesBase = { light: 0.8, medium: 1.8, heavy: 3.5 };
+    const doorTypeFactor = { hinged: 1.0, sliding: 1.3 };
 
     window.applyClimatePreset=function(){const s=document.getElementById('climatePreset');if(s.value!=='custom'){document.getElementById('ambientTemp').value=s.value;updateLiveStats();updateSuggestion();document.getElementById('calcBtn').disabled=false;document.getElementById('resultCard').style.display='none';}};
     let currentUnit='ft',currentInstallMethod='perunit';
@@ -1006,12 +1000,19 @@
     window.switchUnit=function(u,b){if(u===currentUnit)return;let cf=u==='m'?0.3048:3.28084;wallInputs.forEach(w=>{w.l.value=((parseFloat(w.l.value)||0)*cf).toFixed(2);w.h.value=((parseFloat(w.h.value)||0)*cf).toFixed(2);});let r=parseFloat(document.getElementById('panelRate').value)||0;document.getElementById('panelRate').value=(currentUnit==='ft'&&u==='m')?(r*10.7639).toFixed(2):(currentUnit==='m'&&u==='ft')?(r/10.7639).toFixed(2):r;if(currentInstallMethod==='perunit'){let ir=parseFloat(document.getElementById('installRate').value)||0;document.getElementById('installRate').value=(currentUnit==='ft'&&u==='m')?(ir*10.7639).toFixed(2):(currentUnit==='m'&&u==='ft')?(ir/10.7639).toFixed(2):ir;}currentUnit=u;document.querySelectorAll('.unit-btn[data-unit]').forEach(x=>x.classList.remove('active'));b.classList.add('active');updatePanelRateLabel();updateLiveStats();updateSuggestion();validateTemperature();updateInstallCostPreview();};
     function updatePanelRateLabel(){document.getElementById('panelRateLabel').textContent=currentUnit==='ft'?'📊 Panel Rate (per ft²)':'📊 Panel Rate (per m²)';}
     function updateLiveStats(){let a=getThermalEnvelopeArea(),v=getVolumeEstimate();document.getElementById('liveArea').textContent=a>0?a.toFixed(2)+' '+(currentUnit==='ft'?'ft²':'m²'):'—';document.getElementById('liveVolume').textContent=v>0?v.toFixed(2)+' '+(currentUnit==='ft'?'ft³':'m³'):'—';}
-    function updateSuggestion(){let room=parseFloat(document.getElementById('roomTemp').value)||-15,amb=parseFloat(document.getElementById('ambientTemp').value)||45,thick=getSuggestedThickness(room),coreRec=room<=-25?'PIR':(room>=5?'EPS/PUF':'PUF');document.getElementById('suggestedThickness').textContent=thick+'mm '+coreRec+' Panels';let area=getThermalEnvelopeArea(),vol=getVolumeEstimate();if(area>0&&vol>0){let saf=parseFloat(document.getElementById('safetyFactor').value)||20,areaM2=currentUnit==='m'?area:area*0.092903,volM3=currentUnit==='m'?vol:vol*0.0283168,lambda=lambdas[document.getElementById('coreMaterial').value]||0.022,U=lambda/(thick/1000),deltaT=Math.max(10,amb-room),Qtrans=U*areaM2*deltaT,dailyKg=parseFloat(document.getElementById('dailyProductKg').value)||0,prodType=document.getElementById('productType').value,floorAreaFt2=(currentUnit==='ft')?(parseFloat(wallInputs[0].l.value)||20)*(parseFloat(wallInputs[1].l.value)||40):((parseFloat(wallInputs[0].l.value)||20)*3.28084)*((parseFloat(wallInputs[1].l.value)||40)*3.28084),entryT=parseFloat(document.getElementById('productEntryTemp').value)||28,Qprod;if(dailyKg>0){Qprod=(dailyKg*3.5*Math.max(0,entryT-room))/86400*1000;let includeLatent=document.getElementById('includeLatentHeat').checked;if(includeLatent&&room<0&&entryT>0){let lKJ=latentHeatKJkg[prodType]||0;Qprod+=(dailyKg*lKJ*1000)/86400;}}else{Qprod=floorAreaFt2*(productLoadFactorsPerFt2[prodType]||40);}let numDoors=parseInt(document.getElementById('numDoors').value)||1,doorUsage=document.getElementById('doorUsage').value,doorFactor=(1+(numDoors-1)*0.15)*(doorUsageFactor[doorUsage]||1.0),Qinf=0.0000335*volM3*deltaT*1000*doorFactor,subtotal=Qtrans+Qprod+Qinf,Qequip=subtotal*0.15,totalW=(subtotal*(1+saf/100))+Qequip,TR=totalW/3517,refrig=refrigerantData[document.getElementById('refrigerantType').value]||refrigerantData.R448A,HP=Math.ceil(TR*refrig.ratio);document.getElementById('suggestedUnit').textContent=HP+' HP / '+TR.toFixed(1)+' TR';}else{document.getElementById('suggestedUnit').textContent='— HP / — TR';}}
+    function getInfiltrationWatts(volM3, deltaT, numDoors, doorUsage, doorType) {
+      const airChanges = (airChangesBase[doorUsage] || 1.8) * (doorTypeFactor[doorType] || 1.0) * (1 + (numDoors - 1) * 0.4);
+      const densityAir = 1.2; // kg/m³
+      const specificHeatAir = 1.006; // kJ/kg·°C
+      const Qinf = airChanges * volM3 * densityAir * specificHeatAir * deltaT / 3600 * 1000; // Watts
+      return Qinf;
+    }
+    function updateSuggestion(){let room=parseFloat(document.getElementById('roomTemp').value)||-15,amb=parseFloat(document.getElementById('ambientTemp').value)||45,thick=getSuggestedThickness(room),coreRec=room<=-25?'PIR':(room>=5?'EPS/PUF':'PUF');document.getElementById('suggestedThickness').textContent=thick+'mm '+coreRec+' Panels';let area=getThermalEnvelopeArea(),vol=getVolumeEstimate();if(area>0&&vol>0){let saf=parseFloat(document.getElementById('safetyFactor').value)||20,areaM2=currentUnit==='m'?area:area*0.092903,volM3=currentUnit==='m'?vol:vol*0.0283168,lambda=lambdas[document.getElementById('coreMaterial').value]||0.022,U=lambda/(thick/1000),deltaT=Math.max(10,amb-room),Qtrans=U*areaM2*deltaT,dailyKg=parseFloat(document.getElementById('dailyProductKg').value)||0,prodType=document.getElementById('productType').value,floorAreaFt2=(currentUnit==='ft')?(parseFloat(wallInputs[0].l.value)||20)*(parseFloat(wallInputs[1].l.value)||40):((parseFloat(wallInputs[0].l.value)||20)*3.28084)*((parseFloat(wallInputs[1].l.value)||40)*3.28084),entryT=parseFloat(document.getElementById('productEntryTemp').value)||28,Qprod;if(dailyKg>0){Qprod=(dailyKg*3.5*Math.max(0,entryT-room))/86400*1000;let includeLatent=document.getElementById('includeLatentHeat').checked;if(includeLatent&&room<0&&entryT>0){let lKJ=latentHeatKJkg[prodType]||0;Qprod+=(dailyKg*lKJ*1000)/86400;}}else{Qprod=floorAreaFt2*(productLoadFactorsPerFt2[prodType]||40);}let numDoors=parseInt(document.getElementById('numDoors').value)||1,doorUsage=document.getElementById('doorUsage').value,doorType=document.getElementById('doorType').value,Qinf=getInfiltrationWatts(volM3, deltaT, numDoors, doorUsage, doorType),subtotal=Qtrans+Qprod+Qinf,Qequip=subtotal*0.15,totalW=(subtotal*(1+saf/100))+Qequip,TR=totalW/3517,refrig=refrigerantData[document.getElementById('refrigerantType').value]||refrigerantData.R448A,HP=Math.ceil(TR*refrig.ratio);document.getElementById('suggestedUnit').textContent=HP+' HP / '+TR.toFixed(1)+' TR';}else{document.getElementById('suggestedUnit').textContent='— HP / — TR';}}
     window.applySuggestion=function(){let m=document.getElementById('suggestedThickness').textContent.match(/\d+/);if(m)document.getElementById('panelThickness').value=m[0];let u=document.getElementById('suggestedUnit').textContent,hpM=u.match(/(\d+)\s*HP/),trM=u.match(/(\d+\.?\d*)\s*TR/);if(hpM)document.getElementById('manualHP').value=hpM[1];if(trM)document.getElementById('manualTR').value=trM[1];document.getElementById('resultCard').style.display='none';};
     window.toggleAdvanced=function(){let s=document.getElementById('advancedPanel');s.style.display=s.style.display==='block'?'none':'block';};
     window.resetCalculator=function(){document.querySelectorAll('input[type="number"]').forEach(i=>{if(i.id==='ambientTemp')i.value='45';else if(i.id==='roomTemp')i.value='-15';else if(i.id==='safetyFactor')i.value='20';else if(i.id==='productEntryTemp')i.value='28';else if(i.id==='panelWidth')i.value='1190';else if(i.id==='coreDensity')i.value='42';else if(i.id==='skinThickness')i.value='0.5';else if(i.id==='wastage')i.value='3';else if(i.id==='maxRoofPanelLength')i.value='14';else if(i.id==='panelRate')i.value='750';else if(i.id==='installRate')i.value='140';else if(i.id==='installFixedCost')i.value='400000';else if(i.id==='costPerDoor')i.value='300000';else if(i.id==='numCondUnits')i.value='1';else if(i.id==='costPerCondUnit')i.value='1200000';else if(i.id==='numEvapUnits')i.value='1';else if(i.id==='costPerEvapUnit')i.value='800000';else if(i.id==='refInstallCost')i.value='300000';else if(i.id==='transportCost')i.value='50000';else if(i.id==='runHoursPerDay')i.value='18';else if(i.id==='electricityRate')i.value='';else if(i.id.includes('L'))i.value='20';else if(i.id.includes('H'))i.value='15';else i.value='';});document.querySelectorAll('input[type="checkbox"]').forEach(cb=>cb.checked=false);document.getElementById('includeLatentHeat').checked=true;document.getElementById('refrigerantType').value='R448A';document.getElementById('doorUsage').value='medium';document.getElementById('climatePreset').value='45';document.getElementById('resultCard').style.display='none';document.getElementById('calcBtn').disabled=false;document.getElementById('tempWarning').style.display='none';document.getElementById('floorAdvisory').style.display='none';document.getElementById('doorHeaterAdvisory').style.display='none';updateRefrigerantNote();updateLiveStats();updateSuggestion();updateInstallCostPreview();window.scrollTo({top:0,behavior:'smooth'});};
     const allInputs=document.querySelectorAll('input, select');allInputs.forEach(inp=>{inp.addEventListener('input',()=>{if(inp===document.getElementById('roomTemp')||inp===document.getElementById('productType')||inp===document.getElementById('doorType'))checkMinusAdvisories();if(inp!==manualHP&&inp!==manualTR){updateLiveStats();updateSuggestion();updateInstallCostPreview();}document.getElementById('calcBtn').disabled=false;document.getElementById('resultCard').style.display='none';});inp.addEventListener('change',()=>{if(inp===document.getElementById('roomTemp')||inp===document.getElementById('productType')||inp===document.getElementById('doorType'))checkMinusAdvisories();if(inp!==manualHP&&inp!==manualTR){updateLiveStats();updateSuggestion();updateInstallCostPreview();}document.getElementById('calcBtn').disabled=false;document.getElementById('resultCard').style.display='none';});});
-    window.calculate=function(){let thermalArea=getThermalEnvelopeArea(),volumeEst=getVolumeEstimate();if(thermalArea<=0)return;let thick=parseInt(document.getElementById('panelThickness').value)||150,pW=parseFloat(document.getElementById('panelWidth').value)||1190,pwf=toFeet(pW,document.getElementById('panelWidthUnit').value);if(pwf<=0)return;let amb=parseFloat(document.getElementById('ambientTemp').value)||45,room=parseFloat(document.getElementById('roomTemp').value)||-15,saf=parseFloat(document.getElementById('safetyFactor').value)||20,prodType=document.getElementById('productType').value,dailyKg=parseFloat(document.getElementById('dailyProductKg').value)||0,entryT=parseFloat(document.getElementById('productEntryTemp').value)||28,lambda=lambdas[document.getElementById('coreMaterial').value]||0.022,dens=parseFloat(document.getElementById('coreDensity').value)||42,skin=parseFloat(document.getElementById('skinThickness').value)||0.5,prof=parseFloat(document.getElementById('profileFactor').value)||1.02,waste=parseFloat(document.getElementById('wastage').value)||3,maxRoofLen=parseFloat(document.getElementById('maxRoofPanelLength').value)||14,perimeter=getActivePerimeter(),wallPanelsCount=Math.ceil(perimeter/pwf),billableWallArea=getBillableWallArea(),roofSpanX=parseFloat(wallInputs[0].l.value)||20,roofSpanY=parseFloat(wallInputs[1].l.value)||40,shortSide=Math.min(roofSpanX,roofSpanY),longSide=Math.max(roofSpanX,roofSpanY),rows=Math.ceil(shortSide/maxRoofLen),panelLengthPerRow=shortSide/rows,panelsPerRow=Math.ceil(longSide/pwf),roofPanelsCount=rows*panelsPerRow,roofPanelArea=roofPanelsCount*pwf*panelLengthPerRow,basePanelArea=billableWallArea+roofPanelArea,totalPanelArea=basePanelArea*(1+waste/100),areaM2=currentUnit==='ft'?thermalArea*0.092903:thermalArea,volM3=currentUnit==='ft'?volumeEst*0.0283168:volumeEst,U=lambda/(thick/1000),deltaT=Math.max(10,amb-room),Qtrans=U*areaM2*deltaT,floorAreaFt2=(currentUnit==='ft')?roofSpanX*roofSpanY:(roofSpanX*3.28084)*(roofSpanY*3.28084),Qprod;if(dailyKg>0){Qprod=(dailyKg*3.5*Math.max(0,entryT-room))/86400*1000;let includeLatent=document.getElementById('includeLatentHeat').checked;if(includeLatent&&room<0&&entryT>0){let lKJ=latentHeatKJkg[prodType]||0;Qprod+=(dailyKg*lKJ*1000)/86400;}}else{Qprod=floorAreaFt2*(productLoadFactorsPerFt2[prodType]||40);}let numDoors=parseInt(document.getElementById('numDoors').value)||1,doorUsage=document.getElementById('doorUsage').value,doorFactor=(1+(numDoors-1)*0.15)*(doorUsageFactor[doorUsage]||1.0),Qinf=0.0000335*volM3*deltaT*1000*doorFactor,subtotal=Qtrans+Qprod+Qinf,Qequip=subtotal*0.15,totalW=(subtotal*(1+saf/100))+Qequip,autoTR=totalW/3517,refrig=refrigerantData[document.getElementById('refrigerantType').value]||refrigerantData.R448A,autoHP=Math.ceil(autoTR*refrig.ratio),mHP=parseFloat(document.getElementById('manualHP').value),mTR=parseFloat(document.getElementById('manualTR').value),finalHP=autoHP,finalTR=autoTR;if(!isNaN(mHP)&&mHP>0){finalHP=mHP;finalTR=isNaN(mTR)||mTR<=0?mHP/refrig.ratio:mTR;}else if(!isNaN(mTR)&&mTR>0){finalTR=mTR;finalHP=mTR*refrig.ratio;}let dualMode=document.getElementById('dualCompressor').checked,unitDisplay=dualMode?`2 × ${Math.ceil(finalHP/2)} HP / ${(finalTR/2).toFixed(2)} TR each`:finalHP+' HP / '+finalTR.toFixed(2)+' TR',panelAreaM2=totalPanelArea*0.092903,panelWeight=(2*(skin/1000)*STEEL_DENSITY*prof+(thick/1000)*dens)*panelAreaM2,rate=parseFloat(document.getElementById('panelRate').value)||0,panelCost=totalPanelArea*rate,installCost=currentInstallMethod==='perunit'?(parseFloat(document.getElementById('installRate').value)||0)*totalPanelArea:(parseFloat(document.getElementById('installFixedCost').value)||0),doorCost=numDoors*(parseFloat(document.getElementById('costPerDoor').value)||0),numCond=parseFloat(document.getElementById('numCondUnits').value)||0,costCond=parseFloat(document.getElementById('costPerCondUnit').value)||0,numEvap=parseFloat(document.getElementById('numEvapUnits').value)||0,costEvap=parseFloat(document.getElementById('costPerEvapUnit').value)||0,refInstall=parseFloat(document.getElementById('refInstallCost').value)||0,refTotalCost=(numCond*costCond)+(numEvap*costEvap)+refInstall,transport=parseFloat(document.getElementById('transportCost').value)||0,grandTotal=panelCost+installCost+doorCost+refTotalCost+transport,currency=document.getElementById('currency').value,symbol=currencySymbols[currency]||'Rs',productText=document.getElementById('productType').options[document.getElementById('productType').selectedIndex].text;document.getElementById('sProduct').textContent=productText;document.getElementById('sReqTemp').textContent=room+' °C';document.getElementById('sArea').textContent=thermalArea.toFixed(2)+' '+(currentUnit==='ft'?'ft²':'m²');document.getElementById('sVolume').textContent=volumeEst.toFixed(2)+' '+(currentUnit==='ft'?'ft³':'m³')+' (approx)';document.getElementById('sWallPanels').textContent=wallPanelsCount+' panels';document.getElementById('sRoofPanels').textContent=roofPanelsCount+' panels';document.getElementById('sTotalPanels').textContent=(wallPanelsCount+roofPanelsCount)+' panels total';document.getElementById('sPanelArea').textContent=totalPanelArea.toFixed(2)+' '+(currentUnit==='ft'?'ft²':'m²')+' (incl. waste)';document.getElementById('sPanelWeight').textContent=panelWeight.toFixed(1)+' kg';document.getElementById('sTransLoad').textContent=(Qtrans/3517).toFixed(2)+' TR';document.getElementById('sProdLoad').textContent=(Qprod/3517).toFixed(2)+' TR';document.getElementById('sInfLoad').textContent=(Qinf/3517).toFixed(2)+' TR';document.getElementById('sEquipLoad').textContent=(Qequip/3517).toFixed(2)+' TR';document.getElementById('sSafetyLoad').textContent=((subtotal*saf/100)/3517).toFixed(2)+' TR';document.getElementById('sRefLoad').textContent=autoTR.toFixed(2)+' TR';document.getElementById('sUnit').textContent=unitDisplay;document.getElementById('sPanelCost').textContent=symbol+' '+formatNum(panelCost);document.getElementById('sInstallation').textContent=symbol+' '+formatNum(installCost);document.getElementById('sDoorCost').textContent=symbol+' '+formatNum(doorCost);document.getElementById('sCondCost').textContent=symbol+' '+formatNum(numCond*costCond);document.getElementById('sEvapCost').textContent=symbol+' '+formatNum(numEvap*costEvap);document.getElementById('sRefInstallCost').textContent=symbol+' '+formatNum(refInstall);document.getElementById('sTransport').textContent=symbol+' '+formatNum(transport);document.getElementById('sGrandTotal').textContent=symbol+' '+formatNum(grandTotal);let refrigSelect=document.getElementById('refrigerantType'),refrigLabel=refrigSelect.options[refrigSelect.selectedIndex].text,systemTypeText;if(finalTR<=5)systemTypeText=refrigLabel+' — Single Compressor Unit (sufficient for this load)';else if(finalTR<=15)systemTypeText=refrigLabel+' — '+(dualMode?'Dual Compressor Redundant Setup':'Dual Compressor Setup recommended for uptime above 5 TR');else systemTypeText=refrigLabel+' — Multi-Compressor Rack System recommended (high capacity, 15+ TR)';document.getElementById('sSystemType').textContent=systemTypeText;let elecRate=parseFloat(document.getElementById('electricityRate').value)||0,runHours=parseFloat(document.getElementById('runHoursPerDay').value)||18,monthlyCost=0;if(elecRate>0){let elecKW=(finalTR*3.517)/refrig.cop,dailyKWh=elecKW*runHours;monthlyCost=dailyKWh*30*elecRate;document.getElementById('operatingCostSection').style.display='block';document.getElementById('sElecPower').textContent=elecKW.toFixed(2)+' kW';document.getElementById('sDailyEnergy').textContent=dailyKWh.toFixed(1)+' kWh/day';document.getElementById('sMonthlyCost').textContent=symbol+' '+formatNum(monthlyCost)+' / month';document.getElementById('execRunning').textContent=symbol+' '+formatNum(monthlyCost)+'/mo';}else{document.getElementById('operatingCostSection').style.display='none';document.getElementById('execRunning').textContent='Enter electricity rate below';}document.getElementById('execPanel').textContent=thick+'mm '+document.getElementById('coreMaterial').value+' Panels';document.getElementById('execSystem').textContent=unitDisplay;document.getElementById('execLoad').textContent=autoTR.toFixed(2)+' TR';document.getElementById('execTotal').textContent=symbol+' '+formatNum(grandTotal);document.getElementById('execNote').textContent=systemTypeText;let advisoryDiv=document.getElementById('roofAdvisory');if(shortSide>14){advisoryDiv.style.display='block';advisoryDiv.innerHTML=`<strong>❄️ ColdMatrix Note:</strong> Roof panel length ${shortSide.toFixed(1)} ft exceeds 14 ft. Structural support (purlins, suspension‑T) is required. Cut panels accordingly.`;}else{advisoryDiv.style.display='none';}document.getElementById('resultCard').style.display='block';document.getElementById('calcBtn').disabled=true;document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});};
+    window.calculate=function(){let thermalArea=getThermalEnvelopeArea(),volumeEst=getVolumeEstimate();if(thermalArea<=0)return;let thick=parseInt(document.getElementById('panelThickness').value)||150,pW=parseFloat(document.getElementById('panelWidth').value)||1190,pwf=toFeet(pW,document.getElementById('panelWidthUnit').value);if(pwf<=0)return;let amb=parseFloat(document.getElementById('ambientTemp').value)||45,room=parseFloat(document.getElementById('roomTemp').value)||-15,saf=parseFloat(document.getElementById('safetyFactor').value)||20,prodType=document.getElementById('productType').value,dailyKg=parseFloat(document.getElementById('dailyProductKg').value)||0,entryT=parseFloat(document.getElementById('productEntryTemp').value)||28,lambda=lambdas[document.getElementById('coreMaterial').value]||0.022,dens=parseFloat(document.getElementById('coreDensity').value)||42,skin=parseFloat(document.getElementById('skinThickness').value)||0.5,prof=parseFloat(document.getElementById('profileFactor').value)||1.02,waste=parseFloat(document.getElementById('wastage').value)||3,maxRoofLen=parseFloat(document.getElementById('maxRoofPanelLength').value)||14,perimeter=getActivePerimeter(),wallPanelsCount=Math.ceil(perimeter/pwf),billableWallArea=getBillableWallArea(),roofSpanX=parseFloat(wallInputs[0].l.value)||20,roofSpanY=parseFloat(wallInputs[1].l.value)||40,shortSide=Math.min(roofSpanX,roofSpanY),longSide=Math.max(roofSpanX,roofSpanY),rows=Math.ceil(shortSide/maxRoofLen),panelLengthPerRow=shortSide/rows,panelsPerRow=Math.ceil(longSide/pwf),roofPanelsCount=rows*panelsPerRow,roofPanelArea=roofPanelsCount*pwf*panelLengthPerRow,basePanelArea=billableWallArea+roofPanelArea,totalPanelArea=basePanelArea*(1+waste/100),areaM2=currentUnit==='ft'?thermalArea*0.092903:thermalArea,volM3=currentUnit==='ft'?volumeEst*0.0283168:volumeEst,U=lambda/(thick/1000),deltaT=Math.max(10,amb-room),Qtrans=U*areaM2*deltaT,floorAreaFt2=(currentUnit==='ft')?roofSpanX*roofSpanY:(roofSpanX*3.28084)*(roofSpanY*3.28084),Qprod;if(dailyKg>0){Qprod=(dailyKg*3.5*Math.max(0,entryT-room))/86400*1000;let includeLatent=document.getElementById('includeLatentHeat').checked;if(includeLatent&&room<0&&entryT>0){let lKJ=latentHeatKJkg[prodType]||0;Qprod+=(dailyKg*lKJ*1000)/86400;}}else{Qprod=floorAreaFt2*(productLoadFactorsPerFt2[prodType]||40);}let numDoors=parseInt(document.getElementById('numDoors').value)||1,doorUsage=document.getElementById('doorUsage').value,doorType=document.getElementById('doorType').value,Qinf=getInfiltrationWatts(volM3, deltaT, numDoors, doorUsage, doorType),subtotal=Qtrans+Qprod+Qinf,Qequip=subtotal*0.15,totalW=(subtotal*(1+saf/100))+Qequip,autoTR=totalW/3517,refrig=refrigerantData[document.getElementById('refrigerantType').value]||refrigerantData.R448A,autoHP=Math.ceil(autoTR*refrig.ratio),mHP=parseFloat(document.getElementById('manualHP').value),mTR=parseFloat(document.getElementById('manualTR').value),finalHP=autoHP,finalTR=autoTR;if(!isNaN(mHP)&&mHP>0){finalHP=mHP;finalTR=isNaN(mTR)||mTR<=0?mHP/refrig.ratio:mTR;}else if(!isNaN(mTR)&&mTR>0){finalTR=mTR;finalHP=mTR*refrig.ratio;}let dualMode=document.getElementById('dualCompressor').checked,unitDisplay=dualMode?`2 × ${Math.ceil(finalHP/2)} HP / ${(finalTR/2).toFixed(2)} TR each`:finalHP+' HP / '+finalTR.toFixed(2)+' TR',panelAreaM2=totalPanelArea*0.092903,panelWeight=(2*(skin/1000)*STEEL_DENSITY*prof+(thick/1000)*dens)*panelAreaM2,rate=parseFloat(document.getElementById('panelRate').value)||0,panelCost=totalPanelArea*rate,installCost=currentInstallMethod==='perunit'?(parseFloat(document.getElementById('installRate').value)||0)*totalPanelArea:(parseFloat(document.getElementById('installFixedCost').value)||0),doorCost=numDoors*(parseFloat(document.getElementById('costPerDoor').value)||0),numCond=parseFloat(document.getElementById('numCondUnits').value)||0,costCond=parseFloat(document.getElementById('costPerCondUnit').value)||0,numEvap=parseFloat(document.getElementById('numEvapUnits').value)||0,costEvap=parseFloat(document.getElementById('costPerEvapUnit').value)||0,refInstall=parseFloat(document.getElementById('refInstallCost').value)||0,refTotalCost=(numCond*costCond)+(numEvap*costEvap)+refInstall,transport=parseFloat(document.getElementById('transportCost').value)||0,grandTotal=panelCost+installCost+doorCost+refTotalCost+transport,currency=document.getElementById('currency').value,symbol=currencySymbols[currency]||'Rs',productText=document.getElementById('productType').options[document.getElementById('productType').selectedIndex].text;document.getElementById('sProduct').textContent=productText;document.getElementById('sReqTemp').textContent=room+' °C';document.getElementById('sArea').textContent=thermalArea.toFixed(2)+' '+(currentUnit==='ft'?'ft²':'m²');document.getElementById('sVolume').textContent=volumeEst.toFixed(2)+' '+(currentUnit==='ft'?'ft³':'m³')+' (approx)';document.getElementById('sWallPanels').textContent=wallPanelsCount+' panels';document.getElementById('sRoofPanels').textContent=roofPanelsCount+' panels';document.getElementById('sTotalPanels').textContent=(wallPanelsCount+roofPanelsCount)+' panels total';document.getElementById('sPanelArea').textContent=totalPanelArea.toFixed(2)+' '+(currentUnit==='ft'?'ft²':'m²')+' (incl. waste)';document.getElementById('sPanelWeight').textContent=panelWeight.toFixed(1)+' kg';document.getElementById('sTransLoad').textContent=(Qtrans/3517).toFixed(2)+' TR';document.getElementById('sProdLoad').textContent=(Qprod/3517).toFixed(2)+' TR';document.getElementById('sInfLoad').textContent=(Qinf/3517).toFixed(2)+' TR';document.getElementById('sEquipLoad').textContent=(Qequip/3517).toFixed(2)+' TR';document.getElementById('sSafetyLoad').textContent=((subtotal*saf/100)/3517).toFixed(2)+' TR';document.getElementById('sRefLoad').textContent=autoTR.toFixed(2)+' TR';document.getElementById('sUnit').textContent=unitDisplay;document.getElementById('sPanelCost').textContent=symbol+' '+formatNum(panelCost);document.getElementById('sInstallation').textContent=symbol+' '+formatNum(installCost);document.getElementById('sDoorCost').textContent=symbol+' '+formatNum(doorCost);document.getElementById('sCondCost').textContent=symbol+' '+formatNum(numCond*costCond);document.getElementById('sEvapCost').textContent=symbol+' '+formatNum(numEvap*costEvap);document.getElementById('sRefInstallCost').textContent=symbol+' '+formatNum(refInstall);document.getElementById('sTransport').textContent=symbol+' '+formatNum(transport);document.getElementById('sGrandTotal').textContent=symbol+' '+formatNum(grandTotal);let refrigSelect=document.getElementById('refrigerantType'),refrigLabel=refrigSelect.options[refrigSelect.selectedIndex].text,systemTypeText;if(finalTR<=5)systemTypeText=refrigLabel+' — Single Compressor Unit (sufficient for this load)';else if(finalTR<=15)systemTypeText=refrigLabel+' — '+(dualMode?'Dual Compressor Redundant Setup':'Dual Compressor Setup recommended for uptime above 5 TR');else systemTypeText=refrigLabel+' — Multi-Compressor Rack System recommended (high capacity, 15+ TR)';document.getElementById('sSystemType').textContent=systemTypeText;let elecRate=parseFloat(document.getElementById('electricityRate').value)||0,runHours=parseFloat(document.getElementById('runHoursPerDay').value)||18,monthlyCost=0;if(elecRate>0){let elecKW=(finalTR*3.517)/refrig.cop,dailyKWh=elecKW*runHours;monthlyCost=dailyKWh*30*elecRate;document.getElementById('operatingCostSection').style.display='block';document.getElementById('sElecPower').textContent=elecKW.toFixed(2)+' kW';document.getElementById('sDailyEnergy').textContent=dailyKWh.toFixed(1)+' kWh/day';document.getElementById('sMonthlyCost').textContent=symbol+' '+formatNum(monthlyCost)+' / month';document.getElementById('execRunning').textContent=symbol+' '+formatNum(monthlyCost)+'/mo';}else{document.getElementById('operatingCostSection').style.display='none';document.getElementById('execRunning').textContent='Enter electricity rate below';}document.getElementById('execPanel').textContent=thick+'mm '+document.getElementById('coreMaterial').value+' Panels';document.getElementById('execSystem').textContent=unitDisplay;document.getElementById('execLoad').textContent=autoTR.toFixed(2)+' TR';document.getElementById('execTotal').textContent=symbol+' '+formatNum(grandTotal);document.getElementById('execNote').textContent=systemTypeText;let advisoryDiv=document.getElementById('roofAdvisory');if(shortSide>14){advisoryDiv.style.display='block';advisoryDiv.innerHTML=`<strong>❄️ ColdMatrix Note:</strong> Roof panel length ${shortSide.toFixed(1)} ft exceeds 14 ft. Structural support (purlins, suspension‑T) is required. Cut panels accordingly.`;}else{advisoryDiv.style.display='none';}document.getElementById('resultCard').style.display='block';document.getElementById('calcBtn').disabled=true;document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});};
     window.shareWhatsApp=function(){let msg=`🧊 *ColdMatrix Cold Store Summary*%0A%0A📦 Product: ${document.getElementById('sProduct').textContent}%0A🌡️ Required Temp: ${document.getElementById('sReqTemp').textContent}%0A⚙️ Recommended Unit: ${document.getElementById('sUnit').textContent}%0A💰 Grand Total: ${document.getElementById('sGrandTotal').textContent}%0A%0A❄️ Thank you for using ColdMatrix – Your 24/7 Business Companion.%0A📞 +92 333 3228470 | ✉️ contact@coldmatrixtools.com%0A🔗 coldmatrixtools.com`;window.open(`https://wa.me/?text=${msg}`,'_blank');};
     window.downloadPDF=function(){const resultCard=document.getElementById('resultCard');html2canvas(resultCard,{scale:2,backgroundColor:'#0B0F14',logging:false}).then(canvas=>{const imgData=canvas.toDataURL('image/jpeg',0.92);const{jsPDF}=window.jspdf;const imgWidth=210;const pageHeight=297;const imgHeight=(canvas.height*imgWidth)/canvas.width;let heightLeft=imgHeight;const pdf=new jsPDF('p','mm','a4');let position=0;pdf.addImage(imgData,'JPEG',0,position,imgWidth,imgHeight);heightLeft-=pageHeight;while(heightLeft>0){position=heightLeft-imgHeight;pdf.addPage();pdf.addImage(imgData,'JPEG',0,position,imgWidth,imgHeight);heightLeft-=pageHeight;}pdf.save('ColdMatrix_ColdStore_Report.pdf');}).catch(()=>{alert('PDF generation failed. Please try JPG download instead.');});};
     window.downloadJPG=function(){html2canvas(document.getElementById('resultCard'),{scale:2,backgroundColor:'#0B0F14'}).then(canvas=>{let link=document.createElement('a');link.download='ColdMatrix_ColdStore_Report.jpg';link.href=canvas.toDataURL('image/jpeg',0.92);link.click();}).catch(()=>alert('Image generation failed.'));};
@@ -1082,5 +1083,38 @@ function copyToolLink(){
   navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are ColdMatrix tools free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate are ColdMatrix calculators?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does ColdMatrix store my data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+      }
+    }
+  ]
+}
+</script>
+
 </body>
 </html>

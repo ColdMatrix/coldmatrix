@@ -32,7 +32,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); }
+    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); --gold-border:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45); --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%); --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%); }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { 
       background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.92)), url('quotation_maker.jpg') center/cover fixed no-repeat;
@@ -51,32 +51,36 @@
     h1 span { color: var(--accent); }
     .subtitle { color:var(--muted); margin-bottom:24px; }
 
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:20px; position:relative; overflow:hidden; }
-    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
+    .card { background:var(--surface); border:1px solid var(--gold-border); border-radius:12px; padding:24px; margin-bottom:20px; position:relative; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
+    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#D4AF37,#4FC3F7); }
     .card h2 { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600; margin-bottom:16px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
 
     .field { margin-bottom:14px; }
     .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
-    .field input, .field select, .field textarea { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; }
-    .field input:focus, .field select:focus, .field textarea:focus { outline:none; border-color:var(--accent); }
+    .field input, .field select, .field textarea { width:100%; background:var(--surface2); border:2px solid var(--gold-border); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4); }
+    .field input:focus, .field select:focus, .field textarea:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
     .field select option { background:var(--surface2); color:var(--text); }
     .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 
-    /* Items Table - Fixed alignment */
     .items-table { width:100%; border-collapse:collapse; margin-bottom:12px; table-layout:fixed; }
-    .items-table th { text-align:left; font-size:0.78rem; color:var(--muted); padding:8px 6px; border-bottom:2px solid var(--border); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+    .items-table th { text-align:left; font-size:0.78rem; color:var(--muted); padding:8px 6px; border-bottom:2px solid var(--gold-border); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
     .items-table th:nth-child(1){width:42%} .items-table th:nth-child(2){width:13%} .items-table th:nth-child(3){width:18%} .items-table th:nth-child(4){width:18%} .items-table th:nth-child(5){width:9%}
     .items-table td { padding:6px; vertical-align:middle; }
-    .items-table input { padding:9px 8px; font-size:0.85rem; width:100%; }
+    .items-table input { padding:9px 8px; font-size:0.85rem; width:100%; border:2px solid var(--gold-border); }
     .row-total { font-weight:700; color:var(--accent); font-size:0.88rem; text-align:center; white-space:nowrap; padding-top:10px !important; }
     .del-row { background:none; border:none; color:#F44336; font-size:1.1rem; cursor:pointer; padding:0; width:100%; text-align:center; }
-    .btn-add { background:var(--surface2); border:1px dashed var(--border); color:var(--accent); padding:10px 16px; border-radius:8px; font-weight:600; cursor:pointer; width:100%; margin-top:4px; }
+    .btn-add { background:var(--surface2); border:2px dashed var(--gold-border); color:var(--gold-bright); padding:10px 16px; border-radius:8px; font-weight:600; cursor:pointer; width:100%; margin-top:4px; }
+    .btn-add:hover { background:rgba(212,175,55,0.1); }
 
     .totals-row { display:flex; gap:14px; align-items:flex-end; margin-top:14px; flex-wrap:wrap; }
 
-    .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; margin-top:14px; }
+    .btn-calc {
+      width:100%; background: var(--silver-gradient); color:#ffffff; border:2px solid var(--gold-border); padding:16px; border-radius:12px; font-weight:800; font-size:1.1rem; cursor:pointer; margin-top:14px;
+      text-shadow:0 1px 2px rgba(0,0,0,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3);
+      transition: all 0.25s;
+    }
+    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px rgba(212,175,55,0.6); transform:translateY(-2px); }
 
-    /* Preview - Fixed alignment */
     #quotePreview { background:#fff; color:#111; border-radius:10px; padding:36px; margin-top:24px; display:none; font-family:'Inter',sans-serif; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
     #quotePreview .q-head { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:3px solid #4FC3F7; padding-bottom:16px; margin-bottom:22px; flex-wrap:wrap; gap:12px; }
     #quotePreview .q-brand { font-size:1.5rem; font-weight:800; color:#0A0F14; }
@@ -124,6 +128,10 @@
     .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
     .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
     .share-tool-btn i{font-size:1rem;}
+
+    .live-rate-btn { background:var(--silver-gradient); color:#fff; border:2px solid var(--gold-border); padding:10px 18px; border-radius:10px; font-weight:700; cursor:pointer; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
+    .live-rate-btn:hover { background:var(--silver-gradient-hover); }
+    .conversion-note { font-size:0.8rem; color:var(--gold-bright); margin-top:8px; }
   </style>
 </head>
 <body>
@@ -133,6 +141,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
@@ -186,7 +195,7 @@
 
       <div class="totals-row">
         <div class="field" style="flex:1;max-width:180px;"><label>Tax / GST (%)</label><input id="taxPct" type="number" value="0" oninput="renderPreview()"></div>
-        <div class="field" style="flex:1;max-width:200px;"><label>Currency</label><select id="currencySym" onchange="renderPreview()">
+        <div class="field" style="flex:1;max-width:200px;"><label>Quote Currency</label><select id="currencySym" onchange="renderPreview()">
           <option value="PKR" selected>🇵🇰 PKR (Rs)</option>
           <option value="USD">🇺🇸 USD ($)</option>
           <option value="EUR">🇪🇺 EUR (€)</option>
@@ -199,9 +208,39 @@
         </select></div>
       </div>
 
+      <div class="grid2">
+        <div class="field">
+          <label>Base Currency (your rates are in)</label>
+          <select id="baseCurrency" onchange="renderPreview()">
+            <option value="PKR" selected>🇵🇰 PKR (Rs)</option>
+            <option value="USD">🇺🇸 USD ($)</option>
+            <option value="EUR">🇪🇺 EUR (€)</option>
+            <option value="GBP">🇬🇧 GBP (£)</option>
+            <option value="AED">🇦🇪 AED (د.إ)</option>
+            <option value="SAR">🇸🇦 SAR (ر.س)</option>
+            <option value="INR">🇮🇳 INR (₹)</option>
+            <option value="CNY">🇨🇳 CNY (¥)</option>
+            <option value="AUD">🇦🇺 AUD ($)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Exchange Rate (1 base = ? quote)</label>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <input id="exchangeRate" type="number" value="" step="any" oninput="renderPreview()" placeholder="e.g. 0.0036">
+            <button type="button" class="live-rate-btn" onclick="fetchLiveRate()">🌐 Fetch Live</button>
+          </div>
+        </div>
+      </div>
+      <div class="conversion-note" id="conversionNote"></div>
+
       <div class="field"><label>Notes / Terms</label><textarea id="quoteNotes" rows="3" placeholder="e.g. 50% advance, balance on delivery. Valid for 15 days.">Prices are valid for 15 days. 50% advance required to confirm order.</textarea></div>
 
-      <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="renderPreview()">Generate Quotation</button><button onclick="window.location.reload()" style="background:transparent;border:2px solid var(--accent);color:var(--accent);padding:14px 18px;border-radius:12px;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap;">🔄 Reset</button></div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn-calc" style="flex:2;" onclick="renderPreview()">Generate Quotation</button>
+        <button class="btn-calc" style="flex:1;" onclick="saveProject()">💾 Save</button>
+        <button class="btn-calc" style="flex:1;" onclick="loadProject()">📂 Load</button>
+        <button class="btn-calc" style="flex:1;" onclick="window.location.reload()">🔄 Reset</button>
+      </div>
     </div>
 
     <div id="quotePreview">
@@ -268,10 +307,21 @@
     addRow('PU Sandwich Panel Supply & Install', 100, 2500);
     addRow('Cold Room Door & Accessories', 1, 350000);
 
+    function getConversionFactor() {
+      const base = document.getElementById('baseCurrency').value;
+      const quote = document.getElementById('currencySym').value;
+      const rate = parseFloat(document.getElementById('exchangeRate').value);
+      if (base !== quote && rate > 0) {
+        return rate;
+      }
+      return 1;
+    }
+
     function renderPreview(){
       const symCode = document.getElementById('currencySym').value;
       const currencySymbols = { 'PKR':'Rs', 'USD':'$', 'EUR':'€', 'GBP':'£', 'AED':'د.إ', 'SAR':'ر.س', 'INR':'₹', 'CNY':'¥', 'AUD':'$' };
       const sym = currencySymbols[symCode] || symCode;
+      const factor = getConversionFactor();
       const taxPct = parseFloat(document.getElementById('taxPct').value) || 0;
       let subtotal = 0;
       let pvRows = '';
@@ -279,18 +329,18 @@
         const inputs = tr.querySelectorAll('input');
         const desc = inputs[0].value || '';
         const qty = parseFloat(inputs[1].value) || 0;
-        const rate = parseFloat(inputs[2].value) || 0;
+        const rawRate = parseFloat(inputs[2].value) || 0;
+        const rate = rawRate * factor;
         const amt = qty * rate;
         subtotal += amt;
         const rt = tr.querySelector('.row-total');
-        rt.textContent = sym + ' ' + amt.toLocaleString();
-        if(desc || qty || rate) pvRows += `<tr><td>${desc}</td><td style="text-align:center;">${qty}</td><td style="text-align:right;">${sym} ${rate.toLocaleString()}</td><td style="text-align:right;">${sym} ${amt.toLocaleString()}</td></tr>`;
+        rt.textContent = sym + ' ' + amt.toLocaleString(undefined,{maximumFractionDigits:2});
+        if(desc || qty || rate) pvRows += `<tr><td>${desc}</td><td style="text-align:center;">${qty}</td><td style="text-align:right;">${sym} ${rate.toLocaleString(undefined,{maximumFractionDigits:2})}</td><td style="text-align:right;">${sym} ${amt.toLocaleString(undefined,{maximumFractionDigits:2})}</td></tr>`;
       });
       const tax = subtotal * (taxPct/100);
       const grand = subtotal + tax;
 
-      document.getElementById('pvBizName').innerHTML = (document.getElementById('bizName').value || 'Your Business').replace('ColdMatrix', 'ColdMatrix <span>').replace('Contracting', 'Contracting</span>');
-      if(!document.getElementById('bizName').value.includes('ColdMatrix')) document.getElementById('pvBizName').textContent = document.getElementById('bizName').value || 'Your Business';
+      document.getElementById('pvBizName').innerHTML = (document.getElementById('bizName').value || 'Your Business');
       document.getElementById('pvBizContact').textContent = document.getElementById('bizContact').value;
       document.getElementById('pvBizAddress').textContent = document.getElementById('bizAddress').value;
       document.getElementById('pvClientName').textContent = document.getElementById('clientName').value || '—';
@@ -299,13 +349,88 @@
       document.getElementById('pvQuoteValid').textContent = document.getElementById('quoteValid').value ? ('Valid until: ' + document.getElementById('quoteValid').value) : '';
       document.getElementById('pvItemsBody').innerHTML = pvRows || '<tr><td colspan="4" style="color:#999;text-align:center;">No items added yet</td></tr>';
       document.getElementById('pvTotals').innerHTML =
-        `<div><span>Subtotal</span><span>${sym} ${subtotal.toLocaleString()}</span></div>` +
-        (taxPct ? `<div><span>Tax (${taxPct}%)</span><span>${sym} ${tax.toLocaleString()}</span></div>` : '') +
-        `<div class="grand"><span>Total</span><span>${sym} ${grand.toLocaleString()}</span></div>`;
+        `<div><span>Subtotal</span><span>${sym} ${subtotal.toLocaleString(undefined,{maximumFractionDigits:2})}</span></div>` +
+        (taxPct ? `<div><span>Tax (${taxPct}%)</span><span>${sym} ${tax.toLocaleString(undefined,{maximumFractionDigits:2})}</span></div>` : '') +
+        `<div class="grand"><span>Total</span><span>${sym} ${grand.toLocaleString(undefined,{maximumFractionDigits:2})}</span></div>`;
       document.getElementById('pvNotes').textContent = document.getElementById('quoteNotes').value;
+
+      // Display conversion note
+      const base = document.getElementById('baseCurrency').value;
+      const quote = document.getElementById('currencySym').value;
+      const rate = document.getElementById('exchangeRate').value;
+      const noteEl = document.getElementById('conversionNote');
+      if (base !== quote && rate > 0) {
+        noteEl.textContent = `💱 Converting from ${base} to ${quote} at rate 1 ${base} = ${rate} ${quote}`;
+      } else if (base !== quote) {
+        noteEl.textContent = `⚠️ Set exchange rate to convert ${base} → ${quote}, or click "Fetch Live"`;
+      } else {
+        noteEl.textContent = '';
+      }
 
       document.getElementById('quotePreview').style.display = 'block';
       document.getElementById('shareBarWrap').style.display = 'flex';
+    }
+
+    async function fetchLiveRate() {
+      const base = document.getElementById('baseCurrency').value;
+      const quote = document.getElementById('currencySym').value;
+      if (base === quote) {
+        alert('Base and quote currency are the same. No conversion needed.');
+        document.getElementById('exchangeRate').value = '';
+        renderPreview();
+        return;
+      }
+      const btn = event.target;
+      btn.textContent = '⏳ Fetching...';
+      try {
+        const res = await fetch(`https://open.er-api.com/v6/latest/${base}`);
+        const data = await res.json();
+        const rate = data.rates && data.rates[quote];
+        if (rate) {
+          document.getElementById('exchangeRate').value = rate.toFixed(4);
+          renderPreview();
+        } else {
+          alert('Could not fetch rate. Please enter manually.');
+        }
+      } catch (e) {
+        alert('Network error. Please enter exchange rate manually.');
+      }
+      btn.textContent = '🌐 Fetch Live';
+    }
+
+    function saveProject() {
+      const inputs = document.querySelectorAll('input, select, textarea');
+      const data = {};
+      inputs.forEach(el => {
+        if (el.id) data[el.id] = el.value;
+      });
+      const rows = [];
+      document.querySelectorAll('#itemsBody tr').forEach(tr => {
+        const ins = tr.querySelectorAll('input');
+        rows.push({ desc: ins[0].value, qty: ins[1].value, rate: ins[2].value });
+      });
+      data['itemsRows'] = JSON.stringify(rows);
+      localStorage.setItem('coldmatrix_quotation', JSON.stringify(data));
+      alert('✅ Quotation saved!');
+    }
+    function loadProject() {
+      const saved = localStorage.getItem('coldmatrix_quotation');
+      if (!saved) { alert('No saved quotation found.'); return; }
+      try {
+        const data = JSON.parse(saved);
+        Object.keys(data).forEach(key => {
+          if (key === 'itemsRows') return;
+          const el = document.getElementById(key);
+          if (el) el.value = data[key];
+        });
+        // Clear and rebuild items
+        document.getElementById('itemsBody').innerHTML = '';
+        rowId = 0;
+        const rows = JSON.parse(data.itemsRows || '[]');
+        rows.forEach(r => addRow(r.desc, r.qty, r.rate));
+        renderPreview();
+        alert('✅ Quotation loaded!');
+      } catch(e) { alert('Error loading quotation.'); }
     }
 
     async function captureCanvas(){
@@ -359,6 +484,39 @@
     function copyToolLink(){
       navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
     }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are ColdMatrix tools free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate are ColdMatrix calculators?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does ColdMatrix store my data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+      }
+    }
+  ]
+}
 </script>
+  
 </body>
 </html>
