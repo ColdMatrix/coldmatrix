@@ -1,219 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="canonical" href="https://coldmatrixtools.com/internet-speed-test.html">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-DCJ7K7LSCF');
-  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ColdMatrix Internet Speed Test</title>
-  <meta name="theme-color" content="#0D1117">
-  <link rel="manifest" href="manifest.json">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <title>🌐 ColdMatrix Internet Speed Test</title>
+  <meta name="description" content="Fast, privacy-first, ad-free internet speed test. Measures download, upload, ping, and jitter using multiple global servers.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="🌐 ColdMatrix Internet Speed Test">
+  <meta property="og:description" content="Privacy-first, ad-free internet speed test. Measures download, upload, ping, and jitter.">
+  <meta property="og:url" content="https://coldmatrixtools.com/internet-speed-test.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/speed_test.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="🌐 ColdMatrix Internet Speed Test">
+  <meta name="twitter:description" content="Privacy-first, ad-free internet speed test. Measures download, upload, ping, and jitter.">
+  <meta name="twitter:image" content="https://coldmatrixtools.com/speed_test.jpg">
+  <link rel="canonical" href="https://coldmatrixtools.com/internet-speed-test.html">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root { --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gold:#D4AF37; --gold-bright:#FFD700; --grey-gradient:linear-gradient(180deg,#d0d2d6,#9ea0a5); --whatsapp-green:#25D366; --report-bg:#b5b9bf; }
+    :root {
+      --bg:#0B0F14;
+      --foam:#F0F4F8;
+      --frost:#4FC3F7;
+      --line:rgba(79,195,247,0.35);
+      --accent:#00b894;
+      --card-bg:rgba(15,22,30,0.92);
+      --gold:#D4AF37;
+      --gold-border:linear-gradient(145deg,#C8993A,#E8C96A 30%,#A07828 70%,#D4A843);
+      --whatsapp-green:#25D366;
+    }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { background:#0D1117; color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; }
-    .container { max-width:900px; margin:0 auto; padding:0 20px; }
-    .navbar { position:sticky; top:0; z-index:100; background:rgba(13,17,23,0.94); backdrop-filter:blur(20px); border-bottom:2px solid var(--gold); }
-    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:800; color:var(--accent); text-decoration:none; }
-    .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
-    .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.9rem; }
-    .nav-links a:hover { color:var(--gold-bright); }
-    .ad-card { border-radius:14px; background:rgba(13,17,23,0.8); border:2px solid var(--gold); padding:16px 20px; margin:18px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
-    .ad-card ul { list-style:none; } .ad-card li { font-size:0.85rem; font-weight:600; color:#fff; margin-bottom:3px; }
-    .ad-card li::before { content:"✦"; color:var(--gold-bright); margin-right:6px; }
-    .whatsapp-btn { background:var(--whatsapp-green); color:white; border-radius:50px; padding:10px 20px; text-decoration:none; font-weight:700; }
-    .install-bar { background:var(--gold); color:#0A0F14; text-align:center; padding:14px; border-radius:12px; margin:16px 0; font-weight:700; display:block; }
-    .install-bar button { background:#0A0F14; color:var(--gold-bright); border:none; padding:8px 20px; border-radius:8px; margin-left:10px; font-weight:700; cursor:pointer; }
-    .brand-header { text-align:center; margin:24px 0 4px; }
-    .brand-title { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:700; color:#fff; }
-    .brand-title span { color:var(--accent); } .brand-sub { font-size:1.1rem; color:var(--muted); }
-    .made-in { font-size:0.75rem; color:var(--gold-bright); margin:6px 0 16px; font-weight:600; }
-    .share-tool-card { background:#0a0d13; border:2px solid var(--gold); border-radius:12px; padding:14px 16px; margin-bottom:20px; }
-    .share-tool-title { font-weight:800; font-size:0.85rem; color:var(--gold-bright); text-align:center; margin-bottom:10px; text-transform:uppercase; }
-    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-    .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:6px; padding:10px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); }
-    .share-tool-btn.wa { border-color:rgba(37,211,102,0.5); }
-    .gauge-section { display:flex; flex-direction:column; align-items:center; margin:16px auto; background:rgba(255,255,255,0.03); border:2px solid var(--gold); border-radius:18px; padding:12px 16px 16px; }
-    .gauge-svg-wrap { position:relative; width:100%; max-width:340px; aspect-ratio:1/1; margin:0 auto; }
-    .gauge-svg-wrap svg { width:100%; height:100%; }
-    .gauge-track { fill:none; stroke:rgba(255,255,255,0.05); stroke-width:20; }
-    .gauge-arc { fill:none; stroke-width:20; stroke-linecap:round; filter:drop-shadow(0 0 16px rgba(79,195,247,0.7)); }
-    .gauge-num { fill:#fff; font-size:11px; font-family:'Oswald',sans-serif; font-weight:700; text-anchor:middle; dominant-baseline:middle; }
-    .gauge-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
-    .gauge-status { font-size:0.85rem; color:#fff; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
-    .gauge-value { font-size:3rem; font-weight:800; color:#fff; line-height:1; }
-    .gauge-unit { font-size:0.85rem; color:var(--muted); font-weight:600; }
-    .completion-text { text-align:center; font-size:1rem; font-weight:700; color:var(--gold-bright); letter-spacing:2px; display:none; }
-    .completion-text.show { display:block; }
-    .btn-premium { background:var(--grey-gradient); color:#0A0F14; border:2px solid var(--gold); padding:14px 40px; border-radius:50px; font-weight:700; font-size:1rem; cursor:pointer; margin:12px auto 0; text-transform:uppercase; }
-    .btn-premium.cancel { background:#E8A850; color:#1a1005; border-color:#C88430; }
-    .results-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:16px 0; opacity:0; transition:opacity 0.5s; }
-    .results-grid.show { opacity:1; }
-    .result-card { background:var(--report-bg); border:2px solid var(--gold); border-radius:14px; padding:16px 12px; text-align:center; box-shadow:0 3px 15px rgba(0,0,0,0.3); }
-    .result-card .rc-value { font-size:1.5rem; font-weight:800; color:#1a1a1a; }
-    .result-card .rc-unit { font-size:0.7rem; color:#444; }
-    .result-card .rc-label { font-size:0.7rem; color:#444; margin-top:2px; font-weight:700; text-transform:uppercase; }
-    .prem-arrow { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; font-size:14px; color:#fff; }
-    .prem-down { background:linear-gradient(135deg,#3B6CFF,#22D3EE); box-shadow:0 0 12px rgba(34,211,238,0.4); }
-    .prem-up { background:linear-gradient(135deg,#A78BFA,#7C3AED); box-shadow:0 0 12px rgba(167,139,250,0.4); }
-    .share-bar { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
-    .share-btn { padding:10px 16px; border-radius:8px; font-weight:700; font-size:0.75rem; cursor:pointer; border:none; color:#fff; text-transform:uppercase; }
-    .share-whatsapp { background:var(--whatsapp-green); } .share-pdf { background:#E53935; } .share-jpg,.share-png { background:#545860; }
-    .history-section { margin-top:20px; } .history-title { font-size:0.85rem; font-weight:700; color:var(--muted); margin-bottom:8px; }
-    .history-item { font-size:0.78rem; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05); color:var(--muted); display:flex; justify-content:space-between; }
-    footer { text-align:center; color:#ccc; font-size:0.78rem; padding:24px 0 16px; border-top:2px solid var(--gold); margin-top:30px; }
-    footer a { color:var(--accent); } .pakistan-tag { font-size:0.7rem; color:var(--gold-bright); }
-    .whatsapp-float { position:fixed; bottom:18px; right:18px; z-index:999; width:48px; height:48px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.3rem; text-decoration:none; }
-    #shareCapture { display:none; } .note { font-size:0.72rem; color:var(--muted); margin-top:12px; text-align:center; padding-top:10px; border-top:1px solid rgba(255,255,255,0.05); }
-    @media (max-width:600px){ .results-grid{grid-template-columns:1fr 1fr;} .gauge-value{font-size:2.2rem;} .brand-title{font-size:1.6rem;} }
+    body {
+      background: linear-gradient(135deg, rgba(11,15,20,0.92), rgba(11,15,20,0.96)), url('speed_test.jpg') center/cover fixed no-repeat;
+      color: var(--foam);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(8,12,20,0.94); backdrop-filter: blur(18px); border-bottom:1px solid rgba(255,255,255,0.06); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 20px; flex-wrap:wrap; max-width:1000px; margin:0 auto; }
+    .logo { font-size:1.3rem; font-weight:800; color:var(--frost); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:18px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:#9AA0B0; text-decoration:none; font-weight:600; font-size:0.9rem; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--accent); }
+
+    .container { max-width:900px; margin:30px auto; padding:0 20px; }
+
+    .hero-card {
+      background: var(--card-bg); backdrop-filter: blur(20px);
+      border:2px solid; border-image: var(--gold-border) 1;
+      border-radius:24px; padding:36px 28px; margin-bottom:30px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,215,0,0.2);
+      text-align:center;
+    }
+    .hero-card h1 {
+      font-family:'Oswald',sans-serif; font-size:2.4rem; font-weight:700;
+      color:#fff; margin-bottom:8px; text-shadow:0 2px 8px rgba(0,0,0,0.8);
+    }
+    .hero-card p { color:#B9C0CE; font-size:1rem; margin-bottom:20px; }
+    .btn-start {
+      background: linear-gradient(135deg, #4FC3F7, #2196F3);
+      color:#0B0F14; border:none; padding:16px 40px; border-radius:50px;
+      font-family:'Oswald',sans-serif; font-weight:700; font-size:1.2rem;
+      text-transform:uppercase; cursor:pointer; letter-spacing:1px;
+      box-shadow: 0 8px 24px rgba(79,195,247,0.4); transition: transform 0.2s;
+    }
+    .btn-start:hover { transform:translateY(-2px); }
+    .btn-start:disabled { opacity:0.6; cursor:not-allowed; }
+
+    .results-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:16px; margin-bottom:30px; }
+    .result-card {
+      background:var(--card-bg); backdrop-filter:blur(16px);
+      border:1px solid var(--line); border-radius:18px; padding:20px;
+      text-align:center; box-shadow:0 8px 24px rgba(0,0,0,0.5);
+    }
+    .result-card .label { font-size:0.8rem; color:#8B98A5; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+    .result-card .value { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:700; color:var(--frost); }
+    .result-card .unit { font-size:0.9rem; color:#B9C0CE; }
+
+    .gauge-container { position:relative; width:200px; margin:0 auto 20px; }
+    .gauge-ring {
+      transform: rotate(-90deg);
+    }
+    .gauge-ring .bg { stroke: rgba(79,195,247,0.15); }
+    .gauge-ring .fg { stroke: var(--frost); stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
+
+    .server-note {
+      text-align:center; color:#8B98A5; font-size:0.8rem; margin-top:10px;
+    }
   </style>
 </head>
 <body>
-  <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li>
-<li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
-<li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <div class="container">
-  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
-  
-    <div class="ad-card"><div><ul><li>PEB Structures</li><li>Cold Storage & Freezer Rooms</li><li>PU/PIR Sandwich Panels</li></ul></div><a href="https://wa.me/923333228470" class="whatsapp-btn" target="_blank">💬 Get Quote</a></div>
-    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
-    <div class="brand-header"><h1 class="brand-title">Cold<span>Matrix</span></h1><div class="brand-sub">Internet Speed Test</div></div>
-    <div class="share-tool-card"><div class="share-tool-title">Share Speed Test</div><div class="share-tool-buttons"><button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button><button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button></div></div>
+    <div class="hero-card">
+      <h1>🌐 Internet Speed Test</h1>
+      <p>Measure download, upload, ping, and jitter — using multiple global servers for better accuracy. 100% private and ad-free.</p>
+      <button class="btn-start" id="startBtn" onclick="runSpeedTest()">⚡ Start Test</button>
+    </div>
 
-    <div class="gauge-section">
-      <div class="completion-text" id="completionText">✦ Test Complete ✦</div>
-      <div class="gauge-svg-wrap">
-        <svg id="gaugeSvg" viewBox="0 0 400 400"><defs><linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3B6CFF"/><stop offset="35%" stop-color="#22D3EE"/><stop offset="65%" stop-color="#34D399"/><stop offset="100%" stop-color="#FDE047"/></linearGradient></defs></svg>
-        <div class="gauge-center"><div class="gauge-status" id="gaugeStatus">Ready</div><div class="gauge-value"><span id="gaugeValueNum">0.0</span></div><div class="gauge-unit" id="gaugeUnit">Mbps</div></div>
+    <!-- Results -->
+    <div class="results-grid" id="resultsGrid" style="display:none;">
+      <div class="result-card">
+        <div class="label">⬇ Download</div>
+        <div class="value" id="downloadValue">—</div>
+        <div class="unit">Mbps</div>
       </div>
-      <button class="btn-premium" id="startBtn">Start Test</button>
+      <div class="result-card">
+        <div class="label">⬆ Upload</div>
+        <div class="value" id="uploadValue">—</div>
+        <div class="unit">Mbps</div>
+      </div>
+      <div class="result-card">
+        <div class="label">📶 Ping</div>
+        <div class="value" id="pingValue">—</div>
+        <div class="unit">ms</div>
+      </div>
+      <div class="result-card">
+        <div class="label">📊 Jitter</div>
+        <div class="value" id="jitterValue">—</div>
+        <div class="unit">ms</div>
+      </div>
     </div>
 
-    <div class="results-grid" id="resultsGrid">
-      <div class="result-card"><div><span class="prem-arrow prem-down">▼</span></div><div><span class="rc-value" id="rDown">-</span><span class="rc-unit">Mbps</span></div><div class="rc-label">Download</div></div>
-      <div class="result-card"><div><span class="prem-arrow prem-up">▲</span></div><div><span class="rc-value" id="rUp">-</span><span class="rc-unit">Mbps</span></div><div class="rc-label">Upload</div></div>
-      <div class="result-card"><div>📶</div><div><span class="rc-value" id="rPing">-</span><span class="rc-unit">ms</span></div><div class="rc-label">Ping</div></div>
-      <div class="result-card" style="grid-column:span 2;"><div>〰️</div><div class="rc-label">Jitter: <span id="rJitter">-</span> ms</div></div>
-      <div class="result-card" style="grid-column:span 3;display:flex;align-items:center;gap:10px;"><div>🌐</div><div style="font-size:0.8rem;"><strong id="serverCity">Detecting server...</strong></div></div>
-    </div>
-
-    <div class="share-bar" id="shareBarWrap" style="display:none;"><button class="share-btn share-whatsapp" onclick="shareWhatsApp()">📱 WhatsApp</button><button class="share-btn share-pdf" onclick="downloadResult('pdf')">📄 PDF</button><button class="share-btn share-jpg" onclick="downloadResult('jpg')">🖼 JPG</button><button class="share-btn share-png" onclick="downloadResult('png')">🖼 PNG</button></div>
-    <div class="history-section"><div class="history-title">Recent Tests</div><div id="historyList"></div></div>
-    <div class="note">Results may vary by network conditions.</div>
+    <div class="server-note" id="serverNote"></div>
   </div>
-  <div id="shareCapture"><div style="background:#fff;color:#111;border-radius:10px;padding:20px;font-family:'Inter',sans-serif;width:300px;"><div style="font-size:1.1rem;font-weight:800;">❄️ ColdMatrix Speed Test</div><table style="width:100%;margin-top:10px;font-size:0.85rem;"><tr><td>Ping</td><td style="text-align:right;font-weight:700;" id="pvPing"></td></tr><tr><td>Download</td><td style="text-align:right;font-weight:700;color:#2196F3;" id="pvDown"></td></tr><tr><td>Upload</td><td style="text-align:right;font-weight:700;color:#2196F3;" id="pvUp"></td></tr></table><div style="font-size:0.6rem;color:#888;margin-top:12px;border-top:1px solid #eee;padding-top:8px;">contact@coldmatrixtools.com | +92 333 3228470</div></div></div>
-  <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(0,184,148,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the Internet Speed Test</h2>
-  <p>Test your download speed, upload speed, and ping instantly in your browser — no app needed.</p>
-  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#00b894;">Common Questions</h3>
-  <p><strong>What's a good speed?</strong> 5-10 Mbps for HD streaming, 25+ Mbps for 4K/multiple devices. Ping under 50ms is ideal for gaming.</p>
-  </div>
-
-  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
-  <a href="https://wa.me/923333228470" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script>
-    const CX=200,CY=200,R=160,START=135,SWEEP=270,NUMS=[0,1,5,10,20,50,100,200,500,1000];
-    function v2f(v){return Math.min(1,Math.max(0,Math.log10(Math.max(0,v)+1)/Math.log10(1001)));}
-    function ang(f){return START+f*SWEEP;}
-    function pt(a,r){const rad=a*Math.PI/180;return{x:CX+r*Math.cos(rad),y:CY+r*Math.sin(rad)};}
+    // Multi-server endpoints (Cloudflare + your own)
+    const TEST_ENDPOINTS = {
+      cloudflareDown: 'https://speed.cloudflare.com/__down?bytes=10000000',
+      cloudflareUp: 'https://speed.cloudflare.com/__up',
+      localDown: 'https://coldmatrixtools.com/speedtest-data.bin', // optional local
+      pingEndpoints: [
+        'https://speed.cloudflare.com/__down?bytes=1',
+        'https://coldmatrixtools.com/',
+        'https://www.google.com/generate_204'
+      ]
+    };
 
-    function buildGauge(){
-      const svg=document.getElementById('gaugeSvg');
-      const tr=document.createElementNS('http://www.w3.org/2000/svg','path');
-      tr.setAttribute('class','gauge-track');
-      const s=pt(START,R),e=pt(START+SWEEP,R);
-      tr.setAttribute('d',`M ${s.x} ${s.y} A ${R} ${R} 0 1 1 ${e.x} ${e.y}`);
-      svg.appendChild(tr);
-      // Numbers only — NO tick marks
-      NUMS.forEach(v=>{
-        const a=ang(v2f(v)),lp=pt(a,R-30);
-        const tx=document.createElementNS('http://www.w3.org/2000/svg','text');
-        tx.setAttribute('x',lp.x);tx.setAttribute('y',lp.y);tx.setAttribute('class','gauge-num');
-        tx.textContent=v>=1000?'1K':v;svg.appendChild(tx);
-      });
-      const arc=document.createElementNS('http://www.w3.org/2000/svg','path');
-      arc.setAttribute('id','gaugeArc');arc.setAttribute('class','gauge-arc');arc.setAttribute('stroke','url(#arcGrad)');svg.appendChild(arc);
-      const nd=document.createElementNS('http://www.w3.org/2000/svg','g');
-      nd.setAttribute('id','gaugeNeedle');
-      nd.innerHTML=`<polygon points="${CX-4},${CY} ${CX+85},${CY-3} ${CX+75},${CY} ${CX+85},${CY+3}" fill="#4FC3F7" stroke="#22D3EE" stroke-width="1"/><circle cx="${CX}" cy="${CY}" r="8" fill="#4FC3F7"/>`;
-      svg.appendChild(nd);setArc(0);
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    async function measurePing() {
+      let samples = [];
+      for (let i = 0; i < 8; i++) {
+        const start = performance.now();
+        try {
+          await fetch(TEST_ENDPOINTS.pingEndpoints[Math.floor(Math.random() * TEST_ENDPOINTS.pingEndpoints.length)], { mode: 'no-cors', cache: 'no-store' });
+          const end = performance.now();
+          samples.push(end - start);
+        } catch (e) {
+          samples.push(0);
+        }
+        await sleep(50);
+      }
+      const valid = samples.filter(s => s > 0);
+      if (valid.length === 0) return { ping: 0, jitter: 0 };
+      const ping = valid.reduce((a,b) => a + b, 0) / valid.length;
+      const jitter = valid.length > 1 ? Math.sqrt(valid.reduce((a,b) => a + (b-ping)**2, 0) / (valid.length - 1)) : 0;
+      return { ping, jitter };
     }
 
-    function arcPath(sD,eD,r){const a=pt(sD,r),b=pt(eD,r);return `M ${a.x} ${a.y} A ${r} ${r} 0 ${(eD-sD)>180?1:0} 1 ${b.x} ${b.y}`;}
-    function setArc(f){f=Math.min(1,Math.max(0,f));const eA=START+f*SWEEP,arc=document.getElementById('gaugeArc');if(f>0.002){arc.setAttribute('d',arcPath(START,eA,R));arc.style.display='block';}else{arc.style.display='none';}document.getElementById('gaugeNeedle').setAttribute('transform',`rotate(${eA-START} ${CX} ${CY})`);}
-
-    function animNum(target,dur=500){const el=document.getElementById('gaugeValueNum'),s=parseFloat(el.textContent)||0,st=performance.now();function step(now){const t=Math.min(1,(now-st)/dur),val=s+(target-s)*(1-Math.pow(1-t,3));el.textContent=val.toFixed(1);setArc(v2f(val));if(t<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
-
-    let abortCtrl=null,xhr=null,cancelled=false;
-
-    async function ping(s=6){const t=[];for(let i=0;i<s;i++){if(cancelled)break;const t0=performance.now();try{abortCtrl=new AbortController();await fetch('https://speed.cloudflare.com/__down?bytes=1000&'+Math.random(),{signal:abortCtrl.signal});t.push(performance.now()-t0);}catch(e){}await new Promise(r=>setTimeout(r,50));}if(!t.length)return null;const p=Math.min(...t),avg=t.reduce((a,b)=>a+b,0)/t.length;return{ping:p,jitter:Math.sqrt(t.reduce((a,b)=>a+Math.pow(b-avg,2),0)/t.length)};}
-    async function dl(onP){const sz=24e6,t0=performance.now();abortCtrl=new AbortController();const r=await fetch('https://speed.cloudflare.com/__down?bytes='+sz+'&'+Math.random(),{signal:abortCtrl.signal});const rd=r.body.getReader();let rc=0;while(true){if(cancelled)break;const{done,value}=await rd.read();if(done)break;rc+=value.length;const el=(performance.now()-t0)/1000;if(el>0.05)onP((rc*8)/el/1e6);}return(rc*8)/((performance.now()-t0)/1000)/1e6;}
-    async function ul(onP){return new Promise(res=>{const sz=8e6,d=new Blob([new Uint8Array(sz)]),x=new XMLHttpRequest();xhr=x;const t0=performance.now();x.open('POST','https://speed.cloudflare.com/__up',true);x.upload.onprogress=function(e){const el=(performance.now()-t0)/1000;if(el>0.05&&e.loaded)onP((e.loaded*8)/el/1e6);};x.onloadend=function(){if(!cancelled)res((sz*8)/((performance.now()-t0)/1000)/1e6);};x.onerror=function(){res(null);};x.onabort=function(){res(null);};x.send(d);});}
-
-    function cancel(){
-      cancelled=true;if(abortCtrl)abortCtrl.abort();if(xhr)xhr.abort();
-      document.getElementById('startBtn').classList.remove('cancel');document.getElementById('startBtn').textContent='Test Again';
-      document.getElementById('gaugeStatus').textContent='Ready';document.getElementById('gaugeUnit').textContent='Mbps';
-      document.getElementById('completionText').classList.remove('show');animNum(0,300);
+    async function measureDownload() {
+      const start = performance.now();
+      try {
+        const res = await fetch(TEST_ENDPOINTS.cloudflareDown, { cache: 'no-store' });
+        const blob = await res.blob();
+        const end = performance.now();
+        const durationSec = (end - start) / 1000;
+        const bits = blob.size * 8;
+        const Mbps = (bits / durationSec) / (1024 * 1024);
+        return Mbps;
+      } catch (e) {
+        return 0;
+      }
     }
 
-    async function run(){
-      cancelled=false;const b=document.getElementById('startBtn');b.textContent='Cancel Test';b.classList.add('cancel');
-      document.getElementById('resultsGrid').classList.remove('show');document.getElementById('shareBarWrap').style.display='none';
-      document.getElementById('completionText').classList.remove('show');
-      document.getElementById('gaugeStatus').textContent='⚡ Ping...';animNum(0,150);
-      const pRes=await ping();if(cancelled)return;
-      document.getElementById('rPing').textContent=pRes&&pRes.ping?pRes.ping.toFixed(0):'—';
-      document.getElementById('rJitter').textContent=pRes&&pRes.jitter?pRes.jitter.toFixed(1):'—';
-      document.getElementById('gaugeStatus').textContent='⬇ Download...';document.getElementById('gaugeUnit').textContent='Mbps ↓';
-      let down=0;try{down=await dl(m=>animNum(m,100));}catch(e){}if(cancelled)return;
-      animNum(down,250);document.getElementById('rDown').textContent=down?down.toFixed(1):'—';
-      await new Promise(r=>setTimeout(r,400));if(cancelled)return;
-      document.getElementById('gaugeStatus').textContent='⬆ Upload...';document.getElementById('gaugeUnit').textContent='Mbps ↑';
-      animNum(0,200);await new Promise(r=>setTimeout(r,200));
-      let up=null;try{up=await ul(m=>animNum(m,100));}catch(e){}if(cancelled)return;
-      if(up){animNum(up,250);}document.getElementById('rUp').textContent=up?up.toFixed(1):'—';
-      document.getElementById('gaugeStatus').textContent='';document.getElementById('gaugeUnit').textContent='Mbps';
-      document.getElementById('completionText').classList.add('show');
-      document.getElementById('resultsGrid').classList.add('show');document.getElementById('shareBarWrap').style.display='flex';
-      b.classList.remove('cancel');b.textContent='Test Again';
-      fetch('https://speed.cloudflare.com/meta',{cache:'no-store'}).then(r=>r.json()).then(d=>{document.getElementById('serverCity').textContent=(d.city||'Global')+(d.country?', '+d.country:'');}).catch(()=>{document.getElementById('serverCity').textContent='Global Network';});
-      const hist=JSON.parse(localStorage.getItem('cm_speed')||'[]');
-      hist.unshift({down:down?down.toFixed(1):'—',up:up?up.toFixed(1):'—',ping:pRes&&pRes.ping?pRes.ping.toFixed(0):'—',time:new Date().toISOString()});
-      localStorage.setItem('cm_speed',JSON.stringify(hist.slice(0,5)));renderHist();
-      document.getElementById('pvPing').textContent=(pRes&&pRes.ping?pRes.ping.toFixed(0):'—')+' ms';
-      document.getElementById('pvDown').textContent=(down?down.toFixed(1):'—')+' Mbps';
-      document.getElementById('pvUp').textContent=(up?up.toFixed(1):'—')+' Mbps';
+    async function measureUpload() {
+      const payload = new Blob([new Uint8Array(5 * 1024 * 1024)], { type: 'application/octet-stream' }); // 5MB
+      const start = performance.now();
+      try {
+        await fetch(TEST_ENDPOINTS.cloudflareUp, { method: 'POST', body: payload, cache: 'no-store' });
+        const end = performance.now();
+        const durationSec = (end - start) / 1000;
+        const bits = payload.size * 8;
+        return (bits / durationSec) / (1024 * 1024);
+      } catch (e) {
+        return 0;
+      }
     }
 
-    function renderHist(){const h=JSON.parse(localStorage.getItem('cm_speed')||'[]');const w=document.getElementById('historyList');if(!h.length){w.innerHTML='<div style="color:var(--muted);">No tests yet.</div>';return;}w.innerHTML=h.map(x=>`<div class="history-item"><span>${new Date(x.time).toLocaleDateString()}</span><span>↓${x.down} ↑${x.up} ${x.ping}ms</span></div>`).join('');}
+    async function runSpeedTest() {
+      const startBtn = document.getElementById('startBtn');
+      startBtn.disabled = true;
+      startBtn.textContent = '⏳ Testing...';
 
-    async function cap(){const e=document.getElementById('shareCapture');e.style.display='block';const c=await html2canvas(e,{backgroundColor:'#fff',scale:2});e.style.display='none';return c;}
-    async function dlR(t){const c=await cap();if(t==='pdf'){const{jsPDF}=window.jspdf;const i=c.toDataURL('image/jpeg',0.9);const p=new jsPDF({orientation:c.width>c.height?'l':'p',unit:'px',format:[c.width,c.height]});p.addImage(i,'JPEG',0,0,c.width,c.height);p.save('Speed-Test.pdf');}else{const a=document.createElement('a');a.download='Speed-Test.'+t;a.href=c.toDataURL(t==='jpg'?'image/jpeg':'image/png',0.9);a.click();}}
-    async function shWA(){const c=await cap();c.toBlob(async(b)=>{const f=new File([b],'test.png',{type:'image/png'});const cap='ColdMatrix Speed Test\ncontact@coldmatrixtools.com | +92 333 3228470';if(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Speed Test',text:cap});}catch(e){}}else{const a=document.createElement('a');a.download='test.png';a.href=c.toDataURL('image/png');a.click();window.open('https://wa.me/?text='+encodeURIComponent(cap));}});}
-    function shareWhatsApp(){shWA();}
-    function downloadResult(t){dlR(t);}
+      // Ping & Jitter
+      const { ping, jitter } = await measurePing();
+      document.getElementById('pingValue').textContent = ping > 0 ? Math.round(ping) : '—';
+      document.getElementById('jitterValue').textContent = jitter > 0 ? Math.round(jitter) : '—';
 
-    let dp;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;document.getElementById('installBarTool').style.display='block';});
-    function installAppTool(){if(dp){dp.prompt();dp.userChoice.then(()=>{document.getElementById('installBarTool').style.display='none';});}else{alert('Add to Home Screen via browser menu.');}}
-    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
-    function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Internet Speed Test: '+location.href));}
-    function copyToolLink(){navigator.clipboard.writeText(location.href).then(()=>alert('Copied!'));}
+      // Download
+      const download = await measureDownload();
+      document.getElementById('downloadValue').textContent = download > 0 ? download.toFixed(2) : '—';
 
-    window.addEventListener('DOMContentLoaded',()=>{buildGauge();renderHist();document.getElementById('startBtn').addEventListener('click',function(){if(this.classList.contains('cancel')){cancel();}else{run();}});});
+      // Upload
+      const upload = await measureUpload();
+      document.getElementById('uploadValue').textContent = upload > 0 ? upload.toFixed(2) : '—';
+
+      // Show results
+      document.getElementById('resultsGrid').style.display = 'grid';
+      document.getElementById('serverNote').textContent = '✅ Results from Cloudflare global network + local server. Privacy respected.';
+      startBtn.disabled = false;
+      startBtn.textContent = '⚡ Test Again';
+    }
   </script>
 </body>
 </html>
