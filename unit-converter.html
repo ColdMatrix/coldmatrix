@@ -32,10 +32,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); }
+    :root {
+      --bg: #0A0F14; --surface: #12181F; --surface2: #1B232C; --border: #2A3540;
+      --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7; --accent2: #2196F3;
+      --gold: #D4AF37; --gold-bright: #FFD700; --gold-glow: rgba(212,175,55,0.45);
+      --silver-gradient: linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%);
+      --silver-gradient-hover: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
+    }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { 
-      background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.92)), url('unit_converter.jpg') center/cover fixed no-repeat;
+    body {
+      background: #0B0F14;
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 750px; margin:0 auto; padding:0 24px; }
@@ -44,70 +50,106 @@
     .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
-    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
-    .ad-card { border-radius:14px; overflow:hidden; background:linear-gradient(90deg,rgba(10,15,20,0.7),rgba(10,15,20,0.4)),url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
-    .ad-card ul { list-style:none; padding:0; margin:0; }
-    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
-    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
-    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; display:block; }
-    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:10px; font-weight:600; cursor:pointer; }
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:6px; }
-    h1 span { color: var(--accent); }
+    h1 span { color: var(--gold-bright); }
     .subtitle { color:var(--muted); margin-bottom:28px; }
 
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px; margin-bottom:20px; position:relative; overflow:hidden; }
-    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
-    .card h2 { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600; margin-bottom:16px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
+    .share-tool-card {
+      background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+      border:2px solid;
+      border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:12px;
+      padding:22px 20px;
+      margin-bottom:26px;
+      box-shadow:0 10px 34px rgba(0,0,0,0.55);
+    }
+    .share-tool-title { font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .share-tool-btn {
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+      transition:all 0.25s ease;
+    }
+    .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover { border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
+    .share-tool-btn i { font-size:1rem; }
+
+    .card {
+      background: var(--surface); border:1px solid var(--gold); border-radius:14px;
+      padding:24px; margin-bottom:20px; position:relative; overflow:hidden;
+      box-shadow:0 8px 30px rgba(0,0,0,0.5);
+    }
+    .card h2 {
+      font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600;
+      margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px;
+    }
 
     .field { margin-bottom:14px; }
     .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
-    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; }
-    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); }
+    .field input, .field select {
+      width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
+      padding:11px 13px; border-radius:10px; font-size:0.95rem;
+    }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 10px var(--gold-glow); }
+    .field select {
+      appearance:none; -webkit-appearance:none; -moz-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M2 2 L10 10 L18 2' fill='none' stroke='%23D4AF37' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 14px center; background-size:20px 12px;
+      padding-right:44px;
+    }
     .field select option { background:var(--surface2); color:var(--text); }
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; margin-top:8px; letter-spacing:0.5px; }
-    .btn-calc:hover { transform:scale(1.01); }
 
-    .result-box { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:20px; text-align:center; display:none; }
-    .result-value { font-family:'Oswald',sans-serif; font-size:2rem; font-weight:800; color:var(--accent); }
-    .result-label { font-size:0.9rem; color:var(--muted); margin-top:4px; }
+    .btn-calc {
+      width:100%; background: var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer;
+      letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition:all 0.25s ease;
+    }
+    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); box-shadow:0 0 22px var(--gold-glow); }
+    .btn-reset {
+      background: var(--silver-gradient); border:2px solid var(--gold); color:#0A0F14;
+      padding:14px 22px; border-radius:12px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      white-space:nowrap; text-shadow:0 1px 2px rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      transition:all 0.25s ease;
+    }
+    .btn-reset:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+
+    .result-box {
+      background: var(--silver-gradient); border:2px solid var(--gold-bright); border-radius:12px;
+      padding:20px; margin-top:20px; text-align:center; display:none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 0 20px rgba(212,175,55,0.3);
+    }
+    .result-value { font-family:'Oswald',sans-serif; font-size:2rem; font-weight:800; color:#0A0F14; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
+    .result-label { font-size:0.9rem; color:#111; margin-top:4px; font-weight:600; }
 
     .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
-    .share-btn { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px; font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
+    .share-btn {
+      display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px;
+      font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff;
+      transition:all 0.25s ease;
+    }
+    .share-btn:hover { transform:translateY(-2px); }
     .share-whatsapp { background:#25D366; }
     .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
+    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--gold); }
 
     #shareCapture { display:none; }
     .note { font-size:0.75rem; color:var(--muted); margin-top:16px; border-top:1px solid var(--border); padding-top:12px; text-align:center; }
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--accent); text-decoration:none; }
+    footer a { color:var(--gold-bright); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.4rem; }
 
     @media (max-width:600px){ .row2{grid-template-columns:1fr;} }
-      .share-tool-card{
-      background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
-      border: 2px solid;
-      border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
-      border-radius:12px;
-      padding:22px 20px;
-      margin-bottom:26px;
-      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-    .share-tool-title{font-family:'Playfair Display',serif; font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
-    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-    .share-tool-btn{
-      display:flex; align-items:center; justify-content:center; gap:9px;
-      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
-      background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
-      transition:all 0.25s ease; font-family:'Inter',sans-serif;
-    }
-    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
-    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
-    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-    .share-tool-btn i{font-size:1rem;}
-</style>
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -125,25 +167,13 @@
   </nav>
 
   <div class="container">
-  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+  <a href="index.html#tools" class="back-link">← Back to Tools</a>
   
-    <div class="ad-card">
-      <div>
-        <ul>
-          <li>PEB Structures</li>
-          <li>Cold Storage & Freezer Rooms</li>
-          <li>PU/PIR Sandwich Panels</li>
-          <li>Prefab Construction Solutions</li>
-        </ul>
-        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
-      </div>
-      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
-    </div>
-
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1><span>ColdMatrix</span> Unit Converter</h1>
     <p class="subtitle">Convert length, weight, temperature, area, volume, speed, and currency — instantly and accurately.</p>
+
     <div class="share-tool-card">
       <div class="share-tool-title">Share ColdMatrix Unit Converter</div>
       <div class="share-tool-buttons">
@@ -156,7 +186,7 @@
       <h2>Enter Your Conversion</h2>
       <div class="row2">
         <div class="field">
-          <label>From</label>
+          <label>From Unit</label>
           <select id="fromUnit">
             <optgroup label="Length">
               <option value="meter">Meter (m)</option>
@@ -203,7 +233,7 @@
           </select>
         </div>
         <div class="field">
-          <label>To</label>
+          <label>To Unit</label>
           <select id="toUnit">
             <option value="meter">Meter (m)</option>
             <option value="kilometer">Kilometer (km)</option>
@@ -241,7 +271,10 @@
         <label>Value</label>
         <input type="number" id="inputValue" placeholder="e.g. 32" value="1">
       </div>
-      <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="convert()">Convert</button><button onclick="window.location.reload()" style="background:transparent;border:2px solid var(--accent);color:var(--accent);padding:14px 18px;border-radius:12px;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap;">🔄 Reset</button></div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn-calc" style="flex:1" onclick="convert()">Convert</button>
+        <button class="btn-reset" onclick="resetConverter()">🔄 Reset</button>
+      </div>
 
       <div class="result-box" id="resultBox">
         <div class="result-value" id="resultValue">—</div>
@@ -275,15 +308,18 @@
     <div class="note">ℹ️ Instant conversions for length, weight, temperature, area, volume, speed, and currency. All calculations are performed directly in your browser.</div>
   </div>
 
-  <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(0,184,148,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the Unit Converter</h2>
-  <p>Convert between length, weight, area, volume, and temperature units — including CFT, marla, and kanal.</p>
+  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Unit Converter</h2>
+    <p>ColdMatrix Unit Converter is a fast, precise, and easy‑to‑use tool for converting between all common units of measurement — length, weight, temperature, area, volume, speed, and more. Whether you’re working on an engineering project, planning a trip, or just doing homework, this converter gives you instant results in seconds.</p>
+    <p>Simply choose the units you’re converting from and to, enter a value, and the answer appears immediately. The result box updates dynamically and can be shared or downloaded as a PDF, JPG, or PNG. Everything runs locally in your browser, so no data is ever sent or stored.</p>
+    <p><strong>Tip:</strong> Need to convert CFT, marla, or kanal? Use the dedicated <a href="cold-store-calculator.html" style="color:#FFD700;">Cold Store Calculator</a> or <a href="peb-material-calculator.html" style="color:#FFD700;">PEB Material Calculator</a> for construction‑specific units.</p>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script>
+    // All original JavaScript preserved with minor function addition
     const toBase = {
       meter: 1, kilometer: 1000, centimeter: 0.01, millimeter: 0.001,
       inch: 0.0254, foot: 0.3048, yard: 0.9144, mile: 1609.344,
@@ -296,6 +332,14 @@
     let lastResultText = '';
     let lastLabelText = '';
 
+    function resetConverter() {
+      document.getElementById('fromUnit').value = 'foot';
+      document.getElementById('toUnit').value = 'pound';
+      document.getElementById('inputValue').value = '1';
+      document.getElementById('resultBox').style.display = 'none';
+      document.getElementById('shareBarWrap').style.display = 'none';
+    }
+
     function convert() {
       const from = document.getElementById('fromUnit').value;
       const to = document.getElementById('toUnit').value;
@@ -305,7 +349,7 @@
       let result;
       if (from === to) {
         result = val;
-      } else if (from === 'celsius' || to === 'celsius' || from === 'fahrenheit' || to === 'fahrenheit' || from === 'kelvin' || to === 'kelvin') {
+      } else if (['celsius','fahrenheit','kelvin'].includes(from) || ['celsius','fahrenheit','kelvin'].includes(to)) {
         let celsius;
         if (from === 'celsius') celsius = val;
         else if (from === 'fahrenheit') celsius = (val - 32) * 5/9;
@@ -393,7 +437,7 @@
       }
     };
     if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js').catch(() => {}); }
-  
+
     function shareToolWhatsApp(){
       const text = encodeURIComponent('Check out this handy Unit Converter from ColdMatrix Tools! ' + window.location.href);
       window.open('https://wa.me/?text='+text, '_blank');
@@ -403,37 +447,39 @@
         alert(window.location.href);
       });
     }
-</script>
+  </script>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are ColdMatrix tools free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate are ColdMatrix calculators?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ColdMatrix store my data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+        }
       }
-    },
-    {
-      "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-      }
-    }
-  ]
-}
-</script>
+    ]
+  }
+  </script>
+</body>
+</html>

@@ -48,61 +48,33 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
-    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient: linear-gradient(135deg, #4FC3F7, #2196F3); }
+    :root {
+      --bg: #0A0F14; --surface: #12181F; --surface2: #1B232C; --border: #2A3540;
+      --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7;
+      --gold: #D4AF37; --gold-bright: #FFD700; --gold-glow: rgba(212,175,55,0.45);
+      --silver-gradient: linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%);
+      --silver-gradient-hover: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
+    }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { 
-      background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.92)), url('pdf_toolkit.jpg') center/cover fixed no-repeat;
-      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; 
+    body {
+      background: #0A0F14;
+      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 900px; margin:0 auto; padding:0 24px; }
-    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
     .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--accent); }
-    .ad-card { border-radius:14px; overflow:hidden; background: linear-gradient(90deg, rgba(10,15,20,0.7) 0%, rgba(10,15,20,0.4) 100%), url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
-    .ad-card ul { list-style:none; padding:0; margin:0; }
-    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
-    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
-    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
+
     .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; display:block; }
     .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
     .subtitle { color:var(--muted); margin-bottom:24px; }
-    .tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
-    .tab-btn { background:var(--surface2); border:1px solid var(--border); color:var(--muted); padding:10px 16px; border-radius:50px; font-weight:600; font-size:0.85rem; cursor:pointer; }
-    .tab-btn.active { background:var(--gradient); color:#0A0F14; border-color:transparent; }
-    .tab-content { display:none; }
-    .tab-content.active { display:block; }
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:20px; }
-    .card h2 { font-size:1rem; font-weight:600; margin-bottom:14px; color:var(--accent); }
-    .subtabs { display:flex; gap:8px; margin-bottom:16px; }
-    .subtab-btn { flex:1; background:var(--surface2); border:1px solid var(--border); color:var(--muted); padding:10px; border-radius:8px; font-weight:600; font-size:0.85rem; cursor:pointer; }
-    .subtab-btn.active { border-color:var(--accent); color:var(--accent); }
-    .drop-zone { border:2px dashed var(--border); border-radius:12px; padding:30px; text-align:center; color:var(--muted); cursor:pointer; margin-bottom:14px; }
-    .drop-zone:hover { border-color:var(--accent); color:var(--accent); }
-    .drop-zone input { display:none; }
-    .file-list { margin-bottom:14px; }
-    .file-item { display:flex; justify-content:space-between; align-items:center; background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:10px 14px; margin-bottom:8px; font-size:0.85rem; }
-    .file-item button { background:none; border:none; color:#F44336; cursor:pointer; font-size:1rem; }
-    label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; }
-    input[type="text"], input[type="number"], select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:12px; border-radius:10px; font-size:0.95rem; margin-bottom:14px; }
-    input[type="range"] { width:100%; margin-bottom:14px; }
-    .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; }
-    .btn-calc:disabled { opacity:0.5; cursor:not-allowed; }
-    .status-box { margin-top:14px; padding:14px; border-radius:10px; background:var(--surface2); font-size:0.85rem; display:none; }
-    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:14px; }
-    .share-btn { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px; font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
-    .share-whatsapp { background:#25D366; }
-    .share-download { background:var(--gradient); color:#0A0F14; }
-    .note { font-size:0.78rem; color:var(--muted); margin-top:12px; border-top:1px solid var(--border); padding-top:12px; }
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--accent); text-decoration:none; }
-    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
-    .spinner { display:inline-block; width:16px; height:16px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite; vertical-align:middle; margin-right:8px; }
-    @keyframes spin { to{ transform:rotate(360deg); } }
-      .share-tool-card{
+
+    .share-tool-card{
       background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
       border: 2px solid;
       border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
@@ -111,7 +83,7 @@
       margin-bottom:26px;
       box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
     }
-    .share-tool-title{font-family:'Playfair Display',serif; font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
+    .share-tool-title{font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
     .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
     .share-tool-btn{
       display:flex; align-items:center; justify-content:center; gap:9px;
@@ -123,7 +95,69 @@
     .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
     .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
     .share-tool-btn i{font-size:1rem;}
-</style>
+
+    .tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+    .tab-btn {
+      background: var(--surface2); border:2px solid var(--gold); color: var(--muted);
+      padding:10px 16px; border-radius:8px; font-weight:600; font-size:0.85rem; cursor:pointer;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .tab-btn.active { background: linear-gradient(180deg,#FFD700,#FFA500); color:#0A0F14; border-color:#FFA500; }
+
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+
+    .card {
+      background: var(--surface); border:1px solid var(--gold); border-radius:12px;
+      padding:24px; margin-bottom:20px; box-shadow:0 8px 30px rgba(0,0,0,0.5);
+    }
+    .card h2 { font-size:1rem; font-weight:600; margin-bottom:14px; color:var(--gold); }
+
+    .subtabs { display:flex; gap:8px; margin-bottom:16px; }
+    .subtab-btn { flex:1; background:var(--surface2); border:2px solid var(--gold); color:var(--muted); padding:10px; border-radius:8px; font-weight:600; font-size:0.85rem; cursor:pointer; }
+    .subtab-btn.active { border-color:var(--accent); color:var(--accent); }
+
+    .drop-zone { border:2px dashed var(--gold); border-radius:12px; padding:30px; text-align:center; color:var(--muted); cursor:pointer; margin-bottom:14px; background: rgba(20,28,38,0.6); }
+    .drop-zone:hover { border-color:var(--gold-bright); color:var(--accent); }
+    .drop-zone input { display:none; }
+
+    .file-list { margin-bottom:14px; }
+    .file-item { display:flex; justify-content:space-between; align-items:center; background:var(--surface2); border:1px solid var(--gold); border-radius:8px; padding:10px 14px; margin-bottom:8px; font-size:0.85rem; }
+    .file-item button { background:none; border:none; color:var(--gold); cursor:pointer; font-size:1rem; font-weight:700; }
+
+    label { display:block; font-size:0.85rem; color:var(--muted); margin-bottom:6px; }
+    input[type="text"], input[type="number"], select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:12px; border-radius:10px; font-size:0.95rem; margin-bottom:14px; }
+    input[type="text"]:focus, input[type="number"]:focus, select:focus { border-color:var(--gold-bright); box-shadow:0 0 12px var(--gold-glow); outline:none; }
+    input[type="range"] { width:100%; margin-bottom:14px; }
+
+    .btn-calc {
+      width:100%; background: var(--silver-gradient); color:#ffffff; border:2px solid var(--gold);
+      padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer;
+      text-shadow:0 1px 2px rgba(0,0,0,0.6);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition:all 0.25s ease;
+    }
+    .btn-calc:hover { background: var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
+    .btn-calc:disabled { opacity:0.5; cursor:not-allowed; }
+
+    .status-box { margin-top:14px; padding:14px; border-radius:10px; background:var(--surface2); font-size:0.85rem; display:none; border:1px solid var(--gold); }
+
+    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:14px; }
+    .share-btn { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px; font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
+    .share-whatsapp { background:#25D366; }
+    .share-download { background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold); text-shadow:none; box-shadow:0 0 10px var(--gold-glow); }
+
+    .note { font-size:0.78rem; color:var(--muted); margin-top:12px; border-top:1px solid var(--border); padding-top:12px; }
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--accent); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+    .spinner { display:inline-block; width:16px; height:16px; border:2px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite; vertical-align:middle; margin-right:8px; }
+    @keyframes spin { to{ transform:rotate(360deg); } }
+    @media (max-width:600px) {
+      .grid-2 { grid-template-columns:1fr; }
+      .tabs .tab-btn { font-size:0.75rem; padding:8px 10px; }
+    }
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -141,25 +175,13 @@
   </nav>
 
   <div class="container">
-  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
   
-    <div class="ad-card">
-      <div>
-        <ul>
-          <li>PEB Structures</li>
-          <li>Cold Storage & Freezer Rooms</li>
-          <li>PU/PIR Sandwich Panels</li>
-          <li>Prefab Construction Solutions</li>
-        </ul>
-        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
-      </div>
-      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
-    </div>
-
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1>📄 ColdMatrix PDF Toolkit</h1>
     <p class="subtitle">Merge, split, compress, and convert PDFs — everything happens right in your browser, your files are never uploaded to any server.</p>
+
     <div class="share-tool-card">
       <div class="share-tool-title">Share ColdMatrix PDF Toolkit</div>
       <div class="share-tool-buttons">
@@ -175,7 +197,7 @@
       <button class="tab-btn" data-tab="image" onclick="switchTab('image')">🖼️ JPG ⇄ PDF</button>
       <button class="tab-btn" data-tab="word" onclick="switchTab('word')">📝 PDF ⇄ Word</button>
     </div>
-    <div style="text-align:right;margin:8px 0;"><button onclick="window.location.reload()" style="background:transparent;border:1.5px solid var(--accent,#4FC3F7);color:var(--accent,#4FC3F7);padding:8px 16px;border-radius:50px;font-weight:700;font-size:0.8rem;cursor:pointer;">🔄 Reset All / Clear Files</button></div>
+    <div style="text-align:right;margin:8px 0;"><button onclick="window.location.reload()" style="background:transparent;border:1.5px solid var(--gold);color:var(--gold);padding:8px 16px;border-radius:50px;font-weight:700;font-size:0.8rem;cursor:pointer;">🔄 Reset All / Clear Files</button></div>
 
     <!-- MERGE -->
     <div class="tab-content active" id="tab-merge">
@@ -319,15 +341,17 @@
 
   </div>
 
-  <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(0,184,148,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the PDF Toolkit</h2>
-  <p>Merge, split, compress, and convert PDF files directly in your browser — no upload needed.</p>
+  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+  <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the PDF Toolkit</h2>
+  <p>ColdMatrix PDF Toolkit gives you everything you need to manage PDF files directly in your browser — no uploads, no sign‑ups, and no privacy worries. Merge multiple PDFs into one, split large documents into separate pages, reduce file size for easy sharing, and convert between PDF, images, and Word formats with just a few taps.</p>
+  <p>Whether you're preparing client proposals, scanning documents, or compressing reports for email, this toolkit is fast, private, and works entirely on your device. Your files never leave your computer or phone, making it safe for sensitive business and personal documents.</p>
   </div>
 
-  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+  <footer>Powered by <a href="index.html" style="color:var(--gold);">ColdMatrix</a> — Free tools for everyone.</footer>
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script>
+    // (Keep all original PDF toolkit JavaScript unchanged)
     if (window['pdfjsLib']) {
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
     }
@@ -362,12 +386,9 @@
     }
     function setStatus(id, html){ const el=document.getElementById(id); el.style.display='block'; el.innerHTML=html; }
 
-    // ---------- MERGE ----------
+    // MERGE
     let mergeFiles = [], mergeResultBlob = null;
-    function handleMergeFiles(fileList){
-      mergeFiles = mergeFiles.concat(Array.from(fileList));
-      renderMergeList();
-    }
+    function handleMergeFiles(fileList){ mergeFiles = mergeFiles.concat(Array.from(fileList)); renderMergeList(); }
     function renderMergeList(){
       const list = document.getElementById('mergeFileList');
       list.innerHTML = mergeFiles.map((f,i)=>`<div class="file-item"><span>${i+1}. ${f.name}</span><button onclick="removeMergeFile(${i})">✕</button></div>`).join('');
@@ -391,11 +412,10 @@
       }catch(e){ setStatus('mergeStatus', '❌ Could not merge these PDFs. Make sure they are valid, non-password-protected PDF files.'); }
     }
 
-    // ---------- SPLIT ----------
+    // SPLIT
     let splitFile = null, splitDoc = null, splitResultBlob = null, splitResultName = 'ColdMatrix-Split.pdf';
     async function handleSplitFile(fileList){
-      splitFile = fileList[0];
-      if(!splitFile) return;
+      splitFile = fileList[0]; if(!splitFile) return;
       try{
         const bytes = await splitFile.arrayBuffer();
         splitDoc = await PDFDocument.load(bytes);
@@ -450,7 +470,7 @@
       }catch(e){ setStatus('splitStatus', '❌ Something went wrong splitting this PDF.'); }
     }
 
-    // ---------- COMPRESS ----------
+    // COMPRESS
     let compressFile = null, compressResultBlob = null;
     function handleCompressFile(fileList){
       compressFile = fileList[0];
@@ -489,12 +509,9 @@
       }catch(e){ setStatus('compressStatus', '❌ Could not compress this PDF.'); }
     }
 
-    // ---------- IMAGES -> PDF ----------
+    // IMAGES -> PDF
     let imgFiles = [], imgToPdfResultBlob = null;
-    function handleImgFiles(fileList){
-      imgFiles = imgFiles.concat(Array.from(fileList));
-      renderImgList();
-    }
+    function handleImgFiles(fileList){ imgFiles = imgFiles.concat(Array.from(fileList)); renderImgList(); }
     function renderImgList(){
       const list = document.getElementById('imgFileList');
       list.innerHTML = imgFiles.map((f,i)=>`<div class="file-item"><span>${i+1}. ${f.name}</span><button onclick="removeImgFile(${i})">✕</button></div>`).join('');
@@ -518,12 +535,9 @@
       }catch(e){ setStatus('imgToPdfStatus', '❌ Could not convert these images.'); }
     }
 
-    // ---------- PDF -> IMAGES ----------
+    // PDF -> IMAGES
     let pdfToImgFile = null, pdfToImgResultBlob = null, pdfToImgResultName = '';
-    function handlePdfToImgFile(fileList){
-      pdfToImgFile = fileList[0];
-      document.getElementById('pdfToImgBtn').disabled = !pdfToImgFile;
-    }
+    function handlePdfToImgFile(fileList){ pdfToImgFile = fileList[0]; document.getElementById('pdfToImgBtn').disabled = !pdfToImgFile; }
     async function pdfToImages(){
       setStatus('pdfToImgStatus', '<span class="spinner"></span>Rendering pages…');
       try{
@@ -562,12 +576,9 @@
       }catch(e){ setStatus('pdfToImgStatus', '❌ Could not convert this PDF.'); }
     }
 
-    // ---------- PDF -> WORD ----------
+    // PDF -> WORD
     let pdfToWordFile = null, pdfToWordResultBlob = null;
-    function handlePdfToWordFile(fileList){
-      pdfToWordFile = fileList[0];
-      document.getElementById('pdfToWordBtn').disabled = !pdfToWordFile;
-    }
+    function handlePdfToWordFile(fileList){ pdfToWordFile = fileList[0]; document.getElementById('pdfToWordBtn').disabled = !pdfToWordFile; }
     async function pdfToWord(){
       setStatus('pdfToWordStatus', '<span class="spinner"></span>Extracting text…');
       try{
@@ -598,12 +609,9 @@
       }catch(e){ setStatus('pdfToWordStatus', '❌ Could not extract text from this PDF.'); }
     }
 
-    // ---------- WORD -> PDF ----------
+    // WORD -> PDF
     let wordToPdfFile = null, wordToPdfResultBlob = null;
-    function handleWordToPdfFile(fileList){
-      wordToPdfFile = fileList[0];
-      document.getElementById('wordToPdfBtn').disabled = !wordToPdfFile;
-    }
+    function handleWordToPdfFile(fileList){ wordToPdfFile = fileList[0]; document.getElementById('wordToPdfBtn').disabled = !wordToPdfFile; }
     async function wordToPdf(){
       setStatus('wordToPdfStatus', '<span class="spinner"></span>Converting…');
       try{
@@ -657,36 +665,38 @@
         alert(window.location.href);
       });
     }
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are ColdMatrix tools free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate are ColdMatrix calculators?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ColdMatrix store my data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+        }
       }
-    },
-    {
-      "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-      }
-    }
-  ]
-}
-</script>
+    ]
+  }
+  </script>
+</body>
+</html>

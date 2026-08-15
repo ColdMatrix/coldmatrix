@@ -46,21 +46,18 @@
       --grey-light:#d0d2d6;
       --grey-mid:#9ea0a5;
       --grey-dark:#545860;
-      --grey-gradient: linear-gradient(180deg, #d0d2d6, #9ea0a5);
+      --silver-gradient: linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%);
+      --silver-gradient-hover: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
       --whatsapp-green:#25D366;
       --download-blue:#2196F3;
-      --label-color:#1a1a1a;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { 
+    body {
       background: #111418;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" fill="none"/><path d="M0 0 L20 0 L20 20 L0 20 Z" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/></svg>');
-      background-size: 40px 40px;
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 800px; margin:0 auto; padding:30px 20px; }
 
-    /* ── Navbar ── */
     .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image: var(--gold-border) 1; }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; }
     .logo { font-size:1.35rem; font-weight:800; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
@@ -68,24 +65,13 @@
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.92rem; transition:color 0.2s; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
 
-    /* ── Ad Card ── */
-    .ad-card { border-radius:14px; overflow:hidden; background:linear-gradient(90deg,rgba(10,15,20,0.85),rgba(10,15,20,0.5)),url('ad-bg.jpg') center/cover no-repeat; border:2px solid; border-image: var(--gold-border) 1; padding:18px 22px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; box-shadow: 0 4px 20px rgba(212,168,67,0.08); }
-    .ad-card ul { list-style:none; padding:0; margin:0; }
-    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
-    .ad-card li::before { content:"✦"; color:var(--gold-bright); font-weight:700; margin-right:6px; }
-    .whatsapp-btn { background:var(--whatsapp-green); color:white; border-radius:50px; padding:11px 24px; text-decoration:none; font-weight:700; white-space:nowrap; box-shadow: 0 4px 15px rgba(37,211,102,0.3); transition:all 0.25s; }
-    .whatsapp-btn:hover { transform:translateY(-2px); }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:20px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
 
-    /* ── Install Bar ── */
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:13px; border-radius:10px; margin:20px 0; font-weight:700; display:block; }
-    .install-bar button { background:#0A0F14; color:var(--accent); border:none; padding:7px 20px; border-radius:6px; margin-left:12px; font-weight:700; cursor:pointer; }
-
-    /* ── Headings ── */
     h1 { font-family:'Oswald',sans-serif; font-size:2rem; font-weight:700; margin-bottom:6px; letter-spacing:-0.3px; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,0.6); }
     h1 span { color: var(--accent); }
     .subtitle { color:#ccc; font-size:1rem; font-weight:500; margin-bottom:24px; text-shadow:0 1px 4px rgba(0,0,0,0.6); }
 
-    /* ── Share Tool Card — COMPACT ── */
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
       border:2px solid;
@@ -95,7 +81,7 @@
       margin-bottom:22px;
       box-shadow:0 10px 34px rgba(0,0,0,0.55);
     }
-    .share-tool-title { font-family:'Inter',sans-serif; font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:12px; text-transform:uppercase; }
+    .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:12px; text-transform:uppercase; }
     .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     .share-tool-btn {
       display:flex; align-items:center; justify-content:center; gap:8px;
@@ -108,7 +94,6 @@
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
     .share-tool-btn i { font-size:0.95rem; }
 
-    /* ── Cards — Golden Border ── */
     .card {
       background:var(--surface);
       border:2px solid;
@@ -120,14 +105,6 @@
       overflow:hidden;
       box-shadow: 0 6px 28px rgba(0,0,0,0.45);
     }
-    .card::before {
-      content:'';
-      position:absolute;
-      top:0; left:0; right:0;
-      height:1px;
-      background: linear-gradient(90deg, transparent, rgba(232,201,106,0.5), transparent);
-      pointer-events:none;
-    }
     .card h2 {
       font-family:'Oswald',sans-serif;
       font-size:1rem;
@@ -138,13 +115,12 @@
       letter-spacing:0.6px;
     }
 
-    /* ── Mode Tabs — Medium Grey Gradient with Golden Border ── */
     .mode-tabs { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
     .mode-tab {
       flex:1; min-width:130px;
       padding:15px 12px;
       border:2px solid var(--gold);
-      background: var(--grey-gradient);
+      background: var(--silver-gradient);
       color:#111;
       border-radius:14px;
       font-weight:700;
@@ -152,7 +128,7 @@
       cursor:pointer;
       text-align:center;
       transition:all 0.25s;
-      box-shadow:0 3px 6px rgba(0,0,0,0.3);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 3px 6px rgba(0,0,0,0.3);
       display:flex;
       flex-direction:column;
       align-items:center;
@@ -160,7 +136,6 @@
     }
     .mode-tab i { font-size:1.1rem; }
     .mode-tab small { font-size:0.62rem; opacity:0.8; font-weight:500; color:#333; }
-    /* Selected tab = completely blue filled */
     .mode-tab.active {
       background: linear-gradient(180deg, #4FC3F7, #2196F3);
       color:#fff;
@@ -170,17 +145,16 @@
     }
     .mode-tab.active small { color:rgba(255,255,255,0.85); }
     .mode-tab:hover:not(.active) {
-      background: linear-gradient(180deg, #e0e2e6, #b0b2b6);
+      background: var(--silver-gradient-hover);
       border-color:var(--gold-bright);
     }
 
-    /* ── Fields ── */
     .field { margin-bottom:16px; }
     .field label { display:block; font-size:0.85rem; color:var(--gold-bright); font-weight:700; margin-bottom:6px; }
     .field input {
       width:100%;
       background:#f5f5f5;
-      border:2px solid #c0c3c8;
+      border:2px solid var(--gold);
       color:#1a1a1a;
       padding:14px 16px;
       border-radius:8px;
@@ -189,13 +163,12 @@
       outline:none;
       transition:all 0.25s;
     }
-    .field input:focus { border-color:#2196F3; box-shadow: 0 0 10px rgba(33,150,243,0.4); }
+    .field input:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.4); }
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
 
-    /* ── Calculate Button — Medium Grey Gradient ── */
     .btn-calc {
       width:100%;
-      background: var(--grey-gradient);
+      background: var(--silver-gradient);
       color:#0A0F14;
       border:2px solid var(--gold);
       padding:18px;
@@ -207,31 +180,48 @@
       margin-top:10px;
       letter-spacing:1px;
       text-transform:uppercase;
-      box-shadow:0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
       transition:all 0.25s;
     }
-    .btn-calc:hover { 
-      background: linear-gradient(180deg, #e0e2e6, #b0b2b6);
+    .btn-calc:hover {
+      background: var(--silver-gradient-hover);
       border-color:var(--gold-bright);
-      transform:translateY(-2px); 
+      transform:translateY(-2px);
       box-shadow:0 8px 22px rgba(212,175,55,0.4);
     }
 
-    /* ── Result Box ── */
+    .btn-reset {
+      background: var(--silver-gradient);
+      border:2px solid var(--gold);
+      color:#0A0F14;
+      padding:14px 22px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+      text-shadow:0 1px 2px rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      transition: all 0.25s ease;
+      white-space:nowrap;
+    }
+    .btn-reset:hover {
+      background: var(--silver-gradient-hover);
+      border-color:var(--gold-bright);
+      transform:translateY(-2px);
+    }
+
     .result-box {
-      background:var(--surface2);
-      border:2px solid;
-      border-image: var(--gold-border) 1;
+      background: var(--silver-gradient);
+      border:2px solid var(--gold-bright);
       border-radius:12px;
       padding:22px;
       margin-top:22px;
       text-align:center;
       display:none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 0 20px rgba(212,175,55,0.3);
     }
-    .result-value { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:700; color:var(--gold-bright); }
-    .result-label { font-size:0.9rem; color:var(--muted); margin-top:6px; }
+    .result-value { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:700; color:#0A0F14; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
+    .result-label { font-size:0.9rem; color:#111; margin-top:6px; font-weight:600; }
 
-    /* ── Share Bar ── */
     .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
     .share-btn {
       display:flex; align-items:center; gap:7px;
@@ -243,24 +233,20 @@
     .share-whatsapp { background:var(--whatsapp-green); }
     .share-pdf { background:#E53935; }
     .share-jpg, .share-png { background:var(--grey-dark); color:#fff; border:1.5px solid #888; }
-    .share-jpg:hover, .share-png:hover { background:#666; }
     .share-btn:hover { transform:translateY(-2px); }
 
     #shareCapture { display:none; }
 
-    /* ── Note / Branding ── */
     .note { font-size:0.75rem; color:var(--muted); margin-top:18px; border-top:1px solid rgba(212,168,67,0.2); padding-top:14px; text-align:center; }
 
-    /* ── Footer ── */
     footer { text-align:center; color:#ccc; font-size:0.8rem; padding:30px 0 20px; border-top:2px solid; border-image: var(--gold-border) 1; margin-top:40px; }
     footer a { color:var(--accent); text-decoration:none; font-weight:600; }
 
-    /* ── WhatsApp Float ── */
     .whatsapp-float { position:fixed; bottom:22px; right:22px; z-index:999; width:52px; height:52px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(37,211,102,0.45); text-decoration:none; color:#fff; font-size:1.5rem; border:2px solid rgba(255,255,255,0.15); transition:all 0.25s; }
     .whatsapp-float:hover { transform:scale(1.08); }
 
-    @media (max-width:600px){ 
-      .row2{grid-template-columns:1fr;} 
+    @media (max-width:600px){
+      .row2{grid-template-columns:1fr;}
       .mode-tabs{flex-direction:column;}
       .mode-tab{min-width:auto; flex-direction:row; gap:8px;}
       h1{font-size:1.5rem;}
@@ -283,21 +269,8 @@
   </nav>
 
   <div class="container">
-  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
   
-    <div class="ad-card">
-      <div>
-        <ul>
-          <li>PEB Structures</li>
-          <li>Cold Storage & Freezer Rooms</li>
-          <li>PU/PIR Sandwich Panels</li>
-          <li>Prefab Construction Solutions</li>
-        </ul>
-        <div style="font-size:0.8rem; color:#c8d0d8; margin-top:4px;">✦ Karachi, Lahore, Islamabad & all Pakistan</div>
-      </div>
-      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
-    </div>
-
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1><span>ColdMatrix</span> Percentage Calculator</h1>
@@ -324,7 +297,10 @@
           <div class="field"><label>Percentage (%)</label><input type="number" id="fpPercent" value="15" step="any"></div>
           <div class="field"><label>of Total Amount</label><input type="number" id="fpTotal" value="400000" step="any"></div>
         </div>
-        <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="calculate('findPercent')">⚡ Calculate Now</button><button onclick="document.getElementById('fpPercent').value=15;document.getElementById('fpTotal').value=400000;document.getElementById('resultBox').style.display='none';const sb=document.getElementById('shareBarWrap');if(sb)sb.style.display='none';" style="background:transparent;border:2px solid var(--accent,#4FC3F7);color:var(--accent,#4FC3F7);padding:14px 18px;border-radius:10px;font-weight:700;cursor:pointer;">🔄 Reset</button></div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn-calc" style="flex:1" onclick="calculate('findPercent')">⚡ Calculate Now</button>
+          <button class="btn-reset" onclick="resetFindPercent()">🔄 Reset</button>
+        </div>
       </div>
 
       <div id="mode-reverse" class="mode-content" style="display:none;">
@@ -332,7 +308,10 @@
           <div class="field"><label>Part Amount</label><input type="number" id="rvPart" value="150000" step="any"></div>
           <div class="field"><label>Total Amount</label><input type="number" id="rvTotal" value="700000" step="any"></div>
         </div>
-        <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="calculate('reverse')">⚡ Calculate Now</button><button onclick="document.getElementById('rvPart').value=150000;document.getElementById('rvTotal').value=700000;document.getElementById('resultBox').style.display='none';const sb=document.getElementById('shareBarWrap');if(sb)sb.style.display='none';" style="background:transparent;border:2px solid var(--accent,#4FC3F7);color:var(--accent,#4FC3F7);padding:14px 18px;border-radius:10px;font-weight:700;cursor:pointer;">🔄 Reset</button></div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn-calc" style="flex:1" onclick="calculate('reverse')">⚡ Calculate Now</button>
+          <button class="btn-reset" onclick="resetReverse()">🔄 Reset</button>
+        </div>
       </div>
 
       <div id="mode-change" class="mode-content" style="display:none;">
@@ -340,7 +319,10 @@
           <div class="field"><label>Old Value</label><input type="number" id="chOld" value="500" step="any"></div>
           <div class="field"><label>New Value</label><input type="number" id="chNew" value="650" step="any"></div>
         </div>
-        <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="calculate('change')">⚡ Calculate Now</button><button onclick="document.getElementById('chOld').value=500;document.getElementById('chNew').value=650;document.getElementById('resultBox').style.display='none';const sb=document.getElementById('shareBarWrap');if(sb)sb.style.display='none';" style="background:transparent;border:2px solid var(--accent,#4FC3F7);color:var(--accent,#4FC3F7);padding:14px 18px;border-radius:10px;font-weight:700;cursor:pointer;">🔄 Reset</button></div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn-calc" style="flex:1" onclick="calculate('change')">⚡ Calculate Now</button>
+          <button class="btn-reset" onclick="resetChange()">🔄 Reset</button>
+        </div>
       </div>
 
       <div class="result-box" id="resultBox">
@@ -375,18 +357,15 @@
     <div class="note">ℹ️ Accurate percentage calculations for business, education, and daily use. Results are instant and reliable.</div>
   </div>
 
+  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Percentage Calculator</h2>
+    <p>ColdMatrix Percentage Calculator solves everyday percentage problems instantly — no mental math required. Use it to find what a certain percentage of a number is, what percentage one amount is of another, and the percentage increase or decrease between two values. It’s perfect for discounts, taxes, business margins, school work, and quick daily calculations.</p>
+    <p>With three dedicated modes and large, clear inputs, you get accurate results in seconds. The tool also lets you share or download your result as PDF, JPG, or PNG, and everything runs privately in your browser.</p>
+    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
+    <p><strong>What is 20% of 1,500?</strong> → <strong>300</strong></p>
+    <p><strong>A 15% discount on PKR 3,000?</strong> → you save <strong>PKR 450</strong></p>
+  </div>
 
-<div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(0,184,148,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the Percentage Calculator</h2>
-  <p>Quickly solve common percentage problems — no mental math required. Whether you're working out a discount, calculating a tip, or checking a tax amount, this tool gives you instant answers.</p>
-  <p><strong>Examples:</strong></p>
-  <ul style="padding-left:20px;">
-    <li>💰 What is <strong>20% of 1,500</strong>? → <strong>300</strong></li>
-    <li>🏷️ A <strong>15% discount</strong> on a PKR 3,000 item → you save <strong>PKR 450</strong></li>
-    <li>📊 What percentage is <strong>45 out of 200</strong>? → <strong>22.5%</strong></li>
-  </ul>
-  <p>Use the tool above to calculate percentages, percentage increase/decrease, and find the original value before a percentage change.</p>
-</div>
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
@@ -406,6 +385,25 @@
       document.getElementById('resultBox').style.display = 'none';
       document.getElementById('shareBarWrap').style.display = 'none';
     });
+
+    function resetFindPercent() {
+      document.getElementById('fpPercent').value = 15;
+      document.getElementById('fpTotal').value = 400000;
+      document.getElementById('resultBox').style.display = 'none';
+      document.getElementById('shareBarWrap').style.display = 'none';
+    }
+    function resetReverse() {
+      document.getElementById('rvPart').value = 150000;
+      document.getElementById('rvTotal').value = 700000;
+      document.getElementById('resultBox').style.display = 'none';
+      document.getElementById('shareBarWrap').style.display = 'none';
+    }
+    function resetChange() {
+      document.getElementById('chOld').value = 500;
+      document.getElementById('chNew').value = 650;
+      document.getElementById('resultBox').style.display = 'none';
+      document.getElementById('shareBarWrap').style.display = 'none';
+    }
 
     function calculate(mode) {
       let value, label;
@@ -509,7 +507,7 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js').catch(() => {});
     }
-  
+
     function shareToolWhatsApp(){
       const text = encodeURIComponent('Check out this handy Percentage Calculator from ColdMatrix Tools! ' + window.location.href);
       window.open('https://wa.me/?text='+text, '_blank');
@@ -521,37 +519,36 @@
     }
   </script>
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are ColdMatrix tools free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate are ColdMatrix calculators?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ColdMatrix store my data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+        }
       }
-    },
-    {
-      "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-      }
-    }
-  ]
-}
-</script>
-
+    ]
+  }
+  </script>
 </body>
 </html>

@@ -135,17 +135,6 @@
     .tool-card.featured { border-color:var(--fun); }
     .tool-card.featured::before { background:var(--fun); }
 
-    /* Favorites / Quick-Access */
-    .favorites-section { background: rgba(14,14,14,0.6); border: 2px solid #D4AF37; border-radius: 20px; padding: 24px; margin-bottom: 30px; }
-    .favorites-section .section-label { color: #FFD700; }
-    .favorites-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
-    .fav-card { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); border: 1px solid #D4AF37; border-radius: 12px; padding: 10px 14px; color: #EAEDF0; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; }
-    .fav-card:hover { background: rgba(212,175,55,0.1); border-color: #FFD700; transform: translateY(-2px); }
-    .fav-card span:first-child { font-size: 1.2rem; }
-    .fav-remove { background: transparent; border: none; color: #F44336; font-size: 1rem; cursor: pointer; margin-left: 6px; }
-    .pin-btn { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.5); border: 1px solid #D4AF37; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; font-size: 0.9rem; transition: all 0.2s; }
-    .pin-btn.active { background: #D4AF37; color: #000; }
-
     /* Business Studio Premium Card */
     .matrix-premium-solid{position:relative;border-radius:20px;overflow:hidden;background:#0a0a0a;isolation:isolate;min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;transition:transform .3s,box-shadow .3s;border:3px solid #FFD700;box-shadow:0 0 0 1px rgba(212,175,55,0.5),0 0 22px rgba(255,215,0,0.38),0 12px 30px rgba(0,0,0,0.6)}
     .matrix-premium-solid::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.2) 40%,rgba(0,0,0,0.92) 85%);z-index:0}
@@ -260,16 +249,6 @@
       <div id="searchResultCount" style="text-align:center;font-size:0.8rem;color:var(--muted,#8B98A5);margin-top:8px;display:none;"></div>
     </div>
   </div>
-
-  <!-- FAVORITES SECTION -->
-  <section id="favoritesSection" class="favorites-section" style="display:none;">
-    <div class="container">
-      <div class="section-label" style="color:#FFD700;">⭐ Your Favorites</div>
-      <h2 class="section-title">Quick Access</h2>
-      <p class="section-desc">Tools you've pinned for fast access on every visit.</p>
-      <div class="favorites-grid" id="favoritesGrid"></div>
-    </div>
-  </section>
 
   <section class="section cat-biz" id="tools">
     <div class="container">
@@ -459,93 +438,6 @@
       }
     }
 
-    // ===== FAVORITES / QUICK-ACCESS =====
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('.tool-card').forEach(card => {
-        const pinBtn = document.createElement('button');
-        pinBtn.className = 'pin-btn';
-        pinBtn.innerHTML = '★';
-        pinBtn.setAttribute('aria-label', 'Pin tool');
-        pinBtn.dataset.href = card.getAttribute('href');
-        pinBtn.dataset.title = card.querySelector('h3')?.textContent || card.getAttribute('href');
-        card.appendChild(pinBtn);
-        card.style.position = 'relative';
-      });
-
-      document.querySelector('.tools-grid').addEventListener('click', function(e) {
-        if (e.target.classList.contains('pin-btn')) {
-          e.preventDefault();
-          e.stopPropagation();
-          const btn = e.target;
-          toggleFavorite(btn.dataset.href, btn.dataset.title, btn);
-        }
-      });
-
-      document.getElementById('favoritesGrid').addEventListener('click', function(e) {
-        if (e.target.classList.contains('fav-remove')) {
-          e.preventDefault();
-          const href = e.target.dataset.href;
-          removeFavorite(href);
-        }
-      });
-
-      renderFavorites();
-    });
-
-    function getFavorites() {
-      return JSON.parse(localStorage.getItem('coldmatrix_favorites') || '[]');
-    }
-    function saveFavorites(favs) {
-      localStorage.setItem('coldmatrix_favorites', JSON.stringify(favs));
-    }
-    function toggleFavorite(href, title, btn) {
-      let favs = getFavorites();
-      const index = favs.findIndex(f => f.href === href);
-      if (index === -1) {
-        favs.push({href, title});
-        btn.classList.add('active');
-      } else {
-        favs.splice(index, 1);
-        btn.classList.remove('active');
-      }
-      saveFavorites(favs);
-      renderFavorites();
-    }
-    function removeFavorite(href) {
-      let favs = getFavorites().filter(f => f.href !== href);
-      saveFavorites(favs);
-      renderFavorites();
-      document.querySelectorAll('.pin-btn').forEach(btn => {
-        if (btn.dataset.href === href) btn.classList.remove('active');
-      });
-    }
-    function renderFavorites() {
-      const section = document.getElementById('favoritesSection');
-      const grid = document.getElementById('favoritesGrid');
-      const favs = getFavorites();
-      if (favs.length === 0) {
-        section.style.display = 'none';
-        return;
-      }
-      section.style.display = 'block';
-      grid.innerHTML = '';
-      favs.forEach(fav => {
-        const a = document.createElement('a');
-        a.className = 'fav-card';
-        a.href = fav.href;
-        a.innerHTML = `<span>⭐</span><span>${fav.title}</span>`;
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'fav-remove';
-        removeBtn.innerHTML = '✕';
-        removeBtn.dataset.href = fav.href;
-        removeBtn.setAttribute('aria-label', 'Remove favorite');
-        a.appendChild(removeBtn);
-        grid.appendChild(a);
-      });
-      document.querySelectorAll('.pin-btn').forEach(btn => {
-        btn.classList.toggle('active', favs.some(f => f.href === btn.dataset.href));
-      });
-    }
   </script>
 </body>
 </html>

@@ -29,19 +29,17 @@
         .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; }
         .nav-links a:hover { color:var(--gold-bright); }
 
-        /* BIG VISIBLE INSTALL BAR */
+        /* Standard compact install bar — matches other tools */
         .install-bar {
-            background:linear-gradient(135deg,#FFD700,#D4AF37); color:#0A0F14;
-            text-align:center; padding:16px 20px; border-radius:14px; margin:18px 0;
-            font-weight:800; display:block; font-size:0.95rem;
-            box-shadow:0 6px 24px rgba(212,175,55,0.5);
-            animation:glowPulse 2s ease-in-out infinite;
+            background:var(--accent); color:#0A0F14;
+            text-align:center; padding:12px 20px; border-radius:10px; margin:18px 0;
+            font-weight:600; display:block; font-size:0.85rem;
+            box-shadow:0 4px 12px rgba(0,0,0,0.3);
         }
-        @keyframes glowPulse { 0%,100%{box-shadow:0 6px 24px rgba(212,175,55,0.5);} 50%{box-shadow:0 8px 32px rgba(255,215,0,0.7);} }
         .install-bar button {
-            background:#0A0F14; color:#FFD700; border:2px solid #0A0F14;
-            padding:10px 24px; border-radius:8px; margin-left:12px;
-            font-weight:800; cursor:pointer; font-size:0.9rem; letter-spacing:0.5px;
+            background:#0A0F14; color:#fff; border:none;
+            padding:6px 18px; border-radius:6px; margin-left:12px;
+            font-weight:600; cursor:pointer; font-size:0.85rem;
         }
         .install-bar button:hover { background:#1a1f2a; }
 
@@ -51,7 +49,28 @@
         .brand-title { font-family:'Oswald',sans-serif; font-size:2rem; color:#fff; }
         .brand-title span { color:var(--accent); }
         .subtitle { color:var(--muted); font-size:0.95rem; }
-        .made-in { font-size:0.72rem; color:var(--gold-bright); margin:4px 0 14px; font-weight:600; }
+
+        .share-tool-card{
+            background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
+            border: 2px solid;
+            border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
+            border-radius:12px;
+            padding:22px 20px;
+            margin-bottom:26px;
+            box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        .share-tool-title{font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
+        .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+        .share-tool-btn{
+            display:flex; align-items:center; justify-content:center; gap:9px;
+            padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+            background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+            transition:all 0.25s ease; font-family:'Inter',sans-serif;
+        }
+        .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+        .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
+        .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
+        .share-tool-btn i{font-size:1rem;}
 
         .mode-tabs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
         .mode-tab { padding:16px; border-radius:14px; font-weight:700; font-size:1rem; cursor:pointer; text-align:center; border:2px solid var(--gold); color:var(--gold-bright); background:rgba(212,175,55,0.05); transition:all 0.2s; }
@@ -62,7 +81,6 @@
         .time-ms { font-size:2rem; color:var(--accent); }
         .time-label { font-size:0.85rem; color:var(--muted); margin-top:6px; font-weight:600; letter-spacing:1px; }
 
-        /* Timer inputs with GOLDEN borders */
         .timer-inputs { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:16px; }
         .timer-inputs .input-group { text-align:center; }
         .timer-inputs input {
@@ -73,7 +91,6 @@
         .timer-inputs input:focus { border-color:var(--gold-bright); outline:none; box-shadow:0 0 16px rgba(212,175,55,0.3); }
         .timer-inputs label { display:block; text-align:center; font-size:0.75rem; color:var(--gold-bright); margin-top:6px; text-transform:uppercase; font-weight:700; letter-spacing:1px; }
 
-        /* BUTTONS - bright & beautiful */
         .btn-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px; }
         .btn { padding:15px 10px; border-radius:14px; font-weight:700; font-size:0.95rem; cursor:pointer; border:none; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.5px; }
         .btn-start { background:#22C55E; color:#fff; box-shadow:0 4px 14px rgba(34,197,94,0.3); }
@@ -94,16 +111,8 @@
         .lap-item .lap-time { color:#fff; font-family:'Oswald',monospace; }
         .no-laps { color:var(--muted); font-size:0.8rem; text-align:center; padding:10px; }
 
-        .about-card { background:var(--surface); border:2px solid; border-image:var(--gold-border) 1; border-radius:16px; padding:22px 20px; margin-top:20px; }
-        .about-card h2 { font-family:'Oswald',sans-serif; font-size:1.1rem; color:var(--gold-bright); margin-bottom:12px; }
-        .about-card p { color:var(--muted); font-size:0.85rem; line-height:1.7; margin-bottom:10px; }
-        .about-card ul { list-style:none; padding:0; }
-        .about-card ul li { padding:7px 0; font-size:0.83rem; color:#c0c8d4; border-bottom:1px solid rgba(255,255,255,0.03); }
-        .about-card ul li::before { content:"⏱️ "; margin-right:6px; }
-
         footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:20px 0; margin-top:20px; }
         footer a { color:var(--accent); }
-        .pakistan-tag { font-size:0.65rem; color:var(--gold-bright); margin-top:2px; }
 
         @media (max-width:500px) { .time-display { font-size:3.2rem; } .btn-row { grid-template-columns:1fr 1fr; } }
     </style>
@@ -112,10 +121,10 @@
     <nav class="navbar"><div class="nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
 
     <div class="container">
-    <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+    <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
     
-        <!-- BIG VISIBLE INSTALL BAR -->
-        <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install Now</button></div>
+        <!-- Standard install bar -->
+        <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
         <div class="brand-header">
             <div class="title-row">
@@ -123,7 +132,15 @@
                 <h1 class="brand-title">Cold<span>Matrix</span></h1>
             </div>
             <p class="subtitle">Stopwatch & Timer — Free Online Chronograph</p>
-            <p class="made-in">🇵🇰 Made in Pakistan with pride 🇵🇰</p>
+        </div>
+
+        <!-- Share tool card -->
+        <div class="share-tool-card">
+            <div class="share-tool-title">Share This Tool</div>
+            <div class="share-tool-buttons">
+                <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+                <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+            </div>
         </div>
 
         <div class="mode-tabs">
@@ -162,29 +179,15 @@
                 <button class="btn btn-reset" id="tmReset" onclick="tmReset()">↺ Reset</button>
             </div>
         </div>
-
-        <!-- ABOUT -->
-        <div class="about-card">
-            <h2>⏱️ About This Tool</h2>
-            <p>ColdMatrix Stopwatch & Timer is a <strong>free, professional chronograph</strong> for anyone who needs precise timing — athletes, chefs, students, speakers, and teachers.</p>
-            <ul>
-                <li>🏃 Track lap times & intervals for sports and fitness</li>
-                <li>🍳 Perfect cooking & baking timer — never burn a dish</li>
-                <li>🎤 Time presentations & speeches like a pro</li>
-                <li>📚 Pomodoro study sessions & timed practice exams</li>
-                <li>🧘 Meditation, yoga & breathing exercise timer</li>
-                <li>🏫 Classroom quizzes, group activities & brain breaks</li>
-            </ul>
-            <p style="margin-top:12px;"><strong>🔒 100% Private:</strong> Everything runs in your browser. No data is sent anywhere. Works offline after first load.</p>
-        </div>
     </div>
 
-      <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.05rem;margin-bottom:10px;color:#D4AF37;">About the Stopwatch & Timer</h2>
-    <p>A precision stopwatch with lap tracking, plus a countdown timer — free, no ads, works directly in your browser. Useful for workouts, cooking, presentations, sports, and classroom activities.</p>
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#D4AF37;">Common Questions</h3>
-    <p><strong>Does it work if I switch tabs?</strong> Yes — the timer keeps counting accurately in the background using your device's real clock, not just visual updates.</p>
-  </div>
+    <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+        <h2 style="font-size:1.1rem;margin-bottom:12px;color:#D4AF37;">About the Stopwatch & Timer</h2>
+        <p>ColdMatrix Stopwatch & Timer is a precision chronograph designed for sports, cooking, workouts, presentations, and classroom activities. It offers lap tracking with millisecond accuracy and a countdown timer that keeps counting even if you switch tabs or lock your phone.</p>
+        <p>Everything runs privately in your browser — no data is sent anywhere. The tool is completely free, works offline after the first visit, and requires no registration. Whether you're timing laps, baking, or managing a presentation, it’s fast, accurate, and always ready.</p>
+        <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#D4AF37;">Common Questions</h3>
+        <p><strong>Does it work if I switch tabs?</strong> Yes — the timer keeps counting accurately in the background using your device's real clock, not just visual updates.</p>
+    </div>
 
     <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
 
@@ -243,39 +246,46 @@
         window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;ib.style.display='block';});
         function installAppTool(){if(dp){dp.prompt();dp.userChoice.then(()=>{ib.style.display='none';});}else{alert('📱 Add to Home Screen via browser menu.');}}
         if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+
+        function shareToolWhatsApp(){
+            const text = encodeURIComponent('Check out this Stopwatch & Timer from ColdMatrix Tools! ' + window.location.href);
+            window.open('https://wa.me/?text='+text, '_blank');
+        }
+        function copyToolLink(){
+            navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
+        }
     </script>
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
     {
-      "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-      }
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are ColdMatrix tools free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How accurate are ColdMatrix calculators?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does ColdMatrix store my data?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+          }
+        }
+      ]
     }
-  ]
-}
-</script>
-
+    </script>
 </body>
 </html>
