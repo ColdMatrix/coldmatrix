@@ -24,13 +24,22 @@
   <meta name="keywords" content="QR business card, digital business card generator, vCard QR code, contact QR code maker">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    :root { --bg:#0B0F14; --surface:#12181F; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gold:#D4AF37; --gold-bright:#FFD700; --gold-border:linear-gradient(145deg,#C8993A,#E8C96A 30%,#A07828 70%,#D4A843); --grey-gradient:linear-gradient(180deg,#d0d2d6,#9ea0a5); --whatsapp-green:#25D366; }
+    :root {
+      --bg:#0B0F14; --surface:#12181F; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7;
+      --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
+      --gold-border:linear-gradient(145deg,#C8993A,#E8C96A 30%,#A07828 70%,#D4A843);
+      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
+      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --grey-gradient:linear-gradient(180deg,#6b7280,#4b5563);
+      --whatsapp-green:#25D366;
+    }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { background:#0B0F14; color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; min-height:100vh; }
     .container { max-width:900px; margin:0 auto; padding:0 24px; }
@@ -63,12 +72,26 @@
     .card { background:var(--surface); border:2px solid; border-image:var(--gold-border) 1; border-radius:14px; padding:24px; margin-bottom:22px; }
     .card h2 { font-size:1rem; font-weight:700; margin-bottom:16px; color:var(--gold-bright); }
     label { display:block; font-size:0.85rem; color:var(--gold-bright); margin-bottom:6px; font-weight:600; }
-    input { width:100%; background:#1B232C; border:2px solid #2A3540; color:var(--text); padding:13px; border-radius:10px; font-size:0.95rem; }
-    input:focus { outline:none; border-color:var(--gold); }
+    input, select, textarea {
+      width:100%; background:#1B232C;
+      border:2px solid var(--gold); color:var(--text); padding:13px; border-radius:10px; font-size:0.95rem;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+    }
+    input:focus, select:focus, textarea:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
     .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
     .btn-row { display:grid; grid-template-columns:1fr auto; gap:10px; margin-top:8px; }
-    .btn-calc { background:var(--grey-gradient); color:#0A0F14; border:2px solid var(--gold); padding:15px 24px; border-radius:12px; font-weight:700; font-size:1rem; cursor:pointer; }
-    .btn-reset { background:transparent; color:var(--muted); border:2px solid rgba(255,255,255,0.2); padding:15px 20px; border-radius:12px; font-weight:600; cursor:pointer; }
+    .btn-calc {
+      background:var(--silver-gradient); color:#ffffff; border:2px solid var(--gold);
+      padding:15px 24px; border-radius:12px; font-weight:700; font-size:1rem; cursor:pointer;
+      text-shadow:0 1px 2px rgba(0,0,0,0.6);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition:all 0.25s ease;
+    }
+    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
+    .btn-reset {
+      background:transparent; color:var(--muted); border:2px solid rgba(255,255,255,0.2);
+      padding:15px 20px; border-radius:12px; font-weight:600; cursor:pointer;
+    }
     .btn-reset:hover { border-color:var(--accent); color:var(--accent); }
 
     #bizCardPreview { background:linear-gradient(135deg,#0A0F14,#1B232C); border:2px solid var(--gold); border-radius:16px; padding:28px; display:none; margin-top:10px; }
@@ -97,7 +120,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
@@ -243,7 +266,6 @@
     function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('QR Business Card Generator: '+location.href));}
     function copyToolLink(){navigator.clipboard.writeText(location.href).then(()=>alert('Link copied!')).catch(()=>{alert(location.href);});}
   </script>
-  
   
   <script type="application/ld+json">
 {

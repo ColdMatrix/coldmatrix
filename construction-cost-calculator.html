@@ -42,7 +42,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); --good:#34D399; --gold:#E8B93A; }
+    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); --good:#34D399; --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45); --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%); --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%); }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.10), transparent 55%), radial-gradient(circle at 90% 100%, rgba(232,185,58,0.08), transparent 55%), var(--bg);
@@ -89,16 +89,16 @@
     .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
     .share-tool-btn i{font-size:1rem;}
 
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; position:relative; overflow:hidden; }
-    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
+    .card { background:var(--surface); border:1px solid var(--gold); border-radius:12px; padding:20px; margin-bottom:16px; position:relative; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
+    
     .card h2 { font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:600; margin-bottom:4px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
     .card .card-sub { font-size:0.75rem; color:var(--muted); margin-bottom:14px; }
 
     .field { margin-bottom:12px; }
     .field label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:4px; font-weight:500; }
     .field label .tag { color:var(--gold); font-size:0.7rem; }
-    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:10px 12px; border-radius:8px; font-size:0.9rem; }
-    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); }
+    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:10px 12px; border-radius:8px; font-size:0.9rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4); }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
     .field select option { background:var(--surface2); color:var(--text); }
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
@@ -106,8 +106,8 @@
     .checkline { display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:0.85rem; color:var(--text); }
     .checkline input { width:auto; }
 
-    .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:15px; border-radius:10px; font-weight:700; font-size:1.05rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; }
-    .btn-calc:hover { transform:scale(1.01); }
+    .btn-calc { width:100%; background:var(--silver-gradient); color:#ffffff; border:2px solid var(--gold); padding:15px; border-radius:10px; font-weight:700; font-size:1.05rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; text-shadow:0 1px 2px rgba(0,0,0,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow); transition:all 0.25s ease; }
+    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
 
     .result-hero { background:linear-gradient(135deg, rgba(52,211,153,0.10), rgba(79,195,247,0.08)); border:1px solid var(--good); border-radius:14px; padding:22px; text-align:center; margin-bottom:16px; }
     .result-hero .val { font-family:'Oswald',sans-serif; font-size:2.1rem; font-weight:800; color:var(--good); word-break:break-word; }
@@ -122,7 +122,7 @@
     .breakdown-table tr.section-head td { color:var(--gold); font-weight:700; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px; padding-top:14px; border-bottom:none; }
 
     .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
-    .result-item { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center; word-break:break-word; }
+    .result-item { background:var(--surface2); border:1px solid var(--gold); border-radius:10px; padding:14px; text-align:center; word-break:break-word; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
     .result-item .val { font-family:'Oswald',sans-serif; font-size:1.15rem; font-weight:800; color:var(--accent); line-height:1.2; }
     .result-item .lbl { font-size:0.68rem; color:var(--muted); margin-top:3px; text-transform:uppercase; letter-spacing:0.5px; }
 
@@ -145,6 +145,7 @@
       h1 { font-size:1.35rem; }
       .result-hero .val { font-size:1.6rem; }
     }
+    
   </style>
 </head>
 <body>
@@ -154,7 +155,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
@@ -399,7 +400,7 @@
       <div class="field"><label>Government Approval / NOC Fees <span class="tag">(fixed amount, optional)</span></label><input type="number" id="govFees" value="0" step="any" min="0"></div>
     </div>
 
-    <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="calculateConstruction()">Calculate Total Cost</button><button onclick="window.location.reload()" style="background:transparent;border:2px solid var(--accent);color:var(--accent);padding:14px 18px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap;">🔄 Reset</button></div>
+    <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="calculateConstruction()">Calculate Total Cost</button><button onclick="window.location.reload()" style="background:var(--silver-gradient);border:2px solid var(--gold);color:#fff;padding:14px 18px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,0.6);box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35);">🔄 Reset</button></div>
 
     <!-- RESULTS -->
     <div id="resultsWrap" style="display:none;">
@@ -451,15 +452,20 @@
     </div>
   </div>
 
-  <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(0,184,148,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the Construction Cost Calculator</h2>
-  <p>Get a preliminary cost estimate covering structure, finishing, and per-square-foot costs for residential, commercial, or industrial construction.</p>
-  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#00b894;">Common Questions</h3>
+  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+  <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Construction Cost Calculator</h2>
+  <p>
+    ColdMatrix Construction Cost Calculator is a complete pre‑construction budgeting tool that helps homeowners, contractors, and project managers estimate the total cost of a building — from grey structure to final finishes. It covers every major component: foundation, walls, roofing, flooring, electrical, plumbing, HVAC, doors, paint, professional fees, and contingency, all in one clear breakdown.
+  </p>
+  <p>
+    Whether you’re planning a simple house, a commercial plaza, or a steel/PEB warehouse, this tool lets you switch between 10 currencies and metric/imperial units, adjust every rate to your local market, and see live material quantities for cement, steel, bricks, sand, and aggregate. It’s fast, private, and designed to give you a realistic starting point before you approach contractors.
+  </p>
+  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
   <p><strong>What affects cost per sq ft?</strong> Location, material quality, structure type (RCC vs steel/PEB), and finishing grade.</p>
-  <p><strong>Building steel/PEB?</strong> Try our <a href="peb-material-calculator.html" style="color:#00b894;">PEB Material Calculator</a>.</p>
-  </div>
+  <p><strong>Building steel/PEB?</strong> Try our <a href="peb-material-calculator.html" style="color:#FFD700;">PEB Material Calculator</a>.</p>
+</div>
 
-  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+<footer>Powered by <a href="index.html" style="color:#FFD700;">ColdMatrix</a> — Free tools for everyone.</footer>
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
 <script>

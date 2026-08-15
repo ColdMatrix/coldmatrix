@@ -35,17 +35,21 @@
       --foam: #F0F4F8;
       --frost: #4FC3F7;
       --line: rgba(79,195,247,0.35);
-      --accent: #00b894;
+      --accent: #4FC3F7;
       --card-bg: rgba(15,22,30,0.92);
       --gold: #D4AF37;
       --gold-bright: #FFD700;
-      --gold-border: 2px solid #D4AF37;
+      --gold-glow: rgba(212,175,55,0.45);
+      --silver-mid: #9da3ab;
+      --silver-border: #7a8189;
+      --silver-gradient: linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%);
+      --silver-gradient-hover: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
       --warn: #FFA500;
       --danger: #FF6B6B;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.95)), url('cold_room_calc.jpg') center/cover fixed no-repeat;
+      background: #0A0F14;
       color: var(--foam);
       font-family: 'Inter', sans-serif;
       line-height: 1.6;
@@ -63,20 +67,6 @@
       backdrop-filter: blur(8px);
       position: relative;
     }
-
-    .live-badge {
-      display: inline-block;
-      color: var(--frost);
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      padding: 4px 12px;
-      border: 1px solid var(--frost);
-      border-radius: 4px;
-      background: rgba(79,195,247,0.1);
-      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-    }
-    .live-badge::before { content: "• "; color: var(--frost); font-weight: 900; }
 
     h1 {
       font-family: 'Oswald', sans-serif;
@@ -108,7 +98,7 @@
     select, input {
       width: 100%;
       background: rgba(20,28,38,0.95);
-      border: var(--gold-border); /* Golden border */
+      border: 2px solid var(--gold);
       color: #FFFFFF;
       padding: 12px 14px;
       border-radius: 8px;
@@ -128,20 +118,23 @@
     .unit-btn {
       flex: 1; padding: 12px;
       border: 2px solid var(--gold);
-      background: rgba(20,28,38,0.9);
-      color: #FFFFFF;
+      background: var(--silver-gradient);
+      color: #ffffff;
       border-radius: 8px;
       cursor: pointer;
       text-align: center;
       font-size: 0.95rem;
       font-weight: 600;
       transition: all 0.2s;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3);
     }
+    .unit-btn:hover { background: var(--silver-gradient-hover); border-color: #FFD700; }
     .unit-btn.active {
       border-color: var(--frost);
       color: var(--frost);
       background: rgba(79,195,247,0.18);
-      box-shadow: 0 0 12px rgba(79,195,247,0.3);
+      box-shadow: 0 0 18px rgba(79,195,247,0.55);
     }
 
     .suggestion-box {
@@ -213,9 +206,9 @@
 
     .btn-primary {
       width: 100%;
-      background: linear-gradient(135deg, #4FC3F7, #2196F3);
-      color: #0B0F14;
-      border: none;
+      background: var(--silver-gradient);
+      color: #ffffff;
+      border: 2px solid var(--gold);
       padding: 16px;
       border-radius: 10px;
       font-family: 'Oswald', sans-serif;
@@ -223,9 +216,10 @@
       font-size: 1.15rem;
       text-transform: uppercase;
       cursor: pointer;
-      box-shadow: 0 4px 24px rgba(79,195,247,0.4);
-      transition: transform 0.1s;
+      box-shadow: 0 4px 24px rgba(212,175,55,0.4);
+      transition: transform 0.1s, background 0.2s;
     }
+    .btn-primary:hover { background: var(--silver-gradient-hover); border-color: var(--gold-bright); }
     .btn-primary:disabled { opacity:0.45; cursor:not-allowed; }
 
     .results-container {
@@ -282,10 +276,15 @@
       gap: 8px;
       text-transform: uppercase;
       font-family: 'Oswald', sans-serif;
+      background: var(--silver-gradient);
+      color: #ffffff;
+      border: 2px solid var(--gold);
+      transition: all 0.2s;
     }
-    .whatsapp-action { background: #25D366; color: white; }
-    .download-jpg-action { background: #6C5CE7; color: white; }
-    .pdf-action { background: #0077B5; color: white; }
+    .action-btn:hover { background: var(--silver-gradient-hover); }
+    .whatsapp-action { background: #25D366 !important; border: none !important; color: white !important; }
+    .download-jpg-action { background: #6C5CE7 !important; border: none !important; color: white !important; }
+    .pdf-action { background: #0077B5 !important; border: none !important; color: white !important; }
 
     .report-label { font-weight: 700; margin-top: 20px; color: #FFFFFF; font-size: 1rem; }
     .contact-note {
@@ -337,10 +336,19 @@
     .share-tool-btn i{font-size:1rem;}
     .navbar{position:sticky;top:0;z-index:100;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.06)}
     .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 0;flex-wrap:wrap;max-width:800px;margin:0 auto}
-    .logo{font-size:1.2rem;font-weight:700;color:#00b894;text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:0.5px}
+    .logo{font-size:1.2rem;font-weight:700;color:#4FC3F7;text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:0.5px}
     .nav-links{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
     .nav-links a{color:#9AA0B0;text-decoration:none;font-weight:500;font-size:0.85rem;transition:color 0.2s}
-    .nav-links a:hover{color:#00b894}
+    .nav-links a:hover{color:#4FC3F7}
+    .success-box {
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid #34D399;
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #34D399;
+}
   </style>
 </head>
 <body>
@@ -348,7 +356,7 @@
 <li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
 <div id="cmInstallBar" style="display:block;background:#4FC3F7;color:#0A0F14;text-align:center;padding:10px;font-weight:600;font-size:0.85rem;border-radius:8px;margin:16px 0 0;">📱 Add to Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
 <div class="container">
-<a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+<a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
   <h1>❄️ ColdMatrix Cooling Requirement Calculator</h1>
   <p class="subtitle">Professional thermal load, refrigeration capacity, and cost estimation for cold rooms and freezers.</p>
     <div class="share-tool-card">
@@ -358,9 +366,7 @@
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
       </div>
     </div>
-  <div><span class="live-badge">Live</span></div>
 
-  <!-- MAIN CARD -->
   <div class="card">
 
     <div class="coldmatrix-note">
@@ -378,7 +384,6 @@
     </div>
 
     <div class="grid-2" style="margin-bottom: 16px;">
-        <!-- Side 1 -->
         <div class="field" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 1 – Length × Height</label>
             <div class="grid-2" style="margin-bottom: 10px;">
@@ -389,7 +394,6 @@
               <input type="checkbox" id="w1Shared" style="width:auto;"> Shared / Existing Wall
             </label>
         </div>
-        <!-- Side 2 -->
         <div class="field" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 2 – Length × Height</label>
             <div class="grid-2" style="margin-bottom: 10px;">
@@ -400,7 +404,6 @@
               <input type="checkbox" id="w2Shared" style="width:auto;"> Shared / Existing Wall
             </label>
         </div>
-        <!-- Side 3 -->
         <div class="field" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 3 – Length × Height (opp. Side 1)</label>
             <div class="grid-2" style="margin-bottom: 10px;">
@@ -411,7 +414,6 @@
               <input type="checkbox" id="w3Shared" style="width:auto;"> Shared / Existing Wall
             </label>
         </div>
-        <!-- Side 4 -->
         <div class="field" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
             <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 4 – Length × Height (opp. Side 2)</label>
             <div class="grid-2" style="margin-bottom: 10px;">
@@ -453,7 +455,7 @@
     <div class="field">
       <label>Required Room Temp (°C)</label>
       <input type="number" id="roomTemp" value="-20" step="any" oninput="updateLiveStats(); updateSuggestion(); checkMinusAdvisories();">
-      <div id="floorAdvisory" class="danger-box" style="display:none;">❄️ Floor must be insulated (preferably 100 mm insulation sheets).</div>
+      <div id="floorAdvisory" class="success-box" style="display:none;">❄️ Floor must be insulated (preferably 100 mm insulation sheets).</div>
     </div>
     <div class="grid-2">
       <div class="field">
@@ -580,10 +582,11 @@
   </div>
 </div>
 
-<div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(0,184,148,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the Cooling Requirement Calculator</h2>
-  <p>Estimate thermal load and refrigeration tonnage for cold rooms and freezer storage.</p>
-  <p><strong>Need panels and structure too?</strong> Pair with our <a href="cold-store-calculator.html" style="color:#00b894;">Cold Store Calculator</a>.</p>
+<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+  <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Cooling Requirement Calculator</h2>
+  <p>ColdMatrix Cooling Requirement Calculator gives engineers and contractors a fast, reliable way to estimate the refrigeration load for cold rooms and freezers. It calculates transmission, product, infiltration, and equipment loads, then recommends the correct panel thickness and refrigeration unit in HP and TR.</p>
+  <p>With climate presets, unit toggling, safety factors, and a manual override option, this tool adapts to real project conditions. It also provides an instant cost estimate in your chosen currency, making it perfect for preliminary quotations and system sizing.</p>
+  <p><strong>Need panels and structure too?</strong> Pair with our <a href="cold-store-calculator.html" style="color:#FFD700;">Cold Store Calculator</a>.</p>
 </div>
 
 <footer>Powered by <a href="index.html">ColdMatrix</a> — Professional Engineering Tools.</footer>
@@ -592,10 +595,8 @@
 <script>
   (function() {
     const currencySymbols = { PKR:'Rs', USD:'$', EUR:'€', GBP:'£', AED:'د.إ' };
-    // Product load factors (W per ft² of floor area) – field proven
-    const freezerFloorLoad = 30;   // W/ft² for freezers (ice cream, meat, fish)
-    const chillerFloorLoad = 15;   // W/ft² for chillers (dairy, eggs, etc.)
-
+    const freezerFloorLoad = 30;
+    const chillerFloorLoad = 15;
     let currentUnit = 'ft';
 
     const wallInputs = [
@@ -655,8 +656,11 @@
 
     window.autoSetTemperature = function() {
       let prod = document.getElementById('productType').value;
-      let defaultTemp = productTempDefaults[prod] || 0;
-      document.getElementById('roomTemp').value = defaultTemp;
+      const productTempDefaults = {
+        icecream: -20, meat: -18, fish: -22,
+        dairy: 2, eggs: 4, fruitveg: 2, pharma: 5, general: 0
+      };
+      document.getElementById('roomTemp').value = productTempDefaults[prod] || 0;
     };
 
     window.checkMinusAdvisories = function() {
@@ -678,14 +682,6 @@
       else return 200;
     }
 
-    const productTempDefaults = {
-      icecream: -20, meat: -18, fish: -22,
-      dairy: 2, eggs: 4, fruitveg: 2, pharma: 5, general: 0
-    };
-
-    // Respiration rate (W per kg) for fruits and vegetables – average at 0°C
-    const respirationRateWperKg = 0.015; // 15 W per tonne? Actually 15 W per 1000 kg? We'll use 0.015 W/kg ≈ 15 W/ton
-
     function updateLiveStats() {
       let area = getThermalEnvelopeArea();
       let vol = getVolumeEstimate();
@@ -696,24 +692,21 @@
     }
 
     function getSafeProductLoad(floorAreaFt2, prodType, dailyKg, roomTemp, entryTemp) {
-      // If daily mass is provided, use precise formula
       if (dailyKg > 0) {
         let deltaProd = Math.max(0, parseFloat(entryTemp) - parseFloat(roomTemp));
-        let baseLoad = (dailyKg * 3.5 * deltaProd) / 86400 * 1000; // Watts
-        // Add respiration for fruits/vegetables
+        let baseLoad = (dailyKg * 3.5 * deltaProd) / 86400 * 1000;
         if (prodType === 'fruitveg') {
-          baseLoad += dailyKg * respirationRateWperKg;
+          baseLoad += dailyKg * 0.015;
         }
         return baseLoad;
       }
-      // Otherwise, use floor-area-based rule (W/ft²)
       let loadPerFt2;
       if (['icecream','meat','fish'].includes(prodType)) {
         loadPerFt2 = freezerFloorLoad;
       } else {
         loadPerFt2 = chillerFloorLoad;
       }
-      return floorAreaFt2 * loadPerFt2; // Watts
+      return floorAreaFt2 * loadPerFt2;
     }
 
     function updateSuggestion() {
@@ -734,7 +727,6 @@
         let Qtrans = U * areaM2 * deltaT;
         let dailyKg = parseFloat(document.getElementById('dailyProductKg').value)||0;
         let entryT = document.getElementById('productEntryTemp').value||28;
-        // Convert floor area to ft² for the load function
         let floorAreaFt2 = currentUnit === 'ft' ? floorArea : floorArea * 10.7639;
         let Qprod = getSafeProductLoad(floorAreaFt2, document.getElementById('productType').value, dailyKg, room, entryT);
         let Qinf = 0.0000335 * volM3 * deltaT * 1000;
@@ -778,7 +770,6 @@
       let U = 0.022 / (thick/1000);
       let Qtrans = U * areaM2 * deltaT;
 
-      // Convert floor area to ft²
       let floorAreaFt2 = currentUnit === 'ft' ? floorArea : floorArea * 10.7639;
       let Qprod = getSafeProductLoad(floorAreaFt2, prodType, dailyKg, room, entryT);
       let Qinf = 0.0000335 * volM3 * deltaT * 1000;

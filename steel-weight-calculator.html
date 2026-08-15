@@ -30,7 +30,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); --gold:#D4AF37; }
+    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45); --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%); --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%); }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { 
       background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.92)), url('steel_weight_calc.jpg') center/cover fixed no-repeat;
@@ -42,7 +42,7 @@
     .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
-    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+    .nav-links a:hover { color:var(--accent); }
     .ad-card { border-radius:14px; overflow:hidden; background:linear-gradient(90deg,rgba(10,15,20,0.7),rgba(10,15,20,0.4)),url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
     .ad-card ul { list-style:none; padding:0; margin:0; }
     .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
@@ -53,32 +53,32 @@
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
     .subtitle { color:var(--muted); margin-bottom:24px; }
 
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px; margin-bottom:20px; position:relative; overflow:hidden; }
+    .card { background:var(--surface); border:1px solid var(--gold); border-radius:14px; padding:24px; margin-bottom:20px; position:relative; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
     .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
     .card h2 { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600; margin-bottom:16px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
 
     .unit-row { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:20px; }
     .unit-group { flex:1; min-width:150px; }
     .unit-group label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
-    .unit-group select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:10px; border-radius:10px; font-size:0.9rem; }
+    .unit-group select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:10px; border-radius:10px; font-size:0.9rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4); }
 
     .tab-row { display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap; }
-    .tab-btn { flex:1; min-width:70px; padding:11px 10px; border:1px solid var(--border); background:var(--surface2); color:var(--muted); border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; text-align:center; transition:all 0.2s; }
-    .tab-btn.active { border-color:var(--accent); color:var(--accent); background:rgba(79,195,247,0.1); box-shadow:0 0 12px rgba(79,195,247,0.2); }
+    .tab-btn { flex:1; min-width:70px; padding:11px 10px; border:2px solid var(--gold); background:var(--silver-gradient); color:#ffffff; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; text-align:center; transition:all 0.2s; text-shadow:0 1px 2px rgba(0,0,0,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow); }
+    .tab-btn.active { border-color:var(--accent); color:#4FC3F7; background:rgba(79,195,247,0.18); box-shadow:0 0 18px rgba(79,195,247,0.55); }
 
     .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
     .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
     .field { margin-bottom:0; }
     .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
-    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; }
-    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); box-shadow:0 0 10px rgba(79,195,247,0.3); }
+    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4); }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
     .field select option { background:var(--surface2); color:var(--text); }
 
-    .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; }
-    .btn-calc:hover { transform:scale(1.01); }
+    .btn-calc { width:100%; background:var(--silver-gradient); color:#ffffff; border:2px solid var(--gold); padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; text-shadow:0 1px 2px rgba(0,0,0,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow); transition:all 0.25s ease; }
+    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
 
     .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
-    .result-item { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center; }
+    .result-item { background:var(--surface2); border:1px solid var(--gold); border-radius:12px; padding:18px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
     .result-item .val { font-family:'Oswald',sans-serif; font-size:1.5rem; font-weight:800; color:var(--accent); }
     .result-item .lbl { font-size:0.78rem; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
     .result-item.highlight { border-color:#34D399; background:rgba(52,211,153,0.06); grid-column:span 2; }
@@ -95,6 +95,15 @@
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
     footer a { color:var(--accent); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+
+    /* Shape visual */
+    .shape-visual { background: rgba(20,28,38,0.6); border: 2px solid #D4AF37; border-radius: 14px; padding: 16px; margin: 16px 0; text-align: center; }
+    .shape-visual .diagram { width: 200px; height: 120px; margin: 0 auto; position: relative; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; background: rgba(79,195,247,0.08); border: 2px solid #4FC3F7; }
+    .shape-visual .diagram.square { width: 160px; height: 100px; }
+    .shape-visual .diagram.round { border-radius: 50%; width: 100px; height: 100px; }
+    .shape-visual .diagram.pipe { border-radius: 50%; width: 120px; height: 120px; border: 10px solid rgba(79,195,247,0.7); background: transparent; }
+    .shape-visual .diagram.beam { width: 200px; height: 80px; background: rgba(79,195,247,0.15); }
+    .shape-visual .shape-label { font-size: 0.85rem; font-weight: 600; color: #D4AF37; margin-top: 8px; }
 
     @media (max-width:600px){ .grid2,.grid3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} }
       .share-tool-card{
@@ -127,7 +136,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
@@ -178,6 +187,13 @@
         <button class="tab-btn" data-shape="roundbar">● Round Bar</button>
         <button class="tab-btn" data-shape="pipe">🔩 Pipe / Tube</button>
         <button class="tab-btn" data-shape="beam">🏗️ Beam</button>
+      </div>
+
+      <!-- LIVE SHAPE VISUAL -->
+      <div class="shape-visual">
+        <div style="font-size:0.8rem;color:#D4AF37;margin-bottom:10px;font-weight:700;">🔍 SHAPE PREVIEW</div>
+        <div id="shapeDiagram" class="diagram square">Plate</div>
+        <div class="shape-label" id="shapeLabel">Plate / Sheet</div>
       </div>
 
       <!-- DIMENSIONS -->
@@ -239,7 +255,7 @@
         </select></div>
       </div>
 
-      <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="calculate()">Calculate Weight</button><button onclick="window.location.reload()" style="background:transparent;border:2px solid var(--accent);color:var(--accent);padding:14px 18px;border-radius:12px;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap;">🔄 Reset</button></div>
+      <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="calculate()">Calculate Weight</button><button onclick="window.location.reload()" style="background:var(--silver-gradient);border:2px solid var(--gold);color:#fff;padding:14px 18px;border-radius:12px;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,0.6);box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35);">🔄 Reset</button></div>
     </div>
 
     <!-- RESULTS -->
@@ -280,6 +296,8 @@
     const materialSelect = document.getElementById('material');
     const customDensityInput = document.getElementById('customDensity');
     const customDensityWrap = document.getElementById('customDensityWrap');
+    const shapeDiagram = document.getElementById('shapeDiagram');
+    const shapeLabel = document.getElementById('shapeLabel');
 
     function densityVal() {
       if (materialSelect.value === 'custom') {
@@ -293,6 +311,36 @@
       customDensityWrap.style.display = isCustom ? 'grid' : 'none';
     };
 
+    function updateShapeVisual(shape) {
+      shapeDiagram.className = 'diagram';
+      switch(shape) {
+        case 'plate':
+          shapeDiagram.classList.add('square');
+          shapeDiagram.textContent = 'Plate';
+          shapeLabel.textContent = 'Plate / Sheet';
+          break;
+        case 'roundbar':
+          shapeDiagram.classList.add('round');
+          shapeDiagram.textContent = '●';
+          shapeLabel.textContent = 'Round Bar';
+          break;
+        case 'pipe':
+          shapeDiagram.classList.add('pipe');
+          shapeDiagram.textContent = '';
+          shapeLabel.textContent = 'Pipe / Tube';
+          break;
+        case 'beam':
+          shapeDiagram.classList.add('beam');
+          shapeDiagram.textContent = 'I-Beam';
+          shapeLabel.textContent = 'Beam / Section';
+          break;
+        default:
+          shapeDiagram.classList.add('square');
+          shapeDiagram.textContent = 'Shape';
+          shapeLabel.textContent = '';
+      }
+    }
+
     // Shape tabs
     document.getElementById('shapeTabs').addEventListener('click', function(e) {
       const btn = e.target.closest('.tab-btn');
@@ -303,6 +351,7 @@
       document.querySelectorAll('[id^="dim"]').forEach(d => d.style.display = 'none');
       const dimMap = { plate: 'dimPlate', roundbar: 'dimRound', pipe: 'dimPipe', beam: 'dimBeam' };
       document.getElementById(dimMap[currentShape]).style.display = '';
+      updateShapeVisual(currentShape);
       updateLabels();
     });
 
@@ -466,6 +515,7 @@
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
 
     updateLabels();
+    updateShapeVisual('plate');
   
     function shareToolWhatsApp(){
       const text = encodeURIComponent('Check out this Steel Weight Calculator from ColdMatrix Tools! ' + window.location.href);

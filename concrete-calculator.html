@@ -30,70 +30,34 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); }
+    :root {
+      --bg:#111418; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
+      --text:#EAEDF0; --muted:#8B98A5; --accent:#D4AF37; --accent2:#FFD700;
+      --gradient:linear-gradient(135deg,#D4AF37,#FFD700);
+      --gold:#D4AF37; --gold-bright:#FFD700;
+      --silver:#a8acb5; --dark-silver:#545860;
+      --frost:#4FC3F7; --green:#34D399; --red:#EF4444;
+    }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { 
-      background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.92)), url('concrete_calc.jpg') center/cover fixed no-repeat;
+    body {
+      background: #111418;
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 880px; margin:0 auto; padding:0 24px; }
     .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--frost); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
-    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
-    .ad-card { border-radius:14px; overflow:hidden; background:linear-gradient(90deg,rgba(10,15,20,0.7),rgba(10,15,20,0.4)),url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
-    .ad-card ul { list-style:none; padding:0; margin:0; }
-    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
-    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
-    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; display:block; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold); }
+
+    .install-bar { background:var(--frost); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; display:block; }
     .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
     .subtitle { color:var(--muted); margin-bottom:24px; }
 
-    .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px; margin-bottom:20px; position:relative; overflow:hidden; }
-    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
-    .card h2 { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600; margin-bottom:16px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
-
-    .unit-row { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:20px; }
-    .unit-group { flex:1; min-width:150px; }
-    .unit-group label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
-    .unit-group select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:10px; border-radius:10px; font-size:0.9rem; }
-
-    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
-    .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
-    .field { margin-bottom:0; }
-    .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
-    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--border); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; }
-    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); }
-    .field select option { background:var(--surface2); color:var(--text); }
-
-    .btn-calc { width:100%; background:var(--gradient); color:#0A0F14; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; }
-    .btn-calc:hover { transform:scale(1.01); }
-
-    .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
-    .result-item { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center; }
-    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.5rem; font-weight:800; color:var(--accent); }
-    .result-item .lbl { font-size:0.78rem; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
-    .result-item.highlight { border-color:#34D399; background:rgba(52,211,153,0.06); grid-column:span 2; }
-    .result-item.highlight .val { font-size:1.8rem; color:#34D399; }
-
-    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
-    .share-btn { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px; font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
-    .share-whatsapp { background:#25D366; }
-    .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
-
-    .note { font-size:0.75rem; color:var(--muted); margin-top:16px; border-top:1px solid var(--border); padding-top:12px; text-align:center; }
-    #shareCapture { display:none; }
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--accent); text-decoration:none; }
-    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
-
-    @media (max-width:600px){ .grid2,.grid3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} }
-      .share-tool-card{
+    .share-tool-card{
       background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
       border: 2px solid;
       border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
@@ -114,7 +78,48 @@
     .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
     .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
     .share-tool-btn i{font-size:1rem;}
-</style>
+
+    .card { background:var(--surface); border:1px solid var(--gold); border-radius:14px; padding:24px; margin-bottom:20px; position:relative; overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,0.35); }
+    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
+    .card h2 { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600; margin-bottom:16px; color:var(--gold); text-transform:uppercase; letter-spacing:0.5px; }
+
+    .unit-row { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:20px; }
+    .unit-group { flex:1; min-width:150px; }
+    .unit-group label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
+    .unit-group select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:10px; border-radius:10px; font-size:0.9rem; }
+
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+    .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
+    .field { margin-bottom:0; }
+    .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
+    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 10px rgba(212,175,55,0.4); }
+    .field select option { background:var(--surface2); color:var(--text); }
+
+    .btn-calc { width:100%; background:linear-gradient(180deg,#6b6e75,#4a4d55); color:#fff; border:2px solid var(--gold); padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; }
+    .btn-calc:hover { background:linear-gradient(180deg,#7e828b,#545860); border-color:var(--gold-bright); transform:translateY(-1px); }
+
+    .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
+    .result-item { background:var(--surface2); border:1px solid var(--gold); border-radius:12px; padding:18px; text-align:center; }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.5rem; font-weight:800; color:var(--gold); }
+    .result-item .lbl { font-size:0.78rem; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
+    .result-item.highlight { border-color:#34D399; background:rgba(52,211,153,0.06); grid-column:span 2; }
+    .result-item.highlight .val { font-size:1.8rem; color:#34D399; }
+
+    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
+    .share-btn { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px; font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
+    .share-whatsapp { background:#25D366; }
+    .share-pdf { background:#E53935; }
+    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--gold); }
+
+    .note { font-size:0.75rem; color:var(--muted); margin-top:16px; border-top:1px solid var(--border); padding-top:12px; text-align:center; }
+    #shareCapture { display:none; }
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--gold); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+
+    @media (max-width:600px){ .grid2,.grid3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} }
+  </style>
 </head>
 <body>
   <nav class="navbar">
@@ -132,13 +137,13 @@
   </nav>
 
   <div class="container">
-  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
   
-    <div class="ad-card"><!-- same --></div>
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1>🏗️ ColdMatrix Concrete Calculator</h1>
     <p class="subtitle">Cement bags, sand, aggregate & cost — enter dimensions in feet or meters, get results in kg/tons.</p>
+
     <div class="share-tool-card">
       <div class="share-tool-title">Share ColdMatrix Concrete Calculator</div>
       <div class="share-tool-buttons">
@@ -197,7 +202,7 @@
         </select></div>
       </div>
 
-      <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="calculateConcrete()">Calculate</button><button onclick="resetConcreteForm()" style="background:transparent;border:2px solid var(--accent);color:var(--accent);padding:14px 18px;border-radius:12px;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap;">🔄 Reset</button></div>
+      <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="calculateConcrete()">Calculate</button><button onclick="resetConcreteForm()" style="background:transparent;border:2px solid var(--gold);color:var(--gold);padding:14px 18px;border-radius:12px;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap;">🔄 Reset</button></div>
     </div>
 
     <div class="card" id="resultCard" style="display:none;">
@@ -232,19 +237,19 @@
     </div>
   </div>
 
-  <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(0,184,148,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the Concrete Calculator</h2>
-  <p>Calculate concrete volume, cement bags, sand, and aggregate needed for slabs, footings, columns, and beams.</p>
-  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#00b894;">Common Questions</h3>
+  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+  <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Concrete Calculator</h2>
+  <p>ColdMatrix Concrete Calculator helps contractors, engineers, and homeowners quickly estimate the exact volume of concrete, cement bags, sand, and aggregate required for slabs, footings, columns, and beams. With support for both metric and imperial units, multiple mix ratios, and optional cost calculation, it’s built to give you professional results in seconds.</p>
+  <p>Whether you are planning a small footing or a large slab, this tool reduces guesswork and manual errors. Every calculation runs privately in your browser and lets you share, download, or export the full estimate as PDF, JPG, or PNG — making it a reliable companion for site work and client quotations.</p>
+  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
   <p><strong>What mix ratio should I use?</strong> Common ratios are 1:2:4 for general slabs, and 1:1.5:3 for structural elements.</p>
-  <p><strong>Need the full cost?</strong> See our <a href="construction-cost-calculator.html" style="color:#00b894;">Construction Cost Calculator</a>.</p>
+  <p><strong>Need the full cost?</strong> See our <a href="construction-cost-calculator.html" style="color:#FFD700;">Construction Cost Calculator</a>.</p>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script>
-    // Independent unit selectors
     document.getElementById('lengthUnit').addEventListener('change', updateLabels);
     document.getElementById('weightDisplay').addEventListener('change', updateLabels);
 
@@ -275,9 +280,12 @@
       document.getElementById('cBagWt').value = 50;
       document.getElementById('cRate').value = 0;
       document.getElementById('lengthUnit').selectedIndex = 0;
+      document.getElementById('weightDisplay').selectedIndex = 0;
       document.getElementById('resultCard').style.display = 'none';
       const sb = document.getElementById('shareBarWrap'); if(sb) sb.style.display = 'none';
+      updateLabels();
     }
+
     function calculateConcrete() {
       let L = parseFloat(document.getElementById('cLen').value) || 0;
       let W = parseFloat(document.getElementById('cWid').value) || 0;
@@ -327,6 +335,7 @@
       el.style.display = 'none';
       return canvas;
     }
+
     async function downloadResult(type){
       const canvas = await captureCanvas();
       if(type === 'pdf'){
@@ -343,6 +352,7 @@
         link.click();
       }
     }
+
     async function shareWhatsApp(){
       const canvas = await captureCanvas();
       canvas.toBlob(async (blob)=>{
@@ -364,8 +374,6 @@
     };
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
 
-    updateLabels();
-  
     function shareToolWhatsApp(){
       const text = encodeURIComponent('Check out this Concrete Calculator from ColdMatrix Tools! ' + window.location.href);
       window.open('https://wa.me/?text='+text, '_blank');
@@ -375,37 +383,41 @@
         alert(window.location.href);
       });
     }
-</script>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+    updateLabels();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are ColdMatrix tools free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate are ColdMatrix calculators?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ColdMatrix store my data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+        }
       }
-    },
-    {
-      "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-      }
-    }
-  ]
-}
-</script>
+    ]
+  }
+  </script>
+</body>
+</html>
