@@ -27,21 +27,22 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
-      --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
-      --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3);
+      --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
+      --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --accent2:#2196F3;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
       --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
       --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --dark-silver:#4a4d55; --whatsapp-green:#25D366;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.92)), url('peb_calculator.jpg') center/cover fixed no-repeat;
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 880px; margin:0 auto; padding:0 24px; }
@@ -50,61 +51,116 @@
     .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
-    .nav-links a:hover { color:var(--accent); }
-    .ad-card { border-radius:14px; overflow:hidden; background:linear-gradient(90deg,rgba(10,15,20,0.7),rgba(10,15,20,0.4)),url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:18px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
-    .ad-card ul { list-style:none; padding:0; margin:0; }
-    .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
-    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:6px; }
-    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; white-space:nowrap; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; display:block; }
-    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
+    h1 span { color:var(--gold-bright); }
     .subtitle { color:var(--muted); margin-bottom:24px; }
 
-    .card { background:var(--surface); border:1px solid var(--gold); border-radius:14px; padding:24px; margin-bottom:20px; position:relative; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
-    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
-    .card h2 { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600; margin-bottom:16px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
+    .share-tool-card {
+      background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+      border:2px solid;
+      border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:12px;
+      padding:22px 20px;
+      margin-bottom:26px;
+      box-shadow:0 10px 34px rgba(0,0,0,0.55);
+    }
+    .share-tool-title { font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .share-tool-btn {
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+      transition:all 0.25s ease;
+    }
+    .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover { border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
+    .share-tool-btn i { font-size:1rem; }
+
+    .card {
+      background:var(--surface); border:1px solid var(--gold); border-radius:14px;
+      padding:24px; margin-bottom:20px; position:relative; overflow:hidden;
+      box-shadow:0 8px 30px rgba(0,0,0,0.5);
+    }
+    .card h2 {
+      font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600;
+      margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px;
+    }
 
     .unit-row { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:20px; }
     .unit-group { flex:1; min-width:150px; }
     .unit-group label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
-    .unit-group select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:10px; border-radius:10px; font-size:0.9rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4); }
+    .unit-group select {
+      width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
+      padding:10px; border-radius:10px; font-size:0.9rem;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+      appearance:none; -webkit-appearance:none; -moz-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M2 2 L10 10 L18 2' fill='none' stroke='%23D4AF37' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 14px center; background-size:20px 12px;
+      padding-right:44px;
+    }
 
     .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
     .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
     .field { margin-bottom:0; }
     .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
-    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4); }
+    .field input, .field select {
+      width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
+      padding:11px 13px; border-radius:10px; font-size:0.95rem;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+    }
     .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .field select {
+      appearance:none; -webkit-appearance:none; -moz-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M2 2 L10 10 L18 2' fill='none' stroke='%23D4AF37' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 14px center; background-size:20px 12px;
+      padding-right:44px;
+    }
     .field select option { background:var(--surface2); color:var(--text); }
     .checkbox-row { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
     .checkbox-row input { width:auto; accent-color:var(--accent); }
 
-    .btn-calc { width:100%; background:var(--silver-gradient); color:#ffffff; border:2px solid var(--gold); padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; text-shadow:0 1px 2px rgba(0,0,0,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow); transition:all 0.25s ease; }
+    .btn-calc {
+      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer; margin-top:6px;
+      letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition:all 0.25s ease;
+    }
     .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
+    .btn-reset {
+      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      padding:14px 18px; border-radius:12px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      white-space:nowrap; text-shadow:0 1px 2px rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      transition:all 0.25s ease;
+    }
+    .btn-reset:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
     .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
-    .result-item { background:var(--surface2); border:1px solid var(--gold); border-radius:12px; padding:18px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.5rem; font-weight:800; color:var(--accent); }
-    .result-item .lbl { font-size:0.78rem; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
-    .result-item.highlight { border-color:#34D399; background:rgba(52,211,153,0.06); grid-column:span 2; }
-    .result-item.highlight .val { font-size:1.8rem; color:#34D399; }
+    .result-item {
+      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:12px;
+      padding:18px; text-align:center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3), 0 0 10px var(--gold-glow);
+    }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.5rem; font-weight:800; color:#0A0F14; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
+    .result-item .lbl { font-size:0.78rem; color:#111; margin-top:4px; text-transform:uppercase; letter-spacing:1px; font-weight:700; }
+    .result-item.highlight { border-color:#34D399; background:linear-gradient(145deg,#d9f5e5,#a8e6cf); grid-column:span 2; }
+    .result-item.highlight .val { font-size:1.8rem; color:#0A0F14; }
 
-    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
-    .share-btn { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px; font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
-    .share-whatsapp { background:#25D366; }
-    .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
-
-    .note { font-size:0.75rem; color:var(--muted); margin-top:16px; border-top:1px solid var(--border); padding-top:12px; text-align:center; }
-    #shareCapture { display:none; }
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--accent); text-decoration:none; }
-    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
-
-    /* Building footprint visual */
-    .building-visual { background: rgba(20,28,38,0.6); border: 2px solid #D4AF37; border-radius: 14px; padding: 16px; margin: 16px 0; text-align: center; }
-    .building-visual .diagram { width: 240px; height: 150px; margin: 0 auto; position: relative; background: rgba(79,195,247,0.08); border: 2px solid #4FC3F7; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; }
+    .building-visual {
+      background: rgba(20,28,38,0.6); border: 2px solid #D4AF37; border-radius: 14px;
+      padding: 16px; margin: 16px 0; text-align: center;
+    }
+    .building-visual .diagram {
+      width: 240px; height: 150px; margin: 0 auto; position: relative;
+      background: rgba(79,195,247,0.08); border: 2px solid #4FC3F7;
+      display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff;
+    }
     .building-visual .roof { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; color: #D4AF37; font-weight: 600; }
     .building-visual .label { position: absolute; font-size: 0.75rem; color: #D4AF37; font-weight: 600; }
     .building-visual .label-length { bottom: -24px; left: 50%; transform: translateX(-50%); }
@@ -112,28 +168,23 @@
     .building-visual .label-eave { right: -70px; top: 50%; transform: translateY(-50%); }
     .building-visual .shape-label { font-size: 0.85rem; font-weight: 600; color: #D4AF37; margin-top: 8px; }
 
+    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
+    .share-btn {
+      display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px;
+      font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff;
+      transition:all 0.25s ease;
+    }
+    .share-btn:hover { transform:translateY(-2px); }
+    .share-whatsapp { background:#25D366; }
+    .share-pdf { background:#E53935; }
+    .share-jpg, .share-png { background:var(--dark-silver); color:#fff; border:1px solid var(--gold); }
+
+    .note { font-size:0.75rem; color:var(--muted); margin-top:16px; border-top:1px solid var(--border); padding-top:12px; text-align:center; }
+    #shareCapture { display:none; }
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--gold-bright); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
     @media (max-width:600px){ .grid2,.grid3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} }
-      .share-tool-card{
-      background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
-      border: 2px solid;
-      border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
-      border-radius:12px;
-      padding:22px 20px;
-      margin-bottom:26px;
-      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-    .share-tool-title{font-family:'Playfair Display',serif; font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
-    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-    .share-tool-btn{
-      display:flex; align-items:center; justify-content:center; gap:9px;
-      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
-      background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
-      transition:all 0.25s ease; font-family:'Inter',sans-serif;
-    }
-    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
-    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
-    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-    .share-tool-btn i{font-size:1rem;}
   </style>
 </head>
 <body>
@@ -143,7 +194,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
+        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
@@ -152,15 +203,15 @@
   </nav>
 
   <div class="container">
-  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+  <a href="index.html#tools" class="back-link">← Back to Tools</a>
   
-    <div class="ad-card"><!-- same --></div>
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
-    <h1>🏭 ColdMatrix PEB Material Calculator</h1>
+    <h1>🏭 <span>ColdMatrix</span> PEB Material Calculator</h1>
     <p class="subtitle">Steel tonnage, roof & wall sheeting, and cost — with independent length & weight units.</p>
+
     <div class="share-tool-card">
-      <div class="share-tool-title">Share ColdMatrix PEB Material Calculator</div>
+      <div class="share-tool-title">Share PEB Material Calculator</div>
       <div class="share-tool-buttons">
         <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
@@ -235,7 +286,10 @@
         <option value="AUD">🇦🇺 AUD</option>
       </select></div>
 
-      <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="calcPEB()">Calculate Estimate</button><button onclick="window.location.reload()" style="background:var(--silver-gradient);border:2px solid var(--gold);color:#fff;padding:14px 18px;border-radius:12px;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,0.6);box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35);">🔄 Reset</button></div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn-calc" style="flex:1" onclick="calcPEB()">Calculate Estimate</button>
+        <button class="btn-reset" onclick="resetPEBForm()">🔄 Reset</button>
+      </div>
     </div>
 
     <div class="card" id="pebResultCard" style="display:none;">
@@ -246,7 +300,7 @@
         <div class="result-item"><div class="val" id="rSteelTons">-</div><div class="lbl" id="lblSteelTons">Weight (tons)</div></div>
         <div class="result-item"><div class="val" id="rRoof">-</div><div class="lbl" id="lblRoof">Roof Sheeting Area</div></div>
         <div class="result-item"><div class="val" id="rWall">-</div><div class="lbl" id="lblWall">Wall Sheeting Area</div></div>
-        <div class="result-item highlight" style="grid-column: span 2;"><div class="val" id="rTotalCost">-</div><div class="lbl">Estimated Total Cost</div></div>
+        <div class="result-item highlight"><div class="val" id="rTotalCost">-</div><div class="lbl">Estimated Total Cost</div></div>
       </div>
       <div class="note">⚠️ Preliminary estimate based on typical industry factors. Not a substitute for structural design.</div>
     </div>
@@ -260,12 +314,13 @@
     </div>
   </div>
 
-  <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(0,184,148,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the PEB Material Calculator</h2>
-  <p>Estimate steel weight, roof area, wall area, and total material cost for a Pre-Engineered Building (PEB) structure — useful for warehouses, factories, and cold storage buildings.</p>
-  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#00b894;">Common Questions</h3>
-  <p><strong>What is a PEB structure?</strong> A Pre-Engineered Building is a steel structure designed off-site to standard specifications, then assembled on-site.</p>
-  <p><strong>Building cold storage?</strong> Combine with our <a href="cold-store-calculator.html" style="color:#00b894;">Cold Store Calculator</a> and <a href="sandwich-panel-calculator.html" style="color:#00b894;">Sandwich Panel Calculator</a>.</p>
+  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the PEB Material Calculator</h2>
+    <p>ColdMatrix PEB Material Calculator estimates the steel weight, roof sheeting area, wall sheeting area, and total material cost for a Pre-Engineered Building. It supports both metric and imperial units, includes crane load factors, and gives you an instant preliminary estimate based on typical industry formulas used by PEB manufacturers and contractors.</p>
+    <p>Everything runs privately in your browser, and the result panel provides a clear breakdown in your chosen currency. This tool is perfect for feasibility studies, budgeting, and early-stage project planning for warehouses, factories, cold storage, and commercial buildings.</p>
+    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
+    <p><strong>What is a PEB structure?</strong> A Pre-Engineered Building is a steel structure designed off-site to standard specifications, then assembled on-site.</p>
+    <p><strong>Building cold storage?</strong> Combine with our <a href="cold-store-calculator.html" style="color:#FFD700;">Cold Store Calculator</a> and <a href="sandwich-panel-calculator.html" style="color:#FFD700;">Sandwich Panel Calculator</a>.</p>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
@@ -316,7 +371,6 @@
       document.getElementById('vBay').textContent = `Bay spacing: ${bay} ${unitLabel}`;
     }
 
-    // Attach input listeners for visual updates
     ['pLen','pWid','pHt','pBay'].forEach(id => {
       document.getElementById(id).addEventListener('input', updateBuildingVisual);
     });
@@ -357,7 +411,7 @@
       const costDisp = (steelRate || sheetRate) ? (sym + ' ' + Math.round(totalCost).toLocaleString()) : '—';
 
       document.getElementById('rFootprint').textContent = footprintDisp.toFixed(1);
-      document.getElementById('rSteel').textContent = steelDisp >= 1000 ? steelDisp.toFixed(1) : steelDisp.toFixed(1);
+      document.getElementById('rSteel').textContent = steelDisp.toFixed(1);
       document.getElementById('rSteelTons').textContent = steelTonsDisp.toFixed(3);
       document.getElementById('rRoof').textContent = roofDisp.toFixed(1);
       document.getElementById('rWall').textContent = wallDisp.toFixed(1);
@@ -372,7 +426,25 @@
       document.getElementById('pvTotalCost').textContent = costDisp;
     }
 
-    // share functions identical to previous PEB calculator
+    function resetPEBForm() {
+      document.getElementById('pLen').value = 40;
+      document.getElementById('pWid').value = 20;
+      document.getElementById('pHt').value = 6;
+      document.getElementById('pBay').value = 6;
+      document.getElementById('pCrane').value = '0';
+      document.getElementById('pInsulated').checked = false;
+      document.getElementById('pSteelRate').value = 0;
+      document.getElementById('pSheetRate').value = 0;
+      document.getElementById('pCurrency').value = 'PKR';
+      document.getElementById('lengthUnit').value = 'meter';
+      document.getElementById('weightDisplay').value = 'kgton';
+      document.getElementById('pebResultCard').style.display = 'none';
+      document.getElementById('shareBarWrap').style.display = 'none';
+      updateLabels();
+      updateBuildingVisual();
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
     async function captureCanvas(){
       const el = document.getElementById('shareCapture');
       el.style.display = 'block';
@@ -429,40 +501,39 @@
         alert(window.location.href);
       });
     }
-</script>
+  </script>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are ColdMatrix tools free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate are ColdMatrix calculators?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ColdMatrix store my data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+        }
       }
-    },
-    {
-      "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-      }
-    }
-  ]
-}
-</script>
-
+    ]
+  }
+  </script>
 </body>
 </html>

@@ -23,9 +23,9 @@
   <meta name="twitter:title" content="ColdMatrix Internet Speed Test — Premium Bandwidth Meter">
   <meta name="twitter:description" content="Measure download, upload, ping & jitter with our luxury speed test.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/speed_test.jpg">
-  <meta name="theme-color" content="#0D1117">
+  <meta name="theme-color" content="#000000">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230D1117'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23000000'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -38,7 +38,7 @@
       --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
       --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
       --dark-silver:#4a4d55; --whatsapp-green:#25D366;
-      --report-bg: linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%);
+      --gauge-bg:#000000; --gauge-track:#151515; --gauge-glow-color:rgba(34,211,238,0.6);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -53,18 +53,17 @@
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.9rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
     .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:10px; font-weight:600; cursor:pointer; }
+    .install-bar { background:var(--accent); color:#000; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+    .install-bar button { background:#000; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:10px; font-weight:600; cursor:pointer; }
     .brand-header { text-align:center; margin:24px 0 4px; }
     .brand-title { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:700; color:#fff; }
     .brand-title span { color:var(--accent); }
     .brand-sub { font-size:1.1rem; color:var(--muted); }
-    .made-in { font-size:0.75rem; color:var(--gold-bright); margin:6px 0 16px; font-weight:600; }
 
     .share-tool-card {
       background:#0a0d13; border:2px solid;
       border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
-      border-radius:12px; padding:14px 16px; margin-bottom:20px;
+      border-radius:12px; padding:16px 18px; margin-bottom:20px;
       box-shadow:0 10px 34px rgba(0,0,0,0.55);
     }
     .share-tool-title { font-weight:800; font-size:0.85rem; color:var(--gold-bright); text-align:center; margin-bottom:10px; text-transform:uppercase; }
@@ -72,27 +71,31 @@
     .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:6px; padding:10px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.5); }
 
-    /* Gauge & main card */
+    /* Black gauge section with premium glow */
     .gauge-section {
       display:flex; flex-direction:column; align-items:center;
-      background:var(--report-bg); border:2px solid var(--gold-bright); border-radius:18px;
-      padding:16px 16px 20px; margin:16px auto;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 8px 30px rgba(0,0,0,0.5), 0 0 20px var(--gold-glow);
+      background: var(--gauge-bg); border:2px solid var(--gold-bright);
+      border-radius:18px; padding:16px 16px 20px; margin:16px auto;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8), 0 0 40px rgba(79,195,247,0.1);
     }
     .gauge-svg-wrap { position:relative; width:100%; max-width:340px; aspect-ratio:1/1; margin:0 auto; }
-    .gauge-svg-wrap svg { width:100%; height:100%; }
-    .gauge-track { fill:none; stroke:rgba(255,255,255,0.05); stroke-width:20; }
-    .gauge-arc { fill:none; stroke-width:20; stroke-linecap:round; filter:drop-shadow(0 0 16px rgba(79,195,247,0.7)); }
-    .gauge-num { fill:#fff; font-size:11px; font-family:'Oswald',sans-serif; font-weight:700; text-anchor:middle; dominant-baseline:middle; }
+    .gauge-svg-wrap svg { width:100%; height:100%; filter: drop-shadow(0 0 20px rgba(34,211,238,0.3)); }
+    .gauge-track { fill:none; stroke:var(--gauge-track); stroke-width:24; }
+    .gauge-arc { fill:none; stroke-width:24; stroke-linecap:round; filter:drop-shadow(0 0 18px var(--gauge-glow-color)); }
+    .gauge-num {
+      fill:#ffffff; font-size:12px; font-family:'Oswald',sans-serif; font-weight:700;
+      text-anchor:middle; dominant-baseline:middle;
+      text-shadow: 0 0 8px rgba(34,211,238,0.8);
+    }
     .gauge-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
-    .gauge-status { font-size:0.85rem; color:#111; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
-    .gauge-value { font-size:3rem; font-weight:800; color:#0A0F14; line-height:1; text-shadow:0 1px 2px rgba(255,255,255,0.5); }
-    .gauge-unit { font-size:0.85rem; color:#333; font-weight:600; }
+    .gauge-status { font-size:0.85rem; color:#fff; font-weight:700; letter-spacing:1px; text-transform:uppercase; text-shadow:0 0 8px rgba(34,211,238,0.6); }
+    .gauge-value { font-size:3rem; font-weight:800; color:#fff; line-height:1; text-shadow:0 0 20px rgba(34,211,238,0.9); }
+    .gauge-unit { font-size:0.85rem; color:var(--gold-bright); font-weight:700; text-shadow:0 0 8px rgba(212,175,55,0.6); }
     .completion-text { text-align:center; font-size:1rem; font-weight:700; color:var(--gold-bright); letter-spacing:2px; display:none; }
     .completion-text.show { display:block; }
 
     .btn-premium {
-      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      background:var(--silver-gradient); color:#000; border:2px solid var(--gold);
       padding:14px 40px; border-radius:50px; font-weight:800; font-size:1rem; cursor:pointer;
       margin:12px auto 0; text-transform:uppercase; letter-spacing:0.5px;
       text-shadow:0 1px 2px rgba(255,255,255,0.4);
@@ -109,9 +112,9 @@
       padding:16px 12px; text-align:center;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 15px rgba(0,0,0,0.3), 0 0 12px var(--gold-glow);
     }
-    .result-card .rc-value { font-size:1.5rem; font-weight:800; color:#0A0F14; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
+    .result-card .rc-value { font-size:1.5rem; font-weight:800; color:#000; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
     .result-card .rc-unit { font-size:0.7rem; color:#333; font-weight:700; }
-    .result-card .rc-label { font-size:0.7rem; color:#111; margin-top:2px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+    .result-card .rc-label { font-size:0.7rem; color:#111; margin-top:2px; font-weight:700; text-transform:uppercase; }
     .prem-arrow { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; font-size:14px; color:#fff; }
     .prem-down { background:linear-gradient(135deg,#3B6CFF,#22D3EE); box-shadow:0 0 12px rgba(34,211,238,0.4); }
     .prem-up { background:linear-gradient(135deg,#A78BFA,#7C3AED); box-shadow:0 0 12px rgba(167,139,250,0.4); }
@@ -145,8 +148,28 @@
     <div class="gauge-section">
       <div class="completion-text" id="completionText">✦ Test Complete ✦</div>
       <div class="gauge-svg-wrap">
-        <svg id="gaugeSvg" viewBox="0 0 400 400"><defs><linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3B6CFF"/><stop offset="35%" stop-color="#22D3EE"/><stop offset="65%" stop-color="#34D399"/><stop offset="100%" stop-color="#FDE047"/></linearGradient></defs></svg>
-        <div class="gauge-center"><div class="gauge-status" id="gaugeStatus">Ready</div><div class="gauge-value"><span id="gaugeValueNum">0.0</span></div><div class="gauge-unit" id="gaugeUnit">Mbps</div></div>
+        <svg id="gaugeSvg" viewBox="0 0 400 400">
+          <defs>
+            <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#3B6CFF"/>
+              <stop offset="35%" stop-color="#22D3EE"/>
+              <stop offset="65%" stop-color="#34D399"/>
+              <stop offset="100%" stop-color="#FDE047"/>
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+        </svg>
+        <div class="gauge-center">
+          <div class="gauge-status" id="gaugeStatus">Ready</div>
+          <div class="gauge-value"><span id="gaugeValueNum">0.0</span></div>
+          <div class="gauge-unit" id="gaugeUnit">Mbps</div>
+        </div>
       </div>
       <button class="btn-premium" id="startBtn">Start Test</button>
     </div>
@@ -156,7 +179,7 @@
       <div class="result-card"><div><span class="prem-arrow prem-up">▲</span></div><div><span class="rc-value" id="rUp">-</span><span class="rc-unit">Mbps</span></div><div class="rc-label">Upload</div></div>
       <div class="result-card"><div>📶</div><div><span class="rc-value" id="rPing">-</span><span class="rc-unit">ms</span></div><div class="rc-label">Ping</div></div>
       <div class="result-card" style="grid-column:span 2;"><div>〰️</div><div class="rc-label">Jitter: <span id="rJitter">-</span> ms</div></div>
-      <div class="result-card" style="grid-column:span 3;display:flex;align-items:center;gap:10px;"><div>🌐</div><div style="font-size:0.8rem;font-weight:700;color:#0A0F14;"><strong id="serverCity">Detecting server...</strong></div></div>
+      <div class="result-card" style="grid-column:span 3;display:flex;align-items:center;gap:10px;"><div>🌐</div><div style="font-size:0.8rem;font-weight:700;color:#000;"><strong id="serverCity">Detecting server...</strong></div></div>
     </div>
 
     <div class="share-bar" id="shareBarWrap" style="display:none;"><button class="share-btn share-whatsapp" onclick="shareWhatsApp()">📱 WhatsApp</button><button class="share-btn share-pdf" onclick="downloadResult('pdf')">📄 PDF</button><button class="share-btn share-jpg" onclick="downloadResult('jpg')">🖼 JPG</button><button class="share-btn share-png" onclick="downloadResult('png')">🖼 PNG</button></div>
@@ -175,41 +198,96 @@
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
   <a href="https://wa.me/923333228470" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
-  <!-- Original script untouched, with minor style enhancements applied via CSS -->
+  <!-- Enhanced gauge script -->
   <script>
     const CX=200,CY=200,R=160,START=135,SWEEP=270,NUMS=[0,1,5,10,20,50,100,200,500,1000];
+    const NUM_ANGLES = NUMS.map(v=>v2f(v));
     function v2f(v){return Math.min(1,Math.max(0,Math.log10(Math.max(0,v)+1)/Math.log10(1001)));}
     function ang(f){return START+f*SWEEP;}
     function pt(a,r){const rad=a*Math.PI/180;return{x:CX+r*Math.cos(rad),y:CY+r*Math.sin(rad)};}
 
     function buildGauge(){
       const svg=document.getElementById('gaugeSvg');
+      // Track
       const tr=document.createElementNS('http://www.w3.org/2000/svg','path');
       tr.setAttribute('class','gauge-track');
       const s=pt(START,R),e=pt(START+SWEEP,R);
       tr.setAttribute('d',`M ${s.x} ${s.y} A ${R} ${R} 0 1 1 ${e.x} ${e.y}`);
       svg.appendChild(tr);
-      NUMS.forEach(v=>{
+
+      // LED dots along track (subtle)
+      const dotsGroup=document.createElementNS('http://www.w3.org/2000/svg','g');
+      dotsGroup.setAttribute('id','ledDots');
+      for(let i=0;i<=40;i++){
+        const f=i/40;
+        const a=ang(f);
+        const p=pt(a,R+4);
+        const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+        dot.setAttribute('cx',p.x); dot.setAttribute('cy',p.y);
+        dot.setAttribute('r',3);
+        dot.setAttribute('fill','#22D3EE');
+        dot.setAttribute('opacity','0');
+        dotsGroup.appendChild(dot);
+      }
+      svg.appendChild(dotsGroup);
+
+      // Numbers
+      NUMS.forEach((v,i)=>{
         const a=ang(v2f(v)),lp=pt(a,R-30);
         const tx=document.createElementNS('http://www.w3.org/2000/svg','text');
         tx.setAttribute('x',lp.x);tx.setAttribute('y',lp.y);tx.setAttribute('class','gauge-num');
-        tx.textContent=v>=1000?'1K':v;svg.appendChild(tx);
+        tx.textContent=v>=1000?'1K':v;
+        tx.setAttribute('filter','url(#glow)');
+        svg.appendChild(tx);
       });
+
+      // Arc
       const arc=document.createElementNS('http://www.w3.org/2000/svg','path');
-      arc.setAttribute('id','gaugeArc');arc.setAttribute('class','gauge-arc');arc.setAttribute('stroke','url(#arcGrad)');svg.appendChild(arc);
+      arc.setAttribute('id','gaugeArc');arc.setAttribute('class','gauge-arc');arc.setAttribute('stroke','url(#arcGrad)');
+      arc.setAttribute('filter','url(#glow)');
+      svg.appendChild(arc);
+
+      // Needle
       const nd=document.createElementNS('http://www.w3.org/2000/svg','g');
       nd.setAttribute('id','gaugeNeedle');
-      nd.innerHTML=`<polygon points="${CX-4},${CY} ${CX+85},${CY-3} ${CX+75},${CY} ${CX+85},${CY+3}" fill="#4FC3F7" stroke="#22D3EE" stroke-width="1"/><circle cx="${CX}" cy="${CY}" r="8" fill="#4FC3F7"/>`;
-      svg.appendChild(nd);setArc(0);
+      nd.innerHTML=`<polygon points="${CX-4},${CY} ${CX+85},${CY-3} ${CX+75},${CY} ${CX+85},${CY+3}" fill="#4FC3F7" stroke="#22D3EE" stroke-width="1.5" filter="url(#glow)"/><circle cx="${CX}" cy="${CY}" r="9" fill="#4FC3F7" stroke="#22D3EE" stroke-width="2" filter="url(#glow)"/>`;
+      svg.appendChild(nd);
+      setArc(0);
     }
 
     function arcPath(sD,eD,r){const a=pt(sD,r),b=pt(eD,r);return `M ${a.x} ${a.y} A ${r} ${r} 0 ${(eD-sD)>180?1:0} 1 ${b.x} ${b.y}`;}
-    function setArc(f){f=Math.min(1,Math.max(0,f));const eA=START+f*SWEEP,arc=document.getElementById('gaugeArc');if(f>0.002){arc.setAttribute('d',arcPath(START,eA,R));arc.style.display='block';}else{arc.style.display='none';}document.getElementById('gaugeNeedle').setAttribute('transform',`rotate(${eA-START} ${CX} ${CY})`);}
+    function setArc(f){
+      f=Math.min(1,Math.max(0,f));
+      const eA=START+f*SWEEP;
+      const arc=document.getElementById('gaugeArc');
+      if(f>0.002){
+        arc.setAttribute('d',arcPath(START,eA,R));
+        arc.style.display='block';
+      } else {
+        arc.style.display='none';
+      }
+      document.getElementById('gaugeNeedle').setAttribute('transform',`rotate(${eA-START} ${CX} ${CY})`);
+      // Update LED dots
+      const dots=document.querySelectorAll('#ledDots circle');
+      dots.forEach((dot,index)=>{
+        const dotF=index/(dots.length-1);
+        dot.setAttribute('opacity', dotF <= f ? '1' : '0');
+      });
+    }
 
-    function animNum(target,dur=500){const el=document.getElementById('gaugeValueNum'),s=parseFloat(el.textContent)||0,st=performance.now();function step(now){const t=Math.min(1,(now-st)/dur),val=s+(target-s)*(1-Math.pow(1-t,3));el.textContent=val.toFixed(1);setArc(v2f(val));if(t<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
+    function animNum(target,dur=500){
+      const el=document.getElementById('gaugeValueNum'),s=parseFloat(el.textContent)||0,st=performance.now();
+      function step(now){
+        const t=Math.min(1,(now-st)/dur),val=s+(target-s)*(1-Math.pow(1-t,3));
+        el.textContent=val.toFixed(1);
+        setArc(v2f(val));
+        if(t<1)requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
 
+    // Original speed test functions (unchanged)
     let abortCtrl=null,xhr=null,cancelled=false;
-
     async function ping(s=6){const t=[];for(let i=0;i<s;i++){if(cancelled)break;const t0=performance.now();try{abortCtrl=new AbortController();await fetch('https://speed.cloudflare.com/__down?bytes=1000&'+Math.random(),{signal:abortCtrl.signal});t.push(performance.now()-t0);}catch(e){}await new Promise(r=>setTimeout(r,50));}if(!t.length)return null;const p=Math.min(...t),avg=t.reduce((a,b)=>a+b,0)/t.length;return{ping:p,jitter:Math.sqrt(t.reduce((a,b)=>a+Math.pow(b-avg,2),0)/t.length)};}
     async function dl(onP){const sz=24e6,t0=performance.now();abortCtrl=new AbortController();const r=await fetch('https://speed.cloudflare.com/__down?bytes='+sz+'&'+Math.random(),{signal:abortCtrl.signal});const rd=r.body.getReader();let rc=0;while(true){if(cancelled)break;const{done,value}=await rd.read();if(done)break;rc+=value.length;const el=(performance.now()-t0)/1000;if(el>0.05)onP((rc*8)/el/1e6);}return(rc*8)/((performance.now()-t0)/1000)/1e6;}
     async function ul(onP){return new Promise(res=>{const sz=8e6,d=new Blob([new Uint8Array(sz)]),x=new XMLHttpRequest();xhr=x;const t0=performance.now();x.open('POST','https://speed.cloudflare.com/__up',true);x.upload.onprogress=function(e){const el=(performance.now()-t0)/1000;if(el>0.05&&e.loaded)onP((e.loaded*8)/el/1e6);};x.onloadend=function(){if(!cancelled)res((sz*8)/((performance.now()-t0)/1000)/1e6);};x.onerror=function(){res(null);};x.onabort=function(){res(null);};x.send(d);});}

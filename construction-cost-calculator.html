@@ -90,8 +90,9 @@
     .share-tool-btn i{font-size:1rem;}
 
     .card { background:var(--surface); border:1px solid var(--gold); border-radius:12px; padding:20px; margin-bottom:16px; position:relative; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
-    
-    .card h2 { font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:600; margin-bottom:4px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
+
+    /* Card headings now gold */
+    .card h2 { font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:600; margin-bottom:4px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px; }
     .card .card-sub { font-size:0.75rem; color:var(--muted); margin-bottom:14px; }
 
     .field { margin-bottom:12px; }
@@ -99,6 +100,12 @@
     .field label .tag { color:var(--gold); font-size:0.7rem; }
     .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:10px 12px; border-radius:8px; font-size:0.9rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4); }
     .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .field select {
+      appearance:none; -webkit-appearance:none; -moz-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M2 2 L10 10 L18 2' fill='none' stroke='%23D4AF37' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 14px center; background-size:20px 12px;
+      padding-right:44px;
+    }
     .field select option { background:var(--surface2); color:var(--text); }
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
@@ -106,8 +113,10 @@
     .checkline { display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:0.85rem; color:var(--text); }
     .checkline input { width:auto; }
 
-    .btn-calc { width:100%; background:var(--silver-gradient); color:#ffffff; border:2px solid var(--gold); padding:15px; border-radius:10px; font-weight:700; font-size:1.05rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; text-shadow:0 1px 2px rgba(0,0,0,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow); transition:all 0.25s ease; }
+    .btn-calc { width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold); padding:15px; border-radius:10px; font-weight:700; font-size:1.05rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow); transition:all 0.25s ease; }
     .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
+    .btn-reset { background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold); padding:14px 18px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer; white-space:nowrap; text-shadow:0 1px 2px rgba(255,255,255,0.4); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3); transition:all 0.25s ease; }
+    .btn-reset:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
     .result-hero { background:linear-gradient(135deg, rgba(52,211,153,0.10), rgba(79,195,247,0.08)); border:1px solid var(--good); border-radius:14px; padding:22px; text-align:center; margin-bottom:16px; }
     .result-hero .val { font-family:'Oswald',sans-serif; font-size:2.1rem; font-weight:800; color:var(--good); word-break:break-word; }
@@ -121,22 +130,27 @@
     .breakdown-table tr.total td { border-top:2px solid var(--good); font-weight:800; color:var(--good); font-size:1rem; }
     .breakdown-table tr.section-head td { color:var(--gold); font-weight:700; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px; padding-top:14px; border-bottom:none; }
 
+    /* Platinum result cards */
     .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
-    .result-item { background:var(--surface2); border:1px solid var(--gold); border-radius:10px; padding:14px; text-align:center; word-break:break-word; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.15rem; font-weight:800; color:var(--accent); line-height:1.2; }
-    .result-item .lbl { font-size:0.68rem; color:var(--muted); margin-top:3px; text-transform:uppercase; letter-spacing:0.5px; }
+    .result-item {
+      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:10px;
+      padding:14px; text-align:center; word-break:break-word;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3), 0 0 10px var(--gold-glow);
+    }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.15rem; font-weight:800; color:#0A0F14; line-height:1.2; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
+    .result-item .lbl { font-size:0.68rem; color:#111; margin-top:3px; text-transform:uppercase; letter-spacing:0.5px; font-weight:700; }
 
     .share-bar { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
     .share-btn { display:flex; align-items:center; gap:6px; padding:10px 16px; border-radius:50px; font-weight:600; font-size:0.8rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
     .share-whatsapp { background:#25D366; }
     .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
+    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--gold); }
 
     .note { font-size:0.72rem; color:var(--muted); margin-top:12px; border-top:1px solid var(--border); padding-top:10px; }
     .disclaimer { font-size:0.72rem; color:var(--muted); background:rgba(232,185,58,0.06); border:1px solid rgba(232,185,58,0.3); border-radius:8px; padding:12px; margin-top:14px; }
     #shareCapture { display:none; }
     footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:30px 0 20px; border-top:1px solid var(--border); margin-top:40px; }
-    footer a { color:var(--accent); text-decoration:none; }
+    footer a { color:var(--gold-bright); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:18px; right:18px; z-index:999; width:44px; height:44px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.2rem; }
 
     @media (max-width:460px) {
@@ -145,7 +159,6 @@
       h1 { font-size:1.35rem; }
       .result-hero .val { font-size:1.6rem; }
     }
-    
   </style>
 </head>
 <body>
@@ -164,7 +177,7 @@
   </nav>
 
   <div class="container">
-  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
   
     <div class="ad-card">
       <div>
@@ -400,7 +413,10 @@
       <div class="field"><label>Government Approval / NOC Fees <span class="tag">(fixed amount, optional)</span></label><input type="number" id="govFees" value="0" step="any" min="0"></div>
     </div>
 
-    <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="calculateConstruction()">Calculate Total Cost</button><button onclick="window.location.reload()" style="background:var(--silver-gradient);border:2px solid var(--gold);color:#fff;padding:14px 18px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,0.6);box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35);">🔄 Reset</button></div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn-calc" style="flex:1" onclick="calculateConstruction()">Calculate Total Cost</button>
+      <button class="btn-reset" onclick="resetConstructionForm()">🔄 Reset</button>
+    </div>
 
     <!-- RESULTS -->
     <div id="resultsWrap" style="display:none;">
@@ -666,6 +682,49 @@
     document.getElementById('resultsWrap').style.display = 'block';
     document.getElementById('shareBarWrap').style.display = 'flex';
     document.getElementById('resultsWrap').scrollIntoView({behavior:'smooth'});
+  }
+
+  // ---------- Reset function (no reload) ----------
+  function resetConstructionForm() {
+    // Reset all main input fields to default
+    document.getElementById('coveredArea').value = 1500;
+    document.getElementById('floors').value = 1;
+    document.getElementById('plotArea').value = '';
+    document.getElementById('archFee').value = 3;
+    document.getElementById('structFee').value = 2;
+    document.getElementById('overheadFee').value = 10;
+    document.getElementById('contingencyFee').value = 5;
+    document.getElementById('siteDevEnable').checked = false;
+    document.getElementById('siteDevField').style.display = 'none';
+    document.getElementById('siteDevAmount').value = 0;
+    document.getElementById('govFees').value = 0;
+    
+    // Reset selects to default
+    document.getElementById('buildingType').value = 'residential';
+    document.getElementById('structureType').value = 'rcc';
+    document.getElementById('qualityGrade').value = 'standard';
+    document.getElementById('foundationType').value = 'shallow';
+    document.getElementById('wallMaterial').value = 'brick';
+    document.getElementById('roofType').value = 'rcc';
+    document.getElementById('flooringType').value = 'ceramic';
+    document.getElementById('electricalGrade').value = 'standard';
+    document.getElementById('plumbingGrade').value = 'standard';
+    document.getElementById('hvacType').value = 'split';
+    document.getElementById('doorsGrade').value = 'standard';
+    document.getElementById('paintGrade').value = 'premium';
+    document.getElementById('currency').value = 'PKR';
+    document.getElementById('areaUnit').value = 'sqft';
+    document.getElementById('weightUnit').value = 'kg';
+    
+    // Hide results
+    document.getElementById('resultsWrap').style.display = 'none';
+    document.getElementById('shareBarWrap').style.display = 'none';
+    
+    // Update suggested rates
+    updateSuggestedRates();
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // ---------- Share / download ----------

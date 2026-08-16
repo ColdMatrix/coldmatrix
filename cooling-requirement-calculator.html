@@ -46,6 +46,7 @@
       --silver-gradient-hover: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
       --warn: #FFA500;
       --danger: #FF6B6B;
+      --good: #34D399;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -203,6 +204,15 @@
       font-size: 0.85rem;
       color: var(--danger);
     }
+    .success-box {
+      background: rgba(52, 211, 153, 0.12);
+      border: 1px solid #34D399;
+      border-radius: 8px;
+      padding: 8px 14px;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #34D399;
+    }
 
     .btn-primary {
       width: 100%;
@@ -221,6 +231,22 @@
     }
     .btn-primary:hover { background: var(--silver-gradient-hover); border-color: var(--gold-bright); }
     .btn-primary:disabled { opacity:0.45; cursor:not-allowed; }
+
+    .btn-reset {
+      width: 100%;
+      background: transparent;
+      color: var(--gold-bright);
+      border: 2px solid var(--gold);
+      padding: 14px;
+      border-radius: 10px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-reset:hover { background: rgba(212,175,55,0.1); border-color: var(--gold-bright); }
 
     .results-container {
       background: var(--card-bg);
@@ -340,15 +366,6 @@
     .nav-links{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
     .nav-links a{color:#9AA0B0;text-decoration:none;font-weight:500;font-size:0.85rem;transition:color 0.2s}
     .nav-links a:hover{color:#4FC3F7}
-    .success-box {
-  background: rgba(52, 211, 153, 0.12);
-  border: 1px solid #34D399;
-  border-radius: 8px;
-  padding: 8px 14px;
-  margin-top: 8px;
-  font-size: 0.85rem;
-  color: #34D399;
-}
   </style>
 </head>
 <body>
@@ -370,7 +387,7 @@
   <div class="card">
 
     <div class="coldmatrix-note">
-      ❄️ <strong>ColdMatrix Note:</strong> Enter dimensions for all 4 walls. Mark any shared wall as existing so it is excluded from the thermal envelope. For a full cold store quotation, use our Cold Store & Panels Calculator.
+      ❄️ <strong>ColdMatrix Note:</strong> Enter dimensions for all 4 walls. Mark any shared wall as existing so it is excluded from the thermal envelope. For large rooms, use the Daily Product Load field for more accurate results. For a full cold store quotation, use our Cold Store & Panels Calculator.
     </div>
 
     <!-- ROOM DIMENSIONS (4 walls) -->
@@ -450,6 +467,17 @@
       <input type="number" id="ambientTemp" value="45" step="any">
     </div>
 
+    <!-- AIR CHANGES / DOOR USAGE -->
+    <div class="result-section-title">🚪 Door Usage / Air Changes</div>
+    <div class="field">
+      <label>Air Changes per Hour (ACH)</label>
+      <select id="airChanges" onchange="updateSuggestion()">
+        <option value="0.5">Low (0.5) – rare access / small door</option>
+        <option value="1.0" selected>Medium (1.0) – standard commercial usage</option>
+        <option value="1.8">Heavy (1.8) – frequent forklift / large door</option>
+      </select>
+    </div>
+
     <!-- STORAGE TEMP & PRODUCT -->
     <div class="result-section-title">🌡️ Storage Temperature & Product</div>
     <div class="field">
@@ -473,7 +501,7 @@
       </div>
       <div class="field">
         <label>🛡️ Safety Factor (%)</label>
-        <input type="number" id="safetyFactor" value="20" step="any">
+        <input type="number" id="safetyFactor" value="15" step="any">
       </div>
     </div>
     <div class="grid-2">
@@ -540,7 +568,10 @@
       <strong>❄️ Evaporator:</strong> Choose correct fin spacing for the room temperature. Electric defrost required for freezer applications.
     </div>
 
-    <button class="btn-primary" id="calcBtn">Calculate Cooling Requirement</button>
+    <div style="display:flex; gap:10px; margin-top:10px;">
+      <button class="btn-primary" id="calcBtn" style="flex:1;">Calculate Cooling Requirement</button>
+      <button class="btn-reset" onclick="resetCalculator()" style="flex:1;">🔄 Reset</button>
+    </div>
 
     <!-- RESULTS -->
     <div class="results-container" id="resultCard">
@@ -585,7 +616,7 @@
 <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
   <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Cooling Requirement Calculator</h2>
   <p>ColdMatrix Cooling Requirement Calculator gives engineers and contractors a fast, reliable way to estimate the refrigeration load for cold rooms and freezers. It calculates transmission, product, infiltration, and equipment loads, then recommends the correct panel thickness and refrigeration unit in HP and TR.</p>
-  <p>With climate presets, unit toggling, safety factors, and a manual override option, this tool adapts to real project conditions. It also provides an instant cost estimate in your chosen currency, making it perfect for preliminary quotations and system sizing.</p>
+  <p>With climate presets, adjustable air change rates, unit toggling, safety factors, and a manual override option, this tool adapts to real project conditions. It also provides an instant cost estimate in your chosen currency, making it perfect for preliminary quotations and system sizing.</p>
   <p><strong>Need panels and structure too?</strong> Pair with our <a href="cold-store-calculator.html" style="color:#FFD700;">Cold Store Calculator</a>.</p>
 </div>
 
@@ -691,14 +722,20 @@
       document.getElementById('liveVolume').textContent = vol > 0 ? vol.toFixed(2) + ' ' + unitVol : '—';
     }
 
+    // Product load with latent heat
     function getSafeProductLoad(floorAreaFt2, prodType, dailyKg, roomTemp, entryTemp) {
       if (dailyKg > 0) {
         let deltaProd = Math.max(0, parseFloat(entryTemp) - parseFloat(roomTemp));
-        let baseLoad = (dailyKg * 3.5 * deltaProd) / 86400 * 1000;
-        if (prodType === 'fruitveg') {
-          baseLoad += dailyKg * 0.015;
+        let sensibleLoad = (dailyKg * 3.5 * deltaProd) / 86400 * 1000;
+        let latentLoad = 0;
+        if (parseFloat(roomTemp) < 0 && parseFloat(entryTemp) > 0) {
+          latentLoad = (dailyKg * 230 * 1000) / 86400;
         }
-        return baseLoad;
+        let respirationLoad = 0;
+        if (prodType === 'fruitveg') {
+          respirationLoad = dailyKg * 0.015;
+        }
+        return sensibleLoad + latentLoad + respirationLoad;
       }
       let loadPerFt2;
       if (['icecream','meat','fish'].includes(prodType)) {
@@ -719,7 +756,7 @@
       let vol = getVolumeEstimate();
       let floorArea = getFloorArea();
       if (area > 0 && vol > 0) {
-        let saf = parseFloat(document.getElementById('safetyFactor').value)||20;
+        let saf = parseFloat(document.getElementById('safetyFactor').value)||15;
         let areaM2 = currentUnit === 'm' ? area : area * 0.092903;
         let volM3 = currentUnit === 'm' ? vol : vol * 0.0283168;
         let U = 0.022 / (thick/1000);
@@ -729,7 +766,9 @@
         let entryT = document.getElementById('productEntryTemp').value||28;
         let floorAreaFt2 = currentUnit === 'ft' ? floorArea : floorArea * 10.7639;
         let Qprod = getSafeProductLoad(floorAreaFt2, document.getElementById('productType').value, dailyKg, room, entryT);
-        let Qinf = 0.0000335 * volM3 * deltaT * 1000;
+        // Updated infiltration using Air Changes per Hour (ACH)
+        let ach = parseFloat(document.getElementById('airChanges').value) || 1.0;
+        let Qinf = (ach * volM3 * 1.2 * 1.006 * deltaT) / 3600 * 1000; // Watts
         let subtotal = Qtrans + Qprod + Qinf;
         let Qequip = subtotal * 0.15;
         let totalW = (subtotal * (1 + saf/100)) + Qequip;
@@ -759,7 +798,7 @@
 
       let amb = parseFloat(document.getElementById('ambientTemp').value)||45;
       let room = parseFloat(document.getElementById('roomTemp').value)||-20;
-      let saf = parseFloat(document.getElementById('safetyFactor').value)||20;
+      let saf = parseFloat(document.getElementById('safetyFactor').value)||15;
       let prodType = document.getElementById('productType').value;
       let dailyKg = parseFloat(document.getElementById('dailyProductKg').value)||0;
       let entryT = parseFloat(document.getElementById('productEntryTemp').value)||28;
@@ -772,7 +811,9 @@
 
       let floorAreaFt2 = currentUnit === 'ft' ? floorArea : floorArea * 10.7639;
       let Qprod = getSafeProductLoad(floorAreaFt2, prodType, dailyKg, room, entryT);
-      let Qinf = 0.0000335 * volM3 * deltaT * 1000;
+      // Updated infiltration using ACH
+      let ach = parseFloat(document.getElementById('airChanges').value) || 1.0;
+      let Qinf = (ach * volM3 * 1.2 * 1.006 * deltaT) / 3600 * 1000;
       let subtotal = Qtrans + Qprod + Qinf;
       let Qequip = subtotal * 0.15;
       let totalW = (subtotal * (1 + saf/100)) + Qequip;
@@ -818,6 +859,50 @@
 
     document.getElementById('calcBtn').addEventListener('click', calculate);
 
+    // Reset function
+    window.resetCalculator = function() {
+      // Reset wall inputs
+      document.getElementById('w1L').value = 20;
+      document.getElementById('w1H').value = 15;
+      document.getElementById('w2L').value = 40;
+      document.getElementById('w2H').value = 15;
+      document.getElementById('w3L').value = 20;
+      document.getElementById('w3H').value = 15;
+      document.getElementById('w4L').value = 40;
+      document.getElementById('w4H').value = 15;
+      document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+      // Reset unit system
+      currentUnit = 'ft';
+      document.querySelectorAll('.unit-btn[data-unit]').forEach(b => b.classList.remove('active'));
+      document.querySelector('.unit-btn[data-unit="ft"]').classList.add('active');
+
+      // Reset other fields
+      document.getElementById('climatePreset').value = '45';
+      document.getElementById('ambientTemp').value = 45;
+      document.getElementById('airChanges').value = '1.0';
+      document.getElementById('roomTemp').value = -20;
+      document.getElementById('productType').value = 'icecream';
+      document.getElementById('safetyFactor').value = 15;
+      document.getElementById('dailyProductKg').value = '';
+      document.getElementById('productEntryTemp').value = 28;
+      document.getElementById('manualHP').value = '';
+      document.getElementById('manualTR').value = '';
+      document.getElementById('dualCompressor').checked = false;
+      document.getElementById('rateBasis').value = 'tr';
+      document.getElementById('rateAmount').value = 45000;
+      document.getElementById('currency').value = 'PKR';
+
+      // Hide results
+      document.getElementById('resultCard').style.display = 'none';
+
+      // Update live stats & suggestion
+      updateLiveStats();
+      updateSuggestion();
+      checkMinusAdvisories();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     window.shareWhatsApp = function() {
       let msg = `❄️ *Cooling Requirement Summary*%0A%0A` +
         `📐 Volume: ${document.getElementById('sVolume').textContent}%0A` +
@@ -847,7 +932,7 @@
     document.getElementById('roomTemp').addEventListener('input', function() {
       updateLiveStats(); updateSuggestion(); checkMinusAdvisories();
     });
-    document.querySelectorAll('#w1L,#w1H,#w2L,#w2H,#w3L,#w3H,#w4L,#w4H,#w1Shared,#w2Shared,#w3Shared,#w4Shared,#productType,#safetyFactor,#dailyProductKg,#productEntryTemp').forEach(el => {
+    document.querySelectorAll('#w1L,#w1H,#w2L,#w2H,#w3L,#w3H,#w4L,#w4H,#w1Shared,#w2Shared,#w3Shared,#w4Shared,#productType,#safetyFactor,#dailyProductKg,#productEntryTemp,#airChanges').forEach(el => {
       el.addEventListener('input', function() { updateLiveStats(); updateSuggestion(); });
       el.addEventListener('change', function() { updateLiveStats(); updateSuggestion(); });
     });
