@@ -17,19 +17,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        :root { --bg:#0B0F14; --surface:#111820; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gold:#D4AF37; --gold-bright:#FFD700; --gold-border:linear-gradient(145deg,#C8993A,#E8C96A 30%,#A07828 70%,#D4A843); --grey-gradient:linear-gradient(180deg,#d0d2d6,#9ea0a5); --whatsapp-green:#25D366; }
+        :root {
+            --bg:#0B0F14; --surface:#111820; --text:#EAEDF0; --muted:#8B98A5;
+            --accent:#4FC3F7; --gold:#D4AF37; --gold-bright:#FFD700;
+            --gold-gradient: linear-gradient(135deg, #C8993A, #E8C96A 40%, #A07828 70%, #D4A843);
+            --silver-bright: #F0F0F0;
+            --silver-mid: #C0C0C0;
+            --silver-dark-bg: linear-gradient(145deg, #3A3F46 0%, #282D33 40%, #1C2025 100%);
+            --silver-text-gradient: linear-gradient(145deg, #FFFFFF 0%, #E0E0E0 30%, #C0C0C0 70%, #F0F0F0 100%);
+            --gold-text-gradient: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #B8860B 100%);
+            --whatsapp-green:#25D366;
+            --neon-glow: 0 0 20px rgba(212,175,55,0.5), 0 0 40px rgba(212,175,55,0.3);
+        }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { background:#0B0F14; color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; }
-        .container { max-width:650px; width:100%; margin:0 auto; padding:0 20px; }
+        html, body { overflow-x: hidden; }
+        body {
+            background: radial-gradient(circle at 20% 20%, #0e1722, #0B0F14 60%),
+                        radial-gradient(circle at 80% 80%, #0a1a2b, #0B0F14 50%);
+            color:var(--text); font-family:'Inter',sans-serif; min-height:100vh;
+        }
+        .container { width:100%; max-width:650px; margin:0 auto; padding:20px; }
 
-        .navbar { position:sticky; top:0; z-index:100; width:100%; background:rgba(11,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:var(--gold-border) 1; }
+        .navbar { position:sticky; top:0; z-index:100; background:rgba(11,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:var(--gold-gradient) 1; }
         .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; max-width:650px; margin:0 auto; }
-        .logo { font-size:1.3rem; font-weight:800; color:var(--accent); text-decoration:none; }
+        .logo { font-size:1.3rem; font-weight:800; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
         .nav-links { display:flex; gap:18px; list-style:none; flex-wrap:wrap; }
         .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; }
         .nav-links a:hover { color:var(--gold-bright); }
 
-        /* Standard compact install bar — matches other tools */
         .install-bar {
             background:var(--accent); color:#0A0F14;
             text-align:center; padding:12px 20px; border-radius:10px; margin:18px 0;
@@ -45,41 +60,94 @@
 
         .brand-header { text-align:center; padding:24px 0 6px; }
         .title-row { display:flex; align-items:center; justify-content:center; gap:12px; }
-        .timer-icon { display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; background:var(--grey-gradient); border:2px solid var(--gold); border-radius:50%; font-size:1.5rem; color:#0A0F14; box-shadow:0 4px 16px rgba(212,175,55,0.35); }
+        .timer-icon { display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; background:var(--silver-dark-bg); border:2px solid var(--gold); border-radius:50%; font-size:1.5rem; color:var(--gold-bright); box-shadow:0 4px 16px rgba(212,175,55,0.35); }
         .brand-title { font-family:'Oswald',sans-serif; font-size:2rem; color:#fff; }
         .brand-title span { color:var(--accent); }
         .subtitle { color:var(--muted); font-size:0.95rem; }
 
-        .share-tool-card{
-            background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
-            border: 2px solid;
-            border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
-            border-radius:12px;
-            padding:22px 20px;
-            margin-bottom:26px;
-            box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+        .premium-card {
+            border: 2px solid transparent;
+            border-radius: 16px;
+            background: var(--silver-dark-bg) padding-box, var(--gold-gradient) border-box;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03);
         }
-        .share-tool-title{font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
-        .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-        .share-tool-btn{
-            display:flex; align-items:center; justify-content:center; gap:9px;
-            padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
-            background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+
+        .share-tool-card { padding:18px; margin-bottom:26px; }
+        .share-tool-title { font-weight:800; font-size:1.05rem; color:var(--gold-bright); text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase; }
+        .share-tool-buttons { display:flex; gap:12px; width:100%; }
+        .share-tool-btn {
+            flex:1; display:flex; align-items:center; justify-content:center; gap:9px;
+            padding:16px 10px; border-radius:12px; font-weight:700; font-size:0.95rem; cursor:pointer;
+            background:rgba(15,20,30,0.85); color:#EAEDF0;
+            border:1.5px solid rgba(200,168,78,0.6);
             transition:all 0.25s ease; font-family:'Inter',sans-serif;
         }
-        .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
-        .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
-        .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-        .share-tool-btn i{font-size:1rem;}
+        .share-tool-btn:hover { border-color:var(--gold-bright); box-shadow:0 0 20px rgba(200,168,78,0.4); transform:translateY(-2px); }
+        .share-tool-btn.wa { border-color:rgba(37,211,102,0.7); }
+        .share-tool-btn.wa:hover { border-color:var(--whatsapp-green); box-shadow:0 0 20px rgba(37,211,102,0.35); }
+        .share-tool-btn i { font-size:1rem; }
 
         .mode-tabs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
-        .mode-tab { padding:16px; border-radius:14px; font-weight:700; font-size:1rem; cursor:pointer; text-align:center; border:2px solid var(--gold); color:var(--gold-bright); background:rgba(212,175,55,0.05); transition:all 0.2s; }
-        .mode-tab.active { background:var(--grey-gradient); color:#0A0F14; border-color:var(--gold-bright); font-weight:800; box-shadow:0 4px 16px rgba(212,175,55,0.3); }
+        .mode-tab {
+            padding:16px; border-radius:14px; font-weight:700; font-size:1rem; cursor:pointer; text-align:center;
+            border:2px solid var(--gold); color:var(--gold-bright);
+            background:rgba(212,175,55,0.05); transition:all 0.2s;
+        }
+        .mode-tab.active {
+            background:var(--gold-text-gradient); color:#0A0F14; border-color:var(--gold-bright);
+            font-weight:800; box-shadow:0 4px 16px rgba(212,175,55,0.3);
+        }
 
-        .display-card { background:var(--surface); border:2px solid; border-image:var(--gold-border) 1; border-radius:20px; padding:30px 20px; text-align:center; margin-bottom:16px; box-shadow:0 4px 20px rgba(0,0,0,0.3); }
-        .time-display { font-family:'Oswald',monospace; font-size:5rem; font-weight:700; color:#fff; letter-spacing:3px; line-height:1; text-shadow:0 0 30px rgba(79,195,247,0.3); }
-        .time-ms { font-size:2rem; color:var(--accent); }
-        .time-label { font-size:0.85rem; color:var(--muted); margin-top:6px; font-weight:600; letter-spacing:1px; }
+        .display-card {
+            background:var(--silver-dark-bg);
+            border:2px solid transparent;
+            border-image:var(--gold-gradient) 1;
+            border-radius:20px; padding:30px 20px; text-align:center; margin-bottom:16px;
+            box-shadow:0 4px 20px rgba(0,0,0,0.3);
+            position:relative; overflow:hidden;
+        }
+        .time-display {
+            font-family:'Oswald',monospace; font-size:5rem; font-weight:700;
+            background: var(--silver-text-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: var(--silver-bright);
+            letter-spacing:3px; line-height:1;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
+        }
+        .time-display.running {
+            animation: timePulse 1s ease-in-out infinite;
+        }
+        @keyframes timePulse {
+            0%,100% { filter: drop-shadow(0 0 8px rgba(255,255,255,0.4)); }
+            50% { filter: drop-shadow(0 0 20px rgba(255,215,0,0.8)); }
+        }
+        .time-ms { font-size:2rem; color:var(--gold-bright); }
+        .time-label { font-size:0.85rem; color:var(--gold-bright); margin-top:6px; font-weight:600; letter-spacing:1px; }
+
+        /* Timer rectangular progress bar */
+        .timer-progress-card {
+            background:var(--silver-dark-bg);
+            border:2px solid transparent;
+            border-image:var(--gold-gradient) 1;
+            border-radius:20px; padding:30px 20px; text-align:center; margin-bottom:16px;
+            box-shadow:0 4px 20px rgba(0,0,0,0.3);
+        }
+        .timer-progress-card .time-display {
+            font-size:3.5rem; /* slightly smaller for better fit */
+        }
+        .progress-bar-container {
+            width:100%; height:12px; background:#2A3540;
+            border-radius:20px; margin-top:20px; overflow:hidden;
+            border:1px solid rgba(212,175,55,0.3);
+        }
+        .progress-bar-fill {
+            height:100%; width:100%;
+            background: var(--gold-text-gradient);
+            border-radius:20px;
+            transition: width 0.1s linear;
+        }
 
         .timer-inputs { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:16px; }
         .timer-inputs .input-group { text-align:center; }
@@ -91,22 +159,40 @@
         .timer-inputs input:focus { border-color:var(--gold-bright); outline:none; box-shadow:0 0 16px rgba(212,175,55,0.3); }
         .timer-inputs label { display:block; text-align:center; font-size:0.75rem; color:var(--gold-bright); margin-top:6px; text-transform:uppercase; font-weight:700; letter-spacing:1px; }
 
+        .preset-row { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; justify-content:center; }
+        .preset-btn {
+            padding:8px 14px; border-radius:20px; border:2px solid var(--gold);
+            background:rgba(212,175,55,0.1); color:var(--gold-bright);
+            font-weight:700; font-size:0.75rem; cursor:pointer; transition:all 0.2s;
+        }
+        .preset-btn:hover { background:rgba(212,175,55,0.25); border-color:var(--gold-bright); transform:translateY(-1px); }
+
         .btn-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px; }
-        .btn { padding:15px 10px; border-radius:14px; font-weight:700; font-size:0.95rem; cursor:pointer; border:none; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.5px; }
-        .btn-start { background:#22C55E; color:#fff; box-shadow:0 4px 14px rgba(34,197,94,0.3); }
-        .btn-start:hover { background:#16A34A; transform:translateY(-1px); }
-        .btn-pause { background:#F59E0B; color:#fff; box-shadow:0 4px 14px rgba(245,158,11,0.3); }
-        .btn-pause:hover { background:#D97706; transform:translateY(-1px); }
-        .btn-lap { background:#6366F1; color:#fff; box-shadow:0 4px 14px rgba(99,102,241,0.3); }
-        .btn-lap:hover { background:#4F46E5; transform:translateY(-1px); }
-        .btn-reset { background:var(--grey-gradient); color:#0A0F14; border:2px solid var(--gold); box-shadow:0 4px 14px rgba(0,0,0,0.3); }
+        .btn {
+            padding:15px 10px; border-radius:14px; font-weight:700; font-size:0.95rem; cursor:pointer;
+            border:2px solid transparent; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.5px;
+        }
+        .btn-start { background:linear-gradient(135deg, #22C55E, #16A34A); color:#fff; box-shadow:0 4px 14px rgba(34,197,94,0.3); }
+        .btn-start:hover { transform:translateY(-1px); box-shadow:0 8px 20px rgba(34,197,94,0.4); }
+        .btn-pause { background:linear-gradient(135deg, #F59E0B, #D97706); color:#fff; box-shadow:0 4px 14px rgba(245,158,11,0.3); }
+        .btn-pause:hover { transform:translateY(-1px); box-shadow:0 8px 20px rgba(245,158,11,0.4); }
+        .btn-lap { background:linear-gradient(135deg, #6366F1, #4F46E5); color:#fff; box-shadow:0 4px 14px rgba(99,102,241,0.3); }
+        .btn-lap:hover { transform:translateY(-1px); box-shadow:0 8px 20px rgba(99,102,241,0.4); }
+        .btn-reset {
+            background:var(--silver-dark-bg); color:var(--gold-bright);
+            border:2px solid var(--gold); box-shadow:0 4px 14px rgba(0,0,0,0.3);
+        }
         .btn-reset:hover { border-color:var(--gold-bright); transform:translateY(-1px); }
         .btn:active { transform:scale(0.96); }
-        .btn:disabled { opacity:0.3; cursor:not-allowed; transform:none; box-shadow:none; }
+        .btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; box-shadow:none; }
 
-        .laps-card { background:var(--surface); border:2px solid; border-image:var(--gold-border) 1; border-radius:16px; padding:16px; max-height:250px; overflow-y:auto; }
+        .laps-card {
+            background:var(--silver-dark-bg); border:2px solid transparent; border-image:var(--gold-gradient) 1;
+            border-radius:16px; padding:16px; max-height:250px; overflow-y:auto;
+            box-shadow:0 8px 30px rgba(0,0,0,0.4);
+        }
         .laps-card h3 { font-family:'Oswald',sans-serif; font-size:0.95rem; color:var(--gold-bright); margin-bottom:10px; }
-        .lap-item { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:0.85rem; }
+        .lap-item { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.08); font-size:0.85rem; }
         .lap-item .lap-num { color:var(--accent); font-weight:700; }
         .lap-item .lap-time { color:#fff; font-family:'Oswald',monospace; }
         .no-laps { color:var(--muted); font-size:0.8rem; text-align:center; padding:10px; }
@@ -114,16 +200,32 @@
         footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:20px 0; margin-top:20px; }
         footer a { color:var(--accent); }
 
-        @media (max-width:500px) { .time-display { font-size:3.2rem; } .btn-row { grid-template-columns:1fr 1fr; } }
+        .running-dot {
+            display:inline-block; width:10px; height:10px; border-radius:50%;
+            background:var(--gold-bright); margin-left:8px; animation: blink 1s infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+        /* Bottom description headings gold */
+        .about-section h2, .about-section h3 { color: var(--gold-bright) !important; }
+
+        /* Responsive */
+        @media (max-width:500px) {
+            .time-display { font-size:3.2rem; }
+            .timer-progress-card .time-display { font-size:2.5rem; }
+            .btn-row { grid-template-columns:1fr 1fr; }
+            .share-tool-buttons { flex-direction: row; }
+            .share-tool-btn { padding:14px 6px; font-size:0.85rem; }
+            .container { padding:15px; }
+        }
     </style>
 </head>
 <body>
     <nav class="navbar"><div class="nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
 
     <div class="container">
-    <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
-    
-        <!-- Standard install bar -->
+        <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+
         <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
         <div class="brand-header">
@@ -134,8 +236,7 @@
             <p class="subtitle">Stopwatch & Timer — Free Online Chronograph</p>
         </div>
 
-        <!-- Share tool card -->
-        <div class="share-tool-card">
+        <div class="share-tool-card premium-card">
             <div class="share-tool-title">Share This Tool</div>
             <div class="share-tool-buttons">
                 <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
@@ -150,7 +251,7 @@
 
         <!-- STOPWATCH -->
         <div id="stopwatchMode">
-            <div class="display-card">
+            <div class="display-card premium-card">
                 <div class="time-display" id="stopwatchDisplay">00:00:00<span class="time-ms">.00</span></div>
                 <div class="time-label">HOURS : MINUTES : SECONDS</div>
             </div>
@@ -159,7 +260,7 @@
                 <button class="btn btn-lap" id="swLap" onclick="swLap()" disabled>🏁 Lap</button>
                 <button class="btn btn-reset" id="swReset" onclick="swReset()">↺ Reset</button>
             </div>
-            <div class="laps-card"><h3>📋 Laps</h3><div id="lapsList"><div class="no-laps">No laps recorded yet</div></div></div>
+            <div class="laps-card premium-card"><h3>📋 Laps</h3><div id="lapsList"><div class="no-laps">No laps recorded yet</div></div></div>
         </div>
 
         <!-- TIMER -->
@@ -169,10 +270,24 @@
                 <div class="input-group"><input type="number" id="timerMinutes" value="5" min="0" max="59" placeholder="5"><label>Minutes</label></div>
                 <div class="input-group"><input type="number" id="timerSeconds" value="0" min="0" max="59" placeholder="0"><label>Seconds</label></div>
             </div>
-            <div class="display-card">
+
+            <div class="preset-row">
+                <button class="preset-btn" onclick="setPreset(1)">1 min</button>
+                <button class="preset-btn" onclick="setPreset(5)">5 min</button>
+                <button class="preset-btn" onclick="setPreset(10)">10 min</button>
+                <button class="preset-btn" onclick="setPreset(15)">15 min</button>
+                <button class="preset-btn" onclick="setPreset(30)">30 min</button>
+            </div>
+
+            <!-- Rectangular timer display with progress bar -->
+            <div class="timer-progress-card premium-card">
                 <div class="time-display" id="timerDisplay">00:05:00<span class="time-ms">.00</span></div>
                 <div class="time-label" id="timerStatus">Ready</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="timerProgressBar" style="width:100%;"></div>
+                </div>
             </div>
+
             <div class="btn-row">
                 <button class="btn btn-start" id="tmStart" onclick="tmStart()">▶ Start</button>
                 <button class="btn btn-pause" id="tmPause" onclick="tmPause()" disabled>⏸ Pause</button>
@@ -181,11 +296,11 @@
         </div>
     </div>
 
-    <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-        <h2 style="font-size:1.1rem;margin-bottom:12px;color:#D4AF37;">About the Stopwatch & Timer</h2>
+    <div class="about-section" style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+        <h2 style="font-size:1.1rem;margin-bottom:12px;color:var(--gold-bright);">About the Stopwatch & Timer</h2>
         <p>ColdMatrix Stopwatch & Timer is a precision chronograph designed for sports, cooking, workouts, presentations, and classroom activities. It offers lap tracking with millisecond accuracy and a countdown timer that keeps counting even if you switch tabs or lock your phone.</p>
         <p>Everything runs privately in your browser — no data is sent anywhere. The tool is completely free, works offline after the first visit, and requires no registration. Whether you're timing laps, baking, or managing a presentation, it’s fast, accurate, and always ready.</p>
-        <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#D4AF37;">Common Questions</h3>
+        <h3 style="font-size:0.95rem;margin:16px 0 8px;color:var(--gold-bright);">Common Questions</h3>
         <p><strong>Does it work if I switch tabs?</strong> Yes — the timer keeps counting accurately in the background using your device's real clock, not just visual updates.</p>
     </div>
 
@@ -193,6 +308,7 @@
 
     <script>
         let swInterval=null,swRunning=false,swStartTime=0,swElapsed=0,lapCount=0;
+        let tmInterval=null,tmRunning=false,tmRemaining=0,tmTotal=0;
 
         function formatTime(ms){
             const h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000),cs=Math.floor((ms%1000)/10);
@@ -201,19 +317,67 @@
 
         function swStart(){
             const btn=document.getElementById('swStart');
-            if(swRunning){swRunning=false;clearInterval(swInterval);btn.textContent='▶ Resume';btn.className='btn btn-start';document.getElementById('swLap').disabled=true;}
-            else{swRunning=true;if(swElapsed===0)swStartTime=Date.now();else swStartTime=Date.now()-(swElapsed-(Date.now()-swStartTime));
-                swInterval=setInterval(()=>{document.getElementById('stopwatchDisplay').innerHTML=formatTime(swElapsed+(swRunning?Date.now()-swStartTime:0));},10);
-                btn.textContent='⏸ Pause';btn.className='btn btn-pause';document.getElementById('swLap').disabled=false;}
+            if(swRunning){
+                swRunning=false; clearInterval(swInterval);
+                btn.textContent='▶ Resume'; btn.className='btn btn-start';
+                document.getElementById('swLap').disabled=true;
+                document.getElementById('stopwatchDisplay').classList.remove('running');
+            } else {
+                swRunning=true;
+                if(swElapsed===0) swStartTime=Date.now();
+                else swStartTime=Date.now()-(swElapsed-(Date.now()-swStartTime));
+                swInterval=setInterval(()=>{
+                    const now = swElapsed+(swRunning?Date.now()-swStartTime:0);
+                    document.getElementById('stopwatchDisplay').innerHTML=formatTime(now);
+                },10);
+                btn.textContent='⏸ Pause'; btn.className='btn btn-pause';
+                document.getElementById('swLap').disabled=false;
+                document.getElementById('stopwatchDisplay').classList.add('running');
+            }
         }
 
-        function swLap(){lapCount++;const now=Date.now();if(lapCount===1)document.getElementById('lapsList').innerHTML='';document.getElementById('lapsList').innerHTML+=`<div class="lap-item"><span class="lap-num">Lap ${lapCount}</span><span class="lap-time">${formatTime(swElapsed+(swRunning?now-swStartTime:0))}</span></div>`;}
+        function swLap(){
+            lapCount++;
+            const now=Date.now();
+            if(lapCount===1) document.getElementById('lapsList').innerHTML='';
+            document.getElementById('lapsList').innerHTML+=`<div class="lap-item"><span class="lap-num">Lap ${lapCount}</span><span class="lap-time">${formatTime(swElapsed+(swRunning?now-swStartTime:0))}</span></div>`;
+        }
 
-        function swReset(){swRunning=false;clearInterval(swInterval);swElapsed=0;swStartTime=0;lapCount=0;document.getElementById('stopwatchDisplay').innerHTML='00:00:00<span class="time-ms">.00</span>';document.getElementById('swStart').textContent='▶ Start';document.getElementById('swStart').className='btn btn-start';document.getElementById('swLap').disabled=true;document.getElementById('lapsList').innerHTML='<div class="no-laps">No laps recorded yet</div>';}
+        function swReset(){
+            swRunning=false; clearInterval(swInterval);
+            swElapsed=0; swStartTime=0; lapCount=0;
+            document.getElementById('stopwatchDisplay').innerHTML='00:00:00<span class="time-ms">.00</span>';
+            document.getElementById('stopwatchDisplay').classList.remove('running');
+            document.getElementById('swStart').textContent='▶ Start';
+            document.getElementById('swStart').className='btn btn-start';
+            document.getElementById('swLap').disabled=true;
+            document.getElementById('lapsList').innerHTML='<div class="no-laps">No laps recorded yet</div>';
+        }
 
-        let tmInterval=null,tmRunning=false,tmRemaining=0;
-        function getTimerInput(){const h=parseInt(document.getElementById('timerHours').value)||0,m=parseInt(document.getElementById('timerMinutes').value)||0,s=parseInt(document.getElementById('timerSeconds').value)||0;return(h*3600+m*60+s)*1000;}
-        function updateTimerDisplay(){tmRemaining=getTimerInput();document.getElementById('timerDisplay').innerHTML=formatTime(tmRemaining);}
+        function getTimerInput(){
+            const h=parseInt(document.getElementById('timerHours').value)||0;
+            const m=parseInt(document.getElementById('timerMinutes').value)||0;
+            const s=parseInt(document.getElementById('timerSeconds').value)||0;
+            return(h*3600+m*60+s)*1000;
+        }
+        function updateTimerDisplay(){
+            tmRemaining=getTimerInput();
+            tmTotal=tmRemaining;
+            document.getElementById('timerDisplay').innerHTML=formatTime(tmRemaining);
+            updateTimerProgress(100);
+        }
+        function updateTimerProgress(pct){
+            const bar = document.getElementById('timerProgressBar');
+            if (bar) bar.style.width = pct + '%';
+        }
+        function setPreset(mins){
+            document.getElementById('timerHours').value = 0;
+            document.getElementById('timerMinutes').value = mins;
+            document.getElementById('timerSeconds').value = 0;
+            updateTimerDisplay();
+            document.getElementById('timerStatus').textContent = 'Ready';
+            if(tmRunning) tmReset();
+        }
         document.getElementById('timerHours').addEventListener('input',updateTimerDisplay);
         document.getElementById('timerMinutes').addEventListener('input',updateTimerDisplay);
         document.getElementById('timerSeconds').addEventListener('input',updateTimerDisplay);
@@ -221,25 +385,72 @@
 
         function tmStart(){
             const btn=document.getElementById('tmStart');
-            if(tmRunning){tmRunning=false;clearInterval(tmInterval);btn.textContent='▶ Resume';btn.className='btn btn-start';document.getElementById('tmPause').disabled=true;document.getElementById('timerStatus').textContent='Paused';}
-            else{if(tmRemaining<=0)tmRemaining=getTimerInput();if(tmRemaining<=0)return;tmRunning=true;const endTime=Date.now()+tmRemaining;
-                tmInterval=setInterval(()=>{const now=Date.now();tmRemaining=Math.max(0,endTime-now);document.getElementById('timerDisplay').innerHTML=formatTime(tmRemaining);
-                    if(tmRemaining<=0){clearInterval(tmInterval);tmRunning=false;document.getElementById('timerDisplay').innerHTML='00:00:00<span class="time-ms">.00</span>';document.getElementById('timerStatus').textContent='⏰ Time\'s Up!';
-                        btn.textContent='▶ Start';btn.className='btn btn-start';document.getElementById('tmPause').disabled=true;
-                        document.getElementById('timerDisplay').parentElement.style.borderColor='#FFD700';
-                        setTimeout(()=>{document.getElementById('timerDisplay').parentElement.style.borderColor='';},2000);}},10);
-                btn.textContent='⏸ Pause';btn.className='btn btn-pause';document.getElementById('tmPause').disabled=false;document.getElementById('timerStatus').textContent='Counting down...';}
+            if(tmRunning){
+                tmRunning=false; clearInterval(tmInterval);
+                btn.textContent='▶ Resume'; btn.className='btn btn-start';
+                document.getElementById('tmPause').disabled=true;
+                document.getElementById('timerStatus').textContent='Paused';
+                document.getElementById('timerDisplay').classList.remove('running');
+            } else {
+                if(tmRemaining<=0) tmRemaining=getTimerInput();
+                if(tmRemaining<=0) return;
+                tmTotal=tmRemaining;
+                tmRunning=true;
+                const endTime=Date.now()+tmRemaining;
+                tmInterval=setInterval(()=>{
+                    const now=Date.now();
+                    tmRemaining=Math.max(0,endTime-now);
+                    document.getElementById('timerDisplay').innerHTML=formatTime(tmRemaining);
+                    const pct = tmTotal>0 ? (tmRemaining/tmTotal)*100 : 0;
+                    updateTimerProgress(pct);
+                    if(tmRemaining<=0){
+                        clearInterval(tmInterval); tmRunning=false;
+                        document.getElementById('timerDisplay').innerHTML='00:00:00<span class="time-ms">.00</span>';
+                        document.getElementById('timerStatus').textContent='⏰ Time\'s Up!';
+                        document.getElementById('timerDisplay').classList.remove('running');
+                        btn.textContent='▶ Start'; btn.className='btn btn-start';
+                        document.getElementById('tmPause').disabled=true;
+                        updateTimerProgress(0);
+                        // Flash bar
+                        document.getElementById('timerProgressBar').style.boxShadow='0 0 20px rgba(255,215,0,0.8)';
+                        setTimeout(()=>{ document.getElementById('timerProgressBar').style.boxShadow='none'; },2000);
+                    }
+                },10);
+                btn.textContent='⏸ Pause'; btn.className='btn btn-pause';
+                document.getElementById('tmPause').disabled=false;
+                document.getElementById('timerStatus').textContent='Counting down...';
+                document.getElementById('timerDisplay').classList.add('running');
+            }
         }
 
-        function tmPause(){tmRunning=false;clearInterval(tmInterval);document.getElementById('tmStart').textContent='▶ Resume';document.getElementById('tmStart').className='btn btn-start';document.getElementById('tmPause').disabled=true;document.getElementById('timerStatus').textContent='Paused';}
-        function tmReset(){tmRunning=false;clearInterval(tmInterval);tmRemaining=getTimerInput();document.getElementById('timerDisplay').innerHTML=formatTime(tmRemaining);document.getElementById('tmStart').textContent='▶ Start';document.getElementById('tmStart').className='btn btn-start';document.getElementById('tmPause').disabled=true;document.getElementById('timerStatus').textContent='Ready';}
+        function tmPause(){
+            tmRunning=false; clearInterval(tmInterval);
+            document.getElementById('tmStart').textContent='▶ Resume';
+            document.getElementById('tmStart').className='btn btn-start';
+            document.getElementById('tmPause').disabled=true;
+            document.getElementById('timerStatus').textContent='Paused';
+            document.getElementById('timerDisplay').classList.remove('running');
+        }
+        function tmReset(){
+            tmRunning=false; clearInterval(tmInterval);
+            tmRemaining=getTimerInput();
+            tmTotal=tmRemaining;
+            document.getElementById('timerDisplay').innerHTML=formatTime(tmRemaining);
+            document.getElementById('tmStart').textContent='▶ Start';
+            document.getElementById('tmStart').className='btn btn-start';
+            document.getElementById('tmPause').disabled=true;
+            document.getElementById('timerStatus').textContent='Ready';
+            document.getElementById('timerDisplay').classList.remove('running');
+            updateTimerProgress(100);
+        }
 
         function switchMode(mode){
             document.getElementById('tabStopwatch').classList.toggle('active',mode==='stopwatch');
             document.getElementById('tabTimer').classList.toggle('active',mode==='timer');
             document.getElementById('stopwatchMode').style.display=mode==='stopwatch'?'block':'none';
             document.getElementById('timerMode').style.display=mode==='timer'?'block':'none';
-            if(mode==='timer')swReset();if(mode==='stopwatch')tmReset();
+            if(mode==='timer') swReset();
+            if(mode==='stopwatch') tmReset();
         }
 
         let dp;const ib=document.getElementById('installBarTool');

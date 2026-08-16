@@ -56,25 +56,44 @@
     .logo { font-size:1.2rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.9rem; }
-    .nav-links a:hover { color:var(--accent); }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:10px; border-radius:8px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; }
-    .install-bar button { background:#0A0F14; color:white; border:none; padding:5px 14px; border-radius:5px; margin-left:10px; font-weight:600; cursor:pointer; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:10px 16px; border-radius:8px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:10px; font-weight:600; cursor:pointer; }
 
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:4px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
     h1 .icon { font-size:2rem; }
     h1 .coldmatrix { color: var(--accent); }
-    h1 .title { color: var(--text); }
+    h1 .title { color: var(--gold-bright); }
     .subtitle {
       background: linear-gradient(135deg, #c0e0ff, #a0d0ff);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text; font-weight: 500; margin-bottom:22px; font-size:0.95rem;
     }
 
-    .card { background:var(--surface); border:1px solid var(--gold); border-radius:14px; padding:20px; margin-bottom:18px; position:relative; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
-    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
-    .card h2 { font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:600; margin-bottom:14px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
+    .share-tool-card{
+      background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
+      border: 2px solid;
+      border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
+      border-radius:12px; padding:22px 20px; margin-bottom:26px;
+      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .share-tool-title{font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
+    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+    .share-tool-btn{
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+      transition:all 0.25s ease;
+    }
+    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
+    .share-tool-btn i{font-size:1rem;}
 
-    /* MODE TOGGLE */
+    .card { background:var(--surface); border:1px solid var(--gold); border-radius:14px; padding:20px; margin-bottom:18px; position:relative; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
+    .card h2 { font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:600; margin-bottom:14px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px; }
+
     .mode-toggle { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
     .mode-btn {
       display:flex; align-items:center; justify-content:center; gap:8px;
@@ -85,9 +104,8 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 4px 12px rgba(0,0,0,0.3);
     }
     .mode-btn i { font-size:1.1rem; }
-    .mode-btn.active { background:var(--silver-gradient); color:#ffffff; border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); }
+    .mode-btn.active { background:var(--silver-gradient); color:#0A0F14; border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); text-shadow:0 1px 2px rgba(255,255,255,0.4); }
 
-    /* QR TYPE GRID */
     .qr-type-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:18px; }
     .qr-type-btn {
       padding:14px 8px; border:2px solid var(--gold); background:var(--surface2);
@@ -120,16 +138,30 @@
     .field input:focus, .field textarea:focus, .field select:focus {
       outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow);
     }
+    .field select {
+      appearance:none; -webkit-appearance:none; -moz-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M2 2 L10 10 L18 2' fill='none' stroke='%23D4AF37' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 14px center; background-size:20px 12px;
+      padding-right:44px;
+    }
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
     .btn-generate {
-      width:100%; background:var(--silver-gradient); color:#ffffff; border:2px solid var(--gold);
+      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
       padding:15px; border-radius:12px; font-weight:700; font-size:1.05rem; cursor:pointer;
-      margin-top:6px; letter-spacing:0.5px; text-shadow:0 1px 2px rgba(0,0,0,0.6);
+      margin-top:6px; letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
       transition:all 0.25s ease;
     }
     .btn-generate:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
+    .btn-reset {
+      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      padding:14px 18px; border-radius:12px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      white-space:nowrap; text-shadow:0 1px 2px rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      transition:all 0.25s ease;
+    }
+    .btn-reset:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
     .qr-result { text-align:center; margin-top:22px; display:none; }
     .qr-code-wrapper { background:#fff; display:inline-block; padding:18px; border-radius:16px; margin-bottom:14px; box-shadow:0 0 35px var(--accent-glow); }
@@ -138,62 +170,44 @@
     .share-btn { display:flex; align-items:center; gap:6px; padding:11px 18px; border-radius:50px; font-weight:600; font-size:0.85rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
     .share-whatsapp { background:#25D366; }
     .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
+    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--gold); }
 
     #shareCapture { display:none; }
     .note { font-size:0.75rem; color:var(--muted); margin-top:14px; border-top:1px solid var(--border); padding-top:10px; text-align:center; }
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--accent); text-decoration:none; }
+    footer a { color:var(--gold-bright); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:44px; height:44px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
     @media (max-width:500px) {
       .qr-type-grid { grid-template-columns:repeat(3, 1fr); gap:6px; }
       .qr-type-btn { padding:10px 5px; font-size:0.7rem; }
       .qr-type-btn i { font-size:1.2rem; }
+      .row2 { grid-template-columns:1fr; }
     }
 
-    .share-tool-card{
-      background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
-      border: 2px solid;
-      border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
-      border-radius:12px; padding:22px 20px; margin-bottom:26px;
-      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-    .share-tool-title{font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
-    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-    .share-tool-btn{display:flex; align-items:center; justify-content:center; gap:9px; padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer; background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); transition:all 0.25s ease; font-family:'Inter',sans-serif;}
-    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
-    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
-    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-    .share-tool-btn i{font-size:1rem;}
-
-    /* SCAN SUBTABS */
     .scan-subtabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
     .scan-subtab{padding:11px 8px;border-radius:10px;font-weight:700;font-size:0.82rem;cursor:pointer;background:var(--surface2);color:var(--muted);border:2px solid var(--gold);text-align:center;transition:.2s;}
     .scan-subtab.active{color:var(--accent);border-color:var(--accent);background:rgba(79,195,247,0.08);}
-
     .camera-wrap{position:relative;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:1/1;max-width:360px;margin:0 auto;display:none;}
     .camera-wrap video{width:100%;height:100%;object-fit:cover;display:block;}
     .viewfinder{position:absolute;inset:14%;border:3px solid rgba(79,195,247,0.85);border-radius:16px;box-shadow:0 0 0 999px rgba(0,0,0,0.35);pointer-events:none;}
     .scan-line{position:absolute;left:14%;right:14%;height:2px;background:linear-gradient(90deg,transparent,#4FC3F7,transparent);top:14%;animation:scanmove 2.2s linear infinite;box-shadow:0 0 10px #4FC3F7;}
     @keyframes scanmove{0%{top:14%}50%{top:86%}100%{top:14%}}
     .camera-controls{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
-    .cam-btn{padding:10px 18px;border-radius:50px;font-weight:600;font-size:0.85rem;cursor:pointer;border:2px solid var(--gold);background:var(--silver-gradient);color:#fff;display:flex;align-items:center;gap:6px;text-shadow:0 1px 2px rgba(0,0,0,0.6);box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35);}
-    .cam-btn.primary{background:var(--silver-gradient);color:#fff;border:2px solid var(--gold);}
+    .cam-btn{padding:10px 18px;border-radius:50px;font-weight:600;font-size:0.85rem;cursor:pointer;border:2px solid var(--gold);background:var(--silver-gradient);color:#0A0F14;display:flex;align-items:center;gap:6px;text-shadow:0 1px 2px rgba(255,255,255,0.4);box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35);}
+    .cam-btn.primary{background:var(--silver-gradient);color:#0A0F14;border:2px solid var(--gold);}
     .cam-status{text-align:center;font-size:0.78rem;color:var(--muted);margin-top:10px;min-height:1.2em;}
-
     .scan-drop-area{border:2px dashed var(--gold);border-radius:12px;padding:30px 16px;text-align:center;cursor:pointer;transition:.25s;background:var(--surface2);}
     .scan-drop-area:hover, .scan-drop-area.drag-over{border-color:var(--accent);background:rgba(79,195,247,0.06);}
     .scan-drop-area i{font-size:2rem;color:var(--accent);}
     .scan-drop-area p{color:var(--muted);margin-top:8px;font-size:0.85rem;}
     #scanUploadPreview{max-width:100%;border-radius:10px;margin-top:14px;display:none;}
-
     .scan-result{display:none;margin-top:20px;background:var(--surface2);border:1.5px solid var(--gold);border-radius:14px;padding:18px;}
     .scan-result-format{display:inline-block;background:rgba(79,195,247,0.15);color:var(--accent);font-weight:700;font-size:0.72rem;letter-spacing:0.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:10px;}
     .scan-result-text{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:0.9rem;word-break:break-all;margin-bottom:14px;color:var(--text);max-height:140px;overflow-y:auto;}
     .scan-actions{display:flex;flex-wrap:wrap;gap:8px;}
     .scan-action-btn{flex:1;min-width:110px;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 10px;border-radius:10px;font-weight:600;font-size:0.82rem;cursor:pointer;border:none;color:#fff;}
-    .scan-action-btn.primary{background:var(--silver-gradient);color:#fff;border:2px solid var(--gold);text-shadow:0 1px 2px rgba(0,0,0,0.6);}
+    .scan-action-btn.primary{background:var(--silver-gradient);color:#0A0F14;border:2px solid var(--gold);text-shadow:0 1px 2px rgba(255,255,255,0.4);}
     .scan-action-btn.wa{background:#25D366;}
     .scan-action-btn.neutral{background:var(--surface);color:var(--text);border:1px solid var(--border);}
     .scan-history{margin-top:16px;}
@@ -209,7 +223,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
+        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
@@ -218,8 +232,8 @@
   </nav>
 
   <div class="container">
-  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
-  
+  <a href="index.html#tools" class="back-link">← Back to Tools</a>
+
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1>
@@ -235,43 +249,46 @@
     </div>
 
     <div id="generatorSection">
-    <div class="share-tool-card">
-      <div class="share-tool-title">Share QR & Barcode Studio</div>
-      <div class="share-tool-buttons">
-        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>QR Type</h2>
-      <div class="qr-type-grid" id="qrTypeGrid">
-        <button class="qr-type-btn active" data-type="url"><i class="fa-solid fa-globe"></i> Website</button>
-        <button class="qr-type-btn" data-type="whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-        <button class="qr-type-btn" data-type="phone"><i class="fa-solid fa-phone"></i> Phone</button>
-        <button class="qr-type-btn" data-type="email"><i class="fa-solid fa-envelope"></i> Email</button>
-        <button class="qr-type-btn" data-type="wifi"><i class="fa-solid fa-wifi"></i> Wi‑Fi</button>
-        <button class="qr-type-btn" data-type="contact"><i class="fa-solid fa-address-card"></i> Contact</button>
-        <button class="qr-type-btn" data-type="map"><i class="fa-solid fa-map-pin"></i> Maps</button>
-        <button class="qr-type-btn" data-type="sms"><i class="fa-solid fa-comment-sms"></i> SMS</button>
-        <button class="qr-type-btn" data-type="text"><i class="fa-solid fa-align-left"></i> Text</button>
-      </div>
-
-      <div id="dynamicFields"></div>
-
-      <button class="btn-generate" onclick="generateQR()">Generate QR Code</button>
-
-      <div class="qr-result" id="qrResult">
-        <div class="qr-code-wrapper" id="qrCodeBox"></div>
-        <div id="shareBarWrap" class="share-bar" style="display:none;">
-          <span style="width:100%; text-align:center; font-size:0.8rem; color:var(--muted); margin-bottom:2px;">📋 Take your QR code:</span>
-          <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-          <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
-          <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
-          <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+      <div class="share-tool-card">
+        <div class="share-tool-title">Share QR & Barcode Studio</div>
+        <div class="share-tool-buttons">
+          <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+          <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
         </div>
       </div>
-    </div>
+
+      <div class="card">
+        <h2>QR Type</h2>
+        <div class="qr-type-grid" id="qrTypeGrid">
+          <button class="qr-type-btn active" data-type="url"><i class="fa-solid fa-globe"></i> Website</button>
+          <button class="qr-type-btn" data-type="whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+          <button class="qr-type-btn" data-type="phone"><i class="fa-solid fa-phone"></i> Phone</button>
+          <button class="qr-type-btn" data-type="email"><i class="fa-solid fa-envelope"></i> Email</button>
+          <button class="qr-type-btn" data-type="wifi"><i class="fa-solid fa-wifi"></i> Wi‑Fi</button>
+          <button class="qr-type-btn" data-type="contact"><i class="fa-solid fa-address-card"></i> Contact</button>
+          <button class="qr-type-btn" data-type="map"><i class="fa-solid fa-map-pin"></i> Maps</button>
+          <button class="qr-type-btn" data-type="sms"><i class="fa-solid fa-comment-sms"></i> SMS</button>
+          <button class="qr-type-btn" data-type="text"><i class="fa-solid fa-align-left"></i> Text</button>
+        </div>
+
+        <div id="dynamicFields"></div>
+
+        <div style="display:flex; gap:10px;">
+          <button class="btn-generate" style="flex:1;" onclick="generateQR()">Generate QR Code</button>
+          <button class="btn-reset" onclick="resetGenerator()">🔄 Reset</button>
+        </div>
+
+        <div class="qr-result" id="qrResult">
+          <div class="qr-code-wrapper" id="qrCodeBox"></div>
+          <div class="share-bar" id="shareBarWrap" style="display:none;">
+            <span style="width:100%; text-align:center; font-size:0.8rem; color:var(--muted); margin-bottom:2px;">📋 Take your QR code:</span>
+            <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+            <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+            <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+          </div>
+        </div>
+      </div>
     </div><!-- /generatorSection -->
 
     <div id="scannerSection" style="display:none;">
@@ -333,10 +350,13 @@
     <div class="note">ℹ️ Your QR code is generated instantly in your browser — no data is ever uploaded to a server.</div>
   </div>
 
-  <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(0,184,148,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the QR Code Generator</h2>
-  <p>Generate QR codes for links, text, or WiFi — plus scan and read existing QR codes using your camera.</p>
-  <p><strong>Want a business card QR?</strong> Try our <a href="qr-business-card.html" style="color:#00b894;">QR Business Card Generator</a>.</p>
+  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the QR & Barcode Studio</h2>
+    <p>ColdMatrix QR & Barcode Studio is a complete two‑in‑one tool for creating and reading codes. Generate QR codes for websites, WhatsApp, phone numbers, email, Wi‑Fi, vCard contacts, maps, SMS, and plain text. Then use the built‑in camera scanner or upload an image to read any QR code or barcode instantly.</p>
+    <p>Everything runs privately in your browser — no data is uploaded to any server. The tool also provides smart actions after scanning, like opening links, calling numbers, saving contacts, or connecting to Wi‑Fi, making it useful for both personal and business use anywhere in the world.</p>
+    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
+    <p><strong>Is it free?</strong> Yes, 100% free, no registration, and works offline after first load.</p>
+    <p><strong>Can I scan barcodes?</strong> Yes — the camera scanner supports common 1D and 2D barcode formats.</p>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
@@ -349,26 +369,26 @@
     const qrTypes = {
       url: {
         label: 'Website URL',
-        fields: [{ id:'urlInput', type:'url', placeholder:'https://coldmatrixtools.com', label:'Website URL' }],
+        fields: [{ id:'urlInput', type:'url', placeholder:'https://example.com', label:'Website URL' }],
         formatter: (vals)=>vals.urlInput
       },
       whatsapp: {
         label: 'WhatsApp Number',
         fields: [
-          { id:'waNumber', type:'text', placeholder:'+923333228470', label:'Phone Number (with country code)' },
+          { id:'waNumber', type:'text', placeholder:'15551234567', label:'Phone Number (with country code)' },
           { id:'waMessage', type:'text', placeholder:'Hi, I\'m interested...', label:'Pre‑filled Message (optional)' }
         ],
         formatter: (vals)=>`https://wa.me/${vals.waNumber.replace(/\+/g,'')}${vals.waMessage ? '?text='+encodeURIComponent(vals.waMessage) : ''}`
       },
       phone: {
         label: 'Phone Number',
-        fields: [{ id:'phNumber', type:'tel', placeholder:'+923333228470', label:'Phone Number' }],
+        fields: [{ id:'phNumber', type:'tel', placeholder:'+15551234567', label:'Phone Number' }],
         formatter: (vals)=>`tel:${vals.phNumber}`
       },
       email: {
         label: 'Email Address',
         fields: [
-          { id:'emAddr', type:'email', placeholder:'contact@coldmatrixtools.com', label:'Email Address' },
+          { id:'emAddr', type:'email', placeholder:'name@example.com', label:'Email Address' },
           { id:'emSub', type:'text', placeholder:'Subject', label:'Subject (optional)' },
           { id:'emBody', type:'text', placeholder:'Message body...', label:'Message (optional)' }
         ],
@@ -405,7 +425,7 @@
       sms: {
         label: 'SMS Message',
         fields: [
-          { id:'smsNumber', type:'tel', placeholder:'+923333228470', label:'Phone Number' },
+          { id:'smsNumber', type:'tel', placeholder:'15551234567', label:'Phone Number' },
           { id:'smsBody', type:'text', placeholder:'Your message...', label:'Message' }
         ],
         formatter: (vals)=>`sms:${vals.smsNumber}${vals.smsBody ? '?body='+encodeURIComponent(vals.smsBody) : ''}`
@@ -433,6 +453,13 @@
         }
       });
       document.getElementById('dynamicFields').innerHTML = html;
+    }
+
+    function resetGenerator() {
+      buildFields(currentType);
+      document.getElementById('qrResult').style.display = 'none';
+      document.getElementById('shareBarWrap').style.display = 'none';
+      document.getElementById('qrCodeBox').innerHTML = '';
     }
 
     document.getElementById('qrTypeGrid').addEventListener('click', function(e) {
@@ -547,7 +574,7 @@
       }
     };
     if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js').catch(() => {}); }
-  
+
     function shareToolWhatsApp(){
       const text = encodeURIComponent('Check out QR & Barcode Studio from ColdMatrix Tools! ' + window.location.href);
       window.open('https://wa.me/?text='+text, '_blank');
@@ -752,40 +779,39 @@
         list.appendChild(row);
       });
     }
-</script>
+  </script>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are ColdMatrix tools free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate are ColdMatrix calculators?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ColdMatrix store my data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+        }
       }
-    },
-    {
-      "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-      }
-    }
-  ]
-}
-</script>
-
+    ]
+  }
+  </script>
 </body>
 </html>

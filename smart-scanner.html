@@ -24,34 +24,34 @@
     "url": "https://coldmatrixtools.com/smart-scanner.html",
     "applicationCategory": "Utility",
     "description": "Free ColdMatrix Smart Scanner for documents, QR codes, barcodes, and OCR text extraction.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" }
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
   </script>
   <meta name="description" content="Free ColdMatrix Smart Scanner for documents, QR codes, barcodes, and OCR text extraction. Fast, private, and no uploads.">
   <meta name="keywords" content="smart scanner, QR scanner, barcode scanner, OCR, text scanner, QR generator, barcode generator">
   <meta name="theme-color" content="#0A0F14"><link rel="manifest" href="manifest.json">
-  
-  <!-- QR Scanner Library -->
+
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-  <!-- QR Generator -->
   <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
-  <!-- Barcode Generator -->
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
-  <!-- Tesseract OCR -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-  
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root{
-      --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5;
-      --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3);
-      --gold-border:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
+      --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5;
+      --accent:#4FC3F7; --accent2:#2196F3;
+      --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
       --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
       --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --dark-silver:#4a4d55; --whatsapp-green:#25D366;
     }
     *{margin:0;padding:0;box-sizing:border-box}
-    body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh}
+    body{
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
+      color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;
+    }
     .container{max-width:900px;margin:0 auto;padding:0 24px}
     .navbar{position:sticky;top:0;z-index:100;background:rgba(10,15,20,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
     .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 0;flex-wrap:wrap}
@@ -59,241 +59,341 @@
     .nav-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap}
     .nav-links a{color:var(--muted);text-decoration:none;font-weight:500;font-size:0.95rem}
     .nav-links a:hover,.nav-links a.active{color:var(--gold-bright)}
-    .ad-card{border-radius:14px;overflow:hidden;background:linear-gradient(90deg,rgba(10,15,20,0.7),rgba(10,15,20,0.4)),url('ad-bg.jpg') center/cover no-repeat;border:1px solid var(--border);padding:18px;margin:20px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
-    .ad-card ul{list-style:none;padding:0;margin:0}
-    .ad-card li{font-size:0.9rem;font-weight:600;color:#fff;margin-bottom:4px}
-    .ad-card li::before{content:"✓";color:#4caf50;font-weight:700;margin-right:6px}
-    .whatsapp-btn{background:#25D366;color:white;border-radius:50px;padding:10px 22px;text-decoration:none;font-weight:600;white-space:nowrap}
-    .install-bar{background:var(--accent);color:#0A0F14;text-align:center;padding:12px;border-radius:10px;margin:20px 0;font-weight:600}
-    .install-bar button{background:#0A0F14;color:white;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer}
+    .back-link{display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem}
+    .install-bar{background:var(--accent);color:#0A0F14;text-align:center;padding:12px 20px;border-radius:10px;margin:14px 0;font-weight:600;font-size:0.85rem;display:block;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+    .install-bar button{background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:10px;font-weight:600;cursor:pointer}
+
     h1{font-size:1.8rem;font-weight:800;margin-bottom:10px}
+    h1 span{color:var(--gold-bright)}
     .subtitle{color:var(--muted);margin-bottom:20px}
+
+    .share-tool-card{
+      background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+      border:2px solid;
+      border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:12px;
+      padding:22px 20px;
+      margin-bottom:26px;
+      box-shadow:0 10px 34px rgba(0,0,0,0.55);
+    }
+    .share-tool-title{font-weight:800;font-size:1.05rem;color:#E8B93A;text-align:center;letter-spacing:0.6px;margin-bottom:16px;text-transform:uppercase;}
+    .share-tool-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .share-tool-btn{
+      display:flex;align-items:center;justify-content:center;gap:9px;
+      padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;
+      background:rgba(15,20,30,0.75);color:#EAEDF0;border:1.5px solid rgba(200,168,78,0.45);
+      transition:all 0.25s ease;
+    }
+    .share-tool-btn:hover{border-color:#E8B93A;box-shadow:0 0 20px rgba(200,168,78,0.35);transform:translateY(-2px);}
+    .share-tool-btn.wa{border-color:rgba(37,211,102,0.55);}
+    .share-tool-btn.wa:hover{border-color:#25D366;box-shadow:0 0 20px rgba(37,211,102,0.35);}
+    .share-tool-btn i{font-size:1rem;}
+
     .tab-row{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
     .tab-btn{
       flex:1; padding:10px 6px;
       background: var(--silver-gradient);
-      border: 2px solid var(--gold-border);
-      color: #fff;
+      border: 2px solid var(--gold);
+      color: #0A0F14;
       border-radius: 8px; cursor:pointer; text-align:center; font-size:0.75rem; font-weight:600; min-width:60px;
-      text-shadow:0 1px 2px rgba(0,0,0,0.6);
+      text-shadow:0 1px 2px rgba(255,255,255,0.4);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3);
       transition:all 0.25s;
     }
     .tab-btn:hover{ background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px rgba(212,175,55,0.6); transform:translateY(-2px); }
-    .tab-btn.active{ border-color:var(--frost, #4FC3F7); color:#4FC3F7; background:rgba(79,195,247,0.18); box-shadow:0 0 18px rgba(79,195,247,0.55); }
+    .tab-btn.active{ border-color:#4FC3F7; color:#fff; background:linear-gradient(180deg,#4FC3F7,#2196F3); box-shadow:0 0 18px rgba(79,195,247,0.55); text-shadow:0 1px 2px rgba(0,0,0,0.4); }
     .tab-content{display:none}
     .tab-content.active{display:block}
-    .card{background:var(--surface);border:2px solid var(--gold-border);border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 8px 30px rgba(0,0,0,0.5)}
-    .card h2{font-size:1rem;font-weight:600;margin-bottom:18px;color:var(--accent)}
-    #reader{width:100%;border-radius:12px;overflow:hidden;border:2px solid var(--gold-border)}
-    .result-box{background:var(--surface2);border:1px solid var(--gold-border);border-radius:12px;padding:16px;margin-top:16px;font-size:0.9rem}
-    .result-box strong{color:var(--gold-bright)}
+    .card{background:var(--surface);border:1px solid var(--gold);border-radius:12px;padding:24px;margin-bottom:20px;box-shadow:0 8px 30px rgba(0,0,0,0.5)}
+    .card h2{font-size:1rem;font-weight:600;margin-bottom:18px;color:var(--gold-bright);text-transform:uppercase;letter-spacing:0.5px}
+
     .field{margin-bottom:14px}
     .field label{display:block;font-size:0.85rem;color:var(--muted);margin-bottom:6px}
-    .field input,.field select{width:100%;background:var(--surface2);border:2px solid var(--gold-border);color:var(--text);padding:12px;border-radius:10px;font-size:1rem;box-shadow: inset 0 1px 3px rgba(0,0,0,0.4)}
+    .field input,.field select{
+      width:100%;background:var(--surface2);border:2px solid var(--gold);color:var(--text);
+      padding:12px;border-radius:10px;font-size:1rem;box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+    }
     .field input:focus,.field select:focus{outline:none;border-color:var(--gold-bright);box-shadow:0 0 15px var(--gold-glow)}
+    .field select{
+      appearance:none; -webkit-appearance:none; -moz-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M2 2 L10 10 L18 2' fill='none' stroke='%23D4AF37' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 14px center; background-size:20px 12px;
+      padding-right:44px;
+    }
+
     .btn-calc{
-      width:100%; background: var(--silver-gradient); color:#ffffff; border:2px solid var(--gold-border); padding:14px; border-radius:10px;
+      width:100%; background: var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold); padding:14px; border-radius:10px;
       font-weight:700; font-size:0.95rem; cursor:pointer; margin-top:8px;
-      text-shadow:0 1px 2px rgba(0,0,0,0.6);
+      text-shadow:0 1px 2px rgba(255,255,255,0.4);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3);
       transition:all 0.25s;
     }
     .btn-calc:hover{ background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px rgba(212,175,55,0.6); transform:translateY(-2px); }
+
+    .result-box{background:var(--surface2);border:1px solid var(--gold);border-radius:12px;padding:16px;margin-top:16px;font-size:0.9rem;color:var(--text)}
+    .result-box strong{color:var(--gold-bright)}
     #qrcode,#barcodeSvg{display:flex;justify-content:center;margin-top:16px}
     footer{text-align:center;color:var(--muted);font-size:0.8rem;padding:40px 0 20px;border-top:1px solid var(--border);margin-top:50px}
-    footer a{color:var(--accent);text-decoration:none}
-    .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:999;width:48px;height:48px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.4);text-decoration:none}
-      .share-tool-card{
-      background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
-      border: 2px solid;
-      border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
-      border-radius:12px;
-      padding:22px 20px;
-      margin-bottom:26px;
-      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-    .share-tool-title{font-family:'Playfair Display',serif; font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
-    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-    .share-tool-btn{
-      display:flex; align-items:center; justify-content:center; gap:9px;
-      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
-      background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
-      transition:all 0.25s ease; font-family:'Inter',sans-serif;
-    }
-    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
-    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
-    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-    .share-tool-btn i{font-size:1rem;}
-</style>
+    footer a{color:var(--gold-bright);text-decoration:none}
+    .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:999;width:48px;height:48px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.4);text-decoration:none;color:#fff;font-size:1.4rem}
+  </style>
 </head>
 <body>
- <nav class="navbar">
+<nav class="navbar">
   <div class="container nav-inner">
     <a href="index.html" class="logo">❄️ ColdMatrix</a>
     <ul class="nav-links">
       <li><a href="index.html">🏠 Home</a></li>
       <li><a href="index.html#tools">🛠️ Tools</a></li>
-      <li><a href="solutions.html">❄️ Cold Matrix</a></li>
+      <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
       <li><a href="blog.html">📝 Blog</a></li>
       <li><a href="about.html">ℹ️ About</a></li>
       <li><a href="contact.html">📞 Contact</a></li>
     </ul>
   </div>
 </nav>
-  
-    <div class="ad-card"><div><ul><li>PEB Structures</li><li>Cold Storage & Freezer Rooms</li><li>PU/PIR Sandwich Panels</li><li>Prefab Construction Solutions</li></ul><div style="font-size:0.8rem;color:#c8d0d8;margin-top:4px">✓ Karachi, Lahore, Islamabad & all Pakistan</div></div><a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a></div>
-    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
-    <h1>📷 ColdMatrix Smart Scanner</h1>
-    <p class="subtitle">One scanner for everything — QR codes, barcodes, text, and generate your own.</p>
-    <div class="share-tool-card">
-      <div class="share-tool-title">Share ColdMatrix Smart Scanner</div>
-      <div class="share-tool-buttons">
-        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+
+<div class="container">
+  <a href="index.html#tools" class="back-link">← Back to Tools</a>
+
+  <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
+  <h1>📷 <span>ColdMatrix</span> Smart Scanner</h1>
+  <p class="subtitle">One scanner for everything — QR codes, barcodes, text, and generate your own.</p>
+
+  <div class="share-tool-card">
+    <div class="share-tool-title">Share Smart Scanner</div>
+    <div class="share-tool-buttons">
+      <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+    </div>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab-btn active" data-tab="tab1">📷 Live Scan</button>
+    <button class="tab-btn" data-tab="tab2">🖼️ Upload</button>
+    <button class="tab-btn" data-tab="tab3">🔳 QR Gen</button>
+    <button class="tab-btn" data-tab="tab4">📦 Barcode</button>
+    <button class="tab-btn" data-tab="tab5">📝 Text OCR</button>
+  </div>
+
+  <div style="text-align:right;margin:8px 0;">
+    <button onclick="resetAll()" style="background:var(--silver-gradient);border:2px solid var(--gold);color:#0A0F14;padding:8px 16px;border-radius:50px;font-weight:700;font-size:0.8rem;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);text-shadow:0 1px 2px rgba(255,255,255,0.4);">🔄 Reset All</button>
+  </div>
+
+  <div class="tab-content active" id="tab1">
+    <div class="card">
+      <h2>📷 Scan Live with Camera</h2>
+      <div id="reader"></div>
+      <div class="result-box" id="liveResult" style="display:none"></div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab2">
+    <div class="card">
+      <h2>🖼️ Upload Image to Scan</h2>
+      <div class="field"><input type="file" id="uploadInput" accept="image/*"></div>
+      <div class="result-box" id="uploadResult" style="display:none"></div>
+      <img id="uploadPreview" alt="Uploaded image preview" style="max-width:100%;margin-top:12px;border-radius:8px;display:none">
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab3">
+    <div class="card">
+      <h2>🔳 QR Code Generator</h2>
+      <div class="field"><label>Text or URL</label><input type="text" id="qrText" placeholder="https://yourdomain.com" value="https://yourdomain.com"></div>
+      <button class="btn-calc" onclick="generateQR()">Generate QR Code</button>
+      <div id="qrcode"></div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab4">
+    <div class="card">
+      <h2>📦 Barcode Generator</h2>
+      <div class="field"><label>Barcode Number</label><input type="text" id="barcodeText" placeholder="123456789012" value="123456789012"></div>
+      <div class="field">
+        <label>Type</label>
+        <select id="barcodeType">
+          <option value="EAN13">EAN-13</option>
+          <option value="UPC">UPC-A</option>
+          <option value="CODE128">Code 128</option>
+          <option value="CODE39">Code 39</option>
+        </select>
       </div>
+      <button class="btn-calc" onclick="generateBarcode()">Generate Barcode</button>
+      <svg id="barcodeSvg"></svg>
     </div>
-    <div class="tab-row">
-      <button class="tab-btn active" data-tab="tab1">📷 Live Scan</button>
-      <button class="tab-btn" data-tab="tab2">🖼️ Upload</button>
-      <button class="tab-btn" data-tab="tab3">🔳 QR Gen</button>
-      <button class="tab-btn" data-tab="tab4">📦 Barcode</button>
-      <button class="tab-btn" data-tab="tab5">📝 Text OCR</button>
-    </div>
-    <div style="text-align:right;margin:8px 0;"><button onclick="window.location.reload()" style="background:var(--silver-gradient);border:2px solid var(--gold-border);color:#fff;padding:8px 16px;border-radius:50px;font-weight:700;font-size:0.8rem;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);">🔄 Reset All</button></div>
-    <!-- Tab 1: Live Scan -->
-    <div class="tab-content active" id="tab1"><div class="card"><h2>📷 Scan Live with Camera</h2><div id="reader"></div><div class="result-box" id="liveResult" style="display:none"></div></div></div>
-    <!-- Tab 2: Upload -->
-    <div class="tab-content" id="tab2"><div class="card"><h2>🖼️ Upload Image to Scan</h2><div class="field"><input type="file" id="uploadInput" accept="image/*"></div><div class="result-box" id="uploadResult" style="display:none"></div><img id="uploadPreview" alt="Uploaded image preview" style="max-width:100%;margin-top:12px;border-radius:8px;display:none"></div></div>
-    <!-- Tab 3: QR Gen -->
-    <div class="tab-content" id="tab3"><div class="card"><h2>🔳 QR Code Generator</h2><div class="field"><label>Text or URL</label><input type="text" id="qrText" placeholder="https://coldmatrixtools.com" value="https://coldmatrixtools.com"></div><button class="btn-calc" onclick="generateQR()">Generate QR Code</button><div id="qrcode"></div></div></div>
-    <!-- Tab 4: Barcode Gen -->
-    <div class="tab-content" id="tab4"><div class="card"><h2>📦 Barcode Generator</h2><div class="field"><label>Barcode Number</label><input type="text" id="barcodeText" placeholder="123456789012" value="123456789012"></div><div class="field"><label>Type</label><select id="barcodeType"><option value="EAN13">EAN-13</option><option value="UPC">UPC-A</option><option value="CODE128">Code 128</option><option value="CODE39">Code 39</option></select></div><button class="btn-calc" onclick="generateBarcode()">Generate Barcode</button><svg id="barcodeSvg"></svg></div></div>
-    <!-- Tab 5: Text OCR -->
-    <div class="tab-content" id="tab5"><div class="card"><h2>📝 Text Scanner (OCR)</h2><p style="color:var(--muted);margin-bottom:16px;">Upload an image and extract text instantly — completely in your browser.</p><div class="field"><label>Upload image (JPG, PNG)</label><input type="file" id="ocrInput" accept="image/*"></div><div id="ocrStatus" style="display:none;background:rgba(79,195,247,0.1);border:1px solid var(--accent);border-radius:8px;padding:10px;margin:10px 0;font-weight:600;color:var(--accent);">Processing OCR...</div><div class="result-box" id="ocrResult" style="display:none;white-space:pre-wrap;max-height:300px;overflow-y:auto;"></div></div></div>
-  </div>
-  <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(0,184,148,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the Smart Scanner</h2>
-  <p>Scan QR codes, barcodes, and extract text from images using OCR — all privately in your browser. No uploads, no accounts, no tracking.</p>
   </div>
 
-  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
-  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
+  <div class="tab-content" id="tab5">
+    <div class="card">
+      <h2>📝 Text Scanner (OCR)</h2>
+      <p style="color:var(--muted);margin-bottom:16px;">Upload an image and extract text instantly — completely in your browser.</p>
+      <div class="field"><label>Upload image (JPG, PNG)</label><input type="file" id="ocrInput" accept="image/*"></div>
+      <div id="ocrStatus" style="display:none;background:rgba(79,195,247,0.1);border:1px solid var(--accent);border-radius:8px;padding:10px;margin:10px 0;font-weight:600;color:var(--accent);">Processing OCR...</div>
+      <div class="result-box" id="ocrResult" style="display:none;white-space:pre-wrap;max-height:300px;overflow-y:auto;"></div>
+    </div>
+  </div>
+</div>
 
-  <script>
-    // Tabs
-    document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',function(){
-      document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
-      this.classList.add('active');
-      document.getElementById(this.dataset.tab).classList.add('active');
-      if(this.dataset.tab==='tab1')startScanner(); else stopScanner();
-    }));
-    // Live Scanner
-    let html5QrCode;
-    function startScanner(){
-      if(html5QrCode)return;
-      html5QrCode=new Html5Qrcode("reader");
-      html5QrCode.start(
-        {facingMode:"environment"},
-        {fps:10,qrbox:250},
-        (txt)=>{
-          document.getElementById('liveResult').style.display='block';
-          document.getElementById('liveResult').innerHTML=`<strong>Detected:</strong> ${txt}`;
-          stopScanner();
-        },
-        ()=>{}
-      ).catch(e=>{
+<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+  <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Smart Scanner</h2>
+  <p>ColdMatrix Smart Scanner combines QR code and barcode scanning, a QR code generator, a barcode generator, and OCR text extraction in one elegant tool. Scan live with your camera, upload images, generate codes, and extract text — all privately in your browser with no uploads, no accounts, and no tracking.</p>
+  <p>Built for global users, this tool works entirely offline after the first load and respects your privacy. Whether you’re sharing a website, tracking inventory, or digitizing printed text, the Smart Scanner is fast, reliable, and always free.</p>
+  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
+  <p><strong>Is my data uploaded?</strong> No — all scanning and OCR processing happens locally on your device.</p>
+  <p><strong>Can I scan barcodes?</strong> Yes, the camera and upload scanner support common 1D and 2D barcode formats.</p>
+</div>
+
+<footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
+
+<script>
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',function(){
+    document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById(this.dataset.tab).classList.add('active');
+    if(this.dataset.tab==='tab1') startScanner(); else stopScanner();
+  }));
+
+  // Live Scanner
+  let html5QrCode;
+  function startScanner(){
+    if(html5QrCode)return;
+    html5QrCode=new Html5Qrcode("reader");
+    html5QrCode.start(
+      {facingMode:"environment"},
+      {fps:10,qrbox:250},
+      (txt)=>{
         document.getElementById('liveResult').style.display='block';
-        document.getElementById('liveResult').innerHTML='⚠️ Camera access denied. Please allow camera permission.';
-      });
-    }
-    function stopScanner(){
-      if(html5QrCode){
-        html5QrCode.stop().then(()=>{html5QrCode.clear();html5QrCode=null;}).catch(()=>{});
-      }
-    }
-    // Upload Scanner
-    document.getElementById('uploadInput').addEventListener('change',function(e){
-      const file=e.target.files[0]; if(!file) return;
-      const reader=new FileReader();
-      reader.onload=function(ev){
-        document.getElementById('uploadPreview').src=ev.target.result;
-        document.getElementById('uploadPreview').style.display='block';
-        const scanner=new Html5Qrcode("uploadPreview");
-        scanner.scanFile(file,true)
-          .then(txt=>{
-            document.getElementById('uploadResult').style.display='block';
-            document.getElementById('uploadResult').innerHTML=`<strong>Detected:</strong> ${txt}`;
-          })
-          .catch(()=>{
-            document.getElementById('uploadResult').style.display='block';
-            document.getElementById('uploadResult').innerHTML='⚠️ No QR or barcode found in this image.';
-          });
-      };
-      reader.readAsDataURL(file);
+        document.getElementById('liveResult').innerHTML=`<strong>Detected:</strong> ${txt}`;
+        stopScanner();
+      },
+      ()=>{}
+    ).catch(e=>{
+      document.getElementById('liveResult').style.display='block';
+      document.getElementById('liveResult').innerHTML='⚠️ Camera access denied. Please allow camera permission.';
     });
-    // QR Generator
-    function generateQR(){
-      const txt=document.getElementById('qrText').value; if(!txt) return;
-      document.getElementById('qrcode').innerHTML='';
-      new QRCodeStyling({width:200,height:200,data:txt,dotsOptions:{type:'rounded',color:'#0B0F14'},backgroundOptions:{color:'#ffffff'}}).append(document.getElementById('qrcode'));
+  }
+  function stopScanner(){
+    if(html5QrCode){
+      html5QrCode.stop().then(()=>{html5QrCode.clear();html5QrCode=null;}).catch(()=>{});
     }
-    // Barcode Generator
-    function generateBarcode(){
-      const txt=document.getElementById('barcodeText').value;
-      const type=document.getElementById('barcodeType').value;
-      if(!txt) return;
-      document.getElementById('barcodeSvg').innerHTML='';
-      try{
-        JsBarcode("#barcodeSvg",txt,{format:type,lineColor:"#0A0F14",background:"#ffffff",width:2,height:100,displayValue:true});
-      }catch(e){
-        alert('Invalid barcode number for selected type');
-      }
-    }
-    // OCR (Tesseract.js)
-    document.getElementById('ocrInput').addEventListener('change', async function(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const statusEl = document.getElementById('ocrStatus');
-      const resultEl = document.getElementById('ocrResult');
-      statusEl.style.display = 'block';
-      resultEl.style.display = 'none';
-      try {
-        const result = await Tesseract.recognize(file, 'eng', {
-          logger: (m) => {
-            if (m.status === 'recognizing text') {
-              statusEl.textContent = `Processing OCR... ${Math.round(m.progress * 100)}%`;
-            }
-          }
+  }
+
+  // Upload Scanner
+  document.getElementById('uploadInput').addEventListener('change',function(e){
+    const file=e.target.files[0]; if(!file) return;
+    const reader=new FileReader();
+    reader.onload=function(ev){
+      document.getElementById('uploadPreview').src=ev.target.result;
+      document.getElementById('uploadPreview').style.display='block';
+      const scanner=new Html5Qrcode("uploadPreview");
+      scanner.scanFile(file,true)
+        .then(txt=>{
+          document.getElementById('uploadResult').style.display='block';
+          document.getElementById('uploadResult').innerHTML=`<strong>Detected:</strong> ${txt}`;
+        })
+        .catch(()=>{
+          document.getElementById('uploadResult').style.display='block';
+          document.getElementById('uploadResult').innerHTML='⚠️ No QR or barcode found in this image.';
         });
-        statusEl.style.display = 'none';
-        resultEl.style.display = 'block';
-        resultEl.textContent = result.data.text || 'No text found in the image.';
-      } catch (err) {
-        statusEl.style.display = 'none';
-        resultEl.style.display = 'block';
-        resultEl.textContent = '⚠️ OCR failed. Please try a clearer image.';
-      }
-    });
-    // PWA
-    let d; const bar=document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d=e; });
-    window.installAppTool = function(){
-      if(d){ d.prompt(); d.userChoice.then(()=>{ bar.style.display='none'; }); }
-      else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
     };
-    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
-  
-    function shareToolWhatsApp(){
-      const text = encodeURIComponent('Check out this Smart Scanner from ColdMatrix Tools! ' + window.location.href);
-      window.open('https://wa.me/?text='+text, '_blank');
+    reader.readAsDataURL(file);
+  });
+
+  // QR Generator
+  function generateQR(){
+    const txt=document.getElementById('qrText').value; if(!txt) return;
+    document.getElementById('qrcode').innerHTML='';
+    new QRCodeStyling({width:200,height:200,data:txt,dotsOptions:{type:'rounded',color:'#0B0F14'},backgroundOptions:{color:'#ffffff'}}).append(document.getElementById('qrcode'));
+  }
+
+  // Barcode Generator
+  function generateBarcode(){
+    const txt=document.getElementById('barcodeText').value;
+    const type=document.getElementById('barcodeType').value;
+    if(!txt) return;
+    document.getElementById('barcodeSvg').innerHTML='';
+    try{
+      JsBarcode("#barcodeSvg",txt,{format:type,lineColor:"#0A0F14",background:"#ffffff",width:2,height:100,displayValue:true});
+    }catch(e){
+      alert('Invalid barcode number for selected type');
     }
-    function copyToolLink(){
-      navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
+  }
+
+  // OCR (Tesseract.js)
+  document.getElementById('ocrInput').addEventListener('change', async function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const statusEl = document.getElementById('ocrStatus');
+    const resultEl = document.getElementById('ocrResult');
+    statusEl.style.display = 'block';
+    resultEl.style.display = 'none';
+    try {
+      const result = await Tesseract.recognize(file, 'eng', {
+        logger: (m) => {
+          if (m.status === 'recognizing text') {
+            statusEl.textContent = `Processing OCR... ${Math.round(m.progress * 100)}%`;
+          }
+        }
+      });
+      statusEl.style.display = 'none';
+      resultEl.style.display = 'block';
+      resultEl.textContent = result.data.text || 'No text found in the image.';
+    } catch (err) {
+      statusEl.style.display = 'none';
+      resultEl.style.display = 'block';
+      resultEl.textContent = '⚠️ OCR failed. Please try a clearer image.';
     }
-  </script>
-  <script type="application/ld+json">
+  });
+
+  function resetAll() {
+    // Stop camera
+    stopScanner();
+    // Clear QR code
+    document.getElementById('qrcode').innerHTML = '';
+    document.getElementById('qrText').value = 'https://yourdomain.com';
+    // Clear barcode
+    document.getElementById('barcodeSvg').innerHTML = '';
+    document.getElementById('barcodeText').value = '123456789012';
+    // Clear OCR
+    document.getElementById('ocrInput').value = '';
+    document.getElementById('ocrResult').style.display = 'none';
+    document.getElementById('ocrStatus').style.display = 'none';
+    // Clear upload
+    document.getElementById('uploadInput').value = '';
+    document.getElementById('uploadResult').style.display = 'none';
+    document.getElementById('uploadPreview').style.display = 'none';
+    // Clear live result
+    document.getElementById('liveResult').style.display = 'none';
+    // Go to first tab
+    document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
+    document.querySelector('.tab-btn[data-tab="tab1"]').classList.add('active');
+    document.getElementById('tab1').classList.add('active');
+  }
+
+  // PWA
+  let d; const bar=document.getElementById('installBarTool');
+  window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d=e; });
+  window.installAppTool = function(){
+    if(d){ d.prompt(); d.userChoice.then(()=>{ bar.style.display='none'; }); }
+    else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
+  };
+  if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+
+  function shareToolWhatsApp(){
+    const text = encodeURIComponent('Check out this Smart Scanner from ColdMatrix Tools! ' + window.location.href);
+    window.open('https://wa.me/?text='+text, '_blank');
+  }
+  function copyToolLink(){
+    navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
+  }
+</script>
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -325,6 +425,5 @@
   ]
 }
 </script>
-  
 </body>
 </html>

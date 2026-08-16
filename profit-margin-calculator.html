@@ -12,16 +12,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ColdMatrix Profit Margin Calculator — Per Unit & Total | ColdMatrix Tools</title>
-  <meta name="description" content="Calculate total profit, margin percentage, and markup for any quantity. Per-unit cost, selling price, multiple calculation methods and currencies — free online tool.">
+  <meta name="description" content="Calculate total profit, margin, markup, break-even, tax and cost for any quantity. Multiple business methods and currencies — free online tool.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
   <meta property="og:title" content="ColdMatrix Profit Margin Calculator — Per Unit & Total">
-  <meta property="og:description" content="Calculate total profit, margin, and markup for any quantity with multiple calculation methods and currencies.">
+  <meta property="og:description" content="Calculate total profit, margin, markup, break-even and tax with multiple calculation methods and currencies.">
   <meta property="og:url" content="https://coldmatrixtools.com/profit-margin-calculator.html">
   <meta property="og:image" content="https://coldmatrixtools.com/profit_margin_calc.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="ColdMatrix Profit Margin Calculator — Per Unit & Total">
-  <meta name="twitter:description" content="Calculate total profit, margin, and markup for any quantity with multiple calculation methods and currencies.">
+  <meta name="twitter:description" content="Calculate total profit, margin, markup, break-even and tax with multiple business methods and currencies.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/profit_margin_calc.jpg">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
@@ -33,15 +33,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
-      --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
-      --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3);
+      --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
+      --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --accent2:#2196F3;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
       --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
       --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --dark-silver:#4a4d55; --whatsapp-green:#25D366;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background: linear-gradient(135deg, rgba(11,15,20,0.88), rgba(11,15,20,0.92)), url('profit_margin_calc.jpg') center/cover fixed no-repeat;
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 700px; margin:0 auto; padding:0 20px; }
@@ -50,51 +51,108 @@
     .logo { font-size:1.2rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:6px; }
     .nav-links { display:flex; gap:18px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.9rem; }
-    .nav-links a:hover { color:var(--accent); }
-    .ad-card { border-radius:12px; overflow:hidden; background:linear-gradient(90deg,rgba(10,15,20,0.7),rgba(10,15,20,0.4)),url('ad-bg.jpg') center/cover no-repeat; border:1px solid var(--border); padding:14px; margin:16px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; font-size:0.85rem; }
-    .ad-card ul { list-style:none; padding:0; margin:0; }
-    .ad-card li { font-size:0.8rem; font-weight:600; color:#fff; margin-bottom:3px; }
-    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:5px; }
-    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:8px 18px; text-decoration:none; font-weight:600; white-space:nowrap; font-size:0.85rem; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:10px; border-radius:8px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; }
-    .install-bar button { background:#0A0F14; color:white; border:none; padding:5px 14px; border-radius:5px; margin-left:10px; font-weight:600; cursor:pointer; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:10px; font-weight:600; cursor:pointer; }
 
     h1 { font-size:1.6rem; font-weight:800; margin-bottom:6px; }
-    h1 span { color: var(--accent); }
+    h1 span { color: var(--gold-bright); }
     .subtitle { color:var(--muted); margin-bottom:20px; font-size:0.9rem; }
 
-    .card { background:var(--surface); border:1px solid var(--gold); border-radius:12px; padding:20px; margin-bottom:16px; position:relative; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
-    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
-    .card h2 { font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:600; margin-bottom:14px; color:var(--accent); text-transform:uppercase; letter-spacing:0.5px; }
+    .share-tool-card {
+      background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+      border:2px solid;
+      border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:12px;
+      padding:22px 20px;
+      margin-bottom:26px;
+      box-shadow:0 10px 34px rgba(0,0,0,0.55);
+    }
+    .share-tool-title { font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .share-tool-btn {
+      display:flex; align-items:center; justify-content:center; gap:9px;
+      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+      transition:all 0.25s ease;
+    }
+    .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover { border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
+    .share-tool-btn i { font-size:1rem; }
+
+    .card {
+      background:var(--surface); border:1px solid var(--gold); border-radius:12px;
+      padding:20px; margin-bottom:16px; position:relative; overflow:hidden;
+      box-shadow:0 8px 30px rgba(0,0,0,0.5);
+    }
+    .card h2 {
+      font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:600;
+      margin-bottom:14px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px;
+    }
 
     .field { margin-bottom:12px; }
     .field label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:4px; font-weight:500; }
-    .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:10px 12px; border-radius:8px; font-size:0.9rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4); }
+    .field input, .field select {
+      width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
+      padding:10px 12px; border-radius:8px; font-size:0.9rem;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+    }
     .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .field select {
+      appearance:none; -webkit-appearance:none; -moz-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M2 2 L10 10 L18 2' fill='none' stroke='%23D4AF37' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 14px center; background-size:20px 12px;
+      padding-right:44px;
+    }
     .field select option { background:var(--surface2); color:var(--text); }
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
 
-    .btn-calc { width:100%; background:var(--silver-gradient); color:#ffffff; border:2px solid var(--gold); padding:14px; border-radius:10px; font-weight:700; font-size:1rem; cursor:pointer; margin-top:4px; letter-spacing:0.5px; text-shadow:0 1px 2px rgba(0,0,0,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow); transition:all 0.25s ease; }
+    .btn-calc {
+      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      padding:14px; border-radius:10px; font-weight:700; font-size:1rem; cursor:pointer; margin-top:4px;
+      letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition:all 0.25s ease;
+    }
     .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
+    .btn-reset {
+      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      padding:14px 18px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      white-space:nowrap; text-shadow:0 1px 2px rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      transition:all 0.25s ease;
+    }
+    .btn-reset:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
     .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
-    .result-item { background:var(--surface2); border:1px solid var(--gold); border-radius:10px; padding:14px; text-align:center; word-break:break-word; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.3rem; font-weight:800; color:var(--accent); line-height:1.2; }
-    .result-item .lbl { font-size:0.7rem; color:var(--muted); margin-top:3px; text-transform:uppercase; letter-spacing:0.5px; }
-    .result-item.highlight { border-color:#34D399; background:rgba(52,211,153,0.06); grid-column:1/-1; }
-    .result-item.highlight .val { font-size:1.4rem; color:#34D399; }
+    .result-item {
+      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:10px;
+      padding:14px; text-align:center; word-break:break-word;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3), 0 0 10px var(--gold-glow);
+    }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.3rem; font-weight:800; color:#0A0F14; line-height:1.2; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
+    .result-item .lbl { font-size:0.7rem; color:#111; margin-top:3px; text-transform:uppercase; letter-spacing:0.5px; font-weight:700; }
+    .result-item.highlight { border-color:#34D399; background:linear-gradient(145deg,#d9f5e5,#a8e6cf); grid-column:1/-1; }
+    .result-item.highlight .val { font-size:1.4rem; color:#0A0F14; }
 
     .share-bar { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
-    .share-btn { display:flex; align-items:center; gap:6px; padding:10px 16px; border-radius:50px; font-weight:600; font-size:0.8rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
+    .share-btn {
+      display:flex; align-items:center; gap:6px; padding:10px 16px; border-radius:50px;
+      font-weight:600; font-size:0.8rem; cursor:pointer; border:none; text-decoration:none; color:#fff;
+      transition:all 0.25s ease;
+    }
+    .share-btn:hover { transform:translateY(-2px); }
     .share-whatsapp { background:#25D366; }
     .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
+    .share-jpg, .share-png { background:var(--dark-silver); color:#fff; border:1px solid var(--gold); }
 
     .note { font-size:0.7rem; color:var(--muted); margin-top:12px; border-top:1px solid var(--border); padding-top:10px; text-align:center; }
     #shareCapture { display:none; }
     footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:30px 0 20px; border-top:1px solid var(--border); margin-top:40px; }
-    footer a { color:var(--accent); text-decoration:none; }
+    footer a { color:var(--gold-bright); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:18px; right:18px; z-index:999; width:44px; height:44px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.2rem; }
 
     @media (max-width:420px) {
@@ -103,27 +161,6 @@
       h1 { font-size:1.4rem; }
       .result-item .val { font-size:1.1rem; }
     }
-      .share-tool-card{
-      background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
-      border: 2px solid;
-      border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
-      border-radius:12px;
-      padding:22px 20px;
-      margin-bottom:26px;
-      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-    .share-tool-title{font-family:'Playfair Display',serif; font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
-    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-    .share-tool-btn{
-      display:flex; align-items:center; justify-content:center; gap:9px;
-      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
-      background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
-      transition:all 0.25s ease; font-family:'Inter',sans-serif;
-    }
-    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
-    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
-    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-    .share-tool-btn i{font-size:1rem;}
   </style>
 </head>
 <body>
@@ -133,7 +170,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
+        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
@@ -142,27 +179,15 @@
   </nav>
 
   <div class="container">
-  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent,#4FC3F7);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+  <a href="index.html#tools" class="back-link">← Back to Tools</a>
   
-    <div class="ad-card">
-      <div>
-        <ul>
-          <li>PEB Structures</li>
-          <li>Cold Storage & Freezer Rooms</li>
-          <li>PU/PIR Sandwich Panels</li>
-          <li>Prefab Construction Solutions</li>
-        </ul>
-        <div style="font-size:0.7rem;color:#c8d0d8;margin-top:2px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
-      </div>
-      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
-    </div>
-
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1><span>ColdMatrix</span> Profit Margin Calculator</h1>
-    <p class="subtitle">Professional multi‑method profit calculation — cost, selling price, margin, markup, quantity, and currency.</p>
+    <p class="subtitle">Professional multi‑method profit calculation — cost, selling price, margin, markup, quantity, tax, fixed costs & break‑even.</p>
+
     <div class="share-tool-card">
-      <div class="share-tool-title">Share ColdMatrix Profit Margin Calculator</div>
+      <div class="share-tool-title">Share Profit Margin Calculator</div>
       <div class="share-tool-buttons">
         <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
@@ -182,9 +207,7 @@
         </select>
       </div>
 
-      <div class="row2" id="methodFields">
-        <!-- Dynamic fields will be populated by JS -->
-      </div>
+      <div class="row2" id="methodFields"></div>
 
       <div class="row3">
         <div class="field"><label>Quantity</label><input type="number" id="quantity" value="3000" step="any"></div>
@@ -216,12 +239,21 @@
           </select>
         </div>
       </div>
+
       <div class="field" id="customUnitField" style="display:none;">
         <label>Enter Custom Unit Name</label>
         <input type="text" id="customUnit" placeholder="e.g. bundle, roll, carton">
       </div>
 
-      <div style="display:flex;gap:10px;"><button class="btn-calc" style="flex:1" onclick="calculateProfit()">Calculate</button><button onclick="resetCalculator()" style="background:var(--silver-gradient);border:2px solid var(--gold);color:#fff;padding:14px 18px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,0.6);box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35);">🔄 Reset</button></div>
+      <div class="row2">
+        <div class="field"><label>Fixed Costs (optional)</label><input type="number" id="fixedCosts" value="0" step="any"></div>
+        <div class="field"><label>Tax / VAT % (optional)</label><input type="number" id="taxRate" value="0" step="any"></div>
+      </div>
+
+      <div style="display:flex;gap:10px;">
+        <button class="btn-calc" style="flex:1" onclick="calculateProfit()">Calculate</button>
+        <button class="btn-reset" onclick="resetCalculator()">🔄 Reset</button>
+      </div>
     </div>
 
     <div class="card" id="resultCard" style="display:none;">
@@ -229,14 +261,17 @@
       <div class="result-grid">
         <div class="result-item"><div class="val" id="resTotalCost">—</div><div class="lbl">Total Cost</div></div>
         <div class="result-item"><div class="val" id="resTotalRevenue">—</div><div class="lbl">Total Revenue</div></div>
-        <div class="result-item"><div class="val" id="resTotalProfit">—</div><div class="lbl">Total Profit</div></div>
+        <div class="result-item"><div class="val" id="resTotalProfit">—</div><div class="lbl">Gross Profit</div></div>
         <div class="result-item"><div class="val" id="resMargin">—</div><div class="lbl">Profit Margin %</div></div>
         <div class="result-item"><div class="val" id="resMarkup">—</div><div class="lbl">Markup %</div></div>
         <div class="result-item"><div class="val" id="resPerUnitProfit">—</div><div class="lbl">Profit per Unit</div></div>
+        <div class="result-item" id="taxRow" style="display:none;"><div class="val" id="resTaxAmount">—</div><div class="lbl">Tax Amount</div></div>
+        <div class="result-item" id="netProfitRow" style="display:none;"><div class="val" id="resNetProfit">—</div><div class="lbl">Net Profit After Tax</div></div>
         <div class="result-item"><div class="val" id="resBreakEvenRevenue">—</div><div class="lbl">Break‑Even Revenue</div></div>
+        <div class="result-item"><div class="val" id="resBreakEvenUnits">—</div><div class="lbl">Break‑Even Units</div></div>
         <div class="result-item highlight"><div class="val" id="resSummary">—</div><div class="lbl">Summary</div></div>
       </div>
-      <div class="note">ℹ️ Margin = (Profit ÷ Revenue) × 100 &nbsp;|&nbsp; Markup = (Profit ÷ Cost) × 100 &nbsp;|&nbsp; Break‑Even Revenue = Total Fixed Cost ÷ Margin %</div>
+      <div class="note">ℹ️ Margin = (Profit ÷ Revenue) × 100 | Markup = (Profit ÷ Cost) × 100 | Break‑Even Revenue = Fixed Costs ÷ Margin %</div>
     </div>
 
     <div id="shareCapture">
@@ -259,10 +294,13 @@
     </div>
   </div>
 
-  <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(0,184,148,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#00b894;">About the Profit Margin Calculator</h2>
-  <p>Calculate profit margin, markup percentage, and selling price using multiple authentic business formulas. Supports per-unit and total calculations.</p>
-  <p><strong>Need more business tools?</strong> Check the <a href="business-calculator-suite.html" style="color:#00b894;">Business Calculator Suite</a>.</p>
+  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+  <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Profit Margin Calculator</h2>
+  <p>ColdMatrix Profit Margin Calculator is a complete pricing and profitability tool for business owners, accountants, and entrepreneurs. It calculates total cost, revenue, gross profit, margin %, markup %, profit per unit, and break‑even points using five professional methods. You can also add fixed costs and tax/VAT to see your true net profitability.</p>
+  <p>Choose your quantity, unit type, and currency, then instantly see a full financial summary. Whether you’re quoting products, planning a production run, or analyzing a business case, this tool gives you the accurate numbers you need to make confident pricing decisions.</p>
+  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
+  <p><strong>What is margin vs markup?</strong> Margin is profit ÷ revenue, while markup is profit ÷ cost. Both are useful for pricing.</p>
+  <p><strong>Need more business tools?</strong> Check our <a href="business-calculator-suite.html" style="color:#FFD700;">Business Calculator Suite</a>.</p>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
@@ -285,7 +323,6 @@
       const method = document.getElementById('calcMethod').value;
       const container = document.getElementById('methodFields');
       container.innerHTML = '';
-      const sym = getSymbol();
 
       function addField(label, id, value = '') {
         const div = document.createElement('div');
@@ -327,6 +364,8 @@
       const method = document.getElementById('calcMethod').value;
       const qty = parseFloat(document.getElementById('quantity').value) || 0;
       const sym = document.getElementById('currency').value;
+      const fixedCosts = parseFloat(document.getElementById('fixedCosts').value) || 0;
+      const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
       let costPerUnit = 0, sellPerUnit = 0;
 
       if (qty <= 0) {
@@ -374,34 +413,58 @@
       const margin = totalRevenue > 0 ? (totalProfit / totalRevenue) * 100 : 0;
       const markup = totalCost > 0 ? (totalProfit / totalCost) * 100 : 0;
       const perUnitProfit = sellPerUnit - costPerUnit;
-      const breakEvenRevenue = margin > 0 ? totalCost / (margin / 100) : 0;
+      const taxAmount = totalRevenue * taxRate / 100;
+      const netProfitAfterTax = totalProfit - taxAmount;
+
+      // Break-even calculations with fixed costs
+      const breakEvenRevenue = fixedCosts > 0 && margin > 0 ? fixedCosts / (margin / 100) : 0;
+      const breakEvenUnits = fixedCosts > 0 && perUnitProfit > 0 ? fixedCosts / perUnitProfit : 0;
+
       const unit = getUnitName();
 
-      document.getElementById('resTotalCost').textContent = sym + ' ' + totalCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('resTotalRevenue').textContent = sym + ' ' + totalRevenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('resTotalProfit').textContent = sym + ' ' + totalProfit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      function fmtMoney(n) { return sym + ' ' + n.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+
+      document.getElementById('resTotalCost').textContent = fmtMoney(totalCost);
+      document.getElementById('resTotalRevenue').textContent = fmtMoney(totalRevenue);
+      document.getElementById('resTotalProfit').textContent = fmtMoney(totalProfit);
       document.getElementById('resMargin').textContent = margin.toFixed(2) + '%';
       document.getElementById('resMarkup').textContent = markup.toFixed(2) + '%';
-      document.getElementById('resPerUnitProfit').textContent = sym + ' ' + perUnitProfit.toFixed(2);
-      document.getElementById('resBreakEvenRevenue').textContent = sym + ' ' + breakEvenRevenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('resSummary').textContent = `${qty} ${unit} × ${sym} ${sellPerUnit.toFixed(2)} = ${sym} ${totalRevenue.toFixed(2)} revenue | Profit: ${sym} ${totalProfit.toFixed(2)} (${margin.toFixed(1)}% margin)`;
+      document.getElementById('resPerUnitProfit').textContent = fmtMoney(perUnitProfit);
+      document.getElementById('resBreakEvenRevenue').textContent = breakEvenRevenue > 0 ? fmtMoney(breakEvenRevenue) : '—';
+      document.getElementById('resBreakEvenUnits').textContent = breakEvenUnits > 0 ? breakEvenUnits.toFixed(2) : '—';
+
+      if (taxRate > 0) {
+        document.getElementById('taxRow').style.display = 'block';
+        document.getElementById('netProfitRow').style.display = 'block';
+        document.getElementById('resTaxAmount').textContent = fmtMoney(taxAmount);
+        document.getElementById('resNetProfit').textContent = fmtMoney(netProfitAfterTax);
+      } else {
+        document.getElementById('taxRow').style.display = 'none';
+        document.getElementById('netProfitRow').style.display = 'none';
+      }
+
+      document.getElementById('resSummary').textContent = `${qty} ${unit} × ${fmtMoney(sellPerUnit)} = ${fmtMoney(totalRevenue)} revenue | Gross Profit: ${fmtMoney(totalProfit)} (${margin.toFixed(1)}% margin)${taxRate > 0 ? ' | Net: ' + fmtMoney(netProfitAfterTax) : ''}`;
       document.getElementById('resultCard').style.display = 'block';
       document.getElementById('shareBarWrap').style.display = 'flex';
       document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
 
-      document.getElementById('pvCost').textContent = sym + ' ' + totalCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('pvRevenue').textContent = sym + ' ' + totalRevenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('pvProfit').textContent = sym + ' ' + totalProfit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' (' + margin.toFixed(1) + '% margin)';
+      document.getElementById('pvCost').textContent = fmtMoney(totalCost);
+      document.getElementById('pvRevenue').textContent = fmtMoney(totalRevenue);
+      document.getElementById('pvProfit').textContent = fmtMoney(totalProfit) + ' (' + margin.toFixed(1) + '% margin)';
     }
 
     function resetCalculator() {
       document.getElementById('calcMethod').value = 'cost-sell';
       document.getElementById('quantity').value = 3000;
       document.getElementById('unitType').selectedIndex = 0;
+      document.getElementById('currency').value = 'PKR';
       document.getElementById('customUnitField').style.display = 'none';
+      document.getElementById('fixedCosts').value = 0;
+      document.getElementById('taxRate').value = 0;
       updateMethodFields();
       document.getElementById('resultCard').style.display = 'none';
       document.getElementById('shareBarWrap').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     async function captureCanvas(){
@@ -447,7 +510,7 @@
       else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
     };
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
-  
+
     function shareToolWhatsApp(){
       const text = encodeURIComponent('Check out this Profit Margin Calculator from ColdMatrix Tools! ' + window.location.href);
       window.open('https://wa.me/?text='+text, '_blank');
@@ -458,42 +521,40 @@
       });
     }
 
-    // Initialize
     updateMethodFields();
-</script>
+  </script>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are ColdMatrix tools free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate are ColdMatrix calculators?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ColdMatrix store my data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+        }
       }
-    },
-    {
-      "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-      }
-    }
-  ]
-}
-</script>
-
+    ]
+  }
+  </script>
 </body>
 </html>
