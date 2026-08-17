@@ -169,6 +169,60 @@
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.4rem; }
 
     @media (max-width:600px){ .row2,.row3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} }
+    .btn-row-fixed {
+  display:flex;
+  gap:12px;
+  margin-top:20px;
+  align-items:stretch;
+}
+.btn-row-fixed .btn-calc,
+.btn-row-fixed .btn-reset {
+  flex:1;
+  padding:16px;
+  border-radius:12px;
+  font-weight:700;
+  font-size:1.1rem;
+  cursor:pointer;
+  letter-spacing:0.5px;
+  text-align:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:56px;
+  box-sizing:border-box;
+}
+.btn-row-fixed .btn-calc {
+  background:var(--silver-gradient);
+  color:#0A0F14;
+  border:2px solid var(--gold);
+  text-shadow:0 1px 2px rgba(255,255,255,0.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+  transition:all 0.25s ease;
+}
+.btn-row-fixed .btn-calc:hover {
+  background:var(--silver-gradient-hover);
+  border-color:var(--gold-bright);
+  box-shadow:0 0 22px var(--gold-glow);
+  transform:translateY(-2px);
+}
+.btn-row-fixed .btn-reset {
+  background:var(--silver-gradient);
+  color:#0A0F14;
+  border:2px solid var(--gold);
+  text-shadow:0 1px 2px rgba(255,255,255,0.4);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+  transition:all 0.25s ease;
+}
+.btn-row-fixed .btn-reset:hover {
+  background:var(--silver-gradient-hover);
+  border-color:var(--gold-bright);
+  transform:translateY(-2px);
+}
+.btn-calc, .btn-reset {
+  box-sizing:border-box;
+  margin:0;
+  vertical-align:middle;
+}
   </style>
 </head>
 <body>
@@ -330,10 +384,10 @@
       </div>
     </div>
 
-    <div style="display:flex;gap:10px;">
-      <button class="btn-calc" style="flex:1" onclick="runSandwichCalculation()">Calculate Panel Estimate</button>
-      <button class="btn-reset" onclick="resetForm()">🔄 Reset</button>
-    </div>
+<div style="display:flex;gap:10px;align-items:center;">
+  <button class="btn-calc" style="flex:2; height:56px; font-size:1.1rem;" onclick="runSandwichCalculation()">Calculate Panels</button>
+  <button class="btn-reset" style="flex:0.8; height:56px; font-size:0.85rem;" onclick="resetForm()">🔄 Reset</button>
+</div>
 
     <!-- RESULTS -->
     <div class="card" id="resultsContainer" style="display:none;">
@@ -357,13 +411,60 @@
     </div>
   </div>
 
+  <!-- SINGLE CLEAN EDUCATIONAL CONTENT SECTION -->
   <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Sandwich Panel Calculator</h2>
-  <p>ColdMatrix Sandwich Panel Calculator is built for real project estimation — helping contractors, fabricators, and engineers quickly determine the number of panels, total weight, and estimated cost for walls and roofs. Choose between direct area input or room dimensions, select PIR, PUR/PUF, EPS, or Rockwool core, and adjust steel gauges and core density to match actual manufacturer specs.</p>
-  <p>Everything runs locally in your browser, supports metric and imperial units, and includes a wastage allowance for realistic ordering. The result panel gives you a complete breakdown of steel weight, core weight, total order weight, panel count, and cost in your chosen currency.</p>
-  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
-  <p><strong>What thickness of sandwich panel do I need?</strong> Thickness depends on required insulation — cold rooms typically need 100‑150mm, general cladding 40‑80mm.</p>
-  <p><strong>Need the full building too?</strong> Check our <a href="cold-store-calculator.html" style="color:#FFD700;">Cold Store Calculator</a>.</p>
+    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">What Is a Sandwich Panel?</h2>
+    <p>A sandwich panel is a prefabricated building material made of two outer steel sheets and a rigid insulating core, typically PUF (Polyurethane Foam), PIR (Polyisocyanurate), or EPS (Expanded Polystyrene). These panels are widely used for cold storage rooms, PEB structures, clean rooms, and industrial buildings because they provide excellent insulation, strength, and fast installation in one product.</p>
+    <p>The most common effective width for cold storage sandwich panels is <strong>1190 mm</strong>, allowing for easy modular installation.</p>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Standard Sheet & Panel Widths – Real Industry Knowledge</h2>
+    <p>Globally, steel coils used for sandwich panels come in different widths. The most common full-size PUF/PIR sheet is <strong>1220 mm (4 feet)</strong> wide. After profiling (making low ribs or corrugations), the sheet shrinks slightly — usually by <strong>20 to 30 mm</strong> — resulting in a final effective width of approximately <strong>1190 mm</strong>.</p>
+    <p>Other sheet widths are also available, including 1200 mm, 1180 mm, and 1150 mm. The exact effective coverage depends on the profile type and coil width. Always use the correct effective width when calculating panel quantities — not the full sheet width.</p>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Which Core Material Is Better — PUF or PIR?</h2>
+    <p><strong>PIR is better than PUF</strong> in almost every technical aspect. PIR offers better fire resistance, slightly better insulation (lower thermal conductivity), and better dimensional stability at high temperatures. However, PUF is more commonly used because it is more cost-effective and still offers excellent performance for most cold storage applications. For critical applications where fire safety is a concern, <strong>PIR is the recommended choice</strong>.</p>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Can Sandwich Panels Be Used for the Floor?</h2>
+    <p>Yes, absolutely. In negative temperature rooms, floor insulation is critical to prevent condensation and heat gain from the ground. Typically, floors are insulated using XPS (Extruded Polystyrene) board sheets or PUF/PIR foam board sheets. But in many cases, especially when the floor finish is already done and owners do not want to break or insulate inside, <strong>sandwich panels are laid directly on the floor</strong>, and then a finishing sheet — such as checker sheet or aluminium sheet — is placed on top for durability.</p>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Outer Skin Materials & Thickness – Practical Field Guide</h2>
+    <p>Common outer skin materials include:</p>
+    <ul style="padding-left:20px;">
+      <li><strong>PPGI (Pre-Painted Galvanized Iron)</strong> — most common, cost-effective.</li>
+      <li><strong>Stainless Steel Sheets</strong> — for pharmaceutical, food processing, ice cream, and dairy storage.</li>
+      <li><strong>Aluminium Sheets</strong> — lightweight and corrosion-resistant.</li>
+      <li><strong>BlueScope Steel / Premium Branded Sheets</strong> — premium quality assurance.</li>
+    </ul>
+    <p>Skin thickness typically ranges from 0.4 mm to 0.7 mm. The coating thickness (measured in microns) is equally important. A good PPGI sheet should have a coating of at least 20 microns, preferably more than 30 microns.</p>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Panel Customization Based on Product Type</h2>
+    <p>Not every cold room is the same. The type of product being stored directly affects panel specification, skin material, core density, and coating thickness. For example, egg storage needs +4°C to +10°C, dried fruits +10°C to +20°C, bananas +15°C to +20°C, and frozen products -15°C to -25°C. The golden rule: skin can be customized based on surface protection and hygiene, but the insulation core density and panel sealing should never be compromised.</p>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Cold Storage Doors – Practical Selection & Installation Guide</h2>
+    <p>Doors are the most frequently used component of any cold storage room. Door skin material can be PPGI, aluminium, or stainless steel. The door hinges, locks, and gaskets must be top quality. Always install a PVC curtain in front of the cold room door to contain cold air. For cold rooms operating at negative temperatures, the door must be installed with a heater around the frame to prevent ice formation.</p>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Real-World Example</h2>
+    <p>Suppose you need to panel a cold room with four walls each 6 m long × 3 m high, and a roof 6 m × 4 m. Panel width is 1190 mm, length 3 m, wastage 3%. The calculator will determine wall panels approximately 21 pieces, roof panels 4 pieces, total about 25 panels before wastage.</p>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Common Mistakes to Avoid</h2>
+    <ul style="padding-left:20px;">
+      <li>Forgetting wastage — always add at least 3–5% for cuts and waste.</li>
+      <li>Using wrong effective width — many people use 1200 mm instead of 1190 mm.</li>
+      <li>Ignoring panel orientation — panels can be installed vertically or horizontally.</li>
+      <li>Not considering core material — using EPS for freezers may cause condensation.</li>
+      <li>Underestimating roof support — long roof panels need proper purlins.</li>
+      <li>Not installing PVC curtains and door heaters — leads to energy loss and door problems.</li>
+    </ul>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Frequently Asked Questions (FAQ)</h2>
+    <p><strong>Q: What is the standard width of sandwich panel?</strong><br>
+    A: The full sheet is usually 1220 mm. After profiling, the effective coverage is around 1190 mm.</p>
+    <p><strong>Q: Which core is better — PUF or PIR?</strong><br>
+    A: PIR is technically better for fire resistance and insulation. But PUF is more affordable and works well for most cold rooms.</p>
+    <p><strong>Q: Can I use sandwich panels for the floor?</strong><br>
+    A: Yes, especially in negative temperature rooms, with a finishing sheet on top.</p>
+    <p><strong>Q: Does the calculator include doors and windows?</strong><br>
+    A: Yes, you can subtract door and window areas from the wall area. Normal windows are rarely used in cold stores; fixed glass windows or doors with upper glass panels are common for visibility.</p>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
@@ -419,7 +520,6 @@
     }
 
     function runSandwichCalculation() {
-      // 1. Net Area in Sq Ft
       let netAreaSqFt = 0;
       if (inputMode === 'area') {
         let val = parseFloat(document.getElementById('areaNeeded').value) || 0;
@@ -430,7 +530,7 @@
         let w = parseFloat(document.getElementById('roomWidth').value) || 0;
         let h = parseFloat(document.getElementById('roomHeight').value) || 0;
         if (dimUnit === 'm') { l *= 3.28084; w *= 3.28084; h *= 3.28084; }
-        netAreaSqFt = 2 * (l + w) * h + (l * w); // walls + roof
+        netAreaSqFt = 2 * (l + w) * h + (l * w);
       }
 
       if (netAreaSqFt <= 0) {
@@ -442,7 +542,6 @@
       const totalAreaSqFt = netAreaSqFt * (1 + wastage);
       const totalAreaSqM = totalAreaSqFt / 10.7639;
 
-      // 2. Panel Dimensions
       let pWidthVal = parseFloat(document.getElementById('panelWidthVal').value) || 1190;
       let pWidthUnit = document.getElementById('panelWidthUnit').value;
       let pWidthM = toMeter(pWidthVal, pWidthUnit);
@@ -455,7 +554,6 @@
       const panelAreaSqFt = panelAreaSqM * 10.7639;
       const panelCount = Math.ceil(totalAreaSqFt / panelAreaSqFt);
 
-      // 3. Weights
       const topG = parseFloat(document.getElementById('topGauge').value) || 0.45;
       const botG = parseFloat(document.getElementById('botGauge').value) || 0.45;
       const coreDensity = parseFloat(document.getElementById('coreDensity').value) || 42;
@@ -469,7 +567,6 @@
       const totalNetWeight = totalSteelWeight + totalCoreWeight;
       const singlePanelWeight = totalNetWeight / panelCount;
 
-      // 4. Cost
       const rate = parseFloat(document.getElementById('panelRate').value) || 0;
       const currency = document.getElementById('currencySelect').value;
       const rateBasis = document.getElementById('rateBasis').value;

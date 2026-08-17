@@ -14,35 +14,37 @@
     :root {
       --bg: #0A0F14; --surface: #12181F; --surface2: #1B232C; --border: #2A3540;
       --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7;
+      --gold: #D4AF37; --gold-bright: #FFD700;
+      --gold-border: linear-gradient(145deg, #C8993A, #E8C96A 30%, #A07828 70%, #D4A843);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { background: linear-gradient(135deg, rgba(11,15,20,0.9), rgba(11,15,20,0.95)), url('blog-bg.jpg') center/cover fixed no-repeat; color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
     .container { max-width: 1100px; margin:0 auto; padding:0 24px; }
 
-    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter: blur(14px); border-bottom:2px solid; border-image: var(--gold-border) 1; }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
     .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
-    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
 
     .hero { padding:50px 0 40px; text-align:center; }
     .hero h1 { font-family:'Oswald',sans-serif; font-size:2.5rem; color:#fff; margin-bottom:10px; }
     .hero p { color:var(--muted); font-size:1.1rem; max-width:700px; margin:0 auto; }
 
     .blog-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:24px; margin:30px 0 50px; }
-    .blog-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px; transition:0.3s; text-decoration:none; color:var(--text); display:flex; flex-direction:column; gap:12px; }
-    .blog-card:hover { transform:translateY(-5px); box-shadow:0 15px 35px rgba(0,0,0,0.5); border-color:var(--accent); }
-    .blog-card .category { font-size:0.7rem; color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:1px; }
+    .blog-card { background:var(--surface); border:2px solid; border-image: var(--gold-border) 1; border-radius:14px; padding:24px; transition:0.3s; text-decoration:none; color:var(--text); display:flex; flex-direction:column; gap:12px; }
+    .blog-card:hover { transform:translateY(-5px); box-shadow:0 15px 35px rgba(0,0,0,0.5); border-color: var(--gold-bright); }
+    .blog-card .category { font-size:0.7rem; color:var(--gold-bright); font-weight:700; text-transform:uppercase; letter-spacing:1px; }
     .blog-card h3 { font-size:1.2rem; font-weight:700; color:#fff; }
     .blog-card p { font-size:0.9rem; color:var(--muted); line-height:1.6; }
     .blog-card .read-more { font-weight:600; color:var(--accent); font-size:0.85rem; margin-top:auto; }
 
-    .cta-box { background:rgba(79,195,247,0.08); border:1px solid var(--accent); border-radius:16px; padding:30px; text-align:center; margin:40px 0; }
+    .cta-box { background:rgba(79,195,247,0.08); border:2px solid; border-image: var(--gold-border) 1; border-radius:16px; padding:30px; text-align:center; margin:40px 0; }
     .cta-box h3 { font-size:1.3rem; color:#fff; margin-bottom:8px; }
     .cta-box p { color:var(--muted); margin-bottom:16px; }
 
-    footer { text-align:center; color:var(--muted); font-size:0.85rem; padding:30px 0; border-top:1px solid var(--border); margin-top:50px; }
+    footer { text-align:center; color:var(--muted); font-size:0.85rem; padding:30px 0; border-top:2px solid; border-image: var(--gold-border) 1; margin-top:50px; }
     footer a { color:var(--accent); text-decoration:none; }
   </style>
 </head>
@@ -53,7 +55,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
         <li><a href="gallery.html">📸 Gallery</a></li>
         <li><a href="blog.html" class="active">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
@@ -112,142 +114,193 @@
         <p>Panel costs, refrigeration units, labor, and profit margins — a transparent breakdown.</p>
         <div class="read-more">Read Article →</div>
       </a>
+
+      <a href="article-7.html" class="blog-card">
+        <div class="category">🔧 Refrigeration</div>
+        <h3>Why Dual Compressor Redundancy Is Essential for Freezer Rooms</h3>
+        <p>Protect your cold storage investment. Learn why a dual compressor setup is critical for freezer reliability.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-8.html" class="blog-card">
+        <div class="category">📊 Calculation</div>
+        <h3>Common Mistakes When Calculating Cooling Load (And How to Avoid Them)</h3>
+        <p>Avoid the top 5 errors in cooling load estimation. Get accurate refrigeration sizing every time.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-9.html" class="blog-card">
+        <div class="category">🧱 Materials</div>
+        <h3>PUF vs PIR Sandwich Panels: Which One Should You Choose?</h3>
+        <p>Insulation, fire rating, cost, and lifespan compared — a practical guide for choosing the right panel.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-10.html" class="blog-card">
+        <div class="category">🛠️ Calculation</div>
+        <h3>How to Calculate Steel Weight for Any Project — Formulas Explained</h3>
+        <p>Exact formulas for plates, bars, pipes, and beams — with worked examples.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-11.html" class="blog-card">
+        <div class="category">🏭 Structures</div>
+        <h3>PEB vs Conventional Steel Structures: Cost & Time Comparison</h3>
+        <p>Steel tonnage, construction time, and flexibility compared — which one fits your project?</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-12.html" class="blog-card">
+        <div class="category">💰 Finance</div>
+        <h3>How EMI Is Calculated — The Real Formula Behind Your Loan Repayment</h3>
+        <p>Understand exactly how banks calculate your monthly EMI, with a worked example.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-13.html" class="blog-card">
+        <div class="category">🔢 Everyday Math</div>
+        <h3>Percentage Formulas Everyone Should Know</h3>
+        <p>Discounts, increases, and reverse percentages — explained simply.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-14.html" class="blog-card">
+        <div class="category">🏥 Health</div>
+        <h3>Understanding BMI — What Your Number Actually Means</h3>
+        <p>What BMI measures, its categories, and where it falls short.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-15.html" class="blog-card">
+        <div class="category">📐 Conversions</div>
+        <h3>Metric vs Imperial — A Practical Unit Conversion Guide</h3>
+        <p>Length, weight, and construction units like Marla, Kanal, and CFT explained.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-16.html" class="blog-card">
+        <div class="category">📱 Digital Tools</div>
+        <h3>QR Codes Explained — How They Work and Where They're Useful</h3>
+        <p>How QR codes work, and business use cases beyond menus and payments.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-17.html" class="blog-card">
+        <div class="category">💱 Finance</div>
+        <h3>How Currency Exchange Rates Actually Work</h3>
+        <p>Why rates fluctuate and what to watch for when converting money.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-18.html" class="blog-card">
+        <div class="category">💼 Business</div>
+        <h3>Profit Margin vs Markup — The Difference That Costs Businesses Money</h3>
+        <p>The pricing mistake that quietly undercuts profitability.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-19.html" class="blog-card">
+        <div class="category">💼 Business</div>
+        <h3>Essential Business Calculations Every Small Business Owner Needs</h3>
+        <p>Break-even, ROI, markup, and discount formulas explained.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-20.html" class="blog-card">
+        <div class="category">🎂 Everyday Life</div>
+        <h3>How to Calculate Your Exact Age (and Your Zodiac Sign)</h3>
+        <p>Precise age calculation and zodiac sign date ranges.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-21.html" class="blog-card">
+        <div class="category">🌐 Internet</div>
+        <h3>Download Speed, Upload Speed, and Ping — What They Mean</h3>
+        <p>A plain-language breakdown of your speed test results.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-22.html" class="blog-card">
+        <div class="category">📄 Productivity</div>
+        <h3>Merging, Compressing, and Converting PDFs — A Practical Guide</h3>
+        <p>When and why to merge, compress, or convert your PDF files.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-23.html" class="blog-card">
+        <div class="category">🖼️ Digital Tools</div>
+        <h3>JPG vs PNG vs WebP — Which Image Format Should You Use?</h3>
+        <p>A practical comparison to help you choose the right format.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-24.html" class="blog-card">
+        <div class="category">💼 Business</div>
+        <h3>How to Write a Quotation That Actually Wins the Client</h3>
+        <p>The structure and details that separate approved quotes from ignored ones.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-25.html" class="blog-card">
+        <div class="category">🧱 Construction</div>
+        <h3>CFT Explained — Cubic Feet Calculations for Timber and Stone</h3>
+        <p>What CFT means and why it's still the construction trading standard.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-26.html" class="blog-card">
+        <div class="category">🛠️ Tools</div>
+        <h3>The Ultimate Free Toolkit for Everyday Success</h3>
+        <p>Discover how ColdMatrix free online tools — world clock, password generator, loan calculator, PDF toolkit, and more — can simplify your life.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-27.html" class="blog-card">
+        <div class="category">💓 Health & Celebration</div>
+        <h3>Health & Celebration: Your Personal Wellness Companions</h3>
+        <p>How ColdMatrix BMI Calculator and Birthday Countdown bring health awareness and joyful celebrations to your fingertips.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-28.html" class="blog-card">
+        <div class="category">❄️ Cold Storage</div>
+        <h3>Cold Storage Calculator Guide & Industry Insights</h3>
+        <p>Learn cold storage design, key inputs, real-world examples, common mistakes, and practical advice from industry experience.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-29.html" class="blog-card">
+        <div class="category">🧱 Panel Guide</div>
+        <h3>Sandwich Panel Calculator — Complete Industry Guide</h3>
+        <p>Learn sandwich panel types, PUF vs PIR, sheet widths, skin materials, door selection, and practical installation tips.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
+
+      <a href="article-30.html" class="blog-card">
+        <div class="category">🏗️ Construction</div>
+        <h3>PEB vs Conventional Construction — Cost, Speed & Benefits</h3>
+        <p>Compare Pre-Engineered Buildings (PEB) with conventional construction. Learn about cost, speed, durability, and which is better for your project.</p>
+        <div class="read-more">Read Article →</div>
+      </a>
     </div>
-    
-    <a href="article-7.html" class="blog-card">
-  <div class="category">🔧 Refrigeration</div>
-  <h3>Why Dual Compressor Redundancy Is Essential for Freezer Rooms</h3>
-  <p>Protect your cold storage investment. Learn why a dual compressor setup is critical for freezer reliability.</p>
-  <div class="read-more">Read Article →</div>
-</a>
 
-<a href="article-8.html" class="blog-card">
-  <div class="category">📊 Calculation</div>
-  <h3>Common Mistakes When Calculating Cooling Load (And How to Avoid Them)</h3>
-  <p>Avoid the top 5 errors in cooling load estimation. Get accurate refrigeration sizing every time.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-9.html" class="blog-card">
-  <div class="category">🧱 Materials</div>
-  <h3>PUF vs PIR Sandwich Panels: Which One Should You Choose?</h3>
-  <p>Insulation, fire rating, cost, and lifespan compared — a practical guide for choosing the right panel.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-10.html" class="blog-card">
-  <div class="category">🛠️ Calculation</div>
-  <h3>How to Calculate Steel Weight for Any Project — Formulas Explained</h3>
-  <p>Exact formulas for plates, bars, pipes, and beams — with worked examples.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-11.html" class="blog-card">
-  <div class="category">🏭 Structures</div>
-  <h3>PEB vs Conventional Steel Structures: Cost & Time Comparison</h3>
-  <p>Steel tonnage, construction time, and flexibility compared — which one fits your project?</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-12.html" class="blog-card">
-  <div class="category">💰 Finance</div>
-  <h3>How EMI Is Calculated — The Real Formula Behind Your Loan Repayment</h3>
-  <p>Understand exactly how banks calculate your monthly EMI, with a worked example.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-13.html" class="blog-card">
-  <div class="category">🔢 Everyday Math</div>
-  <h3>Percentage Formulas Everyone Should Know</h3>
-  <p>Discounts, increases, and reverse percentages — explained simply.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-14.html" class="blog-card">
-  <div class="category">🏥 Health</div>
-  <h3>Understanding BMI — What Your Number Actually Means</h3>
-  <p>What BMI measures, its categories, and where it falls short.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-15.html" class="blog-card">
-  <div class="category">📐 Conversions</div>
-  <h3>Metric vs Imperial — A Practical Unit Conversion Guide</h3>
-  <p>Length, weight, and construction units like Marla, Kanal, and CFT explained.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-16.html" class="blog-card">
-  <div class="category">📱 Digital Tools</div>
-  <h3>QR Codes Explained — How They Work and Where They're Useful</h3>
-  <p>How QR codes work, and business use cases beyond menus and payments.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-17.html" class="blog-card">
-  <div class="category">💱 Finance</div>
-  <h3>How Currency Exchange Rates Actually Work</h3>
-  <p>Why rates fluctuate and what to watch for when converting money.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-18.html" class="blog-card">
-  <div class="category">💼 Business</div>
-  <h3>Profit Margin vs Markup — The Difference That Costs Businesses Money</h3>
-  <p>The pricing mistake that quietly undercuts profitability.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-19.html" class="blog-card">
-  <div class="category">💼 Business</div>
-  <h3>Essential Business Calculations Every Small Business Owner Needs</h3>
-  <p>Break-even, ROI, markup, and discount formulas explained.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-20.html" class="blog-card">
-  <div class="category">🎂 Everyday Life</div>
-  <h3>How to Calculate Your Exact Age (and Your Zodiac Sign)</h3>
-  <p>Precise age calculation and zodiac sign date ranges.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-21.html" class="blog-card">
-  <div class="category">🌐 Internet</div>
-  <h3>Download Speed, Upload Speed, and Ping — What They Mean</h3>
-  <p>A plain-language breakdown of your speed test results.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-22.html" class="blog-card">
-  <div class="category">📄 Productivity</div>
-  <h3>Merging, Compressing, and Converting PDFs — A Practical Guide</h3>
-  <p>When and why to merge, compress, or convert your PDF files.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-23.html" class="blog-card">
-  <div class="category">🖼️ Digital Tools</div>
-  <h3>JPG vs PNG vs WebP — Which Image Format Should You Use?</h3>
-  <p>A practical comparison to help you choose the right format.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-24.html" class="blog-card">
-  <div class="category">💼 Business</div>
-  <h3>How to Write a Quotation That Actually Wins the Client</h3>
-  <p>The structure and details that separate approved quotes from ignored ones.</p>
-  <div class="read-more">Read Article →</div>
-</a>
-
-<a href="article-25.html" class="blog-card">
-  <div class="category">🧱 Construction</div>
-  <h3>CFT Explained — Cubic Feet Calculations for Timber and Stone</h3>
-  <p>What CFT means and why it's still the construction trading standard.</p>
-  <div class="read-more">Read Article →</div>
-</a>
+ <div class="cta-box" style="background: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.45)), url('blog-ad.jpg') center/cover no-repeat; border:2px solid; border-image: linear-gradient(145deg, #C8993A, #E8C96A 30%, #A07828 70%, #D4A843) 1; border-radius:16px; padding:50px 30px; text-align:center; margin:40px 0; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+  <h3 style="font-size:1.8rem; color:#fff; margin-bottom:12px; font-family:'Oswald',sans-serif; text-shadow:0 2px 10px rgba(0,0,0,0.9);">❄️ Cold Matrix Advanced Solutions</h3>
+  <p style="color:#fff; margin-bottom:20px; font-size:1.1rem; text-shadow:0 2px 6px rgba(0,0,0,0.9); max-width:600px; margin-left:auto; margin-right:auto; font-weight:600;">
+    PEB Structures | Cold Storage & Freezer Rooms | PU/PIR Sandwich Panels | Prefab Construction
+  </p>
+  <p style="color:#FFD700; margin-bottom:24px; font-weight:700; text-shadow:0 2px 6px rgba(0,0,0,0.9);">
+    ✓ Karachi | Lahore | Islamabad | All Pakistan
+  </p>
+  <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+    <a href="https://wa.me/923333228470" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:14px 28px;border-radius:50px;font-weight:700;text-decoration:none;font-size:1rem;box-shadow:0 4px 15px rgba(37,211,102,0.4);">💬 WhatsApp Quote</a>
+    <a href="solutions.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#0A0F14;padding:14px 28px;border-radius:50px;font-weight:700;text-decoration:none;font-size:1rem;box-shadow:0 4px 15px rgba(212,175,55,0.4);">📋 Our Solutions</a>
+  </div>
+  <div style="margin-top:20px; font-size:0.9rem; color:#fff; text-shadow:0 2px 6px rgba(0,0,0,0.9); font-weight:600;">
+    📧 contact@coldmatrixtools.com &nbsp;|&nbsp; 💬 +92 333 3228470
+  </div>
+</div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Professional Engineering Solutions.</footer>
-</div>
 </body>
 </html>

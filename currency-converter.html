@@ -134,7 +134,7 @@
     .card input, .card select {
       width:100%;
       background:#e8eaef;
-      border:2px solid #8a8e96;
+      border:2px solid var(--gold);
       color:#1a1a1a;
       padding:14px 16px;
       border-radius:8px;
@@ -143,9 +143,8 @@
       outline:none;
       transition:all 0.25s;
     }
-    .card input:focus, .card select:focus { border-color:var(--gold); box-shadow:0 0 10px rgba(212,175,55,0.25); }
+    .card input:focus, .card select:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.4); }
 
-    /* Thick visible dropdown arrows */
     .card select {
       appearance:none;
       -webkit-appearance:none;
@@ -176,7 +175,6 @@
     }
     .swap-btn:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 20px rgba(212,175,55,0.4); transform:rotate(180deg); }
 
-    /* Platinum result box */
     .result-box {
       text-align:center;
       margin-top:24px;
@@ -209,7 +207,6 @@
       text-shadow:0 1px 2px rgba(0,0,0,0.5);
     }
 
-    /* Better reset button */
     .btn-reset {
       background: var(--silver-gradient);
       border: 2px solid var(--gold);
@@ -234,7 +231,7 @@
     .share-btn { display:flex; align-items:center; gap:7px; padding:11px 18px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer; border:none; text-decoration:none; color:#fff; text-transform:uppercase; transition:all 0.25s; }
     .share-whatsapp { background:var(--whatsapp-green); }
     .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--grey-dark); color:#fff; border:1.5px solid #888; }
+    .share-jpg, .share-png { background:var(--grey-dark); color:#fff; border:1.5px solid var(--gold); }
     .share-btn:hover { transform:translateY(-2px); }
 
     footer { text-align:center; color:#ccc; font-size:0.8rem; padding:30px 0 20px; border-top:2px solid; border-image:var(--gold-border) 1; margin-top:40px; }
@@ -307,18 +304,46 @@
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
   </div>
+
+  <!-- ENHANCED EDUCATIONAL CONTENT -->
   <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Global Currency Converter</h2>
-  <p>Convert between <strong>150+ world currencies</strong> using live, up‑to‑date exchange rates. Ideal for travellers, freelancers, import/export businesses, and anyone dealing with international payments.</p>
-  <p>Just enter an amount, choose your <strong>From Currency</strong> and <strong>To Currency</strong>, and the conversion happens instantly. You can also swap currencies with one click and share or download the result as PDF, JPG, or PNG.</p>
-  <p><em>Exchange rates are sourced from reliable public APIs and updated regularly. Rates are indicative and may differ slightly from bank or transfer-service rates.</em></p>
-</div>
+    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Global Currency Converter</h2>
+    <p>ColdMatrix Global Currency Converter helps you convert between <strong>150+ world currencies</strong> using live, up-to-date exchange rates. It's the perfect tool for travelers, freelancers, import/export businesses, and anyone dealing with international payments.</p>
+
+    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Complete Feature List</h3>
+    <ul style="padding-left:20px;">
+      <li><strong>150+ Currencies:</strong> USD, EUR, GBP, PKR, AED, SAR, INR, CNY, JPY, and many more.</li>
+      <li><strong>Live Rates:</strong> Automatically updates from reliable public APIs.</li>
+      <li><strong>Swap Function:</strong> One-click swap between From and To currencies.</li>
+      <li><strong>Real-Time Conversion:</strong> Results update instantly as you type.</li>
+      <li><strong>Export & Share:</strong> Download as PDF, JPG, or PNG, and share on WhatsApp.</li>
+      <li><strong>100% Free:</strong> No registration, no hidden fees.</li>
+    </ul>
+
+    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Where Currency Conversion Is Used</h3>
+    <ul style="padding-left:20px;">
+      <li><strong>Travel & Tourism:</strong> Convert spending money before and during trips.</li>
+      <li><strong>International Business:</strong> Calculate costs, invoices, and payments in different currencies.</li>
+      <li><strong>Freelancing:</strong> Convert earnings from platforms like Upwork or Fiverr.</li>
+      <li><strong>Online Shopping:</strong> Check prices in your local currency.</li>
+      <li><strong>Investment:</strong> Track foreign investments and exchange rate movements.</li>
+    </ul>
+
+    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
+    <p><strong>Q: Are the exchange rates live?</strong><br>
+    A: Yes, rates are fetched from public APIs and updated regularly.</p>
+    <p><strong>Q: Is this free to use?</strong><br>
+    A: Yes, 100% free with no registration required.</p>
+    <p><strong>Q: Does it work offline?</strong><br>
+    A: You need an internet connection to fetch the latest rates.</p>
+    <p><strong>Q: Are the rates accurate?</strong><br>
+    A: Rates are indicative and may differ slightly from bank or money-transfer service rates.</p>
+  </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script>
-    // All original currency converter JavaScript preserved
     let rates = null;
     const popular = ["USD","EUR","GBP","PKR","AED","SAR","INR","CNY","JPY","AUD","CAD","CHF","SGD","MYR","TRY","ZAR","NGN","BDT","EGP","QAR"];
 

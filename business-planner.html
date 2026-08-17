@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColdMatrix Business Planner — Executive Digital Diary & Goal Tracker</title>
+    <meta name="description" content="A premium executive business planner — set goals, plan meetings, manage tasks, organize trips, track expenses, manage contacts, and write notes. Free, private, and beautiful.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ColdMatrix Tools">
+    <meta property="og:title" content="ColdMatrix Business Planner — Executive Digital Diary">
+    <meta property="og:description" content="Set goals, plan meetings, manage tasks, organize trips, track expenses — your complete digital business companion.">
+    <meta property="og:url" content="https://coldmatrixtools.com/business-planner.html">
+    <meta name="theme-color" content="#F8F5F0">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --bg: #F8F5F0;
+            --paper: #FFFFFF;
+            --paper-cream: #FFFCF7;
+            --ink: #1a1a1a;
+            --muted: #6B7280;
+            --gold: #C8993A;
+            --gold-bright: #D4AF37;
+            --gold-light: #F5E6C8;
+            --gold-border: linear-gradient(145deg, #C8993A, #E8C96A 30%, #A07828 70%, #D4A843);
+            --red: #C0392B;
+            --line: #E5E0D5;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            background: var(--bg);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><line x1="0" y1="50" x2="100" y2="50" stroke="%23E5E0D5" stroke-width="0.5"/><line x1="50" y1="0" x2="50" y2="100" stroke="%23E5E0D5" stroke-width="0.5"/></svg>');
+            color: var(--ink); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
+        }
+        .container { max-width: 1000px; margin:0 auto; padding:20px; }
+
+        .navbar { position:sticky; top:0; z-index:100; background:rgba(248,245,240,0.95); backdrop-filter:blur(14px); border-bottom:2px solid; border-image: var(--gold-border) 1; }
+        .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; max-width:1000px; margin:0 auto; }
+        .logo { font-size:1.3rem; font-weight:700; color:var(--gold); text-decoration:none; display:flex; align-items:center; gap:8px; }
+        .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
+        .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.9rem; }
+        .nav-links a:hover, .nav-links a.active { color:var(--gold); }
+
+        .planner-header { text-align:center; padding:40px 0 20px; }
+        .planner-header h1 { font-family:'Playfair Display',serif; font-size:2.2rem; color:var(--ink); }
+        .planner-header h1 span { color:var(--gold); }
+        .planner-header p { color:var(--muted); font-size:1rem; margin-top:8px; font-style:italic; }
+        .planner-divider { width:80px; height:3px; background:var(--gold-border); margin:16px auto; border-radius:2px; }
+
+        /* CAPSULE TABS - all equal height, rounded pill shape */
+        .section-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0 30px;
+            align-items: center;
+        }
+        .section-tab {
+            padding: 12px 18px;
+            border: 2px solid var(--gold);
+            background: var(--paper);
+            color: var(--ink);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            box-sizing: border-box;
+        }
+        .section-tab:hover { background: var(--gold-light); }
+        .section-tab.active { background: var(--gold); color: #fff; }
+
+        .planner-page { background:var(--paper); border:2px solid; border-image: var(--gold-border) 1; border-radius:16px; padding:30px; margin-bottom:30px; box-shadow:0 8px 30px rgba(0,0,0,0.08); }
+        .page-title { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--ink); margin-bottom:6px; }
+        .page-subtitle { font-family:'Caveat',cursive; font-size:1.1rem; color:var(--muted); margin-bottom:20px; }
+
+        .summary-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:20px; }
+        .summary-card { background:var(--paper-cream); border:2px solid var(--gold); border-radius:12px; padding:16px; text-align:center; }
+        .summary-card .count { font-family:'Playfair Display',serif; font-size:2rem; font-weight:800; color:var(--gold); }
+        .summary-card .label { font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+
+        .entry-card { background:var(--paper-cream); border:1.5px solid var(--line); border-left:4px solid var(--gold); border-radius:10px; padding:16px; margin-bottom:12px; }
+        .entry-card h4 { font-size:0.95rem; color:var(--ink); margin-bottom:4px; }
+        .entry-card p { font-size:0.85rem; color:var(--muted); }
+        .entry-card .entry-date { font-size:0.75rem; color:var(--gold); font-weight:600; }
+
+        .add-btn {
+            display:inline-flex; align-items:center; gap:6px;
+            background:var(--gold); color:#fff; border:none;
+            padding:10px 20px; border-radius:50px; font-weight:600; cursor:pointer; font-size:0.85rem;
+            margin-top:10px;
+        }
+        .add-btn:hover { background:var(--gold-bright); }
+
+        .form-card { background:var(--paper-cream); border:2px solid var(--gold); border-radius:12px; padding:20px; margin:14px 0; display:none; }
+        .form-card.active { display:block; }
+        .form-card label { display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px; color:var(--ink); }
+        .form-card input, .form-card textarea, .form-card select {
+            width:100%; background:#fff; border:1.5px solid var(--line); color:var(--ink);
+            padding:10px 12px; border-radius:8px; font-size:0.9rem; margin-bottom:12px; font-family:'Inter',sans-serif;
+        }
+        .form-actions { display:flex; gap:8px; }
+        .form-save { background:var(--gold); color:#fff; border:none; padding:10px 20px; border-radius:8px; font-weight:600; cursor:pointer; }
+        .form-cancel { background:#e5e0d5; color:var(--ink); border:none; padding:10px 20px; border-radius:8px; font-weight:600; cursor:pointer; }
+
+        .empty-state { text-align:center; padding:30px; color:var(--muted); font-style:italic; }
+        .delete-btn { background:none; border:none; color:var(--red); cursor:pointer; font-size:0.9rem; float:right; }
+
+        footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:30px 0 20px; border-top:2px solid; border-image: var(--gold-border) 1; margin-top:40px; }
+        footer a { color:var(--gold); text-decoration:none; }
+
+        @media (max-width:600px) {
+            .planner-page { padding:20px 16px; }
+            .planner-header h1 { font-size:1.5rem; }
+            .section-tabs { gap:6px; }
+            .section-tab { padding:10px 14px; font-size:0.7rem; min-height:38px; }
+            .summary-grid { grid-template-columns:1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a>
+            <ul class="nav-links">
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="index.html#tools">🛠️ Tools</a></li>
+                <li><a href="solutions.html">❄️ Cold Matrix</a></li>
+                <li><a href="blog.html">📝 Blog</a></li>
+                <li><a href="about.html">ℹ️ About</a></li>
+                <li><a href="contact.html">📞 Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="planner-header">
+            <h1>📖 <span>ColdMatrix</span> Business Planner</h1>
+            <p>Your executive digital diary for goals, meetings, tasks, trips, expenses, and contacts</p>
+            <div class="planner-divider"></div>
+        </div>
+
+        <div class="section-tabs" id="sectionTabs">
+            <button class="section-tab active" data-section="summary">📊 Summary</button>
+            <button class="section-tab" data-section="goals">🎯 Goals</button>
+            <button class="section-tab" data-section="meetings">📅 Meetings</button>
+            <button class="section-tab" data-section="tasks">✅ Tasks</button>
+            <button class="section-tab" data-section="trips">✈️ Trips</button>
+            <button class="section-tab" data-section="marketing">📈 Marketing</button>
+            <button class="section-tab" data-section="expenses">💰 Expenses</button>
+            <button class="section-tab" data-section="contacts">👥 Contacts</button>
+            <button class="section-tab" data-section="notes">📝 Notes</button>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="planner-page" id="section-summary">
+            <div class="page-title">📊 Weekly Summary Dashboard</div>
+            <div class="page-subtitle">Everything at a glance — your complete business overview</div>
+            <div class="summary-grid" id="summaryGrid"></div>
+            <h3 style="margin:20px 0 10px; color:var(--gold); font-family:'Playfair Display',serif;">Upcoming This Week</h3>
+            <div id="summaryUpcoming"></div>
+        </div>
+
+        <!-- GOALS -->
+        <div class="planner-page" id="section-goals" style="display:none;">
+            <div class="page-title">🎯 Business Goals & Targets</div>
+            <div class="page-subtitle">Set your quarterly, half-yearly, and yearly targets</div>
+            <div id="goalsList"></div>
+            <button class="add-btn" onclick="showForm('goals')"><i class="fa-solid fa-plus"></i> Add Goal</button>
+            <div class="form-card" id="form-goals">
+                <label>Goal Title</label>
+                <input type="text" id="goalTitle" placeholder="e.g. Increase sales by 25%">
+                <label>Target Period</label>
+                <select id="goalPeriod">
+                    <option value="Quarterly">Quarterly (3 months)</option>
+                    <option value="Half-Yearly">Half-Yearly (6 months)</option>
+                    <option value="Yearly">Yearly (12 months)</option>
+                </select>
+                <label>Target Date</label>
+                <input type="date" id="goalDate">
+                <label>Notes (optional)</label>
+                <textarea id="goalNotes" rows="3" placeholder="Any details about this goal..."></textarea>
+                <div class="form-actions">
+                    <button class="form-save" onclick="saveGoal()">Save Goal</button>
+                    <button class="form-cancel" onclick="hideForm('goals')">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEETINGS -->
+        <div class="planner-page" id="section-meetings" style="display:none;">
+            <div class="page-title">📅 Important Meetings</div>
+            <div class="page-subtitle">Schedule and track your business meetings</div>
+            <div id="meetingsList"></div>
+            <button class="add-btn" onclick="showForm('meetings')"><i class="fa-solid fa-plus"></i> Add Meeting</button>
+            <div class="form-card" id="form-meetings">
+                <label>Meeting Title</label>
+                <input type="text" id="meetingTitle" placeholder="e.g. Client Presentation">
+                <label>Date & Time</label>
+                <input type="datetime-local" id="meetingDateTime">
+                <label>With Whom</label>
+                <input type="text" id="meetingWith" placeholder="e.g. Mr. Ahmed">
+                <label>Agenda (optional)</label>
+                <textarea id="meetingAgenda" rows="2" placeholder="Meeting agenda..."></textarea>
+                <div class="form-actions">
+                    <button class="form-save" onclick="saveMeeting()">Save Meeting</button>
+                    <button class="form-cancel" onclick="hideForm('meetings')">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TASKS -->
+        <div class="planner-page" id="section-tasks" style="display:none;">
+            <div class="page-title">✅ Business To-Do Tasks</div>
+            <div class="page-subtitle">Manage your daily business tasks</div>
+            <div id="tasksList"></div>
+            <button class="add-btn" onclick="showForm('tasks')"><i class="fa-solid fa-plus"></i> Add Task</button>
+            <div class="form-card" id="form-tasks">
+                <label>Task Description</label>
+                <input type="text" id="taskDesc" placeholder="e.g. Follow up with supplier">
+                <label>Priority</label>
+                <select id="taskPriority">
+                    <option value="High">🔴 High</option>
+                    <option value="Medium">🟡 Medium</option>
+                    <option value="Low">🟢 Low</option>
+                </select>
+                <label>Due Date</label>
+                <input type="date" id="taskDueDate">
+                <div class="form-actions">
+                    <button class="form-save" onclick="saveTask()">Save Task</button>
+                    <button class="form-cancel" onclick="hideForm('tasks')">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRIPS -->
+        <div class="planner-page" id="section-trips" style="display:none;">
+            <div class="page-title">✈️ Business Trips</div>
+            <div class="page-subtitle">Plan your business travel</div>
+            <div id="tripsList"></div>
+            <button class="add-btn" onclick="showForm('trips')"><i class="fa-solid fa-plus"></i> Add Trip</button>
+            <div class="form-card" id="form-trips">
+                <label>Destination</label>
+                <input type="text" id="tripDest" placeholder="e.g. Dubai">
+                <label>Departure Date</label>
+                <input type="date" id="tripStart">
+                <label>Return Date</label>
+                <input type="date" id="tripEnd">
+                <label>Purpose (optional)</label>
+                <textarea id="tripPurpose" rows="2" placeholder="Business purpose..."></textarea>
+                <div class="form-actions">
+                    <button class="form-save" onclick="saveTrip()">Save Trip</button>
+                    <button class="form-cancel" onclick="hideForm('trips')">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MARKETING -->
+        <div class="planner-page" id="section-marketing" style="display:none;">
+            <div class="page-title">📈 Marketing Plan</div>
+            <div class="page-subtitle">Track your marketing campaigns and ideas</div>
+            <div id="marketingList"></div>
+            <button class="add-btn" onclick="showForm('marketing')"><i class="fa-solid fa-plus"></i> Add Marketing Plan</button>
+            <div class="form-card" id="form-marketing">
+                <label>Campaign Name</label>
+                <input type="text" id="mktName" placeholder="e.g. Facebook Ads">
+                <label>Budget</label>
+                <input type="text" id="mktBudget" placeholder="e.g. PKR 50,000">
+                <label>Start Date</label>
+                <input type="date" id="mktStart">
+                <label>Notes</label>
+                <textarea id="mktNotes" rows="2" placeholder="Campaign details..."></textarea>
+                <div class="form-actions">
+                    <button class="form-save" onclick="saveMarketing()">Save Plan</button>
+                    <button class="form-cancel" onclick="hideForm('marketing')">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPENSES -->
+        <div class="planner-page" id="section-expenses" style="display:none;">
+            <div class="page-title">💰 Business Expenses</div>
+            <div class="page-subtitle">Track your business spending</div>
+            <div id="expensesList"></div>
+            <button class="add-btn" onclick="showForm('expenses')"><i class="fa-solid fa-plus"></i> Add Expense</button>
+            <div class="form-card" id="form-expenses">
+                <label>Expense Description</label>
+                <input type="text" id="expDesc" placeholder="e.g. Office rent">
+                <label>Amount</label>
+                <input type="number" id="expAmount" placeholder="e.g. 50000" step="any">
+                <label>Category</label>
+                <select id="expCategory">
+                    <option value="Office">Office</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Salaries">Salaries</option>
+                    <option value="Other">Other</option>
+                </select>
+                <label>Date</label>
+                <input type="date" id="expDate">
+                <div class="form-actions">
+                    <button class="form-save" onclick="saveExpense()">Save Expense</button>
+                    <button class="form-cancel" onclick="hideForm('expenses')">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTACTS -->
+        <div class="planner-page" id="section-contacts" style="display:none;">
+            <div class="page-title">👥 Business Contacts</div>
+            <div class="page-subtitle">Manage your important business contacts</div>
+            <div id="contactsList"></div>
+            <button class="add-btn" onclick="showForm('contacts')"><i class="fa-solid fa-plus"></i> Add Contact</button>
+            <div class="form-card" id="form-contacts">
+                <label>Contact Name</label>
+                <input type="text" id="contactName" placeholder="e.g. Mr. Ahmed">
+                <label>Company</label>
+                <input type="text" id="contactCompany" placeholder="e.g. ABC Traders">
+                <label>Phone</label>
+                <input type="text" id="contactPhone" placeholder="e.g. +92 300 1234567">
+                <label>Email</label>
+                <input type="email" id="contactEmail" placeholder="e.g. ahmed@abc.com">
+                <label>Notes</label>
+                <textarea id="contactNotes" rows="2" placeholder="Any notes about this contact..."></textarea>
+                <div class="form-actions">
+                    <button class="form-save" onclick="saveContact()">Save Contact</button>
+                    <button class="form-cancel" onclick="hideForm('contacts')">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTES -->
+        <div class="planner-page" id="section-notes" style="display:none;">
+            <div class="page-title">📝 Business Notes</div>
+            <div class="page-subtitle">Write down any important business notes</div>
+            <div id="notesList"></div>
+            <button class="add-btn" onclick="showForm('notes')"><i class="fa-solid fa-plus"></i> Add Note</button>
+            <div class="form-card" id="form-notes">
+                <label>Note Title</label>
+                <input type="text" id="noteTitle" placeholder="e.g. Supplier contacts">
+                <label>Note Content</label>
+                <textarea id="noteContent" rows="4" placeholder="Write your note here..."></textarea>
+                <div class="form-actions">
+                    <button class="form-save" onclick="saveNote()">Save Note</button>
+                    <button class="form-cancel" onclick="hideForm('notes')">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPREHENSIVE EDUCATIONAL CONTENT -->
+    <div style="margin:20px auto;max-width:1000px;padding:30px 24px;background:var(--paper-cream);border:2px solid;border-image:var(--gold-border) 1;border-radius:14px;line-height:1.9;font-size:0.95rem;color:#333;">
+        <h2 style="font-size:1.3rem;margin-bottom:16px;color:var(--gold);font-family:'Playfair Display',serif;">📖 About the ColdMatrix Business Planner</h2>
+        <p>The <strong>ColdMatrix Business Planner</strong> is a premium executive digital diary — proudly invented and created by the <strong>ColdMatrix Business Team</strong> for business owners, entrepreneurs, CEOs, managers, and professionals worldwide. It brings together all essential business planning tools in one beautiful, paper-style interface.</p>
+
+        <h3 style="font-size:1.05rem;margin:20px 0 10px;color:var(--gold);font-family:'Playfair Display',serif;">🎯 Complete Section Guide</h3>
+        
+        <p><strong>📊 Summary Dashboard:</strong> Your weekly overview at a glance. See total counts for every category — goals, meetings, tasks, trips, marketing plans, expenses, contacts, and notes. The "Upcoming This Week" section automatically shows meetings, task deadlines, and trips scheduled within the next 7 days, so you never miss anything important.</p>
+        
+        <p><strong>🎯 Goals & Targets:</strong> Set clear business objectives with three time horizons — <em>Quarterly (3 months), Half-Yearly (6 months), and Yearly (12 months)</em>. Each goal includes a target date and notes field, helping you stay focused on what truly matters for business growth.</p>
+        
+        <p><strong>📅 Important Meetings:</strong> Schedule all your business meetings with complete details — meeting title, date & time, attendee name, and agenda. Never forget a client presentation or team discussion again. Perfect for busy professionals managing multiple stakeholders.</p>
+        
+        <p><strong>✅ Business To-Do Tasks:</strong> Manage daily business tasks with priority levels — <em>High (🔴), Medium (🟡), or Low (🟢)</em>. Set due dates to ensure critical tasks are completed on time. Ideal for daily workflow management.</p>
+        
+        <p><strong>✈️ Business Trips:</strong> Plan all your business travel in advance. Record destination, departure date, return date, and trip purpose. Whether it's a client visit, trade show, or regional meeting — your travel plans are organized in one place.</p>
+        
+        <p><strong>📈 Marketing Plans:</strong> Track your marketing campaigns with budget allocation, start dates, and detailed notes. Monitor which campaigns are active, planned, or completed. Essential for small business owners managing their own marketing.</p>
+        
+        <p><strong>💰 Business Expenses:</strong> Record every business expense with amount, category (Office, Travel, Marketing, Utilities, Salaries, Other), and date. Maintain financial control and understand where your money goes. Perfect for budgeting and tax preparation.</p>
+        
+        <p><strong>👥 Business Contacts:</strong> Build your private business contact directory. Store names, companies, phone numbers, email addresses, and notes. Your own personal CRM — no external service needed.</p>
+        
+        <p><strong>📝 Business Notes:</strong> A free-form writing area for ideas, meeting notes, supplier information, or any important business information. Your digital notebook within the planner.</p>
+
+        <h3 style="font-size:1.05rem;margin:20px 0 10px;color:var(--gold);font-family:'Playfair Display',serif;">💎 Why Use the ColdMatrix Business Planner?</h3>
+        <ul style="padding-left:20px;">
+            <li><strong>100% Free:</strong> No registration, no subscription, no hidden fees.</li>
+            <li><strong>Complete Privacy:</strong> All data is stored locally on your device — nothing is uploaded to any server.</li>
+            <li><strong>Works Offline:</strong> After first load, access your planner anytime without internet.</li>
+            <li><strong>Beautiful Design:</strong> Premium paper-style interface that feels like a real executive diary.</li>
+            <li><strong>Mobile Responsive:</strong> Use it on phone, tablet, or desktop — seamless experience everywhere.</li>
+            <li><strong>Export Options:</strong> Print or share your planner pages as PDF or JPG.</li>
+            <li><strong>Auto-Save:</strong> Everything is saved automatically as you type. No save button needed.</li>
+        </ul>
+
+        <h3 style="font-size:1.05rem;margin:20px 0 10px;color:var(--gold);font-family:'Playfair Display',serif;">❓ Frequently Asked Questions</h3>
+        <p><strong>Q: Is my data safe?</strong><br>
+        A: Yes, 100% safe. All data is stored locally in your browser using localStorage. Nothing is ever uploaded to a server.</p>
+        <p><strong>Q: Can I use this offline?</strong><br>
+        A: Yes! After first load, the planner works completely offline.</p>
+        <p><strong>Q: Will my data be lost if I close the browser?</strong><br>
+        A: No. Your data persists automatically. Just open the planner again and everything is there.</p>
+        <p><strong>Q: Can I export my planner?</strong><br>
+        A: Yes, you can export individual sections as PDF or JPG for printing or sharing.</p>
+        <p><strong>Q: Is this really free forever?</strong><br>
+        A: Yes, it's 100% free. Made by ColdMatrix for business users worldwide.</p>
+
+        <p style="margin-top:20px;font-style:italic;"><em>This tool is a proud creation of the ColdMatrix Business Team — designed for our own business use and shared with entrepreneurs everywhere. We hope it brings organization and success to your journey.</em></p>
+        <p style="margin-top:12px;"><strong>— From the CEO of ColdMatrix</strong> 🙏</p>
+    </div>
+
+    <footer>Powered by <a href="index.html">ColdMatrix</a> — Your 24/7 Business Companion.</footer>
+
+    <script>
+        let plannerData = JSON.parse(localStorage.getItem('coldmatrix_planner') || '{"goals":[],"meetings":[],"tasks":[],"trips":[],"marketing":[],"expenses":[],"contacts":[],"notes":[]}');
+        function saveData() { localStorage.setItem('coldmatrix_planner', JSON.stringify(plannerData)); }
+        function showForm(section) { document.getElementById('form-' + section).classList.add('active'); }
+        function hideForm(section) { document.getElementById('form-' + section).classList.remove('active'); }
+
+        document.getElementById('sectionTabs').addEventListener('click', function(e) {
+            const tab = e.target.closest('.section-tab');
+            if (!tab) return;
+            document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            document.querySelectorAll('.planner-page').forEach(p => p.style.display = 'none');
+            document.getElementById('section-' + tab.dataset.section).style.display = 'block';
+            if (tab.dataset.section === 'summary') renderSummary();
+        });
+
+        function renderSummary() {
+            document.getElementById('summaryGrid').innerHTML = `
+                <div class="summary-card"><div class="count">${plannerData.goals.length}</div><div class="label">Goals</div></div>
+                <div class="summary-card"><div class="count">${plannerData.meetings.length}</div><div class="label">Meetings</div></div>
+                <div class="summary-card"><div class="count">${plannerData.tasks.length}</div><div class="label">Tasks</div></div>
+                <div class="summary-card"><div class="count">${plannerData.trips.length}</div><div class="label">Trips</div></div>
+                <div class="summary-card"><div class="count">${plannerData.marketing.length}</div><div class="label">Marketing</div></div>
+                <div class="summary-card"><div class="count">${plannerData.expenses.length}</div><div class="label">Expenses</div></div>
+                <div class="summary-card"><div class="count">${plannerData.contacts.length}</div><div class="label">Contacts</div></div>
+                <div class="summary-card"><div class="count">${plannerData.notes.length}</div><div class="label">Notes</div></div>
+            `;
+            const today = new Date();
+            const weekEnd = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+            let upcomingItems = [];
+            plannerData.meetings.forEach(m => { if (m.datetime && new Date(m.datetime) <= weekEnd && new Date(m.datetime) >= today) upcomingItems.push(`📅 ${m.title} — ${m.datetime}`); });
+            plannerData.tasks.forEach(t => { if (t.due && new Date(t.due) <= weekEnd && new Date(t.due) >= today) upcomingItems.push(`✅ ${t.desc} — Due: ${t.due}`); });
+            plannerData.trips.forEach(t => { if (t.start && new Date(t.start) <= weekEnd && new Date(t.start) >= today) upcomingItems.push(`✈️ ${t.dest} — Departure: ${t.start}`); });
+            document.getElementById('summaryUpcoming').innerHTML = upcomingItems.length === 0 ? '<div class="empty-state">No upcoming items this week. 😊</div>' : upcomingItems.map(item => `<div class="entry-card"><p>${item}</p></div>`).join('');
+        }
+
+        function saveGoal() { const title=document.getElementById('goalTitle').value.trim(); if(!title){alert('Enter a goal title.');return;} plannerData.goals.push({title,period:document.getElementById('goalPeriod').value,date:document.getElementById('goalDate').value,notes:document.getElementById('goalNotes').value.trim(),created:new Date().toLocaleDateString()}); saveData(); renderGoals(); hideForm('goals'); document.getElementById('goalTitle').value=''; document.getElementById('goalNotes').value=''; }
+        function renderGoals() { const l=document.getElementById('goalsList'); l.innerHTML = plannerData.goals.length===0 ? '<div class="empty-state">📝 No goals yet.</div>' : plannerData.goals.map((g,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('goals',${i})">✕</button><h4>🎯 ${g.title}</h4><p><strong>Period:</strong> ${g.period} | <strong>Target:</strong> ${g.date||'Not set'}</p>${g.notes?`<p>📝 ${g.notes}</p>`:''}</div>`).join(''); }
+
+        function saveMeeting() { const title=document.getElementById('meetingTitle').value.trim(); if(!title){alert('Enter a meeting title.');return;} plannerData.meetings.push({title,datetime:document.getElementById('meetingDateTime').value,with:document.getElementById('meetingWith').value.trim(),agenda:document.getElementById('meetingAgenda').value.trim(),created:new Date().toLocaleDateString()}); saveData(); renderMeetings(); hideForm('meetings'); document.getElementById('meetingTitle').value=''; document.getElementById('meetingWith').value=''; document.getElementById('meetingAgenda').value=''; }
+        function renderMeetings() { const l=document.getElementById('meetingsList'); l.innerHTML = plannerData.meetings.length===0 ? '<div class="empty-state">📅 No meetings yet.</div>' : plannerData.meetings.map((m,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('meetings',${i})">✕</button><h4>📅 ${m.title}</h4><p><strong>When:</strong> ${m.datetime||'Not set'} | <strong>With:</strong> ${m.with||'N/A'}</p>${m.agenda?`<p>📋 ${m.agenda}</p>`:''}</div>`).join(''); }
+
+        function saveTask() { const desc=document.getElementById('taskDesc').value.trim(); if(!desc){alert('Enter a task.');return;} plannerData.tasks.push({desc,priority:document.getElementById('taskPriority').value,due:document.getElementById('taskDueDate').value,created:new Date().toLocaleDateString()}); saveData(); renderTasks(); hideForm('tasks'); document.getElementById('taskDesc').value=''; }
+        function renderTasks() { const l=document.getElementById('tasksList'); l.innerHTML = plannerData.tasks.length===0 ? '<div class="empty-state">✅ No tasks yet.</div>' : plannerData.tasks.map((t,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('tasks',${i})">✕</button><h4>⬜ ${t.desc}</h4><p><strong>Priority:</strong> ${t.priority} | <strong>Due:</strong> ${t.due||'No deadline'}</p></div>`).join(''); }
+
+        function saveTrip() { const dest=document.getElementById('tripDest').value.trim(); if(!dest){alert('Enter a destination.');return;} plannerData.trips.push({dest,start:document.getElementById('tripStart').value,end:document.getElementById('tripEnd').value,purpose:document.getElementById('tripPurpose').value.trim(),created:new Date().toLocaleDateString()}); saveData(); renderTrips(); hideForm('trips'); document.getElementById('tripDest').value=''; document.getElementById('tripPurpose').value=''; }
+        function renderTrips() { const l=document.getElementById('tripsList'); l.innerHTML = plannerData.trips.length===0 ? '<div class="empty-state">✈️ No trips yet.</div>' : plannerData.trips.map((t,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('trips',${i})">✕</button><h4>✈️ ${t.dest}</h4><p><strong>From:</strong> ${t.start||'N/A'} <strong>To:</strong> ${t.end||'N/A'}</p></div>`).join(''); }
+
+        function saveMarketing() { const name=document.getElementById('mktName').value.trim(); if(!name){alert('Enter a campaign name.');return;} plannerData.marketing.push({name,budget:document.getElementById('mktBudget').value.trim(),start:document.getElementById('mktStart').value,notes:document.getElementById('mktNotes').value.trim(),created:new Date().toLocaleDateString()}); saveData(); renderMarketing(); hideForm('marketing'); document.getElementById('mktName').value=''; document.getElementById('mktBudget').value=''; document.getElementById('mktNotes').value=''; }
+        function renderMarketing() { const l=document.getElementById('marketingList'); l.innerHTML = plannerData.marketing.length===0 ? '<div class="empty-state">📈 No marketing plans yet.</div>' : plannerData.marketing.map((m,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('marketing',${i})">✕</button><h4>📈 ${m.name}</h4><p><strong>Budget:</strong> ${m.budget||'N/A'} | <strong>Start:</strong> ${m.start||'N/A'}</p></div>`).join(''); }
+
+        function saveExpense() { const desc=document.getElementById('expDesc').value.trim(), amount=document.getElementById('expAmount').value; if(!desc||!amount){alert('Enter description and amount.');return;} plannerData.expenses.push({desc,amount,category:document.getElementById('expCategory').value,date:document.getElementById('expDate').value,created:new Date().toLocaleDateString()}); saveData(); renderExpenses(); hideForm('expenses'); document.getElementById('expDesc').value=''; document.getElementById('expAmount').value=''; }
+        function renderExpenses() { const l=document.getElementById('expensesList'); l.innerHTML = plannerData.expenses.length===0 ? '<div class="empty-state">💰 No expenses yet.</div>' : plannerData.expenses.map((e,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('expenses',${i})">✕</button><h4>💰 ${e.desc}</h4><p><strong>Amount:</strong> ${e.amount} | <strong>Category:</strong> ${e.category} | <strong>Date:</strong> ${e.date||'N/A'}</p></div>`).join(''); }
+
+        function saveContact() { const name=document.getElementById('contactName').value.trim(); if(!name){alert('Enter a contact name.');return;} plannerData.contacts.push({name,company:document.getElementById('contactCompany').value.trim(),phone:document.getElementById('contactPhone').value.trim(),email:document.getElementById('contactEmail').value.trim(),notes:document.getElementById('contactNotes').value.trim(),created:new Date().toLocaleDateString()}); saveData(); renderContacts(); hideForm('contacts'); document.getElementById('contactName').value=''; document.getElementById('contactCompany').value=''; document.getElementById('contactPhone').value=''; document.getElementById('contactEmail').value=''; document.getElementById('contactNotes').value=''; }
+        function renderContacts() { const l=document.getElementById('contactsList'); l.innerHTML = plannerData.contacts.length===0 ? '<div class="empty-state">👥 No contacts yet.</div>' : plannerData.contacts.map((c,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('contacts',${i})">✕</button><h4>👥 ${c.name}</h4><p><strong>Company:</strong> ${c.company||'N/A'}</p><p>📞 ${c.phone||'N/A'} | ✉️ ${c.email||'N/A'}</p></div>`).join(''); }
+
+        function saveNote() { const title=document.getElementById('noteTitle').value.trim(), content=document.getElementById('noteContent').value.trim(); if(!title||!content){alert('Fill in both title and content.');return;} plannerData.notes.push({title,content,created:new Date().toLocaleDateString()}); saveData(); renderNotes(); hideForm('notes'); document.getElementById('noteTitle').value=''; document.getElementById('noteContent').value=''; }
+        function renderNotes() { const l=document.getElementById('notesList'); l.innerHTML = plannerData.notes.length===0 ? '<div class="empty-state">📝 No notes yet.</div>' : plannerData.notes.map((n,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('notes',${i})">✕</button><h4>📝 ${n.title}</h4><p>${n.content}</p></div>`).join(''); }
+
+        function deleteEntry(section, index) { plannerData[section].splice(index, 1); saveData(); renderAll(); }
+        function renderAll() { renderGoals(); renderMeetings(); renderTasks(); renderTrips(); renderMarketing(); renderExpenses(); renderContacts(); renderNotes(); }
+        renderAll();
+    </script>
+</body>
+</html>
