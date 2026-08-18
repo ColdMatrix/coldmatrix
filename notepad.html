@@ -12,7 +12,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ColdMatrix Notepad — Free Online Notes, Auto-Saved</title>
-  <meta name="description" content="A free, private online notepad. Write, edit, and organize notes that auto-save instantly, search across all your notes, and download any note as a text file. No sign-up needed.">
+  <meta name="description" content="A free, private online notepad. Write, edit, and organize notes that auto-save instantly, search across all your notes, and download any note as a text file or image. No sign-up needed.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
   <meta property="og:title" content="ColdMatrix Notepad — Free Online Notes, Auto-Saved">
@@ -25,77 +25,233 @@
   <meta name="twitter:image" content="https://coldmatrixtools.com/notepad.jpg">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
-      --bg:#0B0F14; --surface:#0F1620; --text:#EAEDF0; --muted:#8B98A5;
+      --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --text:#EAEDF0; --muted:#8B98A5;
       --accent:#4FC3F7; --accent2:#2196F3; --gold:#D4AF37; --gold-bright:#FFD700;
+      --gold-glow:rgba(212,175,55,0.45);
+      --silver-medium-bg: linear-gradient(145deg, #e0e4e8 0%, #c4cad0 30%, #a9b0b8 60%, #d5d9de 100%);
+      --silver-gradient:linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%);
+      --silver-gradient-hover:linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
       --whatsapp-green:#25D366;
+      --ruled-line-color:#c9ced4;
+      --line-height:32px;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { background:#111418; color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; min-height:100vh; }
-    .container { max-width:800px; margin:0 auto; padding:20px; }
-    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:1px solid rgba(255,255,255,0.06); }
-    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; max-width:800px; margin:0 auto; }
+    body {
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.08), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.08), transparent 55%), #0B0F14;
+      color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; min-height:100vh;
+    }
+    .container { max-width:900px; margin:0 auto; padding:20px; }
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:linear-gradient(145deg,#C8993A,#E8C96A 30%,#A07828 70%,#D4A843) 1; }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; max-width:900px; margin:0 auto; }
     .logo { font-size:1.3rem; font-weight:800; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; }
-    .nav-links a:hover { color:var(--accent); }
+    .nav-links a:hover { color:var(--gold-bright); }
     .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:10px; border-radius:8px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; }
-    .install-bar button { background:#0A0F14; color:var(--accent); border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:10px 16px; border-radius:8px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; }
+    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
     h1 { font-family:'Oswald',sans-serif; font-size:1.9rem; font-weight:700; margin-bottom:6px; color:#fff; }
-    h1 span { color:var(--accent); }
+    h1 span { color:var(--gold-bright); }
     .subtitle { color:#ccc; font-size:0.95rem; margin-bottom:22px; }
 
-    .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:16px 18px; margin-bottom:22px; box-shadow:0 10px 34px rgba(0,0,0,0.55); }
+    /* Premium silver card */
+    .premium-card {
+      background: var(--silver-medium-bg);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.8);
+      color: #0A0F14;
+    }
+
+    /* Share tool card */
+    .share-tool-card {
+      background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+      border:2px solid;
+      border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:12px; padding:16px 18px; margin-bottom:22px;
+      box-shadow:0 10px 34px rgba(0,0,0,0.55);
+    }
     .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:12px; text-transform:uppercase; }
     .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:11px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); }
+    .share-tool-btn {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      padding:11px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
+      background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+      transition:all .25s ease;
+    }
+    .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
 
     /* List view */
-    .notepad-toolbar { display:flex; gap:10px; margin-bottom:16px; }
-    .search-box { flex:1; padding:12px 16px; border-radius:50px; border:1.5px solid rgba(255,255,255,0.12); background:#0a0d13; color:#EAEDF0; font-size:0.9rem; }
-    .search-box:focus { outline:none; border-color:var(--accent); }
-    .btn-new { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#0A0F14; border:none; padding:12px 20px; border-radius:50px; font-weight:800; font-size:0.9rem; cursor:pointer; white-space:nowrap; }
+    .notepad-toolbar { display:flex; gap:10px; margin-bottom:16px; align-items:center; }
+    .search-box { flex:1; padding:12px 16px; border-radius:10px; border:2px solid var(--gold); background:#ffffff; color:#0A0F14; font-size:0.9rem; }
+    .search-box:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .btn-new {
+      background: var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      padding:12px 20px; border-radius:10px; font-weight:800; font-size:0.9rem; cursor:pointer;
+      white-space:nowrap; transition:all .25s ease;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.3);
+    }
+    .btn-new:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
-    .notes-grid { display:flex; flex-direction:column; gap:10px; }
-    .note-card { background:var(--surface); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:16px 18px; cursor:pointer; transition:all 0.2s; }
-    .note-card:hover { border-color:var(--accent); transform:translateY(-2px); }
-    .note-card-title { font-weight:700; font-size:1rem; color:#fff; margin-bottom:4px; }
-    .note-card-snippet { font-size:0.85rem; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-bottom:6px; }
-    .note-card-date { font-size:0.72rem; color:#5a6472; }
+    .notes-grid { display:flex; flex-direction:column; gap:12px; }
+    .note-card {
+      background: var(--silver-medium-bg);
+      border:2px solid var(--gold);
+      border-radius:14px; padding:16px 18px; cursor:pointer; transition:all 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.6);
+      color:#0A0F14;
+    }
+    .note-card:hover { border-color:var(--gold-bright); transform:translateY(-2px); box-shadow:0 0 20px rgba(212,175,55,0.4); }
+    .note-card-title { font-weight:700; font-size:1rem; color:#0A0F14; margin-bottom:4px; }
+    .note-card-snippet { font-size:0.85rem; color:#333; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-bottom:6px; }
+    .note-card-date { font-size:0.72rem; color:#555; }
     .empty-state { text-align:center; padding:50px 20px; color:var(--muted); }
     .empty-state .icon { font-size:3rem; margin-bottom:14px; opacity:0.6; }
 
     /* Editor view */
     #editorView { display:none; }
     .editor-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
-    .editor-back { background:transparent; border:none; color:var(--accent); font-size:1.3rem; cursor:pointer; padding:4px; }
-    #noteTitleInput { flex:1; background:transparent; border:none; border-bottom:2px solid rgba(255,255,255,0.1); color:#fff; font-size:1.2rem; font-weight:700; font-family:'Oswald',sans-serif; padding:8px 0; }
-    #noteTitleInput:focus { outline:none; border-color:var(--accent); }
-    #noteContentInput { width:100%; min-height:340px; background:var(--surface); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:18px; color:#EAEDF0; font-size:0.95rem; font-family:'Inter',sans-serif; line-height:1.7; resize:vertical; }
-    #noteContentInput:focus { outline:none; border-color:var(--accent); }
-    .save-status { font-size:0.75rem; color:var(--muted); margin-top:8px; min-height:18px; }
-    .save-status.saved { color:#34D399; }
-    .editor-actions { display:flex; gap:10px; margin-top:14px; }
-    .btn-action { flex:1; padding:12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; border:1.5px solid; background:transparent; }
-    .btn-download { color:var(--accent); border-color:var(--accent); }
-    .btn-delete { color:#FF6B6B; border-color:#FF6B6B; }
+    .editor-back { background:transparent; border:none; color:var(--gold-bright); font-size:1.3rem; cursor:pointer; padding:4px; }
+    #noteTitleInput {
+      flex:1; background:#ffffff; border:2px solid var(--gold); color:#0A0F14;
+      font-size:1.2rem; font-weight:700; font-family:'Oswald',sans-serif;
+      padding:10px 12px; border-radius:10px;
+    }
+    #noteTitleInput:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
 
-    .about-box { margin:28px 0 10px; padding:22px 20px; background:rgba(255,255,255,0.04); border:1px solid rgba(79,195,247,0.25); border-radius:14px; line-height:1.75; font-size:0.92rem; color:#cfd6dd; }
-    .about-box h2 { font-size:1.05rem; margin-bottom:10px; color:var(--accent); }
-    .about-box h3 { font-size:0.95rem; margin:16px 0 8px; color:var(--accent); }
-    .about-box a { color:var(--accent); }
+    /* Textarea with ruled lines */
+    #noteContentInput {
+      width:100%; min-height:340px;
+      background: #ffffff;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 31px,
+        var(--ruled-line-color) 31px,
+        var(--ruled-line-color) 32px
+      );
+      background-attachment: local;
+      border:2px solid var(--gold);
+      border-radius:14px;
+      padding: 4px 14px;
+      color:#0A0F14;
+      font-size:0.95rem;
+      font-family:'Inter',sans-serif;
+      line-height:32px;
+      resize:vertical;
+    }
+    #noteContentInput:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .save-status { font-size:0.75rem; color:var(--muted); margin-top:8px; min-height:18px; }
+    .save-status.saved { color:#0A0F14; }
+
+    /* Editor actions and share section below textarea */
+    .editor-actions { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+    .btn-action {
+      flex:1; min-width:140px; padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem;
+      cursor:pointer; border:2px solid var(--gold); background:var(--silver-gradient); color:#0A0F14;
+      transition:all .25s ease;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .btn-action:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+    .btn-download-txt { border-color:var(--accent); }
+    .btn-delete { border-color:#FF6B6B; background:linear-gradient(145deg,#f8d7da,#f5c6cb); }
+    .btn-delete:hover { background:linear-gradient(145deg,#f5c6cb,#f1b0b7); border-color:#FF6B6B; }
+
+    /* Share note section below actions */
+    .share-note-section {
+      display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+      margin-top:16px; padding:12px 14px;
+      background: var(--silver-medium-bg); border:2px solid var(--gold); border-radius:12px;
+    }
+    .share-note-btn {
+      display:flex; align-items:center; gap:6px; padding:8px 12px; border-radius:6px;
+      font-weight:600; font-size:0.8rem; cursor:pointer; border:2px solid transparent;
+      transition:all 0.2s; text-transform:none;
+    }
+    .share-note-btn i { font-size:0.9rem; }
+    .share-note-wa { background:var(--whatsapp-green); color:#fff; border-color:rgba(37,211,102,0.6); }
+    .share-note-pdf { background:#E53935; color:#fff; border-color:#E53935; }
+    .share-note-jpg, .share-note-png { background:var(--silver-gradient); color:#0A0F14; border-color:var(--gold); }
+    .share-note-btn:hover { transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,0.25); }
+
+    /* Smart line / label above share buttons */
+    .take-note-label {
+      display:flex; align-items:center; gap:10px; margin-top:16px; margin-bottom:8px;
+      font-weight:700; color:var(--gold-bright); font-size:0.9rem; text-transform:uppercase; letter-spacing:0.5px;
+    }
+    .take-note-label::before, .take-note-label::after {
+      content:""; flex:1; height:1px; background:var(--gold);
+    }
+
+    /* Hidden capture area for sharing */
+    #noteCapture {
+      display: none;
+      background: #ffffff;
+      color: #0A0F14;
+      padding: 30px;
+      font-family: 'Inter', sans-serif;
+      width: 700px;
+      border: 2px solid var(--gold);
+      border-radius: 10px;
+    }
+    #noteCapture .capture-title {
+      font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; font-family: 'Oswald', sans-serif;
+      border-bottom: 2px solid var(--gold); padding-bottom: 8px;
+    }
+    #noteCapture .capture-content {
+      font-size: 1rem; line-height: 1.7; white-space: pre-wrap;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 30px,
+        #c9ced4 30px,
+        #c9ced4 31px
+      );
+      background-attachment: local;
+      padding: 10px;
+    }
+
+    /* Detail section */
+    .detail-section {
+      margin-top:40px; padding:30px 24px;
+      background: var(--silver-medium-bg);
+      border:2px solid var(--gold);
+      border-radius:16px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.4);
+      line-height:1.8; font-size:0.95rem; color:#0A0F14;
+    }
+    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
+    .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
+    .detail-section ul, .detail-section ol { padding-left:24px; }
+    .detail-section li { margin-bottom:6px; }
+    .detail-section strong { color:#0A0F14; }
 
     .appreciation { text-align:center; margin:20px 0 10px; font-size:0.85rem; color:#ccc; border-top:1px solid rgba(255,255,255,0.08); padding-top:16px; line-height:1.8; }
     .appreciation .gold { color:var(--gold-bright); }
-    footer { text-align:center; color:var(--muted); font-size:0.72rem; padding:25px 0 20px; border-top:1px solid rgba(255,255,255,0.06); margin-top:20px; }
+    footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:25px 0 20px; border-top:1px solid rgba(255,255,255,0.06); margin-top:20px; }
     footer a { color:var(--accent); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:44px; height:44px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+
+    @media (max-width:600px) {
+      .notepad-toolbar { flex-direction:column; }
+      .btn-new { width:100%; }
+      .editor-actions .btn-action { flex:1 1 100%; }
+      .share-note-section { flex-direction: column; align-items: stretch; }
+      .share-note-btn { justify-content: center; }
+      .note-card { padding:14px; }
+      .detail-section { padding:20px 16px; }
+      #noteCapture { width: 100%; }
+    }
   </style>
   <script type="application/ld+json">
   {
@@ -118,10 +274,10 @@
   <!-- LIST VIEW -->
   <div id="listView">
     <h1>📝 ColdMatrix <span>Notepad</span></h1>
-    <p class="subtitle">Free, private notes that auto-save instantly. Nothing leaves your device.</p>
+    <p class="subtitle">Free online notes with auto‑save and sharing.</p>
 
     <div class="share-tool-card">
-      <div class="share-tool-title">Share Notepad</div>
+      <div class="share-tool-title">Share Notepad Tool</div>
       <div class="share-tool-buttons">
         <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
@@ -146,20 +302,87 @@
       <button class="editor-back" onclick="closeEditor()"><i class="fa-solid fa-arrow-left"></i></button>
       <input type="text" id="noteTitleInput" placeholder="Note title..." oninput="onNoteEdit()">
     </div>
+
     <textarea id="noteContentInput" placeholder="Start writing..." oninput="onNoteEdit()"></textarea>
     <div class="save-status" id="saveStatus"></div>
+
+    <!-- Main actions: download txt, delete -->
     <div class="editor-actions">
-      <button class="btn-action btn-download" onclick="downloadCurrentNote()"><i class="fa-solid fa-download"></i> Download .txt</button>
+      <button class="btn-action btn-download-txt" onclick="downloadCurrentNote()"><i class="fa-solid fa-download"></i> Download .txt</button>
       <button class="btn-action btn-delete" onclick="deleteCurrentNote()"><i class="fa-solid fa-trash"></i> Delete</button>
+    </div>
+
+    <!-- Smart line / label -->
+    <div class="take-note-label">📤 Take your notes</div>
+
+    <!-- Share note buttons below, small and decent -->
+    <div class="share-note-section" id="shareNoteSection" style="display:none;">
+      <button class="share-note-btn share-note-wa" onclick="shareNoteWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-note-btn share-note-pdf" onclick="downloadNoteResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+      <button class="share-note-btn share-note-jpg" onclick="downloadNoteResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+      <button class="share-note-btn share-note-png" onclick="downloadNoteResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
   </div>
 
-  <div class="about-box">
-    <h2>About the Notepad</h2>
-    <p>Write and organize notes right in your browser — meeting notes, ideas, shopping lists, or anything else. Every note auto-saves as you type, so you never lose your work, and you can search across all your notes instantly or download any note as a plain text file.</p>
-    <h3>Common Questions</h3>
-    <p><strong>Are my notes uploaded anywhere?</strong> No — everything is stored locally in your own browser only. Nothing is ever sent to a server, so your notes stay completely private to your device.</p>
-    <p><strong>Will I lose my notes if I close the tab?</strong> No — your notes are saved automatically and will still be there next time you visit, as long as you use the same browser and device and don't clear your browser data.</p>
+  <!-- Hidden capture for note sharing -->
+  <div id="noteCapture">
+    <div class="capture-title" id="captureTitle"></div>
+    <div class="capture-content" id="captureContent"></div>
+    <div style="text-align:center; margin-top:16px; font-size:0.7rem; color:#888;">Generated with ColdMatrix Notepad</div>
+  </div>
+
+  <!-- Comprehensive educational static section -->
+  <div class="detail-section">
+    <h2>📖 Complete Guide to Notepad</h2>
+    <p>The ColdMatrix Notepad is a free, private online notepad that lives in your browser. It lets you create, edit, search, and download notes without ever creating an account. Everything you write is automatically saved to your device's local storage, meaning your data never leaves your computer or phone.</p>
+    <h3>What Is a Notepad?</h3>
+    <p>A notepad is a simple text editor used for quick notes, ideas, lists, or reminders. Unlike complex word processors, a notepad focuses on plain text — no formatting distractions. It's ideal for capturing thoughts, meeting notes, to-do lists, or any temporary information you need to write down quickly.</p>
+    <h3>Key Features of ColdMatrix Notepad</h3>
+    <ul>
+      <li><strong>Auto-Save:</strong> Your notes are saved automatically as you type, so you never lose your work.</li>
+      <li><strong>Search:</strong> Instantly search across all your notes by title or content.</li>
+      <li><strong>Download as .txt:</strong> Export any note to a plain text file for use elsewhere.</li>
+      <li><strong>Share as Image/PDF:</strong> Generate a beautiful image or PDF of your note to share on WhatsApp or save.</li>
+      <li><strong>Organized List View:</strong> See all your notes sorted by last edited with a snippet preview.</li>
+      <li><strong>Privacy First:</strong> All data is stored locally in your browser; nothing is uploaded to any server.</li>
+      <li><strong>Free & Offline:</strong> Works after the first load without an internet connection.</li>
+      <li><strong>Premium Design:</strong> Silver and gold themed interface with ruled lines for a real notebook feel.</li>
+    </ul>
+    <h3>How to Use the Notepad</h3>
+    <ol>
+      <li><strong>Create a new note:</strong> Click the <strong>+ New Note</strong> button. A blank editor will open.</li>
+      <li><strong>Write your note:</strong> Type a title in the title field and your content in the large text area. The ruled lines help you keep straight.</li>
+      <li><strong>Auto-Save:</strong> As you type, the note will save automatically — you'll see a "Saved" status appear.</li>
+      <li><strong>Go back to list:</strong> Click the arrow icon to return to your notes list.</li>
+      <li><strong>Search:</strong> Use the search box at the top to filter your notes.</li>
+      <li><strong>Download text:</strong> Open a note and click <strong>Download .txt</strong> to save it as a file.</li>
+      <li><strong>Share as image/PDF:</strong> Use the toolbar below the note to generate an image or PDF, or share on WhatsApp.</li>
+      <li><strong>Delete:</strong> Click <strong>Delete</strong> to remove a note permanently.</li>
+    </ol>
+    <h3>Tips for Effective Note-Taking</h3>
+    <ul>
+      <li><strong>Use clear titles:</strong> A short, descriptive title helps you find the note later.</li>
+      <li><strong>Keep notes focused:</strong> One main idea per note works best.</li>
+      <li><strong>Use the search:</strong> If you have many notes, type a keyword to locate the right one quickly.</li>
+      <li><strong>Download important notes:</strong> Export critical information as a .txt or image for backup.</li>
+    </ul>
+    <h3>Frequently Asked Questions</h3>
+    <p><strong>Are my notes uploaded anywhere?</strong><br>No. Everything is stored locally in your browser using localStorage. Nothing is sent to a server, so your notes remain completely private to your device.</p>
+    <p><strong>Will I lose my notes if I close the tab?</strong><br>No — your notes are saved automatically and will still be there next time you visit, as long as you use the same browser and device and don't clear your browser data.</p>
+    <p><strong>Can I access my notes from another device?</strong><br>No, because notes are stored locally, they are not synced across devices. For cross-device access, consider downloading notes and moving them manually.</p>
+    <p><strong>Is there a limit to how many notes I can create?</strong><br>No, there is no limit. The only constraint is your browser's local storage capacity.</p>
+    <p><strong>Does the notepad work on mobile?</strong><br>Yes, the tool is fully responsive and works great on smartphones and tablets.</p>
+    <h3>Use Cases</h3>
+    <ul>
+      <li><strong>Quick Ideas:</strong> Jot down ideas before they slip away.</li>
+      <li><strong>Shopping Lists:</strong> Keep a running list of items you need.</li>
+      <li><strong>Meeting Notes:</strong> Capture action items and decisions.</li>
+      <li><strong>Study Notes:</strong> Summarize key points from lectures or articles.</li>
+      <li><strong>Temporary Storage:</strong> Store snippets of text you need later.</li>
+    </ul>
+    <h3>Why Choose ColdMatrix Notepad?</h3>
+    <p>It's fast, private, and beautifully designed. Unlike cloud-based note apps, your data stays on your device, giving you complete control. The premium silver and gold interface, ruled lines, and auto-save feature make note-taking a pleasure. Whether you're on desktop or mobile, this notepad is always ready when inspiration strikes.</p>
+    <p><strong>Disclaimer:</strong> All notes are stored only in your browser's local storage. Clearing your browser data will delete your notes. Always download important notes if you need to keep them long-term.</p>
   </div>
 
   <div class="appreciation">✨ <strong class="gold">Thank you</strong> for using our Notepad. Happy writing!<br><span style="font-size:0.75rem">Explore more <a href="index.html" style="color:var(--accent)">premium tools</a> designed for you.</span></div>
@@ -236,12 +459,14 @@
     document.getElementById('listView').style.display = 'none';
     document.getElementById('editorView').style.display = 'block';
     document.getElementById('noteTitleInput').focus();
+    document.getElementById('shareNoteSection').style.display = 'flex';
   }
 
   function closeEditor() {
     currentNoteId = null;
     document.getElementById('editorView').style.display = 'none';
     document.getElementById('listView').style.display = 'block';
+    document.getElementById('shareNoteSection').style.display = 'none';
     renderNoteList();
   }
 
@@ -281,6 +506,65 @@
     link.click();
   }
 
+  // --- Note sharing: capture and share/download ---
+  function prepareNoteCapture() {
+    const title = document.getElementById('noteTitleInput').value || 'Untitled Note';
+    const content = document.getElementById('noteContentInput').value || '';
+    document.getElementById('captureTitle').textContent = title;
+    document.getElementById('captureContent').textContent = content;
+    const captureEl = document.getElementById('noteCapture');
+    captureEl.style.display = 'block';
+    return captureEl;
+  }
+
+  async function captureNoteCanvas() {
+    const captureEl = prepareNoteCapture();
+    const canvas = await html2canvas(captureEl, { backgroundColor: '#ffffff', scale: 2 });
+    captureEl.style.display = 'none';
+    return canvas;
+  }
+
+  async function downloadNoteResult(type) {
+    const canvas = await captureNoteCanvas();
+    if (type === 'pdf') {
+      const { jsPDF } = window.jspdf;
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      const pdf = new jsPDF({
+        orientation: canvas.width > canvas.height ? 'l' : 'p',
+        unit: 'px',
+        format: [canvas.width, canvas.height]
+      });
+      pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+      pdf.save('Note-' + Date.now() + '.pdf');
+    } else {
+      const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
+      const link = document.createElement('a');
+      link.download = 'Note-' + Date.now() + '.' + type;
+      link.href = canvas.toDataURL(mime, 0.95);
+      link.click();
+    }
+  }
+
+  async function shareNoteWhatsApp() {
+    const canvas = await captureNoteCanvas();
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], 'note.png', { type: 'image/png' });
+      const caption = 'Note from ColdMatrix Notepad';
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], title: 'Note', text: caption });
+        } catch (e) {}
+      } else {
+        const link = document.createElement('a');
+        link.download = 'note.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        window.open('https://wa.me/?text=' + encodeURIComponent(caption), '_blank');
+      }
+    });
+  }
+
+  // Initial load
   window.addEventListener('DOMContentLoaded', renderNoteList);
 
   let deferredPrompt;
@@ -297,5 +581,38 @@
   function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this free Notepad from ColdMatrix Tools! ' + window.location.href), '_blank'); }
   function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(() => alert('Link copied!')).catch(() => alert(window.location.href)); }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are ColdMatrix tools free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate are ColdMatrix calculators?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does ColdMatrix store my data?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+      }
+    }
+  ]
+}
+</script>
+
 </body>
 </html>

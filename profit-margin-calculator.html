@@ -39,6 +39,7 @@
       --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
       --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
       --dark-silver:#4a4d55; --whatsapp-green:#25D366;
+      --info-gradient: linear-gradient(135deg, #FFD700, #FFC107);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -59,6 +60,34 @@
     h1 { font-size:1.6rem; font-weight:800; margin-bottom:6px; }
     h1 span { color: var(--gold-bright); }
     .subtitle { color:var(--muted); margin-bottom:20px; font-size:0.9rem; }
+
+    /* 🔆 Bright Info Box under title */
+.tool-intro {
+  margin-bottom: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--gold);
+}
+.tool-intro p {
+  color: var(--gold-bright);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+.tool-intro ul {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tool-intro ul li {
+  color: var(--gold-bright);
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
@@ -155,11 +184,77 @@
     footer a { color:var(--gold-bright); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:18px; right:18px; z-index:999; width:44px; height:44px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.2rem; }
 
+    /* 📚 Learning Section Styles */
+    .learn-section { margin-top:40px; }
+    .learn-card {
+      background: rgba(255,255,255,0.04);
+      border: 2px solid rgba(212,175,55,0.35);
+      border-radius: 16px;
+      padding: 24px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    .learn-card h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem;
+      color: var(--gold-bright);
+      margin-bottom: 12px;
+    }
+    .accordion-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .accordion-item:last-child { border-bottom: none; }
+    .accordion-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #EAEDF0;
+    }
+    .accordion-head i {
+      color: var(--gold-bright);
+      transition: transform 0.3s ease;
+      font-size: 0.8rem;
+    }
+    .accordion-head.open i { transform: rotate(180deg); }
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .accordion-body div { padding: 0 0 16px; }
+    .accordion-body table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      color: var(--text);
+      margin: 8px 0;
+    }
+    .accordion-body th, .accordion-body td {
+      padding: 8px 6px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .formula-box {
+      background: rgba(255,255,255,0.06);
+      border-left: 3px solid var(--gold-bright);
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin: 10px 0;
+      font-weight: 500;
+    }
+
     @media (max-width:420px) {
       .row2, .row3 { grid-template-columns:1fr; }
       .result-grid { grid-template-columns:1fr 1fr; }
       h1 { font-size:1.4rem; }
       .result-item .val { font-size:1.1rem; }
+      .info-highlight-box ul { grid-template-columns: 1fr; }
+      .learn-card { padding: 16px 14px; }
     }
   </style>
 </head>
@@ -179,12 +274,20 @@
   </nav>
 
   <div class="container">
-  <a href="index.html#tools" class="back-link">← Back to Tools</a>
+    <a href="index.html#tools" class="back-link">← Back to Tools</a>
   
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1><span>ColdMatrix</span> Profit Margin Calculator</h1>
-    <p class="subtitle">Professional multi‑method profit calculation — cost, selling price, margin, markup, quantity, tax, fixed costs & break‑even.</p>
+    <div class="tool-intro">
+  <p>Professional multi‑method profit calculation — cost, selling price, margin, markup, quantity, tax, fixed costs &amp; break‑even.</p>
+  <ul>
+    <li><i class="fa-solid fa-check"></i> 5 calculation methods</li>
+    <li><i class="fa-solid fa-check"></i> Margin &amp; markup</li>
+    <li><i class="fa-solid fa-check"></i> Break-even &amp; tax</li>
+    <li><i class="fa-solid fa-check"></i> Multi-currency support</li>
+  </ul>
+</div>
 
     <div class="share-tool-card">
       <div class="share-tool-title">Share Profit Margin Calculator</div>
@@ -292,15 +395,141 @@
       <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
-  </div>
 
-  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Profit Margin Calculator</h2>
-  <p>ColdMatrix Profit Margin Calculator is a complete pricing and profitability tool for business owners, accountants, and entrepreneurs. It calculates total cost, revenue, gross profit, margin %, markup %, profit per unit, and break‑even points using five professional methods. You can also add fixed costs and tax/VAT to see your true net profitability.</p>
-  <p>Choose your quantity, unit type, and currency, then instantly see a full financial summary. Whether you’re quoting products, planning a production run, or analyzing a business case, this tool gives you the accurate numbers you need to make confident pricing decisions.</p>
-  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
-  <p><strong>What is margin vs markup?</strong> Margin is profit ÷ revenue, while markup is profit ÷ cost. Both are useful for pricing.</p>
-  <p><strong>Need more business tools?</strong> Check our <a href="business-calculator-suite.html" style="color:#FFD700;">Business Calculator Suite</a>.</p>
+    <!-- 📚 Comprehensive Educational Section -->
+    <div class="learn-section">
+      <div class="learn-card">
+        <h2>📖 Profit Margin Guide: Everything You Need to Know</h2>
+        <p style="font-size:0.9rem; color:var(--muted); margin-bottom:12px;">
+          Understanding profit margin, markup, and break-even is essential for running a successful business. This guide explains all the concepts used in this calculator.
+        </p>
+
+        <div class="accordion-item">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <span>1. What is profit margin?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="accordion-body">
+            <div>
+              Profit margin is the percentage of revenue that remains as profit after all costs are deducted. It tells you how efficiently you convert sales into profit.
+              <div class="formula-box">
+                <strong>Formula:</strong> Profit Margin = (Revenue − Cost) ÷ Revenue × 100
+              </div>
+              <strong>Example:</strong> If you sell a product for $100 and it costs $70 to make, your profit is $30 and your margin is 30%.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <span>2. Margin vs. Markup — what's the difference?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="accordion-body">
+            <div>
+              Both measure profit, but they compare it to different bases:
+              <div class="formula-box">
+                <strong>Margin</strong> = Profit ÷ Revenue × 100<br>
+                <strong>Markup</strong> = Profit ÷ Cost × 100
+              </div>
+              <strong>Example:</strong> Cost $50, Price $75 → Profit $25. Margin = 25/75 = 33.3%, Markup = 25/50 = 50%.<br>
+              Use margin to see overall profitability; use markup to set selling prices from cost.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <span>3. The five calculation methods explained</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="accordion-body">
+            <div>
+              This calculator offers five ways to calculate profit:
+              <ul style="padding-left:20px;">
+                <li><strong>Cost + Selling Price</strong> – enter both and see profit/margin.</li>
+                <li><strong>Cost + Desired Margin %</strong> – calculator determines the selling price needed.</li>
+                <li><strong>Cost + Desired Markup %</strong> – similar to margin but based on cost.</li>
+                <li><strong>Selling Price + Desired Margin %</strong> – find the maximum cost you can afford.</li>
+                <li><strong>Profit Target + Cost</strong> – specify the exact profit per unit.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <span>4. Break-even analysis</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="accordion-body">
+            <div>
+              Break-even is the point where total revenue equals total costs — no profit, no loss.
+              <div class="formula-box">
+                <strong>Break-even Revenue</strong> = Fixed Costs ÷ Margin %<br>
+                <strong>Break-even Units</strong> = Fixed Costs ÷ Profit per Unit
+              </div>
+              If you have fixed costs of $1,000 and a 40% margin, you need $2,500 in revenue to break even.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <span>5. How to use this calculator effectively</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="accordion-body">
+            <div>
+              <ol style="padding-left:20px;">
+                <li>Select the calculation method that fits your data.</li>
+                <li>Enter the required values (cost, price, margin, etc.).</li>
+                <li>Set quantity, unit type, and currency.</li>
+                <li>Optional: add fixed costs and tax rate for net profit.</li>
+                <li>Click "Calculate" to see instant results.</li>
+              </ol>
+              Use the results to compare pricing strategies and make confident decisions.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <span>6. Real-world examples</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="accordion-body">
+            <div>
+              <strong>Example 1: Pricing a new product</strong><br>
+              Cost = $20, desired margin = 40%.<br>
+              Selling price = $20 ÷ (1 − 0.40) = $33.33.<br>
+              Profit = $13.33 per unit.
+              <br><br>
+              <strong>Example 2: Break-even with fixed costs</strong><br>
+              Cost = $10, price = $15, profit per unit = $5. Fixed costs = $5,000.<br>
+              Break-even units = 5,000 ÷ 5 = 1,000 units.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-head" onclick="toggleAccordion(this)">
+            <span>7. Sources and disclaimer</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="accordion-body">
+            <div>
+              <strong>References:</strong><br>
+              • Corporate Finance Institute – Profit Margin Definition<br>
+              • Investopedia – Margin vs Markup<br>
+              • Small Business Administration – Break-even Analysis<br>
+              <br>
+              <strong>Disclaimer:</strong> This calculator provides general financial estimates and should not replace professional accounting advice. Always consult a qualified accountant for critical business decisions.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
@@ -467,6 +696,19 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    function toggleAccordion(head) {
+      const body = head.nextElementSibling;
+      const isOpen = head.classList.contains('open');
+      document.querySelectorAll('.accordion-head').forEach(h => {
+        h.classList.remove('open');
+        h.nextElementSibling.style.maxHeight = null;
+      });
+      if (!isOpen) {
+        head.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    }
+
     async function captureCanvas(){
       const el = document.getElementById('shareCapture');
       el.style.display = 'block';
@@ -524,6 +766,7 @@
     updateMethodFields();
   </script>
 
+  <!-- FAQ Schema for Profit Margin Tool -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -531,26 +774,26 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Are ColdMatrix tools free to use?",
+        "name": "What is profit margin?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+          "text": "Profit margin is the percentage of revenue that remains as profit after all costs are deducted. Formula: Margin = (Revenue - Cost) / Revenue × 100."
         }
       },
       {
         "@type": "Question",
-        "name": "How accurate are ColdMatrix calculators?",
+        "name": "What is the difference between margin and markup?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+          "text": "Margin is profit divided by revenue, while markup is profit divided by cost. Margin shows overall profitability, markup is used to set selling prices."
         }
       },
       {
         "@type": "Question",
-        "name": "Does ColdMatrix store my data?",
+        "name": "How do I calculate break-even?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+          "text": "Break-even revenue = Fixed costs / Margin %. Break-even units = Fixed costs / Profit per unit."
         }
       }
     ]

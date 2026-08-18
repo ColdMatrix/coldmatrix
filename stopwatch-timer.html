@@ -23,6 +23,7 @@
             --gold-gradient: linear-gradient(135deg, #C8993A, #E8C96A 40%, #A07828 70%, #D4A843);
             --silver-bright: #F0F0F0;
             --silver-mid: #C0C0C0;
+            --silver-medium-bg: linear-gradient(145deg, #e0e4e8 0%, #c4cad0 30%, #a9b0b8 60%, #d5d9de 100%);
             --silver-dark-bg: linear-gradient(145deg, #3A3F46 0%, #282D33 40%, #1C2025 100%);
             --silver-text-gradient: linear-gradient(145deg, #FFFFFF 0%, #E0E0E0 30%, #C0C0C0 70%, #F0F0F0 100%);
             --gold-text-gradient: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #B8860B 100%);
@@ -65,14 +66,26 @@
         .brand-title span { color:var(--accent); }
         .subtitle { color:var(--muted); font-size:0.95rem; }
 
+        /* Premium silver card for non-display elements */
         .premium-card {
-            border: 2px solid transparent;
+            background: var(--silver-medium-bg);
+            border: 2px solid var(--gold);
             border-radius: 16px;
-            background: var(--silver-dark-bg) padding-box, var(--gold-gradient) border-box;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.8);
+            color: #0A0F14;
         }
 
-        .share-tool-card { padding:18px; margin-bottom:26px; }
+        /* Share tool card stays dark for readability */
+        .share-tool-card {
+            background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
+            border: 2px solid;
+            border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 26px;
+            box-shadow: 0 10px 34px rgba(0,0,0,0.55);
+            color: #EAEDF0;
+        }
         .share-tool-title { font-weight:800; font-size:1.05rem; color:var(--gold-bright); text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase; }
         .share-tool-buttons { display:flex; gap:12px; width:100%; }
         .share-tool-btn {
@@ -98,13 +111,18 @@
             font-weight:800; box-shadow:0 4px 16px rgba(212,175,55,0.3);
         }
 
-        .display-card {
-            background:var(--silver-dark-bg);
-            border:2px solid transparent;
-            border-image:var(--gold-gradient) 1;
-            border-radius:20px; padding:30px 20px; text-align:center; margin-bottom:16px;
-            box-shadow:0 4px 20px rgba(0,0,0,0.3);
-            position:relative; overflow:hidden;
+        /* EXCLUSIVE DISPLAY CARD — dark background, silver/gold text */
+        .display-card, .timer-progress-card {
+            background: var(--silver-dark-bg);
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            margin-bottom: 16px;
+            box-shadow: 0 0 30px rgba(212,175,55,0.4), 0 8px 30px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            color: #fff;
         }
         .time-display {
             font-family:'Oswald',monospace; font-size:5rem; font-weight:700;
@@ -126,17 +144,7 @@
         .time-ms { font-size:2rem; color:var(--gold-bright); }
         .time-label { font-size:0.85rem; color:var(--gold-bright); margin-top:6px; font-weight:600; letter-spacing:1px; }
 
-        /* Timer rectangular progress bar */
-        .timer-progress-card {
-            background:var(--silver-dark-bg);
-            border:2px solid transparent;
-            border-image:var(--gold-gradient) 1;
-            border-radius:20px; padding:30px 20px; text-align:center; margin-bottom:16px;
-            box-shadow:0 4px 20px rgba(0,0,0,0.3);
-        }
-        .timer-progress-card .time-display {
-            font-size:3.5rem; /* slightly smaller for better fit */
-        }
+        .timer-progress-card .time-display { font-size:3.5rem; }
         .progress-bar-container {
             width:100%; height:12px; background:#2A3540;
             border-radius:20px; margin-top:20px; overflow:hidden;
@@ -149,28 +157,60 @@
             transition: width 0.1s linear;
         }
 
+        /* Timer inputs */
         .timer-inputs { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:16px; }
         .timer-inputs .input-group { text-align:center; }
         .timer-inputs input {
-            width:100%; background:#1B232C; border:2px solid var(--gold); color:#fff;
+            width:100%; background:#ffffff; border:2px solid var(--gold); color:#0A0F14;
             padding:16px 10px; border-radius:12px; font-size:1.3rem; text-align:center;
             font-weight:700; font-family:'Oswald',sans-serif; transition:all 0.3s;
         }
         .timer-inputs input:focus { border-color:var(--gold-bright); outline:none; box-shadow:0 0 16px rgba(212,175,55,0.3); }
-        .timer-inputs label { display:block; text-align:center; font-size:0.75rem; color:var(--gold-bright); margin-top:6px; text-transform:uppercase; font-weight:700; letter-spacing:1px; }
+        .timer-inputs label { display:block; text-align:center; font-size:0.75rem; color:#333; margin-top:6px; text-transform:uppercase; font-weight:700; letter-spacing:1px; }
 
-        .preset-row { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; justify-content:center; }
-        .preset-btn {
-            padding:8px 14px; border-radius:20px; border:2px solid var(--gold);
-            background:rgba(212,175,55,0.1); color:var(--gold-bright);
-            font-weight:700; font-size:0.75rem; cursor:pointer; transition:all 0.2s;
+        /* PRESET BUTTONS — clean horizontal row, not long vertical */
+        .preset-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
         }
-        .preset-btn:hover { background:rgba(212,175,55,0.25); border-color:var(--gold-bright); transform:translateY(-1px); }
+        .preset-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 2px solid var(--gold);
+            background: var(--silver-medium-bg);
+            color: #0A0F14;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .preset-btn:hover {
+            background: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 20px rgba(212,175,55,0.6);
+            transform: translateY(-2px);
+        }
 
+        /* MAIN CONTROL BUTTONS — large and prominent */
         .btn-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px; }
         .btn {
-            padding:15px 10px; border-radius:14px; font-weight:700; font-size:0.95rem; cursor:pointer;
-            border:2px solid transparent; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.5px;
+            padding: 16px 10px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Inter', sans-serif;
         }
         .btn-start { background:linear-gradient(135deg, #22C55E, #16A34A); color:#fff; box-shadow:0 4px 14px rgba(34,197,94,0.3); }
         .btn-start:hover { transform:translateY(-1px); box-shadow:0 8px 20px rgba(34,197,94,0.4); }
@@ -179,7 +219,7 @@
         .btn-lap { background:linear-gradient(135deg, #6366F1, #4F46E5); color:#fff; box-shadow:0 4px 14px rgba(99,102,241,0.3); }
         .btn-lap:hover { transform:translateY(-1px); box-shadow:0 8px 20px rgba(99,102,241,0.4); }
         .btn-reset {
-            background:var(--silver-dark-bg); color:var(--gold-bright);
+            background:var(--silver-medium-bg); color:#0A0F14;
             border:2px solid var(--gold); box-shadow:0 4px 14px rgba(0,0,0,0.3);
         }
         .btn-reset:hover { border-color:var(--gold-bright); transform:translateY(-1px); }
@@ -187,36 +227,62 @@
         .btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; box-shadow:none; }
 
         .laps-card {
-            background:var(--silver-dark-bg); border:2px solid transparent; border-image:var(--gold-gradient) 1;
-            border-radius:16px; padding:16px; max-height:250px; overflow-y:auto;
-            box-shadow:0 8px 30px rgba(0,0,0,0.4);
+            background: var(--silver-medium-bg);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 16px;
+            max-height: 250px;
+            overflow-y: auto;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            color: #0A0F14;
         }
-        .laps-card h3 { font-family:'Oswald',sans-serif; font-size:0.95rem; color:var(--gold-bright); margin-bottom:10px; }
-        .lap-item { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.08); font-size:0.85rem; }
-        .lap-item .lap-num { color:var(--accent); font-weight:700; }
-        .lap-item .lap-time { color:#fff; font-family:'Oswald',monospace; }
-        .no-laps { color:var(--muted); font-size:0.8rem; text-align:center; padding:10px; }
+        .laps-card h3 { font-family:'Oswald',sans-serif; font-size:0.95rem; color:#0A0F14; margin-bottom:10px; }
+        .lap-item { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(0,0,0,0.1); font-size:0.85rem; }
+        .lap-item .lap-num { color:#1a237e; font-weight:700; }
+        .lap-item .lap-time { color:#0A0F14; font-family:'Oswald',monospace; }
+        .no-laps { color:#333; font-size:0.8rem; text-align:center; padding:10px; }
+
+        /* Detail section */
+        .detail-section {
+            margin-top: 40px;
+            padding: 30px 24px;
+            background: var(--silver-medium-bg);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            color: #0A0F14;
+        }
+        .detail-section h2 {
+            font-family: 'Oswald', sans-serif;
+            color: #0A0F14;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+        }
+        .detail-section h3 {
+            color: #0A0F14;
+            font-size: 1.15rem;
+            margin: 24px 0 10px;
+        }
+        .detail-section p, .detail-section ul, .detail-section ol { margin-bottom: 14px; }
+        .detail-section ul, .detail-section ol { padding-left: 24px; }
+        .detail-section li { margin-bottom: 6px; }
+        .detail-section strong { color: #0A0F14; }
 
         footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:20px 0; margin-top:20px; }
         footer a { color:var(--accent); }
 
-        .running-dot {
-            display:inline-block; width:10px; height:10px; border-radius:50%;
-            background:var(--gold-bright); margin-left:8px; animation: blink 1s infinite;
-        }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-
-        /* Bottom description headings gold */
-        .about-section h2, .about-section h3 { color: var(--gold-bright) !important; }
-
-        /* Responsive */
         @media (max-width:500px) {
             .time-display { font-size:3.2rem; }
             .timer-progress-card .time-display { font-size:2.5rem; }
             .btn-row { grid-template-columns:1fr 1fr; }
-            .share-tool-buttons { flex-direction: row; }
-            .share-tool-btn { padding:14px 6px; font-size:0.85rem; }
+            .preset-row { flex-wrap: wrap; }
+            .preset-btn { flex:1 1 auto; }
             .container { padding:15px; }
+            .detail-section { padding:20px 16px; }
         }
     </style>
 </head>
@@ -236,7 +302,7 @@
             <p class="subtitle">Stopwatch & Timer — Free Online Chronograph</p>
         </div>
 
-        <div class="share-tool-card premium-card">
+        <div class="share-tool-card">
             <div class="share-tool-title">Share This Tool</div>
             <div class="share-tool-buttons">
                 <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
@@ -279,7 +345,6 @@
                 <button class="preset-btn" onclick="setPreset(30)">30 min</button>
             </div>
 
-            <!-- Rectangular timer display with progress bar -->
             <div class="timer-progress-card premium-card">
                 <div class="time-display" id="timerDisplay">00:05:00<span class="time-ms">.00</span></div>
                 <div class="time-label" id="timerStatus">Ready</div>
@@ -294,14 +359,78 @@
                 <button class="btn btn-reset" id="tmReset" onclick="tmReset()">↺ Reset</button>
             </div>
         </div>
-    </div>
 
-    <div class="about-section" style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-        <h2 style="font-size:1.1rem;margin-bottom:12px;color:var(--gold-bright);">About the Stopwatch & Timer</h2>
-        <p>ColdMatrix Stopwatch & Timer is a precision chronograph designed for sports, cooking, workouts, presentations, and classroom activities. It offers lap tracking with millisecond accuracy and a countdown timer that keeps counting even if you switch tabs or lock your phone.</p>
-        <p>Everything runs privately in your browser — no data is sent anywhere. The tool is completely free, works offline after the first visit, and requires no registration. Whether you're timing laps, baking, or managing a presentation, it’s fast, accurate, and always ready.</p>
-        <h3 style="font-size:0.95rem;margin:16px 0 8px;color:var(--gold-bright);">Common Questions</h3>
-        <p><strong>Does it work if I switch tabs?</strong> Yes — the timer keeps counting accurately in the background using your device's real clock, not just visual updates.</p>
+        <!-- Comprehensive educational static section -->
+        <div class="detail-section">
+            <h2>📖 Complete Guide to Stopwatch & Timer</h2>
+            <p>The ColdMatrix Stopwatch & Timer is a free, online chronograph designed for precise time measurement in sports, cooking, workouts, presentations, classroom activities, and many other use cases. It offers a stopwatch with lap tracking and millisecond accuracy, plus a countdown timer that continues even if you switch tabs or lock your device.</p>
+
+            <h3>What Is a Stopwatch?</h3>
+            <p>A stopwatch is a timepiece designed to measure the amount of time elapsed from a particular moment when activated, and to stop measuring when deactivated. It is commonly used in sports (e.g., running, swimming, racing) to record the duration of an event. A stopwatch can be cumulative (measures total time) or can record split/lap times.</p>
+
+            <h3>What Is a Countdown Timer?</h3>
+            <p>A countdown timer is a timer that counts backward from a specified time interval to zero. When the timer reaches zero, it typically triggers an alarm or visual signal. Countdown timers are widely used in cooking, exams, presentations, workouts, and games to ensure activities finish within a set time.</p>
+
+            <h3>Key Features of This Tool</h3>
+            <ul>
+                <li><strong>Stopwatch with Lap Tracking:</strong> Start, pause, resume, and record laps with millisecond precision.</li>
+                <li><strong>Countdown Timer:</strong> Set hours, minutes, and seconds, and see a live progress bar.</li>
+                <li><strong>Preset Buttons:</strong> Quickly set common timers like 1, 5, 10, 15, or 30 minutes.</li>
+                <li><strong>Background Operation:</strong> Timer continues accurately even if you switch tabs or lock your phone.</li>
+                <li><strong>Visual Feedback:</strong> Animated time pulse and flashing progress bar when the timer ends.</li>
+                <li><strong>Privacy First:</strong> All operations are local; no data is sent anywhere.</li>
+                <li><strong>Free & Offline:</strong> Works after initial load without internet connection.</li>
+                <li><strong>Premium Design:</strong> Silver and gold themed interface for a professional look.</li>
+            </ul>
+
+            <h3>How to Use the Stopwatch</h3>
+            <ol>
+                <li>Click the <strong>Stopwatch</strong> tab if not already active.</li>
+                <li>Press <strong>▶ Start</strong> to begin timing. The display will start updating every 10 milliseconds.</li>
+                <li>To record a lap, click <strong>🏁 Lap</strong>. The current elapsed time will be added to the laps list.</li>
+                <li>To pause, click <strong>⏸ Pause</strong> (the Start button changes to Pause). Press it again to resume.</li>
+                <li>To reset all laps and the time, click <strong>↺ Reset</strong>.</li>
+            </ol>
+
+            <h3>How to Use the Countdown Timer</h3>
+            <ol>
+                <li>Click the <strong>Countdown Timer</strong> tab.</li>
+                <li>Set the desired hours, minutes, and seconds using the input fields, or use a preset button.</li>
+                <li>Press <strong>▶ Start</strong> to begin the countdown. The progress bar will shrink as time passes.</li>
+                <li>You can pause and resume using <strong>⏸ Pause</strong> / <strong>▶ Resume</strong>.</li>
+                <li>When the timer reaches zero, the bar will flash, and the status will show “Time’s Up!”.</li>
+                <li>To reset to the original duration, click <strong>↺ Reset</strong>.</li>
+            </ol>
+
+            <h3>Tips for Effective Use</h3>
+            <ul>
+                <li><strong>Use laps strategically:</strong> In interval training, record each split to analyse performance.</li>
+                <li><strong>Keep it visible:</strong> For presentations, place the timer on a secondary screen or projector.</li>
+                <li><strong>Combine with presets:</strong> Set common cooking times (e.g., 5 min for tea, 10 min for pasta) for convenience.</li>
+                <li><strong>Test audio:</strong> If you want an audible alert, some browsers may not play sound automatically; keep the tab open for best results.</li>
+            </ul>
+
+            <h3>Frequently Asked Questions</h3>
+            <p><strong>Does the timer keep running if I switch tabs or minimize the browser?</strong><br>Yes, the timer uses your device’s real clock, so it remains accurate even in the background.</p>
+            <p><strong>Can I record multiple laps?</strong><br>Absolutely. The stopwatch supports unlimited lap recording, displayed in a scrollable list.</p>
+            <p><strong>Is my data stored anywhere?</strong><br>No. All calculations and timing happen locally in your browser. Nothing is uploaded or saved on a server.</p>
+            <p><strong>Does this work on mobile?</strong><br>Yes, the tool is fully responsive and works on smartphones, tablets, and desktops.</p>
+            <p><strong>Can I change the display format?</strong><br>The display shows hours, minutes, seconds, and centiseconds (1/100 sec). This is ideal for most timing needs.</p>
+
+            <h3>Use Cases</h3>
+            <ul>
+                <li><strong>Sports & Fitness:</strong> Track laps, intervals, and workout durations.</li>
+                <li><strong>Cooking:</strong> Time multiple dishes with presets.</li>
+                <li><strong>Classroom:</strong> Time tests, quizzes, or group activities.</li>
+                <li><strong>Presentations:</strong> Keep speeches within time limits.</li>
+                <li><strong>Games:</strong> Time rounds or turns in board games.</li>
+            </ul>
+
+            <h3>Why Choose ColdMatrix Stopwatch & Timer?</h3>
+            <p>It’s fast, accurate, privacy-friendly, and completely free. The premium silver and gold design makes it a pleasure to use, while the background timing ensures you never miss a beat. No account, no ads, and no distractions — just precise timing.</p>
+
+            <p><strong>Disclaimer:</strong> This tool is provided for general time measurement purposes. Always double-check critical timings with a dedicated physical timer if extreme accuracy is required.</p>
+        </div>
     </div>
 
     <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
@@ -319,6 +448,7 @@
             const btn=document.getElementById('swStart');
             if(swRunning){
                 swRunning=false; clearInterval(swInterval);
+                swElapsed=Date.now()-swStartTime;
                 btn.textContent='▶ Resume'; btn.className='btn btn-start';
                 document.getElementById('swLap').disabled=true;
                 document.getElementById('stopwatchDisplay').classList.remove('running');
@@ -411,7 +541,6 @@
                         btn.textContent='▶ Start'; btn.className='btn btn-start';
                         document.getElementById('tmPause').disabled=true;
                         updateTimerProgress(0);
-                        // Flash bar
                         document.getElementById('timerProgressBar').style.boxShadow='0 0 20px rgba(255,215,0,0.8)';
                         setTimeout(()=>{ document.getElementById('timerProgressBar').style.boxShadow='none'; },2000);
                     }
