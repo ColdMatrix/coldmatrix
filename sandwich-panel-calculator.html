@@ -59,20 +59,21 @@
     h1 span { color: var(--gold-bright); }
     .subtitle { color:var(--muted); margin-bottom:28px; }
 
+    /* compact share tool card */
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
       border:2px solid;
       border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
       border-radius:12px;
-      padding:22px 20px;
-      margin-bottom:26px;
+      padding:14px 16px;
+      margin-bottom:18px;
       box-shadow:0 10px 34px rgba(0,0,0,0.55);
     }
-    .share-tool-title { font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase; }
-    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:10px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     .share-tool-btn {
-      display:flex; align-items:center; justify-content:center; gap:9px;
-      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
       background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
       transition:all 0.25s ease;
     }
@@ -152,23 +153,38 @@
     .result-item.highlight { border-color:#34D399; background:linear-gradient(145deg,#d9f5e5,#a8e6cf); grid-column:1/-1; }
     .result-item.highlight .val { font-size:1.8rem; color:#0A0F14; }
 
-    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
-    .share-btn {
-      display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px;
-      font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff;
-      transition:all 0.25s ease;
-    }
-    .share-btn:hover { transform:translateY(-2px); }
-    .share-whatsapp { background:#25D366; }
-    .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--dark-silver); color:#fff; border:1px solid var(--gold); }
-
     .note { font-size:0.75rem; color:var(--muted); margin-top:16px; border-top:1px solid var(--border); padding-top:12px; text-align:center; }
+
+    /* result action buttons */
+    .report-label { font-weight:700; margin-top:20px; color:#FFFFFF; font-size:1rem; }
+    .action-buttons { margin-top:12px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .action-btn {
+      width:100%; padding:10px 12px; border:none; border-radius:10px;
+      cursor:pointer; font-weight:700; font-size:0.85rem;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      text-transform:uppercase; font-family:'Oswald',sans-serif;
+      background:var(--silver-gradient); color:#ffffff;
+      border:2px solid var(--gold-border); transition:all 0.2s;
+      text-shadow:0 1px 2px rgba(0,0,0,0.5);
+    }
+    .action-btn:hover { background:var(--silver-gradient-hover); transform:translateY(-2px); }
+    .whatsapp-action { background:#25D366 !important; border:none !important; color:#fff !important; }
+    .pdf-action { background:#0077B5 !important; border:none !important; color:#fff !important; }
+    .download-jpg-action { background:#6C5CE7 !important; border:none !important; color:#fff !important; }
+    .download-png-action { background:#F59E0B !important; border:none !important; color:#fff !important; }
+
+    .contact-note {
+      margin-top:16px; padding:14px 12px; background:rgba(33,150,243,0.1);
+      border:1px dashed var(--gold-border); border-radius:12px; text-align:center;
+      color:#FFFFFF; font-size:0.85rem; word-break:break-word; overflow-wrap:anywhere;
+    }
+    .contact-note strong { display:inline; }
+
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
     footer a { color:var(--gold-bright); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.4rem; }
 
-    @media (max-width:600px){ .row2,.row3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} }
+    @media (max-width:600px){ .row2,.row3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .action-buttons{grid-template-columns:1fr;} }
     .btn-row-fixed {
   display:flex;
   gap:12px;
@@ -403,12 +419,23 @@
         <div class="result-item highlight"><div class="val" id="resGrandTotal">—</div><div class="lbl">Estimated Total Cost</div></div>
       </div>
       <div class="note">⚠️ Based on nominal dimensions. Actual weight may vary slightly. Always confirm with manufacturer data sheets.</div>
+
+      <!-- Result share/export section -->
+      <div class="report-label">💎 Take Your Panel Calculation</div>
+      <div class="action-buttons">
+        <button class="action-btn whatsapp-action" onclick="shareWhatsAppSummary()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="action-btn pdf-action" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+        <button class="action-btn download-jpg-action" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+        <button class="action-btn download-png-action" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+      </div>
+
+      <div class="contact-note">
+        ❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>
+        For queries: <strong>+92 333 3228470</strong><br>
+        <span style="word-break:break-all;">contact@coldmatrixtools.com</span>
+      </div>
     </div>
 
-    <div class="share-bar" id="shareBarWrap" style="display:none;">
-      <button class="share-btn share-whatsapp" onclick="shareWhatsAppSummary()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-      <button class="share-btn share-pdf" onclick="window.print()">📄 PDF</button>
-    </div>
   </div>
 
   <!-- SINGLE CLEAN EDUCATIONAL CONTENT SECTION -->
@@ -465,6 +492,17 @@
     A: Yes, especially in negative temperature rooms, with a finishing sheet on top.</p>
     <p><strong>Q: Does the calculator include doors and windows?</strong><br>
     A: Yes, you can subtract door and window areas from the wall area. Normal windows are rarely used in cold stores; fixed glass windows or doors with upper glass panels are common for visibility.</p>
+  </div>
+
+  <!-- Related tools -->
+  <div style="margin:20px 0 10px; padding:20px; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.2); border-radius:12px;">
+    <h3 style="color:#FFD700; font-size:1rem; margin-bottom:10px;">🔗 Related Tools You Might Need</h3>
+    <div style="display:flex; flex-wrap:wrap; gap:10px;">
+      <a href="cold-store-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">❄️ Cold Store Calculator</a>
+      <a href="cooling-requirement-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">🌡️ Cooling Requirement</a>
+      <a href="cft-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">📐 CFT Calculator</a>
+      <a href="steel-weight-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">🛠️ Steel Weight</a>
+    </div>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
@@ -591,10 +629,10 @@
       document.getElementById('resGrandTotal').textContent = sym + ' ' + Math.round(grandTotal).toLocaleString();
 
       document.getElementById('resultsContainer').style.display = 'block';
-      document.getElementById('shareBarWrap').style.display = 'flex';
       document.getElementById('resultsContainer').scrollIntoView({behavior:'smooth'});
     }
 
+    // Share summary via WhatsApp (existing)
     function shareWhatsAppSummary() {
       const area = document.getElementById('resTotalArea').textContent;
       const panels = document.getElementById('resPanelCount').textContent;
@@ -602,6 +640,42 @@
       const cost = document.getElementById('resGrandTotal').textContent;
       const msg = `🧱 *ColdMatrix Sandwich Panel Estimate*%0A%0A📐 Total Area: ${area}%0A📦 Panels: ${panels}%0A⚖️ Weight: ${weight}%0A💰 Cost: ${cost}%0A%0A🔗 coldmatrixtools.com`;
       window.open(`https://wa.me/?text=${msg}`, '_blank');
+    }
+
+    // New download functions
+    function captureResultsCanvas() {
+      return html2canvas(document.getElementById('resultsContainer'), { scale: 2, backgroundColor: '#0B0F14', logging: false });
+    }
+
+    function downloadResult(type) {
+      const resultCard = document.getElementById('resultsContainer');
+      html2canvas(resultCard, { scale: 2, backgroundColor: '#0B0F14', logging: false }).then(canvas => {
+        if (type === 'pdf') {
+          const imgData = canvas.toDataURL('image/jpeg', 0.92);
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const imgWidth = 210;
+          const pageHeight = 297;
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+          let heightLeft = imgHeight;
+          let position = 0;
+          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+          while (heightLeft > 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+          }
+          pdf.save('ColdMatrix_SandwichPanel_Report.pdf');
+        } else {
+          const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
+          const link = document.createElement('a');
+          link.download = 'ColdMatrix_SandwichPanel_Report.' + type;
+          link.href = canvas.toDataURL(mime, 0.92);
+          link.click();
+        }
+      }).catch(() => alert('Image generation failed.'));
     }
 
     let deferredPrompt;

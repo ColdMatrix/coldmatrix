@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>❄️ Cold Storage Calculator | ColdMatrix</title>
+  <title>Cold Storage Calculator – Cold Room Sizing, Panel Weight, Heat Load & Cost | ColdMatrix</title>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
-  <meta property="og:title" content="❄️ Cold Storage Calculator | ColdMatrix">
+  <meta property="og:title" content="Cold Storage Calculator – Cold Room Sizing, Panel Weight, Heat Load & Cost | ColdMatrix">
   <meta property="og:description" content="Professional cold room sizing, PUF/PIR sandwich panel weight, thermal heat load, and cost estimation tool for engineers and contractors worldwide.">
   <meta property="og:url" content="https://coldmatrixtools.com/cold-store-calculator.html">
   <meta property="og:image" content="https://coldmatrixtools.com/cold_room_calc.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="❄️ Cold Storage Calculator | ColdMatrix">
+  <meta name="twitter:title" content="Cold Storage Calculator – Cold Room Sizing, Panel Weight, Heat Load & Cost | ColdMatrix">
   <meta name="twitter:description" content="Professional cold room sizing, PUF/PIR sandwich panel weight, thermal heat load, and cost estimation tool for engineers and contractors worldwide.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/cold_room_calc.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "❄️ Cold Storage Calculator",
+    "name": "Cold Storage Calculator",
     "url": "https://coldmatrixtools.com/cold-store-calculator.html",
     "applicationCategory": "Utility",
     "description": "Professional cold room sizing, PUF/PIR sandwich panel weight, thermal heat load, and cost estimation tool for engineers and contractors worldwide.",
@@ -297,9 +297,11 @@
     .highlight-row .label { color: var(--gold-bright); font-weight: 800; font-size: 1rem; }
     .highlight-row .value { color: var(--gold-bright); font-size: 1.2rem; font-weight: 800; }
 
-    .action-buttons { margin-top: 25px; display: flex; gap: 12px; flex-wrap: wrap; }
+    /* 🔧 Action buttons: two per row */
+    .action-buttons { margin-top: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .action-btn {
-      padding: 13px 24px;
+      width: 100%;
+      padding: 10px 12px;
       border: none;
       border-radius: 10px;
       cursor: pointer;
@@ -307,6 +309,7 @@
       font-size: 0.88rem;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       text-transform: uppercase;
       font-family: 'Oswald', sans-serif;
@@ -321,17 +324,23 @@
     .whatsapp-action, .wa-btn { background: #25D366 !important; border: none !important; color: #fff !important; }
     .pdf-action { background: #0077B5 !important; border: none !important; color: #fff !important; }
     .download-jpg-action { background: #6C5CE7 !important; border: none !important; color: #fff !important; }
+    .download-png-action { background: #F59E0B !important; border: none !important; color: #fff !important; }
 
     .report-label { font-weight: 700; margin-top: 20px; color: #FFFFFF; font-size: 1rem; }
+    /* 🔧 Contact note email fix */
     .contact-note {
       margin-top: 24px;
-      padding: 18px;
+      padding: 14px 12px;
       background: rgba(33,150,243,0.1);
       border: 1px dashed var(--gold-border);
       border-radius: 12px;
       text-align: center;
       color: #FFFFFF;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      font-size: 0.85rem;
     }
+    .contact-note strong { display: inline; }
 
     .business-bridge {
       margin-top: 20px;
@@ -421,29 +430,48 @@
       .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 12px; }
       .card { padding: 18px; }
       .suggestion-box { flex-direction: column; align-items: flex-start; }
+      .action-buttons { grid-template-columns: 1fr; }
+    }
+    /* 🔧 Mobile fix for main buttons */
+    @media (max-width: 600px) {
+      .btn-primary, .btn-reset { font-size: 0.95rem; padding: 14px 12px; white-space: normal; line-height: 1.3; word-break: break-word; }
+      .btn-primary { flex: 1.5; }
+      .btn-reset { flex: 1; }
+    }
+    @media (max-width: 400px) {
+      .btn-primary, .btn-reset { font-size: 0.85rem; padding: 12px 8px; }
+      .btn-primary { width: 100%; }
     }
 
-    .share-tool-card{
+    /* 🔧 Compact share tool block */
+    .share-tool-card {
       background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
       border: 2px solid;
       border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
-      border-radius:12px;
-      padding:22px 20px;
-      margin-bottom:26px;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
       box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
     }
-    .share-tool-title{font-family:'Inter',sans-serif; font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
-    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-    .share-tool-btn{
-      display:flex; align-items:center; justify-content:center; gap:9px;
-      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
-      background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
-      transition:all 0.25s ease; font-family:'Inter',sans-serif;
+    .share-tool-title { font-family: 'Inter',sans-serif; font-weight: 800; font-size: 0.9rem; color: #E8B93A; text-align: center; letter-spacing: 0.6px; margin-bottom: 10px; text-transform: uppercase; }
+    .share-tool-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .share-tool-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px 12px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; cursor: pointer;
+      background: rgba(15,20,30,0.75); color: #EAEDF0; border: 1.5px solid rgba(200,168,78,0.45);
+      transition: all 0.25s ease; font-family: 'Inter', sans-serif;
     }
-    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
-    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
-    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-    .share-tool-btn i{font-size:1rem;}
+    .share-tool-btn:hover { border-color: #E8B93A; box-shadow: 0 0 20px rgba(200,168,78,0.35); transform: translateY(-2px); }
+    .share-tool-btn.wa { border-color: rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover { border-color: #25D366; box-shadow: 0 0 20px rgba(37,211,102,0.35); }
+    .share-tool-btn i { font-size: 1rem; }
+
+    .navbar{position:sticky;top:0;z-index:100;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.06)}
+    .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 0;flex-wrap:wrap;max-width:800px;margin:0 auto}
+    .logo{font-size:1.2rem;font-weight:700;color:#4FC3F7;text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:0.5px}
+    .nav-links{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
+    .nav-links a{color:#9AA0B0;text-decoration:none;font-weight:500;font-size:0.85rem;transition:color 0.2s}
+    .nav-links a:hover{color:#4FC3F7}
 
     html{scroll-behavior:smooth;}
     .quick-nav{position:sticky; top:0; z-index:50; display:flex; gap:8px; overflow-x:auto; padding:10px 4px; margin-bottom:18px; background:rgba(11,15,20,0.92); backdrop-filter:blur(10px); border-radius:10px; border:1px solid var(--line);}
@@ -456,13 +484,7 @@
     .exec-item .exec-label{font-size:0.72rem; color:#C7D6E0; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;}
     .exec-item .exec-value{font-size:1.05rem; font-weight:700; color:#FFFFFF;}
     .exec-note{margin-top:14px; font-size:0.82rem; color:#C7D6E0; line-height:1.6;}
-    .navbar{position:sticky;top:0;z-index:100;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.06)}
-    .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 0;flex-wrap:wrap;max-width:800px;margin:0 auto}
-    .logo{font-size:1.2rem;font-weight:700;color:#4FC3F7;text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:0.5px}
-    .nav-links{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
-    .nav-links a{color:#9AA0B0;text-decoration:none;font-weight:500;font-size:0.85rem;transition:color 0.2s}
-    .nav-links a:hover{color:#4FC3F7}
-    
+
     /* Visual room diagram */
     .room-visual {
       background: rgba(20,28,38,0.6);
@@ -945,11 +967,12 @@
 
       <div id="roofAdvisory" class="coldmatrix-note" style="display:none;"></div>
 
-      <div class="report-label">📋 Take your ColdMatrix cold store summary:</div>
+      <div class="report-label">💎 Take Your Cold Store Summary</div>
       <div class="action-buttons">
         <button class="action-btn whatsapp-action" onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
-        <button class="action-btn pdf-action" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> PDF Report</button>
+        <button class="action-btn pdf-action" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
         <button class="action-btn download-jpg-action" onclick="downloadJPG()"><i class="fas fa-camera"></i> JPG</button>
+        <button class="action-btn download-png-action" onclick="downloadPNG()"><i class="fa-solid fa-image"></i> PNG</button>
       </div>
 
       <!-- Business Bridge -->
@@ -964,7 +987,8 @@
 
       <div class="contact-note">
         ❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>
-        For queries: <strong>+92 333 3228470</strong> | <strong>contact@coldmatrixtools.com</strong>
+        For queries: <strong>+92 333 3228470</strong><br>
+        <span style="word-break:break-all;">contact@coldmatrixtools.com</span>
       </div>
     </div>
   </div>
@@ -1017,6 +1041,17 @@
     A: Yes, simply set the internal temperature to your desired freezer temperature and use appropriate insulation values.</p>
     <p><strong>Q: Is this calculator accurate enough for project execution?</strong><br>
     A: It gives a reliable estimate for planning and budgeting. For final equipment selection, always consult a licensed HVAC engineer.</p>
+  </div>
+
+  <!-- Related Tools cross-links for SEO -->
+  <div style="margin:20px 0 10px; padding:20px; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.2); border-radius:12px;">
+    <h3 style="color:#FFD700; font-size:1rem; margin-bottom:10px;">🔗 Related Tools You Might Need</h3>
+    <div style="display:flex; flex-wrap:wrap; gap:10px;">
+      <a href="cooling-requirement-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">🌡️ Cooling Requirement Calculator</a>
+      <a href="sandwich-panel-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">🧱 Sandwich Panel Calculator</a>
+      <a href="cft-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">📐 CFT Calculator</a>
+      <a href="steel-weight-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">🛠️ Steel Weight Calculator</a>
+    </div>
   </div>
 </div>
 
@@ -1075,6 +1110,7 @@
     window.shareWhatsApp=function(){let msg=`🧊 *ColdMatrix Cold Store Summary*%0A%0A📦 Product: ${document.getElementById('sProduct').textContent}%0A🌡️ Required Temp: ${document.getElementById('sReqTemp').textContent}%0A⚙️ Recommended Unit: ${document.getElementById('sUnit').textContent}%0A💰 Grand Total: ${document.getElementById('sGrandTotal').textContent}%0A%0A❄️ Thank you for using ColdMatrix – Your 24/7 Business Companion.%0A📞 +92 333 3228470 | ✉️ contact@coldmatrixtools.com%0A🔗 coldmatrixtools.com`;window.open(`https://wa.me/?text=${msg}`,'_blank');};
     window.downloadPDF=function(){const resultCard=document.getElementById('resultCard');html2canvas(resultCard,{scale:2,backgroundColor:'#0B0F14',logging:false}).then(canvas=>{const imgData=canvas.toDataURL('image/jpeg',0.92);const{jsPDF}=window.jspdf;const imgWidth=210;const pageHeight=297;const imgHeight=(canvas.height*imgWidth)/canvas.width;let heightLeft=imgHeight;const pdf=new jsPDF('p','mm','a4');let position=0;pdf.addImage(imgData,'JPEG',0,position,imgWidth,imgHeight);heightLeft-=pageHeight;while(heightLeft>0){position=heightLeft-imgHeight;pdf.addPage();pdf.addImage(imgData,'JPEG',0,position,imgWidth,imgHeight);heightLeft-=pageHeight;}pdf.save('ColdMatrix_ColdStore_Report.pdf');}).catch(()=>{alert('PDF generation failed. Please try JPG download instead.');});};
     window.downloadJPG=function(){html2canvas(document.getElementById('resultCard'),{scale:2,backgroundColor:'#0B0F14'}).then(canvas=>{let link=document.createElement('a');link.download='ColdMatrix_ColdStore_Report.jpg';link.href=canvas.toDataURL('image/jpeg',0.92);link.click();}).catch(()=>alert('Image generation failed.'));};
+    window.downloadPNG=function(){html2canvas(document.getElementById('resultCard'),{scale:2,backgroundColor:'#0B0F14'}).then(canvas=>{let link=document.createElement('a');link.download='ColdMatrix_ColdStore_Report.png';link.href=canvas.toDataURL('image/png');link.click();}).catch(()=>alert('Image generation failed.'));};
     updatePanelRateLabel();updateLiveStats();updateSuggestion();checkMinusAdvisories();updateInstallCostPreview();updateRefrigerantNote();document.getElementById('refrigerantType').addEventListener('change',updateRefrigerantNote);
     function updateRefrigerantNote(){let refrig=refrigerantData[document.getElementById('refrigerantType').value]||refrigerantData.R448A,noteEl=document.getElementById('refrigerantNote');noteEl.innerHTML='<strong>❄️ Note:</strong> '+refrig.note;noteEl.style.display='block';}
     document.getElementById('ambientTemp').addEventListener('input',function(){if(document.getElementById('climatePreset').value!=='custom')document.getElementById('climatePreset').value='custom';});
