@@ -5,42 +5,107 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Percentage Formulas Everyone Should Know (But Most People Forget) | ColdMatrix</title>
-  <meta name="description" content="The core percentage formulas for discounts, increases, and comparisons — explained with real examples you'll actually use.">
-  <meta name="theme-color" content="#0A0F14">
+  <meta name="description" content="The core percentage formulas for discounts, increases, decreases, and comparisons — explained with real examples you'll actually use.">
+  <meta name="theme-color" content="#1a202c">
   <link rel="manifest" href="manifest.json">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
   <style>
-    :root { --bg: #0A0F14; --surface: #12181F; --border: #2A3540; --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7; }
+    :root {
+      --bg: #1a202c;
+      --surface: #232b36;
+      --border: #3b4655;
+      --text: #f0f2f5;
+      --muted: #b0b8c4;
+      --accent: #4FC3F7;
+      --gold: #D4AF37;
+      --gold-light: #f0d88a;
+    }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { background: linear-gradient(135deg, rgba(11,15,20,0.9), rgba(11,15,20,0.95)), url('blog-bg.jpg') center/cover fixed no-repeat; color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.8; min-height: 100vh; }
+    body {
+      background: linear-gradient(180deg, #1a202c 0%, #202833 100%);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
     .container { max-width: 800px; margin:0 auto; padding:0 24px; }
-    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
-    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; }
+    .navbar {
+      position: sticky; top:0; z-index:100;
+      background: rgba(26,32,44,0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 2px solid var(--gold);
+    }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
     .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; }
-    .nav-links { display:flex; gap:20px; list-style:none; }
+    .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-size:0.9rem; }
-    .nav-links a:hover { color:var(--accent); }
+    .nav-links a:hover { color:var(--gold-light); }
+
     .article-header { padding:50px 0 30px; text-align:center; }
-    .article-header .category { font-size:0.8rem; color:var(--accent); font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
-    .article-header h1 { font-family:'Oswald',sans-serif; font-size:2rem; color:#fff; margin-bottom:10px; line-height:1.3; }
+    .article-header .category {
+      font-size:0.8rem; color:var(--gold-light); font-weight:700;
+      text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;
+    }
+    .article-header h1 {
+      font-family:'Oswald',sans-serif; font-size:2rem; color:#ffffff;
+      margin-bottom:10px; line-height:1.3;
+    }
     .article-header .meta { color:var(--muted); font-size:0.85rem; }
-    .article-content { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:30px; margin:20px 0; }
-    .article-content h2 { color:var(--accent); font-size:1.3rem; margin:25px 0 12px; }
-    .article-content p { margin-bottom:14px; color:#d0d6dc; }
-    .article-content ul { margin:14px 0; padding-left:22px; color:#d0d6dc; }
-    .article-content table { width:100%; border-collapse:collapse; margin:16px 0; }
-    .article-content th, .article-content td { border:1px solid var(--border); padding:10px 12px; text-align:left; font-size:0.92rem; color:#d0d6dc; }
-    .article-content th { color:#fff; background:rgba(79,195,247,0.08); }
+
+    .article-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 34px 30px;
+      margin: 20px 0;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    .article-content h2 {
+      color: var(--gold-light);
+      font-size: 1.3rem;
+      margin: 28px 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--gold);
+    }
+    .article-content p { margin-bottom: 14px; color: #e2e6ea; }
+    .article-content ul, .article-content ol { margin:14px 0; padding-left: 24px; color: #e2e6ea; }
+    .article-content li { margin-bottom: 6px; }
+    .article-content table { width:100%; border-collapse:collapse; margin:18px 0; }
+    .article-content th, .article-content td {
+      border: 1px solid var(--border); padding: 12px 14px;
+      text-align:left; font-size:0.92rem; color: #e2e6ea;
+    }
+    .article-content th { color:#fff; background: rgba(79,195,247,0.15); }
+
+    .related-tools {
+      margin: 24px 0;
+      padding: 20px;
+      background: rgba(212,175,55,0.08);
+      border: 1px solid var(--gold);
+      border-radius: 12px;
+    }
+    .related-tools h3 { color: var(--gold-light); font-size:1rem; margin-bottom:12px; }
+    .related-tools a {
+      display:inline-block; color: var(--accent); text-decoration:none;
+      margin: 5px 8px 5px 0; padding: 8px 16px;
+      background: rgba(79,195,247,0.1); border: 1px solid var(--accent);
+      border-radius: 20px; font-size:0.85rem; font-weight:600;
+    }
+    .related-tools a:hover { background: rgba(79,195,247,0.2); }
+
     .back-link { display:inline-block; margin:20px 0; color:var(--accent); text-decoration:none; font-weight:600; }
-    footer { text-align:center; color:var(--muted); font-size:0.85rem; padding:30px 0; border-top:1px solid var(--border); margin-top:40px; }
-    footer a { color:var(--accent); text-decoration:none; }
+    footer {
+      text-align:center; color:var(--muted); font-size:0.85rem;
+      padding:30px 0; border-top: 2px solid var(--gold); margin-top:40px;
+    }
+    footer a { color: var(--gold-light); text-decoration:none; }
   </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "Percentage Formulas Everyone Should Know (But Most People Forget)",
-    "description": "The core percentage formulas for discounts, increases, and comparisons — explained with real examples you'll actually use.",
+    "description": "The core percentage formulas for discounts, increases, decreases, and comparisons — explained with real examples you'll actually use.",
     "image": "https://coldmatrixtools.com/blog-bg.jpg",
     "author": {"@type": "Organization", "name": "ColdMatrix"},
     "publisher": {"@type": "Organization", "name": "ColdMatrix", "logo": {"@type": "ImageObject", "url": "https://coldmatrixtools.com/hero-bg.jpg"}},
@@ -54,21 +119,37 @@
 <li><a href="blog.html">Blog</a></li><li><a href="gallery.html">Gallery</a></li></ul></div></nav>
   <div class="container">
     <a href="blog.html" class="back-link">← Back to Knowledge Hub</a>
-    <div class="article-header"><div class="category">🔢 Everyday Math</div><h1>Percentage Formulas Everyone Should Know (But Most People Forget)</h1><div class="meta">Published by ColdMatrix • 5 min read</div></div>
+    <div class="article-header"><div class="category">🔢 Everyday Math</div><h1>Percentage Formulas Everyone Should Know (But Most People Forget)</h1><div class="meta">Published by ColdMatrix • 8 min read</div></div>
     <div class="article-content">
-<p>Percentages show up everywhere — discounts, salary raises, exam scores, tax — yet most people default to guessing instead of calculating. Here are the formulas that cover almost every real situation.</p>
+
+      <p>Percentages show up everywhere — discounts, salary raises, exam scores, taxes, profit margins — yet most people default to guessing instead of calculating. Understanding a few core formulas can save you money and help you make better decisions in daily life.</p>
 
       <h2>Finding a Percentage of a Number</h2>
-      <p>Formula: (Percentage ÷ 100) × Number. Example: 15% of 2,400 = 0.15 × 2,400 = 360.</p>
+      <p>This is the most common calculation. You need to know how much a certain percentage of a given value is.</p>
+      <p><strong>Formula:</strong> (Percentage ÷ 100) × Number</p>
+      <p><strong>Example:</strong> 15% of 2,400 = 0.15 × 2,400 = <strong>360</strong></p>
+      <p>This is useful for calculating discounts, tips, and VAT amounts.</p>
 
-      <h2>Percentage Increase or Decrease</h2>
-      <p>Formula: [(New Value − Original Value) ÷ Original Value] × 100. If your rent went from Rs. 20,000 to Rs. 23,000, the increase is [(23,000−20,000)÷20,000]×100 = 15%.</p>
+      <h2>Percentage Increase</h2>
+      <p>Used to compare growth — salary hike, price increase, population growth, etc.</p>
+      <p><strong>Formula:</strong> [(New Value − Original Value) ÷ Original Value] × 100</p>
+      <p><strong>Example:</strong> If your rent went from Rs. 20,000 to Rs. 23,000, the increase is:<br>
+      [(23,000 − 20,000) ÷ 20,000] × 100 = <strong>15%</strong></p>
+
+      <h2>Percentage Decrease</h2>
+      <p>Used when prices drop, discounts are applied, or usage decreases.</p>
+      <p><strong>Formula:</strong> [(Original Value − New Value) ÷ Original Value] × 100</p>
+      <p><strong>Example:</strong> A product price falls from Rs. 800 to Rs. 600. The decrease is:<br>
+      [(800 − 600) ÷ 800] × 100 = <strong>25%</strong></p>
 
       <h2>Reverse Percentage (Finding the Original Value)</h2>
-      <p>If a discounted price is given and you need the original: Original = Discounted Price ÷ (1 − Discount%/100). A Rs. 850 item after a 15% discount had an original price of 850 ÷ 0.85 = Rs. 1,000.</p>
+      <p>If a discounted price is given and you need the original price, use this:</p>
+      <p><strong>Formula:</strong> Original = Discounted Price ÷ (1 − Discount%/100)</p>
+      <p><strong>Example:</strong> A Rs. 850 item after a 15% discount had an original price of:<br>
+      850 ÷ 0.85 = <strong>Rs. 1,000</strong></p>
 
       <h2>Percentage Points vs Percentage</h2>
-      <p>This trips up even experienced people. If interest rates go from 5% to 7%, that's a 2 percentage point increase, but a 40% relative increase [(7−5)/5×100]. Financial news often blurs this distinction, so always check which one is being reported.</p>
+      <p>This trips up even experienced professionals. If interest rates go from 5% to 7%, that's a <strong>2 percentage point</strong> increase, but a <strong>40% relative increase</strong> [(7−5)/5×100]. Financial news often blurs this distinction, so always check which one is being reported.</p>
 
       <h2>Common Real-World Uses</h2>
       <ul>
@@ -76,12 +157,40 @@
         <li>Working out a tip amount at a restaurant</li>
         <li>Comparing exam or test scores across different total marks</li>
         <li>Understanding salary increment percentages</li>
+        <li>Calculating profit margin and markup for business</li>
+        <li>Finding discount amount during sales or promotions</li>
       </ul>
 
+      <h2>Quick Formula Summary Table</h2>
+      <table>
+        <tr><th>Calculation</th><th>Formula</th></tr>
+        <tr><td>Find % of a number</td><td>(Percentage ÷ 100) × Number</td></tr>
+        <tr><td>% Increase</td><td>[(New − Original) ÷ Original] × 100</td></tr>
+        <tr><td>% Decrease</td><td>[(Original − New) ÷ Original] × 100</td></tr>
+        <tr><td>Reverse %</td><td>Discounted Price ÷ (1 − Discount%/100)</td></tr>
+      </table>
+
       <h2>Skip the Manual Calculation</h2>
-      <p>Our <a href="percentage-calculator.html" style="color:var(--accent);">Percentage Calculator</a> handles all of these instantly — just enter your numbers and get the answer without doing the math by hand.</p>
+      <p>Our <a href="percentage-calculator.html" style="color:var(--accent); font-weight:600;">Percentage Calculator</a> handles all of these instantly — just enter your numbers and get the answer without doing the math by hand.</p>
+      <p>You can also use our <a href="profit-margin-calculator.html" style="color:var(--accent);">Profit Margin Calculator</a> or <a href="business-calculator-suite.html" style="color:var(--accent);">Business Calculator Suite</a> for more advanced business percentage calculations.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <p><strong>Q: How do I calculate a discount price quickly?</strong><br>
+      A: Multiply the original price by (1 − Discount%/100). For example, 20% off Rs. 5,000 = 5,000 × 0.80 = Rs. 4,000.</p>
+      <p><strong>Q: What is the difference between percentage and percentage points?</strong><br>
+      A: Percentage is a relative measure. Percentage points are the simple arithmetic difference between two percentages.</p>
+      <p><strong>Q: Can percentage be more than 100?</strong><br>
+      A: Yes. If a value more than doubles, the percentage increase will be above 100%.</p>
+
+      <div class="related-tools">
+        <h3>🔗 Related Tools You Might Need</h3>
+        <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+        <a href="profit-margin-calculator.html">🧮 Profit Margin Calculator</a>
+        <a href="business-calculator-suite.html">🧮 Business Calculator Suite</a>
+        <a href="loan-emi-calculator.html">💰 Loan & EMI Calculator</a>
+      </div>
     </div>
   </div>
-  <footer>Powered by <a href="index.html">ColdMatrix</a> — Professional Engineering Solutions.</footer>
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Professional Engineering & Financial Tools.</footer>
 </body>
 </html>
