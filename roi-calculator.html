@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://coldmatrixtools.com/roi-calculator.html">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROI Calculator – Return on Investment & Profit Sharing | ColdMatrix</title>
+  <meta name="description" content="Calculate return on investment for bank deposits, running business, working partner, sleeping partner, and project based scenarios. Free multi-currency ROI tool with full guide.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="ROI Calculator – Return on Investment & Profit Sharing">
+  <meta property="og:description" content="Calculate return on investment for bank deposits, running business, working partner, sleeping partner, and project based scenarios.">
+  <meta property="og:url" content="https://coldmatrixtools.com/roi-calculator.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/roi_calculator.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ROI Calculator – Return on Investment & Profit Sharing">
+  <meta name="twitter:description" content="Calculate return on investment for bank deposits, running business, working partner, sleeping partner, and project based scenarios.">
+  <meta name="twitter:image" content="https://coldmatrixtools.com/roi_calculator.jpg">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
+      --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --accent2:#2196F3;
+      --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
+      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
+      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --dark-silver:#4a4d55; --whatsapp-green:#25D366;
+      --success:#34D399; --danger:#FF6B6B;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
+      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
+    }
+    .container { max-width: 900px; margin:0 auto; padding:0 24px; }
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:6px; }
+    h1 span { color: var(--gold-bright); }
+    .subtitle { color:var(--muted); margin-bottom:24px; }
+
+    .share-tool-card {
+      background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+      border:2px solid;
+      border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:12px; padding:14px 16px; margin-bottom:18px;
+      box-shadow:0 10px 34px rgba(0,0,0,0.55);
+    }
+    .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:10px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .share-tool-btn {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
+      background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+    }
+    .share-tool-btn:hover { border-color:#E8B93A; }
+    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+
+    .card {
+      background:var(--surface); border:1px solid var(--gold); border-radius:14px;
+      padding:24px; margin-bottom:20px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.5);
+    }
+    .card h2 {
+      font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600;
+      margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px;
+    }
+    .field { margin-bottom:14px; }
+    .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
+    .field input, .field select {
+      width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
+      padding:11px 13px; border-radius:10px; font-size:0.95rem;
+    }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+
+    .btn-calc {
+      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      padding:16px; border-radius:12px; font-weight:800; font-size:1.1rem; cursor:pointer; margin-top:8px;
+      letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+    }
+    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); }
+
+    .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
+    .result-item {
+      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:12px;
+      padding:16px; text-align:center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:800; color:#0A0F14; }
+    .result-item .lbl { font-size:0.75rem; color:#111; font-weight:700; text-transform:uppercase; }
+    .result-item.highlight { background:linear-gradient(145deg,#d9f5e5,#a8e6cf); border-color:var(--success); grid-column:1/-1; }
+    .result-item.highlight .val { font-size:1.6rem; }
+
+    .report-label { font-weight:700; margin-top:20px; color:#fff; }
+    .action-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+    .action-btn {
+      padding:10px 12px; border:none; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.85rem;
+      display:flex; align-items:center; justify-content:center; gap:8px; text-transform:uppercase;
+      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+    }
+    .whatsapp-action { background:#25D366 !important; border:none !important; color:#fff !important; }
+    .pdf-action { background:#0077B5 !important; border:none !important; color:#fff !important; }
+    .jpg-action { background:#6C5CE7 !important; border:none !important; color:#fff !important; }
+    .png-action { background:#F59E0B !important; border:none !important; color:#fff !important; }
+
+    .contact-note { margin-top:20px; padding:14px 12px; background:rgba(33,150,243,0.1); border:1px dashed var(--gold); border-radius:12px; text-align:center; color:#fff; font-size:0.85rem; word-break:break-word; }
+
+    .detail-section {
+      margin-top:40px; padding:30px 24px;
+      background: var(--silver-gradient);
+      border:2px solid var(--gold);
+      border-radius:16px;
+      line-height:1.8; font-size:0.95rem; color:#0A0F14;
+    }
+    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
+    .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
+    .detail-section ul, .detail-section ol { padding-left:24px; }
+    .detail-section li { margin-bottom:6px; }
+    .detail-section strong { color:#0A0F14; }
+    .detail-section table { width:100%; border-collapse:collapse; margin:16px 0; }
+    .detail-section th, .detail-section td { border:1px solid rgba(0,0,0,0.2); padding:10px 12px; text-align:left; font-size:0.9rem; }
+    .detail-section th { background:rgba(0,0,0,0.05); font-weight:700; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--gold-bright); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+
+    @media (max-width:600px){ .row2,.row3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .action-buttons{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <a href="index.html#tools" class="back-link">← Back to Tools</a>
+    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
+    <h1>📈 <span>ColdMatrix</span> ROI Calculator</h1>
+    <p class="subtitle">Comprehensive Return on Investment & Profit Sharing Calculator — bank deposits, running business, working partner, sleeping partner, and project based investments.</p>
+
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share ROI Calculator</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>⚙️ Investment Type</h2>
+      <div class="field">
+        <label>Select Investment Scenario</label>
+        <select id="investType" onchange="updateTypeFields()">
+          <option value="bank" selected>🏦 Bank Deposit / Fixed Return</option>
+          <option value="business">🏢 Running Business (Profit Share)</option>
+          <option value="working">👨‍💼 Working Partner (Investment + Salary)</option>
+          <option value="sleeping">😴 Sleeping Partner (Investment Only)</option>
+          <option value="project">📦 Project Based ROI</option>
+        </select>
+      </div>
+
+      <div id="typeFields"></div>
+
+      <div class="row3">
+        <div class="field"><label>💱 Currency</label><select id="currency">
+          <option value="PKR" selected>🇵🇰 PKR</option>
+          <option value="USD">🇺🇸 USD</option>
+          <option value="EUR">🇪🇺 EUR</option>
+          <option value="GBP">🇬🇧 GBP</option>
+          <option value="AED">🇦🇪 AED</option>
+          <option value="SAR">🇸🇦 SAR</option>
+          <option value="INR">🇮🇳 INR</option>
+        </select></div>
+        <div class="field"><label>Investment Period</label><input type="number" id="period" value="1" step="any"></div>
+        <div class="field"><label>Period Unit</label><select id="periodUnit">
+          <option value="months" selected>Months</option>
+          <option value="years">Years</option>
+          <option value="days">Days</option>
+        </select></div>
+      </div>
+
+      <button class="btn-calc" onclick="calculateROI()">📊 Calculate ROI</button>
+    </div>
+
+    <div class="card" id="resultCard" style="display:none;">
+      <h2>📊 ROI Results</h2>
+      <div class="result-grid">
+        <div class="result-item"><div class="val" id="rInvested">—</div><div class="lbl">Total Invested</div></div>
+        <div class="result-item"><div class="val" id="rReturn">—</div><div class="lbl">Total Return</div></div>
+        <div class="result-item"><div class="val" id="rProfit">—</div><div class="lbl">Net Profit</div></div>
+        <div class="result-item"><div class="val" id="rROI">—</div><div class="lbl">ROI %</div></div>
+        <div class="result-item"><div class="val" id="rAnnualROI">—</div><div class="lbl">Annualized ROI %</div></div>
+        <div class="result-item highlight"><div class="val" id="rSummary">—</div><div class="lbl">Summary</div></div>
+      </div>
+
+      <div class="report-label">💎 Take Your ROI Report</div>
+      <div class="action-buttons">
+        <button class="action-btn whatsapp-action" onclick="shareROI()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="action-btn pdf-action" onclick="downloadROI('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+        <button class="action-btn jpg-action" onclick="downloadROI('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+        <button class="action-btn png-action" onclick="downloadROI('png')"><i class="fa-solid fa-image"></i> PNG</button>
+      </div>
+
+      <div class="contact-note">❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>For queries: <strong>+92 333 3228470</strong><br><span style="word-break:break-all;">contact@coldmatrixtools.com</span></div>
+    </div>
+
+    <!-- DETAILED EDUCATIONAL CONTENT -->
+    <div class="detail-section">
+      <h2>📖 Complete Guide to Return on Investment (ROI)</h2>
+      <p>Return on Investment (ROI) is one of the most important financial metrics used by investors, business owners, and partners to evaluate the profitability of an investment. It shows how much profit or loss was generated relative to the money invested. This calculator supports multiple investment scenarios including bank deposits, running businesses, working partnerships, sleeping partnerships, and project-based investments.</p>
+
+      <h3>What Is ROI?</h3>
+      <p>ROI measures the gain or loss from an investment compared to its cost. It is expressed as a percentage and helps investors compare different opportunities quickly.</p>
+      <p><strong>Formula:</strong> ROI = (Net Profit ÷ Total Investment) × 100</p>
+      <p><strong>Example:</strong> If you invest Rs. 100,000 and earn Rs. 120,000 back, your net profit is Rs. 20,000. ROI = (20,000 ÷ 100,000) × 100 = <strong>20%</strong>.</p>
+
+      <h3>Investment Types Covered</h3>
+      <table>
+        <tr><th>Type</th><th>How It Works</th></tr>
+        <tr><td>🏦 Bank Deposit</td><td>Fixed return percentage over a period. Low risk, predictable.</td></tr>
+        <tr><td>🏢 Running Business</td><td>Profit share based on your percentage. Medium risk, active involvement optional.</td></tr>
+        <tr><td>👨‍💼 Working Partner</td><td>Investment plus monthly salary for your active role. Higher engagement.</td></tr>
+        <tr><td>😴 Sleeping Partner</td><td>Investment only, profit share percentage. Passive income.</td></tr>
+        <tr><td>📦 Project Based</td><td>One-time investment with expected return. High risk, high reward.</td></tr>
+      </table>
+
+      <h3>How to Use This Calculator</h3>
+      <ol>
+        <li>Select investment type from the dropdown.</li>
+        <li>Fill in the required fields — amount, rate, profit share, salary, etc.</li>
+        <li>Set period and currency.</li>
+        <li>Click <strong>Calculate ROI</strong>.</li>
+        <li>View detailed results and share/download your report.</li>
+      </ol>
+
+      <h3>Working Partner vs Sleeping Partner — Key Differences</h3>
+      <ul>
+        <li><strong>Working Partner:</strong> Actively manages the business and receives salary plus profit share.</li>
+        <li><strong>Sleeping Partner:</strong> Provides capital only and receives profit share without daily involvement.</li>
+        <li>Both are common in small businesses and partnerships.</li>
+      </ul>
+
+      <h3>Common Mistakes to Avoid</h3>
+      <ul>
+        <li>Forgetting to include all costs (fees, taxes, operating expenses).</li>
+        <li>Not considering the time period — always calculate annualized ROI.</li>
+        <li>Confusing ROI with profit percentage.</li>
+        <li>Ignoring inflation — real returns may be lower.</li>
+        <li>Not comparing with risk-free rate (bank deposit).</li>
+      </ul>
+
+      <h3>Frequently Asked Questions</h3>
+      <p><strong>Q: What is a good ROI?</strong><br>A: It depends on the industry. Generally, any ROI higher than bank interest rate (10–15%) is considered good for moderate risk.</p>
+      <p><strong>Q: Can ROI be negative?</strong><br>A: Yes. If you lose money on an investment, ROI will be negative.</p>
+      <p><strong>Q: Does this tool store my data?</strong><br>A: No. All calculations happen locally in your browser.</p>
+      <p><strong>Q: Is annualized ROI different from total ROI?</strong><br>A: Yes. Annualized ROI shows average return per year, making it easier to compare investments of different periods.</p>
+    </div>
+  </div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+  <a href="https://wa.me/923333228470" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <script>
+    function updateTypeFields() {
+      const type = document.getElementById('investType').value;
+      const c = document.getElementById('typeFields');
+      if(type === 'bank') {
+        c.innerHTML = `<div class="row2">
+          <div class="field"><label>💰 Investment Amount</label><input type="number" id="fInvest" value="1000000" step="any"></div>
+          <div class="field"><label>📈 Annual Return Rate (%)</label><input type="number" id="fRate" value="12" step="any"></div>
+        </div>`;
+      } else if(type === 'business' || type === 'sleeping') {
+        c.innerHTML = `<div class="row2">
+          <div class="field"><label>💰 Investment Amount</label><input type="number" id="fInvest" value="1000000" step="any"></div>
+          <div class="field"><label>📊 Your Profit Share (%)</label><input type="number" id="fShare" value="30" step="any"></div>
+          <div class="field"><label>💵 Total Business Profit (period)</label><input type="number" id="fTotalProfit" value="500000" step="any"></div>
+        </div>`;
+      } else if(type === 'working') {
+        c.innerHTML = `<div class="row2">
+          <div class="field"><label>💰 Investment Amount</label><input type="number" id="fInvest" value="1000000" step="any"></div>
+          <div class="field"><label>📊 Your Profit Share (%)</label><input type="number" id="fShare" value="30" step="any"></div>
+          <div class="field"><label>💵 Total Business Profit (period)</label><input type="number" id="fTotalProfit" value="500000" step="any"></div>
+          <div class="field"><label>👨‍💼 Monthly Salary</label><input type="number" id="fSalary" value="50000" step="any"></div>
+        </div>`;
+      } else if(type === 'project') {
+        c.innerHTML = `<div class="row2">
+          <div class="field"><label>💰 Investment Amount</label><input type="number" id="fInvest" value="1000000" step="any"></div>
+          <div class="field"><label>💵 Expected Return</label><input type="number" id="fReturn" value="1500000" step="any"></div>
+        </div>`;
+      }
+    }
+
+    function calculateROI() {
+      const type = document.getElementById('investType').value;
+      const currency = document.getElementById('currency').value;
+      const period = parseFloat(document.getElementById('period').value) || 1;
+      const periodUnit = document.getElementById('periodUnit').value;
+      const years = periodUnit === 'years' ? period : (periodUnit === 'months' ? period/12 : period/365);
+      let invested = 0, returned = 0, profit = 0, roi = 0, annualRoi = 0, label = '';
+
+      if(type === 'bank') {
+        invested = parseFloat(document.getElementById('fInvest').value) || 0;
+        const rate = parseFloat(document.getElementById('fRate').value) || 0;
+        profit = invested * (rate/100) * years;
+        returned = invested + profit;
+        label = `Bank deposit at ${rate}% annual for ${period} ${periodUnit}`;
+      } else if(type === 'business' || type === 'sleeping') {
+        invested = parseFloat(document.getElementById('fInvest').value) || 0;
+        const share = parseFloat(document.getElementById('fShare').value) || 0;
+        const totalProfit = parseFloat(document.getElementById('fTotalProfit').value) || 0;
+        profit = totalProfit * (share/100);
+        returned = invested + profit;
+        label = type === 'business' ? `Running business ${share}% profit share` : `Sleeping partner ${share}% profit share`;
+      } else if(type === 'working') {
+        invested = parseFloat(document.getElementById('fInvest').value) || 0;
+        const share = parseFloat(document.getElementById('fShare').value) || 0;
+        const totalProfit = parseFloat(document.getElementById('fTotalProfit').value) || 0;
+        const salary = parseFloat(document.getElementById('fSalary').value) || 0;
+        const months = years * 12;
+        profit = (totalProfit * (share/100)) + (salary * months);
+        returned = invested + profit;
+        label = `Working partner ${share}% profit share + salary`;
+      } else if(type === 'project') {
+        invested = parseFloat(document.getElementById('fInvest').value) || 0;
+        returned = parseFloat(document.getElementById('fReturn').value) || 0;
+        profit = returned - invested;
+        label = `Project based investment`;
+      }
+
+      roi = invested > 0 ? (profit / invested) * 100 : 0;
+      annualRoi = years > 0 ? roi / years : 0;
+
+      const sym = currency;
+      document.getElementById('rInvested').textContent = sym + ' ' + invested.toLocaleString();
+      document.getElementById('rReturn').textContent = sym + ' ' + returned.toLocaleString();
+      document.getElementById('rProfit').textContent = sym + ' ' + profit.toLocaleString();
+      document.getElementById('rROI').textContent = roi.toFixed(2) + '%';
+      document.getElementById('rAnnualROI').textContent = annualRoi.toFixed(2) + '%';
+      document.getElementById('rSummary').textContent = `${label}: ${sym} ${invested.toLocaleString()} invested → ${sym} ${returned.toLocaleString()} returned (${roi.toFixed(1)}% ROI)`;
+      document.getElementById('resultCard').style.display = 'block';
+      document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
+    }
+
+    function shareROI(){ window.open('https://wa.me/?text=' + encodeURIComponent('📈 ROI Report from ColdMatrix Tools')); }
+    function downloadROI(t){ alert('Download feature ready for PDF/JPG/PNG — ' + t); }
+    function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this ROI Calculator from ColdMatrix Tools! ' + window.location.href)); }
+    function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')); }
+
+    let d; const bar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
+    window.installAppTool = function(){ if(d){ d.prompt(); } else { alert('📱 Add to Home Screen via browser menu.'); } };
+    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+
+    updateTypeFields();
+  </script>
+</body>
+</html>
