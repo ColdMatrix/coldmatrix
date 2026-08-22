@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://coldmatrixtools.com/startup-cost-calculator.html">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Startup Cost & Working Capital Calculator | ColdMatrix</title>
+  <meta name="description" content="Calculate startup investment, monthly operating expenses, working capital, and total funding required for your new business. Free multi-currency tool.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="Startup Cost & Working Capital Calculator">
+  <meta property="og:description" content="Calculate startup investment, monthly operating expenses, working capital, and total funding required for your new business.">
+  <meta property="og:url" content="https://coldmatrixtools.com/startup-cost-calculator.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/startup_calculator.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Startup Cost & Working Capital Calculator">
+  <meta name="twitter:description" content="Calculate startup investment, monthly operating expenses, working capital, and total funding required.">
+  <meta name="twitter:image" content="https://coldmatrixtools.com/startup_calculator.jpg">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
+      --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --accent2:#2196F3;
+      --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
+      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
+      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --dark-silver:#4a4d55; --whatsapp-green:#25D366;
+      --success:#34D399; --danger:#FF6B6B;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
+      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
+    }
+    .container { max-width: 1000px; margin:0 auto; padding:0 24px; }
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:6px; }
+    h1 span { color: var(--gold-bright); }
+    .subtitle { color:var(--muted); margin-bottom:24px; }
+
+    .share-tool-card {
+      background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+      border:2px solid;
+      border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:12px; padding:14px 16px; margin-bottom:18px;
+      box-shadow:0 10px 34px rgba(0,0,0,0.55);
+    }
+    .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:10px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .share-tool-btn {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
+      background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+    }
+    .share-tool-btn:hover { border-color:#E8B93A; }
+    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+
+    .card {
+      background:var(--surface); border:1px solid var(--gold); border-radius:14px;
+      padding:24px; margin-bottom:20px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.5);
+    }
+    .card h2 {
+      font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600;
+      margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px;
+    }
+    .field { margin-bottom:14px; }
+    .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
+    .field input, .field select {
+      width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
+      padding:11px 13px; border-radius:10px; font-size:0.95rem;
+    }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+
+    .btn-calc {
+      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      padding:16px; border-radius:12px; font-weight:800; font-size:1.1rem; cursor:pointer; margin-top:8px;
+      letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+    }
+    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); }
+    .btn-reset {
+      background:transparent; color:var(--muted); border:2px solid rgba(255,255,255,0.2);
+      padding:14px 18px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer; white-space:nowrap;
+    }
+    .btn-reset:hover { border-color:var(--accent); color:var(--accent); }
+
+    .result-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:12px; margin-top:16px; }
+    .result-item {
+      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:12px;
+      padding:16px; text-align:center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:800; color:#0A0F14; }
+    .result-item .lbl { font-size:0.75rem; color:#111; font-weight:700; text-transform:uppercase; }
+    .result-item.highlight { background:linear-gradient(145deg,#d9f5e5,#a8e6cf); border-color:var(--success); }
+    .result-item.highlight .val { font-size:1.5rem; }
+    .result-item.danger { background:linear-gradient(145deg,#ffe0e0,#ffc0c0); border-color:var(--danger); }
+
+    .chart-wrap { max-width:500px; margin:20px auto; background:var(--surface); padding:20px; border-radius:14px; border:1px solid var(--gold); }
+
+    .report-label { font-weight:700; margin-top:20px; color:#fff; }
+    .action-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+    .action-btn {
+      padding:10px 12px; border:none; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.85rem;
+      display:flex; align-items:center; justify-content:center; gap:8px; text-transform:uppercase;
+      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+    }
+    .whatsapp-action { background:#25D366 !important; border:none !important; color:#fff !important; }
+    .pdf-action { background:#0077B5 !important; border:none !important; color:#fff !important; }
+    .jpg-action { background:#6C5CE7 !important; border:none !important; color:#fff !important; }
+    .png-action { background:#F59E0B !important; border:none !important; color:#fff !important; }
+
+    .contact-note { margin-top:20px; padding:14px 12px; background:rgba(33,150,243,0.1); border:1px dashed var(--gold); border-radius:12px; text-align:center; color:#fff; font-size:0.85rem; word-break:break-word; }
+
+    .detail-section {
+      margin-top:40px; padding:30px 24px;
+      background: var(--silver-gradient);
+      border:2px solid var(--gold);
+      border-radius:16px;
+      line-height:1.8; font-size:0.95rem; color:#0A0F14;
+    }
+    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
+    .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
+    .detail-section ul, .detail-section ol { padding-left:24px; }
+    .detail-section li { margin-bottom:6px; }
+    .detail-section strong { color:#0A0F14; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--gold-bright); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+
+    @media (max-width:600px){ .row2,.row3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .action-buttons{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <a href="index.html#tools" class="back-link">← Back to Tools</a>
+    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
+    <h1>🚀 <span>ColdMatrix</span> Startup Cost & Working Capital Calculator</h1>
+    <p class="subtitle">Complete startup investment planning — setup costs, monthly expenses, working capital, and funding gap analysis.</p>
+
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share Startup Calculator</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
+
+    <!-- SECTION 1: BUSINESS PROFILE -->
+    <div class="card">
+      <h2>1. 🏢 Business Profile</h2>
+      <div class="row2">
+        <div class="field"><label>Business Name (optional)</label><input type="text" id="bizName" placeholder="Your business name"></div>
+        <div class="field"><label>Business Type</label><select id="bizType">
+          <option value="retail">Retail</option>
+          <option value="wholesale">Wholesale</option>
+          <option value="manufacturing">Manufacturing</option>
+          <option value="services">Services</option>
+          <option value="ecommerce">E-commerce</option>
+          <option value="other">Other</option>
+        </select></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Country</label><input type="text" id="country" placeholder="e.g. Pakistan, India, USA"></div>
+        <div class="field"><label>💱 Currency</label><select id="currency">
+          <option value="PKR">🇵🇰 PKR</option>
+          <option value="INR">🇮🇳 INR</option>
+          <option value="AED">🇦🇪 AED</option>
+          <option value="SAR">🇸🇦 SAR</option>
+          <option value="CNY">🇨🇳 CNY</option>
+          <option value="USD" selected>🇺🇸 USD</option>
+          <option value="EUR">🇪🇺 EUR</option>
+          <option value="GBP">🇬🇧 GBP</option>
+          <option value="CAD">🇨🇦 CAD</option>
+          <option value="AUD">🇦🇺 AUD</option>
+        </select></div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: AVAILABLE CAPITAL -->
+    <div class="card">
+      <h2>2. 💰 Available Capital</h2>
+      <div class="row2">
+        <div class="field"><label>Personal Capital</label><input type="number" id="capPersonal" value="0"></div>
+        <div class="field"><label>Partner Investment</label><input type="number" id="capPartner" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Investor Funding</label><input type="number" id="capInvestor" value="0"></div>
+        <div class="field"><label>Bank / Loan Funding</label><input type="number" id="capBank" value="0"></div>
+      </div>
+      <div class="field"><label>Other Funding</label><input type="number" id="capOther" value="0"></div>
+    </div>
+
+    <!-- SECTION 3: LOCATION & SETUP -->
+    <div class="card">
+      <h2>3. 🏠 Location & Setup</h2>
+      <div class="row2">
+        <div class="field"><label>Property Purchase</label><input type="number" id="setupPurchase" value="0"></div>
+        <div class="field"><label>Security Deposit</label><input type="number" id="setupDeposit" value="0"></div>
+      </div>
+      <div class="field"><label>Monthly Rent</label><input type="number" id="setupRent" value="0"></div>
+      <div class="row2">
+        <div class="field"><label>Office Setup</label><input type="number" id="setupOffice" value="0"></div>
+        <div class="field"><label>Factory / Workshop Setup</label><input type="number" id="setupFactory" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Renovation / Interior</label><input type="number" id="setupRenovation" value="0"></div>
+        <div class="field"><label>Furniture</label><input type="number" id="setupFurniture" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Electrical Installation</label><input type="number" id="setupElectrical" value="0"></div>
+        <div class="field"><label>Internet / Communication</label><input type="number" id="setupInternet" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Signage / Branding</label><input type="number" id="setupSignage" value="0"></div>
+        <div class="field"><label>Licenses / Registration</label><input type="number" id="setupLicense" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Legal / Professional Fees</label><input type="number" id="setupLegal" value="0"></div>
+        <div class="field"><label>Other Setup Costs</label><input type="number" id="setupOther" value="0"></div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: MACHINERY & EQUIPMENT -->
+    <div class="card">
+      <h2>4. ⚙️ Machinery & Equipment</h2>
+      <div id="equipmentRows"></div>
+      <button class="btn-reset" onclick="addEquipment()">+ Add Equipment</button>
+    </div>
+
+    <!-- SECTION 5: INITIAL INVENTORY -->
+    <div class="card">
+      <h2>5. 📦 Initial Inventory / Stock</h2>
+      <div id="inventoryRows"></div>
+      <button class="btn-reset" onclick="addInventory()">+ Add Inventory</button>
+    </div>
+
+    <!-- SECTION 6: PRE-LAUNCH EXPENSES -->
+    <div class="card">
+      <h2>6. 📣 Pre-Launch Expenses</h2>
+      <div class="row2">
+        <div class="field"><label>Marketing</label><input type="number" id="preMarketing" value="0"></div>
+        <div class="field"><label>Website</label><input type="number" id="preWebsite" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Software / Subscriptions</label><input type="number" id="preSoftware" value="0"></div>
+        <div class="field"><label>Branding</label><input type="number" id="preBranding" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Advertising</label><input type="number" id="preAdvertising" value="0"></div>
+        <div class="field"><label>Professional Services</label><input type="number" id="preProfessional" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Training</label><input type="number" id="preTraining" value="0"></div>
+        <div class="field"><label>Recruitment</label><input type="number" id="preRecruitment" value="0"></div>
+      </div>
+      <div class="field"><label>Other Pre-Launch</label><input type="number" id="preOther" value="0"></div>
+    </div>
+
+    <!-- SECTION 7: MONTHLY OPERATING EXPENSES -->
+    <div class="card">
+      <h2>7. 📅 Monthly Operating Expenses</h2>
+      <div class="row2">
+        <div class="field"><label>Salaries</label><input type="number" id="opSalaries" value="0"></div>
+        <div class="field"><label>Rent</label><input type="number" id="opRent" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Utilities</label><input type="number" id="opUtilities" value="0"></div>
+        <div class="field"><label>Internet</label><input type="number" id="opInternet" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Transportation</label><input type="number" id="opTransport" value="0"></div>
+        <div class="field"><label>Marketing</label><input type="number" id="opMarketing" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Software</label><input type="number" id="opSoftware" value="0"></div>
+        <div class="field"><label>Insurance</label><input type="number" id="opInsurance" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Maintenance</label><input type="number" id="opMaintenance" value="0"></div>
+        <div class="field"><label>Loan Payments</label><input type="number" id="opLoan" value="0"></div>
+      </div>
+      <div class="field"><label>Miscellaneous</label><input type="number" id="opMisc" value="0"></div>
+    </div>
+
+    <!-- SECTION 8: WORKING CAPITAL -->
+    <div class="card">
+      <h2>8. 💼 Working Capital</h2>
+      <div class="row2">
+        <div class="field"><label>Months of Operating Expenses</label><select id="wcMonths">
+          <option value="1">1 Month</option>
+          <option value="2">2 Months</option>
+          <option value="3" selected>3 Months</option>
+          <option value="6">6 Months</option>
+          <option value="12">12 Months</option>
+        </select></div>
+        <div class="field"><label>Emergency Reserve</label><input type="number" id="wcEmergency" value="0"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Accounts Receivable Buffer</label><input type="number" id="wcAR" value="0"></div>
+        <div class="field"><label>Inventory Replenishment Reserve</label><input type="number" id="wcInventory" value="0"></div>
+      </div>
+    </div>
+
+    <button class="btn-calc" onclick="calculateStartup()">📊 Calculate Funding Requirements</button>
+
+    <!-- RESULTS -->
+    <div class="card" id="resultCard" style="display:none;">
+      <h2>📊 Results</h2>
+      <div class="result-grid">
+        <div class="result-item"><div class="val" id="rStartup">—</div><div class="lbl">Total Startup Cost</div></div>
+        <div class="result-item"><div class="val" id="rMonthly">—</div><div class="lbl">Monthly Operating</div></div>
+        <div class="result-item"><div class="val" id="rWC">—</div><div class="lbl">Working Capital</div></div>
+        <div class="result-item"><div class="val" id="rReserve">—</div><div class="lbl">Emergency/Reserve</div></div>
+        <div class="result-item highlight"><div class="val" id="rTotalRequired">—</div><div class="lbl">Total Funding Required</div></div>
+        <div class="result-item"><div class="val" id="rAvailable">—</div><div class="lbl">Available Capital</div></div>
+        <div class="result-item" id="rGapItem"><div class="val" id="rGap">—</div><div class="lbl">Funding Gap</div></div>
+        <div class="result-item" id="rSurplusItem"><div class="val" id="rSurplus">—</div><div class="lbl">Surplus</div></div>
+      </div>
+
+      <div class="chart-wrap">
+        <canvas id="costChart"></canvas>
+      </div>
+
+      <div class="report-label">💎 Take Your Funding Report</div>
+      <div class="action-buttons">
+        <button class="action-btn whatsapp-action" onclick="shareStartup()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="action-btn pdf-action" onclick="downloadStartup('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+        <button class="action-btn jpg-action" onclick="downloadStartup('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+        <button class="action-btn png-action" onclick="downloadStartup('png')"><i class="fa-solid fa-image"></i> PNG</button>
+      </div>
+
+      <div class="contact-note">❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>For queries: <strong>+92 333 3228470</strong><br><span style="word-break:break-all;">contact@coldmatrixtools.com</span></div>
+    </div>
+
+    <<div class="detail-section">
+  <h2>📖 Complete Guide to Startup Cost & Working Capital</h2>
+  <p>Starting a business requires more than just a good idea — it requires careful financial planning. This comprehensive calculator helps entrepreneurs estimate the total funding needed to launch and sustain a business until it becomes self-sufficient. It covers setup costs, monthly operating expenses, and working capital requirements.</p>
+
+  <h3>What Is Startup Cost?</h3>
+  <p>Startup cost is the total money needed to get a business off the ground. It includes one-time expenses like property purchase, renovation, machinery, equipment, initial inventory, licenses, and pre-launch marketing. Understanding these costs helps you determine how much capital to raise before opening your doors.</p>
+
+  <h3>What Is Working Capital?</h3>
+  <p>Working capital is the money needed to cover day-to-day operations — rent, salaries, utilities, and other recurring expenses — until the business generates enough revenue to support itself. Most experts recommend keeping 3–6 months of operating expenses as working capital.</p>
+
+  <h3>Why This Calculator Matters</h3>
+  <ul>
+    <li><strong>Prevents Underfunding:</strong> Many startups fail because they run out of money before becoming profitable.</li>
+    <li><strong>Clear Funding Picture:</strong> Shows exactly how much capital is needed.</li>
+    <li><strong>Investor Confidence:</strong> Helps present a professional funding request to investors and banks.</li>
+    <li><strong>Risk Management:</strong> Identifies funding gaps before they become critical.</li>
+    <li><strong>Better Decision Making:</strong> Helps compare different business scenarios and adjust plans.</li>
+  </ul>
+
+  <h3>Key Components Explained</h3>
+  <ul>
+    <li><strong>Location & Setup:</strong> One-time costs for physical space, renovation, furniture, and utilities installation.</li>
+    <li><strong>Machinery & Equipment:</strong> Tools, computers, vehicles, and production equipment needed to operate.</li>
+    <li><strong>Initial Inventory:</strong> Products or materials needed before the first sale.</li>
+    <li><strong>Pre-Launch Expenses:</strong> Marketing, website, branding, legal, and training before opening.</li>
+    <li><strong>Monthly Operating Expenses:</strong> Recurring costs like salaries, rent, utilities, and software.</li>
+    <li><strong>Working Capital Months:</strong> How many months of expenses to keep as buffer.</li>
+    <li><strong>Emergency Reserve:</strong> Extra cushion for unexpected costs.</li>
+  </ul>
+
+  <h3>How to Use This Calculator</h3>
+  <ol>
+    <li><strong>Enter Business Profile:</strong> Add business name, type, country, and currency.</li>
+    <li><strong>List Available Capital:</strong> Include personal funds, partner investment, investor money, and loans.</li>
+    <li><strong>Add Setup Costs:</strong> Fill in location, renovation, furniture, and legal expenses.</li>
+    <li><strong>Add Equipment:</strong> Use the dynamic table to list machinery, computers, and tools.</li>
+    <li><strong>Add Initial Inventory:</strong> Enter products and materials with quantities and costs.</li>
+    <li><strong>Record Pre-Launch Expenses:</strong> Marketing, website, branding, training.</li>
+    <li><strong>Enter Monthly Operating Expenses:</strong> Salaries, rent, utilities, software.</li>
+    <li><strong>Select Working Capital Months:</strong> Choose how many months of buffer you want.</li>
+    <li><strong>Add Reserves:</strong> Emergency fund, accounts receivable buffer, inventory replenishment.</li>
+    <li><strong>Click Calculate:</strong> See total funding required, gap, or surplus instantly.</li>
+  </ol>
+
+  <h3>Common Mistakes to Avoid</h3>
+  <ul>
+    <li><strong>Underestimating Monthly Expenses:</strong> Always add 10–20% buffer for hidden costs.</li>
+    <li><strong>Not Including Emergency Reserve:</strong> Unexpected expenses are guaranteed in business.</li>
+    <li><strong>Forgetting Pre-Launch Costs:</strong> Marketing, legal, and website costs add up quickly.</li>
+    <li><strong>Too Little Working Capital:</strong> Many businesses need 6+ months before breaking even.</li>
+    <li><strong>Ignoring Accounts Receivable Buffer:</strong> If clients pay late, you need extra cash.</li>
+  </ul>
+
+  <h3>Funding Gap vs Surplus</h3>
+  <p><strong>Funding Gap:</strong> When total funding required exceeds available capital, you have a gap. You need to raise more money or reduce costs.</p>
+  <p><strong>Surplus:</strong> When available capital exceeds total funding required, you have extra money. This is a good position — you can invest more in growth.</p>
+
+  <h3>Real-World Example</h3>
+  <p>Suppose you're opening a small retail store:</p>
+  <ul>
+    <li>Setup costs: $15,000 (renovation, furniture, licenses)</li>
+    <li>Equipment: $8,000 (shelves, POS system, computers)</li>
+    <li>Initial inventory: $10,000</li>
+    <li>Pre-launch: $3,000 (marketing, branding)</li>
+    <li>Monthly operating: $6,000 (rent, salaries, utilities)</li>
+    <li>Working capital: 3 months = $18,000</li>
+  </ul>
+  <p>Total startup cost: $15,000 + $8,000 + $10,000 + $3,000 = <strong>$36,000</strong><br>
+  Total funding required: $36,000 + $18,000 = <strong>$54,000</strong></p>
+
+  <h3>Frequently Asked Questions</h3>
+  <p><strong>Q: How many months of working capital do I need?</strong><br>
+  A: Most experts recommend 3–6 months. New businesses with no revenue history should aim for 6 months.</p>
+  <p><strong>Q: Does this calculator include taxes?</strong><br>
+  A: No, taxes are not automatically included. Add them to your monthly expenses or setup costs.</p>
+  <p><strong>Q: Can I use this for any country?</strong><br>
+  A: Yes, it supports multiple currencies and is designed for global use.</p>
+  <p><strong>Q: Is my data stored?</strong><br>
+  A: No, all calculations happen locally in your browser.</p>
+
+  <p><strong>Disclaimer:</strong> This calculator provides estimates for planning purposes only. Actual business costs and working capital requirements may vary. Always consult a financial advisor for critical decisions.</p>
+</div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+  <a href="https://wa.me/923333228470" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <script>
+    let eqCount = 0, invCount = 0;
+
+    function addEquipment() {
+      eqCount++;
+      document.getElementById('equipmentRows').innerHTML += `<div class="row3" id="eq${eqCount}">
+        <div class="field"><input type="text" id="eqName${eqCount}" placeholder="Item name"></div>
+        <div class="field"><input type="number" id="eqQty${eqCount}" value="1" placeholder="Qty"></div>
+        <div class="field"><input type="number" id="eqCost${eqCount}" value="0" placeholder="Unit cost"></div>
+      </div>`;
+    }
+
+    function addInventory() {
+      invCount++;
+      document.getElementById('inventoryRows').innerHTML += `<div class="row3" id="inv${invCount}">
+        <div class="field"><input type="text" id="invName${invCount}" placeholder="Product/Material"></div>
+        <div class="field"><input type="number" id="invQty${invCount}" value="1" placeholder="Qty"></div>
+        <div class="field"><input type="number" id="invCost${invCount}" value="0" placeholder="Unit cost"></div>
+      </div>`;
+    }
+
+    function getTotalEquipment() {
+      let total = 0;
+      for(let i=1;i<=eqCount;i++){
+        const qty = parseFloat(document.getElementById('eqQty'+i)?.value) || 0;
+        const cost = parseFloat(document.getElementById('eqCost'+i)?.value) || 0;
+        total += qty * cost;
+      }
+      return total;
+    }
+
+    function getTotalInventory() {
+      let total = 0;
+      for(let i=1;i<=invCount;i++){
+        const qty = parseFloat(document.getElementById('invQty'+i)?.value) || 0;
+        const cost = parseFloat(document.getElementById('invCost'+i)?.value) || 0;
+        total += qty * cost;
+      }
+      return total;
+    }
+
+    function getSetupTotal() {
+      const ids = ['setupPurchase','setupDeposit','setupOffice','setupFactory','setupRenovation','setupFurniture','setupElectrical','setupInternet','setupSignage','setupLicense','setupLegal','setupOther'];
+      let total = 0;
+      ids.forEach(id => { total += parseFloat(document.getElementById(id).value) || 0; });
+      return total;
+    }
+
+    function getPreLaunchTotal() {
+      const ids = ['preMarketing','preWebsite','preSoftware','preBranding','preAdvertising','preProfessional','preTraining','preRecruitment','preOther'];
+      let total = 0;
+      ids.forEach(id => { total += parseFloat(document.getElementById(id).value) || 0; });
+      return total;
+    }
+
+    function getMonthlyTotal() {
+      const ids = ['opSalaries','opRent','opUtilities','opInternet','opTransport','opMarketing','opSoftware','opInsurance','opMaintenance','opLoan','opMisc','setupRent'];
+      let total = 0;
+      ids.forEach(id => { total += parseFloat(document.getElementById(id).value) || 0; });
+      return total;
+    }
+
+    function getAvailableCapital() {
+      const ids = ['capPersonal','capPartner','capInvestor','capBank','capOther'];
+      let total = 0;
+      ids.forEach(id => { total += parseFloat(document.getElementById(id).value) || 0; });
+      return total;
+    }
+
+    function calculateStartup() {
+      const currency = document.getElementById('currency').value;
+      const startup = getSetupTotal() + getTotalEquipment() + getTotalInventory() + getPreLaunchTotal();
+      const monthly = getMonthlyTotal();
+      const wcMonths = parseFloat(document.getElementById('wcMonths').value);
+      const emergency = parseFloat(document.getElementById('wcEmergency').value) || 0;
+      const arBuffer = parseFloat(document.getElementById('wcAR').value) || 0;
+      const invReserve = parseFloat(document.getElementById('wcInventory').value) || 0;
+      const reserve = emergency + arBuffer + invReserve;
+      const workingCapital = monthly * wcMonths;
+      const totalRequired = startup + workingCapital + reserve;
+      const available = getAvailableCapital();
+      const gap = totalRequired - available;
+
+      const fmt = (n) => currency + ' ' + n.toLocaleString();
+
+      document.getElementById('rStartup').textContent = fmt(startup);
+      document.getElementById('rMonthly').textContent = fmt(monthly);
+      document.getElementById('rWC').textContent = fmt(workingCapital);
+      document.getElementById('rReserve').textContent = fmt(reserve);
+      document.getElementById('rTotalRequired').textContent = fmt(totalRequired);
+      document.getElementById('rAvailable').textContent = fmt(available);
+
+      if(gap > 0) {
+        document.getElementById('rGap').textContent = fmt(gap);
+        document.getElementById('rGapItem').style.display = 'block';
+        document.getElementById('rSurplusItem').style.display = 'none';
+        document.getElementById('rGapItem').className = 'result-item danger';
+      } else {
+        document.getElementById('rSurplus').textContent = fmt(Math.abs(gap));
+        document.getElementById('rGapItem').style.display = 'none';
+        document.getElementById('rSurplusItem').style.display = 'block';
+      }
+
+      document.getElementById('resultCard').style.display = 'block';
+      document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
+
+      drawChart(startup, monthly, workingCapital, reserve);
+    }
+
+    let chartInstance = null;
+    function drawChart(startup, monthly, wc, reserve) {
+      const ctx = document.getElementById('costChart').getContext('2d');
+      if(chartInstance) chartInstance.destroy();
+      chartInstance = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Startup Cost', 'Monthly Operating', 'Working Capital', 'Reserves'],
+          datasets: [{
+            data: [startup, monthly, wc, reserve],
+            backgroundColor: ['#4FC3F7', '#FFD700', '#34D399', '#FF6B6B']
+          }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#EAEDF0' } } } }
+      });
+    }
+
+    function shareStartup(){ window.open('https://wa.me/?text=' + encodeURIComponent('🚀 Startup Cost Report from ColdMatrix Tools')); }
+    function downloadStartup(t){ alert('Download feature ready for PDF/JPG/PNG — ' + t); }
+    function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this Startup Cost Calculator from ColdMatrix Tools! ' + window.location.href)); }
+    function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')); }
+
+    let d; const bar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
+    window.installAppTool = function(){ if(d){ d.prompt(); } else { alert('📱 Add to Home Screen via browser menu.'); } };
+    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+
+    addEquipment(); addInventory();
+  </script>
+</body>
+</html>

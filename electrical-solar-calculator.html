@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://coldmatrixtools.com/electrical-solar-calculator.html">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electrical Load & Solar System Calculator | ColdMatrix</title>
+  <meta name="description" content="Calculate electrical load, solar panel sizing, battery backup, inverter capacity, and cable size. Free comprehensive solar system design tool.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="Electrical Load & Solar System Calculator">
+  <meta property="og:description" content="Calculate electrical load, solar panel sizing, battery backup, inverter capacity, and cable size.">
+  <meta property="og:url" content="https://coldmatrixtools.com/electrical-solar-calculator.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/solar_calculator.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Electrical Load & Solar System Calculator">
+  <meta name="twitter:description" content="Calculate electrical load, solar panel sizing, battery backup, inverter capacity, and cable size.">
+  <meta name="twitter:image" content="https://coldmatrixtools.com/solar_calculator.jpg">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
+      --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --accent2:#2196F3;
+      --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
+      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
+      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --dark-silver:#4a4d55; --whatsapp-green:#25D366;
+      --success:#34D399; --danger:#FF6B6B; --solar:#FFA726;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(255,167,38,0.06), transparent 55%), var(--bg);
+      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
+    }
+    .container { max-width: 1000px; margin:0 auto; padding:0 24px; }
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:6px; }
+    h1 span { color: var(--gold-bright); }
+    .subtitle { color:var(--muted); margin-bottom:24px; }
+
+    .share-tool-card {
+      background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+      border:2px solid;
+      border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:12px; padding:14px 16px; margin-bottom:18px;
+      box-shadow:0 10px 34px rgba(0,0,0,0.55);
+    }
+    .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:10px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .share-tool-btn {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
+      background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+    }
+    .share-tool-btn:hover { border-color:#E8B93A; }
+    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+
+    .card {
+      background:var(--surface); border:1px solid var(--gold); border-radius:14px;
+      padding:24px; margin-bottom:20px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.5);
+    }
+    .card h2 {
+      font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600;
+      margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px;
+    }
+    .field { margin-bottom:14px; }
+    .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
+    .field input, .field select {
+      width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
+      padding:11px 13px; border-radius:10px; font-size:0.95rem;
+    }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+    .row5 { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+
+    .btn-calc {
+      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      padding:16px; border-radius:12px; font-weight:800; font-size:1.1rem; cursor:pointer; margin-top:8px;
+      letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+    }
+    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); }
+    .btn-reset {
+      background:transparent; color:var(--muted); border:2px solid rgba(255,255,255,0.2);
+      padding:14px 18px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer; white-space:nowrap;
+    }
+    .btn-reset:hover { border-color:var(--accent); color:var(--accent); }
+
+    .result-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:12px; margin-top:16px; }
+    .result-item {
+      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:12px;
+      padding:16px; text-align:center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:800; color:#0A0F14; }
+    .result-item .lbl { font-size:0.75rem; color:#111; font-weight:700; text-transform:uppercase; }
+    .result-item.highlight { background:linear-gradient(145deg,#ffe0b2,#ffcc80); border-color:var(--solar); }
+    .result-item.highlight .val { font-size:1.5rem; }
+
+    .chart-wrap { max-width:500px; margin:20px auto; background:var(--surface); padding:20px; border-radius:14px; border:1px solid var(--gold); }
+
+    .report-label { font-weight:700; margin-top:20px; color:#fff; }
+    .action-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+    .action-btn {
+      padding:10px 12px; border:none; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.85rem;
+      display:flex; align-items:center; justify-content:center; gap:8px; text-transform:uppercase;
+      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+    }
+    .whatsapp-action { background:#25D366 !important; border:none !important; color:#fff !important; }
+    .pdf-action { background:#0077B5 !important; border:none !important; color:#fff !important; }
+    .jpg-action { background:#6C5CE7 !important; border:none !important; color:#fff !important; }
+    .png-action { background:#F59E0B !important; border:none !important; color:#fff !important; }
+
+    .contact-note { margin-top:20px; padding:14px 12px; background:rgba(33,150,243,0.1); border:1px dashed var(--gold); border-radius:12px; text-align:center; color:#fff; font-size:0.85rem; word-break:break-word; }
+
+    .detail-section {
+      margin-top:40px; padding:30px 24px;
+      background: var(--silver-gradient);
+      border:2px solid var(--gold);
+      border-radius:16px;
+      line-height:1.8; font-size:0.95rem; color:#0A0F14;
+    }
+    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
+    .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
+    .detail-section ul, .detail-section ol { padding-left:24px; }
+    .detail-section li { margin-bottom:6px; }
+    .detail-section strong { color:#0A0F14; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--gold-bright); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+
+    @media (max-width:600px){ .row2,.row3,.row5{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .action-buttons{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <a href="index.html#tools" class="back-link">← Back to Tools</a>
+    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
+    <h1>⚡ <span>ColdMatrix</span> Electrical Load & Solar System Calculator</h1>
+    <p class="subtitle">Complete electrical load calculation, solar panel sizing, battery backup, inverter sizing, and cable estimation.</p>
+
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share Solar Calculator</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
+
+    <!-- SECTION 1: APPLIANCES -->
+    <div class="card">
+      <h2>1. 🔌 Appliances / Load</h2>
+      <div id="applianceRows"></div>
+      <button class="btn-reset" onclick="addAppliance()">+ Add Appliance</button>
+    </div>
+
+    <!-- SECTION 3: SOLAR -->
+    <div class="card">
+      <h2>3. ☀️ Solar Panel Requirement</h2>
+      <div class="row2">
+        <div class="field"><label>Average Peak Sun Hours</label><input type="number" id="sunHours" value="5" step="any"></div>
+        <div class="field"><label>System Efficiency (%)</label><input type="number" id="sysEfficiency" value="80" step="any"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Solar Energy Share (%)</label><input type="number" id="solarShare" value="100" step="any"></div>
+        <div class="field"><label>Panel Wattage (W)</label><select id="panelWatt">
+          <option value="400">400W</option>
+          <option value="450">450W</option>
+          <option value="500">500W</option>
+          <option value="550" selected>550W</option>
+          <option value="600">600W+</option>
+          <option value="custom">Custom</option>
+        </select></div>
+      </div>
+      <div class="field" id="customPanelWrap" style="display:none;"><label>Custom Panel Wattage (W)</label><input type="number" id="customPanelWatt" value="550"></div>
+    </div>
+
+    <!-- SECTION 4: BATTERY -->
+    <div class="card">
+      <h2>4. 🔋 Battery Backup</h2>
+      <div class="row2">
+        <div class="field"><label>Backup Hours</label><input type="number" id="backupHours" value="4" step="any"></div>
+        <div class="field"><label>Battery Voltage (V)</label><select id="battVoltage">
+          <option value="12">12V</option>
+          <option value="24">24V</option>
+          <option value="48" selected>48V</option>
+        </select></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Battery Capacity (Ah)</label><input type="number" id="battAh" value="200" step="any"></div>
+        <div class="field"><label>Depth of Discharge (%)</label><input type="number" id="dod" value="50" step="any"></div>
+      </div>
+      <div class="field"><label>Battery Type</label><select id="battType">
+        <option value="lead">Lead Acid</option>
+        <option value="lithium" selected>Lithium-ion</option>
+        <option value="gel">Gel</option>
+      </select></div>
+    </div>
+
+    <!-- SECTION 5: INVERTER -->
+    <div class="card">
+      <h2>5. 🔄 Inverter Sizing</h2>
+      <div class="row2">
+        <div class="field"><label>Maximum Expected Load (W)</label><input type="number" id="maxLoad" value="3000" step="any"></div>
+        <div class="field"><label>Surge Requirement (%)</label><input type="number" id="surge" value="25" step="any"></div>
+      </div>
+      <div class="field"><label>Safety Margin (%)</label><input type="number" id="safetyMargin" value="20" step="any"></div>
+    </div>
+
+    <!-- SECTION 6: CABLE -->
+    <div class="card">
+      <h2>6. 🔗 Cable Sizing</h2>
+      <div class="row2">
+        <div class="field"><label>Load Current (A)</label><input type="number" id="loadCurrent" value="20" step="any"></div>
+        <div class="field"><label>Voltage (V)</label><input type="number" id="voltage" value="220" step="any"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Cable Length (m)</label><input type="number" id="cableLength" value="30" step="any"></div>
+        <div class="field"><label>Phase</label><select id="phase">
+          <option value="single" selected>Single Phase</option>
+          <option value="three">Three Phase</option>
+        </select></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Conductor Material</label><select id="conductor">
+          <option value="copper" selected>Copper</option>
+          <option value="aluminum">Aluminum</option>
+        </select></div>
+        <div class="field"><label>Allowable Voltage Drop (%)</label><input type="number" id="voltDrop" value="3" step="any"></div>
+      </div>
+    </div>
+
+    <button class="btn-calc" onclick="calculateSolar()">⚡ Calculate System</button>
+
+    <!-- RESULTS -->
+    <div class="card" id="resultCard" style="display:none;">
+      <h2>📊 System Summary</h2>
+      <div class="result-grid">
+        <div class="result-item"><div class="val" id="rConnected">—</div><div class="lbl">Connected Load</div></div>
+        <div class="result-item"><div class="val" id="rDaily">—</div><div class="lbl">Daily Consumption</div></div>
+        <div class="result-item highlight"><div class="val" id="rSolarCap">—</div><div class="lbl">Solar Capacity</div></div>
+        <div class="result-item highlight"><div class="val" id="rPanels">—</div><div class="lbl">Solar Panels</div></div>
+        <div class="result-item"><div class="val" id="rBattery">—</div><div class="lbl">Battery Required</div></div>
+        <div class="result-item"><div class="val" id="rInverter">—</div><div class="lbl">Inverter Size</div></div>
+        <div class="result-item"><div class="val" id="rCable">—</div><div class="lbl">Cable Size</div></div>
+      </div>
+
+      <div class="chart-wrap">
+        <canvas id="solarChart"></canvas>
+      </div>
+
+      <div class="report-label">💎 Take Your Solar System Report</div>
+      <div class="action-buttons">
+        <button class="action-btn whatsapp-action" onclick="shareSolar()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="action-btn pdf-action" onclick="downloadSolar('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+        <button class="action-btn jpg-action" onclick="downloadSolar('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+        <button class="action-btn png-action" onclick="downloadSolar('png')"><i class="fa-solid fa-image"></i> PNG</button>
+      </div>
+
+      <div class="contact-note">❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>For queries: <strong>+92 333 3228470</strong><br><span style="word-break:break-all;">contact@coldmatrixtools.com</span></div>
+    </div>
+
+ <div class="detail-section">
+  <h2>📖 Complete Guide to Electrical Load & Solar System Calculation</h2>
+  <p>This calculator helps you understand and plan your electrical energy needs — from the appliances you use daily to the solar panels, batteries, and inverter required to power them. Whether you're a homeowner planning a backup system, a business owner calculating energy costs, or an engineer doing preliminary design, this tool simplifies the entire process.</p>
+
+  <h3>What Is Electrical Load?</h3>
+  <p>Electrical load is the total amount of power consumed by all your electrical appliances and devices. It's measured in watts (W) or kilowatts (kW). Understanding your load is the first step in designing any electrical or solar system because it tells you how much energy you need to generate, store, and supply.</p>
+
+  <h3>Connected Load vs Actual Consumption</h3>
+  <p><strong>Connected Load:</strong> The total wattage of all appliances if they were turned on at the same time. This number is usually higher than actual usage because you rarely run everything simultaneously.</p>
+  <p><strong>Actual Consumption:</strong> The real energy used based on how many hours each appliance runs. This is what matters for sizing solar panels and batteries.</p>
+  <p><strong>Example:</strong> You may have 10 lights of 20W each (connected load = 200W), but if you only use 5 lights for 5 hours, actual consumption is 5 × 20 × 5 = 500Wh (0.5 kWh).</p>
+
+  <h3>How Daily Energy Consumption Is Calculated</h3>
+  <p>Daily energy consumption = Total wattage × Hours used per day</p>
+  <p>For each appliance: Quantity × Wattage × Hours = Watt-hours (Wh)</p>
+  <p>Sum all appliances to get total daily Wh, then divide by 1000 to get kWh.</p>
+  <p><strong>Example:</strong> A 200W refrigerator running 24 hours = 200 × 24 = 4800Wh = 4.8 kWh per day.</p>
+
+  <h3>What Is Solar Panel Sizing?</h3>
+  <p>Solar panel sizing determines how many panels you need to generate your daily energy requirement. It depends on:</p>
+  <ul>
+    <li><strong>Peak Sun Hours:</strong> Average hours of full sunlight per day (usually 4–6 hours in most regions).</li>
+    <li><strong>System Efficiency:</strong> Losses from wiring, inverter, temperature, and panel degradation (typically 75–85% efficient).</li>
+    <li><strong>Desired Solar Share:</strong> What percentage of your energy should come from solar (50%, 75%, 100%).</li>
+    <li><strong>Panel Wattage:</strong> Common sizes are 400W, 450W, 500W, 550W, and 600W+.</li>
+  </ul>
+  <p><strong>Formula:</strong> Required Solar Capacity (kW) = Daily Consumption (kWh) ÷ (Peak Sun Hours × System Efficiency)</p>
+
+  <h3>Understanding Battery Backup</h3>
+  <p>Batteries store excess solar energy for use at night or during power outages. Battery sizing depends on:</p>
+  <ul>
+    <li><strong>Backup Hours:</strong> How many hours you need power when solar is not available.</li>
+    <li><strong>Battery Voltage:</strong> Common systems use 12V, 24V, or 48V.</li>
+    <li><strong>Battery Capacity:</strong> Measured in Amp-hours (Ah).</li>
+    <li><strong>Depth of Discharge (DoD):</strong> How much of the battery can be used safely. Lead acid = 50%, Lithium = 80–90%.</li>
+    <li><strong>System Efficiency:</strong> Energy lost during charge/discharge.</li>
+  </ul>
+  <p><strong>Formula:</strong> Battery Energy (Wh) = (Load × Backup Hours) ÷ (DoD × Efficiency)</p>
+
+  <h3>How Inverter Sizing Works</h3>
+  <p>The inverter converts DC power from solar panels and batteries into AC power for your appliances. It must be sized to handle your maximum load plus surge requirements.</p>
+  <p><strong>Formula:</strong> Inverter Size = Maximum Load × (1 + Surge%) × (1 + Safety Margin%)</p>
+  <p>Surge accounts for appliances that draw extra power when starting (motors, compressors, pumps). Safety margin adds buffer for future expansion.</p>
+
+  <h3>Basic Cable Sizing Explained</h3>
+  <p>Cables carry current from solar panels to batteries, and from inverter to appliances. Proper cable sizing prevents overheating and voltage drop.</p>
+  <p>Cable size depends on:</p>
+  <ul>
+    <li><strong>Load Current:</strong> Amperes flowing through the cable.</li>
+    <li><strong>Voltage:</strong> System voltage (12V, 24V, 48V, 220V).</li>
+    <li><strong>Cable Length:</strong> Distance between components.</li>
+    <li><strong>Conductor Material:</strong> Copper or Aluminum.</li>
+    <li><strong>Allowable Voltage Drop:</strong> Usually 2–3% for solar systems.</li>
+  </ul>
+
+  <h3>Common Mistakes to Avoid</h3>
+  <ul>
+    <li><strong>Underestimating consumption:</strong> Always add 20–25% margin for future needs.</li>
+    <li><strong>Wrong battery type:</strong> Lead acid and lithium have different depth of discharge limits.</li>
+    <li><strong>Ignoring peak sun hours:</strong> Solar generation varies by region and season.</li>
+    <li><strong>Undersized cables:</strong> Can cause overheating, fire risk, and voltage loss.</li>
+    <li><strong>Not considering surge requirements:</strong> Motors and pumps need extra starting power.</li>
+  </ul>
+
+  <h3>Real-World Example</h3>
+  <p>Suppose a home has:</p>
+  <ul>
+    <li>10 LED lights × 15W × 6 hours = 900Wh</li>
+    <li>3 fans × 75W × 10 hours = 2250Wh</li>
+    <li>1 refrigerator × 200W × 24 hours = 4800Wh</li>
+    <li>1 TV × 100W × 4 hours = 400Wh</li>
+  </ul>
+  <p>Total daily consumption = 8350Wh = 8.35 kWh</p>
+  <p>With 5 peak sun hours and 80% efficiency, required solar capacity = 8.35 ÷ (5 × 0.8) = <strong>2.09 kW</strong></p>
+  <p>Using 550W panels: 2090 ÷ 550 = <strong>4 panels</strong></p>
+
+  <h3>Frequently Asked Questions</h3>
+  <p><strong>Q: Can I run my entire house on solar?</strong><br>
+  A: Yes, if your solar capacity and battery storage match your daily consumption and backup needs.</p>
+  <p><strong>Q: How many solar panels do I need for a home?</strong><br>
+  A: It depends on consumption. An average home using 10 kWh/day might need 8–12 panels of 550W each.</p>
+  <p><strong>Q: What battery type is best?</strong><br>
+  A: Lithium-ion is best for most solar systems due to higher efficiency, longer life, and deeper discharge. Lead acid is cheaper but requires more maintenance.</p>
+  <p><strong>Q: Does this calculator work for three-phase systems?</strong><br>
+  A: Yes, it supports single-phase and three-phase cable sizing.</p>
+  <p><strong>Q: Is this tool accurate for final installation?</strong><br>
+  A: No, it provides preliminary estimates. Always have a qualified electrical engineer verify the final design and local code compliance.</p>
+
+  <h3>Why Choose ColdMatrix Electrical & Solar Calculator?</h3>
+  <p>This tool brings together five essential calculations in one place — load analysis, solar sizing, battery backup, inverter capacity, and cable estimation. It saves you time, prevents costly mistakes, and gives you a clear picture of your energy needs. Whether you're planning a home solar system or a commercial installation, this calculator makes the process simple and understandable.</p>
+
+  <p><strong>Disclaimer:</strong> Results are estimates for preliminary planning only. Final system design must be verified by a qualified electrical engineer and comply with local electrical codes and installation conditions.</p>
+</div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+  <a href="https://wa.me/923333228470" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <script>
+    let appCount = 0;
+
+    function addAppliance() {
+      appCount++;
+      document.getElementById('applianceRows').innerHTML += `<div class="row5" id="app${appCount}">
+        <div class="field"><input type="text" id="appName${appCount}" placeholder="Appliance"></div>
+        <div class="field"><input type="number" id="appQty${appCount}" value="1" placeholder="Qty"></div>
+        <div class="field"><input type="number" id="appWatt${appCount}" value="0" placeholder="Watt"></div>
+        <div class="field"><input type="number" id="appHours${appCount}" value="0" placeholder="Hrs/day"></div>
+        <div class="field"><input type="number" id="appDays${appCount}" value="30" placeholder="Days/mo"></div>
+      </div>`;
+    }
+
+    function getConnectedLoad() {
+      let total = 0;
+      for(let i=1;i<=appCount;i++){
+        const qty = parseFloat(document.getElementById('appQty'+i)?.value) || 0;
+        const watt = parseFloat(document.getElementById('appWatt'+i)?.value) || 0;
+        total += qty * watt;
+      }
+      return total;
+    }
+
+    function getDailyConsumption() {
+      let total = 0;
+      for(let i=1;i<=appCount;i++){
+        const qty = parseFloat(document.getElementById('appQty'+i)?.value) || 0;
+        const watt = parseFloat(document.getElementById('appWatt'+i)?.value) || 0;
+        const hours = parseFloat(document.getElementById('appHours'+i)?.value) || 0;
+        total += qty * watt * hours;
+      }
+      return total; // Wh
+    }
+
+    function calculateSolar() {
+      const connected = getConnectedLoad();
+      const dailyWh = getDailyConsumption();
+      const dailyKWh = dailyWh / 1000;
+      const monthlyKWh = dailyKWh * 30;
+
+      const sunHours = parseFloat(document.getElementById('sunHours').value) || 5;
+      const efficiency = (parseFloat(document.getElementById('sysEfficiency').value) || 80) / 100;
+      const solarShare = (parseFloat(document.getElementById('solarShare').value) || 100) / 100;
+      let panelWatt = document.getElementById('panelWatt').value;
+      if(panelWatt === 'custom') panelWatt = parseFloat(document.getElementById('customPanelWatt').value) || 550;
+      else panelWatt = parseFloat(panelWatt);
+
+      const solarCapacity = (dailyKWh * solarShare) / (sunHours * efficiency); // kW
+      const panels = Math.ceil((solarCapacity * 1000) / panelWatt);
+
+      const backupHours = parseFloat(document.getElementById('backupHours').value) || 4;
+      const battVoltage = parseFloat(document.getElementById('battVoltage').value) || 48;
+      const battAh = parseFloat(document.getElementById('battAh').value) || 200;
+      const dod = (parseFloat(document.getElementById('dod').value) || 50) / 100;
+      const batteryEnergy = (connected * backupHours) / (dod * efficiency); // Wh
+      const batteries = Math.ceil(batteryEnergy / (battVoltage * battAh));
+
+      const maxLoad = parseFloat(document.getElementById('maxLoad').value) || 3000;
+      const surge = (parseFloat(document.getElementById('surge').value) || 25) / 100;
+      const safety = (parseFloat(document.getElementById('safetyMargin').value) || 20) / 100;
+      const inverter = Math.ceil((maxLoad * (1 + surge) * (1 + safety)) / 1000);
+
+      const loadCurrent = parseFloat(document.getElementById('loadCurrent').value) || 20;
+      const voltage = parseFloat(document.getElementById('voltage').value) || 220;
+      const cableLength = parseFloat(document.getElementById('cableLength').value) || 30;
+      const phase = document.getElementById('phase').value;
+      const conductor = document.getElementById('conductor').value;
+      const voltDropPct = (parseFloat(document.getElementById('voltDrop').value) || 3) / 100;
+      const resistivity = conductor === 'copper' ? 0.017 : 0.028;
+      const factor = phase === 'three' ? 1.732 : 1;
+      const cableArea = (2 * resistivity * cableLength * loadCurrent) / (voltage * voltDropPct * factor);
+      const cableSize = Math.ceil(cableArea); // mm2
+
+      document.getElementById('rConnected').textContent = (connected/1000).toFixed(2) + ' kW';
+      document.getElementById('rDaily').textContent = dailyKWh.toFixed(2) + ' kWh';
+      document.getElementById('rSolarCap').textContent = solarCapacity.toFixed(2) + ' kW';
+      document.getElementById('rPanels').textContent = panels + ' × ' + panelWatt + 'W';
+      document.getElementById('rBattery').textContent = (batteryEnergy/1000).toFixed(2) + ' kWh (' + batteries + ' batteries)';
+      document.getElementById('rInverter').textContent = inverter + ' kW / kVA';
+      document.getElementById('rCable').textContent = cableSize + ' mm²';
+
+      document.getElementById('resultCard').style.display = 'block';
+      document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
+
+      drawChart(connected, dailyWh, solarCapacity, batteryEnergy);
+    }
+
+    let chartInstance = null;
+    function drawChart(connected, daily, solar, battery) {
+      const ctx = document.getElementById('solarChart').getContext('2d');
+      if(chartInstance) chartInstance.destroy();
+      chartInstance = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Connected Load (W)', 'Daily Energy (Wh)', 'Solar Capacity (W)', 'Battery (Wh)'],
+          datasets: [{
+            data: [connected, daily, solar*1000, battery],
+            backgroundColor: ['#4FC3F7', '#FFD700', '#34D399', '#FFA726']
+          }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#EAEDF0' } } } }
+      });
+    }
+
+    function shareSolar(){ window.open('https://wa.me/?text=' + encodeURIComponent('⚡ Solar System Report from ColdMatrix Tools')); }
+    function downloadSolar(t){ alert('Download feature ready for PDF/JPG/PNG — ' + t); }
+    function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this Electrical Load & Solar Calculator from ColdMatrix Tools! ' + window.location.href)); }
+    function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')); }
+
+    let d; const bar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
+    window.installAppTool = function(){ if(d){ d.prompt(); } else { alert('📱 Add to Home Screen via browser menu.'); } };
+    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+
+    // Add default appliances
+    addAppliance();
+    document.getElementById('appName1').value = 'Lights';
+    document.getElementById('appQty1').value = 5;
+    document.getElementById('appWatt1').value = 15;
+    document.getElementById('appHours1').value = 6;
+    document.getElementById('appDays1').value = 30;
+
+    addAppliance();
+    document.getElementById('appName2').value = 'Fan';
+    document.getElementById('appQty2').value = 3;
+    document.getElementById('appWatt2').value = 75;
+    document.getElementById('appHours2').value = 8;
+    document.getElementById('appDays2').value = 30;
+
+    addAppliance();
+    document.getElementById('appName3').value = 'Refrigerator';
+    document.getElementById('appQty3').value = 1;
+    document.getElementById('appWatt3').value = 200;
+    document.getElementById('appHours3').value = 24;
+    document.getElementById('appDays3').value = 30;
+
+    // Show custom panel input if custom selected
+    document.getElementById('panelWatt').addEventListener('change', function() {
+      document.getElementById('customPanelWrap').style.display = this.value === 'custom' ? 'block' : 'none';
+    });
+  </script>
+</body>
+</html>

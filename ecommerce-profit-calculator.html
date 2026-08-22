@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://coldmatrixtools.com/ecommerce-profit-calculator.html">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DCJ7K7LSCF');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Profit & Seller Calculator | ColdMatrix</title>
+  <meta name="description" content="Calculate true profit, marketplace fees, shipping, marketing, returns, break-even, and sales targets for online sellers. Free multi-currency tool.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="E-Commerce Profit & Seller Calculator">
+  <meta property="og:description" content="Calculate true profit, marketplace fees, shipping, marketing, returns, break-even, and sales targets for online sellers.">
+  <meta property="og:url" content="https://coldmatrixtools.com/ecommerce-profit-calculator.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/ecommerce_calculator.jpg ">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="E-Commerce Profit & Seller Calculator">
+  <meta name="twitter:description" content="Calculate true profit, marketplace fees, shipping, marketing, returns, break-even, and sales targets.">
+  <meta name="twitter:image" content="https://coldmatrixtools.com/ecommerce_calculator.jpg">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
+      --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --accent2:#2196F3;
+      --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
+      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
+      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --dark-silver:#4a4d55; --whatsapp-green:#25D366;
+      --success:#34D399; --danger:#FF6B6B;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
+      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
+    }
+    .container { max-width: 1000px; margin:0 auto; padding:0 24px; }
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
+    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:6px; }
+    h1 span { color: var(--gold-bright); }
+    .subtitle { color:var(--muted); margin-bottom:24px; }
+
+    .share-tool-card {
+      background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+      border:2px solid;
+      border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:12px; padding:14px 16px; margin-bottom:18px;
+      box-shadow:0 10px 34px rgba(0,0,0,0.55);
+    }
+    .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:10px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .share-tool-btn {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
+      background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+    }
+    .share-tool-btn:hover { border-color:#E8B93A; }
+    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+
+    .card {
+      background:var(--surface); border:1px solid var(--gold); border-radius:14px;
+      padding:24px; margin-bottom:20px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.5);
+    }
+    .card h2 {
+      font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600;
+      margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px;
+    }
+    .field { margin-bottom:14px; }
+    .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
+    .field input, .field select {
+      width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
+      padding:11px 13px; border-radius:10px; font-size:0.95rem;
+    }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+
+    .btn-calc {
+      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      padding:16px; border-radius:12px; font-weight:800; font-size:1.1rem; cursor:pointer; margin-top:8px;
+      letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+    }
+    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); }
+
+    .result-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:12px; margin-top:16px; }
+    .result-item {
+      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:12px;
+      padding:16px; text-align:center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:800; color:#0A0F14; }
+    .result-item .lbl { font-size:0.75rem; color:#111; font-weight:700; text-transform:uppercase; }
+    .result-item.highlight { background:linear-gradient(145deg,#d9f5e5,#a8e6cf); border-color:var(--success); }
+    .result-item.highlight .val { font-size:1.5rem; }
+
+    .chart-wrap { max-width:500px; margin:20px auto; background:var(--surface); padding:20px; border-radius:14px; border:1px solid var(--gold); }
+
+    .report-label { font-weight:700; margin-top:20px; color:#fff; }
+    .action-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+    .action-btn {
+      padding:10px 12px; border:none; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.85rem;
+      display:flex; align-items:center; justify-content:center; gap:8px; text-transform:uppercase;
+      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+    }
+    .whatsapp-action { background:#25D366 !important; border:none !important; color:#fff !important; }
+    .pdf-action { background:#0077B5 !important; border:none !important; color:#fff !important; }
+    .jpg-action { background:#6C5CE7 !important; border:none !important; color:#fff !important; }
+    .png-action { background:#F59E0B !important; border:none !important; color:#fff !important; }
+
+    .contact-note { margin-top:20px; padding:14px 12px; background:rgba(33,150,243,0.1); border:1px dashed var(--gold); border-radius:12px; text-align:center; color:#fff; font-size:0.85rem; word-break:break-word; }
+
+    .detail-section {
+      margin-top:40px; padding:30px 24px;
+      background: var(--silver-gradient);
+      border:2px solid var(--gold);
+      border-radius:16px;
+      line-height:1.8; font-size:0.95rem; color:#0A0F14;
+    }
+    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
+    .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
+    .detail-section ul, .detail-section ol { padding-left:24px; }
+    .detail-section li { margin-bottom:6px; }
+    .detail-section strong { color:#0A0F14; }
+    .detail-section table { width:100%; border-collapse:collapse; margin:16px 0; }
+    .detail-section th, .detail-section td { border:1px solid rgba(0,0,0,0.2); padding:10px 12px; text-align:left; font-size:0.9rem; }
+    .detail-section th { background:rgba(0,0,0,0.05); font-weight:700; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    footer a { color:var(--gold-bright); text-decoration:none; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+
+    @media (max-width:600px){ .row2,.row3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .action-buttons{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <a href="index.html#tools" class="back-link">← Back to Tools</a>
+    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
+    <h1>🛒 <span>ColdMatrix</span> E-Commerce Profit & Seller Calculator</h1>
+    <p class="subtitle">Calculate true profit, marketplace fees, shipping, marketing, returns, break-even, and sales targets — all in one tool.</p>
+
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share E-Commerce Calculator</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
+
+    <!-- SECTION 1: PRODUCT -->
+    <div class="card">
+      <h2>1. 📦 Product</h2>
+      <div class="field"><label>Product Name</label><input type="text" id="productName" placeholder="e.g. Wireless Earbuds"></div>
+      <div class="row2">
+        <div class="field"><label>Purchase/Manufacturing Cost</label><input type="number" id="prodCost" value="50"></div>
+        <div class="field"><label>Packaging Cost</label><input type="number" id="packCost" value="5"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Other Product Costs</label><input type="number" id="otherCost" value="0"></div>
+        <div class="field"><label>💱 Currency</label><select id="currency">
+          <option value="PKR">🇵🇰 PKR</option>
+          <option value="INR">🇮🇳 INR</option>
+          <option value="AED">🇦🇪 AED</option>
+          <option value="SAR">🇸🇦 SAR</option>
+          <option value="CNY">🇨🇳 CNY</option>
+          <option value="USD" selected>🇺🇸 USD</option>
+          <option value="EUR">🇪🇺 EUR</option>
+          <option value="GBP">🇬🇧 GBP</option>
+          <option value="CAD">🇨🇦 CAD</option>
+          <option value="AUD">🇦🇺 AUD</option>
+        </select></div>
+      </div>
+      <div class="field"><label>Selling Price</label><input type="number" id="sellPrice" value="100"></div>
+    </div>
+
+    <!-- SECTION 2: MARKETPLACE -->
+    <div class="card">
+      <h2>2. 🏪 Marketplace Costs</h2>
+      <div class="row2">
+        <div class="field"><label>Commission (%)</label><input type="number" id="commission" value="15"></div>
+        <div class="field"><label>Payment Processing Fee (%)</label><input type="number" id="paymentFee" value="3"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Fixed Transaction Fee</label><input type="number" id="fixedFee" value="2"></div>
+        <div class="field"><label>Listing Fee</label><input type="number" id="listingFee" value="0"></div>
+      </div>
+      <div class="field"><label>Other Platform Charges</label><input type="number" id="otherPlatform" value="0"></div>
+    </div>
+
+    <!-- SECTION 3: SHIPPING -->
+    <div class="card">
+      <h2>3. 🚚 Shipping & Fulfillment</h2>
+      <div class="row2">
+        <div class="field"><label>Shipping Cost</label><input type="number" id="shipCost" value="10"></div>
+        <div class="field"><label>Return Shipping Cost</label><input type="number" id="returnShip" value="5"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Fulfillment Fee</label><input type="number" id="fulfillFee" value="3"></div>
+        <div class="field"><label>Packaging/Handling</label><input type="number" id="handlingFee" value="2"></div>
+      </div>
+      <div class="field"><label>COD Fee (if applicable)</label><input type="number" id="codFee" value="0"></div>
+    </div>
+
+    <!-- SECTION 4: MARKETING -->
+    <div class="card">
+      <h2>4. 📣 Marketing</h2>
+      <div class="row2">
+        <div class="field"><label>Advertising Cost per Sale</label><input type="number" id="adCost" value="8"></div>
+        <div class="field"><label>Advertising Percentage (%)</label><input type="number" id="adPct" value="0"></div>
+      </div>
+      <div class="field"><label>Other Marketing Expense</label><input type="number" id="otherMarketing" value="0"></div>
+    </div>
+
+    <!-- SECTION 5: RETURNS -->
+    <div class="card">
+      <h2>5. 🔄 Returns / Refunds</h2>
+      <div class="row2">
+        <div class="field"><label>Expected Return Rate (%)</label><input type="number" id="returnRate" value="5"></div>
+        <div class="field"><label>Refund/Return Handling Cost</label><input type="number" id="returnHandling" value="3"></div>
+      </div>
+      <div class="field"><label>Lost Shipping Cost</label><input type="number" id="lostShip" value="5"></div>
+    </div>
+
+    <!-- SECTION 6: SALES TARGET -->
+    <div class="card">
+      <h2>6. 🎯 Sales Target</h2>
+      <div class="field"><label>Desired Monthly Profit</label><input type="number" id="desiredProfit" value="5000"></div>
+    </div>
+
+    <button class="btn-calc" onclick="calculateEcommerce()">📊 Calculate Profit</button>
+
+    <!-- RESULTS -->
+    <div class="card" id="resultCard" style="display:none;">
+      <h2>📊 Profit Dashboard</h2>
+      <div class="result-grid">
+        <div class="result-item"><div class="val" id="rSellingPrice">—</div><div class="lbl">Selling Price</div></div>
+        <div class="result-item"><div class="val" id="rTotalCost">—</div><div class="lbl">Total Cost</div></div>
+        <div class="result-item highlight"><div class="val" id="rProfit">—</div><div class="lbl">Net Profit</div></div>
+        <div class="result-item highlight"><div class="val" id="rMargin">—</div><div class="lbl">Profit Margin</div></div>
+        <div class="result-item"><div class="val" id="rBreakEven">—</div><div class="lbl">Break-Even Price</div></div>
+        <div class="result-item"><div class="val" id="rSales">—</div><div class="lbl">Required Sales/Month</div></div>
+      </div>
+
+      <div class="chart-wrap">
+        <canvas id="costChart"></canvas>
+      </div>
+
+      <div class="report-label">💎 Take Your Profit Report</div>
+      <div class="action-buttons">
+        <button class="action-btn whatsapp-action" onclick="shareEcommerce()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="action-btn pdf-action" onclick="downloadEcommerce('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+        <button class="action-btn jpg-action" onclick="downloadEcommerce('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+        <button class="action-btn png-action" onclick="downloadEcommerce('png')"><i class="fa-solid fa-image"></i> PNG</button>
+      </div>
+
+      <div class="contact-note">❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>For queries: <strong>+92 333 3228470</strong><br><span style="word-break:break-all;">contact@coldmatrixtools.com</span></div>
+    </div>
+
+    <div class="detail-section">
+      <h2>📖 Complete Guide to E-Commerce Profit Calculation</h2>
+      <p>Online selling involves many hidden costs that reduce your profit. This calculator helps you understand the true cost of each sale by including marketplace fees, payment processing, shipping, marketing, returns, and other expenses. It calculates your real profit margin and shows how many sales you need to reach your income goal.</p>
+
+      <h3>What Is Total Cost Per Sale?</h3>
+      <p>Total cost includes product cost, packaging, marketplace commission, payment fees, shipping, marketing, and return-related costs. Many sellers forget these hidden fees and overestimate their profit.</p>
+
+      <h3>Key Metrics Explained</h3>
+      <ul>
+        <li><strong>Net Revenue:</strong> Selling price minus marketplace and payment fees.</li>
+        <li><strong>Total Cost:</strong> Product + shipping + marketing + returns + other costs.</li>
+        <li><strong>Net Profit:</strong> Net revenue minus total cost.</li>
+        <li><strong>Profit Margin:</strong> Net profit divided by selling price, as percentage.</li>
+        <li><strong>Markup:</strong> Net profit divided by total cost, as percentage.</li>
+        <li><strong>Break-Even Price:</strong> Minimum selling price to cover all costs.</li>
+        <li><strong>Required Sales:</strong> Number of units to reach desired monthly profit.</li>
+      </ul>
+
+      <h3>Common Mistakes to Avoid</h3>
+      <ul>
+        <li>Forgetting payment processing fees.</li>
+        <li>Underestimating return rates.</li>
+        <li>Not including advertising costs.</li>
+        <li>Ignoring shipping and fulfillment fees.</li>
+        <li>Confusing profit margin with markup.</li>
+      </ul>
+
+      <h3>Frequently Asked Questions</h3>
+      <p><strong>Q: What is a good profit margin for e-commerce?</strong><br>A: 15–30% is considered good, but it varies by product and industry.</p>
+      <p><strong>Q: Why do I need break-even price?</strong><br>A: It shows the minimum price you must charge to not lose money.</p>
+      <p><strong>Q: Does this work for any marketplace?</strong><br>A: Yes, you enter your own marketplace fees, so it works globally.</p>
+
+      <p><strong>Disclaimer:</strong> Results are estimates and actual marketplace, payment, shipping and return costs may vary.</p>
+    </div>
+  </div>
+
+  <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
+  <a href="https://wa.me/923333228470" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <script>
+    function calculateEcommerce() {
+      const currency = document.getElementById('currency').value;
+      const sellPrice = parseFloat(document.getElementById('sellPrice').value) || 0;
+      const prodCost = parseFloat(document.getElementById('prodCost').value) || 0;
+      const packCost = parseFloat(document.getElementById('packCost').value) || 0;
+      const otherCost = parseFloat(document.getElementById('otherCost').value) || 0;
+      const commission = (parseFloat(document.getElementById('commission').value) || 0) / 100;
+      const paymentFee = (parseFloat(document.getElementById('paymentFee').value) || 0) / 100;
+      const fixedFee = parseFloat(document.getElementById('fixedFee').value) || 0;
+      const listingFee = parseFloat(document.getElementById('listingFee').value) || 0;
+      const otherPlatform = parseFloat(document.getElementById('otherPlatform').value) || 0;
+      const shipCost = parseFloat(document.getElementById('shipCost').value) || 0;
+      const returnShip = parseFloat(document.getElementById('returnShip').value) || 0;
+      const fulfillFee = parseFloat(document.getElementById('fulfillFee').value) || 0;
+      const handlingFee = parseFloat(document.getElementById('handlingFee').value) || 0;
+      const codFee = parseFloat(document.getElementById('codFee').value) || 0;
+      const adCost = parseFloat(document.getElementById('adCost').value) || 0;
+      const adPct = (parseFloat(document.getElementById('adPct').value) || 0) / 100;
+      const otherMarketing = parseFloat(document.getElementById('otherMarketing').value) || 0;
+      const returnRate = (parseFloat(document.getElementById('returnRate').value) || 0) / 100;
+      const returnHandling = parseFloat(document.getElementById('returnHandling').value) || 0;
+      const lostShip = parseFloat(document.getElementById('lostShip').value) || 0;
+      const desiredProfit = parseFloat(document.getElementById('desiredProfit').value) || 0;
+
+      const marketplaceCost = sellPrice * commission + sellPrice * paymentFee + fixedFee + listingFee + otherPlatform;
+      const totalProductCost = prodCost + packCost + otherCost;
+      const totalMarketing = adCost + (sellPrice * adPct) + otherMarketing;
+      const returnAdjustment = returnRate * (returnHandling + lostShip + returnShip);
+      const totalCost = totalProductCost + marketplaceCost + shipCost + fulfillFee + handlingFee + codFee + totalMarketing + returnAdjustment;
+      const profit = sellPrice - totalCost;
+      const margin = sellPrice > 0 ? (profit / sellPrice) * 100 : 0;
+      const markup = totalCost > 0 ? (profit / totalCost) * 100 : 0;
+      const breakEven = totalCost;
+      const requiredSales = profit > 0 ? Math.ceil(desiredProfit / profit) : 0;
+
+      const fmt = (n) => currency + ' ' + n.toFixed(2);
+
+      document.getElementById('rSellingPrice').textContent = fmt(sellPrice);
+      document.getElementById('rTotalCost').textContent = fmt(totalCost);
+      document.getElementById('rProfit').textContent = fmt(profit);
+      document.getElementById('rMargin').textContent = margin.toFixed(1) + '%';
+      document.getElementById('rBreakEven').textContent = fmt(breakEven);
+      document.getElementById('rSales').textContent = requiredSales;
+
+      document.getElementById('resultCard').style.display = 'block';
+      document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
+
+      drawChart(totalProductCost, marketplaceCost, shipCost + fulfillFee + handlingFee + codFee, totalMarketing, returnAdjustment, profit);
+    }
+
+    let chartInstance = null;
+    function drawChart(product, marketplace, shipping, marketing, returns, profit) {
+      const ctx = document.getElementById('costChart').getContext('2d');
+      if(chartInstance) chartInstance.destroy();
+      chartInstance = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Product Cost', 'Marketplace', 'Shipping', 'Marketing', 'Returns', 'Profit'],
+          datasets: [{
+            data: [product, marketplace, shipping, marketing, returns, Math.max(0, profit)],
+            backgroundColor: ['#4FC3F7', '#FFD700', '#FFA726', '#AB47BC', '#FF6B6B', '#34D399']
+          }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#EAEDF0' } } } }
+      });
+    }
+
+    function shareEcommerce(){ window.open('https://wa.me/?text=' + encodeURIComponent('🛒 E-Commerce Profit Report from ColdMatrix Tools')); }
+    function downloadEcommerce(t){ alert('Download feature ready for PDF/JPG/PNG — ' + t); }
+    function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this E-Commerce Profit Calculator from ColdMatrix Tools! ' + window.location.href)); }
+    function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')); }
+
+    let d; const bar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
+    window.installAppTool = function(){ if(d){ d.prompt(); } else { alert('📱 Add to Home Screen via browser menu.'); } };
+    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+  </script>
+</body>
+</html>
