@@ -78,7 +78,7 @@
     .cat-gallery .section-label, .cat-gallery .section-title { color:var(--gallery); }
     .cat-blog .section-label, .cat-blog .section-title { color:var(--blog); }
 
-    .tools-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
+    .tools-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; align-items:start; }
     .tool-card { background:var(--surface); border:2px solid var(--gold); border-radius:14px; padding:18px; text-decoration:none; color:var(--text); transition:all 0.3s; display:flex; flex-direction:column; gap:10px; position:relative; overflow:hidden; min-height:200px; }
     .tool-card:hover { transform:translateY(-4px); border-color:var(--gold-bright); }
     .tool-icon { font-size:1.5rem; }
@@ -86,65 +86,55 @@
     .tool-card p { color:#fff; font-size:0.82rem; text-shadow:0 1px 4px rgba(0,0,0,0.8); }
     .tool-status { margin-top:auto; font-size:0.68rem; font-weight:600; color:var(--accent); }
 
-    .flagship-card { border: 3px solid var(--gold) !important; box-shadow: 0 0 22px rgba(255,215,0,0.4) !important; }
+    .flagship-card { border: 3px solid var(--gold) !important; box-shadow: 0 0 22px rgba(255,215,0,0.4) !important; min-height: 235px !important; }
 
     .premium-big { min-height: 260px !important; }
     .premium-big h3 { font-size:1.35rem !important; }
     .premium-big p { font-size:0.9rem !important; }
     .premium-big .tool-icon { font-size:2rem !important; }
 
-    /* WOMEN'S CORNER — TALL, TRANSPARENT, DUAL MOVING BORDER */
+    /* WOMEN'S CORNER — BACKGROUND IMAGE, SILVER BULLETS, GOLDEN BORDERS */
     .womens-corner-card {
-  background-color: transparent !important;
-  background-image: url('womens_corner.jpg') !important;
-  background-size: cover !important;
-  background-position: center !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-      -webkit-backdrop-filter: blur(6px);
+      position: relative;
+      background-image: url('womens_corner.jpg') !important;
+      background-size: cover !important;
+      background-position: center !important;
       text-decoration: none;
       display: flex;
       flex-direction: column;
       padding: 30px 24px 22px;
       min-height: 360px;
       color: #4A4A4A;
-      border: 3px solid transparent;
-      animation: wcDualBorder 3s infinite;
-      box-shadow: 0 0 25px rgba(212,175,55,0.5);
+      border: 3px solid #D4AF37;
+      box-shadow: 0 0 25px rgba(212,175,55,0.4);
+      transition: all 0.3s;
     }
-    @keyframes wcDualBorder {
-      0%, 100% { border-color: #D4AF37; box-shadow: 0 0 20px rgba(212,175,55,0.6), 0 0 35px rgba(233,30,99,0.2); }
-      50% { border-color: #E91E63; box-shadow: 0 0 30px rgba(233,30,99,0.5), 0 0 45px rgba(212,175,55,0.35); }
+    .womens-corner-card:hover {
+      box-shadow: 0 0 35px rgba(212,175,55,0.6);
     }
-    .womens-corner-card::before {
-      content: "";
-      position: absolute;
-      inset: 5px;
-      border-radius: 16px;
-      border: 2px solid rgba(233,30,99,0.45);
-      pointer-events: none;
-      z-index: 1;
-      animation: wcInnerBorder 3s infinite;
-    }
-    @keyframes wcInnerBorder {
-      0%, 100% { border-color: rgba(233,30,99,0.45); }
-      50% { border-color: rgba(212,175,55,0.55); }
-    }
-    .womens-corner-card > * { position: relative; z-index: 2; }
     .womens-corner-card .wc-icon {
       font-size: 2.8rem;
       margin-bottom: 12px;
       text-align: center;
+      z-index: 2;
+      position: relative;
     }
     .womens-corner-card h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
       font-weight: 800;
-      color: #C2185B;
-      margin-bottom: 20px;
+      color: #E91E63;
+      margin-bottom: 16px;
       text-align: center;
       letter-spacing: 0.5px;
-      text-shadow: 0 1px 4px rgba(255,255,255,0.8);
+      text-shadow: 0 1px 4px rgba(255,255,255,0.6);
+      display: inline-block;
+      border: 2px solid #D4AF37;
+      padding: 8px 20px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.7);
+      z-index: 2;
+      position: relative;
     }
     .wc-bullets {
       list-style: none;
@@ -153,6 +143,8 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+      z-index: 2;
+      position: relative;
     }
     .wc-bullets li {
       font-size: 1rem;
@@ -162,11 +154,10 @@
       align-items: center;
       gap: 12px;
       line-height: 1.4;
-      background: rgba(255,255,255,0.6);
+      background: linear-gradient(145deg, #E8E8E8, #D0D0D0);
       padding: 10px 16px;
       border-radius: 12px;
-      border: 1px solid rgba(212,175,55,0.4);
-      text-shadow: 0 1px 3px rgba(255,255,255,0.7);
+      border: 2px solid #D4AF37;
     }
     .wc-bullets li::before {
       content: "✦";
@@ -174,29 +165,48 @@
       font-size: 1.2rem;
       font-weight: 700;
       flex-shrink: 0;
-      text-shadow: 0 0 6px rgba(212,175,55,0.6);
     }
     .womens-corner-card .wc-status {
       margin-top: auto;
       font-weight: 700;
-      color: #C2185B;
+      color: #D4AF37;
       font-size: 0.85rem;
-      text-align: center;
+      text-align: left;
       letter-spacing: 1px;
-      text-shadow: 0 1px 3px rgba(255,255,255,0.7);
+      z-index: 2;
+      position: relative;
     }
 
-    .cm-bmi-card-wrap { position:relative; border-radius:20px; overflow:hidden; max-width:100%; display:block; text-decoration:none; min-height:220px; }
+    .fav-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 999;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(10,15,20,0.7);
+      border: 1.5px solid rgba(212,175,55,0.55);
+      color: #FFD700;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    .fav-btn.faved { background:#FFD700; color:#0A0F14; }
+
+    .cm-bmi-card-wrap { position:relative; border-radius:20px; overflow:hidden; max-width:100%; display:block; text-decoration:none; min-height:235px; }
     .cm-bmi-card-shine { position:absolute; inset:-60%; background: conic-gradient(from 0deg, transparent 0%, #E8B93A 8%, transparent 18%, transparent 82%, #FFDA79 92%, transparent 100%); animation: cmBmiRotate 5s linear infinite; }
     @keyframes cmBmiRotate { to { transform:rotate(360deg); } }
-    .cm-bmi-card-inner { position:relative; z-index:1; margin:2px; border-radius:18px; padding:26px 24px; text-align:left; background-image: linear-gradient(rgba(10,13,19,0.5), rgba(10,13,19,0.55)), url('bmi_calc.jpg'); background-size:cover; background-position:center; min-height:216px; }
+    .cm-bmi-card-inner { position:relative; z-index:1; margin:2px; border-radius:18px; padding:26px 24px; text-align:left; background-image: linear-gradient(rgba(10,13,19,0.5), rgba(10,13,19,0.55)), url('bmi_calc.jpg'); background-size:cover; background-position:center; min-height:231px; }
     .cm-bmi-card-title { font-family:'Playfair Display',serif; font-weight:800; font-size:1.25rem; color:#E8B93A; margin:14px 0 8px; display:block; }
     .cm-bmi-card-desc { font-size:0.88rem; color:#F1F3F6; margin:0 0 16px; display:block; }
     .cm-bmi-card-live { display:flex; align-items:center; gap:7px; font-weight:700; font-size:0.95rem; color:#4FC3F7; }
     .cm-bmi-card-live .dot { width:9px; height:9px; border-radius:50%; background:#4FC3F7; box-shadow:0 0 8px #4FC3F7; }
 
-    .fav-btn { position:absolute; top:12px; right:12px; z-index:10; width:34px; height:34px; border-radius:50%; background:rgba(10,15,20,0.7); border:1.5px solid rgba(212,175,55,0.55); color:#FFD700; cursor:pointer; }
-    .fav-btn.faved { background:#FFD700; color:#0A0F14; }
     .quick-access-bar { background:linear-gradient(135deg, rgba(212,175,55,0.12), rgba(79,195,247,0.05)); border:1px solid rgba(212,175,55,0.4); border-radius:14px; padding:16px 18px; margin:8px 0 20px; }
     .quick-access-title { font-size:0.85rem; font-weight:800; color:#FFD700; margin-bottom:12px; }
     .quick-access-list { display:flex; flex-wrap:wrap; gap:10px; }
@@ -336,28 +346,28 @@
       <h2 class="section-title">Professional Construction Tools</h2>
       <p class="section-desc">Advanced calculators for cold storage, PEB, steel, and project estimation.</p>
       <div class="tools-grid">
-        <a href="cold-store-calculator.html" class="tool-card flagship-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('cold_room_calc.jpg'); background-size: cover; background-position: center; min-height: 220px;"><button class="fav-btn" data-tool="cold-store-calculator" onclick="toggleFav(event, 'cold-store-calculator')">☆</button><div class="tool-icon">❄️</div><h3>Cold Room & Panel Calculator</h3><p>Advanced contractor tool for room dimensions, PUF/PIR sandwich panel weight, thermal BTU/TR refrigeration loads, and instant cost quotations.</p><div class="tool-status">● Live</div></a>
-        <a href="sandwich-panel-calculator.html" class="tool-card flagship-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('panel_calc.jpg'); background-size: cover; background-position: center; min-height: 220px;"><button class="fav-btn" data-tool="sandwich-panel-calculator" onclick="toggleFav(event, 'sandwich-panel-calculator')">☆</button><div class="tool-icon">🧱</div><h3>Sandwich Panel Calculator</h3><p>Estimate weight, quantity, and total order weight.</p><div class="tool-status">● Live</div></a>
-        <a href="cooling-requirement-calculator.html" class="tool-card flagship-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('cooling_req_calc.jpg'); background-size: cover; background-position: center; min-height: 220px;"><button class="fav-btn" data-tool="cooling-requirement-calculator" onclick="toggleFav(event, 'cooling-requirement-calculator')">☆</button><div class="tool-icon">🌡️</div><h3>Cooling Requirement (BTU/TR)</h3><p>Cooling capacity needed for any room or cold storage.</p><div class="tool-status">● Live</div></a>
+        <a href="cold-store-calculator.html" class="tool-card flagship-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('cold_room_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="cold-store-calculator" onclick="toggleFav(event, 'cold-store-calculator')">☆</button><div class="tool-icon">❄️</div><h3>Cold Room & Panel Calculator</h3><p>Advanced contractor tool for room dimensions, PUF/PIR sandwich panel weight, thermal BTU/TR refrigeration loads, and instant cost quotations.</p><div class="tool-status">● Live</div></a>
+        <a href="sandwich-panel-calculator.html" class="tool-card flagship-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('panel_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="sandwich-panel-calculator" onclick="toggleFav(event, 'sandwich-panel-calculator')">☆</button><div class="tool-icon">🧱</div><h3>Sandwich Panel Calculator</h3><p>Estimate weight, quantity, and total order weight.</p><div class="tool-status">● Live</div></a>
+        <a href="cooling-requirement-calculator.html" class="tool-card flagship-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('cooling_req_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="cooling-requirement-calculator" onclick="toggleFav(event, 'cooling-requirement-calculator')">☆</button><div class="tool-icon">🌡️</div><h3>Cooling Requirement (BTU/TR)</h3><p>Cooling capacity needed for any room or cold storage.</p><div class="tool-status">● Live</div></a>
         <a href="steel-weight-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('steel_weight_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="steel-weight-calculator" onclick="toggleFav(event, 'steel-weight-calculator')">☆</button><div class="tool-icon">🛠️</div><h3>Steel Weight Calculator</h3><p>Plates, bars, pipes & beams — instant weight.</p><div class="tool-status">● Live</div></a>
         <a href="peb-material-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('peb_calculator.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="peb-material-calculator" onclick="toggleFav(event, 'peb-material-calculator')">☆</button><div class="tool-icon">🏭</div><h3>PEB Material Calculator</h3><p>Estimate steel tonnage, roof & wall sheeting for pre-engineered buildings.</p><div class="tool-status">● Live</div></a>
         <a href="concrete-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('concrete_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="concrete-calculator" onclick="toggleFav(event, 'concrete-calculator')">☆</button><div class="tool-icon">🏗️</div><h3>Concrete Calculator</h3><p>Cement bags, sand & aggregate for slab/footing.</p><div class="tool-status">● Live</div></a>
         <a href="construction-cost-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('construction_cost_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="construction-cost-calculator" onclick="toggleFav(event, 'construction-cost-calculator')">☆</button><div class="tool-icon">🏗️</div><h3>Construction Cost Calculator</h3><p>Estimate total building cost — structure, finishing, MEP & fees, 10 currencies.</p><div class="tool-status">● Live</div></a>
-        <a href="business-planner.html" class="tool-card flagship-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('business_planner.jpg'); background-size: cover; background-position: center; min-height: 220px;"><button class="fav-btn" data-tool="business-planner" onclick="toggleFav(event, 'business-planner')">☆</button><div class="tool-icon">📖</div><h3>Business Planner</h3><p>Set goals, plan meetings, manage tasks — your executive digital diary.</p><div class="tool-status">● Live</div></a>
-        <a href="roi-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('roi_calculator.jpg'); background-size: cover; background-position: center; min-height: 200px;"><button class="fav-btn" data-tool="roi-calculator" onclick="toggleFav(event, 'roi-calculator')">☆</button><div class="tool-icon">📈</div><h3>ROI Calculator</h3><p>Return on investment for bank deposits, business partnerships, working & sleeping partner scenarios.</p><div class="tool-status">● Live</div></a>
-        <a href="startup-cost-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('startup_calculator.jpg'); background-size: cover; background-position: center; min-height: 200px;"><button class="fav-btn" data-tool="startup-cost-calculator" onclick="toggleFav(event, 'startup-cost-calculator')">☆</button><div class="tool-icon">🚀</div><h3>Startup Cost & Working Capital</h3><p>Complete startup investment planning — setup costs, monthly expenses, working capital, and funding gap.</p><div class="tool-status">● Live</div></a>
-        <a href="ecommerce-profit-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('ecommerce_calculator.jpg'); background-size: cover; background-position: center; min-height: 200px;"><button class="fav-btn" data-tool="ecommerce-profit-calculator" onclick="toggleFav(event, 'ecommerce-profit-calculator')">☆</button><div class="tool-icon">🛒</div><h3>E-Commerce Profit Calculator</h3><p>Calculate true profit, marketplace fees, shipping, marketing, returns, and sales targets.</p><div class="tool-status">● Live</div></a>
-        <a href="electrical-solar-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('solar_calculator.jpg'); background-size: cover; background-position: center; min-height: 200px;"><button class="fav-btn" data-tool="electrical-solar-calculator" onclick="toggleFav(event, 'electrical-solar-calculator')">☆</button><div class="tool-icon">⚡</div><h3>Electrical Load & Solar Calculator</h3><p>Calculate electrical load, solar panel sizing, battery backup, inverter capacity, and cable size.</p><div class="tool-status">● Live</div></a>
-        <a href="profit-margin-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('profit_margin_calc.jpg'); background-size: cover; background-position: center; min-height: 200px;"><button class="fav-btn" data-tool="profit-margin-calculator" onclick="toggleFav(event, 'profit-margin-calculator')">☆</button><div class="tool-icon">🧮</div><h3>Profit Margin Calculator</h3><p>Profit, margin, markup & selling price.</p><div class="tool-status">● Live</div></a>
+        <a href="business-planner.html" class="tool-card flagship-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('business_planner.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="business-planner" onclick="toggleFav(event, 'business-planner')">☆</button><div class="tool-icon">📖</div><h3>Business Planner</h3><p>Set goals, plan meetings, manage tasks — your executive digital diary.</p><div class="tool-status">● Live</div></a>
+        <a href="roi-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('roi_calculator.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="roi-calculator" onclick="toggleFav(event, 'roi-calculator')">☆</button><div class="tool-icon">📈</div><h3>ROI Calculator</h3><p>Return on investment for bank deposits, business partnerships, working & sleeping partner scenarios.</p><div class="tool-status">● Live</div></a>
+        <a href="startup-cost-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('startup_calculator.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="startup-cost-calculator" onclick="toggleFav(event, 'startup-cost-calculator')">☆</button><div class="tool-icon">🚀</div><h3>Startup Cost & Working Capital</h3><p>Complete startup investment planning — setup costs, monthly expenses, working capital, and funding gap.</p><div class="tool-status">● Live</div></a>
+        <a href="ecommerce-profit-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('ecommerce_calculator.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="ecommerce-profit-calculator" onclick="toggleFav(event, 'ecommerce-profit-calculator')">☆</button><div class="tool-icon">🛒</div><h3>E-Commerce Profit Calculator</h3><p>Calculate true profit, marketplace fees, shipping, marketing, returns, and sales targets.</p><div class="tool-status">● Live</div></a>
+        <a href="electrical-solar-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('solar_calculator.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="electrical-solar-calculator" onclick="toggleFav(event, 'electrical-solar-calculator')">☆</button><div class="tool-icon">⚡</div><h3>Electrical Load & Solar Calculator</h3><p>Calculate electrical load, solar panel sizing, battery backup, inverter capacity, and cable size.</p><div class="tool-status">● Live</div></a>
+        <a href="profit-margin-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('profit_margin_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="profit-margin-calculator" onclick="toggleFav(event, 'profit-margin-calculator')">☆</button><div class="tool-icon">🧮</div><h3>Profit Margin Calculator</h3><p>Profit, margin, markup & selling price.</p><div class="tool-status">● Live</div></a>
         <a href="quotation-generator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('quotation_maker.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="quotation-generator" onclick="toggleFav(event, 'quotation-generator')">☆</button><div class="tool-icon">🧾</div><h3>Quotation Generator</h3><p>Create branded quotations & share on WhatsApp or export as PDF/JPG/PNG.</p><div class="tool-status">● Live</div></a>
-        <a href="qr-business-card.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('qr_business_card.jpg'); background-size: cover; background-position: center; min-height: 200px;"><button class="fav-btn" data-tool="qr-business-card" onclick="toggleFav(event, 'qr-business-card')">☆</button><div class="tool-icon">📱</div><h3>QR Business Card Generator</h3><p>Create a scannable digital business card with a QR code that saves your contact straight to any phone. Free, shareable, downloadable.</p><div class="tool-status">● Live</div></a>
+        <a href="qr-business-card.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('qr_business_card.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="qr-business-card" onclick="toggleFav(event, 'qr-business-card')">☆</button><div class="tool-icon">📱</div><h3>QR Business Card Generator</h3><p>Create a scannable digital business card with a QR code that saves your contact straight to any phone. Free, shareable, downloadable.</p><div class="tool-status">● Live</div></a>
         <a href="pdf-toolkit.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('pdf_toolkit.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="pdf-toolkit" onclick="toggleFav(event, 'pdf-toolkit')">☆</button><div class="tool-icon">📄</div><h3>PDF Toolkit</h3><p>Merge, split, compress & convert PDFs — all in your browser.</p><div class="tool-status">● Live</div></a>
         <a href="smart-scanner.html" class="tool-card premium-big" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('smart_scanner.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="smart-scanner" onclick="toggleFav(event, 'smart-scanner')">☆</button><div class="tool-icon">📷</div><h3>ColdMatrix Smart Scanner</h3><p>QR, barcode & text — live camera + upload.</p><div class="tool-status">● Live</div></a>
         <a href="password-generator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('password_generator.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="password-generator" onclick="toggleFav(event, 'password-generator')">☆</button><div class="tool-icon">🔐</div><h3>Password Generator</h3><p>Create strong, secure random passwords instantly.</p><div class="tool-status">● Live</div></a>
         <a href="image-converter-tool.html" class="tool-card premium-big" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('image_converter.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="image-converter-tool" onclick="toggleFav(event, 'image-converter-tool')">☆</button><div class="tool-icon">🖼️</div><h3>Image Converter & Resizer</h3><p>Convert JPG, PNG, BMP, WebP — free online.</p><div class="tool-status">● Live</div></a>
-        <a href="business-calculator-suite.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('business-calc.jpg'); background-size: cover; background-position: center; min-height: 200px;"><button class="fav-btn" data-tool="business-calculator-suite" onclick="toggleFav(event, 'business-calculator-suite')">☆</button><div class="tool-icon">🧮</div><h3>Business Calculator Suite</h3><p>Profit, margin, markup, discount, tax, ROI & break-even — all in one premium tool.</p><div class="tool-status">● Live</div></a>
+        <a href="business-calculator-suite.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('business-calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="business-calculator-suite" onclick="toggleFav(event, 'business-calculator-suite')">☆</button><div class="tool-icon">🧮</div><h3>Business Calculator Suite</h3><p>Profit, margin, markup, discount, tax, ROI & break-even — all in one premium tool.</p><div class="tool-status">● Live</div></a>
         <a href="cft-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('cft_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="cft-calculator" onclick="toggleFav(event, 'cft-calculator')">☆</button><div class="tool-icon">📐</div><h3>CFT Calculator</h3><p>Quick volume & cost in seconds + Advanced Pro mode with full project estimation. A ColdMatrix original.</p><div class="tool-status">● Live</div></a>
-        <a href="pdf-reader.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('pdf_reader.jpg'); background-size: cover; background-position: center; min-height: 200px;"><button class="fav-btn" data-tool="pdf-reader" onclick="toggleFav(event, 'pdf-reader')">☆</button><div class="tool-icon">📕</div><h3>PDF Reader</h3><p>Open & read any PDF instantly in your browser. 100% free.</p><div class="tool-status">● Live</div></a>
+        <a href="pdf-reader.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('pdf_reader.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="pdf-reader" onclick="toggleFav(event, 'pdf-reader')">☆</button><div class="tool-icon">📕</div><h3>PDF Reader</h3><p>Open & read any PDF instantly in your browser. 100% free.</p><div class="tool-status">● Live</div></a>
         <a href="qr-code-generator.html" class="tool-card premium-big" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('qr_generator.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="qr-code-generator" onclick="toggleFav(event, 'qr-code-generator')">☆</button><div class="tool-icon">📱</div><h3>QR & Barcode Studio — Generate & Scan</h3><p>Create QR codes + live camera scan for QR & barcodes.</p><div class="tool-status">● Live</div></a>
 
         <div class="matrix-premium-solid" onclick="window.location.href='./cold-invoice-studio/'"><div class="matrix-premium-bg" style="background-image:url('business-invoice-studio.jpg') !important; background-size:cover; background-position:center;"></div><div class="matrix-premium-content"><h3 class="matrix-premium-title"><span style="color:#FFFFFF">❄️ ColdMatrix</span> <span style="color:#FFD700">Business Studio</span></h3><p class="matrix-premium-desc">Create professional Invoices, Quotations, BOQs & Proposals.</p><p class="matrix-premium-tagline">Fast. Simple. Professional.</p><div class="matrix-premium-live"><span class="matrix-premium-live-dot"></span> LIVE</div></div></div>
@@ -372,18 +382,18 @@
       <h2 class="section-title">Handy Tools for Daily Life</h2>
       <p class="section-desc">Simple, free, and useful for everyone.</p>
       <div class="tools-grid">
-        <a href="internet-speed-test.html?v=1" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('speed_test.jpg'); background-size: cover; background-position: center; min-height: 200px;"><button class="fav-btn" data-tool="internet-speed-test" onclick="toggleFav(event, 'internet-speed-test')">☆</button><div class="tool-icon">🌐</div><h3>Internet Speed Test</h3><p>Premium download, upload, ping & jitter — fast, accurate, beautiful.</p><div class="tool-status">● Live</div></a>
+        <a href="internet-speed-test.html?v=1" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('speed_test.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="internet-speed-test" onclick="toggleFav(event, 'internet-speed-test')">☆</button><div class="tool-icon">🌐</div><h3>Internet Speed Test</h3><p>Premium download, upload, ping & jitter — fast, accurate, beautiful.</p><div class="tool-status">● Live</div></a>
         <a href="cold-matrix-bmi-calculator.html" class="cm-bmi-card-wrap"><button class="fav-btn" data-tool="cold-matrix-bmi-calculator" onclick="toggleFav(event, 'cold-matrix-bmi-calculator')">☆</button><div class="cm-bmi-card-shine"></div><div class="cm-bmi-card-inner"><svg viewBox="0 0 200 130" style="width:64px;height:42px;"><line x1="0" y1="65" x2="200" y2="65" stroke="#EF4444" stroke-width="8" stroke-linecap="round"/><path transform="translate(52,8) scale(3.3)" fill="#EF4444" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.7C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.6,0,8.4c0,9.4,15.9,18.6,15.9,18.6S32,17.8,32,8.4C32,3.6,28.2,0,23.6,0z"/><polyline points="55,65 76,65 86,28 97,102 107,42 118,65 145,65" fill="none" stroke="#FFFFFF" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="cm-bmi-card-title">ColdMatrix BMI &amp; Health Calculator</div><div class="cm-bmi-card-desc">BMI, BMR, daily calories, healthy weight range &amp; more — your complete health companion.</div><div class="cm-bmi-card-live"><span class="dot"></span> Live</div></div></a>
-        <a href="womens-corner.html" class="womens-corner-card"><button class="fav-btn" data-tool="womens-corner" onclick="toggleFav(event, 'womens-corner')">☆</button><div class="wc-icon">🌸</div><h3>Women's Corner</h3><ul class="wc-bullets"><li>Clothing Cost Calculator</li><li>Fabric Quantity Calculator</li><li>Beauty Budget Calculator</li><li>Jewelry Price Calculator</li></ul><div class="wc-status">● Live | Special</div></a>
+        <a href="womens-corner.html" class="womens-corner-card"><button class="fav-btn" data-tool="womens-corner" onclick="toggleFav(event, 'womens-corner')">☆</button><div class="wc-icon">🌸</div><h3>Women's Corner</h3><ul class="wc-bullets"><li>Clothing Cost Calculator</li><li>Fabric Quantity Calculator</li><li>Beauty Budget Calculator</li><li>Jewelry Price Calculator</li></ul><div class="wc-status" style="color:#D4AF37;">● Live | Special</div></a>
         <a href="loan-emi-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('loan_emi_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="loan-emi-calculator" onclick="toggleFav(event, 'loan-emi-calculator')">☆</button><div class="tool-icon">💰</div><h3>Loan & EMI Calculator</h3><p>Calculate EMI by amount, budget, or salary ratio — with prepayment savings.</p><div class="tool-status">● Live</div></a>
         <a href="currency-converter.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('currency_converter.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="currency-converter" onclick="toggleFav(event, 'currency-converter')">☆</button><div class="tool-icon">💱</div><h3>Currency Converter</h3><p>Live exchange rates for 150+ world currencies.</p><div class="tool-status">● Live</div></a>
         <a href="percentage-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('percentage_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="percentage-calculator" onclick="toggleFav(event, 'percentage-calculator')">☆</button><div class="tool-icon">📊</div><h3>Percentage Calculator</h3><p>Quick percentage calculations for everyday use.</p><div class="tool-status">● Live</div></a>
         <a href="unit-converter.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('unit_converter.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="unit-converter" onclick="toggleFav(event, 'unit-converter')">☆</button><div class="tool-icon">📏</div><h3>Unit Converter</h3><p>Length, weight, temperature — convert instantly.</p><div class="tool-status">● Live</div></a>
-        <a href="electricity-bill-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('electricity_bill_calculator.jpg'); background-size: cover; background-position: center; min-height: 200px;"><button class="fav-btn" data-tool="electricity-bill-calculator" onclick="toggleFav(event, 'electricity-bill-calculator')">☆</button><div class="tool-icon">⚡</div><h3>Electricity Bill Calculator</h3><p>Calculate electricity bill instantly — units, tariff, fixed charges, tax, and more.</p><div class="tool-status">● Live</div></a>
+        <a href="electricity-bill-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('electricity_bill_calculator.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="electricity-bill-calculator" onclick="toggleFav(event, 'electricity-bill-calculator')">☆</button><div class="tool-icon">⚡</div><h3>Electricity Bill Calculator</h3><p>Calculate electricity bill instantly — units, tariff, fixed charges, tax, and more.</p><div class="tool-status">● Live</div></a>
         <a href="notepad.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('notepad.jpg'); background-size: cover; background-position: center;"><div class="tool-icon">📝</div><h3>Notepad</h3><p>Write and save notes instantly — auto-saved, searchable, downloadable.</p><div class="tool-status">● Live</div></a>
-        <a href="stopwatch-timer.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('stopwatch_timer.jpg'); background-size: cover; background-position: center; min-height: 200px;"><button class="fav-btn" data-tool="stopwatch-timer" onclick="toggleFav(event, 'stopwatch-timer')">☆</button><div class="tool-icon">⏱️</div><h3>Stopwatch & Timer</h3><p>Precision stopwatch with lap tracking + countdown timer. Perfect for sports, cooking, study & presentations.</p><div class="tool-status">● Live</div></a>
+        <a href="stopwatch-timer.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('stopwatch_timer.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="stopwatch-timer" onclick="toggleFav(event, 'stopwatch-timer')">☆</button><div class="tool-icon">⏱️</div><h3>Stopwatch & Timer</h3><p>Precision stopwatch with lap tracking + countdown timer. Perfect for sports, cooking, study & presentations.</p><div class="tool-status">● Live</div></a>
         <a href="world-clock.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('world_clock.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="world-clock" onclick="toggleFav(event, 'world-clock')">☆</button><div class="tool-icon">🌍</div><h3>World Clock & Time Zone</h3><p>Live time in any city, plus instant time zone conversion.</p><div class="tool-status">● Live</div></a>
-        <a href="age-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('age_calc.jpg'); background-size: cover; background-position: center; min-height: 200px;"><button class="fav-btn" data-tool="age-calculator" onclick="toggleFav(event, 'age-calculator')">☆</button><div class="tool-icon">🎂</div><h3>Age Calculator</h3><p>Calculate your exact age in years, months & days.</p><div class="tool-status">● Live</div></a>
+        <a href="age-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('age_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="age-calculator" onclick="toggleFav(event, 'age-calculator')">☆</button><div class="tool-icon">🎂</div><h3>Age Calculator</h3><p>Calculate your exact age in years, months & days.</p><div class="tool-status">● Live</div></a>
         <a href="birthday-countdown.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('birthday_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" data-tool="birthday-countdown" onclick="toggleFav(event, 'birthday-countdown')">☆</button><div class="tool-icon">🎂</div><h3>Birthday Countdown</h3><p>Live ticking countdown for any birthday — share the excitement!</p><div class="tool-status">● Live</div></a>
       </div>
     </div>
