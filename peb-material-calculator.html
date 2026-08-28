@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
   <style>
     :root {
       --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
@@ -200,6 +201,51 @@
     footer a { color:var(--gold-bright); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
     @media (max-width:600px){ .grid2,.grid3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .action-buttons{grid-template-columns:1fr;} }
+
+    /* Lead Capture Modal */
+    .lead-modal-overlay {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.75); z-index:10000;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter: blur(6px);
+    }
+    .lead-modal {
+      background: #12181F; border: 2px solid #D4AF37; border-radius: 16px;
+      padding: 28px; max-width: 480px; width: 90%;
+      box-shadow: 0 0 40px rgba(212,175,55,0.4), 0 20px 60px rgba(0,0,0,0.8);
+      position: relative; text-align: center;
+    }
+    .lead-modal-close {
+      position: absolute; top: 10px; right: 15px; background: transparent;
+      border: none; color: #D4AF37; font-size: 2rem; cursor: pointer; line-height: 1;
+    }
+    .lead-modal h3 {
+      font-family: 'Oswald', sans-serif; color: #FFD700; font-size: 1.5rem;
+      margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .lead-modal p {
+      color: #cfd6dd; font-size: 0.9rem; margin-bottom: 20px;
+    }
+    .lead-form input {
+      width: 100%; background: #1B232C; border: 2px solid #D4AF37; color: #fff;
+      padding: 12px 14px; border-radius: 8px; margin-bottom: 12px; font-size: 0.95rem;
+    }
+    .lead-form input:focus {
+      outline: none; border-color: #FFD700; box-shadow: 0 0 15px rgba(212,175,55,0.5);
+    }
+    .lead-form .btn-primary {
+      width: 100%; padding: 14px; background: linear-gradient(145deg, #e6eaf0, #8a929c);
+      color: #0A0F14; border: 2px solid #D4AF37; border-radius: 10px;
+      font-weight: 800; font-size: 1rem; cursor: pointer; margin-top: 8px;
+      letter-spacing: 0.5px; text-shadow: 0 1px 2px rgba(255,255,255,0.4);
+    }
+    .lead-form .btn-primary:hover {
+      background: linear-gradient(145deg, #f8fafc, #b8c0c9);
+      border-color: #FFD700;
+    }
+    .privacy-note {
+      margin-top: 10px; font-size: 0.7rem; color: #8B98A5;
+    }
   </style>
 </head>
 <body>
@@ -222,7 +268,7 @@
   
     <div class="install-bar" id="installBarTool"> Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
-    <h1> <span>ColdMatrix</span> PEB Material Calculator</h1>
+    <h1> <span>ColdMatrix</span> PEB Material Calculator</h1>
     <p class="subtitle">Steel tonnage, roof & wall sheeting, and cost — with independent length & weight units.</p>
 
     <div class="share-tool-card">
@@ -272,7 +318,7 @@
       <div class="checkbox-row"><input type="checkbox" id="pInsulated"><label for="pInsulated" style="margin:0;">Insulated (sandwich panel) roof & walls</label></div>
 
       <div class="building-visual">
-        <div style="font-size:0.8rem;color:#D4AF37;margin-bottom:10px;font-weight:700;"> BUILDING FOOTPRINT</div>
+        <div style="font-size:0.8rem;color:#D4AF37;margin-bottom:10px;font-weight:700;"> BUILDING FOOTPRINT</div>
         <div class="diagram">
           <span class="roof">ROOF</span>
           <span>W × L</span>
@@ -326,6 +372,12 @@
         <button class="action-btn download-png-action" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
       </div>
 
+      <div style="margin-top: 20px; text-align: center;">
+        <button class="btn-primary" style="width:100%; padding:14px; font-size:1rem;" onclick="openLeadModal()">
+           Download Certified Technical Estimate & Material Specification PDF
+        </button>
+      </div>
+
       <div class="contact-note">
          <strong>Thank you for using ColdMatrix — Your 24/7 Business Companion.</strong><br>
         For queries: <strong>+92 333 3228470</strong><br>
@@ -333,68 +385,104 @@
       </div>
     </div>
 
-    <div id="shareCapture"><div style="background:#fff;color:#111;border-radius:10px;padding:24px;font-family:'Inter',sans-serif;width:360px;"><div style="font-size:1.2rem;font-weight:800;color:#0A0F14;margin-bottom:12px;"> <span style="color:#2196F3;">ColdMatrix</span> PEB Material Estimate</div><table style="width:100%;border-collapse:collapse;font-size:0.85rem;"><tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Footprint Area</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvFootprint"></td></tr><tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Roof Area</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvRoof"></td></tr><tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Wall Area</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvWall"></td></tr><tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Est. Steel Weight</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;color:#2196F3;" id="pvSteel"></td></tr><tr><td style="padding:8px 0;">Estimated Total Cost</td><td style="padding:8px 0;text-align:right;font-weight:800;color:#2196F3;" id="pvTotalCost"></td></tr></table><div style="font-size:0.72rem;color:#666;margin-top:16px;border-top:1px solid #eee;padding-top:10px;"> Thank you for using ColdMatrix Tools — your 24/7 business companion.<br> contact@coldmatrixtools.com &nbsp; +92 333 3228470</div></div></div>
+    <!-- Localized Pakistani Text -->
+    <div style="margin:30px 0; padding:24px 20px; background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.3); border-radius:14px; line-height:1.8; font-size:0.95rem; color:#cfd6dd;">
+      <h2 style="font-size:1.2rem; margin-bottom:12px; color:#FFD700;"> Pre-Engineered Steel Buildings (PEB) & Industrial Civil Contracting</h2>
+      <p>Planning an industrial production facility, multi-story factory layout, or logistical hub in Pakistan? Our PEB Material Calculator provides structural steel weight baselines using international AISC configurations, fine-tuned for local construction realities. <strong>ColdMatrix</strong> offers complete turnkey solutions from concrete foundation casting to final structural steel erection.</p>
+      <p style="margin-top:10px;">Contact our <strong>Karachi engineering desk</strong> for site evaluations, soil test matching, and formal commercial bidding documentation.</p>
+    </div>
+
+    <!-- Project Gallery -->
+    <div style="margin:40px 0 30px;">
+      <h2 style="font-family:'Oswald',sans-serif; color:#FFD700; font-size:1.4rem; margin-bottom:20px; text-align:center; text-transform:uppercase; letter-spacing:0.5px;"> Recent Physical Deployments by ColdMatrix</h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+        <div style="background:#12181F; border:1px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+          <img src="https://via.placeholder.com/400x250/1a365d/ffffff?text=Cold+Storage+Facility" alt="Cold Storage Facility in Lahore" style="width:100%; height:180px; object-fit:cover;">
+          <div style="padding:14px;"><h4 style="color:#FFD700; font-size:0.9rem; margin-bottom:8px;"> Cold Chain Logistics</h4><p style="color:#cfd6dd; font-size:0.8rem; line-height:1.5;">1,500 Sq. Ft. Commercial Fruit Cold Storage Facility (+2°C to +8°C) — Operational deployment in Lahore, Pakistan.</p></div>
+        </div>
+        <div style="background:#12181F; border:1px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+          <img src="https://via.placeholder.com/400x250/1a365d/ffffff?text=Pharma+Warehouse+PIR+Panels" alt="Pharma Warehouse with PIR Panels in Karachi" style="width:100%; height:180px; object-fit:cover;">
+          <div style="padding:14px;"><h4 style="color:#FFD700; font-size:0.9rem; margin-bottom:8px;"> Industrial Manufacturing Panel Supply</h4><p style="color:#cfd6dd; font-size:0.8rem; line-height:1.5;">Controlled Environment Pharmaceutical Storage Facility utilizing 100mm fire-retardant PIR Panels — Korangi Industrial Area, Karachi.</p></div>
+        </div>
+        <div style="background:#12181F; border:1px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+          <img src="https://via.placeholder.com/400x250/1a365d/ffffff?text=PEB+Warehouse+Hub" alt="PEB Warehouse in Balochistan" style="width:100%; height:180px; object-fit:cover;">
+          <div style="padding:14px;"><h4 style="color:#FFD700; font-size:0.9rem; margin-bottom:8px;"> Heavy Steel Warehousing (PEB)</h4><p style="color:#cfd6dd; font-size:0.8rem; line-height:1.5;">Turnkey Logistics Warehouse (80-foot clear span PEB structural steel configuration) — Hub, Balochistan.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Local Business Bridge -->
+    <div style="background: #1a365d; color: white; padding: 30px; border-radius: 12px; margin-top: 40px; border-left: 6px solid #e05624;">
+      <h3 style="color: #e05624; margin-top: 0; font-family:'Oswald',sans-serif;"> Discuss Your Industrial Project Locally</h3>
+      <p style="color:#e0e0e0; margin-bottom:15px;">Need urgent technical verification, physical material samples delivered to your office, or a verified commercial invoice layout? Skip the automated queue and connect directly with our head engineering office in Karachi.</p>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap; font-weight: bold; margin-top: 15px;">
+        <span> Office Phone: <a href="tel:+923333228470" style="color:#fff;">+92 333 3228470</a></span>
+        <span style="color: #25d366;"> WhatsApp Desk: <a href="https://wa.me/923333228470" target="_blank" style="color:#25d366;">+92 333 3228470</a></span>
+        <span> Factory/H.Q: Karachi, Pakistan</span>
+      </div>
+    </div>
+
   </div>
+  
+  <!-- Educational Content (preserved from original) -->
+  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">What Is a PEB Structure?</h2>
+    <p>A Pre-Engineered Building (PEB) is a steel structure that is designed, fabricated, and assembled using standardized sections and components. Unlike conventional buildings that are built piece by piece on site, PEB structures are pre-designed in a factory, then delivered and assembled quickly. They are widely used for warehouses, factories, cold storage, showrooms, and commercial buildings because they offer faster construction, lower cost, and high strength.</p>
+    <p>PEB construction reduces project time significantly — a structure that might take 6-8 months with conventional methods can often be completed in 6-8 weeks with PEB. The steel components are lighter, stronger, and more precise than traditional fabrication, making PEB the preferred choice for industrial and commercial buildings worldwide.</p>
 
-<!-- EDUCATIONAL CONTENT ADDED BELOW THE TOOL -->
-<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">What Is a PEB Structure?</h2>
-  <p>A Pre-Engineered Building (PEB) is a steel structure that is designed, fabricated, and assembled using standardized sections and components. Unlike conventional buildings that are built piece by piece on site, PEB structures are pre-designed in a factory, then delivered and assembled quickly. They are widely used for warehouses, factories, cold storage, showrooms, and commercial buildings because they offer faster construction, lower cost, and high strength.</p>
-  <p>PEB construction reduces project time significantly — a structure that might take 6-8 months with conventional methods can often be completed in 6-8 weeks with PEB. The steel components are lighter, stronger, and more precise than traditional fabrication, making PEB the preferred choice for industrial and commercial buildings worldwide.</p>
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">How the PEB Material Calculator Works</h2>
+    <p>This calculator estimates the major material quantities for a PEB based on building dimensions, bay spacing, crane load, and insulation type. It uses typical industry factors to approximate steel weight and sheeting area. The calculations are based on standard PEB design principles and typical material specifications used by manufacturers worldwide.</p>
+    <p>While it gives a reliable preliminary estimate for budgeting and planning, final structural design must be done by a licensed engineer using actual load calculations, soil conditions, and local building codes.</p>
 
-  <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">How the PEB Material Calculator Works</h2>
-  <p>This calculator estimates the major material quantities for a PEB based on building dimensions, bay spacing, crane load, and insulation type. It uses typical industry factors to approximate steel weight and sheeting area. The calculations are based on standard PEB design principles and typical material specifications used by manufacturers worldwide.</p>
-  <p>While it gives a reliable preliminary estimate for budgeting and planning, final structural design must be done by a licensed engineer using actual load calculations, soil conditions, and local building codes.</p>
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Key Inputs Explained</h2>
+    <ul style="padding-left:20px;">
+      <li><strong>Length & Width:</strong> Determine the building footprint and roof area. Together they define the total floor space.</li>
+      <li><strong>Eave Height:</strong> Affects wall area and steel column weight. Higher eaves need stronger columns.</li>
+      <li><strong>Bay Spacing:</strong> Smaller spacing means more frames but lighter members; larger spacing means fewer frames but heavier sections. Optimal spacing is usually 6-8 meters.</li>
+      <li><strong>Crane Load:</strong> Adds significant steel for crane girders and stronger columns. Always specify cranes upfront.</li>
+      <li><strong>Insulated Panels:</strong> Increases sheeting weight and cost but required for cold storage and temperature-controlled buildings.</li>
+    </ul>
 
-  <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Key Inputs Explained</h2>
-  <ul style="padding-left:20px;">
-    <li><strong>Length & Width:</strong> Determine the building footprint and roof area. Together they define the total floor space.</li>
-    <li><strong>Eave Height:</strong> Affects wall area and steel column weight. Higher eaves need stronger columns.</li>
-    <li><strong>Bay Spacing:</strong> Smaller spacing means more frames but lighter members; larger spacing means fewer frames but heavier sections. Optimal spacing is usually 6-8 meters.</li>
-    <li><strong>Crane Load:</strong> Adds significant steel for crane girders and stronger columns. Always specify cranes upfront.</li>
-    <li><strong>Insulated Panels:</strong> Increases sheeting weight and cost but required for cold storage and temperature-controlled buildings.</li>
-  </ul>
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Real-World Example</h2>
+    <p>Consider a warehouse PEB with:</p>
+    <ul style="padding-left:20px;">
+      <li>Length: 40 m</li>
+      <li>Width / Span: 20 m</li>
+      <li>Eave Height: 6 m</li>
+      <li>Bay Spacing: 6 m</li>
+      <li>No crane</li>
+    </ul>
+    <p>Footprint = 40 × 20 = 800 m². Using a typical factor of 10–12 kg/m² for a standard warehouse, estimated steel weight would be around 8 to 10 tons. Sheeting area would include roof plus walls. This gives a quick budget figure before detailed design.</p>
+    <p>Adding a 5T crane would increase steel weight by approximately 25-30%, or 2.5-3 additional tons. Insulated panels would add about 15% to sheeting cost.</p>
 
-  <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Real-World Example</h2>
-  <p>Consider a warehouse PEB with:</p>
-  <ul style="padding-left:20px;">
-    <li>Length: 40 m</li>
-    <li>Width / Span: 20 m</li>
-    <li>Eave Height: 6 m</li>
-    <li>Bay Spacing: 6 m</li>
-    <li>No crane</li>
-  </ul>
-  <p>Footprint = 40 × 20 = 800 m². Using a typical factor of 10–12 kg/m² for a standard warehouse, estimated steel weight would be around 8 to 10 tons. Sheeting area would include roof plus walls. This gives a quick budget figure before detailed design.</p>
-  <p>Adding a 5T crane would increase steel weight by approximately 25-30%, or 2.5-3 additional tons. Insulated panels would add about 15% to sheeting cost.</p>
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Common Mistakes to Avoid</h2>
+    <ul style="padding-left:20px;">
+      <li>Forgetting to include crane load — this can increase steel weight by 30% or more.</li>
+      <li>Using only footprint area for walls — wall area requires perimeter × height.</li>
+      <li>Not accounting for insulated panels when the building is for cold storage.</li>
+      <li>Using feet and meters mixed without proper conversion.</li>
+      <li>Ignoring bay spacing optimization — wrong spacing increases steel cost unnecessarily.</li>
+      <li>Not planning for future expansion — PEBs are easy to expand if designed correctly upfront.</li>
+    </ul>
 
-  <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Common Mistakes to Avoid</h2>
-  <ul style="padding-left:20px;">
-    <li>Forgetting to include crane load — this can increase steel weight by 30% or more.</li>
-    <li>Using only footprint area for walls — wall area requires perimeter × height.</li>
-    <li>Not accounting for insulated panels when the building is for cold storage.</li>
-    <li>Using feet and meters mixed without proper conversion.</li>
-    <li>Ignoring bay spacing optimization — wrong spacing increases steel cost unnecessarily.</li>
-    <li>Not planning for future expansion — PEBs are easy to expand if designed correctly upfront.</li>
-  </ul>
-
-  <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Frequently Asked Questions (FAQ)</h2>
-  <p><strong>Q: Is this calculator accurate enough for ordering steel?</strong><br>
-  A: No, it's for preliminary estimates. Final ordering requires detailed structural design by a licensed engineer.</p>
-  <p><strong>Q: Can I use it for cold storage PEB?</strong><br>
-  A: Yes, check the insulated panel option and combine with our Cold Storage Calculator for complete estimation.</p>
-  <p><strong>Q: Does it include foundation?</strong><br>
-  A: No, it estimates steel and sheeting only. Foundation design is separate and depends on soil conditions.</p>
-  <p><strong>Q: What's the typical steel weight per square meter for a warehouse?</strong><br>
-  A: Standard warehouse without crane: 10-12 kg/m². With crane: 20-35 kg/m². Cold storage: 15-20 kg/m².</p>
-  <p><strong>Q: How much does a PEB warehouse cost?</strong><br>
-  A: Typically $25-45 per sqm for standard warehouse (excluding foundation). This varies by location, steel prices, and specifications.</p>
-  <p><strong>Q: What's the maximum clear span for PEB?</strong><br>
-  A: Single-span PEBs can achieve clear spans of 60-70 meters. Beyond that, multi-span or truss systems are more economical.</p>
-  <p><strong>Q: Are PEBs safe in earthquakes?</strong><br>
-  A: Yes. Steel's ductility and bolted connections make PEBs among the safest structures in seismic zones. Proper bracing design is essential.</p>
-  <p><strong>Q: How long does PEB construction take?</strong><br>
-  A: Typically 4-8 weeks from foundation completion, compared to 4-8 months for conventional construction.</p>
-</div>
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Frequently Asked Questions (FAQ)</h2>
+    <p><strong>Q: Is this calculator accurate enough for ordering steel?</strong><br>
+    A: No, it's for preliminary estimates. Final ordering requires detailed structural design by a licensed engineer.</p>
+    <p><strong>Q: Can I use it for cold storage PEB?</strong><br>
+    A: Yes, check the insulated panel option and combine with our Cold Storage Calculator for complete estimation.</p>
+    <p><strong>Q: Does it include foundation?</strong><br>
+    A: No, it estimates steel and sheeting only. Foundation design is separate and depends on soil conditions.</p>
+    <p><strong>Q: What's the typical steel weight per square meter for a warehouse?</strong><br>
+    A: Standard warehouse without crane: 10-12 kg/m². With crane: 20-35 kg/m². Cold storage: 15-20 kg/m².</p>
+    <p><strong>Q: How much does a PEB warehouse cost?</strong><br>
+    A: Typically $25-45 per sqm for standard warehouse (excluding foundation). This varies by location, steel prices, and specifications.</p>
+    <p><strong>Q: What's the maximum clear span for PEB?</strong><br>
+    A: Single-span PEBs can achieve clear spans of 60-70 meters. Beyond that, multi-span or truss systems are more economical.</p>
+    <p><strong>Q: Are PEBs safe in earthquakes?</strong><br>
+    A: Yes. Steel's ductility and bolted connections make PEBs among the safest structures in seismic zones. Proper bracing design is essential.</p>
+    <p><strong>Q: How long does PEB construction take?</strong><br>
+    A: Typically 4-8 weeks from foundation completion, compared to 4-8 months for conventional construction.</p>
+  </div>
 
   <!-- Related tools -->
   <div style="margin:20px 0 10px; padding:20px; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.2); border-radius:12px;">
@@ -407,13 +495,55 @@
     </div>
   </div>
 
-<!-- Professional Disclaimer -->
-<div style="margin-top:20px; padding:16px 18px; background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.35); border-radius:12px; font-size:0.85rem; color:#cfd6dd; line-height:1.7;">
-  <strong style="color:#FFD700;"> Disclaimer:</strong> This tool provides <strong>preliminary estimates</strong> based on standard industry formulas and typical material properties. Results may vary due to local conditions, material grades, environmental factors, and project-specific requirements. Always consult a <strong>licensed engineer or qualified professional</strong> for final design, verification, and execution.
-</div>
+  <!-- Professional Disclaimer -->
+  <div style="margin-top:20px; padding:16px 18px; background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.35); border-radius:12px; font-size:0.85rem; color:#cfd6dd; line-height:1.7;">
+    <strong style="color:#FFD700;"> Disclaimer:</strong> This tool provides <strong>preliminary estimates</strong> based on standard industry formulas and typical material properties. Results may vary due to local conditions, material grades, environmental factors, and project-specific requirements. Always consult a <strong>licensed engineer or qualified professional</strong> for final design, verification, and execution.
+  </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <!-- LEAD CAPTURE MODAL -->
+  <div id="leadModal" class="lead-modal-overlay" style="display:none;">
+    <div class="lead-modal">
+      <button class="lead-modal-close" onclick="closeLeadModal()">×</button>
+      <h3> Download Your Certified Technical Estimate</h3>
+      <p>Get a professional PDF report you can share with your team or investors. We'll also send you a copy by email.</p>
+      
+      <div class="lead-form">
+        <input type="text" id="leadName" placeholder="Full Name *" required>
+        <input type="email" id="leadEmail" placeholder="Business Email *" required>
+        <input type="text" id="leadWhatsApp" placeholder="WhatsApp (with country code)">
+        <div style="display:flex; gap:10px;">
+          <input type="text" id="leadCity" placeholder="City" style="flex:1;">
+          <input type="text" id="leadCountry" placeholder="Country" style="flex:1;">
+        </div>
+        <button class="btn-primary" onclick="submitLeadAndDownload()"> Download PDF Now</button>
+        <div class="privacy-note"> We respect your privacy. Your data is only used to send your report and relevant project information.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Currency Rates -->
+  <script>
+  const FALLBACK_RATES = { USD:1, EUR:0.92, GBP:0.79, PKR:278.5, AED:3.6725, SAR:3.75, INR:83.2, CNY:7.24, AUD:1.52, CAD:1.36 };
+  let liveRates = { ...FALLBACK_RATES };
+  let ratesLoaded = false;
+  async function initLiveRates() {
+    try {
+      const res = await fetch('https://open.er-api.com/v6/latest/USD');
+      const data = await res.json();
+      if(data && data.rates) {
+        liveRates = data.rates;
+        ratesLoaded = true;
+        console.log(' Live currency rates loaded');
+      }
+    } catch(e) {
+      console.log(' Using fallback rates');
+    }
+  }
+  initLiveRates();
+  </script>
 
   <script>
     function updateLabels() {
@@ -582,6 +712,193 @@
       navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{
         alert(window.location.href);
       });
+    }
+
+    // Lead Capture & PDF
+    function openLeadModal() {
+      const resultCard = document.getElementById('pebResultCard');
+      if (!resultCard || resultCard.style.display === 'none' || resultCard.style.display === '') {
+        alert('Please calculate first to generate the PDF report.');
+        return;
+      }
+      document.getElementById('leadModal').style.display = 'flex';
+    }
+
+    function closeLeadModal() {
+      document.getElementById('leadModal').style.display = 'none';
+    }
+
+    async function submitLeadAndDownload() {
+      const leadData = {
+        name: document.getElementById('leadName').value.trim(),
+        email: document.getElementById('leadEmail').value.trim(),
+        whatsapp: document.getElementById('leadWhatsApp').value.trim(),
+        city: document.getElementById('leadCity').value.trim(),
+        country: document.getElementById('leadCountry').value.trim()
+      };
+
+      if (!leadData.name || !leadData.email) {
+        alert('Please enter your name and business email.');
+        return;
+      }
+
+      const calcData = {
+        currency: document.getElementById('pCurrency').value,
+        footprint: document.getElementById('rFootprint').textContent,
+        steelWeight: document.getElementById('rSteel').textContent,
+        steelTons: document.getElementById('rSteelTons').textContent,
+        roofArea: document.getElementById('rRoof').textContent,
+        wallArea: document.getElementById('rWall').textContent,
+        totalCost: document.getElementById('rTotalCost').textContent
+      };
+
+      // Optional: send lead to Formspree/webhook here
+      // const FORMSPREE_ENDPOINT = 'https://formspree.io/f/yourFormId';
+      // try {
+      //   await fetch(FORMSPREE_ENDPOINT, {
+      //     method: 'POST',
+      //     headers: { 'Content-Type': 'application/json' },
+      //     body: JSON.stringify({ leadData, calcData })
+      //   });
+      // } catch (e) { console.warn('Lead delivery failed, but PDF still generated'); }
+
+      generatePEBPDF(leadData, calcData);
+      closeLeadModal();
+    }
+
+    function generatePEBPDF(leadData, calcData) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+
+      const PRIMARY = [26, 54, 93];
+      const SECONDARY = [224, 86, 36];
+      const TEXT_DARK = [45, 55, 72];
+      const WHITE = [255, 255, 255];
+      const LIGHT_BG = [247, 250, 252];
+
+      doc.setFillColor(...PRIMARY);
+      doc.rect(0, 0, 210, 8, 'F');
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(22);
+      doc.setTextColor(...PRIMARY);
+      doc.text("COLDMATRIX ADVANCED SOLUTIONS", 14, 25);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9);
+      doc.setTextColor(128, 128, 128);
+      doc.text("Pre-Engineered Building (PEB) Material Estimation", 14, 30);
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.setTextColor(...TEXT_DARK);
+      doc.text("PEB ESTIMATE REPORT", 200, 25, { align: "right" });
+      doc.setFont("helvetica", "normal");
+      doc.text(`Date: ${new Date().toLocaleDateString()}`, 200, 30, { align: "right" });
+      doc.text(`Ref ID: CM-${Math.floor(100000 + Math.random() * 900000)}`, 200, 35, { align: "right" });
+
+      doc.setDrawColor(226, 232, 240);
+      doc.setLineWidth(0.5);
+      doc.line(14, 40, 196, 40);
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(12);
+      doc.setTextColor(...PRIMARY);
+      doc.text("1. Project & Client Information", 14, 50);
+
+      const clientMeta = [
+        ["Client Name:", leadData.name, "Country:", leadData.country],
+        ["Business Email:", leadData.email, "City:", leadData.city],
+        ["WhatsApp:", leadData.whatsapp, "Currency:", calcData.currency]
+      ];
+
+      doc.autoTable({
+        startY: 54,
+        body: clientMeta,
+        theme: 'plain',
+        styles: { fontSize: 10, cellPadding: 2, textColor: TEXT_DARK },
+        columnStyles: {
+          0: { fontStyle: 'bold', cellWidth: 40 },
+          2: { fontStyle: 'bold', cellWidth: 35 }
+        },
+        margin: { left: 14 }
+      });
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(12);
+      doc.setTextColor(...PRIMARY);
+      doc.text("2. PEB Material Metrics", 14, doc.lastAutoTable.finalY + 12);
+
+      const engineeringMetrics = [
+        ["Parameter", "Value", "Notes"],
+        ["Footprint Area", calcData.footprint, "Building base area"],
+        ["Est. Steel Weight", calcData.steelWeight, "Primary structural steel"],
+        ["Steel Weight (tons)", calcData.steelTons, "Metric/short tons"],
+        ["Roof Sheeting Area", calcData.roofArea, "Including roof slope"],
+        ["Wall Sheeting Area", calcData.wallArea, "Including gable ends"],
+        ["Estimated Total Cost", calcData.totalCost, "Steel + sheeting"]
+      ];
+
+      doc.autoTable({
+        startY: doc.lastAutoTable.finalY + 16,
+        head: [engineeringMetrics[0]],
+        body: engineeringMetrics.slice(1),
+        theme: 'striped',
+        headStyles: { fillColor: PRIMARY, textColor: WHITE, fontStyle: 'bold' },
+        styles: { fontSize: 10, cellPadding: 4, textColor: TEXT_DARK },
+        columnStyles: {
+          0: { fontStyle: 'bold', cellWidth: 45 },
+          1: { cellWidth: 55 },
+          2: { cellWidth: 60 }
+        },
+        margin: { left: 14, right: 14 }
+      });
+
+      let finalY = doc.lastAutoTable.finalY + 15;
+      doc.setFillColor(...LIGHT_BG);
+      doc.rect(14, finalY, 182, 28, 'F');
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9);
+      doc.setTextColor(...SECONDARY);
+      doc.text(" ENGINEERING NOTICE:", 18, finalY + 6);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      doc.setTextColor(...TEXT_DARK);
+      const splitDisclaimer = doc.splitTextToSize(
+        "This PEB material estimate is generated by the ColdMatrix PEB Calculator. It is intended for preliminary planning only and should not replace detailed structural design, site-specific load calculations, or professional engineering verification.",
+        174
+      );
+      doc.text(splitDisclaimer, 18, finalY + 12);
+
+      finalY += 38;
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.setTextColor(...PRIMARY);
+      doc.text("Ready to Build Your PEB Project?", 14, finalY);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9.5);
+      doc.setTextColor(...TEXT_DARK);
+      doc.text(
+        "Contact our engineering desk for a detailed PEB design, structural drawings, and competitive quotation.",
+        14, finalY + 6, { maxWidth: 182 }
+      );
+
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(...SECONDARY);
+      doc.text(" Global Desk: engineering@coldmatrixtools.com", 14, finalY + 20);
+      doc.text(" Office: Karachi, Pakistan", 14, finalY + 25);
+
+      doc.setFillColor(...PRIMARY);
+      doc.rect(0, 287, 210, 10, 'F');
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      doc.setTextColor(...WHITE);
+      doc.text("ColdMatrix Advanced Solutions © 2026 | Automated Global Engineering Tools Infrastructure", 105, 293, { align: "center" });
+
+      doc.save(`ColdMatrix_PEB_Estimate_${leadData.name.replace(/\s+/g, '_')}.pdf`);
     }
   </script>
 

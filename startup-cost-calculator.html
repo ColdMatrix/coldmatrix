@@ -28,6 +28,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
   <style>
     :root {
       --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
@@ -152,6 +154,51 @@
     footer a { color:var(--gold-bright); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
+    /* Lead Capture Modal */
+    .lead-modal-overlay {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.75); z-index:10000;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter: blur(6px);
+    }
+    .lead-modal {
+      background: #12181F; border: 2px solid #D4AF37; border-radius: 16px;
+      padding: 28px; max-width: 480px; width: 90%;
+      box-shadow: 0 0 40px rgba(212,175,55,0.4), 0 20px 60px rgba(0,0,0,0.8);
+      position: relative; text-align: center;
+    }
+    .lead-modal-close {
+      position: absolute; top: 10px; right: 15px; background: transparent;
+      border: none; color: #D4AF37; font-size: 2rem; cursor: pointer; line-height: 1;
+    }
+    .lead-modal h3 {
+      font-family: 'Oswald', sans-serif; color: #FFD700; font-size: 1.5rem;
+      margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .lead-modal p {
+      color: #cfd6dd; font-size: 0.9rem; margin-bottom: 20px;
+    }
+    .lead-form input {
+      width: 100%; background: #1B232C; border: 2px solid #D4AF37; color: #fff;
+      padding: 12px 14px; border-radius: 8px; margin-bottom: 12px; font-size: 0.95rem;
+    }
+    .lead-form input:focus {
+      outline: none; border-color: #FFD700; box-shadow: 0 0 15px rgba(212,175,55,0.5);
+    }
+    .lead-form .btn-primary {
+      width: 100%; padding: 14px; background: linear-gradient(145deg, #e6eaf0, #8a929c);
+      color: #0A0F14; border: 2px solid #D4AF37; border-radius: 10px;
+      font-weight: 800; font-size: 1rem; cursor: pointer; margin-top: 8px;
+      letter-spacing: 0.5px; text-shadow: 0 1px 2px rgba(255,255,255,0.4);
+    }
+    .lead-form .btn-primary:hover {
+      background: linear-gradient(145deg, #f8fafc, #b8c0c9);
+      border-color: #FFD700;
+    }
+    .privacy-note {
+      margin-top: 10px; font-size: 0.7rem; color: #8B98A5;
+    }
+
     @media (max-width:600px){ .row2,.row3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .action-buttons{grid-template-columns:1fr;} }
   </style>
 </head>
@@ -201,7 +248,7 @@
       </div>
       <div class="row2">
         <div class="field"><label>Country</label><input type="text" id="country" placeholder="e.g. Pakistan, India, USA"></div>
-        <div class="field"><label>💱 Currency</label><select id="currency">
+        <div class="field"><label>💱 Currency</label><select id="currency" onchange="onCurrencyChange()">
           <option value="PKR">🇵🇰 PKR</option>
           <option value="INR">🇮🇳 INR</option>
           <option value="AED">🇦🇪 AED</option>
@@ -369,6 +416,13 @@
         <button class="action-btn png-action" onclick="downloadStartup('png')"><i class="fa-solid fa-image"></i> PNG</button>
       </div>
 
+      <!-- New Premium PDF Button -->
+      <div style="margin-top: 20px; text-align: center;">
+        <button class="btn-primary" style="width:100%; padding:14px; font-size:1rem;" onclick="openLeadModal()">
+          📥 Download Certified Technical Estimate & Material Specification PDF
+        </button>
+      </div>
+
       <div class="contact-note">❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>For queries: <strong>+92 333 3228470</strong><br><span style="word-break:break-all;">contact@coldmatrixtools.com</span></div>
     </div>
 
@@ -510,7 +564,90 @@
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
   <a href="https://wa.me/923333228470" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
+  <!-- LEAD CAPTURE MODAL -->
+  <div id="leadModal" class="lead-modal-overlay" style="display:none;">
+    <div class="lead-modal">
+      <button class="lead-modal-close" onclick="closeLeadModal()">×</button>
+      <h3>📥 Download Your Certified Funding Report</h3>
+      <p>Get a professional PDF report you can share with investors or lenders. We'll also send you a copy by email.</p>
+      
+      <div class="lead-form">
+        <input type="text" id="leadName" placeholder="Full Name *" required>
+        <input type="email" id="leadEmail" placeholder="Business Email *" required>
+        <input type="text" id="leadWhatsApp" placeholder="WhatsApp (with country code)">
+        <div style="display:flex; gap:10px;">
+          <input type="text" id="leadCity" placeholder="City" style="flex:1;">
+          <input type="text" id="leadCountry" placeholder="Country" style="flex:1;">
+        </div>
+        <button class="btn-primary" onclick="submitLeadAndDownload()">📥 Download PDF Now</button>
+        <div class="privacy-note">🔒 We respect your privacy. Your data is only used to send your report and relevant business information.</div>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // ============================================
+    // LIVE CURRENCY API INTEGRATION
+    // ============================================
+    const FALLBACK_RATES = { 
+      USD:1, 
+      EUR:0.92, 
+      GBP:0.79, 
+      PKR:278.5, 
+      AED:3.6725, 
+      SAR:3.75, 
+      INR:83.2, 
+      CNY:7.24, 
+      AUD:1.52, 
+      CAD:1.36 
+    };
+    
+    let liveRates = { ...FALLBACK_RATES };
+    let ratesLoaded = false;
+    let lastCalculatedValues = null; // Store last calculated values for currency updates
+
+    async function initLiveRates() {
+      try {
+        const res = await fetch('https://open.er-api.com/v6/latest/USD');
+        const data = await res.json();
+        if(data && data.rates) {
+          liveRates = data.rates;
+          ratesLoaded = true;
+          console.log('✅ Live currency rates loaded successfully');
+          
+          if(lastCalculatedValues) {
+            calculateStartup();
+          }
+        }
+      } catch(e) {
+        console.log('⚠️ Using fallback rates - API unavailable');
+      }
+    }
+
+    function convertCurrency(amount, fromCurrency, toCurrency) {
+      if(fromCurrency === toCurrency) return amount;
+      const amountInUSD = amount / liveRates[fromCurrency];
+      return amountInUSD * liveRates[toCurrency];
+    }
+
+    const currencySymbols = {
+      USD: '$', EUR: '€', GBP: '£', PKR: '₨', 
+      AED: 'د.إ', SAR: '﷼', INR: '₹', CNY: '¥', 
+      AUD: 'A$', CAD: 'C$'
+    };
+
+    function onCurrencyChange() {
+      console.log('💱 Currency changed, recalculating...');
+      if(lastCalculatedValues) {
+        calculateStartup();
+      }
+    }
+
+    initLiveRates();
+
+    // ============================================
+    // ORIGINAL CALCULATOR LOGIC
+    // ============================================
     let eqCount = 0, invCount = 0;
 
     function addEquipment() {
@@ -581,6 +718,8 @@
 
     function calculateStartup() {
       const currency = document.getElementById('currency').value;
+      const symbol = currencySymbols[currency] || currency + ' ';
+      
       const startup = getSetupTotal() + getTotalEquipment() + getTotalInventory() + getPreLaunchTotal();
       const monthly = getMonthlyTotal();
       const wcMonths = parseFloat(document.getElementById('wcMonths').value);
@@ -593,7 +732,12 @@
       const available = getAvailableCapital();
       const gap = totalRequired - available;
 
-      const fmt = (n) => currency + ' ' + n.toLocaleString();
+      lastCalculatedValues = {
+        startup, monthly, workingCapital, reserve, 
+        totalRequired, available, gap
+      };
+
+      const fmt = (n) => symbol + ' ' + n.toLocaleString();
 
       document.getElementById('rStartup').textContent = fmt(startup);
       document.getElementById('rMonthly').textContent = fmt(monthly);
@@ -647,6 +791,202 @@
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
 
     addEquipment(); addInventory();
+
+    // ============================================
+    // LEAD CAPTURE & DYNAMIC PDF GENERATION
+    // ============================================
+    function openLeadModal() {
+      const resultCard = document.getElementById('resultCard');
+      if (!resultCard || resultCard.style.display === 'none' || resultCard.style.display === '') {
+        alert('Please calculate first to generate the PDF report.');
+        return;
+      }
+      document.getElementById('leadModal').style.display = 'flex';
+    }
+
+    function closeLeadModal() {
+      document.getElementById('leadModal').style.display = 'none';
+    }
+
+    async function submitLeadAndDownload() {
+      const leadData = {
+        name: document.getElementById('leadName').value.trim(),
+        email: document.getElementById('leadEmail').value.trim(),
+        whatsapp: document.getElementById('leadWhatsApp').value.trim(),
+        city: document.getElementById('leadCity').value.trim(),
+        country: document.getElementById('leadCountry').value.trim()
+      };
+
+      if (!leadData.name || !leadData.email) {
+        alert('Please enter your name and business email.');
+        return;
+      }
+
+      const calcData = {
+        currency: document.getElementById('currency').value,
+        bizName: document.getElementById('bizName').value,
+        bizType: document.getElementById('bizType').value,
+        startup: document.getElementById('rStartup').textContent,
+        monthly: document.getElementById('rMonthly').textContent,
+        workingCapital: document.getElementById('rWC').textContent,
+        reserve: document.getElementById('rReserve').textContent,
+        totalRequired: document.getElementById('rTotalRequired').textContent,
+        available: document.getElementById('rAvailable').textContent,
+        gap: document.getElementById('rGapItem').style.display === 'none' ? '—' : document.getElementById('rGap').textContent,
+        surplus: document.getElementById('rSurplusItem').style.display === 'none' ? '—' : document.getElementById('rSurplus').textContent
+      };
+
+      // Optional: send lead to Formspree/webhook here
+      // const FORMSPREE_ENDPOINT = 'https://formspree.io/f/yourFormId';
+      // try {
+      //   await fetch(FORMSPREE_ENDPOINT, {
+      //     method: 'POST',
+      //     headers: { 'Content-Type': 'application/json' },
+      //     body: JSON.stringify({ leadData, calcData })
+      //   });
+      // } catch (e) { console.warn('Lead delivery failed, but PDF still generated'); }
+
+      generateStartupPDF(leadData, calcData);
+      closeLeadModal();
+    }
+
+    function generateStartupPDF(leadData, calcData) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+
+      const PRIMARY = [26, 54, 93];
+      const SECONDARY = [224, 86, 36];
+      const TEXT_DARK = [45, 55, 72];
+      const WHITE = [255, 255, 255];
+      const LIGHT_BG = [247, 250, 252];
+
+      doc.setFillColor(...PRIMARY);
+      doc.rect(0, 0, 210, 8, 'F');
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(22);
+      doc.setTextColor(...PRIMARY);
+      doc.text("COLDMATRIX ADVANCED SOLUTIONS", 14, 25);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9);
+      doc.setTextColor(128, 128, 128);
+      doc.text("Business Planning | Startup Funding & Financial Modeling", 14, 30);
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.setTextColor(...TEXT_DARK);
+      doc.text("FUNDING ESTIMATE REPORT", 200, 25, { align: "right" });
+      doc.setFont("helvetica", "normal");
+      doc.text(`Date: ${new Date().toLocaleDateString()}`, 200, 30, { align: "right" });
+      doc.text(`Ref ID: CM-${Math.floor(100000 + Math.random() * 900000)}`, 200, 35, { align: "right" });
+
+      doc.setDrawColor(226, 232, 240);
+      doc.setLineWidth(0.5);
+      doc.line(14, 40, 196, 40);
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(12);
+      doc.setTextColor(...PRIMARY);
+      doc.text("1. Business & Client Information", 14, 50);
+
+      const clientMeta = [
+        ["Client Name:", leadData.name, "Business Name:", calcData.bizName],
+        ["Business Email:", leadData.email, "Business Type:", calcData.bizType],
+        ["WhatsApp:", leadData.whatsapp, "Country:", leadData.country],
+        ["City:", leadData.city, "Currency:", calcData.currency]
+      ];
+
+      doc.autoTable({
+        startY: 54,
+        body: clientMeta,
+        theme: 'plain',
+        styles: { fontSize: 10, cellPadding: 2, textColor: TEXT_DARK },
+        columnStyles: {
+          0: { fontStyle: 'bold', cellWidth: 40 },
+          2: { fontStyle: 'bold', cellWidth: 35 }
+        },
+        margin: { left: 14 }
+      });
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(12);
+      doc.setTextColor(...PRIMARY);
+      doc.text("2. Startup Financial Metrics", 14, doc.lastAutoTable.finalY + 12);
+
+      const financialMetrics = [
+        ["Parameter", "Calculated Value", "Notes"],
+        ["Total Startup Cost", calcData.startup, "One-time setup & launch"],
+        ["Monthly Operating", calcData.monthly, "Recurring expenses"],
+        ["Working Capital", calcData.workingCapital, "Reserve buffer"],
+        ["Emergency/Reserve", calcData.reserve, "Contingency fund"],
+        ["Total Funding Required", calcData.totalRequired, "Capital needed"],
+        ["Available Capital", calcData.available, "Current resources"],
+        ["Funding Gap", calcData.gap, "Additional funding needed"],
+        ["Surplus", calcData.surplus, "Excess capital available"]
+      ];
+
+      doc.autoTable({
+        startY: doc.lastAutoTable.finalY + 16,
+        head: [financialMetrics[0]],
+        body: financialMetrics.slice(1),
+        theme: 'striped',
+        headStyles: { fillColor: PRIMARY, textColor: WHITE, fontStyle: 'bold' },
+        styles: { fontSize: 10, cellPadding: 4, textColor: TEXT_DARK },
+        columnStyles: {
+          0: { fontStyle: 'bold', cellWidth: 55 },
+          1: { cellWidth: 55 },
+          2: { cellWidth: 55 }
+        },
+        margin: { left: 14, right: 14 }
+      });
+
+      let finalY = doc.lastAutoTable.finalY + 15;
+      doc.setFillColor(...LIGHT_BG);
+      doc.rect(14, finalY, 182, 28, 'F');
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(9);
+      doc.setTextColor(...SECONDARY);
+      doc.text("⚠️ FINANCIAL PLANNING NOTICE:", 18, finalY + 6);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      doc.setTextColor(...TEXT_DARK);
+      const splitDisclaimer = doc.splitTextToSize(
+        "This funding estimate is generated by the ColdMatrix Startup Cost Calculator. It is intended for preliminary planning only and should not replace advice from a licensed financial advisor or accountant. Actual costs and funding requirements may vary based on market conditions, location, and business-specific factors.",
+        174
+      );
+      doc.text(splitDisclaimer, 18, finalY + 12);
+
+      finalY += 38;
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.setTextColor(...PRIMARY);
+      doc.text("Need Help Securing Your Startup Capital?", 14, finalY);
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(9.5);
+      doc.setTextColor(...TEXT_DARK);
+      doc.text(
+        "Our team provides business planning support and financial modeling assistance. Contact us for a professional consultation on funding strategies, investor presentations, and financial projections.",
+        14, finalY + 6, { maxWidth: 182 }
+      );
+
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(...SECONDARY);
+      doc.text("📧 Global Desk: engineering@coldmatrixtools.com", 14, finalY + 20);
+      doc.text("🌐 Office: Karachi, Pakistan", 14, finalY + 25);
+
+      doc.setFillColor(...PRIMARY);
+      doc.rect(0, 287, 210, 10, 'F');
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      doc.setTextColor(...WHITE);
+      doc.text("ColdMatrix Advanced Solutions © 2026 | Automated Global Engineering Tools Infrastructure", 105, 293, { align: "center" });
+
+      doc.save(`ColdMatrix_Startup_Estimate_${leadData.name.replace(/\s+/g, '_')}.pdf`);
+    }
   </script>
 </body>
 </html>

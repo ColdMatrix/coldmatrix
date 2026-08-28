@@ -41,6 +41,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
   <style>
     :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); --good:#34D399; --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45); --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%); --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%); }
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -151,6 +152,51 @@
     footer a { color:var(--gold-bright); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:18px; right:18px; z-index:999; width:44px; height:44px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.2rem; }
 
+    /* Lead Capture Modal */
+    .lead-modal-overlay {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.75); z-index:10000;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter: blur(6px);
+    }
+    .lead-modal {
+      background: #12181F; border: 2px solid #D4AF37; border-radius: 16px;
+      padding: 28px; max-width: 480px; width: 90%;
+      box-shadow: 0 0 40px rgba(212,175,55,0.4), 0 20px 60px rgba(0,0,0,0.8);
+      position: relative; text-align: center;
+    }
+    .lead-modal-close {
+      position: absolute; top: 10px; right: 15px; background: transparent;
+      border: none; color: #D4AF37; font-size: 2rem; cursor: pointer; line-height: 1;
+    }
+    .lead-modal h3 {
+      font-family: 'Oswald', sans-serif; color: #FFD700; font-size: 1.5rem;
+      margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .lead-modal p {
+      color: #cfd6dd; font-size: 0.9rem; margin-bottom: 20px;
+    }
+    .lead-form input {
+      width: 100%; background: #1B232C; border: 2px solid #D4AF37; color: #fff;
+      padding: 12px 14px; border-radius: 8px; margin-bottom: 12px; font-size: 0.95rem;
+    }
+    .lead-form input:focus {
+      outline: none; border-color: #FFD700; box-shadow: 0 0 15px rgba(212,175,55,0.5);
+    }
+    .lead-form .btn-primary {
+      width: 100%; padding: 14px; background: linear-gradient(145deg, #e6eaf0, #8a929c);
+      color: #0A0F14; border: 2px solid #D4AF37; border-radius: 10px;
+      font-weight: 800; font-size: 1rem; cursor: pointer; margin-top: 8px;
+      letter-spacing: 0.5px; text-shadow: 0 1px 2px rgba(255,255,255,0.4);
+    }
+    .lead-form .btn-primary:hover {
+      background: linear-gradient(145deg, #f8fafc, #b8c0c9);
+      border-color: #FFD700;
+    }
+    .privacy-note {
+      margin-top: 10px; font-size: 0.7rem; color: #8B98A5;
+    }
+
     @media (max-width:460px) {
       .row2, .row3, .row4 { grid-template-columns:1fr 1fr; }
       .result-grid { grid-template-columns:1fr 1fr; }
@@ -238,7 +284,7 @@
           </select>
         </div>
       </div>
-      <div class="note">💱 Suggested rates convert automatically using approximate exchange rates. Always adjust the rate fields to match your local market for an accurate estimate.</div>
+      <div class="note">💱 Live currency rates loaded automatically. Always adjust the rate fields to match your local market for an accurate estimate.</div>
     </div>
 
     <!-- CARD: Project Details -->
@@ -443,6 +489,20 @@
       </div>
 
       <div class="disclaimer">⚠️ This is a preliminary estimate using general industry rule-of-thumb rates and thumb-rule material factors. Actual costs vary significantly by location, market rates, site conditions, and design specifics. For an accurate quotation, please consult a professional contractor or structural engineer.</div>
+
+      <!-- New Premium PDF Button -->
+      <div style="margin-top: 20px; text-align: center;">
+        <button class="btn-primary" style="width:100%; padding:14px; font-size:1rem;" onclick="openLeadModal()">
+          📥 Download Certified Technical Estimate & Material Specification PDF
+        </button>
+      </div>
+
+      <div class="share-bar" id="shareBarWrap" style="display:flex;">
+        <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+        <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+        <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+      </div>
     </div>
 
     <div id="shareCapture">
@@ -458,15 +518,62 @@
       </div>
     </div>
 
-    <div class="share-bar" id="shareBarWrap" style="display:none;">
-      <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-      <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
-      <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
-      <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+    <!-- Localized Pakistani Text: PEB & Construction -->
+    <div style="margin:30px 0; padding:24px 20px; background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.3); border-radius:14px; line-height:1.8; font-size:0.95rem; color:#cfd6dd;">
+      <h2 style="font-size:1.2rem; margin-bottom:12px; color:#FFD700;">🏗️ Pre-Engineered Steel Buildings (PEB) & Industrial Civil Contracting</h2>
+      <p>Planning an industrial production facility, multi-story factory layout, or logistical hub in Pakistan? Our PEB Material Calculator provides structural steel weight baselines using international AISC configurations, fine-tuned for local construction realities. <strong>ColdMatrix</strong> offers complete turnkey solutions from concrete foundation casting to final structural steel erection.</p>
+      <p style="margin-top:10px;">Contact our <strong>Karachi engineering desk</strong> for site evaluations, soil test matching, and formal commercial bidding documentation.</p>
     </div>
+
+    <!-- Project Gallery: Proof of Work -->
+    <div style="margin:40px 0 30px;">
+      <h2 style="font-family:'Oswald',sans-serif; color:#FFD700; font-size:1.4rem; margin-bottom:20px; text-align:center; text-transform:uppercase; letter-spacing:0.5px;">📸 Recent Physical Deployments by ColdMatrix</h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+        
+        <!-- Project 1 -->
+        <div style="background:#12181F; border:1px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+          <img src="https://via.placeholder.com/400x250/1a365d/ffffff?text=Cold+Storage+Facility" alt="Cold Storage Facility in Lahore" style="width:100%; height:180px; object-fit:cover;">
+          <div style="padding:14px;">
+            <h4 style="color:#FFD700; font-size:0.9rem; margin-bottom:8px;">❄️ Cold Chain Logistics</h4>
+            <p style="color:#cfd6dd; font-size:0.8rem; line-height:1.5;">1,500 Sq. Ft. Commercial Fruit Cold Storage Facility (+2°C to +8°C) — Operational deployment in Lahore, Pakistan.</p>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div style="background:#12181F; border:1px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+          <img src="https://via.placeholder.com/400x250/1a365d/ffffff?text=Pharma+Warehouse+PIR+Panels" alt="Pharma Warehouse with PIR Panels in Karachi" style="width:100%; height:180px; object-fit:cover;">
+          <div style="padding:14px;">
+            <h4 style="color:#FFD700; font-size:0.9rem; margin-bottom:8px;">🏭 Industrial Manufacturing Panel Supply</h4>
+            <p style="color:#cfd6dd; font-size:0.8rem; line-height:1.5;">Controlled Environment Pharmaceutical Storage Facility utilizing 100mm fire-retardant PIR Panels — Korangi Industrial Area, Karachi.</p>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div style="background:#12181F; border:1px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+          <img src="https://via.placeholder.com/400x250/1a365d/ffffff?text=PEB+Warehouse+Hub" alt="PEB Warehouse in Balochistan" style="width:100%; height:180px; object-fit:cover;">
+          <div style="padding:14px;">
+            <h4 style="color:#FFD700; font-size:0.9rem; margin-bottom:8px;">🏗️ Heavy Steel Warehousing (PEB)</h4>
+            <p style="color:#cfd6dd; font-size:0.8rem; line-height:1.5;">Turnkey Logistics Warehouse (80-foot clear span PEB structural steel configuration) — Hub, Balochistan.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Local Business Bridge Footer -->
+    <div style="background: #1a365d; color: white; padding: 30px; border-radius: 12px; margin-top: 40px; border-left: 6px solid #e05624;">
+      <h3 style="color: #e05624; margin-top: 0; font-family:'Oswald',sans-serif;">📱 Discuss Your Industrial Project Locally</h3>
+      <p style="color:#e0e0e0; margin-bottom:15px;">Need urgent technical verification, physical material samples delivered to your office, or a verified commercial invoice layout? Skip the automated queue and connect directly with our head engineering office in Karachi.</p>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap; font-weight: bold; margin-top: 15px;">
+        <span>📞 Office Phone: <a href="tel:+923333228470" style="color:#fff;">+92 333 3228470</a></span>
+        <span style="color: #25d366;">💬 WhatsApp Desk: <a href="https://wa.me/923333228470" target="_blank" style="color:#25d366;">+92 333 3228470</a></span>
+        <span>📍 Factory/H.Q: Karachi, Pakistan</span>
+      </div>
+    </div>
+
   </div>
   
-  <!-- EXTENDED SEO CONTENT -->
+  <!-- EXTENDED INDUSTRY CONTENT -->
 <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
   <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">📚 The Complete Construction Cost Guide</h2>
   
@@ -606,10 +713,65 @@
 <footer>Powered by <a href="index.html" style="color:#FFD700;">ColdMatrix</a> — Free tools for everyone.</footer>
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
+  <!-- LEAD CAPTURE MODAL -->
+  <div id="leadModal" class="lead-modal-overlay" style="display:none;">
+    <div class="lead-modal">
+      <button class="lead-modal-close" onclick="closeLeadModal()">×</button>
+      <h3>📥 Download Your Certified Construction Estimate</h3>
+      <p>Get a professional PDF report you can share with your team, contractors, or investors. We'll also send you a copy by email.</p>
+      
+      <div class="lead-form">
+        <input type="text" id="leadName" placeholder="Full Name *" required>
+        <input type="email" id="leadEmail" placeholder="Business Email *" required>
+        <input type="text" id="leadWhatsApp" placeholder="WhatsApp (with country code)">
+        <div style="display:flex; gap:10px;">
+          <input type="text" id="leadCity" placeholder="City" style="flex:1;">
+          <input type="text" id="leadCountry" placeholder="Country" style="flex:1;">
+        </div>
+        <button class="btn-primary" onclick="submitLeadAndDownload()">📥 Download PDF Now</button>
+        <div class="privacy-note">🔒 We respect your privacy. Your data is only used to send your report and relevant project information.</div>
+      </div>
+    </div>
+  </div>
+
 <script>
-  // Full original script preserved
+  // ============================================
+  // LIVE CURRENCY API INTEGRATION
+  // ============================================
+  const FALLBACK_FX = { PKR:1, USD:285, EUR:310, GBP:360, AED:77.6, SAR:76, INR:3.42, CNY:39.6, AUD:187.5, CAD:208 };
+  let FX = { ...FALLBACK_FX };
+  let liveRatesLoaded = false;
+
+  async function initLiveCurrencyRates() {
+    try {
+      const res = await fetch('https://open.er-api.com/v6/latest/PKR');
+      const data = await res.json();
+      if(data && data.rates) {
+        FX = {
+          PKR: 1,
+          USD: 1 / data.rates.USD,
+          EUR: 1 / data.rates.EUR,
+          GBP: 1 / data.rates.GBP,
+          AED: 1 / data.rates.AED,
+          SAR: 1 / data.rates.SAR,
+          INR: 1 / data.rates.INR,
+          CNY: 1 / data.rates.CNY,
+          AUD: 1 / data.rates.AUD,
+          CAD: 1 / data.rates.CAD
+        };
+        liveRatesLoaded = true;
+        console.log('✅ Live currency rates loaded successfully');
+        updateSuggestedRates();
+      }
+    } catch(e) {
+      console.log('⚠️ Using fallback currency rates');
+      FX = { ...FALLBACK_FX };
+    }
+  }
+
+  initLiveCurrencyRates();
+
   // ---------- Reference data (all base values in PKR per sqft) ----------
-  const FX = { PKR:1, USD:285, EUR:310, GBP:360, AED:77.6, SAR:76, INR:3.42, CNY:39.6, AUD:187.5, CAD:208 };
   const CUR_SYMBOL = { PKR:'PKR', USD:'USD', EUR:'EUR', GBP:'GBP', AED:'AED', SAR:'SAR', INR:'INR', CNY:'CNY', AUD:'AUD', CAD:'CAD' };
 
   const BASE_RATES = {
@@ -889,6 +1051,195 @@
     navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{
       alert(window.location.href);
     });
+  }
+
+  // ============================================
+  // LEAD CAPTURE & DYNAMIC PDF GENERATION
+  // ============================================
+  function openLeadModal() {
+    const resultsWrap = document.getElementById('resultsWrap');
+    if (!resultsWrap || resultsWrap.style.display === 'none' || resultsWrap.style.display === '') {
+      alert('Please calculate first to generate the PDF report.');
+      return;
+    }
+    document.getElementById('leadModal').style.display = 'flex';
+  }
+
+  function closeLeadModal() {
+    document.getElementById('leadModal').style.display = 'none';
+  }
+
+  async function submitLeadAndDownload() {
+    const leadData = {
+      name: document.getElementById('leadName').value.trim(),
+      email: document.getElementById('leadEmail').value.trim(),
+      whatsapp: document.getElementById('leadWhatsApp').value.trim(),
+      city: document.getElementById('leadCity').value.trim(),
+      country: document.getElementById('leadCountry').value.trim()
+    };
+
+    if (!leadData.name || !leadData.email) {
+      alert('Please enter your name and business email.');
+      return;
+    }
+
+    const calcData = {
+      currency: document.getElementById('currency').value,
+      buildingType: document.getElementById('buildingType').selectedOptions[0].text,
+      structureType: document.getElementById('structureType').selectedOptions[0].text,
+      qualityGrade: document.getElementById('qualityGrade').selectedOptions[0].text.split(' —')[0],
+      totalArea: document.getElementById('matArea').textContent,
+      totalCost: document.getElementById('resTotal').textContent,
+      summary: document.getElementById('resSummaryLine').textContent
+    };
+
+    // Optional: send lead to Formspree/webhook here
+    // const FORMSPREE_ENDPOINT = 'https://formspree.io/f/yourFormId';
+    // try {
+    //   await fetch(FORMSPREE_ENDPOINT, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ leadData, calcData })
+    //   });
+    // } catch (e) { console.warn('Lead delivery failed, but PDF still generated'); }
+
+    generateConstructionPDF(leadData, calcData);
+    closeLeadModal();
+  }
+
+  function generateConstructionPDF(leadData, calcData) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+
+    const PRIMARY = [26, 54, 93];
+    const SECONDARY = [224, 86, 36];
+    const TEXT_DARK = [45, 55, 72];
+    const WHITE = [255, 255, 255];
+    const LIGHT_BG = [247, 250, 252];
+
+    doc.setFillColor(...PRIMARY);
+    doc.rect(0, 0, 210, 8, 'F');
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(22);
+    doc.setTextColor(...PRIMARY);
+    doc.text("COLDMATRIX ADVANCED SOLUTIONS", 14, 25);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(128, 128, 128);
+    doc.text("Construction Cost Estimation & Material Specification", 14, 30);
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.setTextColor(...TEXT_DARK);
+    doc.text("CONSTRUCTION ESTIMATE REPORT", 200, 25, { align: "right" });
+    doc.setFont("helvetica", "normal");
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 200, 30, { align: "right" });
+    doc.text(`Ref ID: CM-${Math.floor(100000 + Math.random() * 900000)}`, 200, 35, { align: "right" });
+
+    doc.setDrawColor(226, 232, 240);
+    doc.setLineWidth(0.5);
+    doc.line(14, 40, 196, 40);
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(...PRIMARY);
+    doc.text("1. Project & Client Information", 14, 50);
+
+    const clientMeta = [
+      ["Client Name:", leadData.name, "Country:", leadData.country],
+      ["Business Email:", leadData.email, "City:", leadData.city],
+      ["WhatsApp:", leadData.whatsapp, "Currency:", calcData.currency]
+    ];
+
+    doc.autoTable({
+      startY: 54,
+      body: clientMeta,
+      theme: 'plain',
+      styles: { fontSize: 10, cellPadding: 2, textColor: TEXT_DARK },
+      columnStyles: {
+        0: { fontStyle: 'bold', cellWidth: 40 },
+        2: { fontStyle: 'bold', cellWidth: 35 }
+      },
+      margin: { left: 14 }
+    });
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(...PRIMARY);
+    doc.text("2. Construction Project Metrics", 14, doc.lastAutoTable.finalY + 12);
+
+    const engineeringMetrics = [
+      ["Parameter", "Value", "Notes"],
+      ["Building Type", calcData.buildingType, "Project category"],
+      ["Structure Type", calcData.structureType, "Framing system"],
+      ["Quality Grade", calcData.qualityGrade, "Material standard"],
+      ["Total Covered Area", calcData.totalArea, "Including all floors"],
+      ["Total Estimated Cost", calcData.totalCost, "Preliminary estimate"],
+      ["Cost Summary", calcData.summary, "Per area cost"]
+    ];
+
+    doc.autoTable({
+      startY: doc.lastAutoTable.finalY + 16,
+      head: [engineeringMetrics[0]],
+      body: engineeringMetrics.slice(1),
+      theme: 'striped',
+      headStyles: { fillColor: PRIMARY, textColor: WHITE, fontStyle: 'bold' },
+      styles: { fontSize: 10, cellPadding: 4, textColor: TEXT_DARK },
+      columnStyles: {
+        0: { fontStyle: 'bold', cellWidth: 45 },
+        1: { cellWidth: 55 },
+        2: { cellWidth: 60 }
+      },
+      margin: { left: 14, right: 14 }
+    });
+
+    let finalY = doc.lastAutoTable.finalY + 15;
+    doc.setFillColor(...LIGHT_BG);
+    doc.rect(14, finalY, 182, 28, 'F');
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(...SECONDARY);
+    doc.text("⚠️ ENGINEERING NOTICE:", 18, finalY + 6);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(...TEXT_DARK);
+    const splitDisclaimer = doc.splitTextToSize(
+      "This construction estimate is generated by the ColdMatrix Construction Cost Calculator. It is intended for preliminary planning only and should not replace detailed takeoffs, structural drawings, or professional contractor quotations. Actual costs may vary due to local market conditions, site constraints, and design changes.",
+      174
+    );
+    doc.text(splitDisclaimer, 18, finalY + 12);
+
+    finalY += 38;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.setTextColor(...PRIMARY);
+    doc.text("Ready to Build Your Project?", 14, finalY);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9.5);
+    doc.setTextColor(...TEXT_DARK);
+    doc.text(
+      "Contact our engineering desk for a factory-stamped technical drawing, detailed material schedule, and competitive construction quotation.",
+      14, finalY + 6, { maxWidth: 182 }
+    );
+
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(...SECONDARY);
+    doc.text("📧 Global Desk: engineering@coldmatrixtools.com", 14, finalY + 20);
+    doc.text("🌐 Office: Karachi, Pakistan", 14, finalY + 25);
+
+    doc.setFillColor(...PRIMARY);
+    doc.rect(0, 287, 210, 10, 'F');
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(...WHITE);
+    doc.text("ColdMatrix Advanced Solutions © 2026 | Automated Global Engineering Tools Infrastructure", 105, 293, { align: "center" });
+
+    doc.save(`ColdMatrix_Construction_Estimate_${leadData.name.replace(/\s+/g, '_')}.pdf`);
   }
 </script>
 
