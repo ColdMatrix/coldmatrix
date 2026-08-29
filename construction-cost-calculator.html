@@ -11,6 +11,10 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Cache-control meta tags -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>ColdMatrix Construction Cost Calculator — Estimate Building Cost by Area, Quality & Currency</title>
   <meta name="description" content="Free construction cost calculator. Estimate total building cost by area, quality, structure type & MEP. Supports 10 currencies including USD, PKR, AED.">
   <meta property="og:type" content="website">
@@ -525,7 +529,7 @@
       <p style="margin-top:10px;">Contact our <strong>Karachi engineering desk</strong> for site evaluations, soil test matching, and formal commercial bidding documentation.</p>
     </div>
 
-    <!-- Project Gallery: Proof of Work -->
+    <!-- Project Gallery: Proof of Work (placeholders preserved) -->
     <div style="margin:40px 0 30px;">
       <h2 style="font-family:'Oswald',sans-serif; color:#FFD700; font-size:1.4rem; margin-bottom:20px; text-align:center; text-transform:uppercase; letter-spacing:0.5px;">📸 Recent Physical Deployments by ColdMatrix</h2>
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
@@ -1093,15 +1097,25 @@
       summary: document.getElementById('resSummaryLine').textContent
     };
 
-    // Optional: send lead to Formspree/webhook here
-    // const FORMSPREE_ENDPOINT = 'https://formspree.io/f/yourFormId';
-    // try {
-    //   await fetch(FORMSPREE_ENDPOINT, {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ leadData, calcData })
-    //   });
-    // } catch (e) { console.warn('Lead delivery failed, but PDF still generated'); }
+    // Active lead delivery via FormSubmit.co
+    try {
+      await fetch('https://formsubmit.co/ajax/contact@coldmatrixtools.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: 'New Lead from Construction Cost Calculator',
+          name: leadData.name,
+          email: leadData.email,
+          whatsapp: leadData.whatsapp,
+          city: leadData.city,
+          country: leadData.country,
+          currency: calcData.currency,
+          message: JSON.stringify(calcData)
+        })
+      });
+    } catch (e) {
+      console.warn('Lead delivery failed, but PDF still generated');
+    }
 
     generateConstructionPDF(leadData, calcData);
     closeLeadModal();
