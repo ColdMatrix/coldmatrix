@@ -55,7 +55,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="hero-bg.jpg" fetchpriority="high">
-  
   <style>
     :root {
       --bg: #0A0F14; --surface: #12181F; --surface2: #1B232C; --border: #2A3540;
@@ -71,13 +70,42 @@
     body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; }
     .container { max-width: 1200px; margin:0 auto; padding:0 24px; }
 
-    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter: blur(14px); border-bottom:2px solid; border-image:var(--gold-border) 1; }
+    /* ===== NAVBAR & DROPDOWN ===== */
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.96); backdrop-filter: blur(14px); border-bottom:2px solid; border-image:var(--gold-border) 1; }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
     .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
-    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
-    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
-    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+    .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; align-items:center; }
+    .nav-links > li > a, .nav-links > li > span { color: #EAEDF0; text-decoration:none; font-weight:500; font-size:0.95rem; cursor:pointer; transition: color 0.2s; }
+    .nav-links > li > a:hover, .nav-links > li > span:hover { color: var(--gold-bright); }
+    .nav-links a.active { color: var(--gold-bright); }
 
+    .cm-dropdown { position: relative; display: inline-block; }
+    .cm-dropdown .dropbtn { color: #EAEDF0; font-weight:500; font-size:0.95rem; cursor: pointer; padding: 8px 0; transition: color 0.2s; }
+    .cm-dropdown:hover .dropbtn { color: var(--gold-bright); }
+    .cm-dropdown .dropdown-content {
+      display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      background: var(--surface); min-width: 260px; max-height: min(60vh, 420px); overflow-y: auto;
+      -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.7); border: 1px solid var(--border); border-radius: 12px;
+      z-index: 1000; padding: 0 !important; margin: 4px 0 0 !important;
+    }
+    .cm-dropdown .dropdown-content::before {
+      display: none !important;
+    }
+    .cm-dropdown .dropdown-content a {
+      display: block; padding: 8px 16px !important; margin: 0 !important;
+      color: #EAEDF0; text-decoration: none; font-size:0.9rem; font-weight:400;
+      line-height:1.3; border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .cm-dropdown .dropdown-content a:last-child { border-bottom: none; }
+    .cm-dropdown .dropdown-content a:hover { background-color: var(--surface2); color: var(--gold-bright); }
+    .cm-dropdown.open .dropdown-content { display: block; }
+    @media (hover: hover) and (pointer: fine) {
+      .cm-dropdown:hover .dropdown-content { display: block; }
+    }
+
+    /* ===== TICKER ===== */
     .ticker-wrap { background: var(--silver-gradient); border-bottom: 2px solid var(--gold); overflow: hidden; padding: 8px 0; }
     .ticker { display: flex; animation: scrollTicker 50s linear infinite; white-space: nowrap; width: max-content; }
     .ticker:hover { animation-play-state: paused; }
@@ -89,8 +117,9 @@
       .cm-bmi-card-shine, .matrix-premium-live-dot { animation: none; }
     }
 
+    /* ===== HERO ===== */
     .hero { background: linear-gradient(0deg, rgba(10,15,20,0.6), rgba(10,15,20,0.2)), url('hero-bg.jpg') center/cover no-repeat; padding: 60px 0 50px; text-align: center; }
-    .hero-glass { background: rgba(14,14,14,0.92); backdrop-filter: blur(24px); border:2px solid #D4AF37; border-radius:28px; padding:36px 28px; max-width:680px; margin:0 auto; }
+    .hero-glass { background: rgba(14,14,14,0.92); backdrop-filter: blur(24px); border:2px solid #D4AF37; border-radius:28px; padding:36px 28px; max-width:680px; margin:0 auto; margin-top:12px; }
     .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,215,0,0.08); border:1px solid rgba(212,175,55,0.4); border-radius:50px; padding:8px 18px; font-size:0.85rem; font-weight:700; color:#FFD700; margin-bottom:18px; }
     .hero-title { font-size:clamp(1.8rem,5vw,2.6rem); font-weight:900; margin-bottom:10px; }
     .hero-title .white{color:#fff} .hero-title .gold{color:#FFD700}
@@ -100,6 +129,7 @@
     .btn-primary { background:#FFD700; color:#000; }
     .btn-outline { background:transparent; border:1px solid rgba(255,255,255,0.2); color:#fff; }
 
+    /* ===== AD BANNER ===== */
     .ad-banner { background: linear-gradient(90deg, rgba(10,15,20,0.7), rgba(10,15,20,0.4)), url('ad-bg.jpg') center/cover no-repeat; margin:24px auto 0; border-radius:14px; border:2px solid; border-image:var(--gold-border) 1; }
     .ad-inner { padding:18px 22px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; }
     .ad-list { list-style:none; } .ad-list li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
@@ -107,9 +137,11 @@
     .ad-location { font-size:0.8rem; color:#c8d0d8; }
     .whatsapp-btn { background:#25D366; color:#fff; border-radius:50px; padding:10px 22px; text-decoration:none; font-weight:600; }
 
+    /* ===== INSTALL BAR ===== */
     .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; font-weight:600; border-radius:10px; margin:20px 0 30px; }
     .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; cursor:pointer; }
 
+    /* ===== SECTIONS ===== */
     .section { padding:40px 0; }
     .section-label { font-size:0.8rem; text-transform:uppercase; letter-spacing:2px; margin-bottom:8px; font-weight:600; color:var(--gold-bright); }
     .section-title { font-size:1.4rem; font-weight:700; margin-bottom:6px; color:var(--gold-bright); }
@@ -117,49 +149,40 @@
     .cat-blog .section-label, .cat-blog .section-title, .cat-blog .section-desc { color:var(--blog); }
     .cat-gallery .section-label, .cat-gallery .section-title, .cat-gallery .section-desc { color:var(--gallery); }
 
+    /* ===== TOOLS GRID & CARDS ===== */
     .tools-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; align-items:stretch; }
-    .tool-card { background:var(--surface); border:2px solid var(--gold); border-radius:14px; padding:18px; text-decoration:none; color:var(--text); transition:all 0.3s; display:flex; flex-direction:column; gap:10px; position:relative; overflow:hidden; min-height:220px; }
+    .tool-card { background:var(--surface); border:2px solid var(--gold); border-radius:14px; padding:18px; text-decoration:none; color:var(--text); transition:all 0.3s; display:flex; flex-direction:column; gap:10px; position:relative; overflow:hidden; min-height:230px; }
     .tool-card:hover { transform:translateY(-4px); border-color:var(--gold-bright); }
     .tool-icon { font-size:1.5rem; }
     .tool-card h3 { font-size:1.2rem; font-weight:800; letter-spacing:0.2px; }
     .tool-card p { color:#fff; font-size:0.82rem; text-shadow:0 1px 4px rgba(0,0,0,0.8); }
-.tool-status { margin-top:auto; font-size:0.68rem; font-weight:600; color:var(--gold-bright); }
+    .tool-status { margin-top:auto; font-size:0.68rem; font-weight:600; color:var(--gold-bright); }
 
-    .flagship-card { border: 3px solid var(--gold) !important; box-shadow: 0 0 22px rgba(255,215,0,0.4) !important; min-height: 220px !important; }
+    .flagship-card { border: 3px solid var(--gold) !important; box-shadow: 0 0 22px rgba(255,215,0,0.4) !important; min-height: 250px !important; }
 
-    .premium-big { min-height: 220px !important; }
+    .premium-big { min-height: 230px !important; }
     .premium-big h3 { font-size:1.2rem !important; }
     .premium-big p { font-size:0.82rem !important; }
     .premium-big .tool-icon { font-size:1.5rem !important; }
 
+    /* Women's Corner */
     .womens-corner-card {
-      position: relative;
-      background-image: url('womens_corner.jpg') !important;
-      background-size: cover !important;
-      background-position: center !important;
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      padding: 18px 16px 14px;
-      min-height: 240px; /* slightly bigger */
-      color: #4A4A4A;
-      border: 3px solid #D4AF37;
-      box-shadow: 0 0 25px rgba(212,175,55,0.4);
-      transition: all 0.3s;
+      position: relative; background-image: url('womens_corner.jpg') !important;
+      background-size: cover !important; background-position: center !important; text-decoration: none;
+      display: flex; flex-direction: column; padding: 18px 16px 14px; min-height: 310px;
+      color: #4A4A4A; border: 3px solid #D4AF37; box-shadow: 0 0 25px rgba(212,175,55,0.4); transition: all 0.3s;
     }
     .womens-corner-card:hover { box-shadow: 0 0 35px rgba(212,175,55,0.6); }
     .womens-corner-card .wc-icon { font-size: 1.8rem; margin-bottom: 4px; text-align: center; z-index: 2; position: relative; }
     .womens-corner-card h3 {
       font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; color: #E91E63;
       margin-bottom: 8px; text-align: center; letter-spacing: 0.3px; text-shadow: 0 1px 4px rgba(255,255,255,0.6);
-      display: inline-block; border: 2px solid #D4AF37; padding: 5px 12px; border-radius: 8px;
-      background: rgba(255,255,255,0.7); z-index: 2; position: relative;
+      display: inline-block; border: 2px solid #D4AF37; padding: 5px 12px; border-radius: 8px; background: rgba(255,255,255,0.7); z-index: 2; position: relative;
     }
     .wc-bullets { list-style: none; padding: 0; margin: 0 0 8px; display: flex; flex-direction: column; gap: 5px; z-index: 2; position: relative; }
     .wc-bullets li {
       font-size: 0.8rem; font-weight: 600; color: #4E342E; display: flex; align-items: center; gap: 8px;
-      line-height: 1.25; background: linear-gradient(145deg, #E8E8E8, #D0D0D0); padding: 5px 10px;
-      border-radius: 7px; border: 2px solid #D4AF37;
+      line-height: 1.25; background: linear-gradient(145deg, #E8E8E8, #D0D0D0); padding: 5px 10px; border-radius: 7px; border: 2px solid #D4AF37;
     }
     .wc-bullets li::before { content: "✦"; color: #D4AF37; font-size: 1rem; font-weight: 700; flex-shrink: 0; }
     .womens-corner-card .wc-status { margin-top: auto; font-weight: 700; color: #D4AF37; font-size: 0.75rem; text-align: left; letter-spacing: 1px; z-index: 2; position: relative; }
@@ -167,26 +190,22 @@
     .fav-btn {
       position: absolute; top: 12px; right: 12px; z-index: 999; width: 34px; height: 34px;
       border-radius: 50%; background: rgba(10,15,20,0.7); border: 1.5px solid rgba(212,175,55,0.55);
-      color: #FFD700; cursor: pointer; font-size: 1rem; line-height: 1; display: flex;
-      align-items: center; justify-content: center; padding: 0;
+      color: #FFD700; cursor: pointer; font-size: 1rem; line-height: 1; display: flex; align-items: center; justify-content: center; padding: 0;
     }
     .fav-btn.faved { background:#FFD700; color:#0A0F14; }
 
-    .cm-bmi-card-wrap { position:relative; border-radius:20px; overflow:hidden; max-width:100%; display:block; text-decoration:none; min-height:240px; }
+    /* BMI Card */
+    .cm-bmi-card-wrap { position:relative; border-radius:20px; overflow:hidden; max-width:100%; display:block; text-decoration:none; min-height:250px; }
     .cm-bmi-card-shine { position:absolute; inset:-60%; background: conic-gradient(from 0deg, transparent 0%, #E8B93A 8%, transparent 18%, transparent 82%, #FFDA79 92%, transparent 100%); animation: cmBmiRotate 5s linear infinite; }
     @keyframes cmBmiRotate { to { transform:rotate(360deg); } }
-    .cm-bmi-card-inner { position:relative; z-index:1; margin:2px; border-radius:18px; padding:24px 22px; text-align:left; background-image: linear-gradient(rgba(10,13,19,0.5), rgba(10,13,19,0.55)), url('bmi_calc.jpg'); background-size:cover; background-position:center; min-height:236px; }
+    .cm-bmi-card-inner { position:relative; z-index:1; margin:2px; border-radius:18px; padding:24px 22px; text-align:left; background-image: linear-gradient(rgba(10,13,19,0.5), rgba(10,13,19,0.55)), url('bmi_calc.jpg'); background-size:cover; background-position:center; min-height:246px; }
     .cm-bmi-card-title { font-family:'Playfair Display',serif; font-weight:800; font-size:1.25rem; color:#E8B93A; margin:14px 0 8px; display:block; }
     .cm-bmi-card-desc { font-size:0.88rem; color:#F1F3F6; margin:0 0 16px; display:block; }
     .cm-bmi-card-live { display:flex; align-items:center; gap:7px; font-weight:700; font-size:0.95rem; color:#4FC3F7; }
     .cm-bmi-card-live .dot { width:9px; height:9px; border-radius:50%; background:#4FC3F7; box-shadow:0 0 8px #4FC3F7; }
 
-    .quick-access-bar { background:linear-gradient(135deg, rgba(212,175,55,0.12), rgba(79,195,247,0.05)); border:1px solid rgba(212,175,55,0.4); border-radius:14px; padding:16px 18px; margin:8px 0 20px; }
-    .quick-access-title { font-size:0.85rem; font-weight:800; color:#FFD700; margin-bottom:12px; }
-    .quick-access-list { display:flex; flex-wrap:wrap; gap:10px; }
-    .quick-access-item { display:inline-flex; align-items:center; gap:6px; background:rgba(15,20,30,0.8); border:1px solid rgba(212,175,55,0.4); border-radius:20px; padding:8px 14px; font-size:0.8rem; color:#EAEDF0; text-decoration:none; }
-
-    .matrix-premium-solid{position:relative;border-radius:20px;overflow:hidden;background:transparent;min-height:220px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;border:3px solid #FFD700;box-shadow:0 0 22px rgba(255,215,0,0.38);text-decoration:none;color:inherit}
+    /* Matrix Premium */
+    .matrix-premium-solid{position:relative;border-radius:20px;overflow:hidden;background:transparent;min-height:230px;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;border:3px solid #FFD700;box-shadow:0 0 22px rgba(255,215,0,0.38);text-decoration:none;color:inherit}
     .matrix-premium-solid::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.55));z-index:1}
     .matrix-premium-bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0}
     .matrix-premium-content{position:relative;z-index:2;padding:20px}
@@ -196,6 +215,11 @@
     .matrix-premium-live{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:#FFD700;text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,0.5)}
     .matrix-premium-live-dot{width:6px;height:6px;background:#FFD700;border-radius:50%;animation:liveGoldV2 1.5s infinite}
     @keyframes liveGoldV2{0%,100%{opacity:1}50%{opacity:.4}}
+
+    .quick-access-bar { background:linear-gradient(135deg, rgba(212,175,55,0.12), rgba(79,195,247,0.05)); border:1px solid rgba(212,175,55,0.4); border-radius:14px; padding:16px 18px; margin:8px 0 20px; }
+    .quick-access-title { font-size:0.85rem; font-weight:800; color:#FFD700; margin-bottom:12px; }
+    .quick-access-list { display:flex; flex-wrap:wrap; gap:10px; }
+    .quick-access-item { display:inline-flex; align-items:center; gap:6px; background:rgba(15,20,30,0.8); border:1px solid rgba(212,175,55,0.4); border-radius:20px; padding:8px 14px; font-size:0.8rem; color:#EAEDF0; text-decoration:none; }
 
     .why-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; }
     .why-item { background:var(--surface); border:1px solid var(--gold); border-radius:14px; padding:16px; text-align:center; font-size:0.85rem; }
@@ -207,89 +231,79 @@
     .footer-col a:hover { color:var(--gold-bright); }
     .footer-bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:18px; border-top:1px solid var(--border); color:var(--muted); font-size:0.8rem; }
     @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
-    
+
     /* ===== UNIFORM CARD HEIGHT FIX ===== */
-.tools-grid {
-  align-items: stretch;
-}
-
-/* All standard cards equal 230px */
-.tool-card,
-.premium-big,
-.matrix-premium-solid,
-.cm-bmi-card-wrap,
-.womens-corner-card {
-  min-height: 230px !important;
-  height: 230px !important;
-  overflow: hidden !important;
-}
-
-/* Keep these premium cards slightly bigger */
-.flagship-card {
-  min-height: 250px !important;
-  height: 250px !important;
-}
-
-/* Limit description lines so cards don't stretch */
-.tool-card p,
-.premium-big p,
-.matrix-premium-desc,
-.cm-bmi-card-desc {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-/* ===== BMI & Women's Corner Vertical Emphasis ===== */
-.cm-bmi-card-wrap {
-  min-height: 250px !important;
-  height: 250px !important;
-}
-
-.womens-corner-card {
-  min-height: 300px !important;
-  height: 300px !important;
-}
-
-.cm-bmi-card-inner {
-  min-height: 246px !important; /* keeps inner fill */
-  height: 246px !important;
-}
-/* ===== Specific Card Height Adjustments ===== */
-.step-counter-wellness .tool-card,
-a[href="step-counter-wellness.html"] {
-  min-height: 235px !important;
-  height: 235px !important;
-}
-
-a[href="stopwatch-timer.html"] {
-  min-height: 235px !important;
-  height: 235px !important;
-}
-
-.womens-corner-card {
-  min-height: 310px !important;
-  height: 310px !important;
- 
-}
-
-
+    .tools-grid { align-items: stretch; }
+    .tool-card, .premium-big, .matrix-premium-solid, .cm-bmi-card-wrap, .womens-corner-card { min-height: 230px !important; height: 230px !important; overflow: hidden !important; }
+    .flagship-card { min-height: 250px !important; height: 250px !important; }
+    .tool-card p, .premium-big p, .matrix-premium-desc, .cm-bmi-card-desc { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .cm-bmi-card-wrap { min-height: 250px !important; height: 250px !important; }
+    .womens-corner-card { min-height: 310px !important; height: 310px !important; }
+    .cm-bmi-card-inner { min-height: 246px !important; height: 246px !important; }
+    a[href="step-counter-wellness.html"] { min-height: 235px !important; height: 235px !important; }
+    a[href="stopwatch-timer.html"] { min-height: 235px !important; height: 235px !important; }
   </style>
 </head>
 <body>
-  <nav class="navbar">
+  <header class="navbar">
     <div class="container nav-inner">
-      <a href="https://coldmatrixtools.com/" class="logo">❄️ ColdMatrix</a>
+      <a href="/" class="logo">❄ ColdMatrix</a>
       <ul class="nav-links">
-        <li><a href="https://coldmatrixtools.com/" class="active">Home</a></li>
-        <li><a href="https://coldmatrixtools.com/#tools">Tools</a></li>
-        <li><a href="https://coldmatrixtools.com/solutions.html">❄️ Cold Matrix</a></li>
-        <li><a href="https://coldmatrixtools.com/blog.html">Blog</a></li>
-        <li><a href="https://coldmatrixtools.com/about.html">About</a></li>
-        <li><a href="https://coldmatrixtools.com/contact.html">Contact</a></li>
+        <li><a href="/" class="active">Home</a></li>
+        <li class="cm-dropdown">
+          <span class="dropbtn">Engineering Tools ▾</span>
+          <div class="dropdown-content">
+            <a href="cold-store-calculator.html">❄ Cold Room & Panel Calculator</a>
+            <a href="sandwich-panel-calculator.html">🧱 Sandwich Panel Calculator</a>
+            <a href="cooling-requirement-calculator.html">🌡 Cooling Requirement (BTU/TR)</a>
+            <a href="peb-material-calculator.html">🏭 PEB Material Estimator</a>
+            <a href="steel-weight-calculator.html">🛠 Steel Weight Calculator</a>
+            <a href="concrete-calculator.html">🏗 Concrete & Aggregate Calc</a>
+            <a href="construction-cost-calculator.html">🏗 Construction Cost Planner</a>
+            <a href="cft-calculator.html">📐 CFT Volume Calculator</a>
+            <a href="electrical-solar-calculator.html">⚡ Electrical & Solar Suite</a>
+          </div>
+        </li>
+        <li class="cm-dropdown">
+          <span class="dropbtn">Business & Finance ▾</span>
+          <div class="dropdown-content">
+            <a href="business-planner.html">📖 Digital Business Planner</a>
+            <a href="roi-calculator.html">📈 ROI & Investment Profit</a>
+            <a href="build-vs-buy-calculator.html">🏗 Build vs Buy Calculator</a>
+            <a href="startup-cost-calculator.html">🚀 Startup Cost & Capital</a>
+            <a href="ecommerce-profit-calculator.html">🛒 E-Commerce Net Profit</a>
+            <a href="profit-margin-calculator.html">🧮 Profit Margin & Markup</a>
+            <a href="quotation-generator.html">🧾 Quotation Generator</a>
+            <a href="loan-emi-calculator.html">💰 Loan & EMI Analyzer</a>
+            <a href="currency-converter.html">💱 Currency Converter</a>
+            <a href="business-calculator-suite.html">🧮 Business Calculator Suite</a>
+          </div>
+        </li>
+        <li class="cm-dropdown">
+          <span class="dropbtn">Everyday Utilities ▾</span>
+          <div class="dropdown-content">
+            <a href="internet-speed-test.html">🌐 Internet Speed Test</a>
+            <a href="unit-converter.html">📏 Universal Unit Converter</a>
+            <a href="image-converter-tool.html">🖼 Image Converter & Resizer</a>
+            <a href="cold-matrix-bmi-calculator.html">⚖ BMI & Health Monitor</a>
+            <a href="step-counter-wellness.html">👣 Step Counter & Wellness</a>
+            <a href="electricity-bill-calculator.html">⚡ Electricity Bill Estimator</a>
+            <a href="password-generator.html">🔐 Secure Password Studio</a>
+            <a href="smart-scanner.html">📷 QR & Barcode Scanner</a>
+            <a href="womens-corner.html">🌸 Health & Lifestyle Utilities (Women's Corner)</a>
+            <a href="pdf-toolkit.html">📄 PDF Toolkit</a>
+            <a href="pdf-reader.html">📕 PDF Reader</a>
+            <a href="qr-code-generator.html">📱 QR & Barcode Studio</a>
+            <a href="qr-business-card.html">📱 QR Business Card Generator</a>
+          </div>
+        </li>
+        <li><a href="solutions.html">❄ Cold Matrix</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
-  </nav>
+  </header>
 
   <div class="ticker-wrap">
     <div class="ticker">
@@ -331,7 +345,6 @@ a[href="stopwatch-timer.html"] {
       <span class="ticker-item">🎂 Birthday Countdown</span>
       <span class="ticker-item">📝 Notepad</span>
       <span class="ticker-item"><span class="new-badge">NEW</span> 👣 Step Counter</span>
-      <!-- New article ticker items -->
       <span class="ticker-item"><span class="new-badge">NEW</span> 📄 Cold Storage Cost Guide</span>
       <span class="ticker-item"><span class="new-badge">NEW</span> 📄 PIR vs PU Panels</span>
       <span class="ticker-item"><span class="new-badge">NEW</span> 📄 PEB Construction Steps</span>
@@ -340,7 +353,7 @@ a[href="stopwatch-timer.html"] {
 
   <section class="hero">
     <div class="container">
- <div class="hero-glass" style="margin-top: 10px;">
+      <div class="hero-glass">
         <div class="hero-badge">❄️ Welcome to ColdMatrix</div>
         <h1 class="hero-title"><span class="white">One Platform.</span> <span class="gold">Complete Digital Workstation.</span></h1>
         <p class="hero-welcome">
@@ -349,14 +362,13 @@ a[href="stopwatch-timer.html"] {
           <span style="color:#26C6DA;">Daily Productivity</span>. Built by Cold Matrix Advanced Solutions.
         </p>
         <div class="hero-buttons">
-          <a href="https://coldmatrixtools.com/#tools" class="btn btn-primary">Explore Free Tools →</a>
-          <a href="https://coldmatrixtools.com/contact.html" class="btn btn-outline">Get Support</a>
+          <a href="#engineering-tools" class="btn btn-primary">Explore Free Tools →</a>
+          <a href="contact.html" class="btn btn-outline">Get Support</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Brand connection line -->
   <div class="container" style="margin-top: -8px; margin-bottom: 24px; text-align: center;">
     <p style="color: #EAEDF0; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.3px; margin: 0; text-shadow: 0 1px 3px rgba(0,0,0,0.6);">
       ❄️ <strong style="color: #4FC3F7;">ColdMatrix Tools</strong> — practical digital tools, by 
@@ -402,8 +414,7 @@ a[href="stopwatch-timer.html"] {
     </div>
   </div>
 
-  <!-- SECTION 1: INDUSTRIAL ENGINEERING SUITE -->
-  <section class="section cat-biz" id="tools">
+  <section class="section cat-biz" id="engineering-tools">
     <div class="container">
       <div class="section-label" style="color:var(--gold-bright);">🏗️ Industrial Engineering Suite</div>
       <h2 class="section-title" style="color:var(--gold-bright);">Cold Storage, Prefab & Construction Tools</h2>
@@ -422,8 +433,7 @@ a[href="stopwatch-timer.html"] {
     </div>
   </section>
 
-  <!-- SECTION 2: BUSINESS & FINANCE SUITE -->
-  <section class="section" style="padding-top:20px;">
+  <section class="section" id="business-tools">
     <div class="container">
       <div class="section-label" style="color:var(--gold-bright);">💼 Business & Finance</div>
       <h2 class="section-title" style="color:var(--gold-bright);">Profit, Investment & Planning Tools</h2>
@@ -445,8 +455,7 @@ a[href="stopwatch-timer.html"] {
     </div>
   </section>
 
-  <!-- SECTION 3: EVERYDAY ESSENTIALS & PRODUCTIVITY -->
-  <section class="section" style="padding-top:20px;">
+  <section class="section" id="everyday-tools">
     <div class="container">
       <div class="section-label" style="color:var(--gold-bright);">🌟 Everyday Essentials</div>
       <h2 class="section-title" style="color:var(--gold-bright);">Daily Use & Lifestyle Tools</h2>
@@ -456,7 +465,7 @@ a[href="stopwatch-timer.html"] {
         <a href="image-converter-tool.html" class="tool-card premium-big" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('image_converter.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" aria-label="Add to favorites" data-tool="image-converter-tool" onclick="toggleFav(event, 'image-converter-tool')">☆</button><div class="tool-icon">🖼️</div><h3>Image Converter & Resizer</h3><p>Convert JPG, PNG, BMP, WebP — free online.</p><div class="tool-status">● Live</div></a>
         <a href="cold-matrix-bmi-calculator.html" class="cm-bmi-card-wrap"><button class="fav-btn" aria-label="Add to favorites" data-tool="cold-matrix-bmi-calculator" onclick="toggleFav(event, 'cold-matrix-bmi-calculator')">☆</button><div class="cm-bmi-card-shine"></div><div class="cm-bmi-card-inner"><svg viewBox="0 0 200 130" style="width:64px;height:42px;"><line x1="0" y1="65" x2="200" y2="65" stroke="#EF4444" stroke-width="8" stroke-linecap="round"/><path transform="translate(52,8) scale(3.3)" fill="#EF4444" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.7C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.6,0,8.4c0,9.4,15.9,18.6,15.9,18.6S32,17.8,32,8.4C32,3.6,28.2,0,23.6,0z"/><polyline points="55,65 76,65 86,28 97,102 107,42 118,65 145,65" fill="none" stroke="#FFFFFF" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="cm-bmi-card-title">ColdMatrix BMI &amp; Health Calculator</div><div class="cm-bmi-card-desc">BMI, BMR, daily calories, healthy weight range &amp; more — your complete health companion.</div><div class="cm-bmi-card-live"><span class="dot"></span> Live</div></div></a>
         <a href="womens-corner.html" class="womens-corner-card"><button class="fav-btn" aria-label="Add to favorites" data-tool="womens-corner" onclick="toggleFav(event, 'womens-corner')">☆</button><div class="wc-icon">🌸</div><h3>Women's Corner</h3><ul class="wc-bullets"><li>Clothing Cost Calculator</li><li>Fabric Quantity Calculator</li><li>Beauty Budget Calculator</li><li>Jewelry Price Calculator</li></ul><div class="wc-status" style="color:#D4AF37;">● Live | Special</div></a>
-        <a href="step-counter-wellness.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('step_counter.jpg'); background-size: cover; background-position: center; min-height: 220px;"><button class="fav-btn" aria-label="Add to favorites" data-tool="step-counter-wellness" onclick="toggleFav(event, 'step-counter-wellness')">☆</button><div class="tool-icon">👣</div><h3>Step Counter & Wellness</h3><p>Track steps, distance, calories, hydration, heart rate log & more — your daily health companion.</p><div class="tool-status">● Live</div></a>
+        <a href="step-counter-wellness.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('step_counter.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" aria-label="Add to favorites" data-tool="step-counter-wellness" onclick="toggleFav(event, 'step-counter-wellness')">☆</button><div class="tool-icon">👣</div><h3>Step Counter & Wellness</h3><p>Track steps, distance, calories, hydration, heart rate log & more — your daily health companion.</p><div class="tool-status">● Live</div></a>
         <a href="percentage-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('percentage_calc.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" aria-label="Add to favorites" data-tool="percentage-calculator" onclick="toggleFav(event, 'percentage-calculator')">☆</button><div class="tool-icon">📊</div><h3>Percentage Calculator</h3><p>Quick percentage calculations for everyday use.</p><div class="tool-status">● Live</div></a>
         <a href="unit-converter.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('unit_converter.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" aria-label="Add to favorites" data-tool="unit-converter" onclick="toggleFav(event, 'unit-converter')">☆</button><div class="tool-icon">📏</div><h3>Unit Converter</h3><p>Length, weight, temperature — convert instantly.</p><div class="tool-status">● Live</div></a>
         <a href="electricity-bill-calculator.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.35), rgba(10,15,20,0.55)), url('electricity_bill_calculator.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" aria-label="Add to favorites" data-tool="electricity-bill-calculator" onclick="toggleFav(event, 'electricity-bill-calculator')">☆</button><div class="tool-icon">⚡</div><h3>Electricity Bill Calculator</h3><p>Calculate electricity bill instantly — units, tariff, fixed charges, tax, and more.</p><div class="tool-status">● Live</div></a>
@@ -475,7 +484,6 @@ a[href="stopwatch-timer.html"] {
     </div>
   </section>
 
-  <!-- Portfolio & Blog sections -->
   <section class="section cat-gallery">
     <div class="container"><div class="section-label" style="color:var(--gold-bright);">📸 Our Portfolio</div><h2 class="section-title" style="color:var(--gold-bright);">Project Gallery</h2><p class="section-desc" style="color:var(--gold-bright);">Real cold storage installations, sandwich panel manufacturing, and roofing projects.</p><div class="tools-grid"><a href="gallery.html" class="tool-card" style="background-image: linear-gradient(rgba(10,15,20,0.4), rgba(10,15,20,0.5)), url('project_gallery.jpg'); background-size: cover; background-position: center;"><button class="fav-btn" aria-label="Add to favorites" data-tool="gallery" onclick="toggleFav(event, 'gallery')">☆</button><div class="tool-icon">📸</div><h3>View Project Gallery</h3><p>Cold stores, sandwich panels, roofing & more.</p><div class="tool-status">● Browse Photos</div></a></div></div>
   </section>
@@ -604,6 +612,21 @@ a[href="stopwatch-timer.html"] {
     function updateFavs(){var f=getFavs();document.querySelectorAll('.fav-btn').forEach(function(b){var id=b.getAttribute('data-tool');if(f.includes(id)){b.textContent='★';b.classList.add('faved')}else{b.textContent='☆';b.classList.remove('faved')}})}
     function renderQuick(){var f=getFavs();var bar=document.getElementById('quickAccessBar');var list=document.getElementById('quickAccessList');if(!bar||!list)return;if(f.length===0){bar.style.display='none';return}bar.style.display='block';list.innerHTML='';var names={'business-planner':'📖 Business Planner','cold-store-calculator':'❄️ Cold Store','sandwich-panel-calculator':'🧱 Sandwich Panel','cooling-requirement-calculator':'🌡️ Cooling','steel-weight-calculator':'🛠️ Steel','peb-material-calculator':'🏭 PEB','concrete-calculator':'🏗️ Concrete','construction-cost-calculator':'🏗️ Cost','cft-calculator':'📐 CFT','profit-margin-calculator':'🧮 Margin','roi-calculator':'📈 ROI','startup-cost-calculator':'🚀 Startup','build-vs-buy-calculator':'🏗️ Build vs Buy','ecommerce-profit-calculator':'🛒 E-Commerce','electrical-solar-calculator':'⚡ Solar','quotation-generator':'🧾 Quote','qr-business-card':'📱 QR Card','password-generator':'🔐 Password','pdf-toolkit':'📄 PDF','smart-scanner':'📷 Scanner','business-calculator-suite':'🧮 Biz Suite','image-converter-tool':'🖼️ Image','internet-speed-test':'🌐 Speed Test','cold-matrix-bmi-calculator':'⚖️ BMI','womens-corner':'🌸 Women\'s Corner','loan-emi-calculator':'💰 EMI','step-counter-wellness':'👣 Step Counter','currency-converter':'💱 Currency','percentage-calculator':'📊 %','unit-converter':'📏 Units','stopwatch-timer':'⏱️ Timer','world-clock':'🌍 Clock','age-calculator':'🎂 Age','birthday-countdown':'🎂 Bday','qr-code-generator':'📱 QR','pdf-reader':'📕 PDF Reader','electricity-bill-calculator':'⚡ Bill','gallery':'📸 Gallery','blog':'📝 Blog'};f.forEach(function(id){var a=document.createElement('a');a.href=id+'.html';a.className='quick-access-item';a.innerHTML=names[id]||id;list.appendChild(a)})}
     document.addEventListener('DOMContentLoaded',function(){updateFavs();renderQuick()});
+    document.querySelectorAll('.cm-dropdown > .dropbtn').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var parent = btn.parentElement;
+        var wasOpen = parent.classList.contains('open');
+        document.querySelectorAll('.cm-dropdown.open').forEach(function(d){ d.classList.remove('open'); });
+        if(!wasOpen){ parent.classList.add('open'); }
+      });
+    });
+    document.querySelectorAll('.cm-dropdown .dropdown-content').forEach(function(dc){
+      dc.addEventListener('click', function(e){ e.stopPropagation(); });
+    });
+    document.addEventListener('click', function(){
+      document.querySelectorAll('.cm-dropdown.open').forEach(function(d){ d.classList.remove('open'); });
+    });
   </script>
 </body>
 </html>
