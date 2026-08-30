@@ -104,6 +104,33 @@
     @media (hover: hover) and (pointer: fine) {
       .cm-dropdown:hover .dropdown-content { display: block; }
     }
+    /* On narrow/touch screens the nav wraps to multiple rows, so a dropdown
+       anchored to its own trigger button can land off-screen. Instead, pin
+       it to a band that spans safely inside the viewport, positioned just
+       below the navbar (JS sets the exact "top" to match the nav's real
+       height). It never overlaps the nav and never runs off the sides. */
+    @media (max-width: 900px) {
+      .cm-dropdown .dropdown-content {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        top: 110px; /* fallback; JS overrides this to sit right under the navbar */
+        transform: none;
+        width: auto;
+        max-height: min(70vh, calc(100vh - 130px));
+        margin: 0;
+        background: #3A3E45;
+        border: 1px solid rgba(255,255,255,0.14);
+        box-shadow: 0 14px 34px rgba(0,0,0,0.55);
+        z-index: 1000;
+      }
+      .cm-dropdown .dropdown-content a {
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+        padding: 10px 16px !important;
+      }
+      .cm-dropdown .dropdown-content a:hover,
+      .cm-dropdown .dropdown-content a:active { background-color: rgba(255,255,255,0.08); }
+    }
 
     /* ===== TICKER ===== */
     .ticker-wrap { background: var(--silver-gradient); border-bottom: 2px solid var(--gold); overflow: hidden; padding: 8px 0; }
@@ -240,8 +267,8 @@
     .cm-bmi-card-wrap { min-height: 250px !important; height: 250px !important; }
     .womens-corner-card { min-height: 310px !important; height: 310px !important; }
     .cm-bmi-card-inner { min-height: 246px !important; height: 246px !important; }
-    a[href="step-counter-wellness.html"] { min-height: 235px !important; height: 235px !important; }
-    a[href="stopwatch-timer.html"] { min-height: 235px !important; height: 235px !important; }
+    .tools-grid a[href="step-counter-wellness.html"] { min-height: 235px !important; height: 235px !important; }
+.tools-grid a[href="stopwatch-timer.html"] { min-height: 235px !important; height: 235px !important; }
   </style>
 </head>
 <body>
@@ -618,7 +645,16 @@
         var parent = btn.parentElement;
         var wasOpen = parent.classList.contains('open');
         document.querySelectorAll('.cm-dropdown.open').forEach(function(d){ d.classList.remove('open'); });
-        if(!wasOpen){ parent.classList.add('open'); }
+        if(!wasOpen){
+          parent.classList.add('open');
+          if (window.innerWidth <= 900) {
+            var navEl = document.querySelector('.navbar');
+            var dc = parent.querySelector('.dropdown-content');
+            var navBottom = navEl.getBoundingClientRect().bottom;
+            dc.style.top = (navBottom + 8) + 'px';
+            dc.style.maxHeight = 'calc(100vh - ' + (navBottom + 24) + 'px)';
+          }
+        }
       });
     });
     document.querySelectorAll('.cm-dropdown .dropdown-content').forEach(function(dc){
