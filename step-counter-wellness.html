@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Cold Matrix Step Counter & Wellness Studio</title>
+  <title>ColdMatrix Step Counter and Wellness Studio</title>
   <style>
     /* ==========================================================================
        1. GLOBAL SYSTEM & PREMIUM DARK GILDED PALETTE
@@ -59,6 +59,25 @@
       gap: 14px;
     }
 
+    /* Add to Home Screen bar */
+    .install-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #E8B93A 0%, #D4AF37 100%);
+      color: #000;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-bottom: 2px;
+      border: none;
+      width: 100%;
+    }
+    .install-bar:active { opacity: 0.85; }
+
     /* ==========================================================================
        2. HEADER
        ========================================================================== */
@@ -72,22 +91,23 @@
     }
 
     .brand-title {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .brand-title .cm-gold {
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 800;
       letter-spacing: 1px;
-      color: var(--border-gold-bright);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .brand-title .cm-sub {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-main);
+    .brand-badge {
+      font-size: 10px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--border-gold-bright);
+      color: var(--border-gold-bright);
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 700;
     }
 
     /* ==========================================================================
@@ -280,56 +300,20 @@
     @media (prefers-reduced-motion: reduce) {
       .confetti-piece, .achieve-glow { animation: none; }
     }
-
-    /* Install bar */
-    .install-bar {
-      background: linear-gradient(135deg, #E8B93A 0%, #D4AF37 100%);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 14px;
-    }
-    .install-btn {
-      width: 100%;
-      height: 48px;
-      border: none;
-      background: transparent;
-      color: #000;
-      font-weight: 800;
-      font-size: 14px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    .footer-note {
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-sub);
-      margin-top: 20px;
-      padding: 10px 0;
-    }
-    .footer-note .gold {
-      color: var(--border-gold-bright);
-      font-weight: 700;
-    }
   </style>
 </head>
 <body>
 
   <div id="app-viewport">
     <header class="app-header">
-      <div class="brand-title">
-        <span class="cm-gold">❄️ Cold Matrix</span>
-        <span class="cm-sub">Step Counter & Wellness Studio</span>
+      <div class="brand-title" style="flex-direction:column; align-items:flex-start; gap:1px;">
+        <span>❄️ COLDMATRIX</span>
+        <span style="font-size:10px; font-weight:600; color:var(--text-sub); letter-spacing:0.3px;">Step Counter and Wellness Studio</span>
       </div>
       <div style="font-size: 12px; color: var(--text-sub);" id="header-date">--</div>
     </header>
 
-    <!-- Add to Home Screen Bar -->
-    <div class="install-bar">
-      <button class="install-btn" id="installBtn" onclick="handleInstallClick()">📲 Add to Home Screen</button>
-    </div>
+    <button id="install-bar" class="install-bar" onclick="installApp()">📲 Add to Home Screen</button>
 
     <!-- TODAY'S STEPS HERO -->
     <section class="wellness-card hero-card">
@@ -366,8 +350,9 @@
         <button class="btn-main btn-secondary" onclick="resetTodaySteps()">Reset</button>
       </div>
 
-      <p id="sensor-note" style="font-size:12px; color:var(--text-sub); margin-top:4px; line-height:1.5;">
-        Pedometer engine idle. Tap Start to listen to hardware motion. If your device/browser doesn't support motion sensors, steps won't auto-increase — this is a real hardware limitation, not a bug.
+      <p id="sensor-note" style="font-size:12px; color:var(--text-sub); margin-top:4px; line-height:1.5; display:flex; align-items:flex-start; gap:6px;">
+        <span id="sensor-live-dot" style="flex-shrink:0; margin-top:4px; width:8px; height:8px; border-radius:50%; background:var(--accent-success); opacity:0.25; transition:opacity 0.15s;"></span>
+        <span id="sensor-note-text">Pedometer engine idle. Tap Start to listen to hardware motion. If your device/browser doesn't support motion sensors, steps won't auto-increase — this is a real hardware limitation, not a bug.</span>
       </p>
     </section>
 
@@ -427,7 +412,7 @@
           <div class="gauge-status" id="lbl-hr-status">No data today</div>
         </div>
       </div>
-      <button class="btn-main btn-secondary" style="height:65px; width:100%; font-size:15px; border-radius:12px;" onclick="openModal('modal-hr')">❤️ Measure Heart Rate</button>
+      <button class="btn-main btn-secondary" style="height:56px; width:100%;" onclick="openModal('modal-hr')">Measure Heart Rate</button>
     </section>
 
     <!-- BLOOD PRESSURE -->
@@ -450,7 +435,7 @@
           <div class="gauge-status" id="lbl-bp-status">No data today</div>
         </div>
       </div>
-      <button class="btn-main btn-secondary" style="height:75px; width:100%; font-size:15px; border-radius:12px;" onclick="openModal('modal-bp')">💠 Log Blood Pressure</button>
+      <button class="btn-main btn-secondary" style="height:56px; width:100%;" onclick="openModal('modal-bp')">Log Blood Pressure</button>
     </section>
 
     <!-- WATER -->
@@ -499,111 +484,15 @@
         <strong>Browser & permission notes:</strong> Motion sensor access requires a secure HTTPS connection, and some browsers ask you to grant motion permission the first time you tap Start. If your browser or device doesn't expose motion data, step counting will stay at zero rather than fake a number — you can still log your day using the Reset/manual approach.
       </p>
       <p>
-        <strong>Heart rate & blood pressure:</strong> A phone browser cannot measure your real heart rate or blood pressure without dedicated hardware. Use the Measure/Log buttons to record readings you've taken with a proper device (smartwatch, BP monitor, or manual pulse count) — the app stores and tracks them for you, it doesn't invent them.
+        <strong>Heart rate:</strong> Tap Measure and cover your rear camera and flash with your fingertip — the app reads the color pulse in your blood flow over 15–30 seconds to calculate BPM, the same principle used by camera-based pulse apps. Hold still for the best reading. If your device has no flash or camera access is blocked, you can enter a reading manually instead.
+      </p>
+      <p>
+        <strong>Blood pressure:</strong> A phone camera cannot measure blood pressure. Use the Log button to record a reading you've taken with a proper BP monitor — the app stores and tracks it for you.
       </p>
     </article>
 
-    <!-- ========================================================================
-         ADDITIONAL COMPREHENSIVE EDUCATIONAL CONTENT (AdSense & User Guide)
-         ======================================================================== -->
-    <article class="guide-section">
-      <h3>Understanding Step Counting Accuracy</h3>
-      <p>Step counters rely on the device's accelerometer to detect the bounce of your body as you walk. The accuracy depends on several factors:</p>
-      <ul style="padding-left:20px; margin-bottom:12px;">
-        <li><strong>Carry position:</strong> Pocket carry or natural arm swing gives the best results. Holding the phone still while looking at the screen produces less motion for the sensor to detect.</li>
-        <li><strong>Device sensor quality:</strong> Different phones have different motion sensors. Newer devices typically have more sensitive and accurate sensors.</li>
-        <li><strong>Walking speed and pattern:</strong> Normal walking produces clear acceleration peaks. Very slow shuffling or unusual gait may be harder to detect.</li>
-        <li><strong>Environmental factors:</strong> Bumpy roads or vibrating surfaces may cause false readings, though the algorithm includes filtering to reduce this.</li>
-      </ul>
-      <p><strong>Practical tip:</strong> For the most consistent tracking, place your phone in a front pocket or use an armband. Avoid holding it in a bag that doesn't move with your body.</p>
-
-      <h3>Motion Sensor Permissions & Browser Support</h3>
-      <p>Modern browsers require user permission before accessing motion sensors. On iOS, you'll see a prompt when you first tap "Start Tracking." On Android, permission is usually granted automatically, but you can check site settings if tracking doesn't start.</p>
-      <p>If your browser or device doesn't support the DeviceMotionEvent API, the step counter cannot automatically count steps. In that case, you can:</p>
-      <ul style="padding-left:20px; margin-bottom:12px;">
-        <li>Use a dedicated pedometer app and manually enter your steps.</li>
-        <li>Use a fitness band or smartwatch and log your activity.</li>
-        <li>Update your browser to the latest version.</li>
-      </ul>
-
-      <h3>Health Advisories: Heart Rate</h3>
-      <p>A normal resting heart rate for adults ranges from 60 to 100 beats per minute (BPM). Lower rates are common in athletes and people who exercise regularly. You should be aware of the following:</p>
-      <ul style="padding-left:20px; margin-bottom:12px;">
-        <li><strong>High resting heart rate (>100 BPM):</strong> May indicate stress, dehydration, illness, or underlying heart conditions. Consult a doctor if persistent.</li>
-        <li><strong>Low resting heart rate (<60 BPM):</strong> Can be normal for fit individuals, but may cause dizziness or fatigue in others.</li>
-        <li><strong>Post-exercise heart rate:</strong> Usually elevated; should return to near resting within several minutes.</li>
-      </ul>
-      <p><strong>Important:</strong> This app does not measure heart rate directly. It only stores and displays values you manually enter. Never rely on a phone camera or manual pulse count for medical decisions — use a proper heart rate monitor.</p>
-
-      <h3>Health Advisories: Blood Pressure</h3>
-      <p>Blood pressure is recorded as two numbers: systolic (pressure when the heart beats) over diastolic (pressure when the heart rests). Normal is generally below 120/80 mmHg.</p>
-      <ul style="padding-left:20px; margin-bottom:12px;">
-        <li><strong>Elevated:</strong> 120–129 / less than 80</li>
-        <li><strong>High Blood Pressure (Stage 1):</strong> 130–139 / 80–89</li>
-        <li><strong>High Blood Pressure (Stage 2):</strong> 140 or higher / 90 or higher</li>
-        <li><strong>Hypertensive Crisis:</strong> Higher than 180 / higher than 120 — seek medical attention immediately</li>
-      </ul>
-      <p>Always use a clinically validated blood pressure monitor. Log your readings regularly and share trends with your healthcare provider. A single reading does not diagnose hypertension.</p>
-
-      <h3>Hydration Guidelines</h3>
-      <p>Water is essential for nearly every bodily function. General daily intake recommendations vary, but a common guideline is around 2.5 to 3.0 liters for men and 2.0 to 2.5 liters for women, including all fluids.</p>
-      <ul style="padding-left:20px; margin-bottom:12px;">
-        <li><strong>Hot weather or high activity:</strong> Increase intake to replace sweat losses.</li>
-        <li><strong>Signs of dehydration:</strong> Thirst, dark urine, fatigue, dizziness, and dry mouth.</li>
-        <li><strong>Overhydration:</strong> Rare but possible; avoid drinking excessive amounts in a short time.</li>
-      </ul>
-      <p>Log your water intake throughout the day to stay on track. This app allows quick addition of 250 ml or 500 ml increments.</p>
-
-      <h3>Exercise & Calorie Estimation</h3>
-      <p>The Exercise card shows estimated distance, calories, and active minutes based on your step count. These are rough estimates using standard formulas:</p>
-      <ul style="padding-left:20px; margin-bottom:12px;">
-        <li><strong>Distance:</strong> Estimated stride length × number of steps.</li>
-        <li><strong>Calories:</strong> Approximately 0.04 kcal per step for a person of average weight.</li>
-        <li><strong>Active minutes:</strong> Based on the assumption that 100–120 steps equal one minute of moderate activity.</li>
-      </ul>
-      <p>For more accurate calorie burn, use a fitness tracker that accounts for your weight, height, age, and heart rate.</p>
-
-      <h3>Streak System & Goal Setting</h3>
-      <p>Your daily step goal is your target for the day. The app tracks whether you reach that goal and builds a consecutive-day streak.</p>
-      <ul style="padding-left:20px; margin-bottom:12px;">
-        <li><strong>Set a realistic goal:</strong> Start with a number you can consistently achieve, then gradually increase.</li>
-        <li><strong>Miss a day?</strong> Your streak resets, but your previous days' data remains saved.</li>
-        <li><strong>Celebration:</strong> Reaching your goal triggers a special animation and updates your streak.</li>
-      </ul>
-      <p>Consistency matters more than occasional big numbers. Review your weekly report to understand your patterns and adjust your goal accordingly.</p>
-
-      <h3>Privacy & Data Storage</h3>
-      <p>All data is stored locally on your device using localStorage. Nothing is uploaded to any server. This means:</p>
-      <ul style="padding-left:20px; margin-bottom:12px;">
-        <li>Your health data stays private and only you can access it.</li>
-        <li>If you clear your browser data, the app will reset to defaults.</li>
-        <li>There is no account or cloud sync; each device maintains its own data.</li>
-      </ul>
-      <p>For persistent storage across sessions, avoid using incognito/private mode, which clears data when the tab closes.</p>
-
-      <h3>Frequently Asked Questions</h3>
-      <p><strong>Q: Why is my step count not increasing even after I tap Start?</strong><br>A: Make sure you have granted motion sensor permission. Also, ensure you are actually moving — the sensor needs movement to detect steps.</p>
-      <p><strong>Q: Can I use this on more than one device?</strong><br>A: Yes, but data does not sync between devices. Each device stores its own history.</p>
-      <p><strong>Q: Is the heart rate feature accurate?</strong><br>A: The app does not measure heart rate. You must enter readings manually from a separate device.</p>
-      <p><strong>Q: Does the step counter work offline?</strong><br>A: Yes, once the page is loaded, all tracking and storage happen locally.</p>
-      <p><strong>Q: What happens at midnight?</strong><br>A: The app automatically rolls over to a new day. Yesterday's steps are saved in history, and today's counter resets.</p>
-      <p><strong>Q: How do I change my daily goal?</strong><br>A: Tap the "GOAL" button on the main card or the Settings icon in the bottom navigation.</p>
-
-      <h3>Medical Disclaimer</h3>
-      <p>This tool is for general wellness and fitness tracking only. It is not a medical device and should not be used to diagnose, treat, or monitor any health condition. Always consult a qualified healthcare professional for personalized advice. The step counter, heart rate logging, blood pressure logging, and hydration tracking are self-reported or estimated and may not be clinically accurate.</p>
-
-      <h3>References & Further Reading</h3>
-      <ul style="padding-left:20px; margin-bottom:12px;">
-        <li>World Health Organization – Physical Activity Guidelines</li>
-        <li>American Heart Association – Understanding Blood Pressure Readings</li>
-        <li>Mayo Clinic – Hydration: How Much Water Should You Drink Daily?</li>
-        <li>National Institute on Aging – Exercise and Physical Activity</li>
-      </ul>
-    </article>
-
-    <!-- Footer note -->
-    <div class="footer-note">
-      <span class="gold">Powered by</span> ColdMatrix 2026
+    <div style="text-align:center; padding:18px 0 4px; font-size:12px; color:var(--text-sub);">
+      Powered by <span style="color:var(--border-gold-bright); font-weight:800;">ColdMatrix</span>
     </div>
   </div>
 
@@ -644,11 +533,27 @@
     </div>
   </div>
 
-  <!-- HEART RATE MANUAL LOG MODAL -->
+  <!-- HEART RATE MODAL: camera pulse detector + manual fallback -->
   <div id="modal-hr" class="modal-overlay">
     <div class="modal-card">
-      <div class="modal-header">Log Heart Rate</div>
-      <div style="font-size:13px; color:var(--text-sub);">Enter a reading from your smartwatch, fitness band, or a manual pulse count. The app can't measure this through your phone's browser.</div>
+      <div class="modal-header">Measure Heart Rate</div>
+      <div style="font-size:13px; color:var(--text-sub);">Cover your rear camera and flash completely with your fingertip, hold still, and pick a measuring time.</div>
+
+      <div class="goal-preset-grid" id="hr-measure-buttons">
+        <button class="preset-btn" onclick="startCameraHRMeasurement(15)">📷 Measure 15s</button>
+        <button class="preset-btn" onclick="startCameraHRMeasurement(30)">📷 Measure 30s</button>
+      </div>
+
+      <div id="hr-camera-status" style="display:none; text-align:center; font-size:13px; color:var(--text-sub); background:var(--card-inner); border-radius:var(--radius-sm); padding:14px;"></div>
+      <video id="hr-camera-video" playsinline autoplay muted style="position:absolute; width:1px; height:1px; opacity:0;"></video>
+      <canvas id="hr-camera-canvas" width="40" height="40" style="display:none;"></canvas>
+
+      <div style="display:flex; align-items:center; gap:8px; margin:2px 0;">
+        <div style="flex:1; height:1px; background:var(--border-gold);"></div>
+        <span style="font-size:11px; color:var(--text-muted);">OR ENTER MANUALLY</span>
+        <div style="flex:1; height:1px; background:var(--border-gold);"></div>
+      </div>
+
       <div class="field-label">Beats per minute (BPM)</div>
       <input type="number" id="input-hr" class="custom-input" placeholder="e.g. 72" min="30" max="220">
       <div class="action-row">
@@ -738,6 +643,17 @@
       renderWeekStrip();
       const d = new Date();
       document.getElementById('header-date').innerText = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+      // Auto-resume tracking on reopen. iOS requires a fresh user tap for
+      // motion permission each time, so it still needs the Start button;
+      // most Android browsers don't require that prompt, so we can safely
+      // resume automatically instead of silently going idle on every reload.
+      const needsExplicitPermission = typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function';
+      if (typeof DeviceMotionEvent !== 'undefined' && !needsExplicitPermission) {
+        startMotionSensor();
+      } else if (needsExplicitPermission && appState.isTracking) {
+        document.getElementById('sensor-note-text').innerText = "Tracking was on last time — tap Start Tracking to resume (your browser requires this each session).";
+      }
     }
 
     function loadSavedData() {
@@ -847,9 +763,10 @@
         stops += `<stop offset="${(z.to * 100).toFixed(0)}%" stop-color="${z.color}"/>`;
       });
       let html = `<defs><linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="0%">${stops}</linearGradient></defs>`;
+      // single smooth arc using the gradient, rounded ends, soft glow
       html += `<path d="${arcPath(cx, cy, r, 180, 0)}" stroke="url(#${gradId})" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.95"/>`;
 
-      let angle = 90;
+      let angle = 90; // resting middle position when no data
       if (value !== null && value !== undefined) {
         const frac = Math.max(0, Math.min(1, (value - min) / (max - min)));
         angle = 180 - frac * 180;
@@ -906,14 +823,14 @@
         if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
           DeviceMotionEvent.requestPermission().then(res => {
             if (res === 'granted') { startMotionSensor(); }
-            else { document.getElementById('sensor-note').innerText = "Motion permission denied — enable it in your browser's site settings to track steps."; }
+            else { document.getElementById('sensor-note-text').innerText = "Motion permission denied — enable it in your browser's site settings to track steps."; }
           }).catch(() => {
-            document.getElementById('sensor-note').innerText = "Motion sensor request failed. Your browser may not support step tracking.";
+            document.getElementById('sensor-note-text').innerText = "Motion sensor request failed. Your browser may not support step tracking.";
           });
         } else if (typeof DeviceMotionEvent !== 'undefined') {
           startMotionSensor();
         } else {
-          document.getElementById('sensor-note').innerText = "This browser doesn't expose motion sensor data, so automatic step tracking isn't available here.";
+          document.getElementById('sensor-note-text').innerText = "This browser doesn't expose motion sensor data, so automatic step tracking isn't available here.";
         }
       } else {
         stopMotionSensor();
@@ -925,7 +842,7 @@
       window.addEventListener('devicemotion', handleMotion);
       document.getElementById('lbl-track-btn').innerText = "Pause Tracking";
       document.getElementById('btn-toggle-track').classList.replace('btn-primary', 'btn-secondary');
-      document.getElementById('sensor-note').innerText = "Sensor active — tracking physical footsteps while this tab stays open.";
+      document.getElementById('sensor-note-text').innerText = "Sensor active — tracking physical footsteps while this tab stays open.";
     }
 
     function stopMotionSensor() {
@@ -933,16 +850,39 @@
       window.removeEventListener('devicemotion', handleMotion);
       document.getElementById('lbl-track-btn').innerText = "Start Tracking";
       document.getElementById('btn-toggle-track').classList.replace('btn-secondary', 'btn-primary');
-      document.getElementById('sensor-note').innerText = "Pedometer engine paused.";
+      document.getElementById('sensor-note-text').innerText = "Pedometer engine paused.";
     }
+
+    let filteredMag = null;
+    let lastStepTime = 0;
+    const STEP_DELTA_THRESHOLD = 2.6;
+    const STEP_MIN_INTERVAL_MS = 300;
+    let lastMotionEventTime = 0;
 
     function handleMotion(e) {
       const acc = e.accelerationIncludingGravity;
-      if (!acc) return;
+      if (!acc || acc.x === null) return;
       const mag = Math.sqrt(acc.x * acc.x + acc.y * acc.y + acc.z * acc.z);
-      const delta = Math.abs(mag - lastAccelMag);
-      lastAccelMag = mag;
-      if (delta > 11.8) addSteps(1);
+      if (filteredMag === null) filteredMag = mag;
+      filteredMag = filteredMag * 0.9 + mag * 0.1; // slow-moving baseline (gravity + device tilt)
+      const delta = mag - filteredMag;
+
+      lastMotionEventTime = Date.now();
+      pulseSensorDot();
+
+      const now = Date.now();
+      if (delta > STEP_DELTA_THRESHOLD && (now - lastStepTime) > STEP_MIN_INTERVAL_MS) {
+        lastStepTime = now;
+        addSteps(1);
+      }
+    }
+
+    function pulseSensorDot() {
+      const dot = document.getElementById('sensor-live-dot');
+      if (!dot) return;
+      dot.style.opacity = '1';
+      clearTimeout(pulseSensorDot._t);
+      pulseSensorDot._t = setTimeout(() => { dot.style.opacity = '0.25'; }, 220);
     }
 
     /* ===================== STREAK ===================== */
@@ -991,6 +931,144 @@
       renderUI();
       closeModal('modal-hr');
       document.getElementById('input-hr').value = '';
+    }
+
+    /* ===================== CAMERA PULSE (PPG) HEART RATE ===================== */
+    let hrCameraTrack = null;
+
+    async function startCameraHRMeasurement(durationSec) {
+      const statusEl = document.getElementById('hr-camera-status');
+      const btnRow = document.getElementById('hr-measure-buttons');
+      statusEl.style.display = 'block';
+      btnRow.style.display = 'none';
+      statusEl.innerText = 'Requesting camera access…';
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        statusEl.innerText = "This browser doesn't support camera access, so live pulse measurement isn't available here. Enter a reading manually below.";
+        btnRow.style.display = 'grid';
+        return;
+      }
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: 'environment' } } });
+        const video = document.getElementById('hr-camera-video');
+        video.srcObject = stream;
+        await video.play();
+
+        hrCameraTrack = stream.getVideoTracks()[0];
+        try {
+          const caps = hrCameraTrack.getCapabilities ? hrCameraTrack.getCapabilities() : {};
+          if (caps.torch) await hrCameraTrack.applyConstraints({ advanced: [{ torch: true }] });
+        } catch (torchErr) { /* torch not supported on this device — measurement still works, just dimmer signal */ }
+
+        const canvas = document.getElementById('hr-camera-canvas');
+        const ctx = canvas.getContext('2d');
+        const samples = [];
+        const startTime = Date.now();
+        let remaining = durationSec;
+        statusEl.innerText = `Hold steady… ${remaining}s remaining`;
+
+        const sampleInterval = setInterval(() => {
+          if (!video.videoWidth) return;
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const frame = ctx.getImageData(canvas.width / 2 - 8, canvas.height / 2 - 8, 16, 16).data;
+          let sumRed = 0, count = 0;
+          for (let i = 0; i < frame.length; i += 4) { sumRed += frame[i]; count++; }
+          samples.push({ t: Date.now() - startTime, red: sumRed / count });
+        }, 100);
+
+        const countdownInterval = setInterval(() => {
+          remaining -= 1;
+          if (remaining >= 0) statusEl.innerText = `Hold steady… ${remaining}s remaining`;
+        }, 1000);
+
+        setTimeout(() => {
+          clearInterval(sampleInterval);
+          clearInterval(countdownInterval);
+          stopHRCamera(stream);
+          analyzeHRSamples(samples, statusEl, btnRow);
+        }, durationSec * 1000);
+
+      } catch (err) {
+        statusEl.innerText = "Camera access unavailable or denied. Enter a reading manually below instead.";
+        btnRow.style.display = 'grid';
+      }
+    }
+
+    function stopHRCamera(stream) {
+      try {
+        if (hrCameraTrack && hrCameraTrack.getCapabilities && hrCameraTrack.getCapabilities().torch) {
+          hrCameraTrack.applyConstraints({ advanced: [{ torch: false }] }).catch(() => {});
+        }
+      } catch (e) { /* ignore */ }
+      stream.getTracks().forEach(t => t.stop());
+      hrCameraTrack = null;
+    }
+
+    function analyzeHRSamples(samples, statusEl, btnRow) {
+      if (samples.length < 20) {
+        statusEl.innerText = "Not enough signal captured. Make sure your fingertip fully covers the camera and flash, then try again.";
+        btnRow.style.display = 'grid';
+        return;
+      }
+
+      // Smooth (small moving average) to reduce frame noise
+      const smoothed = [];
+      const sWin = 3;
+      for (let i = 0; i < samples.length; i++) {
+        let sum = 0, n = 0;
+        for (let j = Math.max(0, i - sWin); j <= Math.min(samples.length - 1, i + sWin); j++) { sum += samples[j].red; n++; }
+        smoothed.push({ t: samples[i].t, red: sum / n });
+      }
+
+      // Detrend against a slower-moving baseline (removes finger-pressure drift, keeps the pulse wave)
+      const baseline = [];
+      const bWin = 15;
+      for (let i = 0; i < smoothed.length; i++) {
+        let sum = 0, n = 0;
+        for (let j = Math.max(0, i - bWin); j <= Math.min(smoothed.length - 1, i + bWin); j++) { sum += smoothed[j].red; n++; }
+        baseline.push(sum / n);
+      }
+      const detrended = smoothed.map((s, i) => s.red - baseline[i]);
+
+      // Peak detection with a minimum 300ms spacing (caps at 200bpm, avoids double-counting noise)
+      const peaks = [];
+      const minGapMs = 300;
+      let lastPeakT = -Infinity;
+      for (let i = 1; i < detrended.length - 1; i++) {
+        if (detrended[i] > detrended[i - 1] && detrended[i] > detrended[i + 1] && detrended[i] > 0) {
+          const t = smoothed[i].t;
+          if (t - lastPeakT > minGapMs) { peaks.push(t); lastPeakT = t; }
+        }
+      }
+
+      if (peaks.length < 4) {
+        statusEl.innerText = "Signal too weak or noisy to detect a clear pulse. Try again, holding your finger completely still and covering the camera and flash fully.";
+        btnRow.style.display = 'grid';
+        return;
+      }
+
+      const intervals = [];
+      for (let i = 1; i < peaks.length; i++) intervals.push(peaks[i] - peaks[i - 1]);
+      intervals.sort((a, b) => a - b);
+      const medianInterval = intervals[Math.floor(intervals.length / 2)];
+      const bpm = Math.round(60000 / medianInterval);
+
+      if (bpm < 35 || bpm > 220) {
+        statusEl.innerText = "That reading looked unreliable. Try again with gentle, steady finger pressure over the camera and flash.";
+        btnRow.style.display = 'grid';
+        return;
+      }
+
+      statusEl.innerHTML = `Measured pulse: <b style="color:var(--accent-heart); font-size:17px;">${bpm} BPM</b>`;
+      appState.heartRate = bpm;
+      saveData();
+      renderUI();
+      setTimeout(() => {
+        closeModal('modal-hr');
+        statusEl.style.display = 'none';
+        btnRow.style.display = 'grid';
+      }, 1400);
     }
 
     function saveBloodPressure() {
@@ -1103,27 +1181,25 @@
       openModal('modal-report');
     }
 
-    window.addEventListener('DOMContentLoaded', initApp);
-
-    /* ===================== INSTALL PROMPT ===================== */
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
+    let deferredInstallPrompt = null;
+    window.addEventListener('beforeinstallprompt', function (e) {
       e.preventDefault();
-      deferredPrompt = e;
+      deferredInstallPrompt = e;
     });
-    function handleInstallClick() {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the install prompt');
-          }
-          deferredPrompt = null;
+    function installApp() {
+      const bar = document.getElementById('install-bar');
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.finally(() => {
+          deferredInstallPrompt = null;
+          if (bar) bar.style.display = 'none';
         });
       } else {
-        alert('To add this app to your home screen, open your browser menu (⋮) and select "Add to Home screen".');
+        alert('📱 Add to Home Screen via your browser menu.');
       }
     }
+
+    window.addEventListener('DOMContentLoaded', initApp);
   </script>
 </body>
 </html>
