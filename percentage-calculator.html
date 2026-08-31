@@ -46,8 +46,8 @@
       --grey-light:#d0d2d6;
       --grey-mid:#9ea0a5;
       --grey-dark:#545860;
-      --silver-gradient: linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%);
-      --silver-gradient-hover: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
+      --silver-gradient: linear-gradient(145deg, #f8fafc 0%, #e6eaf0 20%, #b8c0c9 45%, #8a929c 60%, #d0d7df 85%, #f0f4f8 100%);
+      --silver-gradient-hover: linear-gradient(145deg, #ffffff 0%, #f0f4f8 25%, #d0d7df 55%, #b8c0c9 75%, #e6eaf0 100%);
       --whatsapp-green:#25D366;
       --download-blue:#2196F3;
     }
@@ -166,22 +166,26 @@
     .field input:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.4); }
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
 
+    /* Buttons: stacked full width */
     .btn-calc {
       width:100%;
       background: var(--silver-gradient);
       color:#0A0F14;
       border:2px solid var(--gold);
-      padding:18px;
-      border-radius:14px;
+      border-radius:8px;
       font-family:'Oswald',sans-serif;
       font-weight:700;
       font-size:1.1rem;
       cursor:pointer;
-      margin-top:10px;
       letter-spacing:1px;
       text-transform:uppercase;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.2);
       transition:all 0.25s;
+      height:60px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:10px;
     }
     .btn-calc:hover {
       background: var(--silver-gradient-hover);
@@ -191,17 +195,22 @@
     }
 
     .btn-reset {
+      width:100%;
       background: var(--silver-gradient);
       border:2px solid var(--gold);
       color:#0A0F14;
-      padding:14px 22px;
-      border-radius:10px;
+      border-radius:8px;
       font-weight:700;
       cursor:pointer;
       text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.2);
       transition: all 0.25s ease;
       white-space:nowrap;
+      height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:0.85rem;
     }
     .btn-reset:hover {
       background: var(--silver-gradient-hover);
@@ -297,10 +306,8 @@
           <div class="field"><label>Percentage (%)</label><input type="number" id="fpPercent" value="15" step="any"></div>
           <div class="field"><label>of Total Amount</label><input type="number" id="fpTotal" value="400000" step="any"></div>
         </div>
-        <div style="display:flex;gap:9px;">
-          <button class="btn-calc" style="flex:1" onclick="calculate('findPercent')">⚡ Calculate Now</button>
-          <button class="btn-reset" onclick="resetFindPercent()">🔄 Reset</button>
-        </div>
+        <button class="btn-calc" onclick="calculate('findPercent')">⚡ Calculate Now</button>
+        <button class="btn-reset" onclick="resetFindPercent()">🔄 Reset</button>
       </div>
 
       <div id="mode-reverse" class="mode-content" style="display:none;">
@@ -308,10 +315,8 @@
           <div class="field"><label>Part Amount</label><input type="number" id="rvPart" value="150000" step="any"></div>
           <div class="field"><label>Total Amount</label><input type="number" id="rvTotal" value="700000" step="any"></div>
         </div>
-        <div style="display:flex;gap:10px;">
-          <button class="btn-calc" style="flex:1" onclick="calculate('reverse')">⚡ Calculate Now</button>
-          <button class="btn-reset" onclick="resetReverse()">🔄 Reset</button>
-        </div>
+        <button class="btn-calc" onclick="calculate('reverse')">⚡ Calculate Now</button>
+        <button class="btn-reset" onclick="resetReverse()">🔄 Reset</button>
       </div>
 
       <div id="mode-change" class="mode-content" style="display:none;">
@@ -319,10 +324,8 @@
           <div class="field"><label>Old Value</label><input type="number" id="chOld" value="500" step="any"></div>
           <div class="field"><label>New Value</label><input type="number" id="chNew" value="650" step="any"></div>
         </div>
-        <div style="display:flex;gap:10px;">
-          <button class="btn-calc" style="flex:1" onclick="calculate('change')">⚡ Calculate Now</button>
-          <button class="btn-reset" onclick="resetChange()">🔄 Reset</button>
-        </div>
+        <button class="btn-calc" onclick="calculate('change')">⚡ Calculate Now</button>
+        <button class="btn-reset" onclick="resetChange()">🔄 Reset</button>
       </div>
 
       <div class="result-box" id="resultBox">
@@ -386,6 +389,52 @@
     <p><strong>A 15% discount on PKR 3,000?</strong> → you save <strong>PKR 450</strong></p>
     <p><strong>How do I calculate percentage change?</strong> → (New Value - Old Value) ÷ Old Value × 100</p>
     <p><strong>What is reverse percentage?</strong> → Finding what percent one number is of another. Example: 150 is what percent of 700? Answer: 21.43%</p>
+  </div>
+
+  <!-- NEW DEEP DIVE GUIDE -->
+  <div style="margin:30px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+    <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">📚 Percentage Calculation: The Complete Reference Guide</h2>
+    <p>Percentages are everywhere — from store discounts and taxes to profit margins and test scores. Understanding how to calculate them accurately saves time and prevents costly mistakes. This guide explains the three essential percentage operations you'll encounter daily.</p>
+
+    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">1. Finding a Percentage of a Number</h3>
+    <p><strong>Formula:</strong> Result = (Percentage ÷ 100) × Total</p>
+    <p><strong>Example:</strong> What is 15% of 400,000?<br>
+    (15 ÷ 100) × 400,000 = <strong>60,000</strong></p>
+    <p>This is the most common calculation — used for discounts, tips, and sales tax.</p>
+
+    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">2. Reverse Percentage (What Percent One Number Is of Another)</h3>
+    <p><strong>Formula:</strong> Percentage = (Part ÷ Total) × 100</p>
+    <p><strong>Example:</strong> 150,000 is what percent of 700,000?<br>
+    (150,000 ÷ 700,000) × 100 = <strong>21.43%</strong></p>
+    <p>Use this to understand proportions — e.g., what portion of your budget is spent on rent.</p>
+
+    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">3. Percentage Increase or Decrease</h3>
+    <p><strong>Formula:</strong> Percentage Change = ((New Value - Old Value) ÷ Old Value) × 100</p>
+    <p><strong>Example:</strong> Sales increased from 500 to 650 units.<br>
+    ((650 - 500) ÷ 500) × 100 = <strong>30% increase</strong></p>
+    <p>Essential for tracking growth, inflation, and performance.</p>
+
+    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">4. Quick Reference Table</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;color:#cfd6dd;">
+      <tr style="border-bottom:2px solid rgba(212,175,55,0.3);">
+        <th style="text-align:left;padding:8px;">Scenario</th>
+        <th style="text-align:left;padding:8px;">Calculation</th>
+        <th style="text-align:left;padding:8px;">Example</th>
+      </tr>
+      <tr><td style="padding:6px;">Discount</td><td>Price × (1 - Discount%)</td><td>3,000 - 15% = 2,550</td></tr>
+      <tr><td style="padding:6px;">Tax</td><td>Amount × Tax%</td><td>5,000 × 12% = 600</td></tr>
+      <tr><td style="padding:6px;">Tip</td><td>Bill × Tip%</td><td>2,000 × 10% = 200</td></tr>
+      <tr><td style="padding:6px;">Profit Margin</td><td>(Selling - Cost) ÷ Selling</td><td>(600-400)/600 = 33%</td></tr>
+    </table>
+
+    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">5. Frequently Asked Questions</h3>
+    <p><strong>Q: How do I calculate 20% of 1,500?</strong><br>A: (20 ÷ 100) × 1,500 = 300.</p>
+    <p><strong>Q: A 15% discount on PKR 3,000?</strong><br>A: You save 450, final price 2,550.</p>
+    <p><strong>Q: How do I calculate percentage change?</strong><br>A: (New - Old) ÷ Old × 100. If positive, it's increase; negative, decrease.</p>
+    <p><strong>Q: What is reverse percentage?</strong><br>A: Finding what percent one number is of another.</p>
+    <p><strong>Q: Are percentages the same as fractions?</strong><br>A: Yes, 25% = 25/100 = 0.25 = 1/4.</p>
+
+    <p style="margin-top:15px; font-weight:700; color:#FFD700;">✅ This guide, combined with our free calculator, gives you everything needed for accurate percentage work.</p>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
