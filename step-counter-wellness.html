@@ -3,1766 +3,1127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Step Counter & Wellness Studio — ColdMatrix</title>
-  <link rel="canonical" href="https://coldmatrixtools.com/step-counter-wellness.html">
-  <meta name="description" content="Free premium step counter with motion-sensor tracking, camera heart rate, hydration, sleep, blood pressure logging and a 4-7-8 breathing studio. Private, on-device, no registration.">
-  <meta name="theme-color" content="#06080e">
-  <link rel="manifest" href="manifest.json">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Step Counter & Wellness Studio",
-    "url": "https://coldmatrixtools.com/step-counter-wellness.html",
-    "applicationCategory": "HealthApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "publisher": { "@type": "Organization", "name": "ColdMatrix" }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "Is my data private?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every reading is stored only in your browser's local storage on this device. Nothing is uploaded to a server, and you can delete everything at any time." } },
-      { "@type": "Question", "name": "How accurate is the step counter?", "acceptedAnswer": { "@type": "Answer", "text": "It uses your phone's motion sensor and a walking-pattern detection algorithm. Accuracy depends on device sensor quality and how you carry your phone; it is a wellness estimate, not a clinical measurement." } },
-      { "@type": "Question", "name": "Is the camera heart rate reading reliable?", "acceptedAnswer": { "@type": "Answer", "text": "Treat it as a rough estimate only. Manual entry from a real pulse oximeter or fitness band is the recommended primary method." } },
-      { "@type": "Question", "name": "Can I see my steps from past days, weeks, or months?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, the Activity Report lets you switch between Week, Month, and Year views and navigate backward through your saved history." } },
-      { "@type": "Question", "name": "Does this work offline?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, once loaded, all tracking and storage happen locally and continue to work offline." } },
-      { "@type": "Question", "name": "Is it free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free with no sign-up required." } },
-      { "@type": "Question", "name": "What if my step or heart rate numbers seem off?", "acceptedAnswer": { "@type": "Answer", "text": "Step accuracy depends on how you carry your phone. Camera-based heart rate is a rough estimate; logging a reading from a real pulse oximeter or fitness band manually is more reliable." } },
-      { "@type": "Question", "name": "Can I use this on more than one device?", "acceptedAnswer": { "@type": "Answer", "text": "Data is saved only in that browser's local storage and does not sync between devices." } }
-    ]
-  }
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Cold Matrix Step Counter & Wellness Studio</title>
   <style>
+    /* ==========================================================================
+       1. GLOBAL SYSTEM & PREMIUM DARK GILDED PALETTE
+       ========================================================================== */
     :root {
-      --bg-base: #06080e;
-      --card-bg: rgba(16, 22, 34, 0.72);
-      --card-border: rgba(255, 255, 255, 0.08);
-      
-      --accent-emerald: #D4B052; /* soft gold accent (renamed usage, kept var name to avoid breaking refs) */
-      --accent-cyan: #06b6d4;
-      --accent-teal: #14b8a6;
-      --accent-rose: #f43f5e;
-      --accent-amber: #f59e0b;
-      --accent-violet: #8b5cf6;
-      --accent-gold: #eab308;
-      
-      --text-main: #f8fafc;
-      --text-muted: #ABB8C9;
-      --text-sub: #8894A6;
-      
-      --radius-hero: 36px;
-      --radius-lg: 24px;
-      --radius-md: 16px;
-      --radius-pill: 50px;
+      --bg-dark: #0A0D12;
+      --card-bg: #131722;
+      --card-inner: #1A202C;
+
+      --border-gold: rgba(212, 175, 55, 0.28);
+      --border-gold-bright: #D4AF37;
+      --gold-glow: rgba(212, 175, 55, 0.15);
+
+      --text-main: #FFFFFF;
+      --text-sub: #94A3B8;
+      --text-muted: #64748B;
+
+      --accent-steps: #E8B93A;
+      --accent-exercise: #D4AF37;
+      --accent-heart: #EF4444;
+      --accent-bp: #06B6D4;
+      --accent-water: #3B82F6;
+      --accent-success: #10B981;
+
+      --radius-card: 18px;
+      --radius-sm: 10px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
-    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body {
-      background-color: var(--bg-base);
+      background-color: var(--bg-dark);
       color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 12px 10px 40px 10px;
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(212, 176, 82, 0.15), transparent 50%),
-        radial-gradient(circle at 100% 60%, rgba(6, 182, 212, 0.08), transparent 40%),
-        radial-gradient(circle at 0% 100%, rgba(139, 92, 246, 0.06), transparent 50%);
-      background-attachment: fixed;
-    }
-
-    .app-viewport { max-width: 520px; width: 100%; display: flex; flex-direction: column; gap: 16px; }
-
-    /* Minimal Top Header */
-    .app-header { display: flex; justify-content: space-between; align-items: center; padding: 4px 8px; }
-    .brand-title { font-size: 1.1rem; font-weight: 900; letter-spacing: 1.5px; background: linear-gradient(135deg, #E8CA85, var(--accent-emerald)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .status-badge { font-size: 0.7rem; padding: 4px 12px; border-radius: var(--radius-pill); background: rgba(212, 176, 82, 0.12); color: var(--accent-emerald); border: 1px solid rgba(212, 176, 82, 0.25); font-weight: 700; display: flex; align-items: center; gap: 6px; }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-emerald); box-shadow: 0 0 8px var(--accent-emerald); }
-
-    /* Hierarchy Level 1: HERO STEP COUNTER */
-    .hero-container {
-      background:
-        linear-gradient(180deg, rgba(16, 22, 34, 0.85) 0%, rgba(10, 14, 23, 0.95) 100%) padding-box,
-        linear-gradient(135deg, rgba(232, 202, 133, 0.55), rgba(184, 134, 11, 0.35) 55%, rgba(232, 202, 133, 0.5)) border-box;
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border: 1.5px solid transparent;
-      border-radius: var(--radius-hero);
-      padding: 24px 20px 20px 20px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-      position: relative;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    .hero-gauge-wrapper { position: relative; width: 250px; height: 250px; margin: 12px 0; display: flex; align-items: center; justify-content: center; }
-    @media (max-width: 370px) {
-      .hero-gauge-wrapper { width: 210px; height: 210px; }
-    }
-    .hero-gauge-svg { position: relative; z-index: 1; transform: rotate(-90deg); width: 100%; height: 100%; filter: drop-shadow(0 0 16px rgba(212, 176, 82, 0.25)); }
-    .gauge-bg { fill: none; stroke: rgba(255, 255, 255, 0.04); stroke-width: 16; }
-    .gauge-fill {
-      fill: none;
-      stroke: url(#hero-grad);
-      stroke-width: 16;
-      stroke-linecap: round;
-      stroke-dasharray: 628;
-      stroke-dashoffset: 628;
-      transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .hero-gauge-center { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; }
-    .hero-step-val { font-size: 3.4rem; font-weight: 900; letter-spacing: -2px; line-height: 0.9; color: var(--text-main); background: linear-gradient(180deg, #ffffff, #cbd5e1); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    @media (max-width: 370px) {
-      .hero-step-val { font-size: 2.6rem; }
-    }
-    .hero-step-lbl { font-size: 0.72rem; color: var(--text-muted); font-weight: 800; letter-spacing: 2px; margin-top: 6px; }
-    .hero-goal-lbl { font-size: 0.75rem; color: var(--accent-emerald); font-weight: 700; margin-top: 4px; background: rgba(212, 176, 82, 0.1); padding: 3px 10px; border-radius: var(--radius-pill); border: 1px solid rgba(212, 176, 82, 0.2); }
-
-    /* Compact Rounded Metrics Panels */
-    .hero-metrics-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; margin-top: 14px; }
-    .mini-metric-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: var(--radius-md);
-      padding: 12px 14px;
+    #app-viewport {
+      width: 100%;
+      max-width: 440px;
+      padding: 12px 14px 90px 14px;
       display: flex;
-      align-items: center;
-      gap: 12px;
+      flex-direction: column;
+      gap: 14px;
     }
-    .metric-icon { font-size: 1.2rem; background: rgba(255, 255, 255, 0.05); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    .metric-val-title { font-size: 1.05rem; font-weight: 800; color: var(--text-main); line-height: 1.1; }
-    .metric-sub-lbl { font-size: 0.68rem; color: var(--text-muted); margin-top: 2px; font-weight: 600; }
 
-    /* Hierarchy Level 2 & 3 Modules */
-    .section-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(212, 176, 82, 0.16);
-      border-radius: var(--radius-lg);
+    /* ==========================================================================
+       2. HEADER
+       ========================================================================== */
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 4px;
+      border-bottom: 1px solid var(--border-gold);
+      margin-bottom: 2px;
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .brand-title .cm-gold {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--border-gold-bright);
+    }
+
+    .brand-title .cm-sub {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       3. CARDS
+       ========================================================================== */
+    .wellness-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-card);
       padding: 18px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
     }
 
     .card-head {
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: var(--text-muted);
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      margin-bottom: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    /* Buttons & Inputs */
-    .btn {
-      width: 100%;
-      background: linear-gradient(135deg, var(--accent-emerald), #A67C23);
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: var(--radius-pill);
-      font-weight: 800;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 8px 20px rgba(212, 176, 82, 0.25);
+    .card-title-group {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
-    }
-    .btn:active { transform: scale(0.98); }
-    .btn-secondary { background: rgba(255, 255, 255, 0.06); border: 1px solid var(--card-border); color: var(--text-main); box-shadow: none; }
-    .btn-rose { background: linear-gradient(135deg, var(--accent-rose), #e11d48); box-shadow: 0 8px 20px rgba(244, 63, 94, 0.25); }
-    .btn-violet { background: linear-gradient(135deg, var(--accent-violet), #6d28d9); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.25); }
-
-    .input-field, .select-field {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--card-border);
-      color: var(--text-main);
-      padding: 10px 14px;
-      border-radius: var(--radius-md);
-      font-size: 0.85rem;
-      outline: none;
-    }
-    .input-field:focus, .select-field:focus { border-color: var(--accent-emerald); }
-    label { font-size: 0.7rem; color: var(--text-muted); display: block; margin-bottom: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-
-    .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .grid-form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-
-    html, body { overflow-x: hidden; }
-    @media (max-width: 400px) {
-      .dual-card-row { grid-template-columns: 1fr; }
+      font-size: 15px;
+      font-weight: 700;
     }
 
-    /* Heart Rate Module */
-    .hr-display-box { display: flex; justify-content: space-between; align-items: center; margin: 8px 0 14px 0; }
-    .bpm-huge { font-size: 3rem; font-weight: 900; color: var(--accent-rose); line-height: 1; }
-    .pulse-indicator { width: 48px; height: 48px; border-radius: 50%; background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.3); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
-    .pulse-active { animation: pulseGlow 1.2s infinite alternate; }
-    @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); } 100% { box-shadow: 0 0 0 18px rgba(244, 63, 94, 0); } }
-
-    .progress-track { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.06); border-radius: var(--radius-pill); overflow: hidden; margin: 10px 0; }
-    .progress-bar { width: 0%; height: 100%; background: var(--accent-rose); transition: width 0.3s linear; }
-
-    /* Hydration Radial/Liquid Control */
-    .water-bubble-wrapper { display: flex; align-items: center; justify-content: space-between; margin: 8px 0; }
-    .inc-pill-row { display: flex; gap: 6px; margin-top: 10px; }
-    .inc-pill { background: rgba(255,255,255,0.06); border: 1px solid var(--card-border); color: white; padding: 6px 12px; border-radius: var(--radius-pill); font-weight: 700; cursor: pointer; font-size: 0.75rem; flex: 1; text-align: center; }
-    .inc-pill:active { background: var(--accent-cyan); }
-
-    /* Semi-Circular Wellness Arc */
-    .wellness-arc-box { display: flex; flex-direction: column; align-items: center; padding: 10px 0; }
-    .score-huge { font-size: 2.8rem; font-weight: 900; color: var(--accent-violet); line-height: 1; }
-
-    /* Breathing Node */
-    .breath-box { display: flex; flex-direction: column; align-items: center; padding: 14px 0; }
-    .breath-circle {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--accent-cyan), var(--accent-violet));
-      opacity: 0.85;
-      box-shadow: 0 0 30px rgba(6, 182, 212, 0.35);
-      transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    .card-action-btn {
+      font-size: 12px;
+      color: var(--border-gold-bright);
+      font-weight: 600;
+      cursor: pointer;
+      background: none;
+      border: none;
     }
-    .breath-time { font-size: 1.8rem; font-weight: 900; margin-top: 10px; color: var(--accent-cyan); }
 
-    /* Expandable Educational Accordion */
-    .accordion-item { border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .accordion-item:last-child { border-bottom: none; }
-    .accordion-header { padding: 12px 0; font-size: 0.82rem; font-weight: 700; color: var(--text-main); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; padding-bottom: 0; }
-    .accordion-item.active .accordion-content { max-height: 500px; padding-bottom: 12px; }
-    .accordion-item.active .accordion-header { color: var(--accent-teal); }
+    /* Hero Step Counter Section */
+    .hero-card { align-items: center; text-align: center; padding-top: 16px; }
 
-    /* Tabbed Navigation for Logs */
-    .tab-bar { display: flex; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--card-border); padding-bottom: 8px; }
-    .tab-btn { background: none; border: none; color: var(--text-muted); font-size: 0.78rem; font-weight: 700; cursor: pointer; padding: 4px 10px; border-radius: var(--radius-pill); }
-    .tab-btn.active { color: var(--accent-emerald); background: rgba(212, 176, 82, 0.12); }
-
-    .history-list { max-height: 160px; overflow-y: auto; font-size: 0.78rem; display: flex; flex-direction: column; gap: 6px; }
-    .history-row { display: flex; justify-content: space-between; padding: 8px 12px; background: rgba(0,0,0,0.25); border-radius: var(--radius-md); }
-
-    .disclaimer-box { background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: var(--radius-md); padding: 10px 12px; font-size: 0.72rem; color: #fcd34d; line-height: 1.4; margin-top: 10px; }
-
-    video, canvas { display: none; }
-
-    .report-tab-row { display: flex; gap: 6px; margin-bottom: 12px; }
-    .report-tab {
-      flex: 1; background: rgba(255,255,255,0.04); border: 1px solid var(--card-border);
-      color: var(--text-muted); font-weight: 700; font-size: 0.78rem;
-      padding: 8px; border-radius: var(--radius-pill); cursor: pointer;
+    .ring-container {
+      position: relative; width: 200px; height: 200px; margin: 10px 0;
+      display: flex; justify-content: center; align-items: center;
     }
-    .report-tab.active { background: var(--accent-emerald); color: #04201b; border-color: var(--accent-emerald); }
-    .report-nav-row { display: flex; align-items: center; justify-content: space-between; }
-    .report-nav-btn {
-      background: rgba(255,255,255,0.06); border: 1px solid var(--card-border); color: var(--text-main);
-      width: 32px; height: 32px; border-radius: 50%; font-size: 1rem; cursor: pointer;
+    .ring-svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+    .ring-bg { fill: none; stroke: var(--card-inner); stroke-width: 14; }
+    .ring-bar {
+      fill: none; stroke: url(#stepGradient); stroke-width: 14; stroke-linecap: round;
+      stroke-dasharray: 565.48; stroke-dashoffset: 565.48;
+      transition: stroke-dashoffset 0.6s ease-out;
     }
-    .report-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-    .report-most-active {
-      background: linear-gradient(135deg, var(--accent-rose), #be123c);
-      border-radius: var(--radius-md); padding: 10px 14px; color: white; margin-top: 4px;
-    }
-    .report-achieved-row { display: flex; justify-content: space-between; margin-top: 10px; gap: 4px; flex-wrap: wrap; }
-    .report-achieved-dot {
-      flex: 1; min-width: 24px; display: flex; flex-direction: column; align-items: center; gap: 4px;
-    }
-    .report-achieved-dot .dot { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid var(--card-border); }
-    .report-achieved-dot .dot.achieved { background: var(--accent-emerald); border-color: var(--accent-emerald); }
-    .report-achieved-dot .lbl { font-size: 0.62rem; color: var(--text-sub); font-weight: 700; }
-    .report-legend-row { display: flex; gap: 16px; margin-top: 10px; font-size: 0.7rem; color: var(--text-muted); }
-    .legend-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }
-    .legend-dot.achieved { background: var(--accent-emerald); }
-    .legend-dot.not-achieved { background: rgba(255,255,255,0.15); }
+    .ring-text { position: absolute; display: flex; flex-direction: column; align-items: center; }
+    .step-big { font-size: 54px; font-weight: 800; line-height: 1; color: #FFFFFF; }
+    .step-target-lbl { font-size: 14px; color: #C3CCD6; margin-top: 4px; font-weight: 600; }
+    .step-pct-lbl { font-size: 13px; color: var(--accent-steps); font-weight: 700; margin-top: 2px; }
 
-    .cm-navbar {
-      position: sticky; top: 0; z-index: 200;
+    .action-row { display: flex; gap: 10px; width: 100%; }
+    .btn-main {
+      flex: 1; height: 44px; border-radius: var(--radius-sm); border: none; font-weight: 700;
+      font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      gap: 6px; transition: opacity 0.2s;
+    }
+    .btn-primary { background: linear-gradient(135deg, #E8B93A 0%, #D4AF37 100%); color: #000; }
+    .btn-secondary { background: var(--card-inner); border: 1.5px solid var(--border-gold-bright); color: var(--text-main); }
+    .btn-main:active { opacity: 0.8; }
+
+    .metric-grid-3 {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+      background: var(--card-inner); padding: 12px; border-radius: var(--radius-sm); text-align: center;
+    }
+    .metric-val { font-size: 16px; font-weight: 800; color: var(--text-main); }
+    .metric-lbl { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
+
+    .data-row {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 16px; margin: -12px -10px 0 -10px;
-      background: rgba(6, 8, 14, 0.92);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--card-border);
+      background: var(--card-inner); padding: 12px 14px; border-radius: var(--radius-sm); gap: 12px;
     }
-    .cm-navbar a { color: var(--text-main); text-decoration: none; font-weight: 700; font-size: 0.85rem; }
-    .cm-navbar a:first-child { color: var(--accent-cyan); }
-    .cm-footer { text-align: center; color: var(--text-sub); font-size: 0.72rem; padding: 6px 0 0; }
-    .cm-footer a { color: var(--accent-cyan); text-decoration: none; font-weight: 700; }
+    .data-val { font-size: 24px; font-weight: 800; }
+    .wave-strip { width: 100%; height: 30px; margin: -4px 0 2px; }
+    .wave-svg { width: 100%; height: 100%; display: block; }
+    .wave-path { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 8 5; animation: wave-move 2.4s linear infinite; }
+    @keyframes wave-move { to { stroke-dashoffset: -130; } }
+    @media (prefers-reduced-motion: reduce) { .wave-path { animation: none; } }
 
-    .utility-bar {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-lg);
-      padding: 12px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+    /* ==========================================================================
+       GAUGES (Heart Rate / Blood Pressure)
+       ========================================================================== */
+    .gauge-block { display: flex; align-items: center; gap: 14px; }
+    .gauge-svg-wrap { width: 96px; height: 56px; flex-shrink: 0; }
+    .gauge-info { flex: 1; min-width: 0; }
+    .gauge-status { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
+
+    /* Water Meter */
+    .water-meter-bg {
+      width: 100%; height: 10px; background: var(--card-inner); border-radius: 5px;
+      overflow: hidden; margin-top: 4px;
     }
-    .utility-btn {
-      flex: 1;
-      min-width: 100px;
-      border: none;
+    .water-meter-fill { height: 100%; width: 0%; background: var(--accent-water); border-radius: 5px; transition: width 0.4s ease; }
+
+    /* ==========================================================================
+       4. BOTTOM NAVIGATION
+       ========================================================================== */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 440px;
+      background: #0D111A; border-top: 1px solid var(--border-gold);
+      display: flex; justify-content: space-around; padding: 10px 0; z-index: 99;
+    }
+    .nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      color: var(--text-muted); font-size: 11px; font-weight: 600; cursor: pointer; text-decoration: none;
+      background: none; border: none;
+    }
+    .nav-item.active { color: var(--border-gold-bright); }
+
+    /* ==========================================================================
+       5. MODALS
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.82); backdrop-filter: blur(4px);
+      display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px;
+    }
+    .modal-card {
+      background: var(--card-bg); border: 1px solid var(--border-gold-bright); border-radius: var(--radius-card);
+      padding: 22px; width: 100%; max-width: 360px; box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+      display: flex; flex-direction: column; gap: 16px; max-height: 86vh; overflow-y: auto;
+    }
+    .modal-header { font-size: 18px; font-weight: 800; color: var(--text-main); }
+    .goal-preset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .preset-btn {
+      background: var(--card-inner); border: 1px solid var(--border-gold); color: var(--text-main);
+      padding: 10px; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer;
+    }
+    .preset-btn:active { background: var(--border-gold-bright); color: #000; }
+    .custom-input {
+      width: 100%; background: var(--card-inner); border: 1px solid var(--border-gold); color: var(--text-main);
+      padding: 12px; border-radius: var(--radius-sm); font-weight: 700; font-size: 16px; text-align: center;
+    }
+    .field-label { font-size: 12px; color: var(--text-sub); font-weight: 600; margin-bottom: -6px; }
+
+    /* Weekly Report Grid */
+    .weekly-report-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin: 6px 0; }
+    .report-day-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .day-ring-outer {
+      width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      transition: background 0.4s ease;
+    }
+    .day-ring-outer.is-today { box-shadow: 0 0 0 2px var(--border-gold-bright); }
+    .day-ring-inner {
+      width: 27px; height: 27px; border-radius: 50%; background: var(--card-bg);
+      display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 800; color: var(--text-main);
+    }
+
+    .stat-list { display: flex; flex-direction: column; gap: 8px; background: var(--card-inner); padding: 12px; border-radius: 10px; font-size: 12px; }
+    .stat-row { display: flex; justify-content: space-between; }
+
+    /* Achievement modal + confetti */
+    #modal-achieve .modal-card { position: relative; overflow: hidden; }
+    .confetti-layer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .confetti-piece {
+      position: absolute; top: -10px; width: 8px; height: 8px; border-radius: 2px;
+      animation: confetti-fall 1.8s ease-in forwards;
+    }
+    @keyframes confetti-fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(320px) rotate(540deg); opacity: 0; }
+    }
+    .achieve-glow {
+      font-size: 54px; text-shadow: 0 0 24px var(--gold-glow), 0 0 48px var(--gold-glow);
+      animation: achieve-pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes achieve-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    /* ==========================================================================
+       6. EDUCATIONAL GUIDE SECTION
+       ========================================================================== */
+    .guide-section {
+      margin-top: 20px; padding-top: 20px; border-top: 1px dashed var(--border-gold);
+      color: var(--text-sub); font-size: 13px; line-height: 1.6;
+    }
+    .guide-section h3 { color: var(--text-main); font-size: 16px; margin-bottom: 8px; }
+    .guide-section p { margin-bottom: 12px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .confetti-piece, .achieve-glow { animation: none; }
+    }
+
+    /* Install bar */
+    .install-bar {
+      background: linear-gradient(135deg, #E8B93A 0%, #D4AF37 100%);
       border-radius: 10px;
-      padding: 10px 12px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .install-btn {
+      width: 100%;
+      height: 48px;
+      border: none;
+      background: transparent;
+      color: #000;
       font-weight: 800;
-      font-size: 0.76rem;
+      font-size: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
     }
-    .utility-btn.install { background: #4FC3F7; color: #04202b; }
-    .utility-btn.whatsapp { background: rgba(37, 211, 102, 0.14); border: 1px solid rgba(37, 211, 102, 0.35); color: #4ADE80; }
-    .utility-btn.copy { background: rgba(255,255,255,0.06); border: 1px solid var(--card-border); color: var(--text-main); }
+    .footer-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 20px;
+      padding: 10px 0;
+    }
+    .footer-note .gold {
+      color: var(--border-gold-bright);
+      font-weight: 700;
+    }
   </style>
 </head>
 <body>
 
-<div class="app-viewport">
+  <div id="app-viewport">
+    <header class="app-header">
+      <div class="brand-title">
+        <span class="cm-gold">❄️ Cold Matrix</span>
+        <span class="cm-sub">Step Counter & Wellness Studio</span>
+      </div>
+      <div style="font-size: 12px; color: var(--text-sub);" id="header-date">--</div>
+    </header>
 
-  <nav class="cm-navbar">
-    <a href="index.html">❄️ COLDMATRIX</a>
-    <a href="index.html#tools">🛠️ TOOLS</a>
+    <!-- Add to Home Screen Bar -->
+    <div class="install-bar">
+      <button class="install-btn" id="installBtn" onclick="handleInstallClick()">📲 Add to Home Screen</button>
+    </div>
+
+    <!-- TODAY'S STEPS HERO -->
+    <section class="wellness-card hero-card">
+      <div class="card-head" style="width: 100%;">
+        <div class="card-title-group" style="color: var(--accent-steps);">
+          <span>🏆</span>
+          <span>TODAY'S STEPS</span>
+        </div>
+        <button class="card-action-btn" onclick="openGoalModal()">GOAL: <span id="lbl-goal">4,000</span></button>
+      </div>
+
+      <div class="ring-container">
+        <svg class="ring-svg" viewBox="0 0 200 200">
+          <defs>
+            <linearGradient id="stepGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#E8B93A" />
+              <stop offset="100%" stop-color="#D4AF37" />
+            </linearGradient>
+          </defs>
+          <circle class="ring-bg" cx="100" cy="100" r="90" />
+          <circle id="hero-progress-bar" class="ring-bar" cx="100" cy="100" r="90" />
+        </svg>
+        <div class="ring-text">
+          <span class="step-big" id="disp-steps">0</span>
+          <span class="step-target-lbl">/ <span id="disp-sub-goal">4,000</span> Steps</span>
+          <span class="step-pct-lbl" id="disp-pct">0.0% Complete</span>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button id="btn-toggle-track" class="btn-main btn-primary" onclick="toggleTracking()">
+          <span>▶</span> <span id="lbl-track-btn">Start Tracking</span>
+        </button>
+        <button class="btn-main btn-secondary" onclick="resetTodaySteps()">Reset</button>
+      </div>
+
+      <p id="sensor-note" style="font-size:12px; color:var(--text-sub); margin-top:4px; line-height:1.5;">
+        Pedometer engine idle. Tap Start to listen to hardware motion. If your device/browser doesn't support motion sensors, steps won't auto-increase — this is a real hardware limitation, not a bug.
+      </p>
+    </section>
+
+    <!-- EXERCISE -->
+    <section class="wellness-card">
+      <div class="card-head">
+        <div class="card-title-group" style="color: var(--accent-exercise);">
+          <span>🏃</span>
+          <span>Exercise</span>
+        </div>
+      </div>
+      <div class="metric-grid-3">
+        <div>
+          <div class="metric-val" id="ex-time">0h 00m</div>
+          <div class="metric-lbl">Minutes</div>
+        </div>
+        <div>
+          <div class="metric-val" id="ex-kcal">0.0</div>
+          <div class="metric-lbl">Kcal</div>
+        </div>
+        <div>
+          <div class="metric-val" id="ex-km">0.00</div>
+          <div class="metric-lbl">Km</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WEEKLY DAYS STRIP (inline, always visible) -->
+    <section class="wellness-card">
+      <div class="card-head">
+        <div class="card-title-group" style="color: var(--border-gold-bright);">
+          <span>📅</span>
+          <span>This Week</span>
+        </div>
+        <button class="card-action-btn" onclick="openReportModal()">FULL REPORT →</button>
+      </div>
+      <div class="weekly-report-grid" id="week-strip-days"></div>
+    </section>
+
+    <!-- HEART RATE -->
+    <section class="wellness-card">
+      <div class="card-head">
+        <div class="card-title-group" style="color: var(--accent-heart);">
+          <span>❤️</span>
+          <span>Heart Rate</span>
+        </div>
+      </div>
+      <div class="wave-strip">
+        <svg class="wave-svg" viewBox="0 0 300 30" preserveAspectRatio="none">
+          <path class="wave-path" stroke="var(--accent-heart)" d="M0,15 L60,15 L72,3 L84,27 L94,15 L110,15 L122,15 L134,3 L146,27 L158,15 L300,15" />
+        </svg>
+      </div>
+      <div class="gauge-block">
+        <div class="gauge-svg-wrap"><svg id="gauge-hr" viewBox="0 0 100 56" width="100%" height="100%"></svg></div>
+        <div class="gauge-info">
+          <div class="data-val hr-bpm-val" id="disp-hr">-- <span style="font-size:13px; color:var(--text-sub);">BPM</span></div>
+          <div class="gauge-status" id="lbl-hr-status">No data today</div>
+        </div>
+      </div>
+      <button class="btn-main btn-secondary" style="height:65px; width:100%; font-size:15px; border-radius:12px;" onclick="openModal('modal-hr')">❤️ Measure Heart Rate</button>
+    </section>
+
+    <!-- BLOOD PRESSURE -->
+    <section class="wellness-card">
+      <div class="card-head">
+        <div class="card-title-group" style="color: var(--accent-bp);">
+          <span>💠</span>
+          <span>Blood Pressure</span>
+        </div>
+      </div>
+      <div class="wave-strip">
+        <svg class="wave-svg" viewBox="0 0 300 30" preserveAspectRatio="none">
+          <path class="wave-path" stroke="var(--accent-bp)" d="M0,15 C 30,4 60,4 90,15 C 120,26 150,26 180,15 C 210,4 240,4 270,15 C 285,20 295,15 300,15" />
+        </svg>
+      </div>
+      <div class="gauge-block">
+        <div class="gauge-svg-wrap"><svg id="gauge-bp" viewBox="0 0 100 56" width="100%" height="100%"></svg></div>
+        <div class="gauge-info">
+          <div class="data-val" id="disp-bp">--/-- <span style="font-size:13px; color:var(--text-sub);">mmHg</span></div>
+          <div class="gauge-status" id="lbl-bp-status">No data today</div>
+        </div>
+      </div>
+      <button class="btn-main btn-secondary" style="height:75px; width:100%; font-size:15px; border-radius:12px;" onclick="openModal('modal-bp')">💠 Log Blood Pressure</button>
+    </section>
+
+    <!-- WATER -->
+    <section class="wellness-card">
+      <div class="card-head">
+        <div class="card-title-group" style="color: var(--accent-water);">
+          <span>💧</span>
+          <span>Water</span>
+        </div>
+        <span style="font-size:12px; color:var(--text-sub);" id="disp-water-text">0.0 L / 2.5 L</span>
+      </div>
+      <div>
+        <div class="water-meter-bg">
+          <div id="water-meter-fill" class="water-meter-fill"></div>
+        </div>
+      </div>
+      <div class="action-row">
+        <button class="btn-main btn-secondary" onclick="addWater(250)">+250 ml Glass</button>
+        <button class="btn-main btn-secondary" onclick="addWater(500)">+500 ml Bottle</button>
+      </div>
+    </section>
+
+    <!-- WEEKLY REPORT SUMMARY -->
+    <section class="wellness-card">
+      <div class="card-head">
+        <div class="card-title-group" style="color: var(--border-gold-bright);">
+          <span>📊</span>
+          <span>Weekly Report</span>
+        </div>
+        <button class="card-action-btn" onclick="openReportModal()">DETAIL →</button>
+      </div>
+      <div class="data-row">
+        <div>
+          <div class="data-val" id="disp-streak-summary">🔥 0 Day Streak</div>
+          <div style="font-size:11px; color:var(--text-sub);">Consecutive Completed Days</div>
+        </div>
+      </div>
+    </section>
+
+    <article class="guide-section">
+      <h3>Step Counter & Motion Sensor Telemetry Guide</h3>
+      <p>
+        The ColdMatrix Step Counter uses your phone's built-in motion sensor (DeviceMotionEvent) to detect the rhythmic acceleration pattern of walking. Tap "Start Tracking" and keep your phone on you — in a pocket or in hand — while you walk.
+      </p>
+      <p>
+        <strong>Browser & permission notes:</strong> Motion sensor access requires a secure HTTPS connection, and some browsers ask you to grant motion permission the first time you tap Start. If your browser or device doesn't expose motion data, step counting will stay at zero rather than fake a number — you can still log your day using the Reset/manual approach.
+      </p>
+      <p>
+        <strong>Heart rate & blood pressure:</strong> A phone browser cannot measure your real heart rate or blood pressure without dedicated hardware. Use the Measure/Log buttons to record readings you've taken with a proper device (smartwatch, BP monitor, or manual pulse count) — the app stores and tracks them for you, it doesn't invent them.
+      </p>
+    </article>
+
+    <!-- ========================================================================
+         ADDITIONAL COMPREHENSIVE EDUCATIONAL CONTENT (AdSense & User Guide)
+         ======================================================================== -->
+    <article class="guide-section">
+      <h3>Understanding Step Counting Accuracy</h3>
+      <p>Step counters rely on the device's accelerometer to detect the bounce of your body as you walk. The accuracy depends on several factors:</p>
+      <ul style="padding-left:20px; margin-bottom:12px;">
+        <li><strong>Carry position:</strong> Pocket carry or natural arm swing gives the best results. Holding the phone still while looking at the screen produces less motion for the sensor to detect.</li>
+        <li><strong>Device sensor quality:</strong> Different phones have different motion sensors. Newer devices typically have more sensitive and accurate sensors.</li>
+        <li><strong>Walking speed and pattern:</strong> Normal walking produces clear acceleration peaks. Very slow shuffling or unusual gait may be harder to detect.</li>
+        <li><strong>Environmental factors:</strong> Bumpy roads or vibrating surfaces may cause false readings, though the algorithm includes filtering to reduce this.</li>
+      </ul>
+      <p><strong>Practical tip:</strong> For the most consistent tracking, place your phone in a front pocket or use an armband. Avoid holding it in a bag that doesn't move with your body.</p>
+
+      <h3>Motion Sensor Permissions & Browser Support</h3>
+      <p>Modern browsers require user permission before accessing motion sensors. On iOS, you'll see a prompt when you first tap "Start Tracking." On Android, permission is usually granted automatically, but you can check site settings if tracking doesn't start.</p>
+      <p>If your browser or device doesn't support the DeviceMotionEvent API, the step counter cannot automatically count steps. In that case, you can:</p>
+      <ul style="padding-left:20px; margin-bottom:12px;">
+        <li>Use a dedicated pedometer app and manually enter your steps.</li>
+        <li>Use a fitness band or smartwatch and log your activity.</li>
+        <li>Update your browser to the latest version.</li>
+      </ul>
+
+      <h3>Health Advisories: Heart Rate</h3>
+      <p>A normal resting heart rate for adults ranges from 60 to 100 beats per minute (BPM). Lower rates are common in athletes and people who exercise regularly. You should be aware of the following:</p>
+      <ul style="padding-left:20px; margin-bottom:12px;">
+        <li><strong>High resting heart rate (>100 BPM):</strong> May indicate stress, dehydration, illness, or underlying heart conditions. Consult a doctor if persistent.</li>
+        <li><strong>Low resting heart rate (<60 BPM):</strong> Can be normal for fit individuals, but may cause dizziness or fatigue in others.</li>
+        <li><strong>Post-exercise heart rate:</strong> Usually elevated; should return to near resting within several minutes.</li>
+      </ul>
+      <p><strong>Important:</strong> This app does not measure heart rate directly. It only stores and displays values you manually enter. Never rely on a phone camera or manual pulse count for medical decisions — use a proper heart rate monitor.</p>
+
+      <h3>Health Advisories: Blood Pressure</h3>
+      <p>Blood pressure is recorded as two numbers: systolic (pressure when the heart beats) over diastolic (pressure when the heart rests). Normal is generally below 120/80 mmHg.</p>
+      <ul style="padding-left:20px; margin-bottom:12px;">
+        <li><strong>Elevated:</strong> 120–129 / less than 80</li>
+        <li><strong>High Blood Pressure (Stage 1):</strong> 130–139 / 80–89</li>
+        <li><strong>High Blood Pressure (Stage 2):</strong> 140 or higher / 90 or higher</li>
+        <li><strong>Hypertensive Crisis:</strong> Higher than 180 / higher than 120 — seek medical attention immediately</li>
+      </ul>
+      <p>Always use a clinically validated blood pressure monitor. Log your readings regularly and share trends with your healthcare provider. A single reading does not diagnose hypertension.</p>
+
+      <h3>Hydration Guidelines</h3>
+      <p>Water is essential for nearly every bodily function. General daily intake recommendations vary, but a common guideline is around 2.5 to 3.0 liters for men and 2.0 to 2.5 liters for women, including all fluids.</p>
+      <ul style="padding-left:20px; margin-bottom:12px;">
+        <li><strong>Hot weather or high activity:</strong> Increase intake to replace sweat losses.</li>
+        <li><strong>Signs of dehydration:</strong> Thirst, dark urine, fatigue, dizziness, and dry mouth.</li>
+        <li><strong>Overhydration:</strong> Rare but possible; avoid drinking excessive amounts in a short time.</li>
+      </ul>
+      <p>Log your water intake throughout the day to stay on track. This app allows quick addition of 250 ml or 500 ml increments.</p>
+
+      <h3>Exercise & Calorie Estimation</h3>
+      <p>The Exercise card shows estimated distance, calories, and active minutes based on your step count. These are rough estimates using standard formulas:</p>
+      <ul style="padding-left:20px; margin-bottom:12px;">
+        <li><strong>Distance:</strong> Estimated stride length × number of steps.</li>
+        <li><strong>Calories:</strong> Approximately 0.04 kcal per step for a person of average weight.</li>
+        <li><strong>Active minutes:</strong> Based on the assumption that 100–120 steps equal one minute of moderate activity.</li>
+      </ul>
+      <p>For more accurate calorie burn, use a fitness tracker that accounts for your weight, height, age, and heart rate.</p>
+
+      <h3>Streak System & Goal Setting</h3>
+      <p>Your daily step goal is your target for the day. The app tracks whether you reach that goal and builds a consecutive-day streak.</p>
+      <ul style="padding-left:20px; margin-bottom:12px;">
+        <li><strong>Set a realistic goal:</strong> Start with a number you can consistently achieve, then gradually increase.</li>
+        <li><strong>Miss a day?</strong> Your streak resets, but your previous days' data remains saved.</li>
+        <li><strong>Celebration:</strong> Reaching your goal triggers a special animation and updates your streak.</li>
+      </ul>
+      <p>Consistency matters more than occasional big numbers. Review your weekly report to understand your patterns and adjust your goal accordingly.</p>
+
+      <h3>Privacy & Data Storage</h3>
+      <p>All data is stored locally on your device using localStorage. Nothing is uploaded to any server. This means:</p>
+      <ul style="padding-left:20px; margin-bottom:12px;">
+        <li>Your health data stays private and only you can access it.</li>
+        <li>If you clear your browser data, the app will reset to defaults.</li>
+        <li>There is no account or cloud sync; each device maintains its own data.</li>
+      </ul>
+      <p>For persistent storage across sessions, avoid using incognito/private mode, which clears data when the tab closes.</p>
+
+      <h3>Frequently Asked Questions</h3>
+      <p><strong>Q: Why is my step count not increasing even after I tap Start?</strong><br>A: Make sure you have granted motion sensor permission. Also, ensure you are actually moving — the sensor needs movement to detect steps.</p>
+      <p><strong>Q: Can I use this on more than one device?</strong><br>A: Yes, but data does not sync between devices. Each device stores its own history.</p>
+      <p><strong>Q: Is the heart rate feature accurate?</strong><br>A: The app does not measure heart rate. You must enter readings manually from a separate device.</p>
+      <p><strong>Q: Does the step counter work offline?</strong><br>A: Yes, once the page is loaded, all tracking and storage happen locally.</p>
+      <p><strong>Q: What happens at midnight?</strong><br>A: The app automatically rolls over to a new day. Yesterday's steps are saved in history, and today's counter resets.</p>
+      <p><strong>Q: How do I change my daily goal?</strong><br>A: Tap the "GOAL" button on the main card or the Settings icon in the bottom navigation.</p>
+
+      <h3>Medical Disclaimer</h3>
+      <p>This tool is for general wellness and fitness tracking only. It is not a medical device and should not be used to diagnose, treat, or monitor any health condition. Always consult a qualified healthcare professional for personalized advice. The step counter, heart rate logging, blood pressure logging, and hydration tracking are self-reported or estimated and may not be clinically accurate.</p>
+
+      <h3>References & Further Reading</h3>
+      <ul style="padding-left:20px; margin-bottom:12px;">
+        <li>World Health Organization – Physical Activity Guidelines</li>
+        <li>American Heart Association – Understanding Blood Pressure Readings</li>
+        <li>Mayo Clinic – Hydration: How Much Water Should You Drink Daily?</li>
+        <li>National Institute on Aging – Exercise and Physical Activity</li>
+      </ul>
+    </article>
+
+    <!-- Footer note -->
+    <div class="footer-note">
+      <span class="gold">Powered by</span> ColdMatrix 2026
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="scrollToTop()">
+      <span style="font-size:16px;">🏠</span>
+      <span>Home</span>
+    </button>
+    <button class="nav-item" onclick="openReportModal()">
+      <span style="font-size:16px;">📊</span>
+      <span>Report</span>
+    </button>
+    <button class="nav-item" onclick="openGoalModal()">
+      <span style="font-size:16px;">⚙️</span>
+      <span>Settings</span>
+    </button>
   </nav>
 
-  <!-- 1. HEADER -->
-  <div class="app-header">
-    <div>
-      <div class="brand-title">WELLNESS STUDIO</div>
-      <div style="font-size:0.65rem; color: var(--text-muted); font-weight:600;">PERSONAL ACTIVITY & WELLNESS COMPANION</div>
-    </div>
-    <div class="status-badge" id="sensorStatus"><span class="status-dot"></span>READY</div>
-  </div>
-
-  <!-- UTILITY BAR: Add to Home Screen + Share -->
-  <div class="utility-bar" id="utilityBar">
-    <button class="utility-btn install" id="installBtn" onclick="handleInstallClick()">📲 Add to Home Screen</button>
-    <button class="utility-btn whatsapp" onclick="shareWhatsApp()">💬 WhatsApp</button>
-    <button class="utility-btn copy" onclick="copyShareLink()">🔗 Copy Link</button>
-  </div>
-
-  <!-- 2. ⭐ HERO STEP COUNTER -->
-  <div class="hero-container">
-    <div class="card-head" style="width:100%;">
-      <span>TODAY'S STEPS</span>
-      <span style="color: var(--accent-emerald); font-weight:800;" id="activityTag">WALKING</span>
-    </div>
-
-    <!-- Center Stage Radial Ring Gauge -->
-    <div class="hero-gauge-wrapper">
-      <svg class="hero-gauge-svg" viewBox="0 0 220 220">
-        <defs>
-          <linearGradient id="hero-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#E8CA85" />
-            <stop offset="60%" stop-color="#D4B052" />
-            <stop offset="100%" stop-color="#B8860B" />
-          </linearGradient>
-        </defs>
-        <circle class="gauge-bg" cx="110" cy="110" r="100" />
-        <circle class="gauge-fill" id="gaugeCircle" cx="110" cy="110" r="100" />
-      </svg>
-      <div class="hero-gauge-center">
-        <div class="hero-step-val" id="stepDisplay">0</div>
-        <div class="hero-step-lbl">STEPS TODAY</div>
-        <div class="hero-goal-lbl" id="goalPctDisplay">0% OF 10,000 GOAL</div>
+  <!-- GOAL MODAL -->
+  <div id="modal-goal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">Daily Step Goal</div>
+      <div style="font-size:13px; color:var(--text-sub);">Select a target step count to adjust your daily progress metrics:</div>
+      <div class="goal-preset-grid">
+        <button class="preset-btn" onclick="selectPresetGoal(2000)">2,000</button>
+        <button class="preset-btn" onclick="selectPresetGoal(3000)">3,000</button>
+        <button class="preset-btn" onclick="selectPresetGoal(4000)">4,000</button>
+        <button class="preset-btn" onclick="selectPresetGoal(5000)">5,000</button>
+        <button class="preset-btn" onclick="selectPresetGoal(8000)">8,000</button>
+        <button class="preset-btn" onclick="selectPresetGoal(10000)">10,000</button>
       </div>
-    </div>
-
-    <!-- 3. Quick Activity Metrics (Compact 2x2 Panels) -->
-    <div class="hero-metrics-panel">
-      <div class="mini-metric-card">
-        <div class="metric-icon">📍</div>
-        <div>
-          <div class="metric-val-title"><span id="distDisplay">0.00</span> <span style="font-size:0.7rem; color:var(--text-muted);">km</span></div>
-          <div class="metric-sub-lbl">Est. Distance</div>
-        </div>
-      </div>
-      <div class="mini-metric-card">
-        <div class="metric-icon">🔥</div>
-        <div>
-          <div class="metric-val-title"><span id="calDisplay">0</span> <span style="font-size:0.7rem; color:var(--text-muted);">kcal</span></div>
-          <div class="metric-sub-lbl">Est. Active Cals</div>
-        </div>
-      </div>
-      <div class="mini-metric-card">
-        <div class="metric-icon">⏱️</div>
-        <div>
-          <div class="metric-val-title" id="timeDisplay">0m</div>
-          <div class="metric-sub-lbl">Active Time</div>
-        </div>
-      </div>
-      <div class="mini-metric-card">
-        <div class="metric-icon">⚡</div>
-        <div>
-          <div class="metric-val-title"><span id="speedDisplay">0.0</span> <span style="font-size:0.7rem; color:var(--text-muted);">km/h</span></div>
-          <div class="metric-sub-lbl">Avg Pace/Speed</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. Start Tracking + Activity Control -->
-    <div style="width:100%; margin-top: 16px; display: flex; flex-direction:column; gap: 10px;">
-      <div style="display: flex; gap: 10px;">
-        <button class="btn" id="startStepBtn" onclick="toggleStepTracking()" style="flex:2;">Start Tracking</button>
-        <button class="btn btn-secondary" style="flex:1;" onclick="resetSteps()">Reset</button>
-      </div>
-
-      <div class="grid-2col" style="margin-top: 2px;">
-        <div>
-          <label>Activity Mode</label>
-          <select id="activityMode" class="select-field" onchange="updateActivityMode()">
-            <option value="walk">Walking</option>
-            <option value="run">Running</option>
-            <option value="hike">Hiking</option>
-            <option value="general">General Activity</option>
-          </select>
-        </div>
-        <div>
-          <label>Cadence (SPM)</label>
-          <div class="input-field" style="display:flex; align-items:center; justify-content:space-between;">
-            <span id="cadenceDisplay" style="font-weight:800; color:var(--accent-emerald);">0</span>
-            <span style="font-size:0.65rem; color:var(--text-sub);">Validated</span>
-          </div>
-        </div>
-      </div>
-      <div style="font-size:0.68rem; color:var(--text-sub); text-align:center; margin-top:6px; line-height:1.4;">
-        For the most accurate count, carry your phone in a pocket or swing it naturally in hand — holding it still while looking at the screen produces much less motion for the sensor to detect.
+      <div class="field-label">Custom Goal</div>
+      <input type="number" id="input-custom-goal" class="custom-input" placeholder="e.g. 6000">
+      <div class="action-row">
+        <button class="btn-main btn-primary" onclick="saveCustomGoal()">Save Goal</button>
+        <button class="btn-main btn-secondary" onclick="closeModal('modal-goal')">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- 5. ❤️ HEART RATE (Manual entry primary — most accurate) -->
-  <div class="section-card">
-    <div class="card-head">
-      <span>Heart Rate</span>
-      <span style="color: var(--accent-rose);">Log a Reading</span>
-    </div>
-
-    <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:12px; line-height:1.5;">
-      For accurate readings, use a pulse oximeter, fitness band, or manual pulse check, then log it below.
-    </p>
-
-    <div class="grid-form">
-      <div>
-        <label>BPM Entry</label>
-        <input type="number" id="manualHrBpm" class="input-field" placeholder="e.g. 72">
-      </div>
-      <div>
-        <label>Context</label>
-        <select id="manualHrType" class="select-field">
-          <option value="Resting">Resting</option>
-          <option value="After Exercise">After Exercise</option>
-        </select>
-      </div>
-    </div>
-    <button class="btn" onclick="saveManualHr()">💾 Log Heart Rate</button>
-
-    <div class="history-list" id="hrHistoryContainer" style="margin-top:12px;"></div>
-
-    <div style="border-top: 1px solid var(--card-border); margin-top:14px; padding-top:12px;">
-      <button class="btn btn-secondary" id="hrExperimentalToggle" onclick="toggleHrExperimental()" style="font-size:0.78rem;">🔬 Try Camera Quick-Scan (Experimental)</button>
-
-      <div id="hrExperimentalPanel" style="display:none; margin-top:14px;">
-        <div class="disclaimer-box" style="margin-top:0; margin-bottom:12px;">
-          Camera-based heart rate uses tiny colour changes seen by your phone's camera. It is genuinely less accurate than a pulse oximeter or fitness band — auto-exposure and lighting changes can throw off the reading by 10–20 BPM or more. Treat this as a rough estimate only.
-        </div>
-
-        <div class="hr-display-box">
-          <div>
-            <div class="bpm-huge"><span id="bpmVal">--</span> <span style="font-size:1rem; font-weight:600; color:var(--text-muted);">BPM</span></div>
-            <div style="font-size:0.72rem; color:var(--text-muted); margin-top:4px;" id="hrQualityTag">Signal Quality: Waiting</div>
-          </div>
-          <div class="pulse-indicator" id="pulseRing">❤️</div>
-        </div>
-
-        <div class="progress-track"><div class="progress-bar" id="hrBar"></div></div>
-
-        <div class="grid-form">
-          <div>
-            <label>Duration</label>
-            <select id="hrDuration" class="select-field">
-              <option value="15">15 Seconds (Quick)</option>
-              <option value="30" selected>30 Seconds (Stable)</option>
-            </select>
-          </div>
-          <div>
-            <label>Context</label>
-            <select id="hrContext" class="select-field">
-              <option value="Resting Pulse">Resting Pulse</option>
-              <option value="Post-Exercise">Post-Exercise</option>
-            </select>
-          </div>
-        </div>
-
-        <button class="btn btn-rose" id="hrMainBtn" onclick="initHeartRateMeasurement()">❤️ Measure Heart Rate</button>
-
-        <div style="font-size: 0.72rem; color: var(--text-muted); text-align: center; margin-top: 8px;" id="hrGuidance">
-          Cover the rear camera lens fully with your fingertip and keep still.
-        </div>
-
-        <video id="hrVideo" playsinline></video>
-        <canvas id="hrCanvas" width="60" height="60"></canvas>
+  <!-- HEART RATE MANUAL LOG MODAL -->
+  <div id="modal-hr" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">Log Heart Rate</div>
+      <div style="font-size:13px; color:var(--text-sub);">Enter a reading from your smartwatch, fitness band, or a manual pulse count. The app can't measure this through your phone's browser.</div>
+      <div class="field-label">Beats per minute (BPM)</div>
+      <input type="number" id="input-hr" class="custom-input" placeholder="e.g. 72" min="30" max="220">
+      <div class="action-row">
+        <button class="btn-main btn-primary" onclick="saveHeartRate()">Save Reading</button>
+        <button class="btn-main btn-secondary" onclick="closeModal('modal-hr')">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- 6. 💧 HYDRATION + 😴 SLEEP -->
-  <div class="grid-2col dual-card-row">
-    <div class="section-card">
-      <div class="card-head">Hydration</div>
-      <div class="water-bubble-wrapper">
-        <div style="font-size:1.8rem; font-weight:900;">💧 <span id="waterVal">0.00</span> <span style="font-size:0.75rem; color:var(--text-muted);">L</span></div>
-        <div style="font-size:0.7rem; color:var(--accent-cyan); font-weight:700;">Goal: <span id="waterGoalDisplay">2.50</span>L</div>
-      </div>
-      <div class="progress-track"><div class="progress-bar" id="waterBar" style="background:var(--accent-cyan);"></div></div>
-      <div class="inc-pill-row">
-        <div class="inc-pill" onclick="addWater(0.15)">+150ml</div>
-        <div class="inc-pill" onclick="addWater(0.25)">+250ml</div>
-        <div class="inc-pill" onclick="addWater(0.33)">+330ml</div>
-      </div>
-    </div>
-
-    <div class="section-card">
-      <div class="card-head">Sleep Log</div>
-      <div style="font-size:1.8rem; font-weight:900; margin: 4px 0;">
-        😴 <span id="sleepVal">0.0</span> <span style="font-size:0.75rem; color:var(--text-muted);">hrs</span>
-      </div>
-      <div class="grid-form" style="margin-top:8px;">
-        <div>
-          <label>Bedtime</label>
-          <input type="time" id="sleepBed" class="input-field" onchange="calcSleepTime()">
-        </div>
-        <div>
-          <label>Wake Time</label>
-          <input type="time" id="sleepWake" class="input-field" onchange="calcSleepTime()">
-        </div>
+  <!-- BLOOD PRESSURE MANUAL LOG MODAL -->
+  <div id="modal-bp" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">Log Blood Pressure</div>
+      <div style="font-size:13px; color:var(--text-sub);">Enter a reading from a blood pressure monitor. The app can't measure this through your phone's browser.</div>
+      <div class="field-label">Systolic (top number)</div>
+      <input type="number" id="input-bp-sys" class="custom-input" placeholder="e.g. 120" min="60" max="240">
+      <div class="field-label">Diastolic (bottom number)</div>
+      <input type="number" id="input-bp-dia" class="custom-input" placeholder="e.g. 80" min="40" max="160">
+      <div class="action-row">
+        <button class="btn-main btn-primary" onclick="saveBloodPressure()">Save Reading</button>
+        <button class="btn-main btn-secondary" onclick="closeModal('modal-bp')">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- 7. WELLNESS OVERVIEW -->
-  <div class="section-card">
-    <div class="card-head">
-      <span>Daily Wellness Overview</span>
-      <span style="color:var(--accent-violet);">Informational</span>
-    </div>
-    <div class="wellness-arc-box">
-      <div class="score-huge" id="wellnessScoreVal">--</div>
-      <div style="font-size:0.78rem; font-weight:700; color:var(--text-main); margin-top:4px;" id="wellnessScoreLabel">Complete activities to generate score</div>
-      
-      <div style="width:100%; margin-top:14px; display:flex; flex-direction:column; gap:6px;">
-        <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:var(--text-muted);">
-          <span>Movement Target</span><span id="scoreMovePct">0%</span>
-        </div>
-        <div class="progress-track" style="margin:0;"><div class="progress-bar" id="scoreMoveBar" style="background:var(--accent-emerald);"></div></div>
+  <!-- WEEKLY REPORT MODAL -->
+  <div id="modal-report" class="modal-overlay">
+    <div class="modal-card" style="max-width:380px;">
+      <div class="modal-header">Weekly Performance</div>
+      <div class="weekly-report-grid" id="report-grid-days"></div>
 
-        <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:var(--text-muted);">
-          <span>Hydration Target</span><span id="scoreWaterPct">0%</span>
-        </div>
-        <div class="progress-track" style="margin:0;"><div class="progress-bar" id="scoreWaterBar" style="background:var(--accent-cyan);"></div></div>
+      <div class="stat-list">
+        <div class="stat-row"><span>Today's Steps:</span><b id="rep-today">0</b></div>
+        <div class="stat-row"><span>Daily Goal:</span><b id="rep-goal">0</b></div>
+        <div class="stat-row"><span>Completion:</span><b id="rep-completion">0%</b></div>
+        <div class="stat-row"><span>Current Streak:</span><b id="rep-streak">0 days</b></div>
+        <div class="stat-row"><span>Best Streak:</span><b id="rep-best-streak">0 days</b></div>
+        <div class="stat-row"><span>Weekly Total:</span><b id="rep-total">0 steps</b></div>
+        <div class="stat-row"><span>Daily Average:</span><b id="rep-avg">0 steps</b></div>
+        <div class="stat-row"><span>Goals Completed:</span><b id="rep-goals-hit">0 / 7</b></div>
       </div>
-    </div>
-    <button class="btn btn-violet" style="margin-top:10px;" onclick="calculateWellnessScore()">Update Wellness Overview</button>
-  </div>
 
-  <!-- 8. ACTIVITY REPORT (Week / Month / Year, with history navigation) -->
-  <div class="section-card">
-    <div class="card-head">
-      <span>Activity Report</span>
-      <span style="color:var(--accent-emerald); cursor:pointer;" onclick="promptSetGoal()" id="reportGoalTag">Goal: 10,000/day ✎</span>
-    </div>
-
-    <div class="report-tab-row">
-      <button class="report-tab active" id="repTabWeek" onclick="setReportMode('week')">Week</button>
-      <button class="report-tab" id="repTabMonth" onclick="setReportMode('month')">Month</button>
-      <button class="report-tab" id="repTabYear" onclick="setReportMode('year')">Year</button>
-    </div>
-
-    <div class="report-nav-row">
-      <button class="report-nav-btn" onclick="shiftReportOffset(-1)">‹</button>
-      <span id="reportRangeLabel" style="font-weight:800; font-size:0.88rem;">This Week</span>
-      <button class="report-nav-btn" id="reportNextBtn" onclick="shiftReportOffset(1)">›</button>
-    </div>
-
-    <div class="grid-2col" style="margin:12px 0;">
-      <div style="background:rgba(0,0,0,0.2); padding:8px 12px; border-radius:var(--radius-md);">
-        <div style="font-size:0.68rem; color:var(--text-muted);">Average</div>
-        <div style="font-size:1.05rem; font-weight:800;" id="reportAvgVal">0 steps</div>
-      </div>
-      <div style="background:rgba(0,0,0,0.2); padding:8px 12px; border-radius:var(--radius-md);">
-        <div style="font-size:0.68rem; color:var(--text-muted);">Total</div>
-        <div style="font-size:1.05rem; font-weight:800;" id="reportTotalVal">0 steps</div>
-      </div>
-    </div>
-
-    <div id="reportMostActiveBox" class="report-most-active" style="display:none;">
-      <div style="font-size:0.7rem; opacity:0.85;">Most Active Day</div>
-      <div style="font-size:1.3rem; font-weight:900;" id="reportMostActiveSteps">0 Steps</div>
-      <div style="font-size:0.72rem; opacity:0.85;" id="reportMostActiveDate"></div>
-    </div>
-
-    <div style="height: 150px; width: 100%; margin-top:10px;">
-      <canvas id="reportChart"></canvas>
-    </div>
-
-    <div id="reportAchievedRow" class="report-achieved-row"></div>
-
-    <div class="report-legend-row">
-      <span><span class="legend-dot achieved"></span> Achieved</span>
-      <span><span class="legend-dot not-achieved"></span> Not achieved</span>
+      <button class="btn-main btn-secondary" onclick="closeModal('modal-report')">Close Report</button>
     </div>
   </div>
 
-  <!-- 9. DISTANCE CHALLENGE -->
-  <div class="section-card">
-    <div class="card-head">
-      <span>Distance Challenge</span>
-      <span style="color:var(--accent-amber); cursor:pointer;" onclick="setupChallenge()">✎ Edit</span>
-    </div>
-    <div id="challengeEmptyState" style="display:none; text-align:center; padding:10px 0;">
-      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px;">Set a cumulative distance target and track your progress toward it over time — like a personal 100km or 800km challenge.</p>
-      <button class="btn btn-secondary" onclick="setupChallenge()">🎯 Start a Challenge</button>
-    </div>
-    <div id="challengeActiveState" style="display:none;">
-      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
-        <div style="font-size:1.4rem; font-weight:900;"><span id="challengeTargetVal">0</span> km</div>
-        <div style="font-size:0.75rem; color:var(--text-muted);"><span id="challengeRemainingVal">0</span> km left</div>
-      </div>
-      <div class="progress-track"><div class="progress-bar" id="challengeBar" style="background:linear-gradient(90deg, var(--accent-amber), var(--accent-emerald));"></div></div>
-      <div style="font-size:0.7rem; color:var(--text-sub); margin-top:6px;" id="challengeMeta"></div>
+  <!-- ACHIEVEMENT MODAL -->
+  <div id="modal-achieve" class="modal-overlay">
+    <div class="modal-card" style="text-align:center; align-items:center;">
+      <div class="confetti-layer" id="confetti-layer"></div>
+      <div class="achieve-glow">🎉</div>
+      <div class="modal-header" style="color:var(--border-gold-bright);">GOAL COMPLETED!</div>
+      <p style="font-size:13px; color:var(--text-sub);">Amazing! You reached your <span id="achieve-goal-text">4,000</span>-step goal today.</p>
+      <button class="btn-main btn-primary" style="width:100%;" onclick="closeModal('modal-achieve')">Claim Victory</button>
     </div>
   </div>
 
-  <!-- 9. BREATHING STUDIO (Strict 4-7-8 Timestamp Timing) -->
-  <div class="section-card">
-    <div class="card-head">
-      <span>Mindfulness Studio</span>
-      <span style="color: var(--accent-cyan);">4-7-8 Breathing</span>
-    </div>
-    <div class="breath-box">
-      <div class="breath-circle" id="breathCircle"></div>
-      <div class="breath-time" id="breathTimerNum">0s</div>
-      <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700; margin-top:4px;" id="breathStateTxt">Press Start to Begin</div>
-    </div>
-    <button class="btn btn-secondary" id="breathBtn" onclick="toggleBreathing()">Begin 4-7-8 Breathing</button>
-  </div>
+  <script>
+    const STORAGE_KEY = "coldmatrix_wellness_v4";
 
-  <!-- 10. BLOOD PRESSURE LOG -->
-  <div class="section-card">
-    <div class="card-head">Blood Pressure Log</div>
-    <div class="grid-form">
-      <div>
-        <label>Systolic (mmHg)</label>
-        <input type="number" id="bpSys" class="input-field" placeholder="120">
-      </div>
-      <div>
-        <label>Diastolic (mmHg)</label>
-        <input type="number" id="bpDia" class="input-field" placeholder="80">
-      </div>
-    </div>
-    <button class="btn btn-secondary" onclick="saveManualBp()" style="padding:10px; margin-bottom:10px;">Save Blood Pressure Entry</button>
-
-    <div class="history-list" id="bpHistoryContainer"></div>
-  </div>
-
-  <!-- 11. DAILY WELLNESS TIPS -->
-  <div class="section-card">
-    <div class="card-head">Daily Guidance</div>
-    <div style="font-size:0.82rem; color:var(--text-main); font-weight:600; line-height:1.4;" id="dailyTipText">
-      "Take short movement breaks during long periods of sitting to support active circulation."
-    </div>
-  </div>
-
-  <!-- 12. HEALTH & FITNESS EDUCATION (Expandable Accordion) -->
-  <div class="section-card">
-    <div class="card-head">Wellness Knowledge Hub</div>
-    
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>🚶 Why Walking Matters</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        Walking is one of the most accessible forms of exercise there is — no equipment, no gym, no special skill required, and it's gentle enough on the joints that almost anyone can build a habit around it. Regular walking is linked to a stronger heart and lungs, better blood sugar regulation, improved bone density, better sleep quality, reduced stress, and healthier body weight over time. A commonly used general benchmark is 7,000–10,000 steps a day, but the honest truth is that any increase over your current baseline matters — going from 3,000 to 5,000 steps a day is a meaningful improvement even if it's below the "10K" number you see everywhere. Consistency across weeks and months beats the occasional big effort; three separate 10-minute walks in a day are just as valuable as one 30-minute walk if that fits your schedule better.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>💧 Why Hydration Matters</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        Water regulates body temperature, lubricates joints, helps transport nutrients, and supports nearly every bodily process — including physical performance during walks or workouts. A commonly cited general guideline is around 2.0–2.5 litres a day for women and 2.5–3.0 litres a day for men, with more needed in hot weather, at altitude, or during and after exercise. Thirst, headaches, fatigue, and noticeably dark urine are common early signs that intake is falling short. Needs vary by body size, climate, and activity level, so treat these as general starting points rather than fixed rules for everyone.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>❤️ Understanding Heart Rate</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        A typical adult resting heart rate falls somewhere between 60–100 beats per minute, and tends to run lower in people who exercise regularly — well-conditioned athletes can sit in the 40s–50s at rest. Tracking your resting pulse over time, and noticing how quickly it returns to normal after exercise ("recovery"), gives a rough general sense of cardiovascular fitness trends. Heart rate rises naturally with caffeine, stress, dehydration, heat, and recent activity, so a single unusual reading rarely means much on its own — it's the pattern over days and weeks that's more informative. Persistent readings well outside the normal range, especially alongside symptoms like dizziness or chest discomfort, should always be discussed with a medical professional rather than self-diagnosed from an app.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>🩺 Understanding Blood Pressure</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        Blood pressure is recorded as two numbers — systolic (pressure when the heart beats) over diastolic (pressure when it rests between beats). A commonly cited normal reading is under 120/80 mmHg. Readings that consistently sit at or above 130/80 mmHg are generally considered elevated, and anything unusually high accompanied by symptoms such as severe headache, vision changes, or chest pain warrants urgent medical attention rather than a wait-and-see approach. Logging your readings here over time — rather than reacting to any single number — helps build a clearer picture to share with a doctor, but it doesn't replace a proper clinical diagnosis.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>🔥 Understanding Calories</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        The "active calories" shown here estimate the energy your body burns specifically through movement — separate from your Resting Metabolic Rate (RMR), which is the energy you'd burn simply staying alive at rest. These figures are calculated from your step count, weight (if provided), and activity mode, and should be treated as a reasonable estimate rather than an exact lab measurement — no consumer device, phone-based or otherwise, measures calories with perfect precision. They're most useful as a consistent number to compare day-to-day, not as a precise input for strict calorie counting.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>🎯 Setting Realistic Targets</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        The most sustainable goals are the ones set slightly above your current habit, not the ones copied from someone else's routine. If your recent daily average is 3,000 steps, a goal of 4,500–5,000 is a realistic next step — jumping straight to 10,000 often backfires and leads to giving up. Use the Activity Report's Week and Month views to check your real average before adjusting your daily goal, and treat the Distance Challenge as a longer-horizon target (a month or a season) rather than something to rush. Progress that holds up over months matters far more than a single high-step day.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>🌙 Rest & Recovery</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        Movement and rest work together — most adults function best on 7–9 hours of sleep a night, and recovery days are part of a sustainable activity routine, not a lapse in it. Consistent sleep and wake times, a cool dark room, and reduced screen brightness before bed all support better sleep quality, which in turn supports better recovery, mood, and the energy to keep an activity habit going. If you notice your step counts dropping alongside poor sleep logged here, that's often a more useful signal than the step number alone.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>🧘 Stress & Mental Wellbeing</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        Physical activity and mental wellbeing are closely linked — a short walk can lower stress hormones and lift mood within minutes, which is part of why "take a walk to clear your head" is such old, well-worn advice. The 4-7-8 breathing exercise in this app works on a similar principle: slow, controlled breathing signals your nervous system to shift out of a stressed state. None of this replaces professional mental health support when it's needed, but as a daily habit, pairing light movement with a few minutes of intentional breathing is a genuinely useful and low-effort addition to a wellness routine.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>📈 Building a Habit That Lasts</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        Most people don't fail at fitness because of a bad plan — they fail because the plan wasn't sustainable in the first place. Anchoring a walk to something you already do daily (after breakfast, after a work call, during a commute) makes it far more likely to stick than relying on willpower alone. Use the Week view here to notice your real pattern — most people are more consistent on some days than others — and lean into that pattern rather than fighting it. A realistic goal you actually hit most days beats an ambitious one you hit occasionally.
-      </div>
-    </div>
-  </div>
-
-  <!-- 13. FAQ -->
-  <div class="section-card">
-    <div class="card-head">Frequently Asked Questions</div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>Is my data private?</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        Yes. Every reading — steps, heart rate, hydration, blood pressure, sleep, and your profile — is stored only in your browser's local storage on this device. Nothing is uploaded to a server, and you can delete everything at any time from the About section below.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>How accurate is the step counter?</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        It uses your phone's motion sensor and a walking-pattern detection algorithm, similar in principle to a dedicated pedometer app. Accuracy depends on your device's sensor and how you carry your phone — a pocket carry or natural arm swing gives much better results than holding the phone still. It's a wellness estimate, not a clinical-grade measurement.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>Is the camera heart rate reading reliable?</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        Treat it as a rough estimate only. Camera-based heart rate is genuinely less accurate than a pulse oximeter or fitness band, since a phone camera's auto-exposure can be mistaken for a pulse signal. Manual entry from a real device is the recommended primary method — the camera scan is offered as an experimental extra.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>Can I see my steps from past days, weeks, or months?</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        Yes — the Activity Report card lets you switch between Week, Month, and Year views, and navigate backward through your history using the arrows. Every day you've used the tool is saved locally and included in these reports.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>Does this work offline?</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        Yes, once the page has loaded, all tracking, calculations, and storage happen locally on your device and continue to work without an internet connection.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>Is it free?</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        Yes, completely free with no sign-up, as part of ColdMatrix's collection of free everyday tools.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>What if my step or heart rate numbers seem off?</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        That can happen, and it's worth understanding why rather than assuming something's broken. Step counts depend heavily on how you carry your phone — a pocket carry or natural arm swing reads far better than holding the phone still. Camera-based heart rate is a rough estimate at best; if you have a pulse oximeter or fitness band, log that reading manually instead for something you can actually trust.
-      </div>
-    </div>
-
-    <div class="accordion-item">
-      <div class="accordion-header" onclick="toggleAccordion(this)">
-        <span>Can I use this on more than one device?</span><span>+</span>
-      </div>
-      <div class="accordion-content">
-        You can open it on any device, but data doesn't sync between them — everything is saved only in that specific browser's local storage. If you switch phones or clear your browser data, your history on the old device won't carry over automatically.
-      </div>
-    </div>
-  </div>
-
-  <!-- 14. ABOUT & BENEFITS -->
-  <div class="section-card">
-    <div class="card-head">About Step Counter & Wellness Studio</div>
-    <p style="font-size:0.78rem; color:var(--text-muted); line-height:1.6; margin-bottom:10px;">
-      Step Counter & Wellness Studio is a free, all-in-one personal wellness companion that runs entirely in your browser. It brings together the habits that matter most for everyday health — movement, heart rate, hydration, blood pressure, and sleep — into a single private dashboard, with no app to install and no account to create.
-    </p>
-    <p style="font-size:0.78rem; color:var(--text-muted); line-height:1.6; margin-bottom:10px;">
-      Beyond simple daily tracking, the Activity Report gives you a real history: switch between Week, Month, and Year views to see your average and total steps, spot your most active day, and check which days hit your goal — so you can set future targets based on where you actually are, not a guess. The Distance Challenge lets you set a longer-term cumulative distance goal, similar to a personal "100km" or "800km" challenge, and track progress toward it over weeks or months.
-    </p>
-    <p style="font-size:0.78rem; color:var(--text-muted); line-height:1.6;">
-      Every number here — steps, calories, distance, heart rate — is an estimate designed to help you understand trends in your own activity, not a substitute for medical devices or professional advice.
-    </p>
-
-    <div style="border-top: 1px solid var(--card-border); padding-top:12px; margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
-      <span style="font-size:0.7rem; color:var(--text-sub);">All health data stored locally on device.</span>
-      <button class="btn btn-secondary" style="width:auto; padding:6px 14px; font-size:0.72rem;" onclick="clearAllData()">Clear My Data</button>
-    </div>
-  </div>
-
-  <!-- 15. PROFILE & SETTINGS (At Bottom of Hierarchy) -->
-  <div class="section-card">
-
-    <div class="card-head">
-      <span>Profile & Settings</span>
-      <span style="color: var(--accent-teal);" id="profileBmiTag">BMI: --</span>
-    </div>
-    <div class="grid-form">
-      <div>
-        <label>Name *</label>
-        <input type="text" id="profName" class="input-field" placeholder="Required">
-      </div>
-      <div>
-        <label>Age *</label>
-        <input type="number" id="profAge" class="input-field" placeholder="Required">
-      </div>
-      <div>
-        <label>Gender *</label>
-        <select id="profGender" class="select-field">
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other / Private</option>
-        </select>
-      </div>
-      <div>
-        <label>Daily Goal (Steps)</label>
-        <input type="number" id="profGoal" class="input-field" value="10000">
-      </div>
-      <div>
-        <label>Height (cm) [Optional]</label>
-        <input type="number" id="profHeight" class="input-field" placeholder="e.g. 175">
-      </div>
-      <div>
-        <label>Weight (kg) [Optional]</label>
-        <input type="number" id="profWeight" class="input-field" placeholder="e.g. 70">
-      </div>
-    </div>
-    <button class="btn btn-secondary" onclick="saveProfile()" style="padding: 10px;">Save Profile Settings</button>
-  </div>
-
-  <div class="cm-footer">Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</div>
-
-</div>
-
-<script>
-  /* --- DATE-BASED STORAGE & ARCHITECTURE --- */
-  function getTodayKey() {
-    const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-  }
-
-  let profile = JSON.parse(localStorage.getItem('cm_wellness_profile')) || {
-    name: 'User', age: 30, gender: 'male', goal: 10000, height: '', weight: ''
-  };
-
-  let historyStore = JSON.parse(localStorage.getItem('cm_wellness_history')) || {};
-  
-  // Ensure Today's Record Exists
-  const todayKey = getTodayKey();
-  if (!historyStore[todayKey]) {
-    historyStore[todayKey] = {
-      steps: 0, activeSec: 0, water: 0, sleep: 0,
-      hrLogs: [], bpLogs: []
+    let appState = {
+      lastDate: getTodayDateString(),
+      stepGoal: 4000,
+      todaySteps: 0,
+      waterMl: 0,
+      heartRate: null,
+      bpSys: null,
+      bpDia: null,
+      isTracking: false,
+      celebratedToday: false,
+      bestStreak: 0,
+      history: {} // "YYYY-MM-DD": { steps, goal, completed }
     };
-    localStorage.setItem('cm_wellness_history', JSON.stringify(historyStore));
-  }
 
-  let dailyData = historyStore[todayKey];
+    let lastAccelMag = 0;
 
-  let isStepTracking = false;
-  let isHrMeasuring = false;
-  let isBreathingActive = false;
-  
-  let stepTimer = null;
-  let breathInterval = null;
-  let hrStream = null;
-  let hrScanTimer = null;
-
-  // Signal Pipeline State for Step Detection
-  let magBuffer = [];
-  let lastPeakTime = 0;
-  let lastStepTimestamp = 0;
-  let stepIntervals = [];
-  let lastActiveMotionTime = performance.now();
-
-  /* --- INITIALIZATION --- */
-  window.addEventListener('DOMContentLoaded', () => {
-    loadProfileUI();
-    renderUI();
-    renderReport();
-    loadChallenge();
-    renderHrHistory();
-    renderBpHistory();
-    rotateDailyTip();
-  });
-
-  function toggleHrExperimental() {
-    const panel = document.getElementById('hrExperimentalPanel');
-    const isHidden = panel.style.display === 'none' || !panel.style.display;
-    panel.style.display = isHidden ? 'block' : 'none';
-    document.getElementById('hrExperimentalToggle').innerText = isHidden
-      ? '🔬 Hide Camera Quick-Scan'
-      : '🔬 Try Camera Quick-Scan (Experimental)';
-  }
-
-  function loadProfileUI() {
-    document.getElementById('profName').value = profile.name || '';
-    document.getElementById('profAge').value = profile.age || '';
-    document.getElementById('profGender').value = profile.gender || 'male';
-    document.getElementById('profGoal').value = profile.goal || 10000;
-    document.getElementById('profHeight').value = profile.height || '';
-    document.getElementById('profWeight').value = profile.weight || '';
-    document.getElementById('reportGoalTag').innerText = `Goal: ${(profile.goal || 10000).toLocaleString()}/day ✎`;
-
-    updateBmiTag();
-  }
-
-  function saveProfile() {
-    const name = document.getElementById('profName').value.trim();
-    const age = parseInt(document.getElementById('profAge').value);
-    const gender = document.getElementById('profGender').value;
-
-    if (!name || isNaN(age)) {
-      alert("Please complete mandatory fields: Name and Age.");
-      return;
+    function getTodayDateString() {
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     }
 
-    profile.name = name;
-    profile.age = age;
-    profile.gender = gender;
-    profile.goal = parseInt(document.getElementById('profGoal').value) || 10000;
-    profile.height = parseFloat(document.getElementById('profHeight').value) || '';
-    profile.weight = parseFloat(document.getElementById('profWeight').value) || '';
-
-    localStorage.setItem('cm_wellness_profile', JSON.stringify(profile));
-    updateBmiTag();
-    document.getElementById('reportGoalTag').innerText = `Goal: ${profile.goal.toLocaleString()}/day ✎`;
-    renderUI();
-    renderReport();
-    alert("Profile settings updated successfully.");
-  }
-
-  function updateBmiTag() {
-    if (profile.height && profile.weight) {
-      const hM = profile.height / 100;
-      const bmi = (profile.weight / (hM * hM)).toFixed(1);
-      document.getElementById('profileBmiTag').innerText = `BMI: ${bmi}`;
-    } else {
-      document.getElementById('profileBmiTag').innerText = `BMI: --`;
+    function initApp() {
+      loadSavedData();
+      checkMidnightRollover();
+      renderUI();
+      renderGauges();
+      renderWeekStrip();
+      const d = new Date();
+      document.getElementById('header-date').innerText = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
     }
-  }
 
-  /* --- CALCULATIONS & TELEMETRY --- */
-  function getEstimatedStride() {
-    if (profile.height) return (profile.height * 0.414) / 100;
-    const mode = document.getElementById('activityMode').value;
-    if (mode === 'run') return 1.05;
-    if (mode === 'hike') return 0.70;
-    return 0.76;
-  }
+    function loadSavedData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          appState = { ...appState, ...parsed };
+        } catch (e) { console.error("Failed to parse stored state", e); }
+      }
+    }
 
-  function renderUI() {
-    const steps = dailyData.steps;
-    const goal = profile.goal || 10000;
-    const stride = getEstimatedStride();
+    function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); }
 
-    document.getElementById('stepDisplay').innerText = steps.toLocaleString();
-    
-    const pct = Math.min(Math.round((steps / goal) * 100), 100);
-    document.getElementById('goalPctDisplay').innerText = `${pct}% OF ${goal.toLocaleString()} GOAL`;
-    
-    const CIRCUMFERENCE = 628;
-    const offset = CIRCUMFERENCE - ((Math.min(steps, goal) / goal) * CIRCUMFERENCE);
-    document.getElementById('gaugeCircle').style.strokeDashoffset = offset;
-
-    const distKm = (steps * stride) / 1000;
-    document.getElementById('distDisplay').innerText = distKm.toFixed(2);
-
-    let kcalFactor = 0.04;
-    if (profile.weight) kcalFactor = (profile.weight * 0.00055);
-    const mode = document.getElementById('activityMode').value;
-    if (mode === 'run') kcalFactor *= 1.4;
-    if (mode === 'hike') kcalFactor *= 1.2;
-
-    document.getElementById('calDisplay').innerText = Math.round(steps * kcalFactor);
-
-    const activeMins = Math.floor(dailyData.activeSec / 60);
-    document.getElementById('timeDisplay').innerText = `${activeMins}m`;
-
-    const hours = dailyData.activeSec / 3600;
-    const speed = hours > 0 ? (distKm / hours) : 0;
-    document.getElementById('speedDisplay').innerText = speed.toFixed(1);
-
-    document.getElementById('waterVal').innerText = dailyData.water.toFixed(2);
-    const waterBarPct = Math.min((dailyData.water / 2.5) * 100, 100);
-    document.getElementById('waterBar').style.width = `${waterBarPct}%`;
-
-    document.getElementById('sleepVal').innerText = dailyData.sleep.toFixed(1);
-
-    // Save Persistent Local Data for Today
-    historyStore[todayKey] = dailyData;
-    localStorage.setItem('cm_wellness_history', JSON.stringify(historyStore));
-  }
-
-  /* --- HIGH-PRECISION STEP-DETECTION ENGINE --- */
-  let baselineBuffer = [];
-  function processMotionSignal(e) {
-    const acc = e.accelerationIncludingGravity;
-    if (!acc) return;
-
-    // 1. Calculate Acceleration Magnitude
-    const mag = Math.sqrt(acc.x * acc.x + acc.y * acc.y + acc.z * acc.z);
-    const now = performance.now();
-
-    // 2. Moving Average Filter (Smoothing)
-    magBuffer.push(mag);
-    if (magBuffer.length > 4) magBuffer.shift();
-    const smoothedMag = magBuffer.reduce((a, b) => a + b, 0) / magBuffer.length;
-
-    // 3. Adaptive baseline (slow-moving average, tracks the device's own resting level
-    // instead of assuming exactly 9.81 m/s^2, and adapts to how the phone is carried)
-    baselineBuffer.push(mag);
-    if (baselineBuffer.length > 40) baselineBuffer.shift();
-    const adaptiveBaseline = baselineBuffer.length >= 10
-      ? baselineBuffer.reduce((a, b) => a + b, 0) / baselineBuffer.length
-      : 9.81;
-
-    const dynamicThreshold = 1.15;  // Lowered so lighter motion (e.g. holding the phone up) still registers
-
-    if (smoothedMag - adaptiveBaseline > dynamicThreshold) {
-      // Minimum step time interval validation (180ms -> ~330 SPM upper limit ceiling)
-      if (now - lastPeakTime > 240) {
-        const stepDelta = now - lastPeakTime;
-        lastPeakTime = now;
-
-        // Peak-to-Peak Cadence Validation (Reject random individual shakes)
-        if (stepDelta < 1200) { // Valid human gait sequence
-          dailyData.steps++;
-          lastActiveMotionTime = now; // Update activity timer reference
-
-          stepIntervals.push(60000 / stepDelta);
-          if (stepIntervals.length > 4) stepIntervals.shift();
-          const avgCadence = Math.round(stepIntervals.reduce((a,b)=>a+b, 0) / stepIntervals.length);
-          
-          if (avgCadence <= 220) {
-            document.getElementById('cadenceDisplay').innerText = avgCadence;
-          }
-
-          renderUI();
+    function checkMidnightRollover() {
+      const today = getTodayDateString();
+      if (appState.lastDate !== today) {
+        if (appState.lastDate) {
+          appState.history[appState.lastDate] = {
+            steps: appState.todaySteps,
+            goal: appState.stepGoal,
+            completed: appState.todaySteps >= appState.stepGoal
+          };
         }
+        appState.todaySteps = 0;
+        appState.waterMl = 0;
+        appState.heartRate = null;
+        appState.bpSys = null;
+        appState.bpDia = null;
+        appState.celebratedToday = false;
+        appState.lastDate = today;
+        updateBestStreak();
+        saveData();
       }
     }
-  }
 
-  function toggleStepTracking() {
-    if (!isStepTracking) {
-      if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
-        DeviceMotionEvent.requestPermission().then(res => {
-          if (res === 'granted') startMotionEngine();
-          else alert("Permission denied for motion sensors.");
-        }).catch(() => alert("Motion sensors not supported on device."));
-      } else if (window.DeviceMotionEvent) {
-        startMotionEngine();
+    function renderUI() {
+      const steps = appState.todaySteps;
+      const goal = appState.stepGoal;
+      const pct = Math.min((steps / goal) * 100, 100).toFixed(1);
+
+      document.getElementById('disp-steps').innerText = steps.toLocaleString();
+      document.getElementById('disp-sub-goal').innerText = goal.toLocaleString();
+      document.getElementById('lbl-goal').innerText = goal.toLocaleString();
+      document.getElementById('disp-pct').innerText = `${pct}% Complete`;
+
+      const ring = document.getElementById('hero-progress-bar');
+      const ringPct = Math.min(steps / goal, 1.0);
+      const offset = 565.48 - (ringPct * 565.48);
+      ring.style.strokeDashoffset = offset;
+
+      const km = (steps * 0.000762).toFixed(2);
+      const kcal = (steps * 0.04).toFixed(1);
+      const totalMins = Math.floor(steps / 110);
+      const hrs = Math.floor(totalMins / 60);
+      const mins = totalMins % 60;
+      document.getElementById('ex-km').innerText = km;
+      document.getElementById('ex-kcal').innerText = kcal;
+      document.getElementById('ex-time').innerText = `${hrs}h ${String(mins).padStart(2, '0')}m`;
+
+      if (appState.heartRate) {
+        document.getElementById('disp-hr').innerHTML = `${appState.heartRate} <span style="font-size:12px; color:var(--text-sub);">BPM</span>`;
+        document.getElementById('lbl-hr-status').innerText = "Logged today";
       } else {
-        alert("Automatic step tracking is not supported on this browser/device.");
+        document.getElementById('disp-hr').innerHTML = `-- <span style="font-size:12px; color:var(--text-sub);">BPM</span>`;
+        document.getElementById('lbl-hr-status').innerText = "No data today";
       }
-    } else {
-      stopMotionEngine();
+
+      if (appState.bpSys && appState.bpDia) {
+        document.getElementById('disp-bp').innerHTML = `${appState.bpSys}/${appState.bpDia} <span style="font-size:12px; color:var(--text-sub);">mmHg</span>`;
+        document.getElementById('lbl-bp-status').innerText = "Logged today";
+      } else {
+        document.getElementById('disp-bp').innerHTML = `--/-- <span style="font-size:12px; color:var(--text-sub);">mmHg</span>`;
+        document.getElementById('lbl-bp-status').innerText = "No data today";
+      }
+
+      const waterLiters = (appState.waterMl / 1000).toFixed(1);
+      document.getElementById('disp-water-text').innerText = `${waterLiters} L / 2.5 L`;
+      const waterPct = Math.min((appState.waterMl / 2500) * 100, 100);
+      document.getElementById('water-meter-fill').style.width = `${waterPct}%`;
+
+      const streak = calculateStreak();
+      document.getElementById('disp-streak-summary').innerText = `🔥 ${streak} Day Streak`;
+
+      renderGauges();
+      renderWeekStrip();
     }
-  }
 
-  function startMotionEngine() {
-    window.addEventListener('devicemotion', processMotionSignal);
-    isStepTracking = true;
-    document.getElementById('startStepBtn').innerText = "Pause Tracking";
-    document.getElementById('sensorStatus').innerHTML = '<span class="status-dot"></span>TRACKING ACTIVE';
+    /* ===================== GAUGES ===================== */
+    function polar(cx, cy, r, angleDeg) {
+      const rad = angleDeg * Math.PI / 180;
+      return { x: cx + r * Math.cos(rad), y: cy - r * Math.sin(rad) };
+    }
+    function arcPath(cx, cy, r, startAngle, endAngle) {
+      const p1 = polar(cx, cy, r, startAngle);
+      const p2 = polar(cx, cy, r, endAngle);
+      const largeArc = (startAngle - endAngle) > 180 ? 1 : 0;
+      return `M ${p1.x} ${p1.y} A ${r} ${r} 0 ${largeArc} 0 ${p2.x} ${p2.y}`;
+    }
+    function drawGauge(svgId, zones, value, min, max) {
+      const svg = document.getElementById(svgId);
+      const cx = 50, cy = 50, r = 42;
+      const gradId = svgId + '-grad';
+      let stops = '';
+      zones.forEach(z => {
+        stops += `<stop offset="${(z.from * 100).toFixed(0)}%" stop-color="${z.color}"/>`;
+        stops += `<stop offset="${(z.to * 100).toFixed(0)}%" stop-color="${z.color}"/>`;
+      });
+      let html = `<defs><linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="0%">${stops}</linearGradient></defs>`;
+      html += `<path d="${arcPath(cx, cy, r, 180, 0)}" stroke="url(#${gradId})" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.95"/>`;
 
-    // Active-Time Accumulator (Only counts when motion detected within 3 seconds)
-    stepTimer = setInterval(() => {
-      const now = performance.now();
-      if (now - lastActiveMotionTime < 3000) {
-        dailyData.activeSec++;
-        renderUI();
+      let angle = 90;
+      if (value !== null && value !== undefined) {
+        const frac = Math.max(0, Math.min(1, (value - min) / (max - min)));
+        angle = 180 - frac * 180;
       }
-    }, 1000);
-  }
+      const tip = polar(cx, cy, r - 9, angle);
+      const needleColor = (value !== null && value !== undefined) ? '#FFFFFF' : 'rgba(255,255,255,0.3)';
+      html += `<line x1="${cx}" y1="${cy}" x2="${tip.x}" y2="${tip.y}" stroke="${needleColor}" stroke-width="3" stroke-linecap="round"/>`;
+      html += `<circle cx="${cx}" cy="${cy}" r="4.5" fill="${needleColor}"/>`;
+      svg.innerHTML = html;
+      svg.setAttribute('viewBox', '0 0 100 60');
+    }
+    function renderGauges() {
+      drawGauge('gauge-hr', [
+        { from: 0, to: 0.14, color: '#F59E0B' },
+        { from: 0.14, to: 0.43, color: '#F59E0B' },
+        { from: 0.14, to: 0.57, color: '#10B981' },
+        { from: 0.57, to: 1, color: '#EF4444' }
+      ], appState.heartRate, 40, 180);
 
-  function stopMotionEngine() {
-    window.removeEventListener('devicemotion', processMotionSignal);
-    isStepTracking = false;
-    document.getElementById('startStepBtn').innerText = "Start Tracking";
-    document.getElementById('sensorStatus').innerHTML = '<span class="status-dot" style="background:var(--accent-amber);"></span>PAUSED';
-    clearInterval(stepTimer);
-  }
+      drawGauge('gauge-bp', [
+        { from: 0, to: 0.2, color: '#3B82F6' },
+        { from: 0.2, to: 0.45, color: '#10B981' },
+        { from: 0.45, to: 0.65, color: '#F59E0B' },
+        { from: 0.65, to: 0.85, color: '#F97316' },
+        { from: 0.85, to: 1, color: '#EF4444' }
+      ], appState.bpSys, 80, 200);
+    }
 
-  function resetSteps() {
-    if (confirm("Reset step counter for today?")) {
-      dailyData.steps = 0;
-      dailyData.activeSec = 0;
+    /* ===================== STEPS ===================== */
+    function addSteps(count) {
+      checkMidnightRollover();
+      appState.todaySteps += count;
+
+      if (appState.todaySteps >= appState.stepGoal && !appState.celebratedToday) {
+        appState.celebratedToday = true;
+        document.getElementById('achieve-goal-text').innerText = appState.stepGoal.toLocaleString();
+        openModal('modal-achieve');
+        spawnConfetti();
+      }
+
+      saveData();
       renderUI();
     }
-  }
 
-  function updateActivityMode() {
-    const mode = document.getElementById('activityMode').value;
-    document.getElementById('activityTag').innerText = mode.toUpperCase();
-    renderUI();
-  }
-
-  /* --- ADVANCED CAMERA PPG HEART RATE PIPELINE --- */
-  function initHeartRateMeasurement() {
-    if (isHrMeasuring) {
-      stopHrScan("Cancelled by user.");
-      return;
+    function resetTodaySteps() {
+      appState.todaySteps = 0;
+      appState.celebratedToday = false;
+      saveData();
+      renderUI();
     }
 
-    const durationSec = parseInt(document.getElementById('hrDuration').value);
-    
-    // Attempt camera access with torch capability inspection
-    navigator.mediaDevices.getUserMedia({
-      video: { facingMode: { exact: "environment" } }
-    }).then(stream => {
-      runHrPipeline(stream, durationSec);
-    }).catch(() => {
-      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-        .then(stream => runHrPipeline(stream, durationSec))
-        .catch(() => alert("Unable to access rear camera. Please verify permissions."));
-    });
-  }
-
-  function runHrPipeline(stream, durationSec) {
-    hrStream = stream;
-    const track = stream.getVideoTracks()[0];
-    
-    // Safely attempt torch enablement if supported
-    const capabilities = track.getCapabilities ? track.getCapabilities() : {};
-    if (capabilities.torch) {
-      track.applyConstraints({ advanced: [{ torch: true }] }).catch(() => {});
-    }
-
-    const video = document.getElementById('hrVideo');
-    video.srcObject = stream;
-    video.play();
-
-    isHrMeasuring = true;
-    document.getElementById('hrMainBtn').innerText = "Cancel Measurement";
-    document.getElementById('hrQualityTag').innerText = "Signal Quality: Analyzing...";
-    document.getElementById('pulseRing').classList.add('pulse-active');
-
-    let redSamples = [];
-    let greenSamples = [];
-    let peaks = [];
-
-    const bar = document.getElementById('hrBar');
-    bar.style.transition = `width ${durationSec}s linear`;
-    bar.style.width = '100%';
-
-    function processFrame() {
-      if (!isHrMeasuring) return;
-
-      const canvas = document.getElementById('hrCanvas');
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, 60, 60);
-      const imgData = ctx.getImageData(0, 0, 60, 60);
-
-      let rSum = 0, gSum = 0;
-      for (let i = 0; i < imgData.data.length; i += 4) {
-        rSum += imgData.data[i];
-        gSum += imgData.data[i+1];
-      }
-      const totalPixels = imgData.data.length / 4;
-      const avgR = rSum / totalPixels;
-      const avgG = gSum / totalPixels;
-      const now = performance.now();
-
-      redSamples.push(avgR);
-      greenSamples.push(avgG);
-      if (redSamples.length > 150) { redSamples.shift(); greenSamples.shift(); }
-
-      // Physiological Band-Pass & Peak Validation
-      // Use a short rolling baseline (last ~1s) rather than the full-session mean,
-      // so slow camera auto-exposure/lighting drift isn't mistaken for a pulse.
-      if (greenSamples.length > 30) {
-        const rollingWindow = greenSamples.slice(-10);
-        const meanG = rollingWindow.reduce((a,b)=>a+b, 0) / rollingWindow.length;
-        const variance = Math.abs(avgG - meanG);
-
-        if (avgG > meanG * 1.004) {
-          if (peaks.length === 0 || (now - peaks[peaks.length - 1]) > 380) { // Max ~158 BPM
-            peaks.push(now);
-          }
-        }
-
-        if (variance < 0.03) {
-          document.getElementById('hrQualityTag').innerText = "Signal Quality: Poor (Finger reposition needed)";
-        } else {
-          document.getElementById('hrQualityTag').innerText = "Signal Quality: Good";
-        }
-      }
-
-      requestAnimationFrame(processFrame);
-    }
-
-    requestAnimationFrame(processFrame);
-
-    hrScanTimer = setTimeout(() => {
-      if (peaks.length >= 4) {
-        let intervals = [];
-        for (let i = 1; i < peaks.length; i++) intervals.push(peaks[i] - peaks[i - 1]);
-        const avgInt = intervals.reduce((a, b) => a + b, 0) / intervals.length;
-        const calculatedBpm = Math.round(60000 / avgInt);
-
-        if (calculatedBpm >= 48 && calculatedBpm <= 180) {
-          document.getElementById('bpmVal').innerText = calculatedBpm;
-          
-          const contextStr = document.getElementById('hrContext').value;
-          dailyData.hrLogs.unshift({
-            bpm: calculatedBpm, type: contextStr + ' (camera est.)', date: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+    function toggleTracking() {
+      if (!appState.isTracking) {
+        if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+          DeviceMotionEvent.requestPermission().then(res => {
+            if (res === 'granted') { startMotionSensor(); }
+            else { document.getElementById('sensor-note').innerText = "Motion permission denied — enable it in your browser's site settings to track steps."; }
+          }).catch(() => {
+            document.getElementById('sensor-note').innerText = "Motion sensor request failed. Your browser may not support step tracking.";
           });
-          renderHrHistory();
-          stopHrScan(`Measurement complete (${durationSec}s). Estimate only — cross-check with a real device if it seems off.`);
+        } else if (typeof DeviceMotionEvent !== 'undefined') {
+          startMotionSensor();
         } else {
-          stopHrScan("Unable to obtain a reliable reading. Please reposition your fingertip, keep still and try again.");
+          document.getElementById('sensor-note').innerText = "This browser doesn't expose motion sensor data, so automatic step tracking isn't available here.";
         }
       } else {
-        stopHrScan("Unable to obtain a reliable reading. Please reposition your fingertip, keep still and try again.");
+        stopMotionSensor();
       }
-    }, durationSec * 1000);
-  }
-
-  function stopHrScan(msg) {
-    isHrMeasuring = false;
-    clearTimeout(hrScanTimer);
-    if (hrStream) hrStream.getTracks().forEach(t => t.stop());
-
-    document.getElementById('hrMainBtn').innerText = "❤️ Measure Heart Rate";
-    document.getElementById('pulseRing').classList.remove('pulse-active');
-    document.getElementById('hrGuidance').innerText = msg || "Place your fingertip gently over the rear camera lens and keep still.";
-    
-    const bar = document.getElementById('hrBar');
-    bar.style.transition = 'none';
-    bar.style.width = '0%';
-  }
-
-  /* --- MANUAL LOGGING MODULES --- */
-  function saveManualHr() {
-    const bpm = parseInt(document.getElementById('manualHrBpm').value);
-    const type = document.getElementById('manualHrType').value;
-    if (!bpm) return alert("Please enter a valid BPM number.");
-
-    dailyData.hrLogs.unshift({
-      bpm: bpm, type: type, date: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
-    });
-    document.getElementById('manualHrBpm').value = '';
-    renderHrHistory();
-  }
-
-  function saveManualBp() {
-    const sys = parseInt(document.getElementById('bpSys').value);
-    const dia = parseInt(document.getElementById('bpDia').value);
-    if (!sys || !dia) return alert("Please enter valid Systolic and Diastolic numbers.");
-
-    dailyData.bpLogs.unshift({
-      sys: sys, dia: dia, date: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
-    });
-    document.getElementById('bpSys').value = '';
-    document.getElementById('bpDia').value = '';
-    renderBpHistory();
-  }
-
-  function renderHrHistory() {
-    const container = document.getElementById('hrHistoryContainer');
-    if (!container) return;
-    const rows = dailyData.hrLogs.slice(0, 5).map(log =>
-      `<div class="history-row"><span>❤️ <strong>${log.bpm} BPM</strong> (${log.type})</span><span>${log.date}</span></div>`
-    ).join('');
-    container.innerHTML = rows || `<div style="text-align:center; color:var(--text-sub); padding:10px;">No readings logged today.</div>`;
-  }
-
-  function renderBpHistory() {
-    const container = document.getElementById('bpHistoryContainer');
-    if (!container) return;
-    const rows = dailyData.bpLogs.slice(0, 5).map(log =>
-      `<div class="history-row"><span>🩺 <strong>${log.sys}/${log.dia} mmHg</strong></span><span>${log.date}</span></div>`
-    ).join('');
-    container.innerHTML = rows || `<div style="text-align:center; color:var(--text-sub); padding:10px;">No entries logged today.</div>`;
-  }
-
-  /* --- HYDRATION & SLEEP --- */
-  function addWater(amount) {
-    dailyData.water += amount;
-    renderUI();
-  }
-
-  function calcSleepTime() {
-    const bed = document.getElementById('sleepBed').value;
-    const wake = document.getElementById('sleepWake').value;
-    if (!bed || !wake) return;
-
-    const b = new Date(`2026-01-01T${bed}`);
-    let w = new Date(`2026-01-01T${wake}`);
-    if (w < b) w = new Date(`2026-01-02T${wake}`);
-
-    dailyData.sleep = (w - b) / (1000 * 60 * 60);
-    renderUI();
-  }
-
-  /* --- INFORMATIONAL WELLNESS OVERVIEW SCORE --- */
-  function calculateWellnessScore() {
-    const stepPct = Math.min(Math.round((dailyData.steps / profile.goal) * 100), 100);
-    const waterPct = Math.min(Math.round((dailyData.water / 2.5) * 100), 100);
-
-    document.getElementById('scoreMovePct').innerText = `${stepPct}%`;
-    document.getElementById('scoreMoveBar').style.width = `${stepPct}%`;
-    document.getElementById('scoreWaterPct').innerText = `${waterPct}%`;
-    document.getElementById('scoreWaterBar').style.width = `${waterPct}%`;
-
-    const score = Math.round((stepPct * 0.5) + (waterPct * 0.3) + (dailyData.sleep >= 7 ? 20 : 10));
-    document.getElementById('wellnessScoreVal').innerText = score;
-    document.getElementById('wellnessScoreLabel').innerText = score >= 75 ? "Optimal Daily Progress" : "Moderate Activity Level";
-  }
-
-  /* --- STRICT TIMESTAMP 4-7-8 BREATHING STUDIO --- */
-  function toggleBreathing() {
-    const circle = document.getElementById('breathCircle');
-    const timerTxt = document.getElementById('breathTimerNum');
-    const stateTxt = document.getElementById('breathStateTxt');
-    const btn = document.getElementById('breathBtn');
-
-    if (isBreathingActive) {
-      clearInterval(breathInterval);
-      isBreathingActive = false;
-      btn.innerText = "Begin 4-7-8 Breathing";
-      stateTxt.innerText = "Session Stopped";
-      timerTxt.innerText = "0s";
-      circle.style.transform = "scale(1)";
-      return;
     }
 
-    isBreathingActive = true;
-    btn.innerText = "Stop Session";
-
-    let phase = 0; // 0: Inhale (4s), 1: Hold (7s), 2: Exhale (8s)
-    let phaseStart = performance.now();
-    const durations = [4, 7, 8];
-
-    breathInterval = setInterval(() => {
-      const elapsed = Math.floor((performance.now() - phaseStart) / 1000);
-      const remaining = durations[phase] - elapsed;
-
-      if (phase === 0) {
-        stateTxt.innerText = "INHALE DEEPLY";
-        circle.style.transform = "scale(1.8)";
-      } else if (phase === 1) {
-        stateTxt.innerText = "HOLD BREATH";
-      } else {
-        stateTxt.innerText = "EXHALE SLOWLY";
-        circle.style.transform = "scale(1.0)";
-      }
-
-      timerTxt.innerText = `${Math.max(remaining, 1)}s`;
-
-      if (remaining <= 0) {
-        phase = (phase + 1) % 3;
-        phaseStart = performance.now();
-      }
-    }, 200);
-  }
-
-  /* --- ACTIVITY REPORT ENGINE (Week / Month / Year, with history navigation) --- */
-  let reportMode = 'week';
-  let reportOffset = 0; // 0 = current period, -1 = previous, etc. Never > 0 (no future).
-  let reportChartInstance = null;
-
-  function dateKey(d) {
-    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-  }
-
-  function setReportMode(mode) {
-    reportMode = mode;
-    reportOffset = 0;
-    ['Week','Month','Year'].forEach(m => document.getElementById('repTab'+m).classList.toggle('active', m.toLowerCase() === mode));
-    renderReport();
-  }
-
-  function shiftReportOffset(dir) {
-    if (reportOffset + dir > 0) return; // block navigating into the future
-    reportOffset += dir;
-    renderReport();
-  }
-
-  function getWeekBounds(offset) {
-    const now = new Date();
-    const day = (now.getDay() + 6) % 7; // Monday = 0
-    const monday = new Date(now);
-    monday.setDate(now.getDate() - day + offset * 7);
-    monday.setHours(0,0,0,0);
-    const sunday = new Date(monday);
-    sunday.setDate(monday.getDate() + 6);
-    return { start: monday, end: sunday };
-  }
-
-  function getMonthBounds(offset) {
-    const now = new Date();
-    const start = new Date(now.getFullYear(), now.getMonth() + offset, 1);
-    const end = new Date(now.getFullYear(), now.getMonth() + offset + 1, 0);
-    return { start, end };
-  }
-
-  function getYearBounds(offset) {
-    const now = new Date();
-    const start = new Date(now.getFullYear() + offset, 0, 1);
-    const end = new Date(now.getFullYear() + offset, 11, 31);
-    return { start, end };
-  }
-
-  function renderReport() {
-    document.getElementById('reportNextBtn').disabled = (reportOffset >= 0);
-
-    if (reportMode === 'week') renderWeekReport();
-    else if (reportMode === 'month') renderMonthReport();
-    else renderYearReport();
-  }
-
-  function renderWeekReport() {
-    const { start, end } = getWeekBounds(reportOffset);
-    const dayLabels = ['M','T','W','T','F','S','S'];
-    const labels = [], values = [], achieved = [];
-    let mostActive = { steps: -1, dateStr: '' };
-
-    for (let i = 0; i < 7; i++) {
-      const d = new Date(start);
-      d.setDate(start.getDate() + i);
-      const k = dateKey(d);
-      const steps = historyStore[k] ? historyStore[k].steps : 0;
-      labels.push(dayLabels[i]);
-      values.push(steps);
-      achieved.push(steps >= profile.goal);
-      if (steps > mostActive.steps) mostActive = { steps, dateStr: d.toLocaleDateString(undefined, { month:'short', day:'numeric' }) };
+    function startMotionSensor() {
+      appState.isTracking = true;
+      window.addEventListener('devicemotion', handleMotion);
+      document.getElementById('lbl-track-btn').innerText = "Pause Tracking";
+      document.getElementById('btn-toggle-track').classList.replace('btn-primary', 'btn-secondary');
+      document.getElementById('sensor-note').innerText = "Sensor active — tracking physical footsteps while this tab stays open.";
     }
 
-    const fmt = (d) => d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
-    document.getElementById('reportRangeLabel').innerText = reportOffset === 0 ? 'This Week' : `${fmt(start)} – ${fmt(end)}`;
-
-    renderReportStats(values, mostActive);
-    drawReportChart(labels, values, profile.goal);
-    renderAchievedRow(labels, achieved);
-  }
-
-  function renderMonthReport() {
-    const { start, end } = getMonthBounds(reportOffset);
-    const daysInMonth = end.getDate();
-    const dailyValues = [];
-    let mostActive = { steps: -1, dateStr: '' };
-
-    for (let i = 0; i < daysInMonth; i++) {
-      const d = new Date(start.getFullYear(), start.getMonth(), i + 1);
-      const k = dateKey(d);
-      const steps = historyStore[k] ? historyStore[k].steps : 0;
-      dailyValues.push(steps);
-      if (steps > mostActive.steps) mostActive = { steps, dateStr: d.toLocaleDateString(undefined, { month:'short', day:'numeric' }) };
+    function stopMotionSensor() {
+      appState.isTracking = false;
+      window.removeEventListener('devicemotion', handleMotion);
+      document.getElementById('lbl-track-btn').innerText = "Start Tracking";
+      document.getElementById('btn-toggle-track').classList.replace('btn-secondary', 'btn-primary');
+      document.getElementById('sensor-note').innerText = "Pedometer engine paused.";
     }
 
-    // Group into weekly bars for a readable chart
-    const weekLabels = [], weekTotals = [];
-    for (let i = 0; i < dailyValues.length; i += 7) {
-      const chunk = dailyValues.slice(i, i + 7);
-      weekLabels.push(`W${Math.floor(i / 7) + 1}`);
-      weekTotals.push(chunk.reduce((a,b)=>a+b, 0));
+    function handleMotion(e) {
+      const acc = e.accelerationIncludingGravity;
+      if (!acc) return;
+      const mag = Math.sqrt(acc.x * acc.x + acc.y * acc.y + acc.z * acc.z);
+      const delta = Math.abs(mag - lastAccelMag);
+      lastAccelMag = mag;
+      if (delta > 11.8) addSteps(1);
     }
 
-    document.getElementById('reportRangeLabel').innerText = start.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
-
-    renderReportStats(dailyValues, mostActive);
-    drawReportChart(weekLabels, weekTotals, null);
-    document.getElementById('reportAchievedRow').innerHTML = '';
-  }
-
-  function renderYearReport() {
-    const { start } = getYearBounds(reportOffset);
-    const year = start.getFullYear();
-    const monthLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const monthTotals = [];
-    const allDailyValues = [];
-    let mostActive = { steps: -1, dateStr: '' };
-
-    for (let m = 0; m < 12; m++) {
-      const daysInM = new Date(year, m + 1, 0).getDate();
-      let total = 0;
-      for (let d = 1; d <= daysInM; d++) {
-        const dateObj = new Date(year, m, d);
-        const k = dateKey(dateObj);
-        const steps = historyStore[k] ? historyStore[k].steps : 0;
-        total += steps;
-        allDailyValues.push(steps);
-        if (steps > mostActive.steps) mostActive = { steps, dateStr: dateObj.toLocaleDateString(undefined, { month:'short', day:'numeric' }) };
+    /* ===================== STREAK ===================== */
+    function calculateStreak() {
+      let streak = 0;
+      let d = new Date();
+      if (appState.todaySteps >= appState.stepGoal) streak++;
+      d.setDate(d.getDate() - 1);
+      while (true) {
+        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        if (appState.history[key] && appState.history[key].completed) {
+          streak++;
+          d.setDate(d.getDate() - 1);
+        } else { break; }
       }
-      monthTotals.push(total);
+      return streak;
     }
 
-    document.getElementById('reportRangeLabel').innerText = String(year);
-
-    renderReportStats(allDailyValues, mostActive);
-    drawReportChart(monthLabels, monthTotals, null);
-    document.getElementById('reportAchievedRow').innerHTML = '';
-  }
-
-  function renderReportStats(dailyValues, mostActive) {
-    const total = dailyValues.reduce((a,b)=>a+b, 0);
-    const daysWithData = dailyValues.length || 1;
-    const avg = Math.round(total / daysWithData);
-    document.getElementById('reportTotalVal').innerText = `${total.toLocaleString()} steps`;
-    document.getElementById('reportAvgVal').innerText = `${avg.toLocaleString()} steps`;
-
-    const box = document.getElementById('reportMostActiveBox');
-    if (mostActive.steps > 0) {
-      box.style.display = 'block';
-      document.getElementById('reportMostActiveSteps').innerText = `${mostActive.steps.toLocaleString()} Steps`;
-      document.getElementById('reportMostActiveDate').innerText = mostActive.dateStr;
-    } else {
-      box.style.display = 'none';
+    function updateBestStreak() {
+      const s = calculateStreak();
+      if (s > (appState.bestStreak || 0)) { appState.bestStreak = s; }
     }
-  }
 
-  function drawReportChart(labels, values, goalLine) {
-    const ctx = document.getElementById('reportChart').getContext('2d');
-    if (reportChartInstance) reportChartInstance.destroy();
+    /* ===================== MODALS ===================== */
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function openGoalModal() { openModal('modal-goal'); }
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-    const datasets = [{
-      label: 'Steps',
-      data: values,
-      backgroundColor: goalLine ? values.map(v => v >= goalLine ? '#D4B052' : '#E8CA85') : '#D4B052',
-      borderRadius: 6
-    }];
-
-    const annotationPlugin = goalLine ? {
-      id: 'goalLinePlugin',
-      afterDraw: (chart) => {
-        const yScale = chart.scales.y;
-        const xScale = chart.scales.x;
-        const y = yScale.getPixelForValue(goalLine);
-        const c = chart.ctx;
-        c.save();
-        c.strokeStyle = 'rgba(234, 179, 8, 0.6)';
-        c.setLineDash([4,4]);
-        c.beginPath();
-        c.moveTo(xScale.left, y);
-        c.lineTo(xScale.right, y);
-        c.stroke();
-        c.restore();
-      }
-    } : null;
-
-    reportChartInstance = new Chart(ctx, {
-      type: 'bar',
-      data: { labels, datasets },
-      plugins: annotationPlugin ? [annotationPlugin] : [],
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { grid: { display: false }, ticks: { color: '#8894A6', font: { size: 10 } } },
-          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#8894A6', font: { size: 10 } } }
-        }
-      }
-    });
-  }
-
-  function renderAchievedRow(labels, achievedFlags) {
-    const row = document.getElementById('reportAchievedRow');
-    row.innerHTML = labels.map((lbl, i) =>
-      `<div class="report-achieved-dot"><div class="dot ${achievedFlags[i] ? 'achieved' : ''}"></div><div class="lbl">${lbl}</div></div>`
-    ).join('');
-  }
-
-  function promptSetGoal() {
-    const val = prompt('Set your daily step goal:', profile.goal || 10000);
-    const n = parseInt(val, 10);
-    if (!isNaN(n) && n > 0) {
-      profile.goal = n;
-      localStorage.setItem('cm_wellness_profile', JSON.stringify(profile));
-      document.getElementById('reportGoalTag').innerText = `Goal: ${n.toLocaleString()}/day ✎`;
-      document.getElementById('profGoal').value = n;
+    function selectPresetGoal(val) {
+      appState.stepGoal = val;
+      saveData();
       renderUI();
-      renderReport();
+      closeModal('modal-goal');
     }
-  }
-
-  /* --- DISTANCE CHALLENGE --- */
-  function loadChallenge() {
-    const c = JSON.parse(localStorage.getItem('cm_wellness_challenge') || 'null');
-    const emptyState = document.getElementById('challengeEmptyState');
-    const activeState = document.getElementById('challengeActiveState');
-    if (!c) {
-      emptyState.style.display = 'block';
-      activeState.style.display = 'none';
-      return;
+    function saveCustomGoal() {
+      const inp = document.getElementById('input-custom-goal').value;
+      if (inp && parseInt(inp) > 0) selectPresetGoal(parseInt(inp));
     }
-    emptyState.style.display = 'none';
-    activeState.style.display = 'block';
 
-    const startDate = new Date(c.startDate);
-    let coveredKm = 0;
-    Object.keys(historyStore).forEach(k => {
-      const d = new Date(k);
-      if (d >= startDate) {
-        const stride = getEstimatedStride();
-        coveredKm += (historyStore[k].steps * stride) / 1000;
+    function saveHeartRate() {
+      const v = parseInt(document.getElementById('input-hr').value);
+      if (!v || v < 30 || v > 220) return;
+      appState.heartRate = v;
+      saveData();
+      renderUI();
+      closeModal('modal-hr');
+      document.getElementById('input-hr').value = '';
+    }
+
+    function saveBloodPressure() {
+      const sys = parseInt(document.getElementById('input-bp-sys').value);
+      const dia = parseInt(document.getElementById('input-bp-dia').value);
+      if (!sys || !dia) return;
+      appState.bpSys = sys;
+      appState.bpDia = dia;
+      saveData();
+      renderUI();
+      closeModal('modal-bp');
+      document.getElementById('input-bp-sys').value = '';
+      document.getElementById('input-bp-dia').value = '';
+    }
+
+    function addWater(amount) {
+      appState.waterMl += amount;
+      saveData();
+      renderUI();
+    }
+
+    /* ===================== CONFETTI ===================== */
+    function spawnConfetti() {
+      const layer = document.getElementById('confetti-layer');
+      layer.innerHTML = '';
+      const colors = ['#D4AF37', '#FF6B00', '#10B981', '#FFFFFF'];
+      for (let i = 0; i < 24; i++) {
+        const p = document.createElement('div');
+        p.className = 'confetti-piece';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.background = colors[i % colors.length];
+        p.style.animationDelay = (Math.random() * 0.4) + 's';
+        p.style.animationDuration = (1.4 + Math.random() * 0.8) + 's';
+        layer.appendChild(p);
       }
+      setTimeout(() => { layer.innerHTML = ''; }, 2600);
+    }
+
+    /* ===================== WEEKLY REPORT (shared logic) ===================== */
+    function computeWeekData() {
+      const dayLetters = ["S", "M", "T", "W", "T", "F", "S"];
+      let totalSteps = 0, dayCount = 0, goalsHit = 0;
+      const days = [];
+
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        const isToday = i === 0;
+        let steps, goal;
+
+        if (isToday) {
+          steps = appState.todaySteps; goal = appState.stepGoal;
+          totalSteps += steps; dayCount++;
+          if (steps >= goal) goalsHit++;
+        } else if (appState.history[key]) {
+          steps = appState.history[key].steps; goal = appState.history[key].goal;
+          totalSteps += steps; dayCount++;
+          if (appState.history[key].completed) goalsHit++;
+        } else { steps = 0; goal = appState.stepGoal; }
+
+        const pct = goal > 0 ? Math.min(steps / goal, 1.0) : 0;
+        const isComplete = steps >= goal && steps > 0;
+        days.push({ letter: dayLetters[d.getDay()], isToday, pct, isComplete });
+      }
+      return { days, totalSteps, dayCount, goalsHit };
+    }
+
+    function renderDayRingsInto(containerId, days) {
+      const grid = document.getElementById(containerId);
+      grid.innerHTML = "";
+      days.forEach(day => {
+        const ringColor = day.isComplete ? 'var(--accent-success)' : 'var(--accent-steps)';
+        const conic = `conic-gradient(${ringColor} ${(day.pct * 360).toFixed(0)}deg, var(--card-inner) 0deg)`;
+        const col = document.createElement('div');
+        col.className = 'report-day-col';
+        col.innerHTML = `
+          <span style="font-size:10px; color:${day.isToday ? 'var(--border-gold-bright)' : 'var(--text-sub)'}; font-weight:700;">${day.letter}</span>
+          <div class="day-ring-outer ${day.isToday ? 'is-today' : ''}" style="background:${conic};">
+            <div class="day-ring-inner">${Math.round(day.pct * 100)}%</div>
+          </div>
+        `;
+        grid.appendChild(col);
+      });
+    }
+
+    function renderWeekStrip() {
+      const data = computeWeekData();
+      renderDayRingsInto('week-strip-days', data.days);
+    }
+
+    function openReportModal() {
+      const data = computeWeekData();
+      renderDayRingsInto('report-grid-days', data.days);
+
+      updateBestStreak();
+      saveData();
+
+      const completionPct = appState.stepGoal > 0 ? Math.min((appState.todaySteps / appState.stepGoal) * 100, 100).toFixed(1) : 0;
+
+      document.getElementById('rep-today').innerText = appState.todaySteps.toLocaleString();
+      document.getElementById('rep-goal').innerText = appState.stepGoal.toLocaleString();
+      document.getElementById('rep-completion').innerText = `${completionPct}%`;
+      document.getElementById('rep-streak').innerText = `${calculateStreak()} days`;
+      document.getElementById('rep-best-streak').innerText = `${appState.bestStreak || 0} days`;
+      document.getElementById('rep-total').innerText = `${data.totalSteps.toLocaleString()} steps`;
+      document.getElementById('rep-avg').innerText = `${data.dayCount > 0 ? Math.round(data.totalSteps / data.dayCount).toLocaleString() : 0} steps`;
+      document.getElementById('rep-goals-hit').innerText = `${data.goalsHit} / 7`;
+
+      openModal('modal-report');
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+
+    /* ===================== INSTALL PROMPT ===================== */
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
     });
-
-    const pct = Math.min(100, Math.round((coveredKm / c.targetKm) * 100));
-    document.getElementById('challengeTargetVal').innerText = c.targetKm.toLocaleString();
-    document.getElementById('challengeRemainingVal').innerText = Math.max(0, (c.targetKm - coveredKm)).toFixed(1);
-    document.getElementById('challengeBar').style.width = `${pct}%`;
-    document.getElementById('challengeMeta').innerText = `${coveredKm.toFixed(1)} km covered since ${startDate.toLocaleDateString(undefined,{month:'short',day:'numeric'})} · ${pct}% complete`;
-  }
-
-  function setupChallenge() {
-    const target = prompt('Set your distance challenge target (in km), e.g. 100, 500, 800:', '100');
-    const n = parseFloat(target);
-    if (!n || n <= 0) return;
-    localStorage.setItem('cm_wellness_challenge', JSON.stringify({ targetKm: n, startDate: new Date().toISOString() }));
-    loadChallenge();
-  }
-
-  /* --- ACCORDION & TIPS --- */
-  function toggleAccordion(element) {
-    const item = element.parentElement;
-    item.classList.toggle('active');
-  }
-
-  function rotateDailyTip() {
-    const tips = [
-      "Take short movement breaks during long periods of sitting.",
-      "Hydration needs vary with activity, weather and individual circumstances.",
-      "Consistency is more important than suddenly exercising excessively.",
-      "Review weekly trends instead of worrying about one unusual day."
-    ];
-    document.getElementById('dailyTipText').innerText = `"${tips[Math.floor(Math.random() * tips.length)]}"`;
-  }
-
-  function clearAllData() {
-    if (confirm("Clear all locally stored wellness data? This cannot be undone.")) {
-      localStorage.clear();
-      location.reload();
+    function handleInstallClick() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+          }
+          deferredPrompt = null;
+        });
+      } else {
+        alert('To add this app to your home screen, open your browser menu (⋮) and select "Add to Home screen".');
+      }
     }
-  }
-
-  /* --- ADD TO HOME SCREEN --- */
-  let deferredInstallPrompt = null;
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredInstallPrompt = e;
-  });
-
-  window.addEventListener('appinstalled', () => {
-    deferredInstallPrompt = null;
-    document.getElementById('installBtn').innerText = '✅ Installed';
-  });
-
-  function handleInstallClick() {
-    if (deferredInstallPrompt) {
-      deferredInstallPrompt.prompt();
-      deferredInstallPrompt.userChoice.finally(() => { deferredInstallPrompt = null; });
-    } else {
-      alert('To add this to your home screen: open your browser menu (⋮) and tap "Add to Home screen".');
-    }
-  }
-
-  /* --- SHARE --- */
-  function copyShareLink() {
-    const url = window.location.href.split('?')[0].split('#')[0];
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url).then(() => {
-        const btn = document.querySelector('.utility-btn.copy');
-        const original = btn.innerText;
-        btn.innerText = '✅ Copied';
-        setTimeout(() => { btn.innerText = original; }, 2000);
-      }).catch(() => alert('Could not copy — please copy the link from your address bar.'));
-    } else {
-      alert('Copy not supported — please copy the link from your address bar.');
-    }
-  }
-
-  function shareWhatsApp() {
-    const url = window.location.href.split('?')[0].split('#')[0];
-    const text = encodeURIComponent('Check out this free Step Counter & Wellness Studio: ' + url);
-    window.open('https://wa.me/?text=' + text, '_blank');
-  }
-</script>
-
+  </script>
 </body>
 </html>
