@@ -11,19 +11,23 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ColdMatrix Concrete Calculator — Cement, Sand & Aggregate Estimator | ColdMatrix</title>
-  <meta name="description" content="Calculate cement bags, sand, aggregate, and cost for slabs and footings. Works with feet or meters, multiple currencies.">
+  <title>Concrete Calculator — Cement, Sand & Aggregate Estimator | ColdMatrix</title>
+  <meta name="description" content="Free concrete calculator for slabs, footings, columns. Calculate cement bags, sand, aggregate quantity and total cost. Works with feet or meters, multiple currencies. Essential for construction and PEB projects.">
+  <meta name="keywords" content="concrete calculator, cement calculator, sand calculator, aggregate calculator, concrete mix ratio, slab concrete volume, footing concrete, cement bags calculator, construction material calculator, concrete cost estimator">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
-  <meta property="og:title" content="ColdMatrix Concrete Calculator — Cement, Sand & Aggregate Estimator">
+  <meta property="og:title" content="Concrete Calculator — Cement, Sand & Aggregate Estimator">
   <meta property="og:description" content="Calculate cement bags, sand, aggregate, and cost for slabs and footings. Works with feet or meters.">
   <meta property="og:url" content="https://coldmatrixtools.com/concrete-calculator.html">
   <meta property="og:image" content="https://coldmatrixtools.com/concrete_calc.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ColdMatrix Concrete Calculator — Cement, Sand & Aggregate Estimator">
+  <meta name="twitter:title" content="Concrete Calculator — Cement, Sand & Aggregate Estimator">
   <meta name="twitter:description" content="Calculate cement bags, sand, aggregate, and cost for slabs and footings.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/concrete_calc.jpg">
   <meta name="theme-color" content="#0A0F14">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -33,135 +37,121 @@
     :root {
       --bg:#111418; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
       --text:#EAEDF0; --muted:#8B98A5; --accent:#D4AF37; --accent2:#FFD700;
-      --gradient:linear-gradient(135deg,#D4AF37,#FFD700);
       --gold:#D4AF37; --gold-bright:#FFD700;
-      --silver:#a8acb5; --dark-silver:#545860;
-      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --silver-bg: #C8CDD4;
+      --silver-bg-hover: #D5D9DE;
       --frost:#4FC3F7; --green:#34D399; --red:#EF4444;
+      --whatsapp-green:#25D366;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background: #111418;
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), #111418;
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 880px; margin:0 auto; padding:0 24px; }
-    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:700; color:var(--frost); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
-    .nav-links a:hover, .nav-links a.active { color:var(--gold); }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
 
-    .install-bar { background:var(--frost); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:600; display:block; }
-    .install-bar button { background:#0A0F14; color:white; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    .install-bar { background:var(--gold); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:20px 0; font-weight:700; display:block; box-shadow:0 4px 15px rgba(212,175,55,0.4); }
+    .install-bar button { background:#0A0F14; color:var(--gold-bright); border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:700; cursor:pointer; }
 
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
-    .subtitle { color:var(--muted); margin-bottom:24px; }
+    h1 span { color: var(--gold-bright); }
+    .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; margin-bottom:24px; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
 
     .share-tool-card{
       background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
       border: 2px solid;
       border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
-      border-radius:12px;
-      padding:22px 20px;
-      margin-bottom:26px;
-      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+      border-radius:12px; padding:18px 20px; margin-bottom:22px;
+      box-shadow: 0 10px 34px rgba(0,0,0,0.55);
     }
-    .share-tool-title{font-family:'Playfair Display',serif; font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
+    .share-tool-title{font-weight:800; font-size:1rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:14px; text-transform:uppercase;}
     .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
     .share-tool-btn{
       display:flex; align-items:center; justify-content:center; gap:9px;
-      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      padding:12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
       background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
-      transition:all 0.25s ease; font-family:'Inter',sans-serif;
+      transition:all 0.25s ease;
     }
     .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
     .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
-    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-    .share-tool-btn i{font-size:1rem;}
 
-    .card { background:var(--surface); border:1px solid var(--gold); border-radius:14px; padding:24px; margin-bottom:20px; position:relative; overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,0.35); }
-    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
-    .card h2 { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600; margin-bottom:16px; color:var(--gold); text-transform:uppercase; letter-spacing:0.5px; }
+    .card { background:var(--surface); border:1px solid var(--gold); border-radius:14px; padding:24px; margin-bottom:20px; box-shadow:0 12px 30px rgba(0,0,0,0.35); }
+    .card h2 { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600; margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px; }
 
     .unit-row { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:20px; }
     .unit-group { flex:1; min-width:150px; }
-    .unit-group label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:6px; font-weight:500; }
-    .unit-group select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:10px; border-radius:10px; font-size:0.9rem; }
+    .unit-group label { display:block; font-size:0.85rem; color:#FFFFFF; margin-bottom:6px; font-weight:700; }
+    .unit-group select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:11px; border-radius:10px; font-size:0.9rem; }
 
     .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
     .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px; }
     .field { margin-bottom:0; }
-    .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
+    .field label { display:block; font-size:0.85rem; color:#FFFFFF; margin-bottom:5px; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
     .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; }
     .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 10px rgba(212,175,55,0.4); }
-    .field select option { background:var(--surface2); color:var(--text); }
 
-    /* FIXED BUTTON ROW ALIGNMENT */
-    .btn-row {
-      display:flex;
-      gap:12px;
-      margin-top:20px;
-      align-items:stretch;
-    }
+    /* CLEAN SHINING BUTTONS */
+    .btn-row { display:flex; gap:12px; margin-top:20px; align-items:stretch; }
     .btn-calc, .btn-reset {
-      flex:1;
-      padding:16px;
-      border-radius:12px;
-      font-weight:800;
-      font-size:1.1rem;
-      cursor:pointer;
-      letter-spacing:0.5px;
-      text-align:center;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:56px;
+      flex:1; padding:16px; border-radius:12px; font-weight:900; font-size:1.05rem; cursor:pointer;
+      letter-spacing:0.5px; text-align:center; display:flex; align-items:center; justify-content:center;
+      min-height:56px; max-height:56px; line-height:1;
     }
     .btn-calc {
-      background:var(--silver-gradient);
-      color:#0A0F14;
-      border:2px solid var(--gold);
-      text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3);
+      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3);
       transition:all 0.25s ease;
     }
-    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px rgba(212,175,55,0.6); transform:translateY(-2px); }
+    .btn-calc:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 22px rgba(212,175,55,0.6); transform:translateY(-2px); }
     .btn-reset {
-      background:var(--silver-gradient);
-      color:#0A0F14;
-      border:2px solid var(--gold);
-      text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       transition:all 0.25s ease;
     }
-    .btn-reset:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+    .btn-reset:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
     .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
     .result-item {
-      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:12px;
-      padding:18px; text-align:center;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.3);
+      background:var(--silver-bg); border:1px solid var(--gold-bright); border-radius:12px;
+      padding:18px; text-align:center; box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.3);
     }
-    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.5rem; font-weight:800; color:#0A0F14; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.5rem; font-weight:800; color:#0A0F14; }
     .result-item .lbl { font-size:0.78rem; color:#111; margin-top:4px; text-transform:uppercase; letter-spacing:1px; font-weight:700; }
-    .result-item.highlight { border-color:#34D399; background:linear-gradient(145deg,#d9f5e5,#a8e6cf); grid-column:span 2; }
+    .result-item.highlight { border-color:#34D399; background:#d9f5e5; grid-column:span 2; }
     .result-item.highlight .val { font-size:1.8rem; color:#0A0F14; }
 
-    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
-    .share-btn { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px; font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
+    .share-bar { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px auto; max-width:500px; }
+    .share-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:12px 16px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; border:none; text-decoration:none; color:#fff; width:100%; }
     .share-whatsapp { background:#25D366; }
     .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--gold); }
+    .share-jpg, .share-png { background:#545860; color:#fff; border:1px solid var(--gold); }
 
     .note { font-size:0.75rem; color:var(--muted); margin-top:16px; border-top:1px solid var(--border); padding-top:12px; text-align:center; }
-    #shareCapture { display:none; }
+    #shareCapture { display:none; position:absolute; left:-9999px; top:0; }
+
+    .detail-section {
+      margin-top: 40px; padding: 30px 24px;
+      background: var(--silver-bg); border: 2px solid var(--gold); border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4); line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+    }
+    .detail-section h2 { font-family: 'Oswald', sans-serif; color: #0A0F14; font-size: 1.5rem; margin-bottom: 16px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+    .detail-section h3 { color: #0A0F14; font-size: 1.15rem; margin: 24px 0 10px; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom: 14px; }
+    .detail-section ul, .detail-section ol { padding-left: 24px; }
+    .detail-section li { margin-bottom: 6px; }
+    .detail-section strong { color: #0A0F14; }
+
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--gold); text-decoration:none; }
+    footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
-    @media (max-width:600px){ .grid2,.grid3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .btn-row{flex-direction:column;} }
+    @media (max-width:600px){ .grid2,.grid3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .btn-row{flex-direction:row;} .share-bar{grid-template-columns:1fr 1fr;} }
   </style>
 </head>
 <body>
@@ -171,7 +161,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
@@ -184,11 +174,11 @@
   
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
-    <h1>🏗️ ColdMatrix Concrete Calculator</h1>
-    <p class="subtitle">Cement bags, sand, aggregate & cost — enter dimensions in feet or meters, get results in kg/tons.</p>
+    <h1>🏗️ <span>ColdMatrix</span> Concrete Calculator</h1>
+    <p class="subtitle">Calculate cement bags, sand, aggregate quantity, and total cost for slabs, footings, and columns. Supports feet or meters, multiple currencies, and 3 mix ratios. Built for engineers, contractors, and DIY builders.</p>
 
     <div class="share-tool-card">
-      <div class="share-tool-title">Share ColdMatrix Concrete Calculator</div>
+      <div class="share-tool-title">Share Concrete Calculator</div>
       <div class="share-tool-buttons">
         <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
@@ -246,8 +236,8 @@
       </div>
 
       <div class="btn-row">
-        <button class="btn-calc" onclick="calculateConcrete()">Calculate</button>
-        <button class="btn-reset" onclick="resetConcreteForm()">🔄 Reset</button>
+        <button class="btn-calc" onclick="calculateConcrete()">📊 Calculate</button>
+        <button class="btn-reset" onclick="resetConcreteForm()">↺ Reset</button>
       </div>
     </div>
 
@@ -281,72 +271,89 @@
       <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
-  </div>
 
-  <!-- COMPLETE EDUCATIONAL CONTENT -->
-  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">What Is Concrete?</h2>
-    <p>Concrete is a composite material made from cement, sand, aggregate, and water. It is the most widely used construction material in the world, with over 10 billion tons produced annually globally. Its strength, durability, and versatility make it essential for foundations, slabs, columns, beams, roads, and bridges.</p>
+    <div class="detail-section">
+  <h2>📖 The Complete Concrete Calculation Guide</h2>
+  <p>Concrete is the most widely used construction material in the world — over 10 billion tons produced annually. This calculator helps you estimate cement bags, sand, aggregate, and cost for slabs, footings, columns, beams, and other concrete structures using standard industry formulas and mix ratios. Whether you're a professional engineer, contractor, or DIY builder, this tool gives you accurate material estimates in seconds.</p>
 
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Concrete Mix Ratios Explained</h2>
-    <p>The mix ratio represents the proportion of cement, sand, and aggregate. Common ratios include:</p>
-    <ul style="padding-left:20px;">
-      <li><strong>1:2:4</strong> — General purpose (slabs, footings). Approximate strength: 15–20 MPa.</li>
-      <li><strong>1:1.5:3</strong> — Structural elements (columns, beams). Approximate strength: 20–25 MPa.</li>
-      <li><strong>1:3:6</strong> — Lean concrete (blinding, leveling). Lower strength.</li>
-    </ul>
+  <h3>What Is Concrete?</h3>
+  <p>Concrete is a composite material made from cement, sand (fine aggregate), coarse aggregate (gravel or crushed stone), and water. When mixed, these materials form a workable paste that hardens into a strong, durable solid. The proportions of each material determine the concrete's strength, workability, and cost.</p>
 
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Real Concrete Material Matrix (Per m³)</h2>
-    <p>Based on standard industry practice for a 1:2:4 mix:</p>
-    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;color:#cfd6dd;">
-      <thead>
-        <tr style="border-bottom:2px solid rgba(212,175,55,0.4);">
-          <th style="text-align:left;padding:8px 4px;color:#FFD700;">Material</th>
-          <th style="text-align:right;padding:8px 4px;color:#FFD700;">Quantity per m³</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);"><td style="padding:8px 4px;">Cement</td><td style="text-align:right;padding:8px 4px;">320–350 kg (6.4–7 bags of 50 kg)</td></tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);"><td style="padding:8px 4px;">Sand</td><td style="text-align:right;padding:8px 4px;">650–700 kg</td></tr>
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);"><td style="padding:8px 4px;">Aggregate</td><td style="text-align:right;padding:8px 4px;">1,200–1,300 kg</td></tr>
-        <tr><td style="padding:8px 4px;">Water</td><td style="text-align:right;padding:8px 4px;">180–200 litres</td></tr>
-      </tbody>
-    </table>
-    <p style="font-size:0.8rem;color:#8B98A5;margin-top:8px;">* Quantities vary slightly depending on moisture content and compaction.</p>
+  <h3>Concrete Mix Ratios Explained</h3>
+  <ul>
+    <li><strong>1:2:4 (General Purpose):</strong> 1 part cement, 2 parts sand, 4 parts aggregate. Strength: 15–20 MPa. Ideal for slabs, footings, driveways, and general construction.</li>
+    <li><strong>1:1.5:3 (Structural):</strong> Higher cement content. Strength: 20–25 MPa. Used for columns, beams, and load-bearing structures.</li>
+    <li><strong>1:3:6 (Lean Concrete):</strong> Lower cement content. Used for blinding, leveling courses, and non-structural fill.</li>
+  </ul>
 
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">How the Calculator Works</h2>
-    <p>The calculator uses the dry volume method, which accounts for the fact that dry materials shrink when mixed with water. It multiplies the wet volume by 1.54 to estimate the dry volume, then distributes it according to the mix ratio. Material densities used are: cement 1440 kg/m³, sand 1600 kg/m³, aggregate 1500 kg/m³.</p>
+  <h3>How the Calculator Works</h3>
+  <p>The calculator uses the <strong>dry volume method</strong> — an industry-standard approach that accounts for the fact that dry materials shrink when mixed with water:</p>
+  <ul>
+    <li><strong>Step 1:</strong> Calculate wet volume = Length × Width × Thickness</li>
+    <li><strong>Step 2:</strong> Convert to dry volume = Wet volume × 1.54</li>
+    <li><strong>Step 3:</strong> Distribute dry volume according to mix ratio (e.g., 1:2:4 = 7 total parts)</li>
+    <li><strong>Step 4:</strong> Convert volumes to weights using material densities</li>
+  </ul>
+  <p><strong>Material Densities Used:</strong> Cement 1440 kg/m³ | Sand 1600 kg/m³ | Aggregate 1500 kg/m³</p>
 
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Real-World Example</h2>
-    <p>For a slab 10 m × 8 m × 0.15 m thick using a 1:2:4 mix:</p>
-    <ul style="padding-left:20px;">
-      <li>Wet volume = 10 × 8 × 0.15 = 12 m³</li>
-      <li>Dry volume = 12 × 1.54 = 18.48 m³</li>
-      <li>Cement = (1/7) × 18.48 × 1440 ≈ 3,802 kg ≈ 76 bags of 50 kg</li>
-      <li>Sand = (2/7) × 18.48 × 1600 ≈ 8,448 kg ≈ 8.45 tons</li>
-      <li>Aggregate = (4/7) × 18.48 × 1500 ≈ 15,840 kg ≈ 15.84 tons</li>
-    </ul>
+  <h3>Material Requirements per m³ (1:2:4 Mix)</h3>
+  <ul>
+    <li><strong>Cement:</strong> 320–350 kg (6.4–7 bags of 50 kg)</li>
+    <li><strong>Sand:</strong> 650–700 kg</li>
+    <li><strong>Aggregate:</strong> 1,200–1,300 kg</li>
+    <li><strong>Water:</strong> 180–200 litres</li>
+  </ul>
 
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Common Mistakes to Avoid</h2>
-    <ul style="padding-left:20px;">
-      <li>Forgetting the dry volume factor (1.54) — leads to underestimation.</li>
-      <li>Using the wrong mix ratio for the structural element.</li>
-      <li>Ignoring water quantity — too much water weakens concrete.</li>
-      <li>Not accounting for wastage — always add 5–10% extra.</li>
-    </ul>
+  <h3>Real-World Example — House Slab</h3>
+  <p>For a slab 10m × 8m × 0.15m using 1:2:4 mix:</p>
+  <ul>
+    <li>Wet volume = 10 × 8 × 0.15 = 12 m³</li>
+    <li>Dry volume = 12 × 1.54 = 18.48 m³</li>
+    <li>Cement = (1/7) × 18.48 × 1440 ≈ 3,802 kg ≈ 76 bags (50 kg)</li>
+    <li>Sand = (2/7) × 18.48 × 1600 ≈ 8,448 kg ≈ 8.45 tons</li>
+    <li>Aggregate = (4/7) × 18.48 × 1500 ≈ 15,840 kg ≈ 15.84 tons</li>
+  </ul>
 
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Frequently Asked Questions (FAQ)</h2>
-    <p><strong>Q: What mix ratio should I use for a house slab?</strong><br>
-    A: 1:2:4 is standard for general house slabs. For structural elements like columns, use 1:1.5:3.</p>
-    <p><strong>Q: Why multiply by 1.54?</strong><br>
-    A: Dry materials occupy more volume. Adding water compacts them. The 1.54 factor accounts for this bulkage.</p>
-    <p><strong>Q: Can I use this for footings?</strong><br>
-    A: Yes, just enter the footing dimensions as length, width, and thickness.</p>
-  </div>
+  <h3>Where Concrete Is Used</h3>
+  <ul>
+    <li><strong>Foundations & Footings:</strong> Supporting walls and columns.</li>
+    <li><strong>Slabs:</strong> Floors, driveways, patios, and roofs.</li>
+    <li><strong>Columns & Beams:</strong> Structural framework for buildings.</li>
+    <li><strong>Roads & Pavements:</strong> Highways, sidewalks, and parking lots.</li>
+    <li><strong>Bridges & Dams:</strong> Large-scale infrastructure projects.</li>
+    <li><strong>Precast Elements:</strong> Pipes, blocks, panels, and barriers.</li>
+  </ul>
 
-<!-- Professional Disclaimer -->
-<div style="margin-top:20px; padding:16px 18px; background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.35); border-radius:12px; font-size:0.85rem; color:#cfd6dd; line-height:1.7;">
-  <strong style="color:#FFD700;">⚠️ Disclaimer:</strong> This tool provides <strong>preliminary estimates</strong> based on standard industry formulas and typical material properties. Results may vary due to local conditions, material grades, environmental factors, and project-specific requirements. Always consult a <strong>licensed engineer or qualified professional</strong> for final design, verification, and execution.
+  <h3>Common Mistakes to Avoid</h3>
+  <ul>
+    <li><strong>Forgetting the 1.54 dry volume factor</strong> — leads to material shortage.</li>
+    <li><strong>Using the wrong mix ratio</strong> — structural elements need stronger mixes.</li>
+    <li><strong>Adding too much water</strong> — weakens the concrete and reduces strength.</li>
+    <li><strong>Not adding wastage allowance</strong> — always add 5–10% extra material.</li>
+    <li><strong>Mixing units</strong> — don't mix feet and meters; convert all dimensions to one unit.</li>
+  </ul>
+
+  <h3>Tips for Accurate Concrete Estimation</h3>
+  <ul>
+    <li>Measure dimensions carefully — even small errors compound over large areas.</li>
+    <li>Use the correct mix ratio for your structural element.</li>
+    <li>Account for formwork, reinforcement, and wastage.</li>
+    <li>Order slightly more concrete than calculated (5–10% buffer).</li>
+    <li>Consider weather conditions — hot weather accelerates setting.</li>
+    <li>Use clean, well-graded aggregates for better workability.</li>
+  </ul>
+
+  <h3>Frequently Asked Questions</h3>
+  <p><strong>Q: What mix ratio should I use for a house slab?</strong><br>A: 1:2:4 is standard for house slabs. Use 1:1.5:3 for columns and structural beams.</p>
+  <p><strong>Q: Why multiply by 1.54?</strong><br>A: Dry materials occupy more volume. Adding water compacts them. The 1.54 factor accounts for this bulkage.</p>
+  <p><strong>Q: How many cement bags per m³ of concrete?</strong><br>A: Approximately 7 bags of 50 kg cement per m³ for 1:2:4 mix.</p>
+  <p><strong>Q: Can I use this for footings?</strong><br>A: Yes, enter footing dimensions as length, width, and thickness.</p>
+  <p><strong>Q: What is the strength of 1:2:4 concrete?</strong><br>A: Approximately 15–20 MPa after 28 days of curing.</p>
+  <p><strong>Q: How much water should I add?</strong><br>A: Water-cement ratio of 0.45–0.55 is typical. Too much water weakens concrete.</p>
+  <p><strong>Q: Does this calculator work for columns?</strong><br>A: Yes, enter column dimensions as length, width, and height.</p>
+  <p><strong>Q: What is the difference between cement and concrete?</strong><br>A: Cement is an ingredient. Concrete is the final mixture of cement, sand, aggregate, and water.</p>
+
+  <p><strong>Disclaimer:</strong> This tool provides preliminary estimates based on standard industry formulas. Results may vary due to material moisture, compaction, and local conditions. Always consult a licensed engineer for final design verification.</p>
 </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
@@ -361,7 +368,6 @@
       const wtDisp = document.getElementById('weightDisplay').value;
       const isMetricLen = lenUnit === 'meter';
       const isMetricWt = wtDisp === 'kgton';
-
       document.getElementById('lblLen').textContent = 'Length (' + (isMetricLen ? 'm' : 'ft') + ')';
       document.getElementById('lblWid').textContent = 'Width (' + (isMetricLen ? 'm' : 'ft') + ')';
       document.getElementById('lblThk').textContent = 'Thickness (' + (isMetricLen ? 'm' : 'ft') + ')';
@@ -424,7 +430,7 @@
       document.getElementById('resAgg').textContent = aggDisplay.toFixed(1) + ' / ' + aggTons.toFixed(3);
       document.getElementById('resCost').textContent = cost;
       document.getElementById('resultCard').style.display = 'block';
-      document.getElementById('shareBarWrap').style.display = 'flex';
+      document.getElementById('shareBarWrap').style.display = 'grid';
 
       document.getElementById('pvVol').textContent = volDisplay.toFixed(2) + ' ' + (document.getElementById('lengthUnit').value === 'meter' ? 'm³' : 'ft³');
       document.getElementById('pvBags').textContent = cementBags + ' bags (' + (cementBags * bagWt) + ' kg)';
@@ -482,9 +488,7 @@
       window.open('https://wa.me/?text='+text, '_blank');
     }
     function copyToolLink(){
-      navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{
-        alert(window.location.href);
-      });
+      navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
     }
 
     updateLabels();
@@ -493,30 +497,41 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix Concrete Calculator",
+    "url": "https://coldmatrixtools.com/concrete-calculator.html",
+    "applicationCategory": "EngineeringApplication",
+    "description": "Calculate cement bags, sand, aggregate, and cost for slabs and footings. Works with feet or meters, multiple currencies.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Are ColdMatrix tools free to use?",
+        "name": "What mix ratio should I use for a house slab?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+          "text": "1:2:4 is standard for general house slabs. For structural elements like columns, use 1:1.5:3."
         }
       },
       {
         "@type": "Question",
-        "name": "How accurate are ColdMatrix calculators?",
+        "name": "Why multiply by 1.54 in concrete calculation?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+          "text": "Dry materials occupy more volume. Adding water compacts them. The 1.54 factor accounts for this bulkage."
         }
       },
       {
         "@type": "Question",
-        "name": "Does ColdMatrix store my data?",
+        "name": "Can I use this for footings?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+          "text": "Yes, just enter the footing dimensions as length, width, and thickness."
         }
       }
     ]

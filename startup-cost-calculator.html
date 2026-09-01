@@ -11,7 +11,6 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Cache-control meta tags -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -39,8 +38,8 @@
       --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
       --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --accent2:#2196F3;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
-      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --silver-bg: #C8CDD4;
+      --silver-bg-hover: #D5D9DE;
       --dark-silver:#4a4d55; --whatsapp-green:#25D366;
       --success:#34D399; --danger:#FF6B6B;
     }
@@ -52,7 +51,7 @@
     .container { max-width: 1000px; margin:0 auto; padding:0 24px; }
     .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
@@ -61,7 +60,7 @@
     .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:6px; }
     h1 span { color: var(--gold-bright); }
-    .subtitle { color:var(--muted); margin-bottom:24px; }
+    .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; margin-bottom:24px; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
 
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
@@ -77,7 +76,7 @@
       padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
       background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
     }
-    .share-tool-btn:hover { border-color:#E8B93A; }
+    .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
 
     .card {
@@ -90,7 +89,7 @@
       margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px;
     }
     .field { margin-bottom:14px; }
-    .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
+    .field label { display:block; font-size:0.85rem; color:#FFFFFF; margin-bottom:5px; font-weight:600; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
     .field input, .field select {
       width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
       padding:11px 13px; border-radius:10px; font-size:0.95rem;
@@ -99,30 +98,33 @@
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
 
+    /* BIG, TALL, PREMIUM CALCULATE BUTTON */
     .btn-calc {
-      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
-      padding:16px; border-radius:12px; font-weight:800; font-size:1.1rem; cursor:pointer; margin-top:8px;
-      letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      width:100%; background:var(--silver-bg); color:#0A0F14; border:3px solid var(--gold);
+      padding:22px 20px; border-radius:14px; font-weight:900; font-size:1.25rem; cursor:pointer; margin-top:12px;
+      letter-spacing:1px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4), 0 0 25px var(--gold-glow);
+      transition:all 0.3s ease;
     }
-    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); }
+    .btn-calc:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 40px var(--gold-glow), 0 8px 25px rgba(0,0,0,0.5); transform:translateY(-3px); }
     .btn-reset {
-      background:transparent; color:var(--muted); border:2px solid rgba(255,255,255,0.2);
-      padding:14px 18px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer; white-space:nowrap;
+      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
+      padding:12px 16px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; white-space:nowrap;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
     }
-    .btn-reset:hover { border-color:var(--accent); color:var(--accent); }
+    .btn-reset:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); }
 
     .result-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:12px; margin-top:16px; }
     .result-item {
-      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:12px;
+      background:var(--silver-bg); border:1px solid var(--gold-bright); border-radius:12px;
       padding:16px; text-align:center;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     .result-item .val { font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:800; color:#0A0F14; }
     .result-item .lbl { font-size:0.75rem; color:#111; font-weight:700; text-transform:uppercase; }
-    .result-item.highlight { background:linear-gradient(145deg,#d9f5e5,#a8e6cf); border-color:var(--success); }
+    .result-item.highlight { background:#d9f5e5; border-color:var(--success); }
     .result-item.highlight .val { font-size:1.5rem; }
-    .result-item.danger { background:linear-gradient(145deg,#ffe0e0,#ffc0c0); border-color:var(--danger); }
+    .result-item.danger { background:#ffe0e0; border-color:var(--danger); }
 
     .chart-wrap { max-width:500px; margin:20px auto; background:var(--surface); padding:20px; border-radius:14px; border:1px solid var(--gold); }
 
@@ -131,7 +133,7 @@
     .action-btn {
       padding:10px 12px; border:none; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.85rem;
       display:flex; align-items:center; justify-content:center; gap:8px; text-transform:uppercase;
-      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
     }
     .whatsapp-action { background:#25D366 !important; border:none !important; color:#fff !important; }
     .pdf-action { background:#0077B5 !important; border:none !important; color:#fff !important; }
@@ -142,7 +144,7 @@
 
     .detail-section {
       margin-top:40px; padding:30px 24px;
-      background: var(--silver-gradient);
+      background: var(--silver-bg);
       border:2px solid var(--gold);
       border-radius:16px;
       line-height:1.8; font-size:0.95rem; color:#0A0F14;
@@ -155,10 +157,9 @@
     .detail-section strong { color:#0A0F14; }
 
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--gold-bright); text-decoration:none; }
+    footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
-    /* Lead Capture Modal */
     .lead-modal-overlay {
       position: fixed; top:0; left:0; width:100%; height:100%;
       background: rgba(0,0,0,0.75); z-index:10000;
@@ -179,29 +180,20 @@
       font-family: 'Oswald', sans-serif; color: #FFD700; font-size: 1.5rem;
       margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
     }
-    .lead-modal p {
-      color: #cfd6dd; font-size: 0.9rem; margin-bottom: 20px;
-    }
+    .lead-modal p { color: #cfd6dd; font-size: 0.9rem; margin-bottom: 20px; }
     .lead-form input {
       width: 100%; background: #1B232C; border: 2px solid #D4AF37; color: #fff;
       padding: 12px 14px; border-radius: 8px; margin-bottom: 12px; font-size: 0.95rem;
     }
-    .lead-form input:focus {
-      outline: none; border-color: #FFD700; box-shadow: 0 0 15px rgba(212,175,55,0.5);
-    }
+    .lead-form input:focus { outline: none; border-color: #FFD700; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
     .lead-form .btn-primary {
-      width: 100%; padding: 14px; background: linear-gradient(145deg, #e6eaf0, #8a929c);
+      width: 100%; padding: 14px; background: var(--silver-bg);
       color: #0A0F14; border: 2px solid #D4AF37; border-radius: 10px;
       font-weight: 800; font-size: 1rem; cursor: pointer; margin-top: 8px;
-      letter-spacing: 0.5px; text-shadow: 0 1px 2px rgba(255,255,255,0.4);
+      letter-spacing: 0.5px;
     }
-    .lead-form .btn-primary:hover {
-      background: linear-gradient(145deg, #f8fafc, #b8c0c9);
-      border-color: #FFD700;
-    }
-    .privacy-note {
-      margin-top: 10px; font-size: 0.7rem; color: #8B98A5;
-    }
+    .lead-form .btn-primary:hover { background: var(--silver-bg-hover); border-color: #FFD700; }
+    .privacy-note { margin-top: 10px; font-size: 0.7rem; color: #8B98A5; }
 
     @media (max-width:600px){ .row2,.row3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .action-buttons{grid-template-columns:1fr;} }
   </style>
@@ -213,7 +205,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
@@ -226,7 +218,7 @@
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1>🚀 <span>ColdMatrix</span> Startup Cost & Working Capital Calculator</h1>
-    <p class="subtitle">Complete startup investment planning — setup costs, monthly expenses, working capital, and funding gap analysis.</p>
+    <p class="subtitle">Complete startup investment planning — setup costs, monthly expenses, working capital, and funding gap analysis. Know exactly how much money you need to launch and sustain your business.</p>
 
     <div class="share-tool-card">
       <div class="share-tool-title">Share Startup Calculator</div>
@@ -420,164 +412,35 @@
         <button class="action-btn png-action" onclick="downloadStartup('png')"><i class="fa-solid fa-image"></i> PNG</button>
       </div>
 
-      <!-- New Premium PDF Button -->
       <div style="margin-top: 20px; text-align: center;">
-        <button class="btn-primary" style="width:100%; padding:14px; font-size:1rem;" onclick="openLeadModal()">
+        <button class="btn-primary" style="width:100%; padding:14px; font-size:1rem; background:var(--silver-bg); border:2px solid var(--gold); border-radius:10px; font-weight:800; color:#0A0F14; cursor:pointer;" onclick="openLeadModal()">
           📥 Download Certified Technical Estimate & Material Specification PDF
         </button>
       </div>
 
       <div class="contact-note">❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>For queries: <strong>+92 333 3228470</strong><br><span style="word-break:break-all;">contact@coldmatrixtools.com</span></div>
     </div>
-<!-- DEEP DIVE GUIDE: Startup Cost & Working Capital Planning -->
-<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">🚀 Startup Cost & Working Capital: The Complete Financial Planning Guide</h2>
 
-  <p>Starting a business is one of the most exciting and challenging decisions an entrepreneur can make. Yet, many new ventures fail not because their idea is bad, but because they run out of money before becoming profitable. This guide, along with our calculator, will help you understand exactly how much capital you need to launch and sustain your business.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">1. What Is Startup Cost?</h3>
-  <p>Startup cost is the total money required to get a business off the ground. It includes one-time expenses like:</p>
-  <ul style="padding-left:20px;">
-    <li>Property purchase or security deposit</li>
-    <li>Renovation and interior setup</li>
-    <li>Machinery, equipment, furniture</li>
-    <li>Initial inventory / stock</li>
-    <li>Licenses, legal fees, and registration</li>
-    <li>Pre-launch marketing and branding</li>
-  </ul>
-  <p>Understanding these costs helps you determine how much capital to raise before opening your doors.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">2. What Is Working Capital?</h3>
-  <p>Working capital is the money needed to cover day-to-day operations — rent, salaries, utilities, and other recurring expenses — until the business generates enough revenue to support itself. Most experts recommend keeping 3–6 months of operating expenses as working capital. New businesses with no revenue history should aim for 6 months.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">3. Why This Calculator Matters</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Prevents Underfunding:</strong> Many startups fail because they run out of money before becoming profitable.</li>
-    <li><strong>Clear Funding Picture:</strong> Shows exactly how much capital is needed.</li>
-    <li><strong>Investor Confidence:</strong> Helps present a professional funding request to investors and banks.</li>
-    <li><strong>Risk Management:</strong> Identifies funding gaps before they become critical.</li>
-    <li><strong>Better Decision Making:</strong> Helps compare different business scenarios and adjust plans.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">4. Key Components Explained</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Location & Setup:</strong> One-time costs for physical space, renovation, furniture, and utilities installation.</li>
-    <li><strong>Machinery & Equipment:</strong> Tools, computers, vehicles, and production equipment needed to operate.</li>
-    <li><strong>Initial Inventory:</strong> Products or materials needed before the first sale.</li>
-    <li><strong>Pre-Launch Expenses:</strong> Marketing, website, branding, legal, and training before opening.</li>
-    <li><strong>Monthly Operating Expenses:</strong> Recurring costs like salaries, rent, utilities, and software.</li>
-    <li><strong>Working Capital Months:</strong> How many months of expenses to keep as buffer.</li>
-    <li><strong>Emergency Reserve:</strong> Extra cushion for unexpected costs.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">5. Industry Benchmarks for Working Capital</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Retail Store:</strong> 3–4 months</li>
-    <li><strong>Services:</strong> 2–3 months</li>
-    <li><strong>Manufacturing:</strong> 6 months</li>
-    <li><strong>E-commerce:</strong> 4–6 months</li>
-    <li><strong>Wholesale:</strong> 6 months</li>
-    <li><strong>Restaurant:</strong> 6–9 months</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">6. Real-World Example: Small Retail Store</h3>
-  <p>Suppose you're opening a retail outlet:</p>
-  <ul style="padding-left:20px;">
-    <li>Setup costs: $15,000 (renovation, furniture, licenses)</li>
-    <li>Equipment: $8,000 (shelves, POS system, computers)</li>
-    <li>Initial inventory: $10,000</li>
-    <li>Pre-launch marketing: $3,000</li>
-    <li>Monthly operating: $6,000 (rent, salaries, utilities)</li>
-    <li>Working capital: 3 months = $18,000</li>
-  </ul>
-  <p>Total startup cost: $36,000<br>Total funding required: $54,000</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">7. Funding Gap vs Surplus</h3>
-  <p><strong>Funding Gap:</strong> When total funding required exceeds available capital. You need to raise more money or reduce costs.</p>
-  <p><strong>Surplus:</strong> When available capital exceeds total funding required. This is a good position — you can invest more in growth.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">8. Common Mistakes to Avoid</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Underestimating Monthly Expenses:</strong> Always add 10–20% buffer for hidden costs.</li>
-    <li><strong>Not Including Emergency Reserve:</strong> Unexpected expenses are guaranteed in business.</li>
-    <li><strong>Forgetting Pre-Launch Costs:</strong> Marketing, legal, and website costs add up quickly.</li>
-    <li><strong>Too Little Working Capital:</strong> Many businesses need 6+ months before breaking even.</li>
-    <li><strong>Ignoring Accounts Receivable Buffer:</strong> If clients pay late, you need extra cash.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">9. Extended FAQ – Startup Funding Deep Dive</h3>
-  <p><strong>Q: Should I quit my job before starting?</strong><br>A: Ideally no. Keep your job until the business pays you a salary.</p>
-  <p><strong>Q: How do I reduce startup costs?</strong><br>A: Start small. Use shared space, buy used equipment, outsource instead of hiring.</p>
-  <p><strong>Q: When should I seek investors?</strong><br>A: After you have a clear plan, realistic projections, and some traction.</p>
-  <p><strong>Q: Is debt or equity better?</strong><br>A: Debt keeps ownership but adds pressure. Equity shares ownership but brings connections.</p>
-  <p><strong>Q: Can I save my calculation?</strong><br>A: Use Print/PDF or screenshot for your records.</p>
-  <p><strong>Q: What if my gap is too large?</strong><br>A: Reduce scope, lower expenses, or seek more investors.</p>
-  <p><strong>Q: Should I include my own salary?</strong><br>A: Yes! If the business can't pay you after 6–12 months, it's not viable.</p>
-
-  <p style="margin-top:15px; font-weight:700; color:#FFD700;">✅ This guide, combined with our free calculator, gives you a complete understanding of startup funding planning.</p>
-</div>
-
-    <!-- EXTENDED SEO CONTENT -->
-    <div class="detail-section">
-      <h2>📚 The Complete Startup Funding Guide</h2>
-      <p>Starting a business is one of the most exciting and challenging decisions an entrepreneur can make. Approximately 20% of new businesses fail in their first year, and a significant reason is inadequate funding. Many entrepreneurs underestimate the true cost of launching and sustaining a business until it reaches profitability. This guide helps you avoid that fate.</p>
-      <h3>Why Most Startups Fail Financially</h3>
-      <ul>
-        <li><strong>Running out of cash:</strong> The #1 reason startups fail.</li>
-        <li><strong>Underestimating setup costs:</strong> Often exceed estimates by 30-50%.</li>
-        <li><strong>No emergency reserve:</strong> Unexpected expenses drain finances quickly.</li>
-        <li><strong>Overestimating early revenue:</strong> Most businesses take 6-18 months to reach sustainable revenue.</li>
-        <li><strong>Confusing profit with cash flow:</strong> Slow-paying customers cause cash shortages.</li>
-      </ul>
-      <h3>Understanding the Funding Gap</h3>
-      <p>The funding gap is the difference between what you have and what you need. If your total requirement is $100,000 but you only have $60,000, your gap is $40,000. Knowing this number before starting is critical.</p>
-      <h3>Working Capital: The Lifeblood</h3>
-      <ul>
-        <li><strong>Retail:</strong> 3-4 months</li>
-        <li><strong>Services:</strong> 2-3 months</li>
-        <li><strong>Manufacturing:</strong> 6 months</li>
-        <li><strong>E-commerce:</strong> 4-6 months</li>
-        <li><strong>Wholesale:</strong> 6 months</li>
-      </ul>
-      <h3>Hidden Costs to Plan For</h3>
-      <ul>
-        <li>Insurance</li>
-        <li>Legal & compliance</li>
-        <li>Software subscriptions</li>
-        <li>Maintenance</li>
-        <li>Hiring & training</li>
-        <li>Taxes (15-25% reserve)</li>
-        <li>Depreciation</li>
-      </ul>
-      <h3>Industry Benchmarks</h3>
-      <ul>
-        <li><strong>Retail Store:</strong> $20K-$100K startup, 3 months working capital</li>
-        <li><strong>Restaurant:</strong> $50K-$500K startup, 6-9 months working capital</li>
-        <li><strong>Tech Startup:</strong> $30K-$200K startup, 12-18 months working capital</li>
-        <li><strong>Manufacturing:</strong> $100K-$1M+ startup, 6-12 months working capital</li>
-        <li><strong>Service Business:</strong> $5K-$50K startup, 2-3 months working capital</li>
-        <li><strong>E-commerce:</strong> $10K-$75K startup, 4-6 months working capital</li>
-      </ul>
-      <h3>Extended FAQ</h3>
-      <p><strong>Q: Should I quit my job before starting?</strong><br>A: Ideally no. Keep your job until the business pays you a salary.</p>
-      <p><strong>Q: How do I reduce startup costs?</strong><br>A: Start small. Use shared space, buy used equipment, outsource instead of hiring.</p>
-      <p><strong>Q: When should I seek investors?</strong><br>A: After you have a clear plan, realistic projections, and some traction.</p>
-      <p><strong>Q: Is debt or equity better?</strong><br>A: Debt keeps ownership but adds pressure. Equity shares ownership but brings connections.</p>
-      <p><strong>Q: Can I save my calculation?</strong><br>A: Use Print/PDF or screenshot for your records.</p>
-      <p><strong>Q: What if my gap is too large?</strong><br>A: Reduce scope, lower expenses, or seek more investors.</p>
-      <p><strong>Q: Should I include my own salary?</strong><br>A: Yes! If the business can't pay you after 6-12 months, it's not viable.</p>
-    </div>
-
-    <!-- ORIGINAL DETAIL SECTION -->
-    <div class="detail-section">
-  <h2>📖 Complete Guide to Startup Cost & Working Capital</h2>
-  <p>Starting a business requires more than just a good idea — it requires careful financial planning. This comprehensive calculator helps entrepreneurs estimate the total funding needed to launch and sustain a business until it becomes self-sufficient. It covers setup costs, monthly operating expenses, and working capital requirements.</p>
+    <!-- UNIFIED EDUCATIONAL CONTENT -->
+    <!-- COMPREHENSIVE EDUCATIONAL CONTENT -->
+<div class="detail-section">
+  <h2>📖 Startup Cost & Working Capital: The Complete Financial Planning Guide</h2>
+  <p>Starting a business is one of the most exciting and challenging decisions an entrepreneur can make. Yet, many new ventures fail not because their idea is bad, but because they run out of money before becoming profitable. This comprehensive guide, along with our free calculator, will help you understand exactly how much capital you need to launch and sustain your business — whether you're opening a retail store, restaurant, e-commerce shop, manufacturing unit, or service business.</p>
 
   <h3>What Is Startup Cost?</h3>
-  <p>Startup cost is the total money needed to get a business off the ground. It includes one-time expenses like property purchase, renovation, machinery, equipment, initial inventory, licenses, and pre-launch marketing. Understanding these costs helps you determine how much capital to raise before opening your doors.</p>
+  <p>Startup cost is the total money required to get a business off the ground. It includes one-time expenses like property purchase or security deposit, renovation and interior setup, machinery, equipment, furniture, initial inventory, licenses, legal fees, registration, pre-launch marketing, and branding. Understanding these costs helps you determine how much capital to raise before opening your doors.</p>
 
   <h3>What Is Working Capital?</h3>
-  <p>Working capital is the money needed to cover day-to-day operations — rent, salaries, utilities, and other recurring expenses — until the business generates enough revenue to support itself. Most experts recommend keeping 3–6 months of operating expenses as working capital.</p>
+  <p>Working capital is the money needed to cover day-to-day operations — rent, salaries, utilities, insurance, transportation, software subscriptions, and other recurring expenses — until the business generates enough revenue to support itself. Most experts recommend keeping 3–6 months of operating expenses as working capital. New businesses with no revenue history should aim for 6 months.</p>
+
+  <h3>Why Most Startups Fail Financially</h3>
+  <ul>
+    <li><strong>Running out of cash:</strong> The #1 reason startups fail.</li>
+    <li><strong>Underestimating setup costs:</strong> Often exceed estimates by 30-50%.</li>
+    <li><strong>No emergency reserve:</strong> Unexpected expenses drain finances quickly.</li>
+    <li><strong>Overestimating early revenue:</strong> Most businesses take 6-18 months to reach sustainable revenue.</li>
+    <li><strong>Confusing profit with cash flow:</strong> Slow-paying customers cause cash shortages.</li>
+  </ul>
 
   <h3>Why This Calculator Matters</h3>
   <ul>
@@ -597,6 +460,47 @@
     <li><strong>Monthly Operating Expenses:</strong> Recurring costs like salaries, rent, utilities, and software.</li>
     <li><strong>Working Capital Months:</strong> How many months of expenses to keep as buffer.</li>
     <li><strong>Emergency Reserve:</strong> Extra cushion for unexpected costs.</li>
+    <li><strong>Accounts Receivable Buffer:</strong> Cash to cover slow-paying customers.</li>
+    <li><strong>Inventory Replenishment Reserve:</strong> Funds to restock products.</li>
+  </ul>
+
+  <h3>Industry Benchmarks for Working Capital</h3>
+  <ul>
+    <li><strong>Retail Store:</strong> 3–4 months | $20K–$100K startup</li>
+    <li><strong>Services:</strong> 2–3 months | $5K–$50K startup</li>
+    <li><strong>Manufacturing:</strong> 6 months | $100K–$1M+ startup</li>
+    <li><strong>E-commerce:</strong> 4–6 months | $10K–$75K startup</li>
+    <li><strong>Wholesale:</strong> 6 months</li>
+    <li><strong>Restaurant:</strong> 6–9 months | $50K–$500K startup</li>
+    <li><strong>Tech Startup:</strong> 12–18 months | $30K–$200K startup</li>
+  </ul>
+
+  <h3>Real-World Example: Small Retail Store</h3>
+  <p>Suppose you're opening a retail outlet:</p>
+  <ul>
+    <li>Setup costs: $15,000 (renovation, furniture, licenses)</li>
+    <li>Equipment: $8,000 (shelves, POS system, computers)</li>
+    <li>Initial inventory: $10,000</li>
+    <li>Pre-launch marketing: $3,000</li>
+    <li>Monthly operating: $6,000 (rent, salaries, utilities)</li>
+    <li>Working capital: 3 months = $18,000</li>
+  </ul>
+  <p>Total startup cost: $15,000 + $8,000 + $10,000 + $3,000 = <strong>$36,000</strong><br>
+  Total funding required: $36,000 + $18,000 = <strong>$54,000</strong></p>
+
+  <h3>Funding Gap vs Surplus</h3>
+  <p><strong>Funding Gap:</strong> When total funding required exceeds available capital. You need to raise more money or reduce costs.</p>
+  <p><strong>Surplus:</strong> When available capital exceeds total funding required. This is a good position — you can invest more in growth.</p>
+
+  <h3>Hidden Costs to Plan For</h3>
+  <ul>
+    <li>Insurance</li>
+    <li>Legal & compliance</li>
+    <li>Software subscriptions</li>
+    <li>Maintenance</li>
+    <li>Hiring & training</li>
+    <li>Taxes (15-25% reserve)</li>
+    <li>Depreciation</li>
   </ul>
 
   <h3>How to Use This Calculator</h3>
@@ -622,32 +526,17 @@
     <li><strong>Ignoring Accounts Receivable Buffer:</strong> If clients pay late, you need extra cash.</li>
   </ul>
 
-  <h3>Funding Gap vs Surplus</h3>
-  <p><strong>Funding Gap:</strong> When total funding required exceeds available capital, you have a gap. You need to raise more money or reduce costs.</p>
-  <p><strong>Surplus:</strong> When available capital exceeds total funding required, you have extra money. This is a good position — you can invest more in growth.</p>
-
-  <h3>Real-World Example</h3>
-  <p>Suppose you're opening a small retail store:</p>
-  <ul>
-    <li>Setup costs: $15,000 (renovation, furniture, licenses)</li>
-    <li>Equipment: $8,000 (shelves, POS system, computers)</li>
-    <li>Initial inventory: $10,000</li>
-    <li>Pre-launch: $3,000 (marketing, branding)</li>
-    <li>Monthly operating: $6,000 (rent, salaries, utilities)</li>
-    <li>Working capital: 3 months = $18,000</li>
-  </ul>
-  <p>Total startup cost: $15,000 + $8,000 + $10,000 + $3,000 = <strong>$36,000</strong><br>
-  Total funding required: $36,000 + $18,000 = <strong>$54,000</strong></p>
-
-  <h3>Frequently Asked Questions</h3>
-  <p><strong>Q: How many months of working capital do I need?</strong><br>
-  A: Most experts recommend 3–6 months. New businesses with no revenue history should aim for 6 months.</p>
-  <p><strong>Q: Does this calculator include taxes?</strong><br>
-  A: No, taxes are not automatically included. Add them to your monthly expenses or setup costs.</p>
-  <p><strong>Q: Can I use this for any country?</strong><br>
-  A: Yes, it supports multiple currencies and is designed for global use.</p>
-  <p><strong>Q: Is my data stored?</strong><br>
-  A: No, all calculations happen locally in your browser.</p>
+  <h3>Extended FAQ – Startup Funding Deep Dive</h3>
+  <p><strong>Q: How many months of working capital do I need?</strong><br>A: Most experts recommend 3–6 months. New businesses with no revenue history should aim for 6 months.</p>
+  <p><strong>Q: Should I quit my job before starting?</strong><br>A: Ideally no. Keep your job until the business pays you a salary.</p>
+  <p><strong>Q: How do I reduce startup costs?</strong><br>A: Start small. Use shared space, buy used equipment, outsource instead of hiring.</p>
+  <p><strong>Q: When should I seek investors?</strong><br>A: After you have a clear plan, realistic projections, and some traction.</p>
+  <p><strong>Q: Is debt or equity better?</strong><br>A: Debt keeps ownership but adds pressure. Equity shares ownership but brings connections.</p>
+  <p><strong>Q: Can I save my calculation?</strong><br>A: Use Print/PDF or screenshot for your records.</p>
+  <p><strong>Q: What if my gap is too large?</strong><br>A: Reduce scope, lower expenses, or seek more investors.</p>
+  <p><strong>Q: Should I include my own salary?</strong><br>A: Yes! If the business can't pay you after 6–12 months, it's not viable.</p>
+  <p><strong>Q: Does this calculator include taxes?</strong><br>A: No, taxes are not automatically included. Add them to your monthly expenses or setup costs.</p>
+  <p><strong>Q: Can I use this for any country?</strong><br>A: Yes, it supports multiple currencies and is designed for global use.</p>
 
   <p><strong>Disclaimer:</strong> This calculator provides estimates for planning purposes only. Actual business costs and working capital requirements may vary. Always consult a financial advisor for critical decisions.</p>
 </div>
@@ -677,25 +566,9 @@
   </div>
 
   <script>
-    // ============================================
-    // LIVE CURRENCY API INTEGRATION
-    // ============================================
-    const FALLBACK_RATES = { 
-      USD:1, 
-      EUR:0.92, 
-      GBP:0.79, 
-      PKR:278.5, 
-      AED:3.6725, 
-      SAR:3.75, 
-      INR:83.2, 
-      CNY:7.24, 
-      AUD:1.52, 
-      CAD:1.36 
-    };
-    
+    const FALLBACK_RATES = { USD:1, EUR:0.92, GBP:0.79, PKR:278.5, AED:3.6725, SAR:3.75, INR:83.2, CNY:7.24, AUD:1.52, CAD:1.36 };
     let liveRates = { ...FALLBACK_RATES };
-    let ratesLoaded = false;
-    let lastCalculatedValues = null; // Store last calculated values for currency updates
+    let lastCalculatedValues = null;
 
     async function initLiveRates() {
       try {
@@ -703,42 +576,16 @@
         const data = await res.json();
         if(data && data.rates) {
           liveRates = data.rates;
-          ratesLoaded = true;
-          console.log('✅ Live currency rates loaded successfully');
-          
-          if(lastCalculatedValues) {
-            calculateStartup();
-          }
+          if(lastCalculatedValues) calculateStartup();
         }
-      } catch(e) {
-        console.log('⚠️ Using fallback rates - API unavailable');
-      }
+      } catch(e) {}
     }
 
-    function convertCurrency(amount, fromCurrency, toCurrency) {
-      if(fromCurrency === toCurrency) return amount;
-      const amountInUSD = amount / liveRates[fromCurrency];
-      return amountInUSD * liveRates[toCurrency];
-    }
+    const currencySymbols = { USD: '$', EUR: '€', GBP: '£', PKR: '₨', AED: 'د.إ', SAR: '﷼', INR: '₹', CNY: '¥', AUD: 'A$', CAD: 'C$' };
 
-    const currencySymbols = {
-      USD: '$', EUR: '€', GBP: '£', PKR: '₨', 
-      AED: 'د.إ', SAR: '﷼', INR: '₹', CNY: '¥', 
-      AUD: 'A$', CAD: 'C$'
-    };
-
-    function onCurrencyChange() {
-      console.log('💱 Currency changed, recalculating...');
-      if(lastCalculatedValues) {
-        calculateStartup();
-      }
-    }
-
+    function onCurrencyChange() { if(lastCalculatedValues) calculateStartup(); }
     initLiveRates();
 
-    // ============================================
-    // ORIGINAL CALCULATOR LOGIC
-    // ============================================
     let eqCount = 0, invCount = 0;
 
     function addEquipment() {
@@ -823,10 +670,7 @@
       const available = getAvailableCapital();
       const gap = totalRequired - available;
 
-      lastCalculatedValues = {
-        startup, monthly, workingCapital, reserve, 
-        totalRequired, available, gap
-      };
+      lastCalculatedValues = { startup, monthly, workingCapital, reserve, totalRequired, available, gap };
 
       const fmt = (n) => symbol + ' ' + n.toLocaleString();
 
@@ -850,7 +694,6 @@
 
       document.getElementById('resultCard').style.display = 'block';
       document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
-
       drawChart(startup, monthly, workingCapital, reserve);
     }
 
@@ -862,10 +705,7 @@
         type: 'pie',
         data: {
           labels: ['Startup Cost', 'Monthly Operating', 'Working Capital', 'Reserves'],
-          datasets: [{
-            data: [startup, monthly, wc, reserve],
-            backgroundColor: ['#4FC3F7', '#FFD700', '#34D399', '#FF6B6B']
-          }]
+          datasets: [{ data: [startup, monthly, wc, reserve], backgroundColor: ['#4FC3F7', '#FFD700', '#34D399', '#FF6B6B'] }]
         },
         options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#EAEDF0' } } } }
       });
@@ -874,7 +714,7 @@
     function shareStartup(){ window.open('https://wa.me/?text=' + encodeURIComponent('🚀 Startup Cost Report from ColdMatrix Tools')); }
     function downloadStartup(t){ alert('Download feature ready for PDF/JPG/PNG — ' + t); }
     function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this Startup Cost Calculator from ColdMatrix Tools! ' + window.location.href)); }
-    function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')); }
+    function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>alert(window.location.href)); }
 
     let d; const bar = document.getElementById('installBarTool');
     window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
@@ -883,9 +723,6 @@
 
     addEquipment(); addInventory();
 
-    // ============================================
-    // LEAD CAPTURE & DYNAMIC PDF GENERATION
-    // ============================================
     function openLeadModal() {
       const resultCard = document.getElementById('resultCard');
       if (!resultCard || resultCard.style.display === 'none' || resultCard.style.display === '') {
@@ -895,9 +732,7 @@
       document.getElementById('leadModal').style.display = 'flex';
     }
 
-    function closeLeadModal() {
-      document.getElementById('leadModal').style.display = 'none';
-    }
+    function closeLeadModal() { document.getElementById('leadModal').style.display = 'none'; }
 
     async function submitLeadAndDownload() {
       const leadData = {
@@ -908,10 +743,7 @@
         country: document.getElementById('leadCountry').value.trim()
       };
 
-      if (!leadData.name || !leadData.email) {
-        alert('Please enter your name and business email.');
-        return;
-      }
+      if (!leadData.name || !leadData.email) { alert('Please enter your name and business email.'); return; }
 
       const calcData = {
         currency: document.getElementById('currency').value,
@@ -927,25 +759,13 @@
         surplus: document.getElementById('rSurplusItem').style.display === 'none' ? '—' : document.getElementById('rSurplus').textContent
       };
 
-      // Active lead delivery via FormSubmit.co
       try {
         await fetch('https://formsubmit.co/ajax/contact@coldmatrixtools.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            _subject: 'New Lead from Startup Cost Calculator',
-            name: leadData.name,
-            email: leadData.email,
-            whatsapp: leadData.whatsapp,
-            city: leadData.city,
-            country: leadData.country,
-            currency: calcData.currency,
-            message: JSON.stringify(calcData)
-          })
+          body: JSON.stringify({ _subject: 'New Lead from Startup Cost Calculator', ...leadData, message: JSON.stringify(calcData) })
         });
-      } catch (e) {
-        console.warn('Lead delivery failed, but PDF still generated');
-      }
+      } catch (e) {}
 
       generateStartupPDF(leadData, calcData);
       closeLeadModal();
@@ -954,26 +774,20 @@
     function generateStartupPDF(leadData, calcData) {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
-
       const PRIMARY = [26, 54, 93];
-      const SECONDARY = [224, 86, 36];
       const TEXT_DARK = [45, 55, 72];
       const WHITE = [255, 255, 255];
-      const LIGHT_BG = [247, 250, 252];
 
       doc.setFillColor(...PRIMARY);
       doc.rect(0, 0, 210, 8, 'F');
-
       doc.setFont("helvetica", "bold");
       doc.setFontSize(22);
       doc.setTextColor(...PRIMARY);
       doc.text("COLDMATRIX ADVANCED SOLUTIONS", 14, 25);
-
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9);
       doc.setTextColor(128, 128, 128);
       doc.text("Business Planning | Startup Funding & Financial Modeling", 14, 30);
-
       doc.setFont("helvetica", "bold");
       doc.setFontSize(10);
       doc.setTextColor(...TEXT_DARK);
@@ -981,11 +795,9 @@
       doc.setFont("helvetica", "normal");
       doc.text(`Date: ${new Date().toLocaleDateString()}`, 200, 30, { align: "right" });
       doc.text(`Ref ID: CM-${Math.floor(100000 + Math.random() * 900000)}`, 200, 35, { align: "right" });
-
       doc.setDrawColor(226, 232, 240);
       doc.setLineWidth(0.5);
       doc.line(14, 40, 196, 40);
-
       doc.setFont("helvetica", "bold");
       doc.setFontSize(12);
       doc.setTextColor(...PRIMARY);
@@ -999,14 +811,9 @@
       ];
 
       doc.autoTable({
-        startY: 54,
-        body: clientMeta,
-        theme: 'plain',
+        startY: 54, body: clientMeta, theme: 'plain',
         styles: { fontSize: 10, cellPadding: 2, textColor: TEXT_DARK },
-        columnStyles: {
-          0: { fontStyle: 'bold', cellWidth: 40 },
-          2: { fontStyle: 'bold', cellWidth: 35 }
-        },
+        columnStyles: { 0: { fontStyle: 'bold', cellWidth: 40 }, 2: { fontStyle: 'bold', cellWidth: 35 } },
         margin: { left: 14 }
       });
 
@@ -1029,65 +836,59 @@
 
       doc.autoTable({
         startY: doc.lastAutoTable.finalY + 16,
-        head: [financialMetrics[0]],
-        body: financialMetrics.slice(1),
+        head: [financialMetrics[0]], body: financialMetrics.slice(1),
         theme: 'striped',
         headStyles: { fillColor: PRIMARY, textColor: WHITE, fontStyle: 'bold' },
         styles: { fontSize: 10, cellPadding: 4, textColor: TEXT_DARK },
-        columnStyles: {
-          0: { fontStyle: 'bold', cellWidth: 55 },
-          1: { cellWidth: 55 },
-          2: { cellWidth: 55 }
-        },
+        columnStyles: { 0: { fontStyle: 'bold', cellWidth: 55 }, 1: { cellWidth: 55 }, 2: { cellWidth: 55 } },
         margin: { left: 14, right: 14 }
       });
 
-      let finalY = doc.lastAutoTable.finalY + 15;
-      doc.setFillColor(...LIGHT_BG);
-      doc.rect(14, finalY, 182, 28, 'F');
-
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(9);
-      doc.setTextColor(...SECONDARY);
-      doc.text("⚠️ FINANCIAL PLANNING NOTICE:", 18, finalY + 6);
-
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(8);
-      doc.setTextColor(...TEXT_DARK);
-      const splitDisclaimer = doc.splitTextToSize(
-        "This funding estimate is generated by the ColdMatrix Startup Cost Calculator. It is intended for preliminary planning only and should not replace advice from a licensed financial advisor or accountant. Actual costs and funding requirements may vary based on market conditions, location, and business-specific factors.",
-        174
-      );
-      doc.text(splitDisclaimer, 18, finalY + 12);
-
-      finalY += 38;
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(11);
-      doc.setTextColor(...PRIMARY);
-      doc.text("Need Help Securing Your Startup Capital?", 14, finalY);
-
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(9.5);
-      doc.setTextColor(...TEXT_DARK);
-      doc.text(
-        "Our team provides business planning support and financial modeling assistance. Contact us for a professional consultation on funding strategies, investor presentations, and financial projections.",
-        14, finalY + 6, { maxWidth: 182 }
-      );
-
-      doc.setFont("helvetica", "bold");
-      doc.setTextColor(...SECONDARY);
-      doc.text("📧 Global Desk: engineering@coldmatrixtools.com", 14, finalY + 20);
-      doc.text("🌐 Office: Karachi, Pakistan", 14, finalY + 25);
-
-      doc.setFillColor(...PRIMARY);
-      doc.rect(0, 287, 210, 10, 'F');
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(8);
-      doc.setTextColor(...WHITE);
-      doc.text("ColdMatrix Advanced Solutions © 2026 | Automated Global Engineering Tools Infrastructure", 105, 293, { align: "center" });
-
       doc.save(`ColdMatrix_Startup_Estimate_${leadData.name.replace(/\s+/g, '_')}.pdf`);
     }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix Startup Cost Calculator",
+    "url": "https://coldmatrixtools.com/startup-cost-calculator.html",
+    "applicationCategory": "FinanceApplication",
+    "description": "Calculate startup investment, monthly operating expenses, working capital, and total funding required for your new business.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many months of working capital do I need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most experts recommend 3–6 months. New businesses with no revenue history should aim for 6 months."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should I quit my job before starting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ideally no. Keep your job until the business pays you a salary."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I seek investors?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "After you have a clear plan, realistic projections, and some traction."
+        }
+      }
+    ]
+  }
   </script>
 </body>
 </html>

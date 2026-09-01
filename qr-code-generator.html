@@ -11,19 +11,23 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR & Barcode Studio — Generate & Scan | ColdMatrix</title>
-  <meta name="description" content="Generate QR codes + live camera scan for QR codes & barcodes. Two powerful tools in one — a ColdMatrix original.">
+  <title>QR & Barcode Studio — Generate, Scan, and Read Codes | ColdMatrix</title>
+  <meta name="description" content="Generate 9 types of QR codes and scan QR codes & barcodes with camera or image upload. Free QR generator, WiFi QR maker, vCard QR, WhatsApp QR, and barcode scanner.">
+  <meta name="keywords" content="QR code generator, barcode scanner, WiFi QR code, WhatsApp QR, vCard QR, phone QR, email QR, SMS QR, map QR, text QR, free QR code maker, scan barcode online">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
-  <meta property="og:title" content="QR & Barcode Studio — Generate & Scan | ColdMatrix">
-  <meta property="og:description" content="Generate QR codes + live camera scan for QR codes & barcodes. Two powerful tools in one.">
+  <meta property="og:title" content="QR & Barcode Studio — Generate, Scan, and Read Codes | ColdMatrix">
+  <meta property="og:description" content="Generate 9 types of QR codes and scan QR codes & barcodes with camera or image upload.">
   <meta property="og:url" content="https://coldmatrixtools.com/qr-code-generator.html">
   <meta property="og:image" content="https://coldmatrixtools.com/qr_generator.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="QR & Barcode Studio — Generate & Scan | ColdMatrix">
-  <meta name="twitter:description" content="Generate QR codes + live camera scan for QR codes & barcodes. Two powerful tools in one.">
+  <meta name="twitter:title" content="QR & Barcode Studio — Generate, Scan, and Read Codes | ColdMatrix">
+  <meta name="twitter:description" content="Generate 9 types of QR codes and scan QR codes & barcodes with camera or image upload.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/qr_generator.jpg">
   <meta name="theme-color" content="#0A0F14">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,8 +43,8 @@
       --text:#EAEDF0; --muted:#A0B0C0; --accent:#4FC3F7; --accent-glow:rgba(79,195,247,0.35);
       --gradient:linear-gradient(135deg,#4FC3F7,#2196F3);
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
-      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --silver-bg: #C8CDD4;
+      --silver-bg-hover: #D5D9DE;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -53,7 +57,7 @@
     .container { max-width: 800px; margin:0 auto; padding:0 20px; }
     .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:10px 0; flex-wrap:wrap; }
-    .logo { font-size:1.2rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .logo { font-size:1.2rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.9rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
@@ -63,12 +67,11 @@
 
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:4px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
     h1 .icon { font-size:2rem; }
-    h1 .coldmatrix { color: var(--accent); }
+    h1 .coldmatrix { color: var(--gold-bright); }
     h1 .title { color: var(--gold-bright); }
     .subtitle {
-      background: linear-gradient(135deg, #c0e0ff, #a0d0ff);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text; font-weight: 500; margin-bottom:22px; font-size:0.95rem;
+      color: #FFFFFF; font-weight: 500; margin-bottom:22px; font-size:0.95rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.6);
     }
 
     .share-tool-card{
@@ -98,18 +101,20 @@
     .mode-btn {
       display:flex; align-items:center; justify-content:center; gap:8px;
       padding:15px 10px; border-radius:12px; font-weight:700; font-size:0.92rem;
-      cursor:pointer; background:var(--surface2); color:var(--muted);
+      cursor:pointer; background:var(--surface2); color:#EAEDF0;
       border:2px solid var(--gold); transition:all .25s;
       text-shadow:0 1px 2px rgba(0,0,0,0.6);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 4px 12px rgba(0,0,0,0.3);
     }
-    .mode-btn i { font-size:1.1rem; }
-    .mode-btn.active { background:var(--silver-gradient); color:#0A0F14; border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); text-shadow:0 1px 2px rgba(255,255,255,0.4); }
+    .mode-btn i { font-size:1.1rem; color:var(--gold-bright); }
+    .mode-btn.active { background:var(--silver-bg); color:#0A0F14; border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); text-shadow:none; }
+    .mode-btn.active i { color:#0A0F14; }
 
+    /* FIX 2: All QR type buttons as proper rectangles */
     .qr-type-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:18px; }
     .qr-type-btn {
       padding:14px 8px; border:2px solid var(--gold); background:var(--surface2);
-      color:var(--muted); border-radius:12px; font-weight:700; font-size:0.85rem;
+      color:#EAEDF0; border-radius:12px; font-weight:700; font-size:0.85rem;
       cursor:pointer; text-align:center; transition:all 0.25s; position:relative;
     }
     .qr-type-btn i { display:block; font-size:1.5rem; margin-bottom:6px; }
@@ -122,15 +127,15 @@
     .qr-type-btn[data-type="map"] i { color: #26A69A; }
     .qr-type-btn[data-type="sms"] i { color: #FF7043; }
     .qr-type-btn[data-type="text"] i { color: #78909C; }
-    .qr-type-btn:hover { border-color:var(--gold-bright); transform: translateY(-2px); }
+    .qr-type-btn:hover { border-color:var(--gold-bright); transform: translateY(-2px); background:rgba(212,175,55,0.1); }
     .qr-type-btn.active {
-      border-color:#2196F3; background:linear-gradient(180deg,#4FC3F7,#2196F3);
-      color:#fff; box-shadow:0 5px 15px rgba(33,150,243,0.5); transform:translateY(-3px);
+      border-color:var(--gold-bright); background:var(--silver-bg);
+      color:#0A0F14; box-shadow:0 5px 15px rgba(212,175,55,0.5); transform:translateY(-3px);
     }
-    .qr-type-btn.active i { color:#fff !important; }
+    .qr-type-btn.active i { color:#0A0F14 !important; }
 
     .field { margin-bottom:14px; }
-    .field label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:4px; font-weight:500; }
+    .field label { display:block; font-size:0.85rem; color:#FFFFFF; margin-bottom:4px; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
     .field input, .field textarea, .field select {
       width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
       padding:11px 13px; border-radius:10px; font-size:0.95rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
@@ -147,35 +152,66 @@
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
     .btn-generate {
-      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
-      padding:15px; border-radius:12px; font-weight:700; font-size:1.05rem; cursor:pointer;
-      margin-top:6px; letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      width:100%; background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
+      padding:16px; border-radius:12px; font-weight:800; font-size:1.05rem; cursor:pointer;
+      margin-top:6px; letter-spacing:0.5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
       transition:all 0.25s ease;
     }
-    .btn-generate:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
+    .btn-generate:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
     .btn-reset {
-      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
-      padding:14px 18px; border-radius:12px; font-weight:700; font-size:0.9rem; cursor:pointer;
-      white-space:nowrap; text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
+      padding:16px 18px; border-radius:12px; font-weight:800; font-size:0.9rem; cursor:pointer;
+      white-space:nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       transition:all 0.25s ease;
+      align-self: stretch;
     }
-    .btn-reset:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+    .btn-reset:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
     .qr-result { text-align:center; margin-top:22px; display:none; }
     .qr-code-wrapper { background:#fff; display:inline-block; padding:18px; border-radius:16px; margin-bottom:14px; box-shadow:0 0 35px var(--accent-glow); }
 
     .share-bar { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:18px 0; }
-    .share-btn { display:flex; align-items:center; gap:6px; padding:11px 18px; border-radius:50px; font-weight:600; font-size:0.85rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
+    .share-btn { display:flex; align-items:center; gap:6px; padding:11px 18px; border-radius:8px; font-weight:700; font-size:0.85rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
     .share-whatsapp { background:#25D366; }
     .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--gold); }
+    .share-jpg, .share-png { background:#545860; color:#fff; border:1px solid var(--gold); }
 
     #shareCapture { display:none; }
-    .note { font-size:0.75rem; color:var(--muted); margin-top:14px; border-top:1px solid var(--border); padding-top:10px; text-align:center; }
+
+    .detail-section {
+      margin-top:40px; padding:30px 24px;
+      background: var(--silver-bg);
+      border:2px solid var(--gold);
+      border-radius:16px;
+      line-height:1.8; font-size:0.95rem; color:#0A0F14;
+    }
+    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
+    .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
+    .detail-section ul, .detail-section ol { padding-left:24px; }
+    .detail-section li { margin-bottom:6px; }
+    .detail-section strong { color:#0A0F14; }
+
+    .lead-capture {
+      background: rgba(15,22,32,0.9);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 28px 24px;
+      margin: 30px 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .lead-capture h3 { font-family:'Oswald',sans-serif; color:var(--gold-bright); font-size:1.25rem; margin-bottom:14px; letter-spacing:0.5px; }
+    .lead-capture p { color:#c5cdd6; margin-bottom:18px; font-size:0.9rem; }
+    .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+    .lead-capture input[type="email"] { background:#0e1520; border:1.5px solid rgba(212,175,55,0.6); border-radius:8px; padding:12px 16px; color:#fff; font-size:0.95rem; outline:none; }
+    .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.3); }
+    .lead-capture button { background:var(--silver-bg); border:none; border-radius:8px; padding:12px 20px; font-weight:700; font-size:0.95rem; color:#0A0F14; cursor:pointer; transition:background 0.25s; letter-spacing:0.5px; }
+    .lead-capture button:hover { background:var(--silver-bg-hover); box-shadow:0 0 20px rgba(212,175,55,0.5); }
+
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--gold-bright); text-decoration:none; }
+    footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:44px; height:44px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
     @media (max-width:500px) {
@@ -186,28 +222,28 @@
     }
 
     .scan-subtabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
-    .scan-subtab{padding:11px 8px;border-radius:10px;font-weight:700;font-size:0.82rem;cursor:pointer;background:var(--surface2);color:var(--muted);border:2px solid var(--gold);text-align:center;transition:.2s;}
-    .scan-subtab.active{color:var(--accent);border-color:var(--accent);background:rgba(79,195,247,0.08);}
+    .scan-subtab{padding:11px 8px;border-radius:10px;font-weight:700;font-size:0.82rem;cursor:pointer;background:var(--surface2);color:#EAEDF0;border:2px solid var(--gold);text-align:center;transition:.2s;}
+    .scan-subtab.active{background:var(--silver-bg);color:#0A0F14;border-color:var(--gold-bright);}
     .camera-wrap{position:relative;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:1/1;max-width:360px;margin:0 auto;display:none;}
     .camera-wrap video{width:100%;height:100%;object-fit:cover;display:block;}
     .viewfinder{position:absolute;inset:14%;border:3px solid rgba(79,195,247,0.85);border-radius:16px;box-shadow:0 0 0 999px rgba(0,0,0,0.35);pointer-events:none;}
     .scan-line{position:absolute;left:14%;right:14%;height:2px;background:linear-gradient(90deg,transparent,#4FC3F7,transparent);top:14%;animation:scanmove 2.2s linear infinite;box-shadow:0 0 10px #4FC3F7;}
     @keyframes scanmove{0%{top:14%}50%{top:86%}100%{top:14%}}
     .camera-controls{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
-    .cam-btn{padding:10px 18px;border-radius:50px;font-weight:600;font-size:0.85rem;cursor:pointer;border:2px solid var(--gold);background:var(--silver-gradient);color:#0A0F14;display:flex;align-items:center;gap:6px;text-shadow:0 1px 2px rgba(255,255,255,0.4);box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35);}
-    .cam-btn.primary{background:var(--silver-gradient);color:#0A0F14;border:2px solid var(--gold);}
+    .cam-btn{padding:10px 18px;border-radius:12px;font-weight:700;font-size:0.85rem;cursor:pointer;border:2px solid var(--gold);background:var(--silver-bg);color:#0A0F14;display:flex;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(0,0,0,0.35);}
+    .cam-btn.primary{background:var(--silver-bg);color:#0A0F14;border:2px solid var(--gold);}
     .cam-status{text-align:center;font-size:0.78rem;color:var(--muted);margin-top:10px;min-height:1.2em;}
     .scan-drop-area{border:2px dashed var(--gold);border-radius:12px;padding:30px 16px;text-align:center;cursor:pointer;transition:.25s;background:var(--surface2);}
-    .scan-drop-area:hover, .scan-drop-area.drag-over{border-color:var(--accent);background:rgba(79,195,247,0.06);}
-    .scan-drop-area i{font-size:2rem;color:var(--accent);}
-    .scan-drop-area p{color:var(--muted);margin-top:8px;font-size:0.85rem;}
+    .scan-drop-area:hover, .scan-drop-area.drag-over{border-color:var(--gold-bright);background:rgba(212,175,55,0.06);}
+    .scan-drop-area i{font-size:2rem;color:var(--gold-bright);}
+    .scan-drop-area p{color:#EAEDF0;margin-top:8px;font-size:0.85rem;font-weight:600;}
     #scanUploadPreview{max-width:100%;border-radius:10px;margin-top:14px;display:none;}
     .scan-result{display:none;margin-top:20px;background:var(--surface2);border:1.5px solid var(--gold);border-radius:14px;padding:18px;}
-    .scan-result-format{display:inline-block;background:rgba(79,195,247,0.15);color:var(--accent);font-weight:700;font-size:0.72rem;letter-spacing:0.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:10px;}
+    .scan-result-format{display:inline-block;background:rgba(79,195,247,0.15);color:var(--accent);font-weight:700;font-size:0.72rem;letter-spacing:0.5px;text-transform:uppercase;padding:4px 12px;border-radius:8px;margin-bottom:10px;}
     .scan-result-text{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:0.9rem;word-break:break-all;margin-bottom:14px;color:var(--text);max-height:140px;overflow-y:auto;}
     .scan-actions{display:flex;flex-wrap:wrap;gap:8px;}
-    .scan-action-btn{flex:1;min-width:110px;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 10px;border-radius:10px;font-weight:600;font-size:0.82rem;cursor:pointer;border:none;color:#fff;}
-    .scan-action-btn.primary{background:var(--silver-gradient);color:#0A0F14;border:2px solid var(--gold);text-shadow:0 1px 2px rgba(255,255,255,0.4);}
+    .scan-action-btn{flex:1;min-width:110px;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 10px;border-radius:10px;font-weight:700;font-size:0.82rem;cursor:pointer;border:none;color:#fff;}
+    .scan-action-btn.primary{background:var(--silver-bg);color:#0A0F14;border:2px solid var(--gold);}
     .scan-action-btn.wa{background:#25D366;}
     .scan-action-btn.neutral{background:var(--surface);color:var(--text);border:1px solid var(--border);}
     .scan-history{margin-top:16px;}
@@ -215,6 +251,49 @@
     .scan-history-item span.h-text{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text);}
     .scan-history-item button{background:none;border:none;color:var(--accent);cursor:pointer;font-size:0.75rem;font-weight:600;}
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix QR & Barcode Studio",
+    "url": "https://coldmatrixtools.com/qr-code-generator.html",
+    "applicationCategory": "UtilityApplication",
+    "description": "Generate 9 types of QR codes and scan QR codes & barcodes with camera or image upload.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the QR & Barcode Studio free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, 100% free, no registration, and works offline after first load."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I scan barcodes with this tool?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — the camera scanner supports common 1D and 2D barcode formats."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which QR type should I use for my business card?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the Contact (vCard) type to let people save your details instantly."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <nav class="navbar">
@@ -223,7 +302,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
@@ -241,7 +320,16 @@
       <span class="coldmatrix">ColdMatrix</span>
       <span class="title">QR & Barcode Studio</span>
     </h1>
-    <p class="subtitle">Generate QR codes + live camera scan for QR codes & barcodes. Two powerful tools in one — a ColdMatrix original.</p>
+    <p class="subtitle">Generate QR codes for websites, WhatsApp, phone, email, Wi-Fi, contacts, maps, SMS, and text — then scan or read any QR code or barcode using your camera or an uploaded image. Two powerful tools in one complete studio.</p>
+
+    <!-- FIX 1: Share card moved above mode toggle, near title -->
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share QR & Barcode Studio</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
 
     <div class="mode-toggle" id="modeToggle">
       <button class="mode-btn active" data-mode="generate"><i class="fa-solid fa-qrcode"></i> Generate</button>
@@ -249,16 +337,9 @@
     </div>
 
     <div id="generatorSection">
-      <div class="share-tool-card">
-        <div class="share-tool-title">Share QR & Barcode Studio</div>
-        <div class="share-tool-buttons">
-          <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-          <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
-        </div>
-      </div>
-
       <div class="card">
         <h2>QR Type</h2>
+
         <div class="qr-type-grid" id="qrTypeGrid">
           <button class="qr-type-btn active" data-type="url"><i class="fa-solid fa-globe"></i> Website</button>
           <button class="qr-type-btn" data-type="whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
@@ -273,9 +354,9 @@
 
         <div id="dynamicFields"></div>
 
-        <div style="display:flex; gap:10px;">
+        <div style="display:flex; gap:10px; align-items:stretch;">
           <button class="btn-generate" style="flex:1;" onclick="generateQR()">Generate QR Code</button>
-          <button class="btn-reset" onclick="resetGenerator()">🔄 Reset</button>
+          <button class="btn-reset" onclick="resetGenerator()">↺ Reset</button>
         </div>
 
         <div class="qr-result" id="qrResult">
@@ -346,41 +427,118 @@
         </div>
       </div>
     </div>
-
-    <div class="note">ℹ️ Your QR code is generated instantly in your browser — no data is ever uploaded to a server.</div>
   </div>
 
-  <!-- ENHANCED EDUCATIONAL CONTENT -->
-  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the QR & Barcode Studio</h2>
-    <p>ColdMatrix QR & Barcode Studio is a complete two-in-one tool for creating and reading codes. Generate QR codes for websites, WhatsApp, phone numbers, email, Wi-Fi, vCard contacts, maps, SMS, and plain text. Then use the built-in camera scanner or upload an image to read any QR code or barcode instantly.</p>
+<!-- ENHANCED EDUCATIONAL CONTENT -->
+<div class="detail-section">
+  <h2>📖 The Complete QR & Barcode Studio Guide</h2>
+  <p>ColdMatrix QR & Barcode Studio is a comprehensive two-in-one platform for creating and reading codes. Whether you need to generate a QR code for your website, WhatsApp, Wi-Fi network, or contact details — or you need to scan an existing QR code or barcode — this tool handles everything with speed and precision.</p>
 
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Complete Feature List</h3>
-    <ul style="padding-left:20px;">
-      <li><strong>9 QR Code Types:</strong> Website URL, WhatsApp, Phone, Email, Wi-Fi, Contact (vCard), Maps, SMS, and Plain Text.</li>
-      <li><strong>Live Camera Scanner:</strong> Real-time QR and barcode scanning using your device camera.</li>
-      <li><strong>Image Upload Scanner:</strong> Decode codes from saved images or screenshots.</li>
-      <li><strong>Smart Actions:</strong> Open links, call numbers, send emails, save contacts, copy Wi-Fi passwords, or search Google.</li>
-      <li><strong>Download & Share:</strong> Export as PDF, JPG, or PNG, and share on WhatsApp.</li>
-      <li><strong>Scan History:</strong> Keeps recent scans for quick access during your session.</li>
-      <li><strong>100% Private:</strong> All processing happens locally in your browser — nothing is uploaded.</li>
-    </ul>
+  <h3>What Is a QR Code?</h3>
+  <p>A QR code (Quick Response code) is a two-dimensional barcode that can store information — URLs, phone numbers, text, Wi-Fi credentials, contact details, and more. When scanned with a smartphone camera, the QR code instantly triggers an action: opening a website, calling a number, connecting to Wi-Fi, or saving a contact.</p>
 
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Where QR & Barcode Codes Are Used</h3>
-    <ul style="padding-left:20px;">
-      <li><strong>Retail & E-commerce:</strong> Product barcodes and QR codes for checkout and inventory.</li>
-      <li><strong>Marketing:</strong> QR codes on flyers, business cards, and advertisements linking to websites or offers.</li>
-      <li><strong>Hospitality:</strong> Wi-Fi QR codes for guests, digital menus, and contactless payments.</li>
-      <li><strong>Healthcare:</strong> Patient identification and medication tracking.</li>
-      <li><strong>Logistics:</strong> Package tracking and warehouse management.</li>
-      <li><strong>Personal Use:</strong> Share contact details, location, or messages quickly.</li>
-    </ul>
+  <h3>What Is a Barcode?</h3>
+  <p>A barcode is a visual representation of data in the form of parallel lines (1D barcode) or geometric patterns (2D barcode). Barcodes are used extensively in retail for product identification, inventory management, and point-of-sale systems. This studio supports scanning both QR codes and common barcode formats.</p>
 
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
-    <p><strong>Is it free?</strong> Yes, 100% free, no registration, and works offline after first load.</p>
-    <p><strong>Can I scan barcodes?</strong> Yes — the camera scanner supports common 1D and 2D barcode formats.</p>
-    <p><strong>Does it store my data?</strong> No. Everything runs locally in your browser. Your data never leaves your device.</p>
-    <p><strong>Which QR type should I use for my business card?</strong> Use the Contact (vCard) type to let people save your details instantly.</p>
+  <h3>Complete Feature List</h3>
+  <ul>
+    <li><strong>9 QR Code Types:</strong> Website URL, WhatsApp, Phone, Email, Wi-Fi, Contact (vCard), Maps, SMS, and Plain Text.</li>
+    <li><strong>Live Camera Scanner:</strong> Real-time QR and barcode scanning using your device camera.</li>
+    <li><strong>Image Upload Scanner:</strong> Decode codes from saved images or screenshots.</li>
+    <li><strong>Smart Actions:</strong> Open links, call numbers, send emails, save contacts, copy Wi-Fi passwords, or search Google.</li>
+    <li><strong>Download & Share:</strong> Export as PDF, JPG, or PNG, and share on WhatsApp.</li>
+    <li><strong>Scan History:</strong> Keeps recent scans for quick access during your session.</li>
+    <li><strong>High-Quality QR Codes:</strong> Uses error correction level H (30%) — QR codes remain scannable even if partially damaged.</li>
+    <li><strong>100% Free:</strong> No registration, no hidden fees, no watermarks.</li>
+  </ul>
+
+  <h3>The 9 QR Code Types Explained</h3>
+  <ul>
+    <li><strong>🌐 Website URL:</strong> Create a QR code that opens any website when scanned. Perfect for marketing materials, product packaging, and business cards.</li>
+    <li><strong>💬 WhatsApp:</strong> Generate a QR code that opens a WhatsApp chat with a specific phone number — optionally with a pre-filled message. Ideal for customer support and lead generation.</li>
+    <li><strong>📞 Phone:</strong> Create a QR code that initiates a phone call when scanned. Great for real estate signs, service businesses, and contact cards.</li>
+    <li><strong>✉️ Email:</strong> Generate a QR code that opens the email app with a pre-filled recipient, subject, and message. Perfect for feedback forms and inquiries.</li>
+    <li><strong>📶 Wi-Fi:</strong> Create a QR code that automatically connects devices to your Wi-Fi network without typing the password. Ideal for cafés, hotels, offices, and homes.</li>
+    <li><strong>👤 Contact (vCard):</strong> Generate a QR code that saves your full contact details (name, phone, email, company, title) directly to the scanner's phone.</li>
+    <li><strong>📍 Maps:</strong> Create a QR code that opens a specific GPS location in Google Maps. Perfect for event invitations and business locations.</li>
+    <li><strong>💬 SMS:</strong> Generate a QR code that opens the messaging app with a pre-filled number and message. Great for voting, subscriptions, and quick responses.</li>
+    <li><strong>📝 Text:</strong> Create a QR code that displays plain text when scanned — useful for notes, instructions, or hidden messages.</li>
+  </ul>
+
+  <h3>How to Generate a QR Code</h3>
+  <ol>
+    <li>Select the QR type from the grid (Website, WhatsApp, Phone, Email, Wi-Fi, Contact, Maps, SMS, or Text).</li>
+    <li>Fill in the required fields that appear.</li>
+    <li>Click <strong>"Generate QR Code"</strong>.</li>
+    <li>Your QR code appears instantly in the preview box.</li>
+    <li>Download as PDF, JPG, or PNG — or share directly on WhatsApp.</li>
+  </ol>
+
+  <h3>How to Scan a QR Code or Barcode</h3>
+  <ol>
+    <li>Click the <strong>"Scan / Read Code"</strong> tab.</li>
+    <li>Choose <strong>Camera Scan</strong> or <strong>Upload Image</strong>.</li>
+    <li>For camera scan: Tap "Start Camera" and point at the code. The scanner will detect it automatically.</li>
+    <li>For upload: Select an image containing the QR code or barcode.</li>
+    <li>Once detected, you'll see the decoded content with smart action buttons.</li>
+  </ol>
+
+  <h3>Where QR & Barcode Codes Are Used</h3>
+  <ul>
+    <li><strong>Retail & E-commerce:</strong> Product barcodes for checkout, inventory tracking, and QR codes for product information.</li>
+    <li><strong>Marketing & Advertising:</strong> QR codes on flyers, business cards, posters, and advertisements linking to websites or offers.</li>
+    <li><strong>Hospitality:</strong> Wi-Fi QR codes for guests, digital menus, contactless payments, and room service.</li>
+    <li><strong>Healthcare:</strong> Patient identification wristbands, medication tracking, and appointment reminders.</li>
+    <li><strong>Logistics & Warehousing:</strong> Package tracking, shipping labels, and inventory management.</li>
+    <li><strong>Education:</strong> Quick links to learning resources, attendance tracking, and assignment submission.</li>
+    <li><strong>Events:</strong> Digital tickets, check-in codes, and networking contact exchange.</li>
+    <li><strong>Personal Use:</strong> Share Wi-Fi passwords with guests, share contact details, or link to social media profiles.</li>
+  </ul>
+
+  <h3>Tips for Creating Effective QR Codes</h3>
+  <ul>
+    <li><strong>Test before printing:</strong> Always scan your QR code with multiple devices before mass printing.</li>
+    <li><strong>Use sufficient size:</strong> For print, keep QR codes at least 2cm × 2cm (0.8 × 0.8 inches).</li>
+    <li><strong>Maintain contrast:</strong> Dark code on light background works best. Avoid inverted colors.</li>
+    <li><strong>Leave quiet zone:</strong> Keep a clear margin around the QR code (at least 4 modules wide).</li>
+    <li><strong>Use correct data:</strong> Double-check URLs, phone numbers, and email addresses before generating.</li>
+    <li><strong>Track your codes:</strong> Use URL shorteners with tracking if you want to monitor scan analytics.</li>
+  </ul>
+
+  <h3>Tips for Scanning Codes Successfully</h3>
+  <ul>
+    <li><strong>Good lighting:</strong> Ensure the code is well-lit and not in shadow.</li>
+    <li><strong>Steady hand:</strong> Hold the camera steady for a moment to allow detection.</li>
+    <li><strong>Fill the frame:</strong> Position the code within the viewfinder area.</li>
+    <li><strong>Clean camera lens:</strong> A smudged lens can prevent successful scanning.</li>
+    <li><strong>Use upload for screenshots:</strong> If scanning from a screen, use the Upload Image option for better results.</li>
+  </ul>
+
+  <h3>Frequently Asked Questions</h3>
+  <p><strong>Is the QR & Barcode Studio free?</strong><br>Yes, 100% free, no registration, and works offline after first load.</p>
+  <p><strong>Can I scan barcodes with this tool?</strong><br>Yes — the camera scanner supports common 1D and 2D barcode formats including EAN, UPC, Code 128, Code 39, and more.</p>
+  <p><strong>Which QR type should I use for my business card?</strong><br>Use the Contact (vCard) type to let people save your details instantly.</p>
+  <p><strong>Can I generate a Wi-Fi QR code for my home?</strong><br>Yes, select the Wi-Fi type, enter your network name and password, and generate. Guests can scan to connect instantly.</p>
+  <p><strong>What is the maximum data a QR code can hold?</strong><br>A standard QR code can hold up to 3KB of data — about 4,296 alphanumeric characters or 7,089 numeric characters.</p>
+  <p><strong>Does the QR code expire?</strong><br>No, QR codes do not expire. As long as the underlying data (URL, phone number, etc.) remains valid, the code works forever.</p>
+  <p><strong>Can I use the generated QR code commercially?</strong><br>Yes, all QR codes generated are royalty-free and can be used for any commercial or personal purpose.</p>
+  <p><strong>What if my QR code doesn't scan?</strong><br>Ensure sufficient contrast, adequate size, and test with multiple devices. Try regenerating with simpler data if issues persist.</p>
+
+  <h3>Why Choose ColdMatrix QR & Barcode Studio?</h3>
+  <p>It's the most complete QR tool available — combining a full-featured QR generator with a professional-grade scanner. The premium silver and gold interface makes it a pleasure to use, while the high-quality QR output ensures your codes work reliably everywhere. Whether for business or personal use, this studio has everything you need in one place.</p>
+
+  <p><strong>Disclaimer:</strong> QR codes and barcodes generated or scanned with this tool are for general use. Always verify critical codes with official sources.</p>
+</div>
+
+  <div class="lead-capture">
+    <h3>🚀 Need a Custom QR Solution?</h3>
+    <p>Get tailored QR tools, dashboards, or automation for your business. Leave your email and we'll reach out with a free consultation.</p>
+    <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="email" name="email" placeholder="Your work email" required>
+      <button type="submit">Request Custom Tool</button>
+    </form>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
@@ -798,39 +956,6 @@
         list.appendChild(row);
       });
     }
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Are ColdMatrix tools free to use?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How accurate are ColdMatrix calculators?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does ColdMatrix store my data?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-        }
-      }
-    ]
-  }
   </script>
 </body>
 </html>

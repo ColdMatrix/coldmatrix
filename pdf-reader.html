@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ColdMatrix PDF Reader — View PDFs Online Free</title>
-    <meta name="description" content="Free online PDF reader — open, view, and read any PDF directly in your browser. 100% private, no upload to server.">
-    <meta property="og:title" content="ColdMatrix PDF Reader — View PDFs Online Free">
-    <meta property="og:description" content="Open and read PDFs instantly in your browser. Private, secure, no file upload.">
+    <title>ColdMatrix PDF Reader & Converter — View & Create PDFs Free</title>
+    <meta name="description" content="Free online PDF reader and converter. Open, view, and read any PDF instantly. Convert Word documents, text files, and images into professional PDF format.">
+    <meta property="og:title" content="ColdMatrix PDF Reader & Converter — View & Create PDFs Free">
+    <meta property="og:description" content="Open and read PDFs instantly. Convert Word, text, and image files into professional PDF format.">
     <meta property="og:url" content="https://coldmatrixtools.com/pdf-reader.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#0A0F14">
     <link rel="canonical" href="https://coldmatrixtools.com/pdf-reader.html">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,8 +22,8 @@
     <style>
         :root { 
             --bg:#0B0F14; --surface:#111820; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gold:#D4AF37; --gold-bright:#FFD700; --gold-border:linear-gradient(145deg,#C8993A,#E8C96A 30%,#A07828 70%,#D4A843); 
-            --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-            --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+            --silver-bg: #C8CDD4;
+            --silver-bg-hover: #D5D9DE;
             --whatsapp-green:#25D366; --pdf-red:#E53935; 
         }
         * { margin:0; padding:0; box-sizing:border-box; }
@@ -29,7 +32,7 @@
 
         .navbar { position:sticky; top:0; z-index:100; width:100%; background:rgba(11,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:var(--gold-border) 1; }
         .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; max-width:1000px; margin:0 auto; }
-        .logo { font-size:1.3rem; font-weight:800; color:var(--accent); text-decoration:none; }
+        .logo { font-size:1.3rem; font-weight:800; color:var(--gold-bright); text-decoration:none; }
         .nav-links { display:flex; gap:18px; list-style:none; flex-wrap:wrap; }
         .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; }
         .nav-links a:hover { color:var(--gold-bright); }
@@ -51,8 +54,19 @@
         .title-row { display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; }
         .pdf-icon { display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; background:var(--pdf-red); border:2px solid var(--gold); border-radius:10px; font-size:1.3rem; color:#fff; font-weight:900; font-family:'Oswald',sans-serif; box-shadow:0 4px 14px rgba(229,57,53,0.35); }
         .brand-title { font-family:'Oswald',sans-serif; font-size:2rem; color:#fff; }
-        .brand-title span { color:var(--accent); }
-        .subtitle { color:var(--muted); font-size:0.95rem; }
+        .brand-title span { color:var(--gold-bright); }
+        .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; text-shadow:0 1px 2px rgba(0,0,0,0.6); max-width:700px; margin:0 auto; }
+
+        .mode-tabs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+        .mode-tab {
+            padding:16px; border-radius:14px; font-weight:700; font-size:1rem; cursor:pointer; text-align:center;
+            border:2px solid var(--gold); color:var(--gold-bright);
+            background:rgba(212,175,55,0.05); transition:all 0.2s;
+        }
+        .mode-tab.active {
+            background: var(--silver-bg); color:#0A0F14; border-color:var(--gold-bright);
+            font-weight:800; box-shadow:0 4px 16px rgba(212,175,55,0.3);
+        }
 
         .share-tool-card {
             background: linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
@@ -77,14 +91,15 @@
         .share-tool-btn i{font-size:1rem;}
 
         .upload-card {
-            background:var(--surface); border:3px dashed; border-image:var(--gold-border) 1;
+            background: var(--silver-bg); border:3px solid var(--gold);
             border-radius:20px; padding:44px 20px; text-align:center; cursor:pointer;
             transition:all 0.3s; margin-bottom:20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7);
         }
-        .upload-card:hover { border-color:var(--gold-bright); background:rgba(212,175,55,0.03); }
+        .upload-card:hover { background: var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 25px rgba(212,175,55,0.5); }
         .upload-card i { font-size:3.5rem; color:var(--pdf-red); margin-bottom:14px; }
-        .upload-card h3 { font-size:1.2rem; color:#fff; margin-bottom:6px; }
-        .upload-card p { color:var(--muted); font-size:0.9rem; }
+        .upload-card h3 { font-size:1.2rem; color:#0A0F14; margin-bottom:6px; font-weight:800; }
+        .upload-card p { color:#333; font-size:0.9rem; font-weight:600; }
         .upload-card input { display:none; }
 
         .toolbar {
@@ -96,12 +111,11 @@
             padding:10px 16px; border-radius:8px; font-weight:700; font-size:0.8rem;
             cursor:pointer; border:2px solid var(--gold); color:#0A0F14; transition:all 0.2s;
             text-transform:uppercase; letter-spacing:0.5px;
-            background:var(--silver-gradient);
-            text-shadow:0 1px 2px rgba(255,255,255,0.4);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 3px 8px rgba(0,0,0,0.3);
+            background:var(--silver-bg);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
         }
-        .toolbar button:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
-        .btn-dl { background:var(--pdf-red) !important; border-color:#fff !important; color:#fff !important; text-shadow:none !important; }
+        .toolbar button:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+        .btn-dl { background:var(--pdf-red) !important; border-color:#fff !important; color:#fff !important; }
         .page-info { color:#fff; font-weight:700; font-size:0.9rem; margin:0 auto; text-align:center; }
 
         .pdf-container {
@@ -110,13 +124,119 @@
             display:flex; align-items:center; justify-content:center;
         }
         .pdf-container canvas { width:100%; height:auto; display:block; }
-        .pdf-placeholder { text-align:center; color:var(--muted); padding:60px 20px; }
-        .pdf-placeholder i { font-size:4rem; color:var(--pdf-red); margin-bottom:16px; opacity:0.5; }
+        .pdf-placeholder { text-align:center; color:#fff; padding:60px 20px; }
+        .pdf-placeholder i { font-size:4rem; color:var(--pdf-red); margin-bottom:16px; opacity:0.7; }
+
+        /* Convert to PDF section */
+        .convert-card {
+            background: var(--silver-bg);
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            padding: 30px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7);
+        }
+        .convert-card h3 {
+            font-family: 'Oswald', sans-serif;
+            color: #0A0F14;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .convert-card .convert-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--gold);
+            border-radius: 14px;
+            padding: 30px 16px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.3);
+        }
+        .convert-card .convert-upload:hover {
+            border-color: var(--gold-bright);
+            background: rgba(255,255,255,0.5);
+        }
+        .convert-card .convert-upload i { font-size: 2.5rem; color: #0A0F14; margin-bottom: 10px; }
+        .convert-card .convert-upload p { color: #0A0F14; font-weight: 700; font-size: 0.95rem; }
+        .convert-card .convert-upload span { color: #333; font-weight: 500; font-size: 0.8rem; }
+        .convert-card .convert-upload input { display: none; }
+        .convert-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 2px solid var(--gold);
+            background: var(--silver-bg-hover);
+            color: #0A0F14;
+            margin-top: 14px;
+            letter-spacing: 0.5px;
+            transition: all 0.25s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .convert-btn:hover {
+            background: #fff;
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 22px rgba(212,175,55,0.5);
+            transform: translateY(-2px);
+        }
+        .convert-status {
+            text-align: center;
+            margin-top: 12px;
+            font-weight: 700;
+            color: #0A0F14;
+            font-size: 0.9rem;
+        }
+
+        .detail-section {
+            margin-top: 40px;
+            padding: 30px 24px;
+            background: var(--silver-bg);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            color: #0A0F14;
+        }
+        .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
+        .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
+        .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
+        .detail-section ul, .detail-section ol { padding-left:24px; }
+        .detail-section li { margin-bottom:6px; }
+        .detail-section strong { color:#0A0F14; }
+
+        .lead-capture {
+            background: rgba(15,22,32,0.9);
+            border: 2px solid var(--gold);
+            border-radius: 14px;
+            padding: 28px 24px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .lead-capture h3 { font-family:'Oswald',sans-serif; color:var(--gold-bright); font-size:1.25rem; margin-bottom:14px; letter-spacing:0.5px; }
+        .lead-capture p { color:#c5cdd6; margin-bottom:18px; font-size:0.9rem; }
+        .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+        .lead-capture input[type="email"] { background:#0e1520; border:1.5px solid rgba(212,175,55,0.6); border-radius:8px; padding:12px 16px; color:#fff; font-size:0.95rem; outline:none; }
+        .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.3); }
+        .lead-capture button { background:var(--silver-bg); border:none; border-radius:8px; padding:12px 20px; font-weight:700; font-size:0.95rem; color:#0A0F14; cursor:pointer; transition:background 0.25s; letter-spacing:0.5px; }
+        .lead-capture button:hover { background:var(--silver-bg-hover); box-shadow:0 0 20px rgba(212,175,55,0.5); }
 
         footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:20px 0; margin-top:20px; }
-        footer a { color:var(--accent); }
+        footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
 
-        @media (max-width:600px) { .toolbar { justify-content:center; } .brand-title { font-size:1.5rem; } }
+        @media (max-width:600px) { 
+            .toolbar { justify-content:center; } 
+            .brand-title { font-size:1.5rem; } 
+            .mode-tabs { grid-template-columns:1fr; }
+        }
     </style>
 </head>
 <body>
@@ -130,79 +250,145 @@
         <div class="brand-header">
             <div class="title-row">
                 <span class="pdf-icon">PDF</span>
-                <h1 class="brand-title">Cold<span>Matrix</span> PDF Reader</h1>
+                <h1 class="brand-title">Cold<span>Matrix</span> PDF Reader & Converter</h1>
             </div>
-            <p class="subtitle">Open, view & read any PDF — private, secure, no upload</p>
+            <p class="subtitle">Open, view, and read any PDF with ease — or convert Word documents, text files, and images into professional PDF format instantly. One powerful tool for all your document needs.</p>
         </div>
 
         <div class="share-tool-card">
-            <div class="share-tool-title">Share PDF Reader</div>
+            <div class="share-tool-title">Share This Tool</div>
             <div class="share-tool-buttons">
                 <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
                 <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
             </div>
         </div>
 
-        <div class="upload-card" id="uploadCard" onclick="document.getElementById('fileInput').click()">
-            <input type="file" id="fileInput" accept=".pdf,application/pdf" onchange="loadPDF(event)">
-            <i class="fa-solid fa-file-pdf"></i>
-            <h3>📂 Tap to Open a PDF File</h3>
-            <p>or drag & drop anywhere — 100% private, processed in your browser</p>
+        <div class="mode-tabs">
+            <div class="mode-tab active" id="tabRead" onclick="switchMode('read')">📖 PDF Reader</div>
+            <div class="mode-tab" id="tabConvert" onclick="switchMode('convert')">📄 Convert to PDF</div>
         </div>
 
-        <div id="readerSection" style="display:none;">
-            <div class="toolbar">
-                <button class="btn-nav" onclick="prevPage()">◀ Prev</button>
-                <span class="page-info"><span id="currentPage">1</span> / <span id="totalPages">1</span></span>
-                <button class="btn-nav" onclick="nextPage()">Next ▶</button>
-                <button class="btn-zoom" onclick="zoomOut()">🔍−</button>
-                <button class="btn-zoom" onclick="zoomIn()">🔍+</button>
-                <button class="btn-dl" onclick="downloadOriginal()">⬇ Download</button>
-                <button class="btn-fs" onclick="toggleFullscreen()">⛶ Full</button>
+        <!-- READER MODE -->
+        <div id="readMode">
+            <div class="upload-card" id="uploadCard" onclick="document.getElementById('fileInput').click()">
+                <input type="file" id="fileInput" accept=".pdf,application/pdf" onchange="loadPDF(event)">
+                <i class="fa-solid fa-file-pdf"></i>
+                <h3>📂 Tap to Open a PDF File</h3>
+                <p>or drag & drop anywhere — processed entirely on your device</p>
             </div>
-            <div class="pdf-container" id="pdfContainer">
-                <div class="pdf-placeholder"><i class="fa-solid fa-file-pdf"></i><p>Loading PDF...</p></div>
+
+            <div id="readerSection" style="display:none;">
+                <div class="toolbar">
+                    <button class="btn-nav" onclick="prevPage()">◀ Prev</button>
+                    <span class="page-info"><span id="currentPage">1</span> / <span id="totalPages">1</span></span>
+                    <button class="btn-nav" onclick="nextPage()">Next ▶</button>
+                    <button class="btn-zoom" onclick="zoomOut()">🔍−</button>
+                    <button class="btn-zoom" onclick="zoomIn()">🔍+</button>
+                    <button class="btn-dl" onclick="downloadOriginal()">⬇ Download</button>
+                    <button class="btn-fs" onclick="toggleFullscreen()">⛶ Full</button>
+                </div>
+                <div class="pdf-container" id="pdfContainer">
+                    <div class="pdf-placeholder"><i class="fa-solid fa-file-pdf"></i><p>Loading PDF...</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONVERT MODE -->
+        <div id="convertMode" style="display:none;">
+            <div class="convert-card">
+                <h3>📄 Convert Any File to PDF</h3>
+                <div class="convert-upload" onclick="document.getElementById('convertInput').click()">
+                    <input type="file" id="convertInput" accept=".doc,.docx,.txt,.rtf,.jpg,.jpeg,.png,.gif,.bmp,.webp" onchange="handleConvertFile(event)">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p>Tap to Select a File</p>
+                    <span>Word (.doc, .docx) | Text (.txt, .rtf) | Images (.jpg, .png, .gif, .webp)</span>
+                </div>
+                <button class="convert-btn" onclick="convertToPDF()"><i class="fa-solid fa-file-pdf"></i> Convert to PDF</button>
+                <div class="convert-status" id="convertStatus"></div>
             </div>
         </div>
     </div>
 
     <!-- ENHANCED EDUCATIONAL CONTENT -->
-    <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-        <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the PDF Reader</h2>
-        <p>ColdMatrix PDF Reader is a fast, private way to view any PDF file directly in your browser — no software installation, no upload to any server, and no tracking. It works perfectly on mobile, tablet, and desktop, so you can check contracts, reports, or scanned documents on the go.</p>
+    <div class="detail-section">
+        <h2>📖 Complete Guide to PDF Reader & Converter</h2>
+        <p>ColdMatrix PDF Reader & Converter is a powerful dual-purpose tool that lets you view any PDF file and convert common document formats into professional PDF files. Whether you're reviewing contracts, creating reports, or sharing documents, this tool handles everything with speed and precision.</p>
 
-        <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Complete Feature List</h3>
-        <ul style="padding-left:20px;">
+        <h3>PDF Reader Features</h3>
+        <ul>
             <li><strong>Open & View:</strong> Load any PDF file instantly from your device.</li>
             <li><strong>Page Navigation:</strong> Move between pages with Previous/Next buttons.</li>
             <li><strong>Zoom Controls:</strong> Zoom in and out for comfortable reading.</li>
             <li><strong>Fullscreen Mode:</strong> Read without distractions.</li>
             <li><strong>Download Original:</strong> Save the original PDF back to your device anytime.</li>
             <li><strong>Drag & Drop:</strong> Simply drag a PDF file onto the page to open it.</li>
-            <li><strong>100% Private:</strong> Files never leave your device — no upload to any server.</li>
         </ul>
 
-        <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Where PDF Reading Is Used</h3>
-        <ul style="padding-left:20px;">
-            <li><strong>Business:</strong> Reviewing contracts, invoices, and reports.</li>
-            <li><strong>Education:</strong> Reading textbooks, research papers, and assignments.</li>
+        <h3>PDF Converter Features</h3>
+        <ul>
+            <li><strong>Word to PDF:</strong> Convert .doc and .docx files into PDF format.</li>
+            <li><strong>Text to PDF:</strong> Convert .txt and .rtf files into clean PDF documents.</li>
+            <li><strong>Image to PDF:</strong> Convert JPG, PNG, GIF, BMP, and WebP images into PDF.</li>
+            <li><strong>Instant Conversion:</strong> Files are processed immediately in your browser.</li>
+            <li><strong>No Quality Loss:</strong> Images and text retain their original quality.</li>
+        </ul>
+
+        <h3>Where PDF Tools Are Used</h3>
+        <ul>
+            <li><strong>Business:</strong> Reviewing contracts, invoices, and creating reports.</li>
+            <li><strong>Education:</strong> Reading textbooks, research papers, and submitting assignments.</li>
             <li><strong>Legal:</strong> Checking agreements and court documents.</li>
-            <li><strong>Personal:</strong> Viewing e-books, manuals, and scanned documents.</li>
+            <li><strong>Personal:</strong> Viewing e-books, manuals, and converting photos to PDF.</li>
+            <li><strong>Remote Work:</strong> Sharing documents across teams and devices.</li>
         </ul>
 
-        <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
-        <p><strong>Is my PDF uploaded anywhere?</strong> No — it opens and renders entirely on your own device, keeping your documents private.</p>
-        <p><strong>Does it work on mobile?</strong> Yes, fully responsive and works on all devices.</p>
-        <p><strong>Can I read password-protected PDFs?</strong> Basic password protection may work if the password is entered. Complex encryption may require desktop software.</p>
-        <p><strong>Need to merge, split, or compress PDFs?</strong> Check our <a href="pdf-toolkit.html" style="color:#FFD700;">PDF Toolkit</a>.</p>
+        <h3>Why PDF Format Matters</h3>
+        <p>PDF (Portable Document Format) is the universal standard for document sharing because it preserves formatting, fonts, images, and layout across all devices and operating systems. A PDF created on Windows looks identical on Mac, Android, iPhone, or any other platform. This makes PDF the preferred format for contracts, resumes, invoices, and official documents.</p>
+
+        <h3>Common Questions</h3>
+        <p><strong>Can I convert a Word document to PDF?</strong><br>Yes, simply switch to the "Convert to PDF" tab and select your .doc or .docx file.</p>
+        <p><strong>Can I convert an image to PDF?</strong><br>Yes, the converter supports JPG, PNG, GIF, BMP, and WebP formats.</p>
+        <p><strong>Does it work on mobile?</strong><br>Yes, fully responsive and works on all devices including smartphones and tablets.</p>
+        <p><strong>Can I read password-protected PDFs?</strong><br>Basic password protection may work if the password is entered. Complex encryption may require desktop software.</p>
+        <p><strong>Is there a file size limit?</strong><br>Large files may take longer to process. For very large PDFs, we recommend using the PDF Toolkit for compression.</p>
+
+        <h3>Tips for Best Results</h3>
+        <ul>
+            <li><strong>Use high-quality images:</strong> When converting images to PDF, ensure the source image is clear and high resolution.</li>
+            <li><strong>Check page orientation:</strong> For documents, make sure the content fits properly in portrait or landscape mode.</li>
+            <li><strong>Keep original files:</strong> Always maintain backups of your original documents before conversion.</li>
+            <li><strong>Use zoom for small text:</strong> The zoom controls help you read fine print comfortably.</li>
+        </ul>
+
+        <p><strong>Disclaimer:</strong> This tool provides general document viewing and conversion features. For critical legal or business documents, always verify the converted output meets your requirements.</p>
+    </div>
+
+    <div class="lead-capture">
+        <h3>🚀 Need a Custom Document Tool?</h3>
+        <p>Get tailored PDF solutions, document automation, or business tools. Leave your email and we'll reach out with a free consultation.</p>
+        <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="email" name="email" placeholder="Your work email" required>
+            <button type="submit">Request Custom Tool</button>
+        </form>
     </div>
 
     <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         let pdfDoc=null,currentPage=1,scale=1.5,totalPages=0,originalFile=null;
+        let convertFile=null;
+
+        function switchMode(mode) {
+            document.getElementById('tabRead').classList.toggle('active', mode === 'read');
+            document.getElementById('tabConvert').classList.toggle('active', mode === 'convert');
+            document.getElementById('readMode').style.display = mode === 'read' ? 'block' : 'none';
+            document.getElementById('convertMode').style.display = mode === 'convert' ? 'block' : 'none';
+        }
 
         async function loadPDF(event){
             const file=event.target.files[0];
@@ -241,18 +427,119 @@
         function downloadOriginal(){if(originalFile){const url=URL.createObjectURL(originalFile);const a=document.createElement('a');a.href=url;a.download=originalFile.name;a.click();URL.revokeObjectURL(url);}}
         function toggleFullscreen(){const el=document.getElementById('pdfContainer');if(!document.fullscreenElement){el.requestFullscreen();}else{document.exitFullscreen();}}
 
+        function handleConvertFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            convertFile = file;
+            document.getElementById('convertStatus').textContent = '✓ File selected: ' + file.name;
+            document.getElementById('convertStatus').style.color = '#0A7A3A';
+        }
+
+        async function convertToPDF() {
+            if (!convertFile) {
+                document.getElementById('convertStatus').textContent = '⚠ Please select a file first.';
+                document.getElementById('convertStatus').style.color = '#B30000';
+                return;
+            }
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+            const file = convertFile;
+            const fileExt = file.name.split('.').pop().toLowerCase();
+            const statusEl = document.getElementById('convertStatus');
+
+            statusEl.textContent = '⏳ Converting...';
+            statusEl.style.color = '#0A0F14';
+
+            try {
+                if (['jpg','jpeg','png','gif','bmp','webp'].includes(fileExt)) {
+                    const imgData = await readAsDataURL(file);
+                    const img = new Image();
+                    await new Promise(resolve => { img.onload = resolve; img.src = imgData; });
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    const imgRatio = img.width / img.height;
+                    const pageRatio = pageWidth / pageHeight;
+                    let renderWidth, renderHeight;
+                    if (imgRatio > pageRatio) {
+                        renderWidth = pageWidth - 20;
+                        renderHeight = renderWidth / imgRatio;
+                    } else {
+                        renderHeight = pageHeight - 20;
+                        renderWidth = renderHeight * imgRatio;
+                    }
+                    const x = (pageWidth - renderWidth) / 2;
+                    const y = (pageHeight - renderHeight) / 2;
+                    pdf.addImage(imgData, 'JPEG', x, y, renderWidth, renderHeight);
+                } else if (['txt','rtf','doc','docx'].includes(fileExt)) {
+                    const text = await readAsText(file);
+                    const lines = text.split('\n');
+                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    let y = 15;
+                    pdf.setFontSize(12);
+                    lines.forEach(line => {
+                        if (y > pageHeight - 15) {
+                            pdf.addPage();
+                            y = 15;
+                        }
+                        pdf.text(15, y, line);
+                        y += 6;
+                    });
+                } else {
+                    statusEl.textContent = '⚠ Unsupported file type.';
+                    statusEl.style.color = '#B30000';
+                    return;
+                }
+                pdf.save(file.name.replace(/\.[^.]+$/, '') + '.pdf');
+                statusEl.textContent = '✓ PDF created successfully!';
+                statusEl.style.color = '#0A7A3A';
+            } catch (err) {
+                statusEl.textContent = '⚠ Error during conversion: ' + err.message;
+                statusEl.style.color = '#B30000';
+            }
+        }
+
+        function readAsDataURL(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function readAsText(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsText(file);
+            });
+        }
+
         const uploadCard=document.getElementById('uploadCard');
         uploadCard.addEventListener('dragover',e=>{e.preventDefault();uploadCard.style.borderColor='#FFD700';});
         uploadCard.addEventListener('dragleave',()=>{uploadCard.style.borderColor='';});
         uploadCard.addEventListener('drop',e=>{e.preventDefault();uploadCard.style.borderColor='';const file=e.dataTransfer.files[0];if(file&&file.type==='application/pdf'){document.getElementById('fileInput').files=e.dataTransfer.files;loadPDF({target:{files:[file]}});}});
 
-        let dp;const ib=document.getElementById('installBarTool');
-        window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;ib.style.display='block';});
-        function installAppTool(){if(dp){dp.prompt();dp.userChoice.then(()=>{ib.style.display='none';});}else{alert('📱 Add to Home Screen via browser menu.');}}
+        let deferredPrompt;
+        const installBar=document.getElementById('installBarTool');
+        window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBar.style.display='block';});
+        function installAppTool(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{installBar.style.display='none';});}else{alert('📱 Add to Home Screen via browser menu.');}}
         if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
 
-        function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('ColdMatrix PDF Reader: '+location.href));}
-        function copyToolLink(){navigator.clipboard.writeText(location.href).then(()=>alert('Link copied!'));}
+        function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Check out this PDF Reader & Converter from ColdMatrix Tools! '+location.href));}
+        function copyToolLink(){navigator.clipboard.writeText(location.href).then(()=>alert('Link copied!')).catch(()=>alert(location.href));}
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ColdMatrix PDF Reader & Converter",
+      "url": "https://coldmatrixtools.com/pdf-reader.html",
+      "applicationCategory": "UtilityApplication",
+      "description": "Free online PDF reader and converter. Open, view, and read any PDF instantly. Convert Word documents, text files, and images into professional PDF format.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
     </script>
     <script type="application/ld+json">
     {
@@ -261,26 +548,26 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Are ColdMatrix tools free to use?",
+          "name": "Can I convert a Word document to PDF?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+            "text": "Yes, simply switch to the Convert to PDF tab and select your .doc or .docx file."
           }
         },
         {
           "@type": "Question",
-          "name": "How accurate are ColdMatrix calculators?",
+          "name": "Can I convert an image to PDF?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+            "text": "Yes, the converter supports JPG, PNG, GIF, BMP, and WebP formats."
           }
         },
         {
           "@type": "Question",
-          "name": "Does ColdMatrix store my data?",
+          "name": "Does it work on mobile?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+            "text": "Yes, fully responsive and works on all devices including smartphones and tablets."
           }
         }
       ]

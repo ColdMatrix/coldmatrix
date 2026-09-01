@@ -11,7 +11,7 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ROI Calculator – Return on Investment & Profit Sharing | ColdMatrix</title>
+  <title>ROI Calculator – Return on Investment & Profit Sharing | ColdMatrix Tools</title>
   <meta name="description" content="Calculate return on investment for bank deposits, running business, working partner, sleeping partner, and project based scenarios. Free multi-currency ROI tool with full guide.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
@@ -24,6 +24,9 @@
   <meta name="twitter:description" content="Calculate return on investment for bank deposits, running business, working partner, sleeping partner, and project based scenarios.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/roi_calculator.jpg">
   <meta name="theme-color" content="#0A0F14">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -34,8 +37,9 @@
       --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
       --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --accent2:#2196F3;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
-      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      /* Consistent shining medium grey (solid, no gradient) */
+      --silver-bg: #C8CDD4;
+      --silver-bg-hover: #D5D9DE;
       --dark-silver:#4a4d55; --whatsapp-green:#25D366;
       --success:#34D399; --danger:#FF6B6B;
     }
@@ -47,7 +51,7 @@
     .container { max-width: 900px; margin:0 auto; padding:0 24px; }
     .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
@@ -56,7 +60,14 @@
     .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:6px; }
     h1 span { color: var(--gold-bright); }
-    .subtitle { color:var(--muted); margin-bottom:24px; }
+    /* Improved subtitle – clear, larger, white with subtle gold glow */
+    .subtitle {
+      color: #EAEDF0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.6), 0 0 8px rgba(212,175,55,0.3);
+    }
 
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
@@ -72,7 +83,7 @@
       padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
       background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
     }
-    .share-tool-btn:hover { border-color:#E8B93A; }
+    .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
 
     .card {
@@ -94,23 +105,40 @@
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
 
+    /* Calculate button – solid shining grey with gold border, no gradient */
     .btn-calc {
-      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
-      padding:16px; border-radius:12px; font-weight:800; font-size:1.1rem; cursor:pointer; margin-top:8px;
-      letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      width:100%;
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border:2px solid var(--gold);
+      padding:16px;
+      border-radius:12px;
+      font-weight:800;
+      font-size:1.1rem;
+      cursor:pointer;
+      margin-top:8px;
+      letter-spacing:0.5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition: background 0.2s, box-shadow 0.2s;
     }
-    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); }
+    .btn-calc:hover {
+      background: var(--silver-bg-hover);
+      border-color: var(--gold-bright);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4), 0 0 18px var(--gold-glow);
+    }
 
     .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
     .result-item {
-      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:12px;
-      padding:16px; text-align:center;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      background: var(--silver-bg);
+      border:1px solid var(--gold-bright);
+      border-radius:12px;
+      padding:16px;
+      text-align:center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     .result-item .val { font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:800; color:#0A0F14; }
     .result-item .lbl { font-size:0.75rem; color:#111; font-weight:700; text-transform:uppercase; }
-    .result-item.highlight { background:linear-gradient(145deg,#d9f5e5,#a8e6cf); border-color:var(--success); grid-column:1/-1; }
+    .result-item.highlight { background: linear-gradient(145deg,#d9f5e5,#a8e6cf); border-color:var(--success); grid-column:1/-1; }
     .result-item.highlight .val { font-size:1.6rem; }
 
     .report-label { font-weight:700; margin-top:20px; color:#fff; }
@@ -118,8 +146,12 @@
     .action-btn {
       padding:10px 12px; border:none; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.85rem;
       display:flex; align-items:center; justify-content:center; gap:8px; text-transform:uppercase;
-      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border:2px solid var(--gold);
+      transition: background 0.2s;
     }
+    .action-btn:hover { background: var(--silver-bg-hover); }
     .whatsapp-action { background:#25D366 !important; border:none !important; color:#fff !important; }
     .pdf-action { background:#0077B5 !important; border:none !important; color:#fff !important; }
     .jpg-action { background:#6C5CE7 !important; border:none !important; color:#fff !important; }
@@ -127,9 +159,10 @@
 
     .contact-note { margin-top:20px; padding:14px 12px; background:rgba(33,150,243,0.1); border:1px dashed var(--gold); border-radius:12px; text-align:center; color:#fff; font-size:0.85rem; word-break:break-word; }
 
+    /* Educational content – solid shining grey background, no gradient */
     .detail-section {
       margin-top:40px; padding:30px 24px;
-      background: var(--silver-gradient);
+      background: var(--silver-bg);
       border:2px solid var(--gold);
       border-radius:16px;
       line-height:1.8; font-size:0.95rem; color:#0A0F14;
@@ -144,8 +177,63 @@
     .detail-section th, .detail-section td { border:1px solid rgba(0,0,0,0.2); padding:10px 12px; text-align:left; font-size:0.9rem; }
     .detail-section th { background:rgba(0,0,0,0.05); font-weight:700; }
 
+    .lead-capture {
+      background: rgba(15,22,32,0.9);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 28px 24px;
+      margin: 30px 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .lead-capture h3 {
+      font-family: 'Oswald', sans-serif;
+      color: var(--gold-bright);
+      font-size: 1.25rem;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+    .lead-capture p {
+      color: #c5cdd6;
+      margin-bottom: 18px;
+      font-size: 0.9rem;
+    }
+    .lead-capture form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .lead-capture input[type="email"] {
+      background: #0e1520;
+      border: 1.5px solid rgba(212,175,55,0.6);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .lead-capture input[type="email"]:focus {
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 12px rgba(212,175,55,0.3);
+    }
+    .lead-capture button {
+      background: var(--silver-bg);
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #0A0F14;
+      cursor: pointer;
+      transition: background 0.25s;
+      letter-spacing: 0.5px;
+    }
+    .lead-capture button:hover {
+      background: var(--silver-bg-hover);
+      box-shadow: 0 0 20px rgba(212,175,55,0.5);
+    }
+
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--gold-bright); text-decoration:none; }
+    footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
     @media (max-width:600px){ .row2,.row3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .action-buttons{grid-template-columns:1fr;} }
@@ -373,6 +461,18 @@
       <p><strong>Q: Does this tool store my data?</strong><br>A: No. All calculations happen locally in your browser.</p>
       <p><strong>Q: Is annualized ROI different from total ROI?</strong><br>A: Yes. Annualized ROI shows average return per year, making it easier to compare investments of different periods.</p>
     </div>
+
+    <!-- LEAD CAPTURE (natural fit) -->
+    <div class="lead-capture">
+      <h3>🚀 Need a Custom Financial Tool?</h3>
+      <p>Get tailored calculators, dashboards, or automation for your business. Leave your email and we'll reach out with a free consultation.</p>
+      <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="email" name="email" placeholder="Your work email" required>
+        <button type="submit">Request Custom Tool</button>
+      </form>
+    </div>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
@@ -459,17 +559,127 @@
       document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
     }
 
-    function shareROI(){ window.open('https://wa.me/?text=' + encodeURIComponent('📈 ROI Report from ColdMatrix Tools')); }
-    function downloadROI(t){ alert('Download feature ready for PDF/JPG/PNG — ' + t); }
-    function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this ROI Calculator from ColdMatrix Tools! ' + window.location.href)); }
-    function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')); }
+    async function captureCanvas() {
+      return await html2canvas(document.getElementById('resultCard'), {backgroundColor:'#12181F', scale:2});
+    }
 
-    let d; const bar = document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
-    window.installAppTool = function(){ if(d){ d.prompt(); } else { alert('📱 Add to Home Screen via browser menu.'); } };
+    async function shareROI(){
+      const canvas = await captureCanvas();
+      canvas.toBlob(async (blob)=>{
+        const file = new File([blob], 'ROI-Report.png', {type:'image/png'});
+        if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+          try{ await navigator.share({ files:[file], title:'ROI Report', text:'📈 ROI Report from ColdMatrix Tools' }); }catch(e){}
+        } else {
+          const link = document.createElement('a'); link.download='ROI-Report.png'; link.href = canvas.toDataURL('image/png'); link.click();
+          window.open('https://wa.me/?text=' + encodeURIComponent('📈 ROI Report from ColdMatrix Tools'), '_blank');
+        }
+      });
+    }
+
+    async function downloadROI(type){
+      const canvas = await captureCanvas();
+      if(type === 'pdf'){
+        const { jsPDF } = window.jspdf;
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const pdf = new jsPDF({ orientation: canvas.width > canvas.height ? 'l':'p', unit:'px', format:[canvas.width, canvas.height] });
+        pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+        pdf.save('ColdMatrix-ROI-Report.pdf');
+      } else {
+        const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
+        const link = document.createElement('a');
+        link.download = 'ColdMatrix-ROI-Report.' + type;
+        link.href = canvas.toDataURL(mime, 0.95);
+        link.click();
+      }
+    }
+
+    function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this ROI Calculator from ColdMatrix Tools! ' + window.location.href)); }
+    function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); }); }
+
+    let deferredPrompt;
+    const installBar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt = e; installBar.style.display='block'; });
+    window.installAppTool = function(){
+      if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(()=>{ installBar.style.display='none'; }); }
+      else { alert('📱 Add to Home Screen via browser menu.'); }
+    };
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
 
     updateTypeFields();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix ROI Calculator",
+    "url": "https://coldmatrixtools.com/roi-calculator.html",
+    "applicationCategory": "FinanceApplication",
+    "description": "Calculate return on investment for bank deposits, running business, working partner, sleeping partner, and project based scenarios.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is ROI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ROI (Return on Investment) measures the profitability of an investment as a percentage of the amount invested. Formula: (Net Profit / Total Investment) x 100."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is annualized ROI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Annualized ROI converts the total return to an average yearly percentage, making it easier to compare investments of different time periods."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a good ROI for a small business?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "20-40% annually is considered good for active small businesses. Passive investments should aim for 10-20%."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Calculate ROI with ColdMatrix",
+    "description": "Calculate return on investment for bank deposits, running business, working partner, sleeping partner, and project based scenarios.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Select Investment Type",
+        "text": "Choose from bank deposit, running business, working partner, sleeping partner, or project based investment."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Enter Details",
+        "text": "Fill in the required fields such as investment amount, profit share, salary, or expected return."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Set Period and Currency",
+        "text": "Specify the investment period (months, years, days) and currency."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "View Results",
+        "text": "Click Calculate ROI to see total invested, total return, net profit, ROI percentage, and annualized ROI."
+      }
+    ]
+  }
   </script>
 </body>
 </html>

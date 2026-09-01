@@ -11,7 +11,7 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ColdMatrix QR Business Card Generator — Free Digital Business Card</title>
+  <title>ColdMatrix QR Business Card Generator — Free Digital Business Card with QR Code</title>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
   <meta property="og:title" content="ColdMatrix QR Business Card Generator — Free Digital Business Card">
@@ -23,10 +23,13 @@
   <meta name="description" content="Create a scannable digital business card with a QR code that saves your contact straight to any phone. Free, shareable, downloadable.">
   <meta name="keywords" content="QR business card, digital business card generator, vCard QR code, contact QR code maker">
   <meta name="theme-color" content="#0A0F14">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -35,9 +38,8 @@
       --bg:#0B0F14; --surface:#12181F; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
       --gold-border:linear-gradient(145deg,#C8993A,#E8C96A 30%,#A07828 70%,#D4A843);
-      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
-      --grey-gradient:linear-gradient(180deg,#6b7280,#4b5563);
+      --silver-bg: #C8CDD4;
+      --silver-bg-hover: #D5D9DE;
       --whatsapp-green:#25D366;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -46,7 +48,7 @@
 
     .navbar { position:sticky; top:0; z-index:100; background:rgba(11,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:var(--gold-border) 1; }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; }
-    .logo { font-size:1.35rem; font-weight:800; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .logo { font-size:1.35rem; font-weight:800; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:22px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.9rem; }
     .nav-links a:hover { color:var(--gold-bright); }
@@ -60,18 +62,19 @@
     .install-bar button { background:#0A0F14; color:var(--gold-bright); border:none; padding:7px 20px; border-radius:6px; margin-left:12px; font-weight:700; cursor:pointer; }
 
     h1 { font-size:1.9rem; font-weight:800; margin-bottom:6px; }
-    .subtitle { color:var(--muted); margin-bottom:24px; }
+    h1 span { color: var(--gold-bright); }
+    .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; margin-bottom:24px; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
 
     .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:16px 18px; margin-bottom:22px; }
     .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; margin-bottom:12px; text-transform:uppercase; }
     .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:11px; border-radius:8px; font-weight:700; font-size:0.82rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); transition:all 0.25s; }
-    .share-tool-btn:hover { border-color:#E8B93A; }
+    .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
 
     .card { background:var(--surface); border:2px solid; border-image:var(--gold-border) 1; border-radius:14px; padding:24px; margin-bottom:22px; }
-    .card h2 { font-size:1rem; font-weight:700; margin-bottom:16px; color:var(--gold-bright); }
-    label { display:block; font-size:0.85rem; color:var(--gold-bright); margin-bottom:6px; font-weight:600; }
+    .card h2 { font-size:1rem; font-weight:700; margin-bottom:16px; color:var(--gold-bright); font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:0.5px; }
+    label { display:block; font-size:0.88rem; color:#FFFFFF; margin-bottom:6px; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
     input, select, textarea {
       width:100%; background:#1B232C;
       border:2px solid var(--gold); color:var(--text); padding:13px; border-radius:10px; font-size:0.95rem;
@@ -79,22 +82,22 @@
     }
     input:focus, select:focus, textarea:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
     .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
-    .btn-row { display:grid; grid-template-columns:1fr auto; gap:10px; margin-top:8px; }
+    .btn-row { display:grid; grid-template-columns:1fr auto; gap:10px; margin-top:8px; align-items:stretch; }
     .btn-calc {
-      background:var(--silver-gradient); color:#ffffff; border:2px solid var(--gold);
-      padding:15px 24px; border-radius:12px; font-weight:700; font-size:1rem; cursor:pointer;
-      text-shadow:0 1px 2px rgba(0,0,0,0.6);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
+      padding:15px 24px; border-radius:12px; font-weight:800; font-size:1rem; cursor:pointer;
+      letter-spacing:0.5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
       transition:all 0.25s ease;
     }
-    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
+    .btn-calc:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
     .btn-reset {
-      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
-      padding:15px 20px; border-radius:12px; font-weight:700; cursor:pointer;
-      text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
+      padding:15px 20px; border-radius:12px; font-weight:800; cursor:pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition:all 0.25s ease;
     }
-    .btn-reset:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); }
+    .btn-reset:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
     #bizCardPreview { background:linear-gradient(135deg,#0A0F14,#1B232C); border:2px solid var(--gold); border-radius:16px; padding:28px; display:none; margin-top:10px; }
     .bc-inner { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
@@ -102,18 +105,91 @@
     .bc-title { font-size:0.9rem; color:var(--accent); margin-bottom:8px; }
     .bc-detail { font-size:0.8rem; color:#c8d0d8; margin-bottom:3px; }
     .bc-qr { background:#fff; padding:10px; border-radius:12px; }
-    .bc-brand { font-size:0.7rem; color:var(--muted); margin-top:14px; letter-spacing:1px; }
+    .bc-brand { font-size:0.7rem; color:var(--gold-bright); margin-top:14px; letter-spacing:1px; font-weight:600; }
 
     .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
     .share-btn { display:flex; align-items:center; gap:7px; padding:11px 18px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer; border:none; color:#fff; text-transform:uppercase; }
     .share-whatsapp { background:var(--whatsapp-green); } .share-pdf { background:#E53935; } .share-jpg,.share-png { background:#545860; border:1px solid var(--gold); }
 
+    .detail-section {
+      margin-top:40px; padding:30px 24px;
+      background: var(--silver-bg);
+      border:2px solid var(--gold);
+      border-radius:16px;
+      line-height:1.8; font-size:0.95rem; color:#0A0F14;
+    }
+    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
+    .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
+    .detail-section ul, .detail-section ol { padding-left:24px; }
+    .detail-section li { margin-bottom:6px; }
+    .detail-section strong { color:#0A0F14; }
+
+    .lead-capture {
+      background: rgba(15,22,32,0.9);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 28px 24px;
+      margin: 30px 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .lead-capture h3 { font-family:'Oswald',sans-serif; color:var(--gold-bright); font-size:1.25rem; margin-bottom:14px; letter-spacing:0.5px; }
+    .lead-capture p { color:#c5cdd6; margin-bottom:18px; font-size:0.9rem; }
+    .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+    .lead-capture input[type="email"] { background:#0e1520; border:1.5px solid rgba(212,175,55,0.6); border-radius:8px; padding:12px 16px; color:#fff; font-size:0.95rem; outline:none; }
+    .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.3); }
+    .lead-capture button { background:var(--silver-bg); border:none; border-radius:8px; padding:12px 20px; font-weight:700; font-size:0.95rem; color:#0A0F14; cursor:pointer; transition:background 0.25s; letter-spacing:0.5px; }
+    .lead-capture button:hover { background:var(--silver-bg-hover); box-shadow:0 0 20px rgba(212,175,55,0.5); }
+
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:30px 0 20px; border-top:2px solid; border-image:var(--gold-border) 1; margin-top:40px; }
-    footer a { color:var(--accent); }
+    footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.3rem; text-decoration:none; }
 
     @media (max-width:600px){ .grid2{grid-template-columns:1fr;} .bc-inner{flex-direction:column;text-align:center;} .btn-row{grid-template-columns:1fr;} }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix QR Business Card Generator",
+    "url": "https://coldmatrixtools.com/qr-business-card.html",
+    "applicationCategory": "UtilityApplication",
+    "description": "Create a scannable digital business card with a QR code that saves your contact straight to any phone. Free, shareable, downloadable.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is this different from the QR Code Generator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This tool is purpose-built for business cards specifically, with layout and design options. The QR Code Generator is for general links, text, or WiFi codes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this on my printed business card?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Download the QR code and add it to your print design."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it work with all phones?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, any modern smartphone camera can scan the QR code and save the contact."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <nav class="navbar">
@@ -140,8 +216,8 @@
 
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
-    <h1>📱 ColdMatrix QR Business Card Generator</h1>
-    <p class="subtitle">Make a scannable digital business card — anyone can scan it to save your contact instantly.</p>
+    <h1>📱 ColdMatrix <span>QR Business Card Generator</span></h1>
+    <p class="subtitle">Create a professional digital business card with a scannable QR code — anyone can scan it with their phone camera to instantly save your name, phone, email, and company details. Perfect for networking, printed cards, email signatures, and digital sharing.</p>
 
     <div class="share-tool-card">
       <div class="share-tool-title">Share This Tool</div>
@@ -152,12 +228,12 @@
     </div>
 
     <div class="card">
-      <h2>Your Details</h2>
+      <h2>👤 Your Details</h2>
       <div class="grid2"><div><label>Full Name</label><input id="bcName" placeholder="Wasi Ahmed"></div><div><label>Job Title</label><input id="bcTitle" placeholder="Founder"></div></div>
       <div class="grid2"><div><label>Company</label><input id="bcCompany" placeholder="ColdMatrix Contracting"></div><div><label>Phone</label><input id="bcPhone" placeholder="+92 333 3228470"></div></div>
       <div class="grid2"><div><label>Email</label><input id="bcEmail" type="email" placeholder="you@email.com"></div><div><label>Website</label><input id="bcWebsite" placeholder="coldmatrixtools.com"></div></div>
       <div style="margin-bottom:14px;"><label>Address (optional)</label><input id="bcAddress" placeholder="City, Country"></div>
-      <div class="btn-row"><button class="btn-calc" onclick="generateCard()">Generate My QR Business Card</button><button class="btn-reset" onclick="window.location.reload()">🔄 Reset</button></div>
+      <div class="btn-row"><button class="btn-calc" onclick="generateCard()">📱 Generate My QR Business Card</button><button class="btn-reset" onclick="window.location.reload()">↺ Reset</button></div>
     </div>
 
     <div id="bizCardPreview">
@@ -183,39 +259,68 @@
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
 
-    <div class="card">
-      <h2>ℹ️ How it works</h2>
-      <p style="font-size:0.85rem;color:var(--muted);">Anyone who scans your QR code with their phone camera can save your full contact details directly to their phone — no app needed. Great for print cards, email signatures, or sharing digitally.</p>
+    <div class="detail-section">
+      <h2>📖 About the QR Business Card Generator</h2>
+      <p>Design a professional digital business card with a built-in scannable QR code — share your contact details instantly with anyone, no app required on their end. This tool creates a complete vCard (virtual contact card) that contains your name, job title, company, phone, email, website, and address in a single scannable code.</p>
+
+      <h3>Complete Feature List</h3>
+      <ul>
+        <li><strong>Digital Business Card:</strong> Create a complete vCard with name, title, company, phone, email, website, and address.</li>
+        <li><strong>QR Code Generation:</strong> Automatically generates a scannable QR code containing all your contact details.</li>
+        <li><strong>Download & Share:</strong> Export as PDF, JPG, or PNG, and share on WhatsApp.</li>
+        <li><strong>Print-Ready:</strong> Use on printed cards, email signatures, or digital profiles.</li>
+        <li><strong>Universal Compatibility:</strong> Works with all modern smartphone cameras — no special app needed.</li>
+        <li><strong>100% Free:</strong> No registration, no hidden fees, no watermarks.</li>
+      </ul>
+
+      <h3>Where QR Business Cards Are Used</h3>
+      <ul>
+        <li><strong>Networking Events:</strong> Share your contact instantly without physical cards.</li>
+        <li><strong>Email Signatures:</strong> Add a QR code to your email footer for one-tap contact saving.</li>
+        <li><strong>Printed Cards:</strong> Include QR on traditional business cards for quick saving.</li>
+        <li><strong>Social Media Profiles:</strong> Link your digital card in Instagram, LinkedIn, or Twitter bios.</li>
+        <li><strong>Conferences & Trade Shows:</strong> Quick contact exchange with potential clients and partners.</li>
+        <li><strong>Freelancers & Consultants:</strong> Share your professional details with clients effortlessly.</li>
+      </ul>
+
+      <h3>How It Works</h3>
+      <ol>
+        <li><strong>Enter Your Details:</strong> Fill in your name, title, company, phone, email, website, and address.</li>
+        <li><strong>Generate:</strong> Click the "Generate My QR Business Card" button.</li>
+        <li><strong>Preview:</strong> See your digital business card with the QR code instantly.</li>
+        <li><strong>Share or Download:</strong> Share on WhatsApp or download as PDF, JPG, or PNG.</li>
+        <li><strong>Scan to Save:</strong> Anyone who scans your QR code can save your contact directly to their phone.</li>
+      </ol>
+
+      <h3>Tips for an Effective Digital Business Card</h3>
+      <ul>
+        <li><strong>Use your full professional name:</strong> Avoid nicknames unless you're in a creative industry.</li>
+        <li><strong>Include a clear job title:</strong> This helps people understand what you do.</li>
+        <li><strong>Double-check your phone and email:</strong> These are the most important fields — verify them carefully.</li>
+        <li><strong>Add your website:</strong> A professional website or LinkedIn profile adds credibility.</li>
+        <li><strong>Keep it updated:</strong> Regenerate your QR code if your contact details change.</li>
+      </ul>
+
+      <h3>Common Questions</h3>
+      <p><strong>How is this different from the QR Code Generator?</strong><br>This tool is purpose-built for business cards specifically, with layout and design options. The <a href="qr-code-generator.html" style="color:#0A0F14; font-weight:700;">QR Code Generator</a> is for general links, text, or WiFi codes.</p>
+      <p><strong>Can I use this on my printed business card?</strong><br>Yes! Download the QR code and add it to your print design. The QR code works perfectly in print as long as it's at least 2cm × 2cm.</p>
+      <p><strong>Does it work with all phones?</strong><br>Yes, any modern smartphone camera can scan the QR code and save the contact — both iPhone and Android.</p>
+      <p><strong>Can I edit my card after generating?</strong><br>Yes, simply change the fields and click "Generate" again to update the QR code.</p>
+      <p><strong>Is there a limit on how many cards I can create?</strong><br>No limit — create as many cards as you need for different roles or businesses.</p>
+
+      <p><strong>Disclaimer:</strong> This tool creates standard vCard format QR codes. Always test the QR code with your own phone before printing large quantities.</p>
     </div>
-  </div>
 
-  <!-- ENHANCED EDUCATIONAL CONTENT -->
-  <div style="margin:10px 0;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.05rem;margin-bottom:10px;color:#D4AF37;">About the QR Business Card Studio</h2>
-    <p>Design a professional digital business card with a built-in scannable QR code — share your contact details instantly with anyone, no app required on their end.</p>
-
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#D4AF37;">Complete Feature List</h3>
-    <ul style="padding-left:20px;">
-      <li><strong>Digital Business Card:</strong> Create a complete vCard with name, title, company, phone, email, website, and address.</li>
-      <li><strong>QR Code Generation:</strong> Automatically generates a scannable QR code containing all your contact details.</li>
-      <li><strong>Download & Share:</strong> Export as PDF, JPG, or PNG, and share on WhatsApp.</li>
-      <li><strong>Print-Ready:</strong> Use on printed cards, email signatures, or digital profiles.</li>
-      <li><strong>100% Free:</strong> No registration, no hidden fees.</li>
-    </ul>
-
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#D4AF37;">Where QR Business Cards Are Used</h3>
-    <ul style="padding-left:20px;">
-      <li><strong>Networking Events:</strong> Share your contact instantly without physical cards.</li>
-      <li><strong>Email Signatures:</strong> Add a QR code to your email footer.</li>
-      <li><strong>Printed Cards:</strong> Include QR on traditional business cards for quick saving.</li>
-      <li><strong>Social Media Profiles:</strong> Link your digital card in bios.</li>
-      <li><strong>Conferences & Trade Shows:</strong> Quick contact exchange with potential clients.</li>
-    </ul>
-
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#D4AF37;">Common Questions</h3>
-    <p><strong>How is this different from the QR Code Generator?</strong> This tool is purpose-built for business cards specifically, with layout and design options; the <a href="qr-code-generator.html" style="color:#D4AF37;">QR Code Generator</a> is for general links, text, or WiFi codes.</p>
-    <p><strong>Can I use this on my printed business card?</strong> Yes! Download the QR code and add it to your print design.</p>
-    <p><strong>Does it work with all phones?</strong> Yes, any modern smartphone camera can scan the QR code and save the contact.</p>
+    <div class="lead-capture">
+      <h3>🚀 Need a Custom Business Solution?</h3>
+      <p>Get tailored tools, dashboards, or automation for your business. Leave your email and we'll reach out with a free consultation.</p>
+      <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="email" name="email" placeholder="Your work email" required>
+        <button type="submit">Request Custom Tool</button>
+      </form>
+    </div>
   </div>
 
   <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
@@ -289,39 +394,5 @@
     function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('QR Business Card Generator: '+location.href));}
     function copyToolLink(){navigator.clipboard.writeText(location.href).then(()=>alert('Link copied!')).catch(()=>{alert(location.href);});}
   </script>
-  
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-      }
-    }
-  ]
-}
-</script>
-
 </body>
 </html>

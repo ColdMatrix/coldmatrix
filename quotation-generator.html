@@ -11,19 +11,21 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ColdMatrix Quotation Generator — Professional Quotes in Seconds | ColdMatrix Tools</title>
-  <meta name="description" content="Create professional branded quotations with your logo, client details, line items, and totals. Download as PDF, JPG, or share on WhatsApp.">
+  <title>Quotation & Invoice Maker — Instant Quote and GST Invoice Generator | ColdMatrix</title>
+  <meta name="description" content="Create professional quotations and GST invoices with automatic calculations, tax, discount, and multi-currency support. Download as PDF, JPG, PNG or share on WhatsApp.">
+  <meta name="keywords" content="quotation maker, invoice maker, quote generator, invoice generator, GST invoice, VAT invoice, tax invoice maker, professional quotation, free quote maker, instant invoice creator, business invoice generator">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
-  <meta property="og:title" content="ColdMatrix Quotation Generator — Professional Quotes in Seconds">
-  <meta property="og:description" content="Create branded quotations with your logo, line items, and multiple currencies. Free, instant, and professional.">
+  <meta property="og:title" content="Quotation & Invoice Maker — Instant Quote and GST Invoice Generator">
+  <meta property="og:description" content="Create professional quotations and invoices with automatic tax, discount, and multi-currency calculations.">
   <meta property="og:url" content="https://coldmatrixtools.com/quotation-generator.html">
-  <meta property="og:image" content="https://coldmatrixtools.com/quotation_maker.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ColdMatrix Quotation Generator — Professional Quotes in Seconds">
-  <meta name="twitter:description" content="Create branded quotations with your logo, line items, and multiple currencies.">
-  <meta name="twitter:image" content="https://coldmatrixtools.com/quotation_maker.jpg">
+  <meta name="twitter:title" content="Quotation & Invoice Maker">
+  <meta name="twitter:description" content="Create professional quotations and invoices with automatic tax and discount calculations.">
   <meta name="theme-color" content="#0A0F14">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,11 +36,11 @@
   <style>
     :root {
       --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
-      --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --accent2:#2196F3;
+      --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
-      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
-      --dark-silver:#4a4d55; --whatsapp-green:#25D366;
+      --silver-bg: #C8CDD4;
+      --silver-bg-hover: #D5D9DE;
+      --whatsapp-green:#25D366;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -48,7 +50,7 @@
     .container { max-width: 900px; margin:0 auto; padding:0 24px; }
     .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
@@ -57,157 +59,199 @@
     .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:10px; font-weight:600; cursor:pointer; }
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
     h1 span { color: var(--gold-bright); }
-    .subtitle { color:var(--muted); margin-bottom:24px; }
+    .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; margin-bottom:24px; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
+
+    .mode-tabs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
+    .mode-tab {
+      padding:16px; border-radius:12px; font-weight:800; font-size:1rem; cursor:pointer; text-align:center;
+      border:2px solid var(--gold); color:#EAEDF0; background:var(--surface2); transition:all 0.25s;
+    }
+    .mode-tab.active { background:var(--silver-bg); color:#0A0F14; border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); }
 
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
       border:2px solid;
       border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
-      border-radius:12px;
-      padding:22px 20px;
-      margin-bottom:26px;
-      box-shadow:0 10px 34px rgba(0,0,0,0.55);
+      border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 10px 34px rgba(0,0,0,0.55);
     }
-    .share-tool-title { font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase; }
-    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:12px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     .share-tool-btn {
-      display:flex; align-items:center; justify-content:center; gap:9px;
-      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      padding:12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
       background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
       transition:all 0.25s ease;
     }
     .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
-    .share-tool-btn.wa:hover { border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-    .share-tool-btn i { font-size:1rem; }
 
-    .card {
-      background:var(--surface); border:1px solid var(--gold); border-radius:14px;
-      padding:24px; margin-bottom:20px; position:relative; overflow:hidden;
-      box-shadow:0 8px 30px rgba(0,0,0,0.5);
-    }
-    .card h2 {
-      font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600;
-      margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px;
-    }
+    .card { background:var(--surface); border:1px solid var(--gold); border-radius:14px; padding:24px; margin-bottom:20px; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
+    .card h2 { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600; margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px; }
 
     .field { margin-bottom:14px; }
-    .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
+    .field label { display:block; font-size:0.85rem; color:#FFFFFF; margin-bottom:5px; font-weight:700; }
     .field input, .field select, .field textarea {
       width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
-      padding:11px 13px; border-radius:10px; font-size:0.95rem;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+      padding:12px 14px; border-radius:10px; font-size:0.95rem;
     }
     .field input:focus, .field select:focus, .field textarea:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
-    .field select {
-      appearance:none; -webkit-appearance:none; -moz-appearance:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M2 2 L10 10 L18 2' fill='none' stroke='%23D4AF37' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat:no-repeat; background-position:right 14px center; background-size:20px 12px;
-      padding-right:44px;
-    }
-    .field select option { background:var(--surface2); color:var(--text); }
     .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
 
-    .items-table { width:100%; border-collapse:collapse; margin-bottom:12px; table-layout:fixed; }
-    .items-table th { text-align:left; font-size:0.78rem; color:var(--muted); padding:8px 6px; border-bottom:2px solid var(--gold); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
-    .items-table th:nth-child(1){width:42%} .items-table th:nth-child(2){width:13%} .items-table th:nth-child(3){width:18%} .items-table th:nth-child(4){width:18%} .items-table th:nth-child(5){width:9%}
-    .items-table td { padding:6px; vertical-align:middle; }
-    .items-table input { padding:9px 8px; font-size:0.85rem; width:100%; border:2px solid var(--gold); }
-    .row-total { font-weight:700; color:var(--accent); font-size:0.88rem; text-align:center; white-space:nowrap; padding-top:10px !important; }
-    .del-row { background:none; border:none; color:#F44336; font-size:1.1rem; cursor:pointer; padding:0; width:100%; text-align:center; }
-    .btn-add { background:var(--surface2); border:2px dashed var(--gold); color:var(--gold-bright); padding:10px 16px; border-radius:8px; font-weight:600; cursor:pointer; width:100%; margin-top:4px; }
-    .btn-add:hover { background:rgba(212,175,55,0.1); }
+    .instructions {
+      background: rgba(79,195,247,0.08); border: 1px solid rgba(79,195,247,0.3);
+      border-radius: 12px; padding: 16px 20px; margin-bottom: 18px;
+      font-size: 0.88rem; color: #D5DDE5; line-height: 1.7;
+    }
+    .instructions strong { color: var(--gold-bright); }
 
-    .totals-row { display:flex; gap:14px; align-items:flex-end; margin-top:14px; flex-wrap:wrap; }
+    .items-area {
+      background: var(--silver-bg); border: 2px solid var(--gold); border-radius: 14px;
+      padding: 18px; margin-bottom: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    .items-area h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1rem; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px; }
+    .item-block {
+      background: #FFFFFF; border: 2px solid var(--gold); border-radius: 12px;
+      padding: 14px; margin-bottom: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+    .item-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+    .item-serial { font-family:'Oswald',sans-serif; font-weight:700; font-size:0.9rem; color:#0A0F14; background:var(--gold); padding:3px 12px; border-radius:16px; letter-spacing:0.5px; }
+    .item-delete { background:none; border:none; color:#999999; font-size:1.2rem; cursor:pointer; font-weight:700; transition: color 0.2s ease; }
+    .item-delete:hover { color:#CC3333; }
+    .item-desc-row { margin-bottom:8px; }
+    .item-desc-row input {
+      width:100%; padding:11px 12px; font-size:0.9rem; border:2px solid var(--gold); border-radius:8px;
+      background:#FFFFFF; color:#0A0F14; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .item-desc-row input:focus { outline:none; border-color:var(--gold-bright); }
+    .item-qty-rate-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px; }
+    .item-qty-rate-row input {
+      width:100%; padding:10px 12px; font-size:0.9rem; border:2px solid var(--gold); border-radius:8px;
+      background:#FFFFFF; color:#0A0F14; text-align:center; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .item-qty-rate-row input:focus { outline:none; border-color:var(--gold-bright); }
+    .item-qty-rate-row label { display:block; font-size:0.7rem; font-weight:800; color:#0A0F14; text-transform:uppercase; letter-spacing:0.3px; margin-bottom:3px; text-align:center; }
+    .item-amount-row {
+      width:100%; padding:10px 12px; font-size:0.95rem; border:2px solid var(--gold-bright); border-radius:8px;
+      background:#E8F5E9; color:#0A0F14; text-align:center; font-weight:800; font-family:'Oswald',sans-serif;
+    }
+    .btn-add { background:#FFFFFF; border:2px dashed var(--gold); color:#0A0F14; padding:14px 16px; border-radius:10px; font-weight:800; cursor:pointer; width:100%; margin-top:8px; transition:all 0.25s; font-size:0.95rem; }
+    .btn-add:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); }
 
     .btn-calc {
-      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
-      padding:16px; border-radius:12px; font-weight:800; font-size:1.1rem; cursor:pointer; margin-top:14px;
-      text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3);
-      transition:all 0.25s ease;
+      width:100%; background:var(--silver-bg); color:#0A0F14; border:3px solid var(--gold);
+      padding:18px; border-radius:12px; font-weight:900; font-size:1.1rem; cursor:pointer; margin-top:8px;
+      letter-spacing:0.5px; box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
+      transition:all 0.25s ease; min-height:56px;
     }
-    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px rgba(212,175,55,0.6); transform:translateY(-2px); }
-
+    .btn-calc:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 25px var(--gold-glow); transform:translateY(-2px); }
     .btn-reset {
-      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
-      padding:14px 18px; border-radius:12px; font-weight:700; font-size:0.9rem; cursor:pointer;
-      white-space:nowrap; text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
-      transition:all 0.25s ease;
+      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
+      padding:14px 16px; border-radius:10px; font-weight:800; font-size:0.85rem; cursor:pointer;
+      white-space:nowrap; box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      transition:all 0.25s ease; align-self: stretch; min-height:56px;
     }
-    .btn-reset:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+    .btn-reset:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
-    #quotePreview { background:#fff; color:#111; border-radius:10px; padding:36px; margin-top:24px; display:none; font-family:'Inter',sans-serif; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
-    #quotePreview .q-head { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:3px solid #4FC3F7; padding-bottom:16px; margin-bottom:22px; flex-wrap:wrap; gap:12px; }
-    #quotePreview .q-brand { font-size:1.5rem; font-weight:800; color:#0A0F14; }
-    #quotePreview .q-brand span { color:#2196F3; }
-    #quotePreview .q-meta { text-align:right; font-size:0.85rem; color:#555; min-width:160px; }
-    #quotePreview .q-title { font-size:1.2rem; font-weight:700; letter-spacing:2px; color:#2196F3; margin-bottom:6px; text-transform:uppercase; }
-    #quotePreview .q-parties { margin-bottom:20px; font-size:0.9rem; }
-    #quotePreview .q-parties strong { display:block; color:#888; font-size:0.75rem; text-transform:uppercase; margin-bottom:4px; }
-    #quotePreview .q-parties span { font-weight:600; color:#111; }
-    #quotePreview table { width:100%; border-collapse:collapse; margin-bottom:20px; table-layout:fixed; }
-    #quotePreview th { background:#0A0F14; color:#fff; text-align:left; padding:10px 8px; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.5px; }
-    #quotePreview th:nth-child(1){width:42%} #quotePreview th:nth-child(2){width:13%} #quotePreview th:nth-child(3){width:20%} #quotePreview th:nth-child(4){width:25%}
-    #quotePreview td { padding:10px 8px; border-bottom:1px solid #eee; font-size:0.88rem; word-break:break-word; }
-    #quotePreview td:nth-child(2){text-align:center} #quotePreview td:nth-child(3){text-align:right} #quotePreview td:nth-child(4){text-align:right;font-weight:600;}
-    #quotePreview .q-totals { margin-left:auto; width:280px; }
-    #quotePreview .q-totals div { display:flex; justify-content:space-between; padding:6px 0; font-size:0.9rem; }
-    #quotePreview .q-totals .grand { font-weight:800; font-size:1.15rem; border-top:2px solid #0A0F14; margin-top:6px; padding-top:10px; color:#2196F3; }
-    #quotePreview .q-notes { margin-top:20px; font-size:0.8rem; color:#666; border-top:1px solid #eee; padding-top:14px; }
-    #quotePreview .q-footer { text-align:center; margin-top:24px; font-size:0.75rem; color:#999; }
+    #docPreview { background:#fff; color:#111; border-radius:10px; padding:36px; margin-top:24px; display:none; font-family:'Inter',sans-serif; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
+    #docPreview .q-head { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:3px solid #4FC3F7; padding-bottom:16px; margin-bottom:22px; flex-wrap:wrap; gap:12px; }
+    #docPreview .q-brand { font-size:1.5rem; font-weight:800; color:#0A0F14; }
+    #docPreview .q-meta { text-align:right; font-size:0.85rem; color:#555; min-width:160px; }
+    #docPreview .q-title { font-size:1.3rem; font-weight:800; letter-spacing:2px; color:#2196F3; margin-bottom:6px; text-transform:uppercase; }
+    #docPreview .q-parties { margin-bottom:20px; font-size:0.9rem; }
+    #docPreview .q-parties strong { display:block; color:#888; font-size:0.75rem; text-transform:uppercase; margin-bottom:4px; }
+    #docPreview table { width:100%; border-collapse:collapse; margin-bottom:20px; table-layout:fixed; }
+    #docPreview th { background:#0A0F14; color:#fff; text-align:left; padding:10px 8px; font-size:0.78rem; text-transform:uppercase; }
+    #docPreview th:nth-child(1){width:42%} #docPreview th:nth-child(2){width:13%} #docPreview th:nth-child(3){width:19%} #docPreview th:nth-child(4){width:26%}
+    #docPreview td { padding:10px 8px; border-bottom:1px solid #eee; font-size:0.88rem; word-break:break-word; }
+    #docPreview .q-totals { margin-left:auto; width:300px; }
+    #docPreview .q-totals div { display:flex; justify-content:space-between; padding:6px 0; font-size:0.9rem; }
+    #docPreview .q-totals .grand { font-weight:800; font-size:1.2rem; border-top:2px solid #0A0F14; margin-top:6px; padding-top:10px; color:#2196F3; }
+    #docPreview .q-notes { margin-top:20px; font-size:0.8rem; color:#666; border-top:1px solid #eee; padding-top:14px; }
+    #docPreview .q-footer { text-align:center; margin-top:24px; font-size:0.75rem; color:#999; }
 
-    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
-    .share-btn { display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px; font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
+    .share-bar { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px auto; max-width:500px; }
+    .share-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:14px 12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; border:none; text-decoration:none; color:#fff; width:100%; box-sizing:border-box; }
     .share-whatsapp { background:#25D366; }
     .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--dark-silver); color:#fff; border:1px solid var(--gold); }
+    .share-jpg, .share-png { background:#545860; color:#fff; border:1px solid var(--gold); }
+
+    .detail-section {
+      margin-top: 40px; padding: 30px 24px;
+      background: var(--silver-bg); border: 2px solid var(--gold); border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4); line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+    }
+    .detail-section h2 { font-family: 'Oswald', sans-serif; color: #0A0F14; font-size: 1.5rem; margin-bottom: 16px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+    .detail-section h3 { color: #0A0F14; font-size: 1.15rem; margin: 24px 0 10px; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom: 14px; }
+    .detail-section ul, .detail-section ol { padding-left: 24px; }
+    .detail-section li { margin-bottom: 6px; }
+    .detail-section strong { color: #0A0F14; }
 
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--gold-bright); text-decoration:none; }
+    footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.4rem; }
 
-    /* 📘 Detailed static info section */
-    .detail-section {
-      margin-top: 40px;
-      padding: 30px 24px;
-      background: var(--surface);
-      border: 1px solid var(--gold);
-      border-radius: 14px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-      line-height: 1.8;
-      font-size: 0.95rem;
-      color: var(--text);
+    @media (max-width:600px){ 
+      .grid2,.grid3{grid-template-columns:1fr;} 
+      .item-qty-rate-row{grid-template-columns:1fr 1fr; gap:6px;}
+      #docPreview{padding:18px;} 
+      #docPreview .q-head{flex-direction:column;gap:5px;} 
+      #docPreview .q-meta{text-align:left;} 
+      #docPreview .q-totals{width:100%;} 
+      .detail-section { padding: 10px 10px; } 
+      .btn-reset {
+    min-height: 80px !important;
+    height: 80px !important;
+    align-self: center !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
     }
-    .detail-section h2 {
-      font-family: 'Oswald', sans-serif;
-      color: var(--gold-bright);
-      font-size: 1.5rem;
-      margin-bottom: 16px;
-      border-bottom: 2px solid var(--gold);
-      padding-bottom: 10px;
-    }
-    .detail-section h3 {
-      color: var(--gold-bright);
-      font-size: 1.15rem;
-      margin: 24px 0 10px;
-    }
-    .detail-section p, .detail-section ul, .detail-section ol {
-      margin-bottom: 14px;
-    }
-    .detail-section ul, .detail-section ol {
-      padding-left: 24px;
-    }
-    .detail-section li {
-      margin-bottom: 6px;
-    }
-    .detail-section strong {
-      color: var(--gold-bright);
-    }
-
-    @media (max-width:600px){ .grid2{grid-template-columns:1fr;} #quotePreview{padding:18px;} #quotePreview .q-head{flex-direction:column;gap:10px;} #quotePreview .q-meta{text-align:left;} .items-table th{font-size:0.7rem;} #quotePreview .q-totals{width:100%;} .detail-section { padding: 20px 16px; } }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix Quotation & Invoice Maker",
+    "url": "https://coldmatrixtools.com/quotation-generator.html",
+    "applicationCategory": "BusinessApplication",
+    "description": "Create professional quotations and GST invoices with automatic calculations, tax, discount, and multi-currency support.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I create a GST invoice?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Switch to Invoice mode, enter your business details, client information, add items with quantities and rates, then set the GST percentage in the tax field."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the amount calculate automatically?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, as you type quantity and rate, the amount for each item and the grand total update instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this quotation maker free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, it is completely free with no registration, no watermarks, and no hidden fees."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <nav class="navbar">
@@ -216,7 +260,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
@@ -229,22 +273,27 @@
 
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
-    <h1><span>ColdMatrix</span> Quotation Generator</h1>
-    <p class="subtitle">Create professional, branded quotations with multiple currencies, line items, and totals — ready to download or share.</p>
+    <h1>📄 <span>ColdMatrix</span> Quotation & Invoice Maker</h1>
+    <p class="subtitle">Create professional quotations and GST invoices with automatic calculations. Type your items, see the totals update instantly, and download as PDF, JPG, PNG, or share on WhatsApp.</p>
 
     <div class="share-tool-card">
-      <div class="share-tool-title">Share Quotation Generator</div>
+      <div class="share-tool-title">Share Quotation & Invoice Maker</div>
       <div class="share-tool-buttons">
         <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
       </div>
     </div>
 
+    <div class="mode-tabs">
+      <button class="mode-tab active" id="tabQuote" onclick="switchMode('quote')">📋 Quotation</button>
+      <button class="mode-tab" id="tabInvoice" onclick="switchMode('invoice')">🧾 Invoice</button>
+    </div>
+
     <div class="card">
       <h2>🏢 Your Business Details</h2>
       <div class="grid2">
         <div class="field"><label>Business Name</label><input id="bizName" placeholder="Your Company Name" value="ColdMatrix Contracting" oninput="renderPreview()"></div>
-        <div class="field"><label>Business Contact (phone/email)</label><input id="bizContact" placeholder="+1 555 000 0000 / you@email.com" oninput="renderPreview()"></div>
+        <div class="field"><label>Business Contact</label><input id="bizContact" placeholder="+1 555 000 0000 / you@email.com" oninput="renderPreview()"></div>
       </div>
       <div class="field"><label>Business Address (optional)</label><input id="bizAddress" placeholder="City, Country" oninput="renderPreview()"></div>
     </div>
@@ -253,25 +302,30 @@
       <h2>👤 Client Details</h2>
       <div class="grid2">
         <div class="field"><label>Client Name</label><input id="clientName" placeholder="Client / Company Name" oninput="renderPreview()"></div>
-        <div class="field"><label>Quotation No.</label><input id="quoteNo" placeholder="Q-1001" value="Q-1001"></div>
+        <div class="field"><label id="docNoLabel">Quotation No.</label><input id="docNo" placeholder="Q-1001" value="Q-1001"></div>
       </div>
       <div class="grid2">
-        <div class="field"><label>Date</label><input id="quoteDate" type="date"></div>
-        <div class="field"><label>Valid Until</label><input id="quoteValid" type="date"></div>
+        <div class="field"><label>Date</label><input id="docDate" type="date"></div>
+        <div class="field" id="validField"><label>Valid Until</label><input id="docValid" type="date"></div>
       </div>
     </div>
 
-    <div class="card">
-      <h2>📋 Items</h2>
-      <table class="items-table" id="itemsTable">
-        <thead><tr><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th><th></th></tr></thead>
-        <tbody id="itemsBody"></tbody>
-      </table>
-      <button class="btn-add" onclick="addRow()">+ Add Item</button>
+    <div class="instructions">
+      <strong>👋 How it works:</strong> Each item is a separate block. Type the <strong>description</strong> on top, then enter <strong>quantity</strong> and <strong>rate</strong> below. The <strong>total amount calculates automatically</strong> and updates the live preview instantly. Click "+ Add Item" for more items.
+    </div>
 
-      <div class="totals-row">
-        <div class="field" style="flex:1;max-width:180px;"><label>Tax / GST (%)</label><input id="taxPct" type="number" value="0" oninput="renderPreview()"></div>
-        <div class="field" style="flex:1;max-width:200px;"><label>Quote Currency</label><select id="currencySym" onchange="renderPreview()">
+    <div class="items-area" id="itemsArea">
+      <h3>📋 Line Items</h3>
+      <div id="itemsContainer"></div>
+      <button class="btn-add" onclick="addItem()">+ Add Item</button>
+    </div>
+
+    <div class="card">
+      <h2>💰 Totals & Tax</h2>
+      <div class="grid3">
+        <div class="field"><label>Tax / GST / VAT (%)</label><input id="taxPct" type="number" value="0" oninput="renderPreview()"></div>
+        <div class="field"><label>Discount (%)</label><input id="discountPct" type="number" value="0" oninput="renderPreview()"></div>
+        <div class="field"><label>Currency</label><select id="currencySym" onchange="renderPreview()">
           <option value="PKR" selected>🇵🇰 PKR (Rs)</option>
           <option value="USD">🇺🇸 USD ($)</option>
           <option value="EUR">🇪🇺 EUR (€)</option>
@@ -283,58 +337,30 @@
           <option value="AUD">🇦🇺 AUD ($)</option>
         </select></div>
       </div>
-
-      <div class="grid2">
-        <div class="field">
-          <label>Base Currency (your rates are in)</label>
-          <select id="baseCurrency" onchange="renderPreview()">
-            <option value="PKR" selected>🇵🇰 PKR (Rs)</option>
-            <option value="USD">🇺🇸 USD ($)</option>
-            <option value="EUR">🇪🇺 EUR (€)</option>
-            <option value="GBP">🇬🇧 GBP (£)</option>
-            <option value="AED">🇦🇪 AED (د.إ)</option>
-            <option value="SAR">🇸🇦 SAR (ر.س)</option>
-            <option value="INR">🇮🇳 INR (₹)</option>
-            <option value="CNY">🇨🇳 CNY (¥)</option>
-            <option value="AUD">🇦🇺 AUD ($)</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Exchange Rate (1 base = ? quote)</label>
-          <div style="display:flex; gap:8px; align-items:center;">
-            <input id="exchangeRate" type="number" value="" step="any" oninput="renderPreview()" placeholder="e.g. 0.0036">
-            <button type="button" class="btn-reset" onclick="fetchLiveRate()">🌐 Fetch Live</button>
-          </div>
-        </div>
-      </div>
-      <div class="conversion-note" id="conversionNote" style="font-size:0.8rem;color:var(--gold-bright);margin-top:8px;"></div>
-
-      <div class="field"><label>Notes / Terms</label><textarea id="quoteNotes" rows="3" placeholder="e.g. 50% advance, balance on delivery. Valid for 15 days.">Prices are valid for 15 days. 50% advance required to confirm order.</textarea></div>
-
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn-calc" style="flex:2;" onclick="renderPreview()">Generate Quotation</button>
+      <div class="field"><label>Notes / Terms</label><textarea id="docNotes" rows="3" oninput="renderPreview()">Prices are valid for 15 days. 50% advance required to confirm order.</textarea></div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:stretch;">
+        <button class="btn-calc" style="flex:2;" onclick="renderPreview()">📄 Generate Document</button>
         <button class="btn-reset" style="flex:1;" onclick="saveProject()">💾 Save</button>
-        <button class="btn-reset" style="flex:1;" onclick="loadProject()">📂 Load</button>
-        <button class="btn-reset" style="flex:1;" onclick="resetQuotation()">🔄 Reset</button>
+        <button class="btn-reset" style="flex:1;" onclick="resetQuotation()">↺ Reset</button>
       </div>
     </div>
 
-    <div id="quotePreview">
+    <div id="docPreview">
       <div class="q-head">
         <div>
-          <div class="q-brand" id="pvBizName">ColdMatrix <span>Contracting</span></div>
+          <div class="q-brand" id="pvBizName">ColdMatrix Contracting</div>
           <div style="font-size:0.8rem;color:#666;margin-top:4px;" id="pvBizContact"></div>
           <div style="font-size:0.8rem;color:#666;" id="pvBizAddress"></div>
         </div>
         <div class="q-meta">
-          <div class="q-title">QUOTATION</div>
-          <div id="pvQuoteNo"></div>
-          <div id="pvQuoteDate"></div>
-          <div id="pvQuoteValid"></div>
+          <div class="q-title" id="pvDocTitle">QUOTATION</div>
+          <div id="pvDocNo"></div>
+          <div id="pvDocDate"></div>
+          <div id="pvDocValid"></div>
         </div>
       </div>
       <div class="q-parties">
-        <strong>Quotation For</strong>
+        <strong id="pvPartyLabel">Quotation For</strong>
         <span id="pvClientName"></span>
       </div>
       <table>
@@ -347,82 +373,63 @@
     </div>
 
     <div class="share-bar" id="shareBarWrap" style="display:none;">
-      <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Share on WhatsApp</button>
-      <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> Save as PDF</button>
+      <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
       <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
 
-    <!-- 📘 Comprehensive static information section (no tabs/dropdowns) -->
     <div class="detail-section">
-      <h2>📖 Complete Guide to Quotation Generator</h2>
-      <p>A quotation generator is a digital tool that helps businesses and freelancers create professional, itemised price quotes quickly and accurately. Instead of writing quotes by hand or using complex software, you simply enter your business details, client information, and line items, and the tool automatically calculates totals, taxes, and currency conversions. The result is a polished document ready to share or print.</p>
+      <h2>📖 Quotation & Invoice Maker — Complete Business Guide</h2>
+      <p>This dual-function tool helps businesses create professional quotations (quotes) and GST invoices in minutes. A quotation is a pre-sale document showing proposed prices. An invoice is a post-sale document requesting payment. Both include line items, quantities, rates, taxes, discounts, and totals — all calculated automatically as you type.</p>
 
-      <h3>What Exactly Is a Quotation Generator?</h3>
-      <p>A quotation generator (also called a quote maker or estimate builder) is a specialised calculator that assembles a formal pricing document. It typically includes fields for your company name, contact information, client details, a list of products or services with quantities and rates, and any applicable taxes. The tool then calculates the subtotal, tax, and grand total, and presents the information in a clean, professional layout.</p>
-      <p>Unlike a simple invoice maker, a quotation generator focuses on the pre‑sale stage—helping you communicate your proposed prices to a potential customer. Once the customer accepts, the quotation can often be converted into an invoice.</p>
+      <h3>What Is a Quotation?</h3>
+      <p>A quotation (also called quote, estimate, or bid) is a formal document listing proposed prices for products or services. It includes your business details, client information, itemised products with quantities and rates, and the total amount. Quotations typically have a validity period (e.g., 15 days) and become binding once accepted by the customer.</p>
 
-      <h3>Why Use a Quotation Generator?</h3>
+      <h3>What Is an Invoice?</h3>
+      <p>An invoice is a commercial document requesting payment for goods or services already delivered. It includes invoice number, date, line items, subtotal, discount, tax/GST/VAT, and grand total. Invoices are essential for accounting, tax filing, and payment tracking.</p>
+
+      <h3>Key Features</h3>
       <ul>
-        <li><strong>Professional appearance:</strong> Deliver branded, well‑structured quotes that build trust.</li>
-        <li><strong>Time savings:</strong> Generate a complete quote in under a minute.</li>
-        <li><strong>Accuracy:</strong> Automatic calculations reduce human error.</li>
-        <li><strong>Multi‑currency support:</strong> Convert prices instantly for international clients.</li>
-        <li><strong>Shareability:</strong> Export as PDF, JPG, or PNG, or share directly on WhatsApp.</li>
-        <li><strong>Privacy:</strong> All processing happens locally in your browser—no data is uploaded.</li>
+        <li><strong>Dual Functionality:</strong> Switch between Quotation and Invoice modes instantly.</li>
+        <li><strong>Automatic Calculations:</strong> Amounts update as you type quantity and rate.</li>
+        <li><strong>Tax / GST / VAT:</strong> Add percentage tax for GST-compliant invoices.</li>
+        <li><strong>Discount Support:</strong> Apply percentage discount before tax.</li>
+        <li><strong>Multi-Currency:</strong> 9 currencies — PKR, USD, EUR, GBP, AED, SAR, INR, CNY, AUD.</li>
+        <li><strong>Unlimited Items:</strong> Add as many items as needed.</li>
+        <li><strong>Save & Load:</strong> Store documents locally in your browser.</li>
+        <li><strong>Export:</strong> Download as PDF, JPG, or PNG.</li>
+        <li><strong>WhatsApp Sharing:</strong> Send documents directly to clients.</li>
       </ul>
 
-      <h3>Key Features of ColdMatrix Quotation Generator</h3>
-      <ul>
-        <li><strong>Business details:</strong> Add your company name, contact, and address.</li>
-        <li><strong>Client information:</strong> Capture client name, quote number, issue date, and validity.</li>
-        <li><strong>Line items:</strong> Add unlimited rows with description, quantity, and rate.</li>
-        <li><strong>Tax / GST:</strong> Include a percentage tax to reflect final pricing.</li>
-        <li><strong>Multiple currencies:</strong> Choose from PKR, USD, EUR, GBP, AED, SAR, INR, CNY, and AUD.</li>
-        <li><strong>Exchange rate conversion:</strong> Set a manual rate or fetch live rates automatically.</li>
-        <li><strong>Notes & terms:</strong> Add payment terms, delivery conditions, or special notes.</li>
-        <li><strong>Save & load:</strong> Store quotations in your browser for later editing.</li>
-        <li><strong>Export options:</strong> Download as PDF, JPG, or PNG with a single click.</li>
-        <li><strong>WhatsApp sharing:</strong> Send the quotation image directly to your client.</li>
-      </ul>
-
-      <h3>How to Use the ColdMatrix Quotation Generator</h3>
+      <h3>How to Use This Tool</h3>
       <ol>
-        <li><strong>Enter business details:</strong> Fill in your company name, contact, and address.</li>
-        <li><strong>Add client information:</strong> Type the client’s name and assign a quotation number.</li>
-        <li><strong>Set dates:</strong> Choose the issue date and a validity period (e.g., 15 days).</li>
-        <li><strong>Add items:</strong> Click “+ Add Item” and enter a description, quantity, and rate. The amount is calculated automatically.</li>
-        <li><strong>Adjust tax and currency:</strong> Enter a tax percentage, select the quote currency, and if needed, set an exchange rate or fetch live rates.</li>
-        <li><strong>Include notes:</strong> Add payment terms or any additional information.</li>
-        <li><strong>Generate the quotation:</strong> Click “Generate Quotation” to update the preview. You can see changes instantly as you type.</li>
-        <li><strong>Share or download:</strong> Use the buttons below the preview to save as PDF, JPG, PNG, or share on WhatsApp.</li>
+        <li>Select mode: Quotation or Invoice using the tabs.</li>
+        <li>Enter your business name, contact, and address.</li>
+        <li>Add client name and document number.</li>
+        <li>Each item is a separate block — type description, quantity, and rate.</li>
+        <li>The amount auto-calculates and updates the preview instantly.</li>
+        <li>Set tax %, discount %, and currency.</li>
+        <li>Add notes or payment terms.</li>
+        <li>Download or share using the buttons below.</li>
       </ol>
 
-      <h3>Tips for Creating Professional Quotations</h3>
+      <h3>Tips for Professional Documents</h3>
       <ul>
-        <li><strong>Always use a clear quotation number</strong> for tracking and reference.</li>
-        <li><strong>Add a validity period</strong> to encourage prompt decisions.</li>
-        <li><strong>Itemise everything</strong> — transparency builds trust.</li>
-        <li><strong>Mention payment terms</strong> (e.g., 50% advance, balance on delivery).</li>
-        <li><strong>Double‑check quantities and rates</strong> before sending.</li>
-        <li><strong>Include your contact details</strong> so the client can reach you easily.</li>
-        <li><strong>Use a professional tone</strong> and proofread your notes.</li>
+        <li>Always use a unique document number for tracking.</li>
+        <li>Add a validity period to encourage prompt decisions.</li>
+        <li>Itemise everything for transparency.</li>
+        <li>Mention payment terms clearly.</li>
+        <li>Double-check quantities and rates before sending.</li>
       </ul>
 
       <h3>Frequently Asked Questions</h3>
-      <p><strong>Is the Quotation Generator free to use?</strong><br>Yes, it is completely free with no hidden charges or watermarks. You can generate unlimited quotations.</p>
-      <p><strong>Can I save my quotation for later?</strong><br>Yes, click the “💾 Save” button. Your data is stored locally in your browser and can be loaded later.</p>
-      <p><strong>How do I add my logo?</strong><br>Currently, the generator uses your business name as the brand. You can replace it with a logo image if you wish to customise the preview further.</p>
-      <p><strong>Does the tool support different currencies?</strong><br>Yes, it supports 9 major currencies. You can also convert between them using the built‑in exchange rate feature.</p>
-      <p><strong>Is my data private?</strong><br>Absolutely. All calculations are done in your browser; nothing is uploaded to any server. Your information remains on your device.</p>
+      <p><strong>Is this tool free?</strong><br>Yes, 100% free with no registration, no watermarks, and no hidden fees.</p>
+      <p><strong>Can I create a GST invoice?</strong><br>Yes, switch to Invoice mode and use the Tax/GST field to add the required percentage.</p>
+      <p><strong>Does it auto-calculate?</strong><br>Yes, totals update automatically as you type quantities and rates.</p>
+      <p><strong>Can I add a discount?</strong><br>Yes, there's a dedicated Discount % field.</p>
 
-      <h3>Business Use Cases</h3>
-      <p>This quotation generator is ideal for contractors, freelancers, consultants, exporters, service providers, and small businesses. Whether you are quoting for construction work, IT services, graphic design, wholesale goods, or consulting, the tool adapts to your needs.</p>
-
-      <h3>Why Choose ColdMatrix Quotation Generator?</h3>
-      <p>Unlike heavy accounting software, ColdMatrix Quotation Generator is lightweight, intuitive, and accessible from any device. It combines essential features with a clean, modern interface, making it the perfect tool for everyday business quoting. And because it's free and private, you can use it with complete confidence.</p>
-
-      <p><strong>Disclaimer:</strong> This tool is provided for general business purposes. Please verify all figures and consult a professional accountant for legal or tax advice.</p>
+      <p><strong>Disclaimer:</strong> This tool provides document formatting assistance. Verify all figures and consult a professional accountant for legal or tax compliance.</p>
     </div>
   </div>
 
@@ -430,145 +437,117 @@
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
 
   <script>
-    let rowId = 0;
-    function addRow(desc, qty, rate){
-      rowId++;
-      const tbody = document.getElementById('itemsBody');
-      const tr = document.createElement('tr');
-      tr.id = 'row'+rowId;
-      tr.innerHTML = `<td><input placeholder="Item description" value="${desc||''}" oninput="renderPreview()"></td>
-        <td><input type="number" value="${qty||1}" min="0" step="any" oninput="renderPreview()" style="text-align:center;"></td>
-        <td><input type="number" value="${rate||0}" min="0" step="any" oninput="renderPreview()" style="text-align:right;"></td>
-        <td class="row-total" id="rt${rowId}">0.00</td>
-        <td><button class="del-row" onclick="document.getElementById('row${rowId}').remove(); renderPreview();">✕</button></td>`;
-      tbody.appendChild(tr);
+    let itemId = 0;
+    let currentMode = 'quote';
+
+    function switchMode(mode) {
+      currentMode = mode;
+      document.getElementById('tabQuote').classList.toggle('active', mode === 'quote');
+      document.getElementById('tabInvoice').classList.toggle('active', mode === 'invoice');
+      document.getElementById('docNoLabel').textContent = mode === 'quote' ? 'Quotation No.' : 'Invoice No.';
+      document.getElementById('validField').style.display = mode === 'quote' ? 'block' : 'none';
       renderPreview();
     }
-    addRow('PU Sandwich Panel Supply & Install', 100, 2500);
-    addRow('Cold Room Door & Accessories', 1, 350000);
 
-    function getConversionFactor() {
-      const base = document.getElementById('baseCurrency').value;
-      const quote = document.getElementById('currencySym').value;
-      const rate = parseFloat(document.getElementById('exchangeRate').value);
-      if (base !== quote && rate > 0) {
-        return rate;
-      }
-      return 1;
+    function addItem(desc, qty, rate) {
+      itemId++;
+      const container = document.getElementById('itemsContainer');
+      const block = document.createElement('div');
+      block.className = 'item-block';
+      block.id = 'item' + itemId;
+      block.innerHTML = `
+        <div class="item-header">
+          <span class="item-serial">ITEM ${itemId}</span>
+          <button class="item-delete" onclick="document.getElementById('item${itemId}').remove(); renumberItems(); renderPreview();" title="Delete item">✕</button>
+        </div>
+        <div class="item-desc-row">
+          <input type="text" placeholder="Type product or service description..." value="${desc||''}" oninput="renderPreview()">
+        </div>
+        <div class="item-qty-rate-row">
+          <div>
+            <label>Quantity</label>
+            <input type="number" value="${qty||1}" min="0" step="any" oninput="renderPreview()">
+          </div>
+          <div>
+            <label>Rate / Unit Price</label>
+            <input type="number" value="${rate||0}" min="0" step="any" oninput="renderPreview()">
+          </div>
+        </div>
+        <div class="item-amount-row" id="amt${itemId}">Total: 0.00</div>`;
+      container.appendChild(block);
+      renumberItems();
+      renderPreview();
     }
 
-    function renderPreview(){
+    function renumberItems() {
+      const blocks = document.querySelectorAll('.item-block');
+      blocks.forEach((block, index) => {
+        const serial = block.querySelector('.item-serial');
+        if (serial) serial.textContent = 'ITEM ' + (index + 1);
+      });
+    }
+
+    function renderPreview() {
       const symCode = document.getElementById('currencySym').value;
       const currencySymbols = { 'PKR':'Rs', 'USD':'$', 'EUR':'€', 'GBP':'£', 'AED':'د.إ', 'SAR':'ر.س', 'INR':'₹', 'CNY':'¥', 'AUD':'$' };
       const sym = currencySymbols[symCode] || symCode;
-      const factor = getConversionFactor();
       const taxPct = parseFloat(document.getElementById('taxPct').value) || 0;
+      const discountPct = parseFloat(document.getElementById('discountPct').value) || 0;
       let subtotal = 0;
       let pvRows = '';
-      document.querySelectorAll('#itemsBody tr').forEach(tr=>{
-        const inputs = tr.querySelectorAll('input');
-        const desc = inputs[0].value || '';
-        const qty = parseFloat(inputs[1].value) || 0;
-        const rawRate = parseFloat(inputs[2].value) || 0;
-        const rate = rawRate * factor;
+
+      document.querySelectorAll('.item-block').forEach((block, index) => {
+        const inputs = block.querySelectorAll('input');
+        const desc = inputs[0] ? inputs[0].value : '';
+        const qty = inputs[1] ? parseFloat(inputs[1].value) || 0 : 0;
+        const rate = inputs[2] ? parseFloat(inputs[2].value) || 0 : 0;
         const amt = qty * rate;
         subtotal += amt;
-        const rt = tr.querySelector('.row-total');
-        rt.textContent = sym + ' ' + amt.toLocaleString(undefined,{maximumFractionDigits:2});
-        if(desc || qty || rate) pvRows += `<tr><td>${desc}</td><td style="text-align:center;">${qty}</td><td style="text-align:right;">${sym} ${rate.toLocaleString(undefined,{maximumFractionDigits:2})}</td><td style="text-align:right;">${sym} ${amt.toLocaleString(undefined,{maximumFractionDigits:2})}</td></tr>`;
+        const amtEl = block.querySelector('.item-amount-row');
+        if (amtEl) amtEl.textContent = 'Total: ' + sym + ' ' + amt.toLocaleString(undefined,{maximumFractionDigits:2});
+        if (desc || qty || rate) {
+          pvRows += `<tr><td>${desc || '—'}</td><td style="text-align:center;">${qty}</td><td style="text-align:right;">${sym} ${rate.toLocaleString(undefined,{maximumFractionDigits:2})}</td><td style="text-align:right;font-weight:600;">${sym} ${amt.toLocaleString(undefined,{maximumFractionDigits:2})}</td></tr>`;
+        }
       });
-      const tax = subtotal * (taxPct/100);
-      const grand = subtotal + tax;
 
-      document.getElementById('pvBizName').innerHTML = (document.getElementById('bizName').value || 'Your Business');
+      const discount = subtotal * (discountPct/100);
+      const afterDiscount = subtotal - discount;
+      const tax = afterDiscount * (taxPct/100);
+      const grand = afterDiscount + tax;
+
+      document.getElementById('pvBizName').textContent = document.getElementById('bizName').value || 'Your Business';
       document.getElementById('pvBizContact').textContent = document.getElementById('bizContact').value;
       document.getElementById('pvBizAddress').textContent = document.getElementById('bizAddress').value;
       document.getElementById('pvClientName').textContent = document.getElementById('clientName').value || '—';
-      document.getElementById('pvQuoteNo').textContent = 'No: ' + (document.getElementById('quoteNo').value || '—');
-      document.getElementById('pvQuoteDate').textContent = 'Date: ' + (document.getElementById('quoteDate').value || '—');
-      document.getElementById('pvQuoteValid').textContent = document.getElementById('quoteValid').value ? ('Valid until: ' + document.getElementById('quoteValid').value) : '';
+      document.getElementById('pvDocTitle').textContent = currentMode === 'quote' ? 'QUOTATION' : 'INVOICE';
+      document.getElementById('pvPartyLabel').textContent = currentMode === 'quote' ? 'Quotation For' : 'Invoice To';
+      document.getElementById('pvDocNo').textContent = (currentMode === 'quote' ? 'No: ' : 'Invoice No: ') + (document.getElementById('docNo').value || '—');
+      document.getElementById('pvDocDate').textContent = 'Date: ' + (document.getElementById('docDate').value || '—');
+      document.getElementById('pvDocValid').textContent = (currentMode === 'quote' && document.getElementById('docValid').value) ? ('Valid until: ' + document.getElementById('docValid').value) : '';
       document.getElementById('pvItemsBody').innerHTML = pvRows || '<tr><td colspan="4" style="color:#999;text-align:center;">No items added yet</td></tr>';
       document.getElementById('pvTotals').innerHTML =
         `<div><span>Subtotal</span><span>${sym} ${subtotal.toLocaleString(undefined,{maximumFractionDigits:2})}</span></div>` +
-        (taxPct ? `<div><span>Tax (${taxPct}%)</span><span>${sym} ${tax.toLocaleString(undefined,{maximumFractionDigits:2})}</span></div>` : '') +
+        (discountPct ? `<div><span>Discount (${discountPct}%)</span><span>-${sym} ${discount.toLocaleString(undefined,{maximumFractionDigits:2})}</span></div>` : '') +
+        (taxPct ? `<div><span>Tax/GST (${taxPct}%)</span><span>${sym} ${tax.toLocaleString(undefined,{maximumFractionDigits:2})}</span></div>` : '') +
         `<div class="grand"><span>Total</span><span>${sym} ${grand.toLocaleString(undefined,{maximumFractionDigits:2})}</span></div>`;
-      document.getElementById('pvNotes').textContent = document.getElementById('quoteNotes').value;
+      document.getElementById('pvNotes').textContent = document.getElementById('docNotes').value;
 
-      const base = document.getElementById('baseCurrency').value;
-      const quote = document.getElementById('currencySym').value;
-      const rate = document.getElementById('exchangeRate').value;
-      const noteEl = document.getElementById('conversionNote');
-      if (base !== quote && rate > 0) {
-        noteEl.textContent = `💱 Converting from ${base} to ${quote} at rate 1 ${base} = ${rate} ${quote}`;
-      } else if (base !== quote) {
-        noteEl.textContent = `⚠️ Set exchange rate to convert ${base} → ${quote}, or click "Fetch Live"`;
-      } else {
-        noteEl.textContent = '';
-      }
-
-      document.getElementById('quotePreview').style.display = 'block';
-      document.getElementById('shareBarWrap').style.display = 'flex';
-    }
-
-    async function fetchLiveRate() {
-      const base = document.getElementById('baseCurrency').value;
-      const quote = document.getElementById('currencySym').value;
-      if (base === quote) {
-        alert('Base and quote currency are the same. No conversion needed.');
-        document.getElementById('exchangeRate').value = '';
-        renderPreview();
-        return;
-      }
-      const btn = event.target;
-      btn.textContent = '⏳ Fetching...';
-      try {
-        const res = await fetch(`https://open.er-api.com/v6/latest/${base}`);
-        const data = await res.json();
-        const rate = data.rates && data.rates[quote];
-        if (rate) {
-          document.getElementById('exchangeRate').value = rate.toFixed(4);
-          renderPreview();
-        } else {
-          alert('Could not fetch rate. Please enter manually.');
-        }
-      } catch (e) {
-        alert('Network error. Please enter exchange rate manually.');
-      }
-      btn.textContent = '🌐 Fetch Live';
+      document.getElementById('docPreview').style.display = 'block';
+      document.getElementById('shareBarWrap').style.display = 'grid';
     }
 
     function saveProject() {
-      const inputs = document.querySelectorAll('input, select, textarea');
       const data = {};
-      inputs.forEach(el => {
-        if (el.id) data[el.id] = el.value;
+      document.querySelectorAll('input, select, textarea').forEach(el => { if (el.id) data[el.id] = el.value; });
+      const items = [];
+      document.querySelectorAll('.item-block').forEach(block => {
+        const ins = block.querySelectorAll('input');
+        items.push({ desc: ins[0].value, qty: ins[1].value, rate: ins[2].value });
       });
-      const rows = [];
-      document.querySelectorAll('#itemsBody tr').forEach(tr => {
-        const ins = tr.querySelectorAll('input');
-        rows.push({ desc: ins[0].value, qty: ins[1].value, rate: ins[2].value });
-      });
-      data['itemsRows'] = JSON.stringify(rows);
+      data['items'] = JSON.stringify(items);
+      data['mode'] = currentMode;
       localStorage.setItem('coldmatrix_quotation', JSON.stringify(data));
-      alert('✅ Quotation saved!');
-    }
-    function loadProject() {
-      const saved = localStorage.getItem('coldmatrix_quotation');
-      if (!saved) { alert('No saved quotation found.'); return; }
-      try {
-        const data = JSON.parse(saved);
-        Object.keys(data).forEach(key => {
-          if (key === 'itemsRows') return;
-          const el = document.getElementById(key);
-          if (el) el.value = data[key];
-        });
-        document.getElementById('itemsBody').innerHTML = '';
-        rowId = 0;
-        const rows = JSON.parse(data.itemsRows || '[]');
-        rows.forEach(r => addRow(r.desc, r.qty, r.rate));
-        renderPreview();
-        alert('✅ Quotation loaded!');
-      } catch(e) { alert('Error loading quotation.'); }
+      alert('✅ Document saved!');
     }
 
     function resetQuotation() {
@@ -576,24 +555,25 @@
       document.getElementById('bizContact').value = '';
       document.getElementById('bizAddress').value = '';
       document.getElementById('clientName').value = '';
-      document.getElementById('quoteNo').value = 'Q-1001';
-      document.getElementById('quoteDate').value = '';
-      document.getElementById('quoteValid').value = '';
+      document.getElementById('docNo').value = 'Q-1001';
+      document.getElementById('docDate').value = new Date().toISOString().split('T')[0];
+      const validDate = new Date();
+      validDate.setDate(validDate.getDate() + 15);
+      document.getElementById('docValid').value = validDate.toISOString().split('T')[0];
       document.getElementById('taxPct').value = 0;
+      document.getElementById('discountPct').value = 0;
       document.getElementById('currencySym').value = 'PKR';
-      document.getElementById('baseCurrency').value = 'PKR';
-      document.getElementById('exchangeRate').value = '';
-      document.getElementById('quoteNotes').value = 'Prices are valid for 15 days. 50% advance required to confirm order.';
-      document.getElementById('itemsBody').innerHTML = '';
-      rowId = 0;
-      addRow('PU Sandwich Panel Supply & Install', 100, 2500);
-      addRow('Cold Room Door & Accessories', 1, 350000);
+      document.getElementById('docNotes').value = 'Prices are valid for 15 days. 50% advance required to confirm order.';
+      document.getElementById('itemsContainer').innerHTML = '';
+      itemId = 0;
+      addItem('PU Sandwich Panel Supply & Install', 100, 2500);
+      addItem('Cold Room Door & Accessories', 1, 350000);
       renderPreview();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     async function captureCanvas(){
-      const el = document.getElementById('quotePreview');
+      const el = document.getElementById('docPreview');
       return await html2canvas(el, {backgroundColor:'#ffffff', scale:2});
     }
     async function downloadResult(type){
@@ -603,11 +583,11 @@
         const imgData = canvas.toDataURL('image/jpeg', 0.95);
         const pdf = new jsPDF({ orientation: canvas.width > canvas.height ? 'l':'p', unit:'px', format:[canvas.width, canvas.height] });
         pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
-        pdf.save((document.getElementById('quoteNo').value || 'ColdMatrix-Quotation') + '.pdf');
+        pdf.save((document.getElementById('docNo').value || 'ColdMatrix-Document') + '.pdf');
       } else {
         const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
         const link = document.createElement('a');
-        link.download = (document.getElementById('quoteNo').value || 'ColdMatrix-Quotation') + '.' + type;
+        link.download = (document.getElementById('docNo').value || 'ColdMatrix-Document') + '.' + type;
         link.href = canvas.toDataURL(mime, 0.95);
         link.click();
       }
@@ -615,12 +595,12 @@
     async function shareWhatsApp(){
       const canvas = await captureCanvas();
       canvas.toBlob(async (blob)=>{
-        const file = new File([blob], 'ColdMatrix-Quotation.png', {type:'image/png'});
+        const file = new File([blob], 'ColdMatrix-Document.png', {type:'image/png'});
         if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
-          try{ await navigator.share({ files:[file], title:'Quotation', text:'Here is our quotation.' }); }catch(e){}
+          try{ await navigator.share({ files:[file], title: currentMode === 'quote' ? 'Quotation' : 'Invoice', text:'Here is our document.' }); }catch(e){}
         } else {
           const link = document.createElement('a');
-          link.download = 'ColdMatrix-Quotation.png';
+          link.download = 'ColdMatrix-Document.png';
           link.href = canvas.toDataURL('image/png');
           link.click();
           window.open('https://wa.me/?text=' + encodeURIComponent('Thank you so much for using and trusting ColdMatrix Tools — your 24/7 business companion.\n📧 contact@coldmatrixtools.com  |  💬 +92 333 3228470'), '_blank');
@@ -637,53 +617,20 @@
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
 
     function shareToolWhatsApp(){
-      const text = encodeURIComponent('Check out this professional Quotation Generator from ColdMatrix Tools! ' + window.location.href);
+      const text = encodeURIComponent('Check out this professional Quotation & Invoice Maker from ColdMatrix Tools! ' + window.location.href);
       window.open('https://wa.me/?text='+text, '_blank');
     }
     function copyToolLink(){
       navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
     }
 
-    // Initialize date fields
-    document.getElementById('quoteDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('docDate').value = new Date().toISOString().split('T')[0];
     const validDate = new Date();
     validDate.setDate(validDate.getDate() + 15);
-    document.getElementById('quoteValid').value = validDate.toISOString().split('T')[0];
+    document.getElementById('docValid').value = validDate.toISOString().split('T')[0];
 
-    renderPreview();
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Are ColdMatrix tools free to use?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How accurate are ColdMatrix calculators?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does ColdMatrix store my data?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-        }
-      }
-    ]
-  }
+    addItem('PU Sandwich Panel Supply & Install', 100, 2500);
+    addItem('Cold Room Door & Accessories', 1, 350000);
   </script>
 </body>
 </html>

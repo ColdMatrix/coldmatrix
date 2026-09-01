@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ColdMatrix Stopwatch & Timer — Free Online Chronograph</title>
-    <meta name="description" content="Free online stopwatch and countdown timer with lap tracking. Perfect for sports, cooking, workouts, presentations, and classroom activities.">
+    <title>ColdMatrix Stopwatch & Timer — Free Online Chronograph with Lap Tracking</title>
+    <meta name="description" content="Precision online stopwatch and countdown timer with lap tracking, millisecond accuracy, and preset buttons. Perfect for sports, cooking, workouts, presentations, and classroom activities. Free and works offline.">
     <meta property="og:title" content="ColdMatrix Stopwatch & Timer — Free Online Chronograph">
     <meta property="og:description" content="Precision stopwatch with lap tracking and countdown timer. Free, no ads, works offline.">
     <meta property="og:url" content="https://coldmatrixtools.com/stopwatch-timer.html">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#0A0F14">
     <link rel="canonical" href="https://coldmatrixtools.com/stopwatch-timer.html">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +32,8 @@
             --gold-text-gradient: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #B8860B 100%);
             --whatsapp-green:#25D366;
             --neon-glow: 0 0 20px rgba(212,175,55,0.5), 0 0 40px rgba(212,175,55,0.3);
+            /* Solid silver for educational content */
+            --solid-silver: #C8CDD4;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         html, body { overflow-x: hidden; }
@@ -64,7 +69,15 @@
         .timer-icon { display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; background:var(--silver-dark-bg); border:2px solid var(--gold); border-radius:50%; font-size:1.5rem; color:var(--gold-bright); box-shadow:0 4px 16px rgba(212,175,55,0.35); }
         .brand-title { font-family:'Oswald',sans-serif; font-size:2rem; color:#fff; }
         .brand-title span { color:var(--accent); }
-        .subtitle { color:var(--muted); font-size:0.95rem; }
+        /* Improved subtitle: full sentence, larger, white */
+        .subtitle {
+            color:#EAEDF0;
+            font-size:1rem;
+            font-weight:500;
+            margin:10px auto 0;
+            max-width:600px;
+            text-shadow:0 1px 2px rgba(0,0,0,0.6);
+        }
 
         /* Premium silver card for non-display elements */
         .premium-card {
@@ -124,27 +137,64 @@
             overflow: hidden;
             color: #fff;
         }
-        .time-display {
-            font-family:'Oswald',monospace; font-size:5rem; font-weight:700;
+        /* Stable time display with separate boxes */
+        .time-display-boxes {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 3.5rem;
+            color: var(--silver-bright);
+            line-height: 1;
+            flex-wrap: nowrap;
+        }
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0,0,0,0.2);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            padding: 10px 12px;
+            min-width: 80px;
+        }
+        .time-box span:first-child {
+            font-size: 3.2rem;
+            font-weight: 700;
             background: var(--silver-text-gradient);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
             color: var(--silver-bright);
-            letter-spacing:3px; line-height:1;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.5));
         }
-        .time-display.running {
-            animation: timePulse 1s ease-in-out infinite;
+        .time-unit {
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            color: var(--gold-bright);
+            text-transform: uppercase;
+            margin-top: 4px;
         }
+        .time-colon {
+            font-size: 3rem;
+            color: var(--gold-bright);
+            margin: 0 2px;
+        }
+        .ms-box span:first-child { font-size: 2.5rem; }
+        .time-display-boxes.running .time-box span:first-child { animation: timePulse 1s ease-in-out infinite; }
         @keyframes timePulse {
-            0%,100% { filter: drop-shadow(0 0 8px rgba(255,255,255,0.4)); }
-            50% { filter: drop-shadow(0 0 20px rgba(255,215,0,0.8)); }
+            0%,100% { filter: drop-shadow(0 0 6px rgba(255,255,255,0.5)); }
+            50% { filter: drop-shadow(0 0 16px rgba(255,215,0,0.9)); }
         }
-        .time-ms { font-size:2rem; color:var(--gold-bright); }
         .time-label { font-size:0.85rem; color:var(--gold-bright); margin-top:6px; font-weight:600; letter-spacing:1px; }
 
-        .timer-progress-card .time-display { font-size:3.5rem; }
+        .timer-progress-card .time-display-boxes { font-size: 2.8rem; }
+        .timer-progress-card .time-box { min-width: 60px; padding: 8px 10px; }
+        .timer-progress-card .time-box span:first-child { font-size: 2.5rem; }
+        .timer-progress-card .time-colon { font-size: 2.2rem; }
+
         .progress-bar-container {
             width:100%; height:12px; background:#2A3540;
             border-radius:20px; margin-top:20px; overflow:hidden;
@@ -168,7 +218,7 @@
         .timer-inputs input:focus { border-color:var(--gold-bright); outline:none; box-shadow:0 0 16px rgba(212,175,55,0.3); }
         .timer-inputs label { display:block; text-align:center; font-size:0.75rem; color:#333; margin-top:6px; text-transform:uppercase; font-weight:700; letter-spacing:1px; }
 
-        /* PRESET BUTTONS — clean horizontal row, not long vertical */
+        /* PRESET BUTTONS */
         .preset-row {
             display: flex;
             flex-wrap: wrap;
@@ -198,7 +248,7 @@
             transform: translateY(-2px);
         }
 
-        /* MAIN CONTROL BUTTONS — large and prominent */
+        /* MAIN CONTROL BUTTONS */
         .btn-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px; }
         .btn {
             padding: 16px 10px;
@@ -242,11 +292,11 @@
         .lap-item .lap-time { color:#0A0F14; font-family:'Oswald',monospace; }
         .no-laps { color:#333; font-size:0.8rem; text-align:center; padding:10px; }
 
-        /* Detail section */
+        /* Detail section — solid single colour background, no gradient */
         .detail-section {
             margin-top: 40px;
             padding: 30px 24px;
-            background: var(--silver-medium-bg);
+            background: var(--solid-silver);
             border: 2px solid var(--gold);
             border-radius: 16px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.4);
@@ -272,12 +322,48 @@
         .detail-section li { margin-bottom: 6px; }
         .detail-section strong { color: #0A0F14; }
 
+        .lead-capture {
+            background: rgba(15,22,32,0.9);
+            border: 2px solid var(--gold);
+            border-radius: 14px;
+            padding: 28px 24px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .lead-capture h3 {
+            font-family: 'Oswald', sans-serif;
+            color: var(--gold-bright);
+            font-size: 1.25rem;
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
+        .lead-capture p { color:#c5cdd6; margin-bottom:18px; font-size:0.9rem; }
+        .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+        .lead-capture input[type="email"] {
+            background:#0e1520; border:1.5px solid rgba(212,175,55,0.6); border-radius:8px;
+            padding:12px 16px; color:#fff; font-size:0.95rem; outline:none;
+        }
+        .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.3); }
+        .lead-capture button {
+            background: var(--solid-silver);
+            border:none; border-radius:8px; padding:12px 20px;
+            font-weight:700; font-size:0.95rem; color:#0A0F14; cursor:pointer;
+            transition: background 0.25s; letter-spacing:0.5px;
+        }
+        .lead-capture button:hover { background:#D5D9DE; box-shadow:0 0 20px rgba(212,175,55,0.5); }
+
         footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:20px 0; margin-top:20px; }
         footer a { color:var(--accent); }
 
         @media (max-width:500px) {
-            .time-display { font-size:3.2rem; }
-            .timer-progress-card .time-display { font-size:2.5rem; }
+            .time-display-boxes { font-size:2.5rem; gap:4px; }
+            .time-box { min-width:55px; padding:6px 8px; }
+            .time-box span:first-child { font-size:2.2rem; }
+            .time-colon { font-size:2rem; }
+            .ms-box span:first-child { font-size:1.8rem; }
+            .timer-progress-card .time-display-boxes { font-size:2rem; }
+            .timer-progress-card .time-box { min-width:45px; }
+            .timer-progress-card .time-box span:first-child { font-size:1.8rem; }
             .btn-row { grid-template-columns:1fr 1fr; }
             .preset-row { flex-wrap: wrap; }
             .preset-btn { flex:1 1 auto; }
@@ -299,7 +385,7 @@
                 <span class="timer-icon">⏱️</span>
                 <h1 class="brand-title">Cold<span>Matrix</span></h1>
             </div>
-            <p class="subtitle">Stopwatch & Timer — Free Online Chronograph</p>
+            <p class="subtitle">Precision online stopwatch and countdown timer with lap tracking, millisecond accuracy, and one‑tap presets — perfect for sports, cooking, workouts, presentations, and classroom activities. Free, private, and works offline.</p>
         </div>
 
         <div class="share-tool-card">
@@ -318,8 +404,15 @@
         <!-- STOPWATCH -->
         <div id="stopwatchMode">
             <div class="display-card premium-card">
-                <div class="time-display" id="stopwatchDisplay">00:00:00<span class="time-ms">.00</span></div>
-                <div class="time-label">HOURS : MINUTES : SECONDS</div>
+                <div class="time-display-boxes" id="stopwatchDisplay">
+                    <div class="time-box"><span id="swHours">00</span><span class="time-unit">HRS</span></div>
+                    <span class="time-colon">:</span>
+                    <div class="time-box"><span id="swMinutes">00</span><span class="time-unit">MIN</span></div>
+                    <span class="time-colon">:</span>
+                    <div class="time-box"><span id="swSeconds">00</span><span class="time-unit">SEC</span></div>
+                    <div class="time-box ms-box"><span id="swCentiseconds">00</span><span class="time-unit">1/100</span></div>
+                </div>
+                <div class="time-label">HOURS : MINUTES : SECONDS : CENTISECONDS</div>
             </div>
             <div class="btn-row">
                 <button class="btn btn-start" id="swStart" onclick="swStart()">▶ Start</button>
@@ -346,7 +439,14 @@
             </div>
 
             <div class="timer-progress-card premium-card">
-                <div class="time-display" id="timerDisplay">00:05:00<span class="time-ms">.00</span></div>
+                <div class="time-display-boxes" id="timerDisplay">
+                    <div class="time-box"><span id="tmHours">00</span><span class="time-unit">HRS</span></div>
+                    <span class="time-colon">:</span>
+                    <div class="time-box"><span id="tmMinutes">00</span><span class="time-unit">MIN</span></div>
+                    <span class="time-colon">:</span>
+                    <div class="time-box"><span id="tmSeconds">00</span><span class="time-unit">SEC</span></div>
+                    <div class="time-box ms-box"><span id="tmCentiseconds">00</span><span class="time-unit">1/100</span></div>
+                </div>
                 <div class="time-label" id="timerStatus">Ready</div>
                 <div class="progress-bar-container">
                     <div class="progress-bar-fill" id="timerProgressBar" style="width:100%;"></div>
@@ -431,168 +531,250 @@
 
             <p><strong>Disclaimer:</strong> This tool is provided for general time measurement purposes. Always double-check critical timings with a dedicated physical timer if extreme accuracy is required.</p>
         </div>
+
+        <!-- LEAD CAPTURE -->
+        <div class="lead-capture">
+            <h3>🚀 Need a Custom Tool for Your Business?</h3>
+            <p>Get tailored calculators, dashboards, or automation solutions. Leave your email and we'll reach out with a free consultation.</p>
+            <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="email" name="email" placeholder="Your work email" required>
+                <button type="submit">Request Custom Tool</button>
+            </form>
+        </div>
     </div>
 
     <footer>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</footer>
 
     <script>
-        let swInterval=null,swRunning=false,swStartTime=0,swElapsed=0,lapCount=0;
-        let tmInterval=null,tmRunning=false,tmRemaining=0,tmTotal=0;
+        // ---------------- STOPWATCH ----------------
+        let swInterval = null;
+        let swRunning = false;
+        let swStartTime = 0;    // timestamp when started (or resumed)
+        let swAccumulated = 0;  // accumulated time before last start
+        let lapCount = 0;
 
-        function formatTime(ms){
-            const h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000),s=Math.floor((ms%60000)/1000),cs=Math.floor((ms%1000)/10);
-            return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}<span class="time-ms">.${String(cs).padStart(2,'0')}</span>`;
+        function swUpdateDisplay(ms) {
+            const h = Math.floor(ms / 3600000);
+            const m = Math.floor((ms % 3600000) / 60000);
+            const s = Math.floor((ms % 60000) / 1000);
+            const cs = Math.floor((ms % 1000) / 10);
+            document.getElementById('swHours').textContent = String(h).padStart(2, '0');
+            document.getElementById('swMinutes').textContent = String(m).padStart(2, '0');
+            document.getElementById('swSeconds').textContent = String(s).padStart(2, '0');
+            document.getElementById('swCentiseconds').textContent = String(cs).padStart(2, '0');
         }
 
-        function swStart(){
-            const btn=document.getElementById('swStart');
-            if(swRunning){
-                swRunning=false; clearInterval(swInterval);
-                swElapsed=Date.now()-swStartTime;
-                btn.textContent='▶ Resume'; btn.className='btn btn-start';
-                document.getElementById('swLap').disabled=true;
+        function swStart() {
+            const btn = document.getElementById('swStart');
+            if (swRunning) {
+                // Pause
+                swRunning = false;
+                clearInterval(swInterval);
+                swAccumulated += Date.now() - swStartTime;
+                btn.textContent = '▶ Resume';
+                btn.className = 'btn btn-start';
+                document.getElementById('swLap').disabled = true;
                 document.getElementById('stopwatchDisplay').classList.remove('running');
             } else {
-                swRunning=true;
-                if(swElapsed===0) swStartTime=Date.now();
-                else swStartTime=Date.now()-(swElapsed-(Date.now()-swStartTime));
-                swInterval=setInterval(()=>{
-                    const now = swElapsed+(swRunning?Date.now()-swStartTime:0);
-                    document.getElementById('stopwatchDisplay').innerHTML=formatTime(now);
-                },10);
-                btn.textContent='⏸ Pause'; btn.className='btn btn-pause';
-                document.getElementById('swLap').disabled=false;
+                // Start / Resume
+                swRunning = true;
+                swStartTime = Date.now();
+                swInterval = setInterval(() => {
+                    const total = swAccumulated + (Date.now() - swStartTime);
+                    swUpdateDisplay(total);
+                }, 10);
+                btn.textContent = '⏸ Pause';
+                btn.className = 'btn btn-pause';
+                document.getElementById('swLap').disabled = false;
                 document.getElementById('stopwatchDisplay').classList.add('running');
             }
         }
 
-        function swLap(){
+        function swLap() {
             lapCount++;
-            const now=Date.now();
-            if(lapCount===1) document.getElementById('lapsList').innerHTML='';
-            document.getElementById('lapsList').innerHTML+=`<div class="lap-item"><span class="lap-num">Lap ${lapCount}</span><span class="lap-time">${formatTime(swElapsed+(swRunning?now-swStartTime:0))}</span></div>`;
+            const total = swAccumulated + (swRunning ? Date.now() - swStartTime : 0);
+            const h = Math.floor(total / 3600000);
+            const m = Math.floor((total % 3600000) / 60000);
+            const s = Math.floor((total % 60000) / 1000);
+            const cs = Math.floor((total % 1000) / 10);
+            const lapTimeStr = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${String(cs).padStart(2,'0')}`;
+            if (lapCount === 1) {
+                document.getElementById('lapsList').innerHTML = '';
+            }
+            const lapItem = document.createElement('div');
+            lapItem.className = 'lap-item';
+            lapItem.innerHTML = `<span class="lap-num">Lap ${lapCount}</span><span class="lap-time">${lapTimeStr}</span>`;
+            document.getElementById('lapsList').appendChild(lapItem);
         }
 
-        function swReset(){
-            swRunning=false; clearInterval(swInterval);
-            swElapsed=0; swStartTime=0; lapCount=0;
-            document.getElementById('stopwatchDisplay').innerHTML='00:00:00<span class="time-ms">.00</span>';
+        function swReset() {
+            swRunning = false;
+            clearInterval(swInterval);
+            swAccumulated = 0;
+            swStartTime = 0;
+            lapCount = 0;
+            swUpdateDisplay(0);
             document.getElementById('stopwatchDisplay').classList.remove('running');
-            document.getElementById('swStart').textContent='▶ Start';
-            document.getElementById('swStart').className='btn btn-start';
-            document.getElementById('swLap').disabled=true;
-            document.getElementById('lapsList').innerHTML='<div class="no-laps">No laps recorded yet</div>';
+            document.getElementById('swStart').textContent = '▶ Start';
+            document.getElementById('swStart').className = 'btn btn-start';
+            document.getElementById('swLap').disabled = true;
+            document.getElementById('lapsList').innerHTML = '<div class="no-laps">No laps recorded yet</div>';
         }
 
-        function getTimerInput(){
-            const h=parseInt(document.getElementById('timerHours').value)||0;
-            const m=parseInt(document.getElementById('timerMinutes').value)||0;
-            const s=parseInt(document.getElementById('timerSeconds').value)||0;
-            return(h*3600+m*60+s)*1000;
+        // ---------------- TIMER ----------------
+        let tmInterval = null;
+        let tmRunning = false;
+        let tmRemaining = 0;   // in ms
+        let tmTotal = 0;
+
+        function tmUpdateDisplay(ms) {
+            const h = Math.floor(ms / 3600000);
+            const m = Math.floor((ms % 3600000) / 60000);
+            const s = Math.floor((ms % 60000) / 1000);
+            const cs = Math.floor((ms % 1000) / 10);
+            document.getElementById('tmHours').textContent = String(h).padStart(2, '0');
+            document.getElementById('tmMinutes').textContent = String(m).padStart(2, '0');
+            document.getElementById('tmSeconds').textContent = String(s).padStart(2, '0');
+            document.getElementById('tmCentiseconds').textContent = String(cs).padStart(2, '0');
         }
-        function updateTimerDisplay(){
-            tmRemaining=getTimerInput();
-            tmTotal=tmRemaining;
-            document.getElementById('timerDisplay').innerHTML=formatTime(tmRemaining);
+
+        function getTimerInput() {
+            const h = parseInt(document.getElementById('timerHours').value) || 0;
+            const m = parseInt(document.getElementById('timerMinutes').value) || 0;
+            const s = parseInt(document.getElementById('timerSeconds').value) || 0;
+            return (h * 3600 + m * 60 + s) * 1000;
+        }
+
+        function updateTimerDisplay() {
+            tmRemaining = getTimerInput();
+            tmTotal = tmRemaining;
+            tmUpdateDisplay(tmRemaining);
             updateTimerProgress(100);
         }
-        function updateTimerProgress(pct){
+
+        function updateTimerProgress(pct) {
             const bar = document.getElementById('timerProgressBar');
             if (bar) bar.style.width = pct + '%';
         }
-        function setPreset(mins){
+
+        function setPreset(mins) {
             document.getElementById('timerHours').value = 0;
             document.getElementById('timerMinutes').value = mins;
             document.getElementById('timerSeconds').value = 0;
             updateTimerDisplay();
             document.getElementById('timerStatus').textContent = 'Ready';
-            if(tmRunning) tmReset();
+            if (tmRunning) tmReset();
         }
-        document.getElementById('timerHours').addEventListener('input',updateTimerDisplay);
-        document.getElementById('timerMinutes').addEventListener('input',updateTimerDisplay);
-        document.getElementById('timerSeconds').addEventListener('input',updateTimerDisplay);
+
+        document.getElementById('timerHours').addEventListener('input', updateTimerDisplay);
+        document.getElementById('timerMinutes').addEventListener('input', updateTimerDisplay);
+        document.getElementById('timerSeconds').addEventListener('input', updateTimerDisplay);
         updateTimerDisplay();
 
-        function tmStart(){
-            const btn=document.getElementById('tmStart');
-            if(tmRunning){
-                tmRunning=false; clearInterval(tmInterval);
-                btn.textContent='▶ Resume'; btn.className='btn btn-start';
-                document.getElementById('tmPause').disabled=true;
-                document.getElementById('timerStatus').textContent='Paused';
+        function tmStart() {
+            const btn = document.getElementById('tmStart');
+            if (tmRunning) {
+                // Pause
+                tmRunning = false;
+                clearInterval(tmInterval);
+                btn.textContent = '▶ Resume';
+                btn.className = 'btn btn-start';
+                document.getElementById('tmPause').disabled = true;
+                document.getElementById('timerStatus').textContent = 'Paused';
                 document.getElementById('timerDisplay').classList.remove('running');
             } else {
-                if(tmRemaining<=0) tmRemaining=getTimerInput();
-                if(tmRemaining<=0) return;
-                tmTotal=tmRemaining;
-                tmRunning=true;
-                const endTime=Date.now()+tmRemaining;
-                tmInterval=setInterval(()=>{
-                    const now=Date.now();
-                    tmRemaining=Math.max(0,endTime-now);
-                    document.getElementById('timerDisplay').innerHTML=formatTime(tmRemaining);
-                    const pct = tmTotal>0 ? (tmRemaining/tmTotal)*100 : 0;
+                if (tmRemaining <= 0) tmRemaining = getTimerInput();
+                if (tmRemaining <= 0) return;
+                tmTotal = tmRemaining;
+                tmRunning = true;
+                const endTime = Date.now() + tmRemaining;
+                tmInterval = setInterval(() => {
+                    tmRemaining = Math.max(0, endTime - Date.now());
+                    tmUpdateDisplay(tmRemaining);
+                    const pct = tmTotal > 0 ? (tmRemaining / tmTotal) * 100 : 0;
                     updateTimerProgress(pct);
-                    if(tmRemaining<=0){
-                        clearInterval(tmInterval); tmRunning=false;
-                        document.getElementById('timerDisplay').innerHTML='00:00:00<span class="time-ms">.00</span>';
-                        document.getElementById('timerStatus').textContent='⏰ Time\'s Up!';
+                    if (tmRemaining <= 0) {
+                        clearInterval(tmInterval);
+                        tmRunning = false;
                         document.getElementById('timerDisplay').classList.remove('running');
-                        btn.textContent='▶ Start'; btn.className='btn btn-start';
-                        document.getElementById('tmPause').disabled=true;
+                        btn.textContent = '▶ Start';
+                        btn.className = 'btn btn-start';
+                        document.getElementById('tmPause').disabled = true;
+                        document.getElementById('timerStatus').textContent = '⏰ Time\'s Up!';
                         updateTimerProgress(0);
-                        document.getElementById('timerProgressBar').style.boxShadow='0 0 20px rgba(255,215,0,0.8)';
-                        setTimeout(()=>{ document.getElementById('timerProgressBar').style.boxShadow='none'; },2000);
+                        document.getElementById('timerProgressBar').style.boxShadow = '0 0 20px rgba(255,215,0,0.8)';
+                        setTimeout(() => { document.getElementById('timerProgressBar').style.boxShadow = 'none'; }, 2000);
                     }
-                },10);
-                btn.textContent='⏸ Pause'; btn.className='btn btn-pause';
-                document.getElementById('tmPause').disabled=false;
-                document.getElementById('timerStatus').textContent='Counting down...';
+                }, 10);
+                btn.textContent = '⏸ Pause';
+                btn.className = 'btn btn-pause';
+                document.getElementById('tmPause').disabled = false;
+                document.getElementById('timerStatus').textContent = 'Counting down...';
                 document.getElementById('timerDisplay').classList.add('running');
             }
         }
 
-        function tmPause(){
-            tmRunning=false; clearInterval(tmInterval);
-            document.getElementById('tmStart').textContent='▶ Resume';
-            document.getElementById('tmStart').className='btn btn-start';
-            document.getElementById('tmPause').disabled=true;
-            document.getElementById('timerStatus').textContent='Paused';
+        function tmPause() {
+            if (!tmRunning) return;
+            tmRunning = false;
+            clearInterval(tmInterval);
+            document.getElementById('tmStart').textContent = '▶ Resume';
+            document.getElementById('tmStart').className = 'btn btn-start';
+            document.getElementById('tmPause').disabled = true;
+            document.getElementById('timerStatus').textContent = 'Paused';
             document.getElementById('timerDisplay').classList.remove('running');
         }
-        function tmReset(){
-            tmRunning=false; clearInterval(tmInterval);
-            tmRemaining=getTimerInput();
-            tmTotal=tmRemaining;
-            document.getElementById('timerDisplay').innerHTML=formatTime(tmRemaining);
-            document.getElementById('tmStart').textContent='▶ Start';
-            document.getElementById('tmStart').className='btn btn-start';
-            document.getElementById('tmPause').disabled=true;
-            document.getElementById('timerStatus').textContent='Ready';
+
+        function tmReset() {
+            tmRunning = false;
+            clearInterval(tmInterval);
+            tmRemaining = getTimerInput();
+            tmTotal = tmRemaining;
+            tmUpdateDisplay(tmRemaining);
+            document.getElementById('tmStart').textContent = '▶ Start';
+            document.getElementById('tmStart').className = 'btn btn-start';
+            document.getElementById('tmPause').disabled = true;
+            document.getElementById('timerStatus').textContent = 'Ready';
             document.getElementById('timerDisplay').classList.remove('running');
             updateTimerProgress(100);
         }
 
-        function switchMode(mode){
-            document.getElementById('tabStopwatch').classList.toggle('active',mode==='stopwatch');
-            document.getElementById('tabTimer').classList.toggle('active',mode==='timer');
-            document.getElementById('stopwatchMode').style.display=mode==='stopwatch'?'block':'none';
-            document.getElementById('timerMode').style.display=mode==='timer'?'block':'none';
-            if(mode==='timer') swReset();
-            if(mode==='stopwatch') tmReset();
+        function switchMode(mode) {
+            document.getElementById('tabStopwatch').classList.toggle('active', mode === 'stopwatch');
+            document.getElementById('tabTimer').classList.toggle('active', mode === 'timer');
+            document.getElementById('stopwatchMode').style.display = mode === 'stopwatch' ? 'block' : 'none';
+            document.getElementById('timerMode').style.display = mode === 'timer' ? 'block' : 'none';
+            if (mode === 'timer') swReset();
+            if (mode === 'stopwatch') tmReset();
         }
 
-        let dp;const ib=document.getElementById('installBarTool');
-        window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;ib.style.display='block';});
-        function installAppTool(){if(dp){dp.prompt();dp.userChoice.then(()=>{ib.style.display='none';});}else{alert('📱 Add to Home Screen via browser menu.');}}
-        if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+        let deferredPrompt;
+        const installBar = document.getElementById('installBarTool');
+        window.addEventListener('beforeinstallprompt', e => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBar.style.display = 'block';
+        });
+        function installAppTool() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(() => { installBar.style.display = 'none'; });
+            } else {
+                alert('📱 Add to Home Screen via browser menu.');
+            }
+        }
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+        }
 
-        function shareToolWhatsApp(){
+        function shareToolWhatsApp() {
             const text = encodeURIComponent('Check out this Stopwatch & Timer from ColdMatrix Tools! ' + window.location.href);
-            window.open('https://wa.me/?text='+text, '_blank');
+            window.open('https://wa.me/?text=' + text, '_blank');
         }
-        function copyToolLink(){
-            navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
+        function copyToolLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => alert('Link copied!')).catch(() => { alert(window.location.href); });
         }
     </script>
     <script type="application/ld+json">
@@ -625,6 +807,17 @@
           }
         }
       ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ColdMatrix Stopwatch & Timer",
+      "url": "https://coldmatrixtools.com/stopwatch-timer.html",
+      "applicationCategory": "UtilityApplication",
+      "description": "Precision online stopwatch and countdown timer with lap tracking, millisecond accuracy, and preset buttons. Free and works offline.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
     }
     </script>
 </body>

@@ -24,6 +24,9 @@
   <meta name="twitter:description" content="Calculate profit margin, markup, selling price, and break-even instantly. Free multi-currency profit calculator for business owners.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/profit_margin_calc.jpg">
   <meta name="theme-color" content="#0A0F14">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,8 +39,8 @@
       --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
       --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --accent2:#2196F3;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
-      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --silver-bg: #C8CDD4;
+      --silver-bg-hover: #D5D9DE;
       --dark-silver:#4a4d55; --whatsapp-green:#25D366;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -48,7 +51,7 @@
     .container { max-width: 700px; margin:0 auto; padding:0 20px; }
     .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; max-width:700px; margin:0 auto; padding-left:20px; padding-right:20px; }
-    .logo { font-size:1.2rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:6px; }
+    .logo { font-size:1.2rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:6px; }
     .nav-links { display:flex; gap:18px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.9rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
@@ -58,7 +61,7 @@
 
     h1 { font-size:1.6rem; font-weight:800; margin-bottom:6px; }
     h1 span { color: var(--gold-bright); }
-    .subtitle { color:var(--muted); margin-bottom:20px; font-size:0.9rem; }
+    .subtitle { color:#EAEDF0; margin-bottom:20px; font-size:0.95rem; font-weight:500; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
 
     .tool-intro {
       margin-bottom: 20px;
@@ -120,7 +123,7 @@
     }
 
     .field { margin-bottom:12px; }
-    .field label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:4px; font-weight:500; }
+    .field label { display:block; font-size:0.85rem; color:#EAEDF0; margin-bottom:4px; font-weight:600; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
     .field input, .field select {
       width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
       padding:10px 12px; border-radius:8px; font-size:0.9rem;
@@ -138,31 +141,32 @@
     .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
 
     .btn-calc {
-      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      width:100%; background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
       padding:14px; border-radius:10px; font-weight:700; font-size:1rem; cursor:pointer; margin-top:4px;
-      letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      letter-spacing:0.5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
       transition:all 0.25s ease;
     }
-    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
+    .btn-calc:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
     .btn-reset {
-      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
       padding:14px 18px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
-      white-space:nowrap; text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      white-space:nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       transition:all 0.25s ease;
+      align-self: stretch;
     }
-    .btn-reset:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+    .btn-reset:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
     .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
     .result-item {
-      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:10px;
+      background:var(--silver-bg); border:1px solid var(--gold-bright); border-radius:10px;
       padding:14px; text-align:center; word-break:break-word;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3), 0 0 10px var(--gold-glow);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px var(--gold-glow);
     }
-    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.3rem; font-weight:800; color:#0A0F14; line-height:1.2; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.3rem; font-weight:800; color:#0A0F14; line-height:1.2; }
     .result-item .lbl { font-size:0.7rem; color:#111; margin-top:3px; text-transform:uppercase; letter-spacing:0.5px; font-weight:700; }
-    .result-item.highlight { border-color:#34D399; background:linear-gradient(145deg,#d9f5e5,#a8e6cf); grid-column:1/-1; }
+    .result-item.highlight { border-color:#34D399; background:#d9f5e5; grid-column:1/-1; }
     .result-item.highlight .val { font-size:1.4rem; color:#0A0F14; }
 
     .share-bar { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
@@ -179,65 +183,39 @@
     .note { font-size:0.7rem; color:var(--muted); margin-top:12px; border-top:1px solid var(--border); padding-top:10px; text-align:center; }
     #shareCapture { display:none; }
     footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:30px 0 20px; border-top:1px solid var(--border); margin-top:40px; }
-    footer a { color:var(--gold-bright); text-decoration:none; }
+    footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
     .whatsapp-float { position:fixed; bottom:18px; right:18px; z-index:999; width:44px; height:44px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.2rem; }
 
     .learn-section { margin-top:40px; }
-    .learn-card {
-      background: rgba(255,255,255,0.04);
-      border: 2px solid rgba(212,175,55,0.35);
+    .learn-block {
+      background: var(--silver-bg);
+      border: 2px solid var(--gold);
       border-radius: 16px;
       padding: 24px 20px;
       margin-bottom: 20px;
       box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      color: #0A0F14;
+      line-height: 1.8;
     }
-    .learn-card h2 {
+    .learn-block h2 {
       font-family: 'Oswald', sans-serif;
       font-size: 1.2rem;
-      color: var(--gold-bright);
+      color: #0A0F14;
       margin-bottom: 12px;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 10px;
     }
-    .accordion-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .accordion-item:last-child { border-bottom: none; }
-    .accordion-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 0;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.9rem;
-      color: #EAEDF0;
+    .learn-block h3 {
+      font-size: 1rem;
+      color: #0A0F14;
+      margin: 18px 0 8px;
     }
-    .accordion-head i {
-      color: var(--gold-bright);
-      transition: transform 0.3s ease;
-      font-size: 0.8rem;
-    }
-    .accordion-head.open i { transform: rotate(180deg); }
-    .accordion-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease;
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-    .accordion-body div { padding: 0 0 16px; }
-    .accordion-body table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-      color: var(--text);
-      margin: 8px 0;
-    }
-    .accordion-body th, .accordion-body td {
-      padding: 8px 6px;
-      text-align: left;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
+    .learn-block p, .learn-block ul, .learn-block ol { margin-bottom: 12px; }
+    .learn-block ul, .learn-block ol { padding-left: 24px; }
+    .learn-block li { margin-bottom: 6px; }
+    .learn-block strong { color: #0A0F14; }
     .formula-box {
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.5);
       border-left: 3px solid var(--gold-bright);
       padding: 10px 14px;
       border-radius: 6px;
@@ -245,14 +223,73 @@
       font-weight: 500;
     }
 
+    .lead-capture {
+      background: rgba(15,22,32,0.9);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 28px 24px;
+      margin: 30px 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .lead-capture h3 { font-family:'Oswald',sans-serif; color:var(--gold-bright); font-size:1.25rem; margin-bottom:14px; letter-spacing:0.5px; }
+    .lead-capture p { color:#c5cdd6; margin-bottom:18px; font-size:0.9rem; }
+    .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+    .lead-capture input[type="email"] { background:#0e1520; border:1.5px solid rgba(212,175,55,0.6); border-radius:8px; padding:12px 16px; color:#fff; font-size:0.95rem; outline:none; }
+    .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.3); }
+    .lead-capture button { background:var(--silver-bg); border:none; border-radius:8px; padding:12px 20px; font-weight:700; font-size:0.95rem; color:#0A0F14; cursor:pointer; transition:background 0.25s; letter-spacing:0.5px; }
+    .lead-capture button:hover { background:var(--silver-bg-hover); box-shadow:0 0 20px rgba(212,175,55,0.5); }
+
     @media (max-width:420px) {
       .row2, .row3 { grid-template-columns:1fr; }
       .result-grid { grid-template-columns:1fr 1fr; }
       h1 { font-size:1.4rem; }
       .result-item .val { font-size:1.1rem; }
-      .learn-card { padding: 16px 14px; }
+      .learn-block { padding: 16px 14px; }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix Profit Margin Calculator",
+    "url": "https://coldmatrixtools.com/profit-margin-calculator.html",
+    "applicationCategory": "FinanceApplication",
+    "description": "Calculate profit margin, markup, selling price, and break-even instantly. Free multi-currency profit calculator for business owners.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is profit margin?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Profit margin is the percentage of revenue that remains as profit after all costs are deducted. Formula: Margin = (Revenue - Cost) / Revenue × 100."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between margin and markup?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Margin is profit divided by revenue, while markup is profit divided by cost. Margin shows overall profitability, markup is used to set selling prices."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I calculate break-even?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Break-even revenue = Fixed costs / Margin %. Break-even units = Fixed costs / Profit per unit."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <nav class="navbar">
@@ -275,15 +312,7 @@
     <div class="install-bar" id="installBarTool"> Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1><span>ColdMatrix</span> Profit Margin Calculator</h1>
-    <div class="tool-intro">
-      <p>Professional multi-method profit calculation — cost, selling price, margin, markup, quantity, tax, fixed costs & break-even.</p>
-      <ul>
-        <li><i class="fa-solid fa-check"></i> 5 calculation methods</li>
-        <li><i class="fa-solid fa-check"></i> Margin & markup</li>
-        <li><i class="fa-solid fa-check"></i> Break-even & tax</li>
-        <li><i class="fa-solid fa-check"></i> Multi-currency support</li>
-      </ul>
-    </div>
+    <p class="subtitle">Professional multi-method profit calculation — cost, selling price, margin, markup, quantity, tax, fixed costs & break-even analysis.</p>
 
     <div class="share-tool-card">
       <div class="share-tool-title">Share Profit Margin Calculator</div>
@@ -303,6 +332,8 @@
           <option value="cost-markup">Cost + Desired Markup %</option>
           <option value="sell-margin">Selling Price + Desired Margin %</option>
           <option value="profit-target">Profit Target + Cost</option>
+          <option value="discount">Selling Price + Discount %</option>
+          <option value="break-even-method">Break-Even Analysis</option>
         </select>
       </div>
 
@@ -349,7 +380,7 @@
         <div class="field"><label>Tax / VAT % (optional)</label><input type="number" id="taxRate" value="0" step="any"></div>
       </div>
 
-      <div style="display:flex;gap:10px;">
+      <div style="display:flex;gap:10px; align-items:stretch;">
         <button class="btn-calc" style="flex:1" onclick="calculateProfit()">Calculate</button>
         <button class="btn-reset" onclick="resetCalculator()"> Reset</button>
       </div>
@@ -370,12 +401,12 @@
         <div class="result-item"><div class="val" id="resBreakEvenUnits">—</div><div class="lbl">Break-Even Units</div></div>
         <div class="result-item highlight"><div class="val" id="resSummary">—</div><div class="lbl">Summary</div></div>
       </div>
-      <div class="note"> Margin = (Profit ÷ Revenue) × 100 | Markup = (Profit ÷ Cost) × 100 | Break-Even Revenue = Fixed Costs ÷ Margin %</div>
+      <div class="note"> Margin = (Profit ÷ Revenue) × 100 | Markup = (Profit ÷ Cost) × 100 | Break-Even Revenue = Fixed Costs ÷ Margin %</div>
     </div>
 
     <div id="shareCapture">
       <div style="background:#fff;color:#111;border-radius:10px;padding:24px;font-family:'Inter',sans-serif;width:320px;">
-        <div style="font-size:1.2rem;font-weight:800;color:#0A0F14;margin-bottom:12px;"> <span style="color:#2196F3;">ColdMatrix</span> Profit Margin</div>
+        <div style="font-size:1.2rem;font-weight:800;color:#0A0F14;margin-bottom:12px;"> <span style="color:#2196F3;">ColdMatrix</span> Profit Margin</div>
         <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
           <tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Total Cost</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvCost"></td></tr>
           <tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Total Revenue</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvRevenue"></td></tr>
@@ -393,137 +424,64 @@
     </div>
 
     <div class="learn-section">
-      <div class="learn-card">
+      <div class="learn-block">
         <h2> Profit Margin Guide: Everything You Need to Know</h2>
-        <p style="font-size:0.9rem; color:var(--muted); margin-bottom:12px;">
-          Understanding profit margin, markup, and break-even is essential for running a successful business. This guide explains all the concepts used in this calculator.
-        </p>
+        <p>Understanding profit margin, markup, and break-even is essential for running a successful business. This guide explains all the concepts used in this calculator.</p>
 
-        <div class="accordion-item">
-          <div class="accordion-head" onclick="toggleAccordion(this)">
-            <span>1. What is profit margin?</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </div>
-          <div class="accordion-body">
-            <div>
-              Profit margin is the percentage of revenue that remains as profit after all costs are deducted. It tells you how efficiently you convert sales into profit.
-              <div class="formula-box">
-                <strong>Formula:</strong> Profit Margin = (Revenue  Cost) ÷ Revenue × 100
-              </div>
-              <strong>Example:</strong> If you sell a product for $100 and it costs $70 to make, your profit is $30 and your margin is 30%.
-            </div>
-          </div>
-        </div>
+        <h3>1. What is profit margin?</h3>
+        <p>Profit margin is the percentage of revenue that remains as profit after all costs are deducted. It tells you how efficiently you convert sales into profit.</p>
+        <div class="formula-box"><strong>Formula:</strong> Profit Margin = (Revenue  Cost) ÷ Revenue × 100</div>
+        <p><strong>Example:</strong> If you sell a product for $100 and it costs $70 to make, your profit is $30 and your margin is 30%.</p>
 
-        <div class="accordion-item">
-          <div class="accordion-head" onclick="toggleAccordion(this)">
-            <span>2. Margin vs. Markup — what's the difference?</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </div>
-          <div class="accordion-body">
-            <div>
-              Both measure profit, but they compare it to different bases:
-              <div class="formula-box">
-                <strong>Margin</strong> = Profit ÷ Revenue × 100<br>
-                <strong>Markup</strong> = Profit ÷ Cost × 100
-              </div>
-              <strong>Example:</strong> Cost $50, Price $75  Profit $25. Margin = 25/75 = 33.3%, Markup = 25/50 = 50%.<br>
-              Use margin to see overall profitability; use markup to set selling prices from cost.
-            </div>
-          </div>
-        </div>
+        <h3>2. Margin vs. Markup — what's the difference?</h3>
+        <p>Both measure profit, but they compare it to different bases:</p>
+        <div class="formula-box"><strong>Margin</strong> = Profit ÷ Revenue × 100<br><strong>Markup</strong> = Profit ÷ Cost × 100</div>
+        <p><strong>Example:</strong> Cost $50, Price $75  Profit $25. Margin = 25/75 = 33.3%, Markup = 25/50 = 50%. Use margin to see overall profitability; use markup to set selling prices from cost.</p>
 
-        <div class="accordion-item">
-          <div class="accordion-head" onclick="toggleAccordion(this)">
-            <span>3. The five calculation methods explained</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </div>
-          <div class="accordion-body">
-            <div>
-              This calculator offers five ways to calculate profit:
-              <ul style="padding-left:20px;">
-                <li><strong>Cost + Selling Price</strong> – enter both and see profit/margin.</li>
-                <li><strong>Cost + Desired Margin %</strong> – calculator determines the selling price needed.</li>
-                <li><strong>Cost + Desired Markup %</strong> – similar to margin but based on cost.</li>
-                <li><strong>Selling Price + Desired Margin %</strong> – find the maximum cost you can afford.</li>
-                <li><strong>Profit Target + Cost</strong> – specify the exact profit per unit.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        <h3>3. The seven calculation methods explained</h3>
+        <ul>
+          <li><strong>Cost + Selling Price</strong> – enter both and see profit/margin.</li>
+          <li><strong>Cost + Desired Margin %</strong> – calculator determines the selling price needed.</li>
+          <li><strong>Cost + Desired Markup %</strong> – similar to margin but based on cost.</li>
+          <li><strong>Selling Price + Desired Margin %</strong> – find the maximum cost you can afford.</li>
+          <li><strong>Profit Target + Cost</strong> – specify the exact profit per unit.</li>
+          <li><strong>Selling Price + Discount %</strong> – calculate profit after applying a discount.</li>
+          <li><strong>Break-Even Analysis</strong> – find the exact units needed to cover all costs.</li>
+        </ul>
 
-        <div class="accordion-item">
-          <div class="accordion-head" onclick="toggleAccordion(this)">
-            <span>4. Break-even analysis</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </div>
-          <div class="accordion-body">
-            <div>
-              Break-even is the point where total revenue equals total costs — no profit, no loss.
-              <div class="formula-box">
-                <strong>Break-even Revenue</strong> = Fixed Costs ÷ Margin %<br>
-                <strong>Break-even Units</strong> = Fixed Costs ÷ Profit per Unit
-              </div>
-              If you have fixed costs of $1,000 and a 40% margin, you need $2,500 in revenue to break even.
-            </div>
-          </div>
-        </div>
+        <h3>4. Break-even analysis</h3>
+        <p>Break-even is the point where total revenue equals total costs — no profit, no loss.</p>
+        <div class="formula-box"><strong>Break-even Revenue</strong> = Fixed Costs ÷ Margin %<br><strong>Break-even Units</strong> = Fixed Costs ÷ Profit per Unit</div>
+        <p>If you have fixed costs of $1,000 and a 40% margin, you need $2,500 in revenue to break even.</p>
 
-        <div class="accordion-item">
-          <div class="accordion-head" onclick="toggleAccordion(this)">
-            <span>5. How to use this calculator effectively</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </div>
-          <div class="accordion-body">
-            <div>
-              <ol style="padding-left:20px;">
-                <li>Select the calculation method that fits your data.</li>
-                <li>Enter the required values (cost, price, margin, etc.).</li>
-                <li>Set quantity, unit type, and currency.</li>
-                <li>Optional: add fixed costs and tax rate for net profit.</li>
-                <li>Click "Calculate" to see instant results.</li>
-              </ol>
-              Use the results to compare pricing strategies and make confident decisions.
-            </div>
-          </div>
-        </div>
+        <h3>5. How to use this calculator effectively</h3>
+        <ol>
+          <li>Select the calculation method that fits your data.</li>
+          <li>Enter the required values (cost, price, margin, etc.).</li>
+          <li>Set quantity, unit type, and currency.</li>
+          <li>Optional: add fixed costs and tax rate for net profit.</li>
+          <li>Click "Calculate" to see instant results.</li>
+        </ol>
 
-        <div class="accordion-item">
-          <div class="accordion-head" onclick="toggleAccordion(this)">
-            <span>6. Real-world examples</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </div>
-          <div class="accordion-body">
-            <div>
-              <strong>Example 1: Pricing a new product</strong><br>
-              Cost = $20, desired margin = 40%.<br>
-              Selling price = $20 ÷ (1  0.40) = $33.33.<br>
-              Profit = $13.33 per unit.
-              <br><br>
-              <strong>Example 2: Break-even with fixed costs</strong><br>
-              Cost = $10, price = $15, profit per unit = $5. Fixed costs = $5,000.<br>
-              Break-even units = 5,000 ÷ 5 = 1,000 units.
-            </div>
-          </div>
-        </div>
+        <h3>6. Real-world examples</h3>
+        <p><strong>Example 1: Pricing a new product</strong><br>Cost = $20, desired margin = 40%. Selling price = $20 ÷ (1  0.40) = $33.33. Profit = $13.33 per unit.</p>
+        <p><strong>Example 2: Break-even with fixed costs</strong><br>Cost = $10, price = $15, profit per unit = $5. Fixed costs = $5,000. Break-even units = 5,000 ÷ 5 = 1,000 units.</p>
 
-        <div class="accordion-item">
-          <div class="accordion-head" onclick="toggleAccordion(this)">
-            <span>7. Sources and disclaimer</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </div>
-          <div class="accordion-body">
-            <div>
-              <strong>References:</strong><br>
-              • Corporate Finance Institute – Profit Margin Definition<br>
-              • Investopedia – Margin vs Markup<br>
-              • Small Business Administration – Break-even Analysis<br>
-              <br>
-              <strong>Disclaimer:</strong> This calculator provides general financial estimates and should not replace professional accounting advice. Always consult a qualified accountant for critical business decisions.
-            </div>
-          </div>
-        </div>
+        <h3>7. Sources and disclaimer</h3>
+        <p><strong>References:</strong><br>• Corporate Finance Institute – Profit Margin Definition<br>• Investopedia – Margin vs Markup<br>• Small Business Administration – Break-even Analysis</p>
+        <p><strong>Disclaimer:</strong> This calculator provides general financial estimates and should not replace professional accounting advice. Always consult a qualified accountant for critical business decisions.</p>
       </div>
+    </div>
+
+    <div class="lead-capture">
+      <h3> Need a Custom Financial Tool?</h3>
+      <p>Get tailored calculators, dashboards, or automation for your business. Leave your email and we'll reach out with a free consultation.</p>
+      <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="email" name="email" placeholder="Your work email" required>
+        <button type="submit">Request Custom Tool</button>
+      </form>
     </div>
   </div>
 
@@ -580,6 +538,14 @@
           addField('Cost per Unit', 'costPerUnit', 700);
           addField('Target Profit per Unit', 'targetProfitPerUnit', 140);
           break;
+        case 'discount':
+          addField('Original Selling Price', 'sellPerUnit', 1000);
+          addField('Discount %', 'discountPercent', 10);
+          break;
+        case 'break-even-method':
+          addField('Cost per Unit', 'costPerUnit', 700);
+          addField('Selling Price per Unit', 'sellPerUnit', 1000);
+          break;
       }
     }
 
@@ -627,6 +593,19 @@
           costPerUnit = parseFloat(document.getElementById('costPerUnit').value) || 0;
           const tp = parseFloat(document.getElementById('targetProfitPerUnit').value) || 0;
           sellPerUnit = costPerUnit + tp;
+          break;
+        case 'discount':
+          const originalPrice = parseFloat(document.getElementById('sellPerUnit').value) || 0;
+          const discount = parseFloat(document.getElementById('discountPercent').value) || 0;
+          sellPerUnit = originalPrice * (1 - discount / 100);
+          costPerUnit = parseFloat(document.getElementById('fixedCosts').value) || 0;
+          if (costPerUnit === 0) {
+            costPerUnit = originalPrice * 0.5;
+          }
+          break;
+        case 'break-even-method':
+          costPerUnit = parseFloat(document.getElementById('costPerUnit').value) || 0;
+          sellPerUnit = parseFloat(document.getElementById('sellPerUnit').value) || 0;
           break;
       }
 
@@ -694,19 +673,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function toggleAccordion(head) {
-      const body = head.nextElementSibling;
-      const isOpen = head.classList.contains('open');
-      document.querySelectorAll('.accordion-head').forEach(h => {
-        h.classList.remove('open');
-        h.nextElementSibling.style.maxHeight = null;
-      });
-      if (!isOpen) {
-        head.classList.add('open');
-        body.style.maxHeight = body.scrollHeight + 'px';
-      }
-    }
-
     async function captureCanvas(){
       const el = document.getElementById('shareCapture');
       el.style.display = 'block';
@@ -743,10 +709,11 @@
       });
     }
 
-    let d; const bar = document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
+    let deferredPrompt;
+    const installBar = document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt = e; installBar.style.display='block'; });
     window.installAppTool = function(){
-      if(d){ d.prompt(); d.userChoice.then(()=>{ bar.style.display='none'; }); }
+      if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(()=>{ installBar.style.display='none'; }); }
       else { alert(' Android: "Add to Home Screen" in Chrome.\n iPhone: Share  Add to Home Screen.'); }
     };
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
@@ -762,39 +729,6 @@
     }
 
     updateMethodFields();
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is profit margin?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Profit margin is the percentage of revenue that remains as profit after all costs are deducted. Formula: Margin = (Revenue - Cost) / Revenue × 100."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the difference between margin and markup?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Margin is profit divided by revenue, while markup is profit divided by cost. Margin shows overall profitability, markup is used to set selling prices."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I calculate break-even?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Break-even revenue = Fixed costs / Margin %. Break-even units = Fixed costs / Profit per unit."
-        }
-      }
-    ]
-  }
   </script>
 </body>
 </html>

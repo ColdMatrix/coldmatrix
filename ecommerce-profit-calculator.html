@@ -11,7 +11,6 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Cache-control meta tags -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -22,7 +21,7 @@
   <meta property="og:title" content="E-Commerce Profit & Seller Calculator">
   <meta property="og:description" content="Calculate true profit, marketplace fees, shipping, marketing, returns, break-even, and sales targets for online sellers.">
   <meta property="og:url" content="https://coldmatrixtools.com/ecommerce-profit-calculator.html">
-  <meta property="og:image" content="https://coldmatrixtools.com/ecommerce_calculator.jpg ">
+  <meta property="og:image" content="https://coldmatrixtools.com/ecommerce_calculator.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="E-Commerce Profit & Seller Calculator">
   <meta name="twitter:description" content="Calculate true profit, marketplace fees, shipping, marketing, returns, break-even, and sales targets.">
@@ -39,8 +38,8 @@
       --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
       --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --accent2:#2196F3;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
-      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --silver-bg: #C8CDD4;
+      --silver-bg-hover: #D5D9DE;
       --dark-silver:#4a4d55; --whatsapp-green:#25D366;
       --success:#34D399; --danger:#FF6B6B;
     }
@@ -52,7 +51,7 @@
     .container { max-width: 1000px; margin:0 auto; padding:0 24px; }
     .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
@@ -61,7 +60,7 @@
     .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:6px; }
     h1 span { color: var(--gold-bright); }
-    .subtitle { color:var(--muted); margin-bottom:24px; }
+    .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; margin-bottom:24px; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
 
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
@@ -77,7 +76,7 @@
       padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
       background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
     }
-    .share-tool-btn:hover { border-color:#E8B93A; }
+    .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
 
     .card {
@@ -90,7 +89,7 @@
       margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px;
     }
     .field { margin-bottom:14px; }
-    .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
+    .field label { display:block; font-size:0.85rem; color:#EAEDF0; margin-bottom:5px; font-weight:600; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
     .field input, .field select {
       width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
       padding:11px 13px; border-radius:10px; font-size:0.95rem;
@@ -100,22 +99,23 @@
     .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
 
     .btn-calc {
-      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      width:100%; background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
       padding:16px; border-radius:12px; font-weight:800; font-size:1.1rem; cursor:pointer; margin-top:8px;
-      letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      letter-spacing:0.5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition:all 0.25s ease;
     }
-    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); }
+    .btn-calc:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
 
     .result-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:12px; margin-top:16px; }
     .result-item {
-      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:12px;
+      background:var(--silver-bg); border:1px solid var(--gold-bright); border-radius:12px;
       padding:16px; text-align:center;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     .result-item .val { font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:800; color:#0A0F14; }
     .result-item .lbl { font-size:0.75rem; color:#111; font-weight:700; text-transform:uppercase; }
-    .result-item.highlight { background:linear-gradient(145deg,#d9f5e5,#a8e6cf); border-color:var(--success); }
+    .result-item.highlight { background:#d9f5e5; border-color:var(--success); }
     .result-item.highlight .val { font-size:1.5rem; }
 
     .chart-wrap { max-width:500px; margin:20px auto; background:var(--surface); padding:20px; border-radius:14px; border:1px solid var(--gold); }
@@ -125,7 +125,7 @@
     .action-btn {
       padding:10px 12px; border:none; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.85rem;
       display:flex; align-items:center; justify-content:center; gap:8px; text-transform:uppercase;
-      background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
+      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
     }
     .whatsapp-action { background:#25D366 !important; border:none !important; color:#fff !important; }
     .pdf-action { background:#0077B5 !important; border:none !important; color:#fff !important; }
@@ -136,7 +136,7 @@
 
     .detail-section {
       margin-top:40px; padding:30px 24px;
-      background: var(--silver-gradient);
+      background: var(--silver-bg);
       border:2px solid var(--gold);
       border-radius:16px;
       line-height:1.8; font-size:0.95rem; color:#0A0F14;
@@ -152,10 +152,9 @@
     .detail-section th { background:rgba(0,0,0,0.05); font-weight:700; }
 
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--gold-bright); text-decoration:none; }
+    footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
-    /* Lead Capture Modal */
     .lead-modal-overlay {
       position: fixed; top:0; left:0; width:100%; height:100%;
       background: rgba(0,0,0,0.75); z-index:10000;
@@ -176,31 +175,185 @@
       font-family: 'Oswald', sans-serif; color: #FFD700; font-size: 1.5rem;
       margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
     }
-    .lead-modal p {
-      color: #cfd6dd; font-size: 0.9rem; margin-bottom: 20px;
-    }
+    .lead-modal p { color: #cfd6dd; font-size: 0.9rem; margin-bottom: 20px; }
     .lead-form input {
       width: 100%; background: #1B232C; border: 2px solid #D4AF37; color: #fff;
       padding: 12px 14px; border-radius: 8px; margin-bottom: 12px; font-size: 0.95rem;
     }
-    .lead-form input:focus {
-      outline: none; border-color: #FFD700; box-shadow: 0 0 15px rgba(212,175,55,0.5);
-    }
+    .lead-form input:focus { outline: none; border-color: #FFD700; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
     .lead-form .btn-primary {
-      width: 100%; padding: 14px; background: linear-gradient(145deg, #e6eaf0, #8a929c);
+      width: 100%; padding: 14px; background: var(--silver-bg);
       color: #0A0F14; border: 2px solid #D4AF37; border-radius: 10px;
       font-weight: 800; font-size: 1rem; cursor: pointer; margin-top: 8px;
-      letter-spacing: 0.5px; text-shadow: 0 1px 2px rgba(255,255,255,0.4);
+      letter-spacing: 0.5px;
     }
-    .lead-form .btn-primary:hover {
-      background: linear-gradient(145deg, #f8fafc, #b8c0c9);
-      border-color: #FFD700;
-    }
-    .privacy-note {
-      margin-top: 10px; font-size: 0.7rem; color: #8B98A5;
-    }
+    .lead-form .btn-primary:hover { background: var(--silver-bg-hover); border-color: #FFD700; }
+    .privacy-note { margin-top: 10px; font-size: 0.7rem; color: #8B98A5; }
 
     @media (max-width:600px){ .row2,.row3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .action-buttons{grid-template-columns:1fr;} }
+    /* Fix table readability on silver background */
+.detail-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.detail-section th {
+    background: #0A0F14;
+    color: #FFD700;
+    font-weight: 800;
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 0.9rem;
+    border: 2px solid var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-section td {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 0.9rem;
+    color: #0A0F14;
+    font-weight: 600;
+}
+
+.detail-section tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.detail-section tr:hover {
+    background: rgba(212, 175, 55, 0.2);
+}
+/* Fix table overflow and center it properly */
+.detail-section {
+    overflow-x: auto;
+    word-wrap: break-word;
+}
+
+.detail-section table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    table-layout: fixed;
+}
+
+.detail-section th,
+.detail-section td {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Make the table fit perfectly inside the silver box */
+.detail-section {
+    padding: 30px 24px;
+    box-sizing: border-box;
+}
+
+/* Reset any overflow on the container */
+.container {
+    overflow-x: hidden;
+}
+
+/* Ensure all elements stay within their parent */
+.card, .detail-section, .lead-modal {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+/* ============================================
+   FIXED TABLE STYLING — Perfect fit, wider boxes
+   ============================================ */
+.detail-section {
+    overflow-x: auto;
+    padding: 30px 28px;
+    box-sizing: border-box;
+}
+
+.detail-section table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    table-layout: fixed;
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.detail-section th {
+    background: #0A0F14;
+    color: #FFD700;
+    font-weight: 800;
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 0.9rem;
+    border: 2px solid var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.detail-section td {
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.9rem;
+    color: #0A0F14;
+    font-weight: 600;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    line-height: 1.6;
+}
+
+.detail-section tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.detail-section tr:hover {
+    background: rgba(212, 175, 55, 0.25);
+    transition: background 0.2s ease;
+}
+
+/* Ensure table columns have comfortable widths */
+.detail-section th:first-child,
+.detail-section td:first-child {
+    width: 43%;
+}
+
+.detail-section th:nth-child(2),
+.detail-section td:nth-child(2) {
+    width: 35%;
+}
+
+.detail-section th:nth-child(3),
+.detail-section td:nth-child(3) {
+    width: 35%;
+}
+
+/* Container safety */
+.container {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+.card, .detail-section, .lead-modal {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Mobile optimization */
+@media (max-width: 600px) {
+    .detail-section {
+        padding: 20px 16px;
+    }
+    .detail-section th, .detail-section td {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+    }
+}
   </style>
 </head>
 <body>
@@ -223,7 +376,7 @@
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1>🛒 <span>ColdMatrix</span> E-Commerce Profit & Seller Calculator</h1>
-    <p class="subtitle">Calculate true profit, marketplace fees, shipping, marketing, returns, break-even, and sales targets — all in one tool.</p>
+    <p class="subtitle">Calculate true profit, marketplace fees, shipping, marketing, returns, break-even, and sales targets — all in one powerful multi-currency tool built for online sellers.</p>
 
     <div class="share-tool-card">
       <div class="share-tool-title">Share E-Commerce Calculator</div>
@@ -339,9 +492,8 @@
         <button class="action-btn png-action" onclick="downloadEcommerce('png')"><i class="fa-solid fa-image"></i> PNG</button>
       </div>
 
-      <!-- New Premium PDF Button -->
       <div style="margin-top: 20px; text-align: center;">
-        <button class="btn-primary" style="width:100%; padding:14px; font-size:1rem;" onclick="openLeadModal()">
+        <button class="btn-primary" style="width:100%; padding:14px; font-size:1rem; background:var(--silver-bg); border:2px solid var(--gold); border-radius:10px; font-weight:800; color:#0A0F14; cursor:pointer;" onclick="openLeadModal()">
           📥 Download Certified Technical Estimate & Material Specification PDF
         </button>
       </div>
@@ -349,7 +501,7 @@
       <div class="contact-note">❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>For queries: <strong>+92 333 3228470</strong><br><span style="word-break:break-all;">contact@coldmatrixtools.com</span></div>
     </div>
 
-    <!-- EXTENDED SEO CONTENT (Completed by ColdMatrix) -->
+    <!-- EXTENDED SEO CONTENT -->
     <div class="detail-section">
       <h2>📚 The Complete E-Commerce Seller Guide</h2>
       <p>Running a successful e-commerce business is about more than just listing products online. The difference between profitable sellers and struggling ones often comes down to understanding the true cost of each sale. Marketplace fees, shipping, returns, marketing — these hidden expenses can quietly eat away at your margins. This guide will help you master the numbers behind your online store.</p>
@@ -368,10 +520,9 @@
 
       <h3>Returns & Refunds: The Silent Margin Killer</h3>
       <p>Returns are inevitable in e-commerce. Clothing, electronics, and footwear often have return rates of 15-30%. Each return costs you the original shipping, return shipping, handling, and often the product itself if it can't be resold. Factoring in a return rate and associated costs gives you a much more realistic profit picture.</p>
-      <p><strong>Pro Tip:</strong> Clearly describe products, use high-quality images, and provide accurate sizing to reduce return rates. Every 1% reduction in returns directly improves your bottom line.</p>
 
       <h3>Break-Even Price & Profit Margins</h3>
-      <p>Your break-even price is the minimum you can charge without losing money — it's your total cost per unit. Profit margin is your net profit divided by selling price, expressed as a percentage. Healthy e-commerce businesses typically maintain margins of 15-30%. Below 10% and you're one unexpected expense away from losing money.</p>
+      <p>Your break-even price is the minimum you can charge without losing money — it's your total cost per unit. Profit margin is your net profit divided by selling price, expressed as a percentage. Healthy e-commerce businesses typically maintain margins of 15-30%.</p>
 
       <h3>Industry Benchmarks</h3>
       <table>
@@ -385,23 +536,11 @@
 
       <h3>Extended FAQ</h3>
       <p><strong>Q: What is the average e-commerce profit margin?</strong><br>A: Most successful sellers aim for 15-30% net profit margin. High-volume sellers can operate on 10-15%, while niche or premium brands may achieve 30-50%.</p>
-      <p><strong>Q: Should I sell on multiple marketplaces?</strong><br>A: Yes, but understand the fee structure of each. Amazon, eBay, Daraz, Noon, and Shopify all have different cost models. Diversifying reduces risk and increases reach.</p>
-      <p><strong>Q: How do I reduce shipping costs?</strong><br>A: Negotiate rates with carriers, use fulfillment services, optimize packaging size and weight, and consider shipping from multiple warehouses to be closer to customers.</p>
-      <p><strong>Q: What is a good return rate?</strong><br>A: Under 10% is generally considered good. Rates above 20% indicate issues with product quality, listing accuracy, or customer expectations.</p>
-      <p><strong>Q: Should I offer free returns?</strong><br>A: Free returns increase conversion but also increase costs. Consider offering free returns only for certain products or order values.</p>
-      <p><strong>Q: How much should I spend on advertising?</strong><br>A: Start with 5-10% of revenue. Track your return on ad spend (ROAS) carefully. A ROAS of 3x or higher (spending $1 to get $3 in sales) is generally healthy for e-commerce.</p>
-      <p><strong>Q: Can I use this calculator for international selling?</strong><br>A: Yes! The multi-currency support lets you plan for any market. Just remember to check local marketplace fees and shipping rates, which can vary significantly by country.</p>
-      <p><strong>Q: Is my data saved?</strong><br>A: No. All calculations happen locally in your browser. Your financial data never leaves your device.</p>
-    </div>
-
-    <!-- Related Tools -->
-    <div style="margin:20px 0 10px; padding:20px; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.2); border-radius:12px;">
-      <h3 style="color:#FFD700; font-size:1rem; margin-bottom:10px;">🔗 Related Tools You Might Need</h3>
-      <div style="display:flex; flex-wrap:wrap; gap:10px;">
-        <a href="startup-cost-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem;">🚀 Startup Cost Calculator</a>
-        <a href="construction-cost-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem;">🏗️ Construction Cost Calculator</a>
-        <a href="blog.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem;">📚 Business Blog</a>
-      </div>
+      <p><strong>Q: Should I sell on multiple marketplaces?</strong><br>A: Yes, but understand the fee structure of each. Amazon, eBay, Daraz, Noon, and Shopify all have different cost models.</p>
+      <p><strong>Q: How do I reduce shipping costs?</strong><br>A: Negotiate rates with carriers, use fulfillment services, optimize packaging size and weight.</p>
+      <p><strong>Q: What is a good return rate?</strong><br>A: Under 10% is generally considered good. Rates above 20% indicate issues.</p>
+      <p><strong>Q: Can I use this calculator for international selling?</strong><br>A: Yes! The multi-currency support lets you plan for any market.</p>
+      <p><strong>Q: Is my data saved?</strong><br>A: No. All calculations happen locally in your browser.</p>
     </div>
   </div>
 
@@ -430,20 +569,8 @@
   </div>
 
   <script>
-    // ============================================
-    // LIVE CURRENCY API INTEGRATION
-    // ============================================
     const FALLBACK_RATES = { 
-      USD:1, 
-      EUR:0.92, 
-      GBP:0.79, 
-      PKR:278.5, 
-      AED:3.6725, 
-      SAR:3.75, 
-      INR:83.2, 
-      CNY:7.24, 
-      AUD:1.52, 
-      CAD:1.36 
+      USD:1, EUR:0.92, GBP:0.79, PKR:278.5, AED:3.6725, SAR:3.75, INR:83.2, CNY:7.24, AUD:1.52, CAD:1.36 
     };
     
     let liveRates = { ...FALLBACK_RATES };
@@ -457,112 +584,20 @@
         if(data && data.rates) {
           liveRates = data.rates;
           ratesLoaded = true;
-          console.log('✅ Live currency rates loaded successfully');
-          if(lastCalculatedValues) {
-            calculateEcommerce();
-          }
         }
-      } catch(e) {
-        console.log('⚠️ Using fallback rates - API unavailable');
-      }
-    }
-
-    function convertCurrency(amount, fromCurrency, toCurrency) {
-      if(fromCurrency === toCurrency) return amount;
-      const amountInUSD = amount / liveRates[fromCurrency];
-      return amountInUSD * liveRates[toCurrency];
+      } catch(e) {}
     }
 
     const currencySymbols = {
-      USD: '$', EUR: '€', GBP: '£', PKR: '₨', 
-      AED: 'د.إ', SAR: '﷼', INR: '₹', CNY: '¥', 
-      AUD: 'A$', CAD: 'C$'
+      USD: '$', EUR: '€', GBP: '£', PKR: '₨', AED: 'د.إ', SAR: '﷼', INR: '₹', CNY: '¥', AUD: 'A$', CAD: 'C$'
     };
 
     function onCurrencyChange() {
-      console.log('💱 Currency changed, recalculating...');
-      if(lastCalculatedValues) {
-        calculateEcommerce();
-      }
+      if(lastCalculatedValues) calculateEcommerce();
     }
 
     initLiveRates();
-<!-- DEEP DIVE GUIDE: E-Commerce Profit & Seller Economics -->
-<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">🛒 E-Commerce Profit & Seller Economics: The Complete Guide</h2>
 
-  <p>Running a successful e-commerce business is about more than just listing products online. The difference between profitable sellers and struggling ones often comes down to understanding the true cost of each sale. Marketplace fees, shipping, returns, marketing — these hidden expenses can quietly eat away at your margins. This guide will help you master the numbers behind your online store.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">1. Understanding True Profit vs. Revenue</h3>
-  <p>Many new sellers confuse revenue with profit. If you sell a product for $100, that's revenue — not profit. To find profit, you must subtract every cost: product cost, packaging, marketplace fees, shipping, advertising, returns, and overhead. Our calculator does exactly that, giving you the real bottom line per unit.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">2. Marketplace Fee Structures: A Comparative Look</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Amazon:</strong> Referral fee 8–15%, plus FBA fulfillment fees, storage fees, and possible advertising costs.</li>
-    <li><strong>eBay:</strong> Final value fee ~10–12% + payment processing, plus listing fees.</li>
-    <li><strong>Daraz (South Asia):</strong> Commission 5–15%, payment fee ~2–3%, shipping charged separately.</li>
-    <li><strong>Noon (Middle East):</strong> Commission varies by category, often 8–20%, plus fulfillment fees.</li>
-    <li><strong>Shopify (own store):</strong> No marketplace commission, but you pay subscription, payment processing, and must drive your own traffic.</li>
-  </ul>
-  <p>Always calculate the total fee percentage before setting prices. A product selling for $100 with 15% commission, 3% payment fee, and $2 fixed fee means $20 in fees — 20% of revenue gone before product costs.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">3. Shipping & Fulfillment: The Hidden Margin Killer</h3>
-  <p>Shipping isn't free, even if you offer it to customers. Fulfillment fees, packaging, handling, and actual carrier costs add up. If you use FBA or similar services, factor in pick-and-pack fees, weight handling, and storage fees. COD (Cash on Delivery) orders often have extra charges, especially in South Asian and Middle Eastern markets.</p>
-  <p><strong>Pro Tip:</strong> If you offer free shipping, build the shipping cost into your product price. Customers love free shipping, but your profit margin shouldn't suffer.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">4. Returns & Refunds: The Silent Profit Eater</h3>
-  <p>Returns are inevitable in e-commerce. Clothing, electronics, and footwear often have return rates of 15–30%. Each return costs you the original shipping, return shipping, handling, and often the product itself if it can't be resold. Factoring in a return rate and associated costs gives you a much more realistic profit picture.</p>
-  <p><strong>Pro Tip:</strong> Clearly describe products, use high-quality images, and provide accurate sizing to reduce return rates. Every 1% reduction in returns directly improves your bottom line.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">5. Break-Even Price & Profit Margins</h3>
-  <p>Your break-even price is the minimum you can charge without losing money — it's your total cost per unit. Profit margin is your net profit divided by selling price, expressed as a percentage. Healthy e-commerce businesses typically maintain margins of 15–30%. Below 10% and you're one unexpected expense away from losing money.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">6. Industry Benchmarks</h3>
-  <table style="width:100%; border-collapse:collapse; margin:12px 0;">
-    <tr style="border-bottom:1px solid #D4AF37;"><th style="text-align:left;padding:6px;">Category</th><th style="text-align:left;padding:6px;">Typical Margin</th><th style="text-align:left;padding:6px;">Return Rate</th></tr>
-    <tr><td>Electronics</td><td>10–20%</td><td>5–10%</td></tr>
-    <tr><td>Fashion & Apparel</td><td>20–40%</td><td>20–30%</td></tr>
-    <tr><td>Home & Kitchen</td><td>15–30%</td><td>8–12%</td></tr>
-    <tr><td>Beauty & Personal Care</td><td>25–45%</td><td>5–8%</td></tr>
-  </table>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">7. Real-World Example: Selling Wireless Earbuds</h3>
-  <p>Let's assume: purchase cost $50, packaging $5, selling price $100, commission 15%, payment fee 3%, fixed fee $2, shipping $10, advertising $8, return rate 5%.</p>
-  <ul style="padding-left:20px;">
-    <li>Marketplace fees: $15 + $3 + $2 = $20</li>
-    <li>Product cost: $50 + $5 = $55</li>
-    <li>Shipping: $10</li>
-    <li>Marketing: $8</li>
-    <li>Return adjustment: ~$1.15</li>
-    <li>Total cost: $94.15</li>
-    <li><strong>Net profit: $5.85 (5.85% margin)</strong></li>
-  </ul>
-  <p>This shows how thin margins can be if you don't price carefully.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">8. Common Mistakes to Avoid</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Forgetting fixed transaction fees:</strong> Small fees add up per order.</li>
-    <li><strong>Not accounting for returns:</strong> Use historical return rates.</li>
-    <li><strong>Underpricing products:</strong> Always calculate break-even before discounting.</li>
-    <li><strong>Ignoring currency conversion fees:</strong> For international selling, include FX fees.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">9. Extended FAQ – E-Commerce Profit Deep Dive</h3>
-  <p><strong>Q: What is the average e-commerce profit margin?</strong><br>A: Most successful sellers aim for 15–30% net profit margin. High-volume sellers may operate on 10–15%, while niche brands may achieve 30–50%.</p>
-  <p><strong>Q: Should I sell on multiple marketplaces?</strong><br>A: Yes, but understand the fee structure of each. Amazon, eBay, Daraz, Noon, and Shopify all have different cost models. Diversifying reduces risk.</p>
-  <p><strong>Q: How do I reduce shipping costs?</strong><br>A: Negotiate rates with carriers, use fulfillment services, optimize packaging size and weight, and consider multiple warehouses.</p>
-  <p><strong>Q: What is a good return rate?</strong><br>A: Under 10% is generally good. Rates above 20% indicate issues with product quality or listing accuracy.</p>
-  <p><strong>Q: Should I offer free returns?</strong><br>A: Free returns increase conversion but also increase costs. Consider offering free returns only for certain products or order values.</p>
-  <p><strong>Q: How much should I spend on advertising?</strong><br>A: Start with 5–10% of revenue. Track your return on ad spend (ROAS). A ROAS of 3x or higher is healthy.</p>
-  <p><strong>Q: Can I use this calculator for international selling?</strong><br>A: Yes! The multi-currency support lets you plan for any market. Just check local marketplace fees and shipping rates.</p>
-  <p><strong>Q: Is my data saved?</strong><br>A: No. All calculations happen locally in your browser.</p>
-
-  <p style="margin-top:15px; font-weight:700; color:#FFD700;">✅ This guide, combined with our free calculator, gives you a complete understanding of e-commerce profitability.</p>
-</div>
-
-    // ============================================
-    // ORIGINAL CALCULATOR LOGIC
-    // ============================================
     function calculateEcommerce() {
       const currency = document.getElementById('currency').value;
       const symbol = currencySymbols[currency] || currency + ' ';
@@ -596,13 +631,10 @@
       const totalCost = totalProductCost + marketplaceCost + shipCost + fulfillFee + handlingFee + codFee + totalMarketing + returnAdjustment;
       const profit = sellPrice - totalCost;
       const margin = sellPrice > 0 ? (profit / sellPrice) * 100 : 0;
-      const markup = totalCost > 0 ? (profit / totalCost) * 100 : 0;
       const breakEven = totalCost;
       const requiredSales = profit > 0 ? Math.ceil(desiredProfit / profit) : 0;
 
-      lastCalculatedValues = {
-        sellPrice, totalCost, profit, margin, breakEven, requiredSales
-      };
+      lastCalculatedValues = { sellPrice, totalCost, profit, margin, breakEven, requiredSales };
 
       const fmt = (n) => symbol + ' ' + n.toFixed(2);
 
@@ -639,16 +671,13 @@
     function shareEcommerce(){ window.open('https://wa.me/?text=' + encodeURIComponent('🛒 E-Commerce Profit Report from ColdMatrix Tools')); }
     function downloadEcommerce(t){ alert('Download feature ready for PDF/JPG/PNG — ' + t); }
     function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this E-Commerce Profit Calculator from ColdMatrix Tools! ' + window.location.href)); }
-    function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')); }
+    function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>alert(window.location.href)); }
 
     let d; const bar = document.getElementById('installBarTool');
     window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
     window.installAppTool = function(){ if(d){ d.prompt(); } else { alert('📱 Add to Home Screen via browser menu.'); } };
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
 
-    // ============================================
-    // LEAD CAPTURE & DYNAMIC PDF GENERATION
-    // ============================================
     function openLeadModal() {
       const resultCard = document.getElementById('resultCard');
       if (!resultCard || resultCard.style.display === 'none' || resultCard.style.display === '') {
@@ -687,7 +716,6 @@
         requiredSales: document.getElementById('rSales').textContent
       };
 
-      // Active lead delivery via FormSubmit.co
       try {
         await fetch('https://formsubmit.co/ajax/contact@coldmatrixtools.com', {
           method: 'POST',
@@ -703,9 +731,7 @@
             message: JSON.stringify(calcData)
           })
         });
-      } catch (e) {
-        console.warn('Lead delivery failed, but PDF still generated');
-      }
+      } catch (e) {}
 
       generateEcommercePDF(leadData, calcData);
       closeLeadModal();
@@ -716,7 +742,6 @@
       const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
 
       const PRIMARY = [26, 54, 93];
-      const SECONDARY = [224, 86, 36];
       const TEXT_DARK = [45, 55, 72];
       const WHITE = [255, 255, 255];
       const LIGHT_BG = [247, 250, 252];
@@ -806,7 +831,7 @@
 
       doc.setFont("helvetica", "bold");
       doc.setFontSize(9);
-      doc.setTextColor(...SECONDARY);
+      doc.setTextColor(224, 86, 36);
       doc.text("⚠️ E-COMMERCE PLANNING NOTICE:", 18, finalY + 6);
 
       doc.setFont("helvetica", "normal");
@@ -833,8 +858,8 @@
       );
 
       doc.setFont("helvetica", "bold");
-      doc.setTextColor(...SECONDARY);
-      doc.text("📧 Global Desk: engineering@coldmatrixtools.com", 14, finalY + 20);
+      doc.setTextColor(224, 86, 36);
+      doc.text("📧 Global Desk: contact@coldmatrixtools.com", 14, finalY + 20);
       doc.text("🌐 Office: Karachi, Pakistan", 14, finalY + 25);
 
       doc.setFillColor(...PRIMARY);
@@ -846,6 +871,49 @@
 
       doc.save(`ColdMatrix_Ecommerce_Estimate_${leadData.name.replace(/\s+/g, '_')}.pdf`);
     }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix E-Commerce Profit Calculator",
+    "url": "https://coldmatrixtools.com/ecommerce-profit-calculator.html",
+    "applicationCategory": "FinanceApplication",
+    "description": "Calculate true profit, marketplace fees, shipping, marketing, returns, break-even, and sales targets for online sellers.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the average e-commerce profit margin?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most successful sellers aim for 15-30% net profit margin. High-volume sellers can operate on 10-15%, while niche brands may achieve 30-50%."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this calculator for international selling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, the multi-currency support lets you plan for any market. Just check local marketplace fees and shipping rates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data saved?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All calculations happen locally in your browser. Your financial data never leaves your device."
+        }
+      }
+    ]
+  }
   </script>
 </body>
 </html>

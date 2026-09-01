@@ -5,73 +5,187 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Security & Privacy — ColdMatrix Tools</title>
     <link rel="canonical" href="https://coldmatrixtools.com/security.html">
-    <meta name="description" content="ColdMatrix Tools security and privacy commitment. SSL secured, no data collection, local processing, no registration. Learn how we protect your information.">
+    <meta name="description" content="ColdMatrix Tools security and privacy commitment. SSL secured, local processing, no registration required. Learn how we protect your information.">
+    <meta name="keywords" content="security, privacy, SSL, encryption, data protection, secure tools, no tracking, browser-based tools">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ColdMatrix Tools">
+    <meta property="og:title" content="Security & Privacy — ColdMatrix Tools">
+    <meta property="og:description" content="SSL secured, local processing, no registration required. Learn how ColdMatrix protects your information.">
+    <meta property="og:url" content="https://coldmatrixtools.com/security.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Security & Privacy — ColdMatrix Tools">
+    <meta name="twitter:description" content="SSL secured, local processing, no registration required.">
     <meta name="theme-color" content="#0A0F14">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        :root { --bg:#0A0F14; --surface:#12181F; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gold:#D4AF37; --gold-bright:#FFD700; --border:#2A3540; }
+        :root {
+            --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --text:#EAEDF0; --muted:#8B98A5;
+            --accent:#4FC3F7; --gold:#D4AF37; --gold-bright:#FFD700; --border:#2A3540;
+            --silver-bg: #C8CDD4;
+            --silver-bg-hover: #D5D9DE;
+            --gold-glow: rgba(212,175,55,0.45);
+        }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; line-height:1.7; min-height:100vh; }
-        .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.92); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold); padding:14px 20px; display:flex; justify-content:space-between; align-items:center; }
-        .navbar a { color:var(--muted); text-decoration:none; font-weight:700; font-size:0.9rem; }
-        .navbar a:first-child { color:var(--accent); }
+        body {
+            background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%),
+                        radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
+            color:var(--text); font-family:'Inter',sans-serif; line-height:1.7; min-height:100vh;
+        }
+        .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold); padding:14px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; max-width:1000px; margin:0 auto; }
+        .navbar a { color:var(--muted); text-decoration:none; font-weight:700; font-size:0.9rem; transition:color 0.2s; }
+        .navbar a:hover { color:var(--gold-bright); }
+        .navbar a:first-child { color:var(--gold-bright); font-size:1.1rem; }
         .container { max-width:800px; margin:0 auto; padding:40px 24px; }
-        h1 { font-family:'Playfair Display',serif; font-size:2rem; color:var(--gold-bright); margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:12px; }
-        h2 { color:var(--accent); font-size:1.3rem; margin:24px 0 10px; }
-        p { color:var(--muted); margin-bottom:14px; }
+        h1 { font-family:'Oswald',sans-serif; font-size:2rem; color:var(--gold-bright); margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:12px; letter-spacing:0.5px; }
+        h1 span { color: var(--accent); }
+        h2 { color:var(--accent); font-size:1.3rem; margin:28px 0 12px; font-family:'Oswald',sans-serif; letter-spacing:0.3px; }
+        p { color:#C3CBD4; margin-bottom:14px; font-size:0.95rem; }
         ul { padding-left:24px; margin-bottom:14px; }
-        li { color:var(--muted); margin-bottom:8px; }
-        .badge-box { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin:20px 0; }
-        .badge { background:var(--surface); border:2px solid var(--gold); border-radius:14px; padding:18px; text-align:center; }
-        .badge .icon { font-size:2rem; margin-bottom:8px; }
-        .badge .title { font-weight:800; color:var(--gold-bright); margin-bottom:4px; }
-        .badge .desc { font-size:0.85rem; color:var(--muted); }
-        .footer-text { text-align:center; margin-top:30px; color:var(--muted); font-size:0.8rem; }
-        .footer-text a { color:var(--accent); text-decoration:none; }
+        li { color:#C3CBD4; margin-bottom:8px; font-size:0.95rem; }
+        li strong { color:var(--gold-bright); }
+        .badge-box { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin:24px 0; }
+        .badge {
+            background:var(--silver-bg); border:2px solid var(--gold); border-radius:14px;
+            padding:20px; text-align:center; box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 15px var(--gold-glow);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .badge:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.5), 0 0 25px var(--gold-glow); }
+        .badge .icon { font-size:2.2rem; margin-bottom:8px; }
+        .badge .title { font-weight:800; color:#0A0F14; margin-bottom:4px; font-size:1rem; }
+        .badge .desc { font-size:0.85rem; color:#333; font-weight:600; }
+        .security-section {
+            background: var(--silver-bg);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+        .security-section h2 { color:#0A0F14; }
+        .security-section p, .security-section li { color:#0A0F14; }
+        .security-section li strong { color:#0A0F14; }
+        .footer-text { text-align:center; margin-top:30px; color:var(--muted); font-size:0.8rem; border-top:1px solid var(--border); padding-top:20px; }
+        .footer-text a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
+        .contact-links a {
+            display:inline-block; margin: 4px 8px 4px 0; padding: 10px 20px;
+            background: var(--silver-bg); color:#0A0F14; text-decoration:none;
+            border:2px solid var(--gold); border-radius:10px; font-weight:700; font-size:0.9rem;
+            transition: all 0.25s;
+        }
+        .contact-links a:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+        @media (max-width:600px) {
+            .navbar { padding:10px 14px; }
+            h1 { font-size:1.5rem; }
+            .badge-box { grid-template-columns:1fr 1fr; }
+            .security-section { padding:18px; }
+        }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Security & Privacy — ColdMatrix Tools",
+      "url": "https://coldmatrixtools.com/security.html",
+      "description": "ColdMatrix Tools security and privacy commitment. SSL secured, local processing, no registration required."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is ColdMatrix Tools secure to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, ColdMatrix Tools uses SSL encryption (HTTPS) to protect your connection, and all tools run locally in your browser."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does ColdMatrix collect my data?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. ColdMatrix Tools does not collect, store, or track your inputs. All processing happens on your device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to register to use the tools?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No registration is required. All tools are free to use without creating an account."
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
-<nav class="navbar"><a href="index.html">❄️ ColdMatrix</a><a href="index.html#tools">🛠️ Tools</a></nav>
+<nav class="navbar">
+    <a href="index.html"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a>
+    <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <a href="index.html">🏠 Home</a>
+        <a href="index.html#tools">🛠️ Tools</a>
+        <a href="about.html">ℹ️ About</a>
+        <a href="contact.html">📞 Contact</a>
+    </div>
+</nav>
 <div class="container">
-    <h1>🔒 Security & Privacy Commitment</h1>
-    <p>At ColdMatrix Tools, your security and privacy are our highest priority. We believe you should be able to use professional tools without worrying about your data being collected, tracked, or sold.</p>
+    <h1>🔒 <span>Security & Privacy</span> Commitment</h1>
+    <p>At ColdMatrix Tools, your security and privacy are our highest priority. We believe you should be able to use professional tools without worrying about your data being collected, tracked, or sold. Our platform is designed with privacy-first principles from the ground up.</p>
 
     <div class="badge-box">
         <div class="badge"><div class="icon">🔐</div><div class="title">SSL Secured</div><div class="desc">HTTPS encryption protects your connection</div></div>
-        <div class="badge"><div class="icon">🚫</div><div class="title">No Data Collection</div><div class="desc">We never see or store your inputs</div></div>
+        <div class="badge"><div class="icon">🚫</div><div class="title">No Data Collection</div><div class="desc">Your inputs are never seen or stored</div></div>
         <div class="badge"><div class="icon">📱</div><div class="title">Local Processing</div><div class="desc">All calculations happen in your browser</div></div>
         <div class="badge"><div class="icon">✅</div><div class="title">No Registration</div><div class="desc">Use every tool without creating an account</div></div>
     </div>
 
-    <h2>How We Protect You</h2>
-    <ul>
-        <li><strong>SSL Encryption:</strong> Your connection to ColdMatrix is encrypted using HTTPS. This prevents third parties from intercepting your data.</li>
-        <li><strong>No Server Storage:</strong> Every tool runs 100% in your browser. Your inputs, calculations, and results never leave your device.</li>
-        <li><strong>No Registration Required:</strong> You can use every tool without creating an account, providing an email, or sharing personal information.</li>
-        <li><strong>No Tracking Cookies:</strong> We use minimal cookies only for essential functions. We don't track your browsing behavior or sell your data.</li>
-        <li><strong>Privacy Policy:</strong> Our complete privacy policy explains in detail how we handle information.</li>
-    </ul>
+    <div class="security-section">
+        <h2>🛡️ How We Protect You</h2>
+        <ul>
+            <li><strong>SSL Encryption:</strong> Your connection to ColdMatrix is encrypted using HTTPS. This prevents third parties from intercepting your data.</li>
+            <li><strong>No Server Storage:</strong> Every tool runs 100% in your browser. Your inputs, calculations, and results never leave your device.</li>
+            <li><strong>No Registration Required:</strong> You can use every tool without creating an account, providing an email, or sharing personal information.</li>
+            <li><strong>No Tracking Cookies:</strong> We use minimal cookies only for essential functions. We don't track your browsing behavior or sell your data.</li>
+        </ul>
+    </div>
 
-    <h2>What We Don't Do</h2>
-    <ul>
-        <li>We don't collect names, emails, or phone numbers unless you contact us voluntarily</li>
-        <li>We don't sell or share any data with third parties</li>
-        <li>We don't use invasive advertising or trackers</li>
-        <li>We don't require downloads or installations</li>
-        <li>We don't access your camera, microphone, or files without explicit permission</li>
-    </ul>
+    <div class="security-section">
+        <h2>🚫 What We Don't Do</h2>
+        <ul>
+            <li>We don't collect names, emails, or phone numbers unless you contact us voluntarily</li>
+            <li>We don't sell or share any data with third parties</li>
+            <li>We don't use invasive advertising or trackers</li>
+            <li>We don't require downloads or installations</li>
+            <li>We don't access your camera, microphone, or files without explicit permission</li>
+        </ul>
+    </div>
 
-    <h2>Your Control</h2>
-    <ul>
-        <li>Clear local data anytime from your browser settings</li>
-        <li>Use incognito mode for complete isolation</li>
-        <li>Delete saved records from tool settings</li>
-        <li>Contact us with any privacy concerns</li>
-    </ul>
+    <div class="security-section">
+        <h2>🎛️ Your Control</h2>
+        <ul>
+            <li>Clear local data anytime from your browser settings</li>
+            <li>Use incognito mode for complete isolation</li>
+            <li>Delete saved records from tool settings</li>
+            <li>Contact us with any privacy concerns</li>
+        </ul>
+    </div>
 
-    <h2>Questions?</h2>
-    <p>If you have any security or privacy questions, visit our <a href="contact.html" style="color:var(--accent);">Contact page</a> or review our <a href="privacy-policy.html" style="color:var(--accent);">Privacy Policy</a>.</p>
+    <h2>❓ Questions?</h2>
+    <p>If you have any security or privacy questions, we're here to help. Reach out through our contact page or review our detailed privacy policy.</p>
+    <div class="contact-links">
+        <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact Us</a>
+        <a href="privacy-policy.html"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+    </div>
 
     <div class="footer-text">Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</div>
 </div>

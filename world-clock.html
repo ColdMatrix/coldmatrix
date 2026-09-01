@@ -11,8 +11,8 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ColdMatrix World Clock & Time Zone Converter — Free</title>
-  <meta name="description" content="See live time in any city worldwide, and convert time between time zones instantly. Free, accurate, and built for global teams, calls, and travel planning.">
+  <title>ColdMatrix World Clock & Time Zone Converter — Free Global Time Tool</title>
+  <meta name="description" content="See live time in any city worldwide, and convert time between time zones instantly. Free, accurate, and built for global teams, remote workers, calls, and travel planning.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
   <meta property="og:title" content="ColdMatrix World Clock & Time Zone Converter — Free">
@@ -24,6 +24,9 @@
   <meta name="twitter:description" content="See live time in any city worldwide, and convert time between time zones instantly.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/world_clock.jpg">
   <meta name="theme-color" content="#0A0F14">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,10 +35,12 @@
   <style>
     :root {
       --bg:#0B0F14; --text:#EAEDF0; --muted:#8B98A5;
-      --accent:#4FC3F7; --accent2:#2196F3; --gold:#D4AF37; --gold-bright:#FFD700;
+      --accent:#4FC3F7; --accent2:#2196F3;
+      --gold:#D4AF37; --gold-bright:#FFD700; --gold-deep:#B8860B;
       --whatsapp-green:#25D366;
       --gold-gradient: linear-gradient(135deg, #C8993A, #E8C96A 40%, #A07828 70%, #D4A843);
       --silver-medium-bg: linear-gradient(145deg, #e0e4e8 0%, #c4cad0 30%, #a9b0b8 60%, #d5d9de 100%);
+      --solid-silver: #C8CDD4;
       --dark-silver:#4a4d55;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -48,18 +53,17 @@
     .container { width:100%; max-width:1200px; margin:0 auto; padding:20px; }
     .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:var(--gold-gradient) 1; }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; flex-wrap:wrap; max-width:1200px; margin:0 auto; }
-    .logo { font-size:1.3rem; font-weight:800; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .logo { font-size:1.3rem; font-weight:800; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; }
     .nav-links a:hover { color:var(--gold-bright); }
     .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
     .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-    .install-bar button { background:#0A0F14; color:var(--accent); border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
     h1 { font-family:'Oswald',sans-serif; font-size:2rem; font-weight:700; margin-bottom:6px; color:#fff; }
-    h1 span { color:var(--accent); }
-    .subtitle { color:#ccc; font-size:0.95rem; margin-bottom:22px; }
+    h1 span { color:var(--gold-bright); }
+    .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; margin-bottom:22px; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
 
-    /* Premium silver card */
     .premium-card {
       background: var(--silver-medium-bg);
       border: 2px solid var(--gold);
@@ -68,7 +72,6 @@
       color: #0A0F14;
     }
 
-    /* Share tool card: dark background, readable */
     .share-tool-card {
       background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
       border: 2px solid;
@@ -94,6 +97,34 @@
 
     .section-heading { display:flex; align-items:center; justify-content:space-between; margin:26px 0 14px; flex-wrap:wrap; gap:10px; }
     .section-heading h2 { font-size:1.1rem; font-weight:700; color:#fff; }
+
+    .live-badge {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background: rgba(212,175,55,0.15);
+      border: 1.5px solid var(--gold);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gold-bright);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--gold-bright);
+      border-radius: 50%;
+      animation: blinkDot 1.2s ease-in-out infinite;
+    }
+    @keyframes blinkDot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(255,215,0,0.8); }
+      50% { opacity: 0.2; box-shadow: 0 0 2px rgba(255,215,0,0.2); }
+    }
+
     .btn-calc, .add-city-btn, .now-btn {
       background: var(--silver-medium-bg);
       color: #0A0F14;
@@ -104,22 +135,32 @@
       text-shadow: 0 1px 2px rgba(255,255,255,0.4);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.3);
     }
+    .add-city-btn { padding: 12px 24px; border-radius: 12px; font-size: 0.95rem; }
+    .now-btn { padding: 12px 20px; border-radius: 10px; font-size: 0.95rem; margin-left: 10px; white-space: nowrap; }
+    .btn-calc { width: 100%; padding: 16px; border-radius: 12px; font-size: 1.05rem; letter-spacing: 0.5px; }
     .btn-calc:hover, .add-city-btn:hover, .now-btn:hover {
-      background: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
+      background: var(--solid-silver);
       border-color: var(--gold-bright);
       box-shadow: 0 0 22px rgba(212,175,55,0.6);
       transform: translateY(-2px);
     }
 
-    .clock-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:14px; margin-bottom:10px; }
+    .clock-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:14px; margin-bottom:10px; }
     .clock-card {
-      padding:18px 14px; position:relative; text-align:center;
+      padding:20px 16px; position:relative; text-align:center;
       transition: all 0.25s ease;
     }
     .clock-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0,0,0,0.5), 0 0 20px rgba(200,168,78,0.25); }
     .clock-card .remove-btn { position:absolute; top:8px; right:10px; background:none; border:none; color:#555; font-size:0.9rem; cursor:pointer; }
     .clock-card .remove-btn:hover { color:#FF6B6B; }
-    .clock-card .city-name { font-weight:700; font-size:0.9rem; color:#0A0F14; margin-bottom:2px; }
+    .clock-card .city-name {
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--gold-deep);
+      margin-bottom: 2px;
+      letter-spacing: 0.3px;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+    }
     .clock-card .city-country { font-size:0.68rem; color:#333; margin-bottom:10px; }
     .clock-card .time-display {
       font-family:'Oswald',sans-serif; font-size:1.7rem; font-weight:700;
@@ -183,7 +224,7 @@
     .detail-section {
       margin-top: 40px;
       padding: 30px 24px;
-      background: var(--silver-medium-bg);
+      background: var(--solid-silver);
       border: 2px solid var(--gold);
       border-radius: 16px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.4);
@@ -198,19 +239,36 @@
     .detail-section li { margin-bottom:6px; }
     .detail-section strong { color:#0A0F14; }
 
+    .lead-capture {
+      background: rgba(15,22,32,0.9);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 28px 24px;
+      margin: 30px 0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .lead-capture h3 { font-family:'Oswald',sans-serif; color:var(--gold-bright); font-size:1.25rem; margin-bottom:14px; letter-spacing:0.5px; }
+    .lead-capture p { color:#c5cdd6; margin-bottom:18px; font-size:0.9rem; }
+    .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+    .lead-capture input[type="email"] { background:#0e1520; border:1.5px solid rgba(212,175,55,0.6); border-radius:8px; padding:12px 16px; color:#fff; font-size:0.95rem; outline:none; }
+    .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.3); }
+    .lead-capture button { background:var(--solid-silver); border:none; border-radius:8px; padding:12px 20px; font-weight:700; font-size:0.95rem; color:#0A0F14; cursor:pointer; transition:background 0.25s; letter-spacing:0.5px; }
+    .lead-capture button:hover { background:#D5D9DE; box-shadow:0 0 20px rgba(212,175,55,0.5); }
+
     .appreciation { text-align:center; margin:20px 0 10px; font-size:0.85rem; color:#ccc; border-top:1px solid rgba(255,255,255,0.08); padding-top:16px; line-height:1.8; }
     .appreciation .gold { color:var(--gold-bright); }
     footer { text-align:center; color:var(--muted); font-size:0.72rem; padding:25px 0 20px; border-top:1px solid rgba(255,255,255,0.06); margin-top:20px; }
-    footer a { color:var(--accent); text-decoration:none; }
+    footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:44px; height:44px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
     @media (max-width:600px) {
-      .clock-grid { grid-template-columns: 1fr; }
+      .clock-grid { grid-template-columns: 1fr 1fr; }
       h1 { font-size:1.6rem; }
       .share-tool-buttons { display:flex; }
       .share-tool-btn { padding:14px 6px; font-size:0.85rem; }
       .container { padding:15px; }
       .detail-section { padding:20px 16px; }
+      .now-btn { margin-left:0; margin-top:8px; width:100%; }
     }
   </style>
   <script type="application/ld+json">
@@ -219,9 +277,41 @@
     "@type": "WebApplication",
     "name": "ColdMatrix World Clock & Time Zone Converter",
     "url": "https://coldmatrixtools.com/world-clock.html",
-    "applicationCategory": "Utility",
-    "description": "See live time in any city worldwide, and convert time between time zones instantly.",
+    "applicationCategory": "UtilityApplication",
+    "description": "See live time in any city worldwide, and convert time between time zones instantly. Free, accurate, and built for global teams, calls, and travel planning.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does the World Clock work offline?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, after the initial page load, the clock grid and converter work entirely offline using your browser's time zone data."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my city list private?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Your selected cities are stored only in your browser's local storage. No information is sent to any server."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate is the time?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The times are calculated using the Intl API of your browser, which is highly accurate and updates every second."
+        }
+      }
+    ]
   }
   </script>
 </head>
@@ -231,7 +321,7 @@
   <a href="index.html#tools" class="back-link">← Back to Tools</a>
   <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
   <h1>🌍 ColdMatrix <span>World Clock</span></h1>
-  <p class="subtitle">Live time in any city worldwide, plus instant time zone conversion for calls, meetings, and travel.</p>
+  <p class="subtitle">See live time in any city worldwide, monitor multiple time zones at once, and convert any time instantly — built for global teams, remote workers, travellers, and anyone coordinating across regions.</p>
 
   <div class="share-tool-card">
     <div class="share-tool-title">Share World Clock</div>
@@ -242,7 +332,7 @@
   </div>
 
   <div class="section-heading">
-    <h2>🕐 Live World Clock</h2>
+    <h2>🕐 Live World Clock <span class="live-badge"><span class="live-dot"></span> LIVE</span></h2>
     <button class="add-city-btn" onclick="togglePanel()">+ Add City</button>
   </div>
 
@@ -254,7 +344,7 @@
 
   <div class="clock-grid" id="clockGrid"></div>
 
-  <div class="section-heading"><h2>🔄 Convert a Time</h2></div>
+  <div class="section-heading"><h2>🕛 Convert a Time</h2></div>
   <div class="card premium-card">
     <div class="field">
       <label>From Time Zone</label>
@@ -262,8 +352,8 @@
     </div>
     <div class="field">
       <label>Time</label>
-      <div style="display:flex; align-items:center;">
-        <input type="time" id="convertTime" style="flex:1;">
+      <div style="display:flex; align-items:center; flex-wrap:wrap;">
+        <input type="time" id="convertTime" style="flex:1; min-width:150px;">
         <button type="button" class="now-btn" onclick="setCurrentTime()"><i class="fa-solid fa-clock"></i> Now</button>
       </div>
     </div>
@@ -271,23 +361,22 @@
       <label>To Time Zone</label>
       <select id="toZone"></select>
     </div>
-    <button class="btn-calc" onclick="convertTime()">Convert Now</button>
+    <button class="btn-calc" onclick="convertTime()"><i class="fa-solid fa-right-left"></i> Convert Now</button>
     <div class="convert-result" id="convertResult" style="display:none;">
       <div class="result-time" id="resultTime"></div>
       <div class="result-sub" id="resultSub"></div>
     </div>
   </div>
 
-  <!-- Comprehensive educational static section -->
   <div class="detail-section">
     <h2>📖 Complete Guide to World Clock & Time Zone Converter</h2>
-    <p>The ColdMatrix World Clock is a powerful, free tool that lets you see live time in any city around the globe and convert time between different time zones instantly. It’s designed for international teams, frequent travellers, and anyone who needs to coordinate across regions.</p>
+    <p>The ColdMatrix World Clock is a powerful, free tool that lets you see live time in any city around the globe and convert time between different time zones instantly. It's designed for international teams, frequent travellers, and anyone who needs to coordinate across regions.</p>
     <h3>What Is a World Clock?</h3>
     <p>A world clock displays the current time in multiple cities or time zones simultaneously. Unlike a regular clock that shows only your local time, a world clock lets you monitor the time in several locations at once. The ColdMatrix World Clock goes a step further by adding a time zone converter, so you can input a specific time and see what it corresponds to elsewhere.</p>
     <h3>Key Features</h3>
     <ul>
       <li><strong>Live Clock Grid:</strong> Add any number of cities from a list of over 70 global locations and see their current time, date, and day/night status in real time.</li>
-      <li><strong>Daylight Saving Time (DST) aware:</strong> Automatically adjusts for DST changes using your browser’s time zone database.</li>
+      <li><strong>Daylight Saving Time (DST) aware:</strong> Automatically adjusts for DST changes using your browser's time zone database.</li>
       <li><strong>Time Zone Converter:</strong> Pick a source time zone, a time, and a destination zone to instantly see the converted time and date.</li>
       <li><strong>Persistent City List:</strong> Your selected cities are saved locally in your browser, so they appear every time you visit.</li>
       <li><strong>Search & Filter:</strong> Quickly find a city by typing in the filter box.</li>
@@ -297,11 +386,11 @@
     </ul>
     <h3>How to Use the World Clock</h3>
     <ol>
-      <li><strong>View live times:</strong> The grid already includes default cities. To add more, click “+ Add City”.</li>
+      <li><strong>View live times:</strong> The grid already includes default cities. To add more, click "+ Add City".</li>
       <li><strong>Search for a city:</strong> Type a name in the filter box to narrow down the dropdown list.</li>
-      <li><strong>Add city:</strong> Select a city from the dropdown and click “Add to My Clocks”. The new card will appear instantly.</li>
+      <li><strong>Add city:</strong> Select a city from the dropdown and click "Add to My Clocks". The new card will appear instantly.</li>
       <li><strong>Remove a city:</strong> Click the × button on any clock card to remove it from your list.</li>
-      <li><strong>Convert a time:</strong> In the “Convert a Time” section, choose the source time zone, enter a time (or click “Now”), choose the destination zone, and click “Convert Now”.</li>
+      <li><strong>Convert a time:</strong> In the "Convert a Time" section, choose the source time zone, enter a time (or click "Now"), choose the destination zone, and click "Convert Now".</li>
     </ol>
     <h3>Tips for Effective Use</h3>
     <ul>
@@ -311,8 +400,8 @@
       <li><strong>Remember DST:</strong> Some regions do not observe daylight saving, but the tool handles this automatically.</li>
     </ul>
     <h3>Frequently Asked Questions</h3>
-    <p><strong>Does this tool work offline?</strong><br>Yes, after the initial page load, the clock grid and converter work entirely offline using your browser’s time zone data.</p>
-    <p><strong>Is my city list private?</strong><br>Absolutely. Your selected cities are stored only in your browser’s local storage. No information is sent to any server.</p>
+    <p><strong>Does this tool work offline?</strong><br>Yes, after the initial page load, the clock grid and converter work entirely offline using your browser's time zone data.</p>
+    <p><strong>Is my city list private?</strong><br>Absolutely. Your selected cities are stored only in your browser's local storage. No information is sent to any server.</p>
     <p><strong>Can I convert between any two time zones?</strong><br>Yes, the dropdown includes all major cities and UTC. You can convert any time between any two zones.</p>
     <p><strong>Why do some cities show the same time?</strong><br>They may be in the same time zone or currently have the same offset due to DST.</p>
     <p><strong>How accurate is the time?</strong><br>The times are calculated using the Intl API of your browser, which is highly accurate and updates every second.</p>
@@ -324,8 +413,19 @@
       <li><strong>Education:</strong> Learn about time zones and geography.</li>
     </ul>
     <h3>Why Choose ColdMatrix World Clock?</h3>
-    <p>It’s free, fast, and beautifully designed. No other web-based world clock offers such a premium look combined with full functionality. The tool is perfect for anyone who values accuracy, privacy, and elegance.</p>
-    <p><strong>Disclaimer:</strong> Times are based on your device’s settings and the IANA time zone database. Always double-check critical scheduling with an official source.</p>
+    <p>It's free, fast, and beautifully designed. No other web-based world clock offers such a premium look combined with full functionality. The tool is perfect for anyone who values accuracy, privacy, and elegance.</p>
+    <p><strong>Disclaimer:</strong> Times are based on your device's settings and the IANA time zone database. Always double-check critical scheduling with an official source.</p>
+  </div>
+
+  <div class="lead-capture">
+    <h3>🚀 Need a Custom Global Tool?</h3>
+    <p>Get tailored calculators, dashboards, or automation for your business. Leave your email and we'll reach out with a free consultation.</p>
+    <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="email" name="email" placeholder="Your work email" required>
+      <button type="submit">Request Custom Tool</button>
+    </form>
   </div>
 
   <div class="appreciation">✨ <strong class="gold">Thank you</strong> for using our World Clock. Stay connected across the globe!<br><span style="font-size:0.75rem">Explore more <a href="index.html" style="color:var(--accent)">premium tools</a> designed for you.</span></div>
@@ -375,6 +475,7 @@
     { name: 'Istanbul', country: 'Turkey', tz: 'Europe/Istanbul' },
     { name: 'Dubai', country: 'UAE', tz: 'Asia/Dubai' },
     { name: 'Riyadh', country: 'Saudi Arabia', tz: 'Asia/Riyadh' },
+    { name: 'Jeddah', country: 'Saudi Arabia', tz: 'Asia/Riyadh' },
     { name: 'Doha', country: 'Qatar', tz: 'Asia/Qatar' },
     { name: 'Kuwait City', country: 'Kuwait', tz: 'Asia/Kuwait' },
     { name: 'Manama', country: 'Bahrain', tz: 'Asia/Bahrain' },
@@ -415,7 +516,7 @@
     { name: 'UTC', country: 'Universal', tz: 'UTC' }
   ].sort((a,b) => a.name.localeCompare(b.name));
 
-  const DEFAULT_CITIES = ['America/New_York', 'Europe/London', 'Asia/Dubai', 'Asia/Karachi', 'Asia/Kolkata', 'Asia/Singapore', 'Asia/Tokyo', 'Australia/Sydney'];
+  const DEFAULT_CITIES = ['America/New_York', 'Europe/London', 'Asia/Dubai', 'Asia/Riyadh', 'Asia/Karachi', 'Asia/Kolkata', 'Asia/Shanghai', 'Asia/Singapore', 'Asia/Tokyo', 'Australia/Sydney'];
 
   function getSavedCities() {
     try {
