@@ -52,7 +52,7 @@
     .container { max-width: 900px; margin:0 auto; padding:0 24px; }
     .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; max-width:900px; margin:0 auto; }
-    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+.logo { font-size:1.3rem; font-weight:700; color:#FFD700; text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
@@ -61,7 +61,7 @@
     .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
     h1 { font-size:1.8rem; font-weight:800; margin-bottom:6px; }
     h1 span { color: var(--gold-bright); }
-    .subtitle { color:var(--muted); margin-bottom:28px; }
+.subtitle { color:#EAEDF0; margin-bottom:28px; font-size:1rem; font-weight:500; }
 
     /* compact share tool card */
     .share-tool-card {
@@ -287,7 +287,47 @@
     }
     .privacy-note {
       margin-top: 10px; font-size: 0.7rem; color: #8B98A5;
+      
     }
+    /* FORCE Uniform Premium Buttons — Sandwich Panel Calculator */
+button.btn-calc,
+button.btn-reset,
+button.unit-btn,
+button.action-btn,
+button.share-tool-btn,
+button.btn-primary {
+    background: #C8CDD4 !important;
+    color: #0A0F14 !important;
+    border: 2px solid #D4AF37 !important;
+    border-radius: 10px !important;
+    font-weight: 800 !important;
+    text-shadow: none !important;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3) !important;
+}
+
+button.btn-calc:hover,
+button.btn-reset:hover,
+button.unit-btn:hover,
+button.action-btn:hover,
+button.share-tool-btn:hover,
+button.btn-primary:hover {
+    background: #D5D9DE !important;
+    border-color: #FFD700 !important;
+    box-shadow: 0 0 18px rgba(212,175,55,0.5) !important;
+}
+
+/* Keep brand colors */
+button.whatsapp-action { background: #25D366 !important; border: none !important; color: #fff !important; }
+button.pdf-action { background: #0077B5 !important; border: none !important; color: #fff !important; }
+button.download-jpg-action { background: #6C5CE7 !important; border: none !important; color: #fff !important; }
+button.download-png-action { background: #F59E0B !important; border: none !important; color: #fff !important; }
+button.btn-calc,
+button.btn-reset {
+    font-size: 1rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+}
   </style>
 </head>
 <body>
@@ -308,7 +348,7 @@
   <div class="container">
   <a href="index.html#tools" class="back-link">← Back to Tools</a>
   
-    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+<div id="cmInstallBar" style="display:block;background:linear-gradient(135deg,#D4AF37,#FFD700);color:#0A0F14;text-align:center;padding:10px;font-weight:700;font-size:0.85rem;border-radius:8px;margin:16px 0 0;">📱 Add to Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#FFD700;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:700;cursor:pointer;">Install</button></div>
 
     <h1><span>ColdMatrix</span> Sandwich Panel Calculator</h1>
     <p class="subtitle">Estimate panel weight, quantity, and total cost — with flexible units for any project.</p>
@@ -499,11 +539,10 @@
       </div>
     </div>
 
-<div style="display:flex;gap:10px;align-items:center;">
-  <button class="btn-calc" style="flex:2; height:56px; font-size:1.1rem;" onclick="runSandwichCalculation()">Calculate Panels</button>
-  <button class="btn-reset" style="flex:0.8; height:56px; font-size:0.85rem;" onclick="resetForm()">🔄 Reset</button>
+<div style="display:flex;gap:10px;align-items:stretch;">
+  <button class="btn-calc" style="flex:3; height:70px; font-size:1.rem; font-weight:900;" onclick="runSandwichCalculation()">Calculate Panels</button>
+  <button class="btn-reset" style="flex:1; height:70px; font-size:1rem; font-weight:900;" onclick="resetForm()">↺ Reset</button>
 </div>
-
     <!-- RESULTS -->
     <div class="card" id="resultsContainer" style="display:none;">
       <h2>📊 Panel Estimate Summary</h2>
@@ -1399,6 +1438,15 @@
       }
     ]
   }
+  <script>
+let cmDeferredPrompt;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();cmDeferredPrompt=e;var b=document.getElementById('cmInstallBar');if(b)b.style.display='block';});
+function cmInstallApp(){
+  if(cmDeferredPrompt){cmDeferredPrompt.prompt();cmDeferredPrompt.userChoice.then(function(){document.getElementById('cmInstallBar').style.display='none';});}
+  else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');}
+}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(function(){});}
+</script>
   </script>
 </body>
 </html>

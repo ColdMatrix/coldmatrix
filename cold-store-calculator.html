@@ -466,7 +466,7 @@
 
     .navbar{position:sticky;top:0;z-index:100;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.06)}
     .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 0;flex-wrap:wrap;max-width:800px;margin:0 auto}
-    .logo{font-size:1.2rem;font-weight:700;color:#4FC3F7;text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:0.5px}
+.logo{font-size:1.2rem;font-weight:700;color:#FFD700;text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:0.5px;}
     .nav-links{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
     .nav-links a{color:#9AA0B0;text-decoration:none;font-weight:500;font-size:0.85rem;transition:color 0.2s}
     .nav-links a:hover{color:#4FC3F7}
@@ -526,7 +526,102 @@
     }
     .privacy-note {
       margin-top: 10px; font-size: 0.7rem; color: #8B98A5;
+      .btn-calc, .btn-reset, .btn-primary, .btn-gold {
+    background: #C8CDD4 !important;
+    color: #0A0F14 !important;
+    border: 2px solid #D4AF37 !important;
+    border-radius: 14px !important;
+    font-weight: 800 !important;
+    text-shadow: none !important;
+    min-height: 70px;
+    max-height: 70px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1;
+}
+.btn-calc:hover, .btn-reset:hover, .btn-primary:hover, .btn-gold:hover {
+    background: #D5D9DE !important;
+    border-color: #FFD700 !important;
+    box-shadow: 0 0 22px rgba(212,175,55,0.6) !important;
+}
     }
+    /* Uniform Premium Buttons — applies to ALL buttons */
+button,
+.btn,
+.btn-calc,
+.btn-reset,
+.btn-primary,
+.btn-gold,
+.btn-small,
+.action-btn,
+.adv-toggle,
+.unit-btn,
+.share-tool-btn,
+.bridge-btn {
+    background: #C8CDD4 !important;
+    color: #0A0F14 !important;
+    border: 2px solid #D4AF37 !important;
+    border-radius: 10px !important;
+    font-weight: 800 !important;
+    text-shadow: none !important;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3) !important;
+    transition: all 0.2s ease !important;
+}
+
+button:hover,
+.btn:hover,
+.btn-calc:hover,
+.btn-reset:hover,
+.btn-primary:hover,
+.btn-gold:hover,
+.btn-small:hover,
+.action-btn:hover,
+.adv-toggle:hover,
+.unit-btn:hover,
+.share-tool-btn:hover,
+.bridge-btn:hover {
+    background: #D5D9DE !important;
+    border-color: #FFD700 !important;
+    box-shadow: 0 0 18px rgba(212,175,55,0.5) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Keep WhatsApp and PDF buttons their brand colors */
+.whatsapp-action, .wa-btn {
+    background: #25D366 !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+.pdf-action {
+    background: #0077B5 !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+.download-jpg-action {
+    background: #6C5CE7 !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+.download-png-action {
+    background: #F59E0B !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+/* Active state for unit buttons */
+.unit-btn.active {
+    background: #D4AF37 !important;
+    color: #0A0F14 !important;
+    border-color: #FFD700 !important;
+}
   </style>
 </head>
 <body>
@@ -534,7 +629,7 @@
 <div class="container">
   <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
   
-  <div id="cmInstallBar" style="display:block;background:#4FC3F7;color:#0A0F14;text-align:center;padding:10px;font-weight:600;font-size:0.85rem;border-radius:8px;margin:16px 0 0;">📱 Add to Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
+<div id="cmInstallBar" style="display:block;background:linear-gradient(135deg,#D4AF37,#FFD700);color:#0A0F14;text-align:center;padding:10px;font-weight:700;font-size:0.85rem;border-radius:10px;margin:16px auto;max-width:400px;">📱 Add to Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#FFD700;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:700;cursor:pointer;">Install</button></div>
   <h1>❄️ ColdMatrix Cold Store & Panels Calculator</h1>
   <p class="subtitle">Professional cold room sizing, PUF/PIR sandwich panel weight, thermal heat load, and cost estimation tool for engineers and contractors worldwide.</p>
     <div class="share-tool-card">
@@ -962,10 +1057,11 @@
 
     <div class="field"><label>💱 Currency</label><select id="currency"><option value="PKR">🇵🇰 PKR</option><option value="USD">🇺🇸 USD</option><option value="EUR">🇪🇺 EUR</option><option value="GBP">🇬🇧 GBP</option><option value="AED">🇦🇪 AED</option></select></div>
 
-    <div style="display:flex; gap:12px; margin-top:16px;">
-      <button class="btn-primary btn-calc-big" id="calcBtn" onclick="calculate()" style="flex:3;">Calculate</button>
-      <button type="button" class="btn-reset btn-reset-medium" onclick="resetCalculator()" style="flex:1;">🔄 Reset</button>
-    </div>
+<div style="display:flex; gap:12px; margin-top:16px; align-items:stretch;">
+  <button class="btn-primary btn-calc-big" id="calcBtn" onclick="calculate()" style="flex:3; height:70px;">Calculate</button>
+  <button type="button" class="btn-reset btn-reset-medium" onclick="resetCalculator()" style="flex:1; height:70px;">↺ Reset</button>
+</div>
+
     <div style="display:flex; gap:12px; margin-top:12px;">
       <button type="button" class="btn-reset btn-sleek" onclick="saveProject()" style="flex:1;">💾 Save Project</button>
       <button type="button" class="btn-reset btn-sleek" onclick="loadProject()" style="flex:1;">📂 Load Project</button>
@@ -2131,6 +2227,15 @@ function copyToolLink(){
     }
   ]
 }
+<script>
+let cmDeferredPrompt;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();cmDeferredPrompt=e;var b=document.getElementById('cmInstallBar');if(b)b.style.display='block';});
+function cmInstallApp(){
+  if(cmDeferredPrompt){cmDeferredPrompt.prompt();cmDeferredPrompt.userChoice.then(function(){document.getElementById('cmInstallBar').style.display='none';});}
+  else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');}
+}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(function(){});}
+</script>
 </script>
 </body>
 </html>
