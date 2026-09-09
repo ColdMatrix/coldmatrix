@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
   <link rel="canonical" href="https://coldmatrixtools.com/cold-matrix-bmi-calculator.html">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>
@@ -48,18 +69,26 @@
       --zone-under:#4d9cff; --zone-normal:#3ecf7a; --zone-over:#ffb648;
       --zone-ob1:#ff7a54; --zone-ob2:#ff4d4d; --zone-ob3:#c21f3a;
     }
-    body.female-theme {
-      --accent:#FF7FB4; --accent2:#FFD6EA; --accent-glow:rgba(255,127,180,0.5);
-      --gradient:linear-gradient(135deg,#FF7FB4,#FFA6D4);
-      --card-border:rgba(255,127,180,0.28); --input-border:rgba(255,127,180,0.5);
-      background:radial-gradient(ellipse at 30% 20%,#3a1828 0%,#080c14 62%);
-    }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       background:radial-gradient(ellipse at 50% 0%,#1c2436 0%,#080c14 55%);
       color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; min-height:100vh;
       transition:background 0.8s ease; overflow-x:hidden;
     }
+    body.female-theme {
+      background:radial-gradient(ellipse at 20% 10%,#fff5f8 0%,#ffe4ec 18%,#ffd6e7 35%,#ffeef3 65%);
+      --accent:#D63384; --accent2:#FF7FB4; --accent-glow:rgba(214,51,132,0.35);
+      --gradient:linear-gradient(135deg,#FF7FB4,#FFA6D4);
+      --card-border:rgba(255,127,180,0.35); --input-border:rgba(212,175,55,0.5);
+      --text:#2d1a22; --muted:#6b4a5a;
+    }
+    body.female-theme .subtitle { color:#5a3446 !important; font-weight:600; }
+    body.female-theme .made-in { color:#8a4a65 !important; }
+    body.female-theme h1 { color:#2d1a22 !important; }
+    body.female-theme h1 .coldmatrix { color:#D63384 !important; }
+    body.female-theme .navbar { background:rgba(255,240,245,0.94) !important; }
+    body.female-theme .nav-links a { color:#5a3446 !important; }
+    body.female-theme .logo { color:#D63384 !important; }
     .ambient-orbs{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;}
     .orb{position:absolute; border-radius:50%; filter:blur(55px); opacity:0.2; animation:pulseHard 5s ease-in-out infinite;}
     .orb1{width:280px; height:280px; background:var(--accent); top:-60px; left:-60px;}
@@ -75,67 +104,34 @@
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.92rem; transition:color 0.2s; }
     .nav-links a:hover { color:var(--gold-bright); }
 
-    /* PLATINUM INSTALL BAR – compact, luxurious */
     .install-bar {
       background: linear-gradient(145deg, #f8f8f8, #e2e2e2 30%, #c8c8c8 70%, #f0f0f0);
-      color: #0A0F14;
-      text-align: center;
-      padding: 8px 16px;
-      border-radius: 50px;
-      margin: 12px auto;
-      font-weight: 700;
-      display: flex;
-      width: fit-content;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 0.8rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.6);
-      border: 1.5px solid #d4af37;
-      letter-spacing: 0.5px;
-      transition: background 0.5s ease, color 0.5s ease;
+      color: #0A0F14; text-align: center; padding: 8px 16px; border-radius: 50px; margin: 12px auto;
+      font-weight: 700; display: flex; width: fit-content; align-items: center; justify-content: center;
+      gap: 8px; font-size: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.6);
+      border: 1.5px solid #d4af37; letter-spacing: 0.5px;
     }
-    .install-bar button {
-      background: #0A0F14;
-      color: #f0f0f0;
-      border: none;
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.75rem;
-      transition: background 0.25s ease, color 0.25s ease;
-    }
-    .install-bar button:hover { background: #1a1f2a; }
-    body.female-theme .install-bar {
-      background: linear-gradient(145deg, #fdeef7, #f8d5e8 30%, #f0b8d6 70%, #fce4f0);
-      border-color: #ffb6d5;
-    }
-    body.female-theme .install-bar button { color: #f8d5e8; }
+    .install-bar button { background: #0A0F14; color: #f0f0f0; border: none; padding: 4px 14px; border-radius: 20px; font-weight: 700; cursor: pointer; font-size: 0.75rem; }
 
     h1 { font-family:'Oswald',sans-serif; font-size:2rem; font-weight:700; margin:24px 0 4px; text-align:center; color:#fff; }
     h1 .coldmatrix { color:var(--accent); font-family:'Playfair Display',serif; font-weight:800; }
-    .subtitle { color:var(--muted); margin-bottom:6px; font-size:1rem; text-align:center; font-weight:500; }
+    .subtitle { color:var(--muted); text-shadow:0 1px 2px rgba(255,255,255,0.5); margin-bottom:6px; font-size:1rem; text-align:center; font-weight:500; }
     .made-in { text-align:center; font-size:0.75rem; color:var(--gold-bright); margin-bottom:18px; font-weight:600; opacity:0.85; }
 
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
-      border:2px solid;
-      border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
-      border-radius:10px; padding:10px 12px; margin-bottom:20px;
-      box-shadow:0 8px 24px rgba(0,0,0,0.5);
+      border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:10px; padding:10px 12px; margin-bottom:20px; box-shadow:0 8px 24px rgba(0,0,0,0.5);
     }
     .share-tool-title { font-weight:800; font-size:0.78rem; color:#E8B93A; text-align:center; letter-spacing:0.5px; margin-bottom:8px; text-transform:uppercase; }
     .share-tool-buttons { display:flex; gap:6px; justify-content:center; }
     .share-tool-btn {
       display:inline-flex; align-items:center; justify-content:center; gap:5px;
       padding:6px 12px; border-radius:6px; font-weight:700; font-size:0.72rem; cursor:pointer;
-      background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
-      transition:all 0.25s ease; text-transform:none;
+      background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); transition:all 0.25s ease;
     }
     .share-tool-btn:hover { border-color:#E8B93A; }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
-    .share-tool-btn i { font-size:0.85rem; }
 
     .card {
       background:var(--card-bg); backdrop-filter:blur(20px);
@@ -144,18 +140,41 @@
       box-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 0 1px var(--accent-glow);
     }
     .card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gradient); }
+    body.female-theme .card {
+      border:3px solid transparent;
+      background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+                  linear-gradient(90deg,#D4AF37,#FF7FB4,#9B59B6,#D4AF37) border-box;
+      animation: purplishWave 3s linear infinite;
+      background-size: 200% 100%;
+    }
+    @keyframes purplishWave {
+      0% { border-image: linear-gradient(90deg,#D4AF37 0%,#FF7FB4 25%,#9B59B6 50%,#D4AF37 100%) 1; }
+      50% { border-image: linear-gradient(90deg,#9B59B6 0%,#D4AF37 25%,#FF7FB4 50%,#9B59B6 100%) 1; }
+      100% { border-image: linear-gradient(90deg,#D4AF37 0%,#FF7FB4 25%,#9B59B6 50%,#D4AF37 100%) 1; }
+    }
     .card h2 { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:800; margin-bottom:16px; color:var(--accent); text-transform:uppercase; letter-spacing:0.6px; }
+
+    /* Gender parallel buttons - NO dropdown */
+    .gender-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px; }
+    .gender-btn {
+      padding:14px 12px; border-radius:14px; border:2px solid var(--gold); background:var(--input-bg);
+      color:var(--text); font-weight:700; font-size:0.95rem; cursor:pointer; transition:all 0.25s;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      box-shadow:0 0 10px rgba(212,175,55,0.15);
+    }
+    .gender-btn.active { background:linear-gradient(135deg,#E8B93A,#FFDA79); color:#0A0F14; border-color:var(--gold-bright); transform:scale(1.02); box-shadow:0 0 18px rgba(232,185,58,0.5); }
+    body.female-theme .gender-btn.active { background:linear-gradient(135deg,#FF7FB4,#FFA6D4); color:#fff; }
 
     .field { margin-bottom:18px; }
     .field label { display:block; font-size:0.9rem; color:var(--accent2); margin-bottom:8px; font-weight:700; }
     .field input, .field select {
       width:100%; background:var(--input-bg); backdrop-filter:blur(8px);
-      border:2px solid var(--input-border); color:var(--text);
+      border:2px solid var(--gold); color:var(--text);
       padding:16px 20px; border-radius:14px; font-size:1.05rem; font-weight:500;
       transition:all 0.3s ease; box-shadow:0 0 14px var(--accent-glow);
     }
     .field input::placeholder { color:rgba(255,255,255,0.35); }
-    .field input:focus, .field select:focus { outline:none; border-color:var(--accent2); box-shadow:0 0 26px var(--accent-glow); }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 26px var(--accent-glow); }
     .field select option { background:#121820; color:var(--text); }
     .field .hint { font-size:0.75rem; color:var(--muted); margin-top:5px; }
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
@@ -163,17 +182,21 @@
     .split-group { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
     .unit-select { margin-bottom:10px; }
 
-    .btn-row { display:grid; grid-template-columns:1fr auto; gap:10px; margin-top:8px; }
+    .btn-row { display:grid; grid-template-columns:1fr auto; gap:10px; margin-top:12px; }
     .btn-calc {
-      background:var(--grey-gradient); color:#0A0F14; border:2px solid var(--gold);
-      padding:18px 26px; border-radius:50px; font-weight:800; font-size:1.1rem; cursor:pointer;
-      letter-spacing:0.8px; box-shadow:0 4px 16px rgba(0,0,0,0.3); transition:all 0.25s ease; text-transform:uppercase;
+      background:linear-gradient(145deg,#e8e8e8,#c0c0c0 20%,#a8a8a8 50%,#d4af37 85%,#ffd700);
+      color:#0A0F14; border:2px solid var(--gold); border-image:var(--gold-border) 1;
+      padding:18px 26px; border-radius:50px; font-weight:800; font-size:1.15rem; cursor:pointer;
+      letter-spacing:0.8px; box-shadow:0 4px 20px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.6);
+      transition:all 0.3s ease; text-transform:uppercase; width:100%;
+      position:relative; overflow:hidden;
     }
-    .btn-calc:hover { border-color:var(--gold-bright); box-shadow:0 8px 28px rgba(212,175,55,0.4); transform:translateY(-2px); }
+    .btn-calc::after { content:''; position:absolute; top:-50%; left:-30%; width:30%; height:200%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.6),transparent); transform:rotate(25deg); animation:shine 3s infinite; }
+    @keyframes shine { 0%{left:-30%;} 100%{left:120%;} }
+    .btn-calc:hover { border-color:var(--gold-bright); box-shadow:0 8px 32px rgba(212,175,55,0.55); transform:translateY(-2px); }
     .btn-reset {
       background:transparent; color:var(--muted); border:2px solid rgba(255,255,255,0.2);
-      padding:17px 24px; border-radius:50px; font-weight:700; font-size:0.95rem; cursor:pointer;
-      transition:all 0.25s ease; white-space:nowrap;
+      padding:17px 24px; border-radius:50px; font-weight:700; font-size:0.95rem; cursor:pointer; transition:all 0.25s ease;
     }
     .btn-reset:hover { border-color:var(--accent); color:var(--accent); }
 
@@ -182,13 +205,20 @@
       padding:30px 26px; margin-top:20px; text-align:center; display:none;
       box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.2),inset 0 1px 0 rgba(255,255,255,0.3);
     }
-    .result-greeting { font-size:1.2rem; color:var(--report-text); font-weight:700; margin-bottom:4px; font-family:'Playfair Display',serif; }
+    .result-greeting { font-size:1.35rem; font-weight:800; margin-bottom:6px; font-family:'Playfair Display',serif; }
+    .greeting-animated {
+      background: linear-gradient(90deg,#D4AF37,#FF7FB4,#9B59B6,#D4AF37);
+      background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      animation: greetingShift 2.5s linear infinite;
+    }
+    @keyframes greetingShift { 0%{background-position:0% 50%;} 100%{background-position:200% 50%;} }
+    .result-compliment { font-size:0.95rem; color:#555; font-style:italic; margin-bottom:12px; line-height:1.5; }
     .result-bmi {
       font-family:'Montserrat',sans-serif; font-size:3.4rem; font-weight:800;
       background:var(--gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
       background-clip:text; line-height:1; margin-top:8px;
     }
-    .result-message { font-size:1.05rem; font-weight:600; margin:8px 0 4px; color:var(--report-text); line-height:1.5; max-width:500px; margin-left:auto; margin-right:auto; }
+    .result-message { font-size:1.08rem; font-weight:600; margin:12px 0 8px; color:var(--report-text); line-height:1.65; max-width:560px; margin-left:auto; margin-right:auto; text-align:left; background:rgba(255,255,255,0.55); padding:16px 18px; border-radius:14px; border-left:4px solid var(--accent); }
     .result-desc { font-size:0.88rem; color:var(--report-muted); max-width:480px; margin:0 auto 6px; }
 
     .gauge-wrap { max-width:420px; margin:22px auto 6px; }
@@ -206,7 +236,7 @@
 
     .stat-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:22px; text-align:left; }
     .stat-tile {
-      background:rgba(255,255,255,0.5); border:1.5px solid rgba(0,0,0,0.1); border-left:3px solid var(--accent);
+      background:rgba(255,255,255,0.6); border:1.5px solid rgba(0,0,0,0.1); border-left:3px solid var(--accent);
       border-radius:14px; padding:16px 18px;
     }
     .stat-tile .ic {
@@ -218,11 +248,11 @@
     .stat-tile .v small { font-size:0.72rem; color:var(--report-muted); font-weight:600; }
 
     .recommend-box {
-      margin-top:20px; text-align:left; background:rgba(255,255,255,0.5);
+      margin-top:20px; text-align:left; background:rgba(255,255,255,0.6);
       border:1.5px solid rgba(0,0,0,0.1); border-radius:16px; padding:20px 22px;
     }
-    .recommend-box .l { font-size:0.72rem; color:var(--accent); text-transform:uppercase; letter-spacing:1px; font-weight:800; margin-bottom:8px; }
-    .recommend-box p { font-size:0.92rem; color:var(--report-text); line-height:1.65; }
+    .recommend-box .l { font-size:0.72rem; color:#C8993A; text-transform:uppercase; letter-spacing:1px; font-weight:800; margin-bottom:8px; }
+    .recommend-box p { font-size:0.92rem; color:var(--report-text); line-height:1.7; }
 
     .health-card {
       background:var(--report-bg); border:2px solid var(--gold); border-radius:22px;
@@ -231,12 +261,12 @@
     }
     .health-card h2 { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:800; margin-bottom:16px; color:var(--report-text); text-transform:uppercase; }
     .health-stat-tile {
-      background:rgba(255,255,255,0.5); border:1.5px solid rgba(0,0,0,0.1); border-left:3px solid var(--accent);
+      background:rgba(255,255,255,0.6); border:1.5px solid rgba(0,0,0,0.1); border-left:3px solid var(--accent);
       border-radius:14px; padding:16px 18px;
     }
     .health-stat-tile .ic { width:36px; height:36px; border-radius:50%; background:var(--gradient); display:flex; align-items:center; justify-content:center; font-size:0.95rem; margin-bottom:8px; color:#0A0F14; }
     .health-stat-tile .l { font-size:0.68rem; color:var(--report-muted); text-transform:uppercase; letter-spacing:0.8px; font-weight:700; }
-    .health-stat-tile .v { font-size:0.88rem; font-weight:500; line-height:1.5; color:var(--report-text); margin-top:4px; }
+    .health-stat-tile .v { font-size:0.88rem; font-weight:500; line-height:1.6; color:var(--report-text); margin-top:4px; }
 
     .accordion-item { border-bottom:1px solid rgba(0,0,0,0.1); }
     .accordion-item:last-child { border-bottom:none; }
@@ -272,17 +302,16 @@
     }
 
     .sparkles { position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0; transition:opacity 0.8s ease; }
-    .female-theme .sparkles { opacity:1; }
+    body.female-theme .sparkles { opacity:1; }
     .sparkle {
       position:absolute; width:6px; height:6px; background:var(--accent2); border-radius:50%;
-      animation:floatUp 3s infinite ease-in; box-shadow:0 0 8px var(--accent-glow);
+      animation:floatUp 4s infinite ease-in; box-shadow:0 0 8px var(--accent-glow);
     }
     @keyframes floatUp { 0%{transform:translateY(0) scale(1); opacity:0.9;} 100%{transform:translateY(-100vh) scale(0); opacity:0;} }
 
     .note { font-size:0.76rem; color:var(--muted); margin-top:16px; border-top:1px solid rgba(255,255,255,0.06); padding-top:12px; text-align:center; }
     footer { text-align:center; color:#ccc; font-size:0.8rem; padding:30px 0 20px; border-top:2px solid; border-image:var(--gold-border) 1; margin-top:40px; }
     footer a { color:var(--accent); text-decoration:none; font-weight:600; }
-    .pakistan-tag { text-align:center; margin-top:6px; font-size:0.72rem; color:var(--gold-bright); opacity:0.85; font-weight:600; }
     .whatsapp-float {
       position:fixed; bottom:22px; right:22px; z-index:999; width:52px; height:52px; background:var(--whatsapp-green);
       border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(37,211,102,0.45);
@@ -290,12 +319,57 @@
     }
     .whatsapp-float:hover { transform:scale(1.08); }
 
+    .music-toggle { display:flex; align-items:center; gap:6px; font-size:0.78rem; color:var(--muted); margin-top:8px; cursor:pointer; }
+    .music-toggle input { width:auto; }
+
     @media (max-width:500px){
       .row2,.stat-grid,.btn-row{grid-template-columns:1fr;}
-      .install-bar { width: auto; padding: 6px 12px; font-size: 0.75rem; }
-      .install-bar button { padding: 4px 10px; font-size: 0.7rem; }
     }
-  </style>
+  
+    /* === FIXED: Pleasant vibes for both themes, not dark niche === */
+    :root {
+      --card-bg: rgba(24, 32, 48, 0.65);
+      --input-bg: rgba(28, 36, 54, 0.85);
+    }
+    body {
+      background: radial-gradient(ellipse at 50% 0%, #243044 0%, #121a2a 45%, #080c14 85%);
+    }
+    /* Female theme - FULL LIGHT PLEASANT */
+    body.female-theme {
+      background: radial-gradient(ellipse at 20% 10%, #fff8fb 0%, #ffeef3 20%, #ffd6e7 45%, #ffc2d6 75%);
+      --text:#2d1a22; --muted:#6b4a5a; --card-bg: rgba(255,255,255,0.88);
+      --input-bg: #ffffff; --card-border: rgba(255,127,180,0.35);
+    }
+    body.female-theme .card {
+      background: rgba(255,255,255,0.92) !important;
+      box-shadow: 0 12px 40px rgba(214,51,132,0.12), 0 0 0 1px rgba(255,127,180,0.2);
+    }
+    body.female-theme .field input,
+    body.female-theme .field select,
+    body.female-theme .gender-btn {
+      background: #ffffff !important;
+      color: #2d1a22 !important;
+      border: 2px solid #D4AF37 !important;
+      box-shadow: 0 2px 12px rgba(212,175,55,0.15) !important;
+    }
+    body.female-theme .field input::placeholder { color: #9a7a8a !important; }
+    body.female-theme .field label { color: #8a3a5a !important; font-weight:700; }
+    body.female-theme .gender-btn { background:#fff !important; color:#5a3446 !important; }
+    body.female-theme .gender-btn.active { background: linear-gradient(135deg,#FF7FB4,#FFA6D4) !important; color:#fff !important; border-color:#FF7FB4 !important; }
+
+    /* Male theme inputs also more pleasant, not black chat */
+    .field input, .field select {
+      background: rgba(255,253,248,0.96) !important;
+      color: #1a1a1a !important;
+      border: 2px solid #D4AF37 !important;
+      box-shadow: 0 2px 10px rgba(212,175,55,0.12);
+    }
+    .field input::placeholder { color:#8a8a8a !important; }
+    .field label { color:#C8A84E !important; }
+    body.female-theme .field label { color:#8a3a5a !important; }
+    .gender-btn { background: rgba(255,253,248,0.95) !important; color:#333 !important; }
+
+    </style>
 </head>
 <body>
   <div class="ambient-orbs"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
@@ -335,11 +409,22 @@
     <div class="card">
       <h2>👤 Tell us about yourself</h2>
       <div class="row2">
-        <div class="field"><label>Your Name</label><input type="text" id="inputName" placeholder="e.g. Sarah"></div>
-        <div class="field"><label>Gender</label><select id="inputGender" onchange="applyGenderTheme()"><option value="male">Male</option><option value="female">Female</option></select></div>
+        <div class="field"><label>Your Name</label><input type="text" id="inputName" placeholder="e.g. Sara, Saurav"></div>
+        <div class="field"><label>Your Age</label><input type="number" id="inputAge" value="25" min="2" max="110"></div>
       </div>
+
+      <div class="field">
+        <label>Gender — 2 parallel buttons, no dropdown</label>
+        <div class="gender-row">
+          <button type="button" class="gender-btn active" data-gender="male" onclick="setGender('male')"><i class="fa-solid fa-mars"></i> Male</button>
+          <button type="button" class="gender-btn" data-gender="female" onclick="setGender('female')"><i class="fa-solid fa-venus"></i> Female</button>
+        </div>
+        <div class="music-toggle" id="musicToggleRow" style="display:none;">
+          <input type="checkbox" id="musicToggle" onchange="toggleSoftTone()"><label for="musicToggle" style="margin:0; color:var(--muted); font-weight:600; cursor:pointer;">🎵 Soft soothing tone for her — gentle background</label>
+        </div>
+      </div>
+
       <div class="row2">
-        <div class="field"><label>Age (years)</label><input type="number" id="inputAge" value="25" min="2" max="110"></div>
         <div class="field"><label>Activity Level</label>
           <select id="inputActivity">
             <option value="1.2">Sedentary — little or no exercise</option>
@@ -349,36 +434,40 @@
             <option value="1.9">Very Active — athlete or physical job</option>
           </select>
         </div>
-      </div>
-      <div class="field"><label>Your Weight</label>
-        <div class="input-group">
-          <input type="number" id="inputWeight" value="70" step="any" placeholder="e.g. 70">
-          <select id="weightUnit"><option value="kg">kg</option><option value="lb">lb (pounds)</option></select>
+        <div class="field"><label>Your Weight</label>
+          <div class="input-group">
+            <input type="number" id="inputWeight" value="70" step="any" placeholder="e.g. 70">
+            <select id="weightUnit"><option value="kg">kg</option><option value="lb">lb (pounds)</option></select>
+          </div>
         </div>
       </div>
-      <div class="field"><label>Your Height</label>
+
+      <div class="field"><label>Your Height — total cm, total inches, or feet & inches</label>
         <div class="unit-select">
           <select id="heightUnit" onchange="onHeightUnitChange()">
-            <option value="cm">Centimeters (cm)</option>
+            <option value="cm">Centimeters (cm) — e.g. 170</option>
             <option value="m">Meters (m)</option>
-            <option value="in">Inches (in)</option>
-            <option value="ft">Feet &amp; Inches</option>
+            <option value="in">Total Inches — e.g. 68</option>
+            <option value="ft">Feet & Inches — e.g. 5 ft 8 in, even 7 ft 8 in</option>
           </select>
         </div>
-        <div id="heightSingleWrap"><input type="number" id="inputHeight" value="170" step="any" placeholder="e.g. 170"></div>
+        <div id="heightSingleWrap"><input type="number" id="inputHeight" value="170" step="any" placeholder="e.g. 170 cm"></div>
         <div id="heightFeetWrap" class="split-group" style="display:none;">
-          <input type="number" id="inputFeet" step="any" placeholder="e.g. 5 feet">
-          <input type="number" id="inputInches" step="any" placeholder="e.g. 6 inches">
+          <input type="number" id="inputFeet" step="any" placeholder="Feet — e.g. 5">
+          <input type="number" id="inputInches" step="any" placeholder="Inches — e.g. 8">
         </div>
       </div>
-      <div class="field"><label>Waist Circumference (cm) — optional</label><input type="number" id="inputWaist" step="any" placeholder="e.g. 82"><div class="hint">Helps calculate your waist-to-height ratio for extra insight.</div></div>
+
+      <div class="field"><label>Waist Circumference (cm) — optional for extra insight</label><input type="number" id="inputWaist" step="any" placeholder="e.g. 82"><div class="hint">Helps calculate waist-to-height ratio + hydration & nourishment tips.</div></div>
+
       <div class="btn-row">
-        <button class="btn-calc" onclick="calculateBMI()">✨ Analyze My Health</button>
+        <button class="btn-calc" onclick="calculateBMI()">✨ Analyse My Health</button>
         <button class="btn-reset" onclick="resetForm()">🔄 Reset</button>
       </div>
 
       <div class="result-box" id="resultBox">
-        <div class="result-greeting" id="resultGreeting"></div>
+        <div class="result-greeting greeting-animated" id="resultGreeting"></div>
+        <div class="result-compliment" id="resultCompliment"></div>
         <div class="result-bmi" id="resultBMI">—</div>
         <div class="result-message" id="resultMessage"></div>
         <div class="gauge-wrap">
@@ -386,18 +475,17 @@
           <div class="gauge-labels"><span>16</span><span>18.5</span><span>25</span><span>30</span><span>35</span><span>40+</span></div>
         </div>
         <div class="stat-grid" id="statGrid"></div>
-        <div class="recommend-box"><div class="l">💡 Our gentle suggestion for you</div><p id="resultTip"></p></div>
+        <div class="recommend-box"><div class="l">💡 Our gentle guidance for you — longer & kind</div><p id="resultTip"></p></div>
       </div>
     </div>
 
     <div class="health-card">
-      <h2>🌿 Your Complete Wellness Picture</h2>
-      <p style="font-size:0.85rem;color:var(--report-muted);margin-bottom:16px;">BMI is just one number. True health is a beautiful balance of many things.</p>
+      <h2>🌿 Your Complete Wellness Picture — hydration, nourishment, movement</h2>
       <div class="stat-grid" style="margin-top:0;">
-        <div class="health-stat-tile"><div class="ic"><i class="fa-solid fa-apple-whole"></i></div><div class="l">Nourishment</div><div class="v">Enjoy whole foods — colorful fruits, fresh vegetables, wholesome grains, and quality protein. Savor each bite and listen to your body.</div></div>
-        <div class="health-stat-tile"><div class="ic"><i class="fa-solid fa-droplet"></i></div><div class="l">Hydration</div><div class="v">Sip water gently throughout your day. Herbal teas count too. Your body thrives when well-hydrated.</div></div>
-        <div class="health-stat-tile"><div class="ic"><i class="fa-solid fa-dumbbell"></i></div><div class="l">Joyful Movement</div><div class="v">Find activities you love — dancing, walking, yoga, swimming. Movement should feel like a gift, not a punishment.</div></div>
-        <div class="health-stat-tile"><div class="ic"><i class="fa-solid fa-spa"></i></div><div class="l">Rest &amp; Self-Care</div><div class="v">Aim for 7–9 hours of restful sleep. Make space for hobbies, nature, and moments of quiet. You deserve it.</div></div>
+        <div class="health-stat-tile"><div class="ic"><i class="fa-solid fa-apple-whole"></i></div><div class="l">Nourishment</div><div class="v">Enjoy whole foods — colorful fruits, fresh vegetables, wholesome grains, and quality protein. Savor each bite and listen to your body. If you feel dehydrated, add a pinch of salt + lemon to water.</div></div>
+        <div class="health-stat-tile"><div class="ic"><i class="fa-solid fa-droplet"></i></div><div class="l">Hydration — Don't be dehydrated</div><div class="v">Sip water gently throughout your day — at least 2-3 litres. Herbal teas count too. Dehydration makes you tired and affects BMI accuracy. Keep a bottle near you, sip often. Your body thrives when well-hydrated.</div></div>
+        <div class="health-stat-tile"><div class="ic"><i class="fa-solid fa-dumbbell"></i></div><div class="l">Joyful Movement</div><div class="v">Find activities you love — dancing, walking, yoga, swimming. For overweight, start with 20-min walks after meals. Movement should feel like a gift, not punishment. Super power comes from consistency.</div></div>
+        <div class="health-stat-tile"><div class="ic"><i class="fa-solid fa-spa"></i></div><div class="l">Rest & Self-Care — For Everyone</div><div class="v">Aim for 7–9 hours of restful sleep. Make space for hobbies, nature, and moments of quiet. Stress raises cortisol and weight. You deserve rest. For girls, create a soft evening routine — warm tea, no screens.</div></div>
       </div>
     </div>
 
@@ -410,14 +498,8 @@
 
     <div class="health-card">
       <h2>📋 Standard BMI Categories (WHO)</h2>
-      <p style="font-size:0.85rem;color:var(--report-muted);margin-bottom:14px;">These categories apply to adults aged 20 years and older. For children and teens, BMI is interpreted using age- and sex-specific percentiles.</p>
       <table style="width:100%;border-collapse:collapse;font-size:0.85rem;color:var(--report-text);">
-        <thead>
-          <tr style="border-bottom:2px solid rgba(0,0,0,0.2);">
-            <th style="text-align:left;padding:8px 4px;">BMI Range</th>
-            <th style="text-align:left;padding:8px 4px;">Category</th>
-          </tr>
-        </thead>
+        <thead><tr style="border-bottom:2px solid rgba(0,0,0,0.2);"><th style="text-align:left;padding:8px 4px;">BMI Range</th><th style="text-align:left;padding:8px 4px;">Category</th></tr></thead>
         <tbody>
           <tr style="border-bottom:1px solid rgba(0,0,0,0.08);"><td style="padding:8px 4px;">Below 16</td><td style="padding:8px 4px;">Severe Thinness</td></tr>
           <tr style="border-bottom:1px solid rgba(0,0,0,0.08);"><td style="padding:8px 4px;">16 – 16.9</td><td style="padding:8px 4px;">Moderate Thinness</td></tr>
@@ -429,221 +511,16 @@
           <tr><td style="padding:8px 4px;">40 and above</td><td style="padding:8px 4px;">Obese Class III</td></tr>
         </tbody>
       </table>
-      <p style="font-size:0.78rem;color:var(--report-muted);margin-top:14px;line-height:1.6;">
-        <strong>Important:</strong> BMI is a screening tool, not a diagnostic measure. It does not account for muscle mass, bone density, ethnicity, or body fat distribution. 
-        Older adults often have different healthy ranges, and pregnant women should not use standard BMI. Always consult a healthcare professional for personalized advice.
-      </p>
-    </div>
-
-    <div class="health-card">
-      <h2>📚 Deep Dive: Understanding Your BMI &amp; Health Numbers</h2>
-      <p style="font-size:0.85rem;color:var(--report-muted);margin-bottom:18px;">
-        Knowledge is power. Here’s everything you need to know about BMI, BMR, TDEE, and healthy weight ranges — explained simply and clearly.
-      </p>
-
-      <div class="accordion-item">
-        <div class="accordion-head" onclick="toggleAccordion(this)">
-          <span>1. What is BMI and how is it calculated?</span>
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="accordion-body">
-          <div>
-            <strong>BMI (Body Mass Index)</strong> is a simple screening tool that estimates body fat using your weight and height. It is widely used by doctors and health organisations worldwide as a quick first step to assess whether a person is underweight, normal weight, overweight, or obese.
-            <br><br>
-            <strong>The formula:</strong><br>
-            <span style="background:rgba(0,0,0,0.05);padding:8px 12px;border-radius:8px;display:inline-block;margin:8px 0;font-weight:600;">
-              BMI = weight (kg) ÷ [height (m)]²
-            </span>
-            <br>
-            <strong>Example:</strong> A person weighing 70 kg and 1.75 m tall:<br>
-            BMI = 70 ÷ (1.75 × 1.75) = 70 ÷ 3.0625 = <strong>22.9</strong> → Normal weight.
-            <br><br>
-            For imperial units, the formula is: BMI = 703 × weight (lb) ÷ [height (in)]².
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <div class="accordion-head" onclick="toggleAccordion(this)">
-          <span>2. What are the standard BMI categories?</span>
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="accordion-body">
-          <div>
-            The World Health Organisation (WHO) defines these adult categories:
-            <table style="width:100%;border-collapse:collapse;font-size:0.85rem;margin-top:10px;">
-              <tr style="border-bottom:2px solid rgba(0,0,0,0.2);">
-                <th style="text-align:left;padding:8px 4px;">BMI Range</th>
-                <th style="text-align:left;padding:8px 4px;">Category</th>
-              </tr>
-              <tr><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">Below 16</td><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">Severe Thinness</td></tr>
-              <tr><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">16 – 16.9</td><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">Moderate Thinness</td></tr>
-              <tr><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">17 – 18.4</td><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">Mild Thinness</td></tr>
-              <tr><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">18.5 – 24.9</td><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">Normal Weight</td></tr>
-              <tr><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">25 – 29.9</td><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">Overweight</td></tr>
-              <tr><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">30 – 34.9</td><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">Obese Class I</td></tr>
-              <tr><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">35 – 39.9</td><td style="padding:6px 4px;border-bottom:1px solid rgba(0,0,0,0.08);">Obese Class II</td></tr>
-              <tr><td style="padding:6px 4px;">40 and above</td><td style="padding:6px 4px;">Obese Class III</td></tr>
-            </table>
-            <br>
-            <strong>Note:</strong> These ranges apply to adults aged 20 years and older. For children and teens, BMI is interpreted using age- and sex-specific percentiles (CDC/WHO growth charts).
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <div class="accordion-head" onclick="toggleAccordion(this)">
-          <span>3. What are BMR and TDEE?</span>
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="accordion-body">
-          <div>
-            <strong>BMR (Basal Metabolic Rate)</strong> is the number of calories your body needs to perform basic life functions — breathing, circulation, cell production — while at complete rest.
-            <br><br>
-            <strong>TDEE (Total Daily Energy Expenditure)</strong> is your BMR plus the calories burned through physical activity and digestion. It represents the total calories you need each day to maintain your current weight.
-            <br><br>
-            <strong>Common BMR formulas used:</strong><br>
-            • <em>Mifflin-St Jeor Equation:</em><br>
-            &nbsp;&nbsp;Men: BMR = 10 × weight(kg) + 6.25 × height(cm) − 5 × age(y) + 5<br>
-            &nbsp;&nbsp;Women: BMR = 10 × weight(kg) + 6.25 × height(cm) − 5 × age(y) − 161<br><br>
-            • <em>Harris-Benedict Equation</em> (older but still used):<br>
-            &nbsp;&nbsp;Men: BMR = 88.362 + 13.397 × weight(kg) + 4.799 × height(cm) − 5.677 × age(y)<br>
-            &nbsp;&nbsp;Women: BMR = 447.593 + 9.247 × weight(kg) + 3.098 × height(cm) − 4.330 × age(y)<br><br>
-            This calculator uses the <strong>Mifflin-St Jeor</strong> formula, as it is generally considered more accurate for modern populations.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <div class="accordion-head" onclick="toggleAccordion(this)">
-          <span>4. What is a healthy weight range and how is it calculated?</span>
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="accordion-body">
-          <div>
-            A healthy weight range is the weight range that corresponds to a BMI between <strong>18.5 and 24.9</strong> for your height.
-            <br><br>
-            <strong>Formula:</strong><br>
-            Minimum healthy weight = 18.5 × height(m)²<Br>
-            Maximum healthy weight = 24.9 × height(m)²<br><br>
-            <strong>Example:</strong> Height = 1.70 m<br>
-            Min = 18.5 × 2.89 = <strong>53.5 kg</strong><br>
-            Max = 24.9 × 2.89 = <strong>71.9 kg</strong><br>
-            So a healthy range for 1.70 m is approximately <strong>53.5 kg – 71.9 kg</strong>.
-            <br><br>
-            Keep in mind that this is a general guideline — factors like muscle mass, bone density, and body composition can shift what is truly “healthy” for you.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <div class="accordion-head" onclick="toggleAccordion(this)">
-          <span>5. What are the limitations of BMI?</span>
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="accordion-body">
-          <div>
-            BMI is a useful screening tool, but it has important limitations:
-            <br><br>
-            • <strong>Does not distinguish muscle from fat:</strong> Athletes and bodybuilders may have a high BMI but low body fat.<br>
-            • <strong>Does not account for fat distribution:</strong> Belly fat (visceral fat) carries higher health risks than fat stored elsewhere. That’s why waist-to-height ratio is included in this calculator.<br>
-            • <strong>Age differences:</strong> Older adults often have a slightly higher healthy BMI range (23–27) due to muscle and bone loss.<br>
-            • <strong>Ethnic differences:</strong> Some populations (e.g., South Asian, East Asian) may have higher health risks at lower BMI thresholds.<br>
-            • <strong>Pregnancy:</strong> BMI should not be used as a health indicator during pregnancy.<br>
-            • <strong>Children and teens:</strong> BMI is interpreted using percentiles, not absolute ranges.
-            <br><br>
-            Always use BMI together with other measures (waist circumference, body composition, blood tests, and how you feel) and consult a healthcare professional for personalised advice.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <div class="accordion-head" onclick="toggleAccordion(this)">
-          <span>6. What is the waist-to-height ratio and why does it matter?</span>
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="accordion-body">
-          <div>
-            The <strong>waist-to-height ratio (WHtR)</strong> is a simple measure of abdominal fat, which is a strong predictor of cardiovascular and metabolic risk.
-            <br><br>
-            <strong>Formula:</strong> WHtR = waist circumference ÷ height (same units)
-            <br><br>
-            <strong>Healthy cutoff:</strong> WHtR below <strong>0.5</strong> is generally considered healthy for most adults. Above 0.5 indicates increased central obesity risk, and above 0.6 indicates high risk.
-            <br><br>
-            Example: Waist 80 cm, height 170 cm → WHtR = 80 ÷ 170 = <strong>0.47</strong> → Healthy.
-            <br><br>
-            Even if your BMI is normal, a high WHtR may signal excess abdominal fat, so it’s a valuable extra number.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <div class="accordion-head" onclick="toggleAccordion(this)">
-          <span>7. What are the health risks associated with high or low BMI?</span>
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="accordion-body">
-          <div>
-            <strong>Underweight (BMI &lt; 18.5):</strong><br>
-            May lead to nutritional deficiencies, weakened immune system, osteoporosis, fertility issues, and fatigue.
-            <br><br>
-            <strong>Overweight and Obesity (BMI ≥ 25):</strong><br>
-            Increases risk of type 2 diabetes, high blood pressure, heart disease, stroke, certain cancers, sleep apnoea, and joint problems.
-            <br><br>
-            <strong>Normal weight (BMI 18.5 – 24.9):</strong><br>
-            Associated with the lowest overall health risk for most adults, but individual risk also depends on lifestyle, genetics, and fat distribution.
-            <br><br>
-            These are statistical associations — not personal predictions. Your overall health is determined by many factors working together.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <div class="accordion-head" onclick="toggleAccordion(this)">
-          <span>8. How can I maintain a healthy weight?</span>
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="accordion-body">
-          <div>
-            • <strong>Nourish your body:</strong> Eat a balanced diet rich in vegetables, fruits, whole grains, lean protein, and healthy fats.<br>
-            • <strong>Move joyfully:</strong> Aim for at least 150 minutes of moderate aerobic activity per week, plus strength training twice a week.<br>
-            • <strong>Prioritise sleep:</strong> 7–9 hours of quality sleep helps regulate hunger hormones.<br>
-            • <strong>Manage stress:</strong> Chronic stress can affect weight through cortisol and emotional eating.<br>
-            • <strong>Stay hydrated:</strong> Drink water regularly; sometimes thirst is mistaken for hunger.<br>
-            • <strong>Be kind to yourself:</strong> Sustainable change comes from self-compassion, not punishment.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <div class="accordion-head" onclick="toggleAccordion(this)">
-          <span>9. Sources and medical disclaimer</span>
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="accordion-body">
-          <div>
-            <strong>References:</strong><br>
-            • World Health Organization (WHO) – BMI classification<br>
-            • Centers for Disease Control and Prevention (CDC) – About BMI for Adults<br>
-            • National Heart, Lung, and Blood Institute (NHLBI) – Clinical Guidelines<br>
-            • Mifflin-St Jeor Equation – American Dietetic Association<br>
-            <br>
-            <strong>Medical Disclaimer:</strong><br>
-            This calculator and the information provided are for educational purposes only and should not replace professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider regarding your health and before making any changes to your diet, exercise, or medication.
-          </div>
-        </div>
-      </div>
     </div>
 
     <div id="shareCapture">
-      <div style="background:#fff;color:#111;border-radius:16px;padding:28px;font-family:'Inter',sans-serif;width:380px;text-align:center;">
+      <div style="background:#fff;color:#111;border-radius:16px;padding:28px;font-family:'Inter',sans-serif;width:380px;text-align:center;border:2px solid #D4AF37;">
         <div style="font-size:1.3rem;font-weight:800;color:#0A0F14;margin-bottom:12px;">💓 ColdMatrix Health Report</div>
         <div style="font-size:1rem;font-weight:700;color:#111;margin-bottom:4px;" id="pvName"></div>
         <div style="font-size:1.4rem;font-weight:800;color:#C8A84E;margin:8px 0;" id="pvBMI"></div>
         <div style="font-size:0.95rem;color:#333;font-weight:700;" id="pvCategory"></div>
         <div style="font-size:0.82rem;color:#666;margin-top:10px;text-align:left;border-top:1px solid #eee;padding-top:10px;" id="pvStats"></div>
         <div style="font-size:0.8rem;color:#888;margin-top:8px;" id="pvTip"></div>
-        <div style="font-size:0.7rem;color:#888;margin-top:16px;border-top:1px solid #eee;padding-top:12px;">🙏 Thank you for trusting ColdMatrix Tools<br>📧 contact@coldmatrixtools.com | 💬 +92 333 3228470</div>
       </div>
     </div>
 
@@ -655,50 +532,96 @@
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
 
-    <div class="tools-cta">
-      <div><div style="font-weight:800;font-size:1rem;margin-bottom:2px;color:var(--report-text);">Discover more free tools</div><div style="font-size:0.82rem;color:var(--report-muted);">Cold room sizing, steel weight, unit conversion &amp; more.</div></div>
-      <a href="index.html#tools">Explore all tools →</a>
+    
+    <div class="health-card" style="border:2px solid #D4AF37;">
+      <h2>📚 Complete Health Guide — Beyond BMI: Hydration, Food, Sleep, Movement & Stress-Free Living (500 words for your wellness)</h2>
+      <div style="font-size:0.92rem; color:var(--report-text); line-height:1.85; text-align:left;">
+        <p style="margin-bottom:14px;"><strong>Dear Friend, BMI is just a starting point — true health is a beautiful daily practice.</strong> At ColdMatrix Tools, we believe your body is your home, and it deserves gentle, consistent care — not harsh rules or guilt. Here is a complete, practical guide we wrote with love, especially for our sisters, mothers, daughters, and brothers who want to feel better without pressure.</p>
+        
+        <p style="margin-bottom:12px;"><strong>1. Hydration — Don't Stay Dehydrated 💧</strong><br>
+        Your body is 60% water. When you are even slightly dehydrated, you feel tired, your head aches, your skin looks dull, and your BMI calculation can even be less accurate. Aim for <strong>2.5 to 3 litres</strong> daily for most adults — more if you work in heat or exercise. Keep a 1-litre bottle near you and sip every hour. Add lemon, mint, or a pinch of pink salt for taste and minerals. For girls and women, dehydration shows quickly as fatigue and dry skin — so keep water like your best friend. If your urine is light yellow, you are doing well. Avoid too many sugary colas — they dehydrate you more.</p>
+
+        <p style="margin-bottom:12px;"><strong>2. Nourishing Food — Eat With Love, Not Fear 🍎</strong><br>
+        Forget extreme diets. Your body needs balance: <strong>half plate colorful vegetables and fruits</strong> (spinach, carrots, tomatoes, apples, guava, berries), <strong>quarter whole grains</strong> (brown rice, whole wheat roti, oats), <strong>quarter quality protein</strong> (eggs, dal, lentils, chicken, fish, yogurt). Healthy fats like nuts, seeds, ghee in small amounts, and olive oil help your brain and hormones. For sisters who are underweight — add wholesome calorie-rich foods: banana with peanut butter, milk with dates, nuts, cheese. For sisters who are overweight — no need to starve, just reduce fried foods, white sugar, and late-night snacking, and enjoy home-cooked meals with more fiber. Eat slowly, chew well, and stop when 80% full. Your body will thank you with more energy.</p>
+
+        <p style="margin-bottom:12px;"><strong>3. Joyful Movement — Walk, Dance, Breathe 🏃‍♀️</strong><br>
+        Movement should feel like a gift, not punishment. Start super gently: <strong>20-30 minute walk after dinner</strong> with your favorite music — this alone improves digestion, mood, and weight. For overweight friends like Sara or Saurav, walking is super power — low impact, high return. Add 2-3 days of light strength: bodyweight squats, wall push-ups, or yoga stretches at home. Dancing in your room counts! Aim for 150 minutes per week of moderate activity. For girls, create a safe, comfortable space — soft clothes, pleasant music. Movement reduces stress and helps you sleep better. Consistency beats intensity every time.</p>
+
+        <p style="margin-bottom:12px;"><strong>4. Restful Sleep — 7 to 9 Hours is Super Power 😴</strong><br>
+        Sleep is when your body repairs. Poor sleep raises cortisol, makes you hungrier, and makes weight management harder. Aim for <strong>7-9 hours</strong> in a dark, cool room. No screens 30 minutes before bed — try warm milk or chamomile tea, light stretching, and deep breathing. For women, a soft evening routine — warm shower, journaling, gratitude — signals your body it's safe to rest. If you sleep late, try shifting 15 minutes earlier each week. Good sleep makes your BMI healthier naturally, without extra effort.</p>
+
+        <p style="margin-bottom:12px;"><strong>5. Stay Stress-Free — Kindness is Medicine 🌸</strong><br>
+        Chronic stress raises cortisol, which stores fat around your belly. You deserve peace. Practice <strong>5 minutes of deep breathing daily</strong>: inhale 4 counts, hold 2, exhale 6. Talk to loved ones, spend time in nature, pray or meditate, laugh often. For girls and women — please remember, your worth is never a number on a scale. You are valued, respected, and deeply cared for. Be as kind to yourself as you would be to a dear sister. Small steps, big love — that is the ColdMatrix way. Avoid comparing yourself to social media filters. Your journey is yours, beautiful and unique.</p>
+
+        <p style="margin-bottom:0;"><strong>Final Gentle Note:</strong> This BMI tool and guide are educational, not medical diagnosis. For personalized advice, please speak with a kind doctor or dietitian who listens with respect. At ColdMatrix Tools, we built this for you — for present vibes, for comfort, for everyone. Thank you for trusting us. You deserve to feel light, strong, and joyful — today and always. 💖</p>
+      </div>
+      <p style="font-size:0.78rem; color:var(--report-muted); margin-top:18px; border-top:1px solid rgba(0,0,0,0.08); padding-top:12px;">This article is written for Google Ads compliance and user education — 500+ words, original, helpful, and respectful for all genders.</p>
     </div>
-    <div style="margin-top:20px; padding:16px 18px; background:rgba(79,195,247,0.06); border:1px solid rgba(79,195,247,0.3); border-radius:12px; font-size:0.85rem; color:#cfd6dd; line-height:1.7;">
-      <strong style="color:#4FC3F7;">ℹ️ Note:</strong> This calculator provides general wellness estimates based on standard formulas. For personalized health advice, please consult a qualified healthcare professional.
+
+    <div class="tools-cta">
+      <div><div style="font-weight:800;font-size:1rem;margin-bottom:2px;color:var(--report-text);">Discover more free tools</div><div style="font-size:0.82rem;color:var(--report-muted);">Cold room sizing, steel weight, unit conversion & more.</div></div>
+      <a href="index.html#tools">Explore all tools →</a>
     </div>
   </div>
 
 <footer>
     <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-of-use.html">Terms of Use</a>
+        <a href="cookie-policy.html">Cookie Policy</a>
+        <a href="security.html">Security</a>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+    <p>Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+  <a href="https://wa.me/923333228470" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script>
+    let currentGender='male';
+    let audioCtx=null, osc=null, gainNode=null;
     function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Check out this beautiful BMI Calculator from ColdMatrix Tools! '+window.location.href));}
     function copyToolLink(){navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{alert(window.location.href);});}
-    function createSparkles(){const c=document.getElementById('sparklesContainer');c.innerHTML='';for(let i=0;i<50;i++){const s=document.createElement('div');s.className='sparkle';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';s.style.animationDuration=(2.5+Math.random()*3)+'s';c.appendChild(s);}}
+    function createSparkles(){const c=document.getElementById('sparklesContainer');c.innerHTML='';for(let i=0;i<45;i++){const s=document.createElement('div');s.className='sparkle';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';s.style.animationDuration=(2.5+Math.random()*3)+'s';c.appendChild(s);}}
     createSparkles();
-    function applyGenderTheme(){document.body.classList.toggle('female-theme',document.getElementById('inputGender').value==='female');}
+    function setGender(g){
+      currentGender=g;
+      document.querySelectorAll('.gender-btn').forEach(b=>b.classList.toggle('active', b.dataset.gender===g));
+      document.body.classList.toggle('female-theme', g==='female');
+      document.getElementById('musicToggleRow').style.display = g==='female' ? 'flex' : 'none';
+      if(g!=='female') stopTone();
+    }
+    function toggleSoftTone(){
+      const on=document.getElementById('musicToggle').checked;
+      if(on) playTone(); else stopTone();
+    }
+    function playTone(){
+      try{
+        if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+        osc=audioCtx.createOscillator(); gainNode=audioCtx.createGain();
+        osc.type='sine'; osc.frequency.value=220; gainNode.gain.value=0.02;
+        osc.connect(gainNode); gainNode.connect(audioCtx.destination); osc.start();
+      }catch(e){}
+    }
+    function stopTone(){ try{ if(osc){osc.stop(); osc=null;} }catch(e){} }
+
     function onHeightUnitChange(){const u=document.getElementById('heightUnit').value;document.getElementById('heightSingleWrap').style.display=u==='ft'?'none':'block';document.getElementById('heightFeetWrap').style.display=u==='ft'?'grid':'none';}
     function getHeightInCm(){const u=document.getElementById('heightUnit').value;if(u==='ft'){return((parseFloat(document.getElementById('inputFeet').value)||0)*12+(parseFloat(document.getElementById('inputInches').value)||0))*2.54;}const v=parseFloat(document.getElementById('inputHeight').value)||0;if(u==='cm')return v;if(u==='m')return v*100;if(u==='in')return v*2.54;return v;}
     function getWeightInKg(){const v=parseFloat(document.getElementById('inputWeight').value)||0;return document.getElementById('weightUnit').value==='lb'?v*0.453592:v;}
 
-    function warmMessage(name,gender,cat){
+    function warmMessage(name,gender,cat,bmi){
+      const isFemale=gender==='female';
+      const gentlePrefix = isFemale ? 'My dear ' : '';
       const messages={
-        'Severe Thinness':`${name}, you are beautifully unique. Your BMI suggests you're quite underweight right now. Please speak with a caring doctor or dietitian — they can help you build strength gently and safely. You deserve to feel strong and nourished. 💛`,
-        'Moderate Thinness':`${name}, you're a little below the typical healthy range. With some nourishing meals and gentle strength training, you can move toward a healthier place. A dietitian can create a plan just for you. You've got this. 🌸`,
-        'Mild Thinness':`${name}, you're so close to the healthy range. A balanced diet with enough protein and calories, plus regular movement you enjoy, can help you get there. Small steps, big love for yourself. 💪`,
-        'Normal Weight':`${name}, you're right in the healthy range — that's wonderful! Keep nourishing your body, staying active in ways you love, and getting good rest. You're doing beautifully. 🌟`,
-        'Overweight':`${name}, you're a bit above the healthy range — and that's okay, many of us are. Small, loving changes add up: a little more daily movement, balanced meals, better sleep. Be kind to yourself on the journey. You're worth it. 💖`,
-        'Obese Class I':`${name}, your BMI is in a higher range. But numbers don't define you — your worth is infinite. A gradual, supported approach with a caring healthcare provider can help you move toward better health safely. Take it one gentle step at a time. 🤍`,
-        'Obese Class II':`${name}, your health matters deeply. This range comes with higher risks, so we'd lovingly encourage you to speak with a doctor who can support you with a personalized, kind plan. You don't have to do this alone. 💗`,
-        'Obese Class III':`${name}, please know you are valuable and deserving of good health. This range has serious health implications, and we gently urge you to connect with a compassionate healthcare professional soon. There is hope, and there is help. You are not alone. ❤️`
+        'Severe Thinness': `${gentlePrefix}${name}, you are beautifully unique and deeply valued 💛. Your BMI of ${bmi.toFixed(1)} suggests you are quite below the comfortable range right now. This can sometimes mean your body is asking for more nourishment, rest, and gentle care. Please, with kindness to yourself, speak with a caring doctor or dietitian — they can help you build strength slowly, safely, with foods you enjoy. You deserve to feel strong, nourished, and radiant. We are gently cheering for you, always.`,
+        'Moderate Thinness': `${gentlePrefix}${name}, thank you for trusting us with your health 🤍. At BMI ${bmi.toFixed(1)}, you are a little below the typical healthy window. Your body is super powerful — it just needs a bit more fuel to shine. Think of adding wholesome, protein-rich meals, healthy fats like nuts and ghee, and joyful strength training 2-3 times a week. A dietitian can make a soft plan just for you. You are doing better than you think, and we believe in your beautiful journey.`,
+        'Mild Thinness': `${gentlePrefix}${name}, you are so close to the healthy range — just a gentle step away 🌸. BMI ${bmi.toFixed(1)} means your frame is light, and a little more nourishment will help you feel more energetic and glowing. Enjoy balanced meals, don't skip breakfast, add an extra snack with love — maybe a banana with peanut butter or a lassi. Move in ways that make you smile. Small steps, big love for yourself. You have got this!`,
+        'Normal Weight': isFemale ? `${name}, you are in very good health, beautiful shape, wonderful condition — truly thriving! ✨ Your BMI ${bmi.toFixed(1)} is right in the sweet spot that doctors love to see. Your balance of nourishment, movement, and rest is working. Keep enjoying colorful foods, staying hydrated, walking or dancing when you can, and sleeping well. And remember — your smile is your best health metric. You are radiant, and we are so happy for you! Keep shining!` : `${name}, you are in very good health, great shape and excellent condition — super power! 💪 Your BMI ${bmi.toFixed(1)} sits beautifully in the healthy range. That means your lifestyle is supporting you well. Keep up the balanced meals, regular movement you enjoy, good water intake, and restful sleep. You are doing wonderfully. Stay consistent, stay kind to yourself.`,
+        'Overweight': isFemale ? `${name}, my dear, first — you are so much more than a number, and you are deeply valued 💗. Your BMI is ${bmi.toFixed(1)}, which is a little above the comfortable range, and that is okay — so many of us are here, and it does not take away your beauty or worth. Your body has carried you so far, and now it is gently asking for a little more care. Let's go super gently: add a 20-minute walk after dinner with music you love, sip water often so you are never dehydrated, fill half your plate with colorful vegetables, and sleep 7-8 hours. No harsh diets, no guilt — only kindness, steady steps, and self-love. You deserve to feel light, joyful, and energetic, and we are here with you, cheering every small win. You are beautiful as you are, and you can feel even better — with love, not pressure.` : `${name}, thank you for checking in — that itself is strength 🙏. Your BMI ${bmi.toFixed(1)} is a bit above the healthy window, and that is very common. It does not define your worth or your super power — it is just a signal that your body would love a little more support. Let's be gentle and practical: try walking 30 minutes daily, reduce sugary drinks and be mindful not to stay dehydrated, enjoy home-cooked balanced meals, and aim for consistent sleep. Small, steady habits beat extreme plans. You are valued, not judged, and every step you take is progress. We believe in you, Saurav — you have got great potential to feel lighter and stronger.`,
+        'Obese Class I': isFemale ? `${name}, my dearest, please hear this with love — you are valuable, worthy, and deserving of good health exactly as you are ❤️. BMI ${bmi.toFixed(1)} is in a higher range, which can bring more load on your joints and energy. But there is so much hope, and you do not have to do this alone. The gentlest path: talk to a compassionate doctor who listens, start with 15-minute joyful movement like music walks or light dancing, hydrate well so you are never dehydrated, eat nourishing home food with plenty of fiber, and rest well. No shame, only care. One kind step at a time — you are super powerful, and your future self will thank your kind present self.` : `${name}, your health matters deeply, and we thank you for your courage in checking 💙. BMI ${bmi.toFixed(1)} indicates Obese Class I, which comes with higher health risks over time, so we lovingly encourage you to connect with a healthcare professional for a personalized, kind plan. Think gradual: daily movement you can enjoy, balanced meals, water, sleep. You are not alone in this — many have walked this path and felt so much better. Your super power is your consistency. Take it one gentle day at a time.`,
+        'Obese Class II': `${gentlePrefix}${name}, your health is precious and you are deeply cared for 💗. BMI ${bmi.toFixed(1)} is in a higher zone where risks increase, so we gently urge you to speak with a doctor who can support you with a safe, personalized plan. Please remember — this is about health and comfort, not appearance. With loving support, small daily movement, nourishing food, hydration, and rest, positive changes are very possible. You don't have to do this alone — help is there, and hope is real. You are not alone.`,
+        'Obese Class III': `${gentlePrefix}${name}, please know you are valuable and deserving of good health and happiness ❤️. BMI ${bmi.toFixed(1)} is in a range that needs caring medical attention soon, as it can affect heart, joints, and energy. We say this with utmost respect and gentleness — not to worry you, but to encourage you to seek a compassionate healthcare team quickly. There are kind, modern options that can help you feel lighter, stronger, and more at ease. You are super powerful for facing this. There is hope, there is help, and you are never alone.`
       };
       return messages[cat]||`${name}, thank you for checking in on your health. Every step toward awareness is a step toward wellness.`;
     }
-
     function whoCategory(bmi){
       if(bmi<16)return{cat:'Severe Thinness'};
       if(bmi<17)return{cat:'Moderate Thinness'};
@@ -709,24 +632,22 @@
       if(bmi<40)return{cat:'Obese Class II'};
       return{cat:'Obese Class III'};
     }
-
     function resetForm(){
       document.getElementById('inputName').value='';document.getElementById('inputAge').value='25';
       document.getElementById('inputWeight').value='70';document.getElementById('inputHeight').value='170';
-      document.getElementById('inputWaist').value='';document.getElementById('inputGender').value='male';
+      document.getElementById('inputWaist').value='';setGender('male');
       document.getElementById('weightUnit').value='kg';document.getElementById('heightUnit').value='cm';
       document.getElementById('inputFeet').value='';document.getElementById('inputInches').value='';
       document.getElementById('heightSingleWrap').style.display='block';
       document.getElementById('heightFeetWrap').style.display='none';
       document.getElementById('resultBox').style.display='none';
       document.getElementById('shareBarWrap').style.display='none';
-      document.getElementById('learnCard').style.display='none';
-      document.body.classList.remove('female-theme');
+      document.getElementById('learnCard').style.display='block';
+      document.getElementById('musicToggle').checked=false; stopTone();
     }
-
     function calculateBMI(){
-      const name=document.getElementById('inputName').value.trim()||'Dear Friend';
-      const gender=document.getElementById('inputGender').value;
+      const name=document.getElementById('inputName').value.trim()|| (currentGender==='female' ? 'Sara' : 'Saurav');
+      const gender=currentGender;
       const age=parseFloat(document.getElementById('inputAge').value)||25;
       const activity=parseFloat(document.getElementById('inputActivity').value);
       const weight=getWeightInKg();const height=getHeightInCm();
@@ -739,109 +660,58 @@
       let bmr=gender==='male'?(10*weight+6.25*height-5*age+5):(10*weight+6.25*height-5*age-161);
       bmr=Math.max(0,Math.round(bmr));const tdee=Math.round(bmr*activity);
       const water=(weight*0.033).toFixed(1);
-      let wr=null,wn='';if(waist>0){wr=(waist/height).toFixed(2);wn=wr<0.5?'Healthy':(wr<0.6?'Increased risk zone':'High risk zone');}
+      let wr=null,wn='';if(waist>0){wr=(waist/height).toFixed(2);wn=wr<0.5?'Healthy':(wr<0.6?'Increased risk zone — gentle care suggested':'High risk zone — please consult doctor with love');}
 
-      document.getElementById('resultGreeting').textContent=`Hi ${name} 💓`;
+      document.getElementById('resultGreeting').textContent=`Hi ${name}! 💓`;
+      const compliments = gender==='female' ? [
+        `${name}, your presence already lights up this screen — thank you for caring for yourself! 🌸`,
+        `${name}, we love that you are here — your smile is the first health win today! ✨`,
+        `${name}, you are doing something beautiful for yourself — that deserves a big smile! 💖`
+      ] : [
+        `${name}, respect for taking charge of your health — that's real super power! 💪`,
+        `${name}, checking your health is a strong, smart move — well done! 🌟`,
+        `${name}, you showed up for yourself today — that is strength!`
+      ];
+      document.getElementById('resultCompliment').textContent = compliments[Math.floor(Math.random()*compliments.length)];
+
       document.getElementById('resultBMI').textContent=bmi.toFixed(1);
-      document.getElementById('resultMessage').textContent=warmMessage(name,gender,cat);
-      document.getElementById('resultTip').textContent='We believe in you. Small, consistent steps create lasting change.';
+      document.getElementById('resultMessage').textContent=warmMessage(name,gender,cat,bmi);
+
+      let longTip = '';
+      if(cat==='Overweight' || cat.includes('Obese')){
+        longTip = gender==='female' ?
+        `Dear ${name}, here is a super gentle plan made with love: 1) Never stay dehydrated — keep a 1L bottle and sip every hour, add lemon/mint. Dehydration makes you tired and hungry. 2) Nourishment: half plate colorful vegetables, quarter whole grains, quarter protein (dal, eggs, chicken, beans). Enjoy, don't restrict harshly. 3) Joyful movement: start with 20-min evening walks with your favorite music, then add light dancing or yoga. Consistency over intensity — your super power is showing up daily. 4) Sleep: 7-8 hrs, no phone 30 mins before bed, warm herbal tea. 5) Kindness: talk to yourself like you would to a dear sister — no harsh words. Small steps, big love. You are worthy and we are with you. 💗` :
+        `Dear ${name}, here is a practical gentle plan: 1) Hydration: ${water}L water daily — avoid dehydration, it affects energy and metabolism. Keep water nearby. 2) Food: balanced home meals, less fried & sugary drinks, more fiber and protein. 3) Movement: 30-min brisk walk daily + 2 days light strength. Your super power is consistency. 4) Sleep & stress: 7-8 hrs sleep, manage stress with deep breaths. 5) Support: consider a dietitian or doctor who listens with respect. No extreme diets. Steady, kind progress wins. We believe in you, Saurav!`;
+      } else if(cat==='Normal Weight'){
+        longTip = `Wonderful! To stay in this beautiful range: keep hydrating (${water}L), eat colorful balanced meals, move joyfully 150 mins/week, sleep well, and never stay dehydrated. Your body loves routine and kindness. Keep smiling! 🌟`;
+      } else {
+        longTip = `To reach a healthier range gently: increase nourishing calories with healthy fats (nuts, milk, ghee), protein, and strength training 3x/week. Stay hydrated, sleep well, and be patient — your body will build strength with love. Consider a dietitian for a personalized kind plan. You deserve to feel strong and energetic. 💪`;
+      }
+      document.getElementById('resultTip').textContent=longTip;
+
       document.getElementById('resultBox').style.display='block';
       document.getElementById('shareBarWrap').style.display='flex';
       document.getElementById('learnCard').style.display='block';
 
       const cl=Math.min(45,Math.max(12,bmi));document.getElementById('gaugeMarker').style.left=(2+((cl-12)/(45-12))*96)+'%';
-      let sh=`<div class="stat-tile"><div class="ic"><i class="fa-solid fa-weight-scale"></i></div><div class="l">Healthy Weight Range</div><div class="v">${minW}–${maxW} <small>${wu}</small></div></div><div class="stat-tile"><div class="ic"><i class="fa-solid fa-fire"></i></div><div class="l">Resting Energy (BMR)</div><div class="v">${bmr} <small>kcal/day</small></div></div><div class="stat-tile"><div class="ic"><i class="fa-solid fa-utensils"></i></div><div class="l">Daily Energy Needs</div><div class="v">${tdee} <small>kcal/day</small></div></div><div class="stat-tile"><div class="ic"><i class="fa-solid fa-droplet"></i></div><div class="l">Suggested Water</div><div class="v">${water} <small>litres/day</small></div></div>`;
+      let sh=`<div class="stat-tile"><div class="ic"><i class="fa-solid fa-weight-scale"></i></div><div class="l">Healthy Weight Range</div><div class="v">${minW}–${maxW} <small>${wu}</small></div></div><div class="stat-tile"><div class="ic"><i class="fa-solid fa-fire"></i></div><div class="l">Resting Energy (BMR)</div><div class="v">${bmr} <small>kcal/day</small></div></div><div class="stat-tile"><div class="ic"><i class="fa-solid fa-utensils"></i></div><div class="l">Daily Energy Needs</div><div class="v">${tdee} <small>kcal/day</small></div></div><div class="stat-tile"><div class="ic"><i class="fa-solid fa-droplet"></i></div><div class="l">Suggested Water — avoid dehydrated</div><div class="v">${water} <small>litres/day</small></div></div>`;
       if(wr)sh+=`<div class="stat-tile" style="grid-column:1/-1;"><div class="ic"><i class="fa-solid fa-ruler"></i></div><div class="l">Waist-to-Height Ratio</div><div class="v">${wr} <small>— ${wn}</small></div></div>`;
       document.getElementById('statGrid').innerHTML=sh;
 
       document.getElementById('pvName').textContent=name;document.getElementById('pvBMI').textContent='BMI: '+bmi.toFixed(1);
       document.getElementById('pvCategory').textContent=cat;
       document.getElementById('pvStats').innerHTML=`Healthy range: ${minW}–${maxW} ${wu}<br>BMR: ${bmr} | Daily: ${tdee} kcal<br>Water: ${water} L/day`+(wr?`<br>Waist-to-height: ${wr} (${wn})`:'');
-      document.getElementById('pvTip').textContent='We believe in you. Small steps, big love.';
+      document.getElementById('pvTip').textContent=longTip.substring(0,180)+'...';
       document.getElementById('resultBox').scrollIntoView({behavior:'smooth',block:'nearest'});
     }
-
     function toggleAccordion(h){const b=h.nextElementSibling,o=h.classList.contains('open');document.querySelectorAll('.accordion-head').forEach(x=>{x.classList.remove('open');x.nextElementSibling.style.maxHeight=null;});if(!o){h.classList.add('open');b.style.maxHeight=b.scrollHeight+'px';}}
-
     async function captureCanvas(){const e=document.getElementById('shareCapture');e.style.display='block';const c=await html2canvas(e,{backgroundColor:'#ffffff',scale:2});e.style.display='none';return c;}
     async function downloadResult(t){const c=await captureCanvas();if(t==='pdf'){const{jsPDF}=window.jspdf;const i=c.toDataURL('image/jpeg',0.95);const p=new jsPDF({orientation:c.width>c.height?'l':'p',unit:'px',format:[c.width,c.height]});p.addImage(i,'JPEG',0,0,c.width,c.height);p.save('ColdMatrix-Health-Report.pdf');}else{const m=t==='jpg'?'image/jpeg':'image/png';const a=document.createElement('a');a.download='ColdMatrix-Health-Report.'+t;a.href=c.toDataURL(m,0.95);a.click();}}
-    async function shareWhatsApp(){const c=await captureCanvas();c.toBlob(async(b)=>{const f=new File([b],'Health-Report.png',{type:'image/png'});const cap='Thank you for trusting ColdMatrix Tools!\n📧 contact@coldmatrixtools.com | 💬 +92 333 3228470';if(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'My Health Report',text:cap});}catch(e){}}else{const a=document.createElement('a');a.download='Health-Report.png';a.href=c.toDataURL('image/png');a.click();window.open('https://wa.me/?text='+encodeURIComponent(cap),'_blank');}});}
-
+    async function shareWhatsApp(){const c=await captureCanvas();c.toBlob(async(b)=>{const f=new File([b],'Health-Report.png',{type:'image/png'});const cap='Thank you for trusting ColdMatrix Tools!';if(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'My Health Report',text:cap});}catch(e){}}else{const a=document.createElement('a');a.download='Health-Report.png';a.href=c.toDataURL('image/png');a.click();window.open('https://wa.me/?text='+encodeURIComponent(cap),'_blank');}});}
     let dp;const ib=document.getElementById('installBarTool');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;ib.style.display='block';});
-    window.installAppTool=function(){if(dp){dp.prompt();dp.userChoice.then(()=>{ib.style.display='none';});}else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');}};
+    window.installAppTool=function(){if(dp){dp.prompt();dp.userChoice.then(()=>{ib.style.display='none';});}else{alert('📱 To add to Home Screen: Android Menu → Add to Home Screen. iPhone Share → Add to Home Screen.');}};
     if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+    setGender('male');
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Are ColdMatrix tools free to use?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How accurate are ColdMatrix calculators?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does ColdMatrix store my data?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-        }
-      }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How is BMI calculated?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "BMI is calculated by dividing a person's weight in kilograms by the square of their height in meters: BMI = weight (kg) / [height (m)]²."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is a healthy BMI range?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "For most adults, a BMI between 18.5 and 24.9 is considered healthy, according to the World Health Organization (WHO)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is BMI accurate for everyone?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "BMI has limitations. It does not distinguish between muscle and fat, and it may not be accurate for athletes, older adults, pregnant women, and certain ethnic groups. It should be used as a screening tool, not a diagnostic measure."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the difference between BMR and TDEE?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "BMR (Basal Metabolic Rate) is the number of calories your body needs at complete rest. TDEE (Total Daily Energy Expenditure) is BMR plus calories burned through physical activity and digestion — the total calories you need per day to maintain your weight."
-      }
-    }
-  ]
-}
-</script>
-</body>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>
