@@ -41,10 +41,11 @@
   <style>
     :root{
       --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5;
-      --accent:#4FC3F7; --accent2:#2196F3;
+      --accent:#D4AF37; --accent2:#FFD700;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
-      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+      --silver-bg:#C8CDD4;
+      --silver-bg-hover:#D5D9DE;
+      --silver-gradient:linear-gradient(145deg, #D5D9DE, #C8CDD4);
       --dark-silver:#4a4d55; --whatsapp-green:#25D366;
     }
     *{margin:0;padding:0;box-sizing:border-box}
@@ -53,19 +54,35 @@
       color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;
     }
     .container{max-width:900px;margin:0 auto;padding:0 24px}
-    .navbar{position:sticky;top:0;z-index:100;background:rgba(10,15,20,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+
+    /* Golden navbar */
+    .navbar{position:sticky;top:0;z-index:100;background:rgba(10,15,20,0.94);backdrop-filter:blur(14px);border-bottom:2px solid var(--gold)}
     .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 0;flex-wrap:wrap}
-    .logo{font-size:1.3rem;font-weight:700;color:var(--accent);text-decoration:none}
+    .logo{font-size:1.3rem;font-weight:700;color:var(--gold-bright);text-decoration:none;display:flex;align-items:center;gap:8px}
     .nav-links{display:flex;gap:24px;list-style:none;flex-wrap:wrap}
     .nav-links a{color:var(--muted);text-decoration:none;font-weight:500;font-size:0.95rem}
     .nav-links a:hover,.nav-links a.active{color:var(--gold-bright)}
-    .back-link{display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem}
-    .install-bar{background:var(--accent);color:#0A0F14;text-align:center;padding:12px 20px;border-radius:10px;margin:14px 0;font-weight:600;font-size:0.85rem;display:block;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
-    .install-bar button{background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:10px;font-weight:600;cursor:pointer}
+    .back-link{display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem}
 
-    h1{font-size:1.8rem;font-weight:800;margin-bottom:10px}
+    /* GOLDEN INSTALL BAR */
+    .install-bar{
+      display: block;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14; text-align: center;
+      padding: 10px 16px; border-radius: 10px; margin: 14px 0;
+      font-weight: 700; font-size: 0.85rem;
+      border: 1px solid #FFD700;
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+    }
+    .install-bar button{
+      background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+      padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+      font-weight: 800; cursor: pointer; font-size: 0.8rem;
+    }
+
+    h1{font-size:1.7rem;font-weight:800;margin-bottom:8px;line-height:1.25}
     h1 span{color:var(--gold-bright)}
-    .subtitle{color:var(--muted);margin-bottom:20px}
+    .subtitle{color:#EAEDF0;margin-bottom:20px;font-size:0.95rem;font-weight:500}
 
     /* Premium feature strip */
     .tool-intro{
@@ -75,7 +92,7 @@
     }
     .tool-intro p{
       color: var(--gold-bright);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.95rem;
       margin-bottom: 10px;
     }
@@ -100,15 +117,15 @@
       border:2px solid;
       border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
       border-radius:12px;
-      padding:22px 20px;
-      margin-bottom:26px;
+      padding:18px 20px;
+      margin-bottom:22px;
       box-shadow:0 10px 34px rgba(0,0,0,0.55);
     }
-    .share-tool-title{font-weight:800;font-size:1.05rem;color:#E8B93A;text-align:center;letter-spacing:0.6px;margin-bottom:16px;text-transform:uppercase;}
+    .share-tool-title{font-weight:800;font-size:1rem;color:#E8B93A;text-align:center;letter-spacing:0.6px;margin-bottom:14px;text-transform:uppercase;}
     .share-tool-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
     .share-tool-btn{
       display:flex;align-items:center;justify-content:center;gap:9px;
-      padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;
+      padding:13px;border-radius:10px;font-weight:700;font-size:0.88rem;cursor:pointer;
       background:rgba(15,20,30,0.75);color:#EAEDF0;border:1.5px solid rgba(200,168,78,0.45);
       transition:all 0.25s ease;
     }
@@ -117,80 +134,177 @@
     .share-tool-btn.wa:hover{border-color:#25D366;box-shadow:0 0 20px rgba(37,211,102,0.35);}
     .share-tool-btn i{font-size:1rem;}
 
+    /* Tab buttons — gold active state */
     .tab-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
     .tab-btn{
-      flex:1; padding:12px 6px; min-width:100px;
-      background: var(--silver-gradient);
+      flex:1; padding:13px 6px; min-width:100px;
+      background: var(--silver-bg);
       border: 2px solid var(--gold);
       color: #0A0F14;
-      border-radius: 10px; cursor:pointer; text-align:center; font-size:0.8rem; font-weight:700;
-      text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3);
+      border-radius: 10px; cursor:pointer; text-align:center; font-size:0.8rem;
+      font-family:'Oswald',sans-serif; font-weight:800;
+      letter-spacing:0.4px; text-transform:uppercase;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.2);
       transition:all 0.25s;
     }
-    .tab-btn:hover{ background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px rgba(212,175,55,0.6); transform:translateY(-2px); }
-    .tab-btn.active{ border-color:#4FC3F7; color:#fff; background:linear-gradient(180deg,#4FC3F7,#2196F3); box-shadow:0 0 18px rgba(79,195,247,0.55); text-shadow:0 1px 2px rgba(0,0,0,0.4); }
+    .tab-btn:hover{ background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 22px rgba(212,175,55,0.6); transform:translateY(-2px); }
+    .tab-btn.active{
+      border-color:var(--gold-bright);
+      background: var(--gold);
+      color:#0A0F14;
+      box-shadow:0 0 22px rgba(212,175,55,0.7);
+      transform:translateY(-2px);
+    }
     .tab-content{display:none}
     .tab-content.active{display:block}
-    .card{background:var(--surface);border:1px solid var(--gold);border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 8px 30px rgba(0,0,0,0.5)}
-    .card h2{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;margin-bottom:18px;color:var(--gold-bright);text-transform:uppercase;letter-spacing:0.5px}
+
+    /* Silver premium card */
+    .card{
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 22px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .card h2{
+      font-family:'Oswald',sans-serif; font-size:1rem; font-weight:700;
+      margin-bottom:16px; color:#0A0F14; text-transform:uppercase;
+      letter-spacing:0.5px; border-bottom:2px solid var(--gold);
+      padding-bottom:10px;
+    }
 
     .field{margin-bottom:14px}
-    .field label{display:block;font-size:0.85rem;color:var(--muted);margin-bottom:6px;font-weight:500}
+    .field label{display:block;font-size:0.85rem;color:#0A0F14;margin-bottom:6px;font-weight:700}
     .field input,.field select{
-      width:100%;background:var(--surface2);border:2px solid var(--gold);color:var(--text);
-      padding:12px 14px;border-radius:10px;font-size:0.95rem;box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
-      transition:border-color 0.2s, box-shadow 0.2s;
+      width:100%;
+      background: #FFFFFF;
+      border:2px solid var(--gold);
+      color: #0A0F14;
+      padding:12px 14px;
+      border-radius:10px;
+      font-size:0.95rem;
+      font-weight:600;
+      font-family:'Inter',sans-serif;
     }
-    .field input:focus,.field select:focus{outline:none;border-color:var(--gold-bright);box-shadow:0 0 15px var(--gold-glow)}
+    .field input:focus,.field select:focus{
+      outline:none;border-color:var(--gold-bright);box-shadow:0 0 15px var(--gold-glow);
+    }
+    .field input::placeholder{color:#8B98A5;font-weight:500}
+
+    /* BIG GOLDEN DROPDOWN ARROW */
     .field select{
       appearance:none; -webkit-appearance:none; -moz-appearance:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M2 2 L10 10 L18 2' fill='none' stroke='%23D4AF37' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat:no-repeat; background-position:right 14px center; background-size:20px 12px;
-      padding-right:44px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14' viewBox='0 0 22 14'%3E%3Cpath d='M2 3 L11 11 L20 3' fill='none' stroke='%23D4AF37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 14px center; background-size:22px 14px;
+      padding-right:48px;
     }
-    .field select option { background: var(--surface2); color: var(--text); }
+    .field select option { background: #FFFFFF; color: #0A0F14; font-weight: 600; }
 
+    /* STACKED BUTTONS — tall main, short reset */
     .btn-calc{
-      width:100%; background: var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold); padding:14px; border-radius:10px;
-      font-weight:700; font-size:0.95rem; cursor:pointer; margin-top:8px;
-      text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3);
-      transition:all 0.25s;
+      width:100%;
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border:2px solid var(--gold);
+      min-height: 60px;
+      padding:14px 20px;
+      border-radius:12px;
+      font-family:'Oswald',sans-serif;
+      font-weight:900;
+      font-size:1.05rem;
+      cursor:pointer;
+      margin-top:8px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
+      transition:all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
-    .btn-calc:hover{ background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px rgba(212,175,55,0.6); transform:translateY(-2px); }
+    .btn-calc:hover{
+      background:var(--silver-bg-hover);
+      border-color:var(--gold-bright);
+      box-shadow:0 0 22px var(--gold-glow);
+      transform:translateY(-2px);
+    }
 
-    .result-box{background:var(--surface2);border:1px solid var(--gold);border-radius:12px;padding:16px;margin-top:16px;font-size:0.9rem;color:var(--text)}
-    .result-box strong{color:var(--gold-bright)}
-    #qrcode,#barcodeSvg{display:flex;justify-content:center;margin-top:16px}
+    .result-box{
+      background: #FFFFFF;
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: #0A0F14;
+      font-weight: 600;
+    }
+    .result-box strong{color:#B8952B; font-weight: 800}
 
-    /* Comprehensive static detail section */
+    #qrcode,#barcodeSvg{display:flex;justify-content:center;margin-top:16px;background: #FFFFFF; padding: 14px; border-radius: 10px; border: 2px solid var(--gold);}
+    #qrcode:empty,#barcodeSvg:empty{display:none}
+
+    /* Reset All button — gold */
+    .reset-all-btn{
+      background: var(--silver-bg);
+      border: 2px solid var(--gold);
+      color: #0A0F14;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.3);
+      transition: all 0.25s ease;
+    }
+    .reset-all-btn:hover{
+      background: var(--silver-bg-hover);
+      border-color: var(--gold-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(212,175,55,0.6);
+    }
+
+    /* ============================================ */
+    /* SILVER EDUCATIONAL CONTENT — with margins */
+    /* ============================================ */
     .detail-section{
-      margin-top: 40px;
+      max-width: 800px;
+      margin: 30px auto;
       padding: 30px 24px;
-      background: var(--surface);
-      border: 1px solid var(--gold);
-      border-radius: 14px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-      line-height: 1.8;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.85;
       font-size: 0.95rem;
-      color: var(--text);
+      color: #0A0F14;
     }
     .detail-section h2{
       font-family: 'Oswald', sans-serif;
-      color: var(--gold-bright);
-      font-size: 1.5rem;
+      color: #0A0F14;
+      font-size: 1.35rem;
       margin-bottom: 16px;
       border-bottom: 2px solid var(--gold);
       padding-bottom: 10px;
+      font-weight: 800;
     }
     .detail-section h3{
-      color: var(--gold-bright);
-      font-size: 1.15rem;
-      margin: 24px 0 10px;
+      color: #0A0F14;
+      font-size: 1.1rem;
+      margin: 22px 0 10px;
+      font-weight: 800;
     }
     .detail-section p, .detail-section ul, .detail-section ol{
       margin-bottom: 14px;
+      color: #0A0F14;
+      font-weight: 500;
     }
     .detail-section ul, .detail-section ol{
       padding-left: 24px;
@@ -199,15 +313,233 @@
       margin-bottom: 6px;
     }
     .detail-section strong{
-      color: var(--gold-bright);
+      color: #0A0F14;
+      font-weight: 800;
     }
 
-    footer{text-align:center;color:var(--muted);font-size:0.8rem;padding:40px 0 20px;border-top:1px solid var(--border);margin-top:50px}
-    footer a{color:var(--gold-bright);text-decoration:none}
+    /* Pakistani block */
+    .pakistani-block{
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 24px 20px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      color: #0A0F14;
+    }
+    .pakistani-block h2{color:#0A0F14;font-family:'Oswald',sans-serif;font-size:1.2rem;margin-bottom:12px;font-weight:800}
+    .pakistani-block p{color:#0A0F14;font-weight:500;margin-top:10px}
+    .pakistani-block strong{color:#0A0F14;font-weight:800}
+
+    /* Related tools */
+    .related-tools-section{
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+    }
+    .related-tools-section h3{color:#FFD700;font-size:1rem;margin-bottom:10px}
+    .related-tools-section a{
+      color:#4FC3F7;text-decoration:none;
+      background:rgba(79,195,247,0.1);
+      padding:8px 16px;border-radius:20px;
+      font-size:0.85rem;font-weight:600;
+      display:inline-block;margin:4px 4px 4px 0;
+    }
+
+    /* Disclaimer box */
+    .disclaimer-box{
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 16px 18px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: #0A0F14;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+    .disclaimer-box strong{color:#0A0F14;font-weight:800}
+
+    footer{text-align:center;color:var(--muted);font-size:0.8rem;padding:40px 0 20px;border-top:2px solid var(--gold);margin-top:50px}
+    footer a{color:var(--gold-bright);text-decoration:none;font-weight:600}
     .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:999;width:48px;height:48px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.4);text-decoration:none;color:#fff;font-size:1.4rem}
+
     @media (max-width:600px){
-      .tab-btn{min-width:80px;font-size:0.7rem}
-      .detail-section{padding:20px 16px}
+      .tab-btn{min-width:calc(50% - 4px);font-size:0.7rem;padding:11px 4px}
+      .detail-section{padding:20px 16px;margin:20px 12px}
+      .pakistani-block{padding:20px 16px;margin:20px 12px}
+      .related-tools-section{margin:16px 12px}
+      .disclaimer-box{margin:16px 12px}
+      .detail-section h2{font-size:1.15rem}
+      .detail-section h3{font-size:1rem}
+      h1{font-size:1.4rem}
+      /* ============================================ */
+/* HERO — Title + Subtitle + Feature strip in silver box */
+/* ============================================ */
+h1 {
+  background: #C8CDD4 !important;
+  background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4) !important;
+  border: 2px solid #D4AF37 !important;
+  border-bottom: none !important;
+  border-radius: 14px 14px 0 0 !important;
+  padding: 16px 22px 6px !important;
+  margin-bottom: 0 !important;
+  margin-top: 14px !important;
+  color: #0A0F14 !important;
+  text-shadow: none !important;
+  font-size: 1.5rem !important;
+  line-height: 1.3 !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7) !important;
+}
+h1 span {
+  color: #B8952B !important;
+}
+
+.subtitle {
+  background: #C8CDD4 !important;
+  background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4) !important;
+  border-left: 2px solid #D4AF37 !important;
+  border-right: 2px solid #D4AF37 !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  padding: 0 22px 12px !important;
+  margin: 0 !important;
+  color: #0A0F14 !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  text-shadow: none !important;
+}
+
+/* Feature strip joins the silver hero box */
+.tool-intro {
+  background: #C8CDD4 !important;
+  background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4) !important;
+  border: 2px solid #D4AF37 !important;
+  border-top: none !important;
+  border-radius: 0 0 14px 14px !important;
+  padding: 12px 22px 16px !important;
+  margin: 0 0 22px !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5) !important;
+}
+.tool-intro p {
+  color: #0A0F14 !important;
+  font-weight: 800 !important;
+  font-size: 0.82rem !important;
+  margin-bottom: 8px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tool-intro ul {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+}
+.tool-intro ul li {
+  color: #0A0F14 !important;
+  background: rgba(255,255,255,0.5) !important;
+  border: 1px solid #D4AF37 !important;
+  border-radius: 20px !important;
+  padding: 4px 12px !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+.tool-intro ul li i {
+  color: #B8952B !important;
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 1.2rem !important; padding: 14px 16px 4px !important; }
+  .subtitle { font-size: 0.78rem !important; padding: 0 16px 10px !important; }
+  .tool-intro { padding: 10px 16px 14px !important; }
+  .tool-intro ul li { font-size: 0.65rem !important; padding: 3px 9px !important; }
+}
+/* ============================================ */
+/* Wider educational blocks (mobile-friendly but not too narrow) */
+/* ============================================ */
+.detail-section,
+.pakistani-block {
+  max-width: 880px !important;
+  margin: 24px auto !important;
+  padding: 26px 22px !important;
+}
+.related-tools-section,
+.disclaimer-box {
+  max-width: 880px !important;
+  margin: 20px auto !important;
+}
+
+@media (max-width: 920px) {
+  .detail-section,
+  .pakistani-block,
+  .related-tools-section,
+  .disclaimer-box {
+    margin-left: 14px !important;
+    margin-right: 14px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .detail-section,
+  .pakistani-block {
+    padding: 20px 16px !important;
+    margin: 20px 12px !important;
+  }
+}
+/* ============================================ */
+/* Educational content — proper width on mobile */
+/* ============================================ */
+
+/* On mobile: container gives 24px, no extra margins */
+@media (max-width: 640px) {
+  .container {
+    padding: 0 14px !important;
+  }
+  .detail-section,
+  .pakistani-block,
+  .related-tools-section,
+  .disclaimer-box {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .detail-section,
+  .pakistani-block {
+    padding: 20px 18px !important;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+  }
+  .related-tools-section,
+  .disclaimer-box {
+    padding: 16px 14px !important;
+  }
+}
+
+/* On desktop: center with a max-width */
+@media (min-width: 641px) {
+  .detail-section,
+  .pakistani-block,
+  .related-tools-section,
+  .disclaimer-box {
+    max-width: 900px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+}
     }
   </style>
 </head>
@@ -231,20 +563,19 @@
 
   <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
-  <h1>📷 <span>ColdMatrix</span> Smart Scanner</h1>
-  <p class="subtitle">One scanner for everything — QR codes, barcodes, text, and generate your own.</p>
+<h1>📷 <span>ColdMatrix</span> Smart Scanner</h1>
+<p class="subtitle">QR · Barcode · Text — scan and generate in one place.</p>
 
-  <!-- Premium feature strip (golden text on dark) -->
-  <div class="tool-intro">
-    <p>⚡ All-in-one scanner toolkit</p>
-    <ul>
-      <li><i class="fa-solid fa-camera"></i> Live Camera Scan</li>
-      <li><i class="fa-solid fa-image"></i> Image Upload</li>
-      <li><i class="fa-solid fa-qrcode"></i> QR Generator</li>
-      <li><i class="fa-solid fa-barcode"></i> Barcode Maker</li>
-      <li><i class="fa-solid fa-file-text"></i> OCR Text</li>
-    </ul>
-  </div>
+<div class="tool-intro">
+  <p>⚡ All-in-one scanner toolkit</p>
+  <ul>
+    <li><i class="fa-solid fa-camera"></i> Live Camera Scan</li>
+    <li><i class="fa-solid fa-image"></i> Image Upload</li>
+    <li><i class="fa-solid fa-qrcode"></i> QR Generator</li>
+    <li><i class="fa-solid fa-barcode"></i> Barcode Maker</li>
+    <li><i class="fa-solid fa-file-text"></i> OCR Text</li>
+  </ul>
+</div>
 
   <div class="share-tool-card">
     <div class="share-tool-title">Share Smart Scanner</div>
@@ -263,7 +594,7 @@
   </div>
 
   <div style="text-align:right;margin:8px 0;">
-    <button onclick="resetAll()" style="background:var(--silver-gradient);border:2px solid var(--gold);color:#0A0F14;padding:8px 16px;border-radius:50px;font-weight:700;font-size:0.8rem;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);text-shadow:0 1px 2px rgba(255,255,255,0.4);">🔄 Reset All</button>
+    <button class="reset-all-btn" onclick="resetAll()"><i class="fa-solid fa-rotate"></i> Reset All</button>
   </div>
 
   <div class="tab-content active" id="tab1">
@@ -287,7 +618,7 @@
     <div class="card">
       <h2>🔳 QR Code Generator</h2>
       <div class="field"><label>Text or URL</label><input type="text" id="qrText" placeholder="https://yourdomain.com" value="https://yourdomain.com"></div>
-      <button class="btn-calc" onclick="generateQR()">Generate QR Code</button>
+      <button class="btn-calc" onclick="generateQR()">🔳 Generate QR Code</button>
       <div id="qrcode"></div>
     </div>
   </div>
@@ -305,7 +636,7 @@
           <option value="CODE39">Code 39</option>
         </select>
       </div>
-      <button class="btn-calc" onclick="generateBarcode()">Generate Barcode</button>
+      <button class="btn-calc" onclick="generateBarcode()">📦 Generate Barcode</button>
       <svg id="barcodeSvg"></svg>
     </div>
   </div>
@@ -313,16 +644,20 @@
   <div class="tab-content" id="tab5">
     <div class="card">
       <h2>📝 Text Scanner (OCR)</h2>
-      <p style="color:var(--muted);margin-bottom:16px;">Upload an image and extract text instantly — completely in your browser.</p>
+      <p style="color:#0A0F14;font-weight:600;margin-bottom:16px;">Upload an image and extract text instantly — completely in your browser.</p>
       <div class="field"><label>Upload image (JPG, PNG)</label><input type="file" id="ocrInput" accept="image/*"></div>
-      <div id="ocrStatus" style="display:none;background:rgba(79,195,247,0.1);border:1px solid var(--accent);border-radius:8px;padding:10px;margin:10px 0;font-weight:600;color:var(--accent);">Processing OCR...</div>
+      <div id="ocrStatus" style="display:none;background:#FFFFFF;border:2px solid var(--gold);border-radius:8px;padding:10px;margin:10px 0;font-weight:700;color:#B8952B;">Processing OCR...</div>
       <div class="result-box" id="ocrResult" style="display:none;white-space:pre-wrap;max-height:300px;overflow-y:auto;"></div>
     </div>
   </div>
 
-  <!-- Comprehensive static information section -->
+<!-- ⬇️⬇️⬇️ CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
+  <!-- ============================================ -->
+  <!-- EDUCATIONAL CONTENT — SILVER, NARROW, MARGINS -->
+  <!-- ============================================ -->
   <div class="detail-section">
     <h2>📖 Complete Guide to Smart Scanner</h2>
+
     <p>The ColdMatrix Smart Scanner is a powerful, all-in-one tool that lets you scan QR codes, barcodes, and extract text from images using your device's camera or uploaded files. It also includes built-in generators for QR codes and barcodes, making it a complete scanning and generation toolkit. The tool runs entirely in your browser — no uploads, no registration, and no tracking. Your data stays private on your device.</p>
 
     <h3>What Exactly Is a Smart Scanner?</h3>
@@ -360,15 +695,15 @@
     </ul>
 
     <h3>Frequently Asked Questions</h3>
-    <p><strong>Is my data uploaded to a server?</strong><br>No. All scanning, generation, and OCR processing is done locally in your browser using JavaScript libraries. Nothing is uploaded or stored externally.</p>
-    <p><strong>Does the camera scan work on mobile?</strong><br>Yes. The live scan uses the HTML5 QR Code library, which works on Android and iOS browsers. You must grant camera permission when prompted.</p>
-    <p><strong>Can I scan barcodes with the live camera?</strong><br>Yes, the camera scan supports common 1D and 2D barcode formats, including QR, EAN-13, UPC-A, Code 128, and more.</p>
-    <p><strong>What image formats are supported for upload?</strong><br>JPG, PNG, and most common image formats. For best results, use images with clear, well-defined codes or text.</p>
-    <p><strong>Is OCR available for languages other than English?</strong><br>Yes, Tesseract.js supports many languages, though English is the default. You can modify the code to specify additional language packs.</p>
+    <p><strong>Is my data uploaded to a server?</strong><br>A: No. All scanning, generation, and OCR processing is done locally in your browser using JavaScript libraries. Nothing is uploaded or stored externally.</p>
+    <p><strong>Does the camera scan work on mobile?</strong><br>A: Yes. The live scan uses the HTML5 QR Code library, which works on Android and iOS browsers. You must grant camera permission when prompted.</p>
+    <p><strong>Can I scan barcodes with the live camera?</strong><br>A: Yes, the camera scan supports common 1D and 2D barcode formats, including QR, EAN-13, UPC-A, Code 128, and more.</p>
+    <p><strong>What image formats are supported for upload?</strong><br>A: JPG, PNG, and most common image formats. For best results, use images with clear, well-defined codes or text.</p>
+    <p><strong>Is OCR available for languages other than English?</strong><br>A: Yes, Tesseract.js supports many languages, though English is the default. You can modify the code to specify additional language packs.</p>
 
     <h3>Business and Personal Use Cases</h3>
     <ul>
-      <li><strong>Retail & Inventory:</strong> Scan product barcodes to check prices or track stock.</li>
+      <li><strong>Retail &amp; Inventory:</strong> Scan product barcodes to check prices or track stock.</li>
       <li><strong>Marketing:</strong> Generate QR codes for websites, coupons, or contact information.</li>
       <li><strong>Document Digitisation:</strong> Extract text from printed documents, receipts, or invoices.</li>
       <li><strong>Event Management:</strong> Create QR codes for event tickets or check-ins.</li>
@@ -378,22 +713,54 @@
     <h3>Why Choose ColdMatrix Smart Scanner?</h3>
     <p>Unlike single-purpose scanner apps, the ColdMatrix Smart Scanner offers a complete toolkit in one lightweight web page. It's fast, private, free, and works on any modern device — no installation required. The intuitive tabbed interface and premium design make it a joy to use, whether you're a business professional or a casual user.</p>
 
-    <p><strong>Disclaimer:</strong> This tool is provided for general purposes. Always ensure you have the right to scan or reproduce any codes or documents. The OCR feature may not be 100% accurate and should be reviewed for critical use.</p>
+    <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ This studio combines a full-featured scanner with a professional-grade generator — everything you need in one premium tool.</p>
   </div>
+
+  <!-- ============================================ -->
+  <!-- PAKISTANI SERVICES BLOCK — SILVER -->
+  <!-- ============================================ -->
+  <div class="pakistani-block">
+    <h2>🇵🇰 ColdMatrix Advanced Solutions — Serving Pakistan's Business &amp; Engineering Community</h2>
+    <p>Our Smart Scanner is used daily by retailers, warehouse teams, and business owners across Pakistan for inventory tracking, product verification, and document digitisation. But we do more than digital tools — <strong>ColdMatrix Advanced Solutions</strong> is a full-service engineering and construction firm serving Pakistan from Karachi to Islamabad, Lahore to Balochistan.</p>
+    <p>Whether you need <strong>QR codes for your retail products</strong> or engineering support for your PEB warehouse, cold storage facility, or sandwich panel building — we're here to help. We deliver <strong>PEB structures, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong> across Pakistan with international engineering standards and honest local pricing.</p>
+    <p>Contact our <strong>Karachi engineering desk</strong> for project quotations, material verification, structural drawings, and factory-stamped documentation ready for submission to your consultant or bank.</p>
+    <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- RELATED TOOLS -->
+  <!-- ============================================ -->
+  <div class="related-tools-section">
+    <h3>🔗 Related Tools You Might Need</h3>
+    <div>
+      <a href="qr-code-generator.html">📱 QR &amp; Barcode Studio</a>
+      <a href="quotation-generator.html">📄 Quotation &amp; Invoice Maker</a>
+      <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+      <a href="unit-converter.html">📏 Unit Converter</a>
+      <a href="profit-margin-calculator.html">💰 Profit Margin Calculator</a>
+      <a href="age-calculator.html">🎂 Age Calculator</a>
+      <a href="roi-calculator.html">📈 ROI Calculator</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- DISCLAIMER — SILVER -->
+  <!-- ============================================ -->
+  <div class="disclaimer-box">
+    <strong>⚠️ Disclaimer:</strong> This tool is provided for general purposes. Always ensure you have the right to scan or reproduce any codes or documents. The OCR feature may not be 100% accurate and should be reviewed for critical use. All scanning and processing happens locally in your browser — nothing is uploaded.
+  </div>
+
 </div>
 
-<!-- Combined Footer + Floating WhatsApp -->
-<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" style="position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem;">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
+<!-- WhatsApp Float -->
+<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
-<footer style="background:rgba(10,15,20,0.9); border-top:2px solid #D4AF37; padding:30px 20px; margin-top:50px; text-align:center;">
-    <!-- Contact Info -->
+<footer>
     <div style="margin-bottom:15px;">
         <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
         <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
         <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
-            📞 <strong>Call / WhatsApp:</strong> 
+            📞 <strong>Call / WhatsApp:</strong>
             <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
             <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
                 <i class="fa-brands fa-whatsapp"></i>
@@ -401,15 +768,13 @@
         </p>
     </div>
 
-    <!-- Legal Links -->
     <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
     </div>
 
-    <!-- Copyright -->
     <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
 
@@ -516,25 +881,18 @@
   });
 
   function resetAll() {
-    // Stop camera
     stopScanner();
-    // Clear QR code
     document.getElementById('qrcode').innerHTML = '';
     document.getElementById('qrText').value = 'https://yourdomain.com';
-    // Clear barcode
     document.getElementById('barcodeSvg').innerHTML = '';
     document.getElementById('barcodeText').value = '123456789012';
-    // Clear OCR
     document.getElementById('ocrInput').value = '';
     document.getElementById('ocrResult').style.display = 'none';
     document.getElementById('ocrStatus').style.display = 'none';
-    // Clear upload
     document.getElementById('uploadInput').value = '';
     document.getElementById('uploadResult').style.display = 'none';
     document.getElementById('uploadPreview').style.display = 'none';
-    // Clear live result
     document.getElementById('liveResult').style.display = 'none';
-    // Go to first tab
     document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
     document.querySelector('.tab-btn[data-tab="tab1"]').classList.add('active');
@@ -558,6 +916,7 @@
     navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
   }
 </script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -565,26 +924,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
+      "name": "Is my data uploaded to a server?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+        "text": "No. All scanning, generation, and OCR processing is done locally in your browser. Nothing is uploaded or stored externally."
       }
     },
     {
       "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
+      "name": "Does the camera scan work on mobile?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+        "text": "Yes. The live scan works on Android and iOS browsers. You must grant camera permission when prompted."
       }
     },
     {
       "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
+      "name": "Can I scan barcodes with the live camera?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+        "text": "Yes, the camera scan supports common 1D and 2D barcode formats, including QR, EAN-13, UPC-A, Code 128, and more."
       }
     }
   ]

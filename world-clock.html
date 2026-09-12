@@ -28,19 +28,21 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
       --bg:#0B0F14; --text:#EAEDF0; --muted:#8B98A5;
-      --accent:#4FC3F7; --accent2:#2196F3;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-deep:#B8860B;
+      --gold-glow:rgba(212,175,55,0.45);
       --whatsapp-green:#25D366;
       --gold-gradient: linear-gradient(135deg, #C8993A, #E8C96A 40%, #A07828 70%, #D4A843);
       --silver-medium-bg: linear-gradient(145deg, #e0e4e8 0%, #c4cad0 30%, #a9b0b8 60%, #d5d9de 100%);
       --solid-silver: #C8CDD4;
+      --silver-bg: #C8CDD4;
+      --silver-bg-hover: #D5D9DE;
       --dark-silver:#4a4d55;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -51,18 +53,83 @@
       color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; min-height:100vh;
     }
     .container { width:100%; max-width:1200px; margin:0 auto; padding:20px; }
-    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:var(--gold-gradient) 1; }
+
+    /* Golden navbar */
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; flex-wrap:wrap; max-width:1200px; margin:0 auto; }
     .logo { font-size:1.3rem; font-weight:800; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; }
     .nav-links a:hover { color:var(--gold-bright); }
-    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
-    h1 { font-family:'Oswald',sans-serif; font-size:2rem; font-weight:700; margin-bottom:6px; color:#fff; }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--gold); text-decoration:none; font-weight:600; font-size:0.85rem; }
+
+    /* Golden install bar */
+    .install-bar {
+      display: block;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14; text-align: center;
+      padding: 10px 16px; border-radius: 10px; margin: 14px 0;
+      font-weight: 700; font-size: 0.85rem;
+      border: 1px solid #FFD700;
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+    }
+    .install-bar button {
+      background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+      padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+      font-weight: 800; cursor: pointer; font-size: 0.8rem;
+    }
+
+    h1 { font-family:'Oswald',sans-serif; font-size:1.9rem; font-weight:700; margin-bottom:6px; color:#fff; line-height:1.25; }
     h1 span { color:var(--gold-bright); }
-    .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; margin-bottom:22px; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
+    .subtitle { color:#EAEDF0; font-size:0.98rem; font-weight:500; margin-bottom:20px; }
+
+    /* ============================================ */
+    /* GET QUOTE STRIP — lead generation */
+    /* ============================================ */
+    .get-quote-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .get-quote-strip .quote-btn {
+      flex: 1;
+      min-width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 16px;
+      background: var(--silver-bg);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      color: #0A0F14;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-decoration: none;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition: all 0.25s ease;
+    }
+    .get-quote-strip .quote-btn:hover {
+      background: var(--silver-bg-hover);
+      border-color: var(--gold-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 0 22px var(--gold-glow);
+    }
+    .get-quote-strip .quote-btn.whatsapp {
+      background: #25D366;
+      color: #fff;
+      border-color: #1da851;
+    }
+    .get-quote-strip .quote-btn.whatsapp:hover {
+      background: #1da851;
+      border-color: #25D366;
+      box-shadow: 0 0 22px rgba(37,211,102,0.5);
+    }
 
     .premium-card {
       background: var(--silver-medium-bg);
@@ -95,6 +162,27 @@
     .share-tool-btn.wa { border-color: rgba(37,211,102,0.7); }
     .share-tool-btn:hover { border-color: var(--gold-bright); box-shadow: 0 0 20px rgba(200,168,78,0.4); transform: translateY(-2px); }
 
+    /* ============================================ */
+    /* AD ZONE — AdSense ready */
+    /* ============================================ */
+    .ad-zone {
+      margin: 24px 0;
+      padding: 20px;
+      background: rgba(212,175,55,0.05);
+      border: 2px dashed var(--gold);
+      border-radius: 12px;
+      text-align: center;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
     .section-heading { display:flex; align-items:center; justify-content:space-between; margin:26px 0 14px; flex-wrap:wrap; gap:10px; }
     .section-heading h2 { font-size:1.1rem; font-weight:700; color:#fff; }
 
@@ -125,150 +213,482 @@
       50% { opacity: 0.2; box-shadow: 0 0 2px rgba(255,215,0,0.2); }
     }
 
+    /* Buttons */
     .btn-calc, .add-city-btn, .now-btn {
-      background: var(--silver-medium-bg);
+      background: var(--silver-bg);
       color: #0A0F14;
       border: 2px solid var(--gold);
-      font-weight: 700;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
       cursor: pointer;
       transition: all 0.25s;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.3);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
     }
-    .add-city-btn { padding: 12px 24px; border-radius: 12px; font-size: 0.95rem; }
-    .now-btn { padding: 12px 20px; border-radius: 10px; font-size: 0.95rem; margin-left: 10px; white-space: nowrap; }
-    .btn-calc { width: 100%; padding: 16px; border-radius: 12px; font-size: 1.05rem; letter-spacing: 0.5px; }
+    .add-city-btn { padding: 12px 22px; border-radius: 12px; font-size: 0.85rem; }
+    .now-btn { padding: 12px 20px; border-radius: 10px; font-size: 0.85rem; margin-left: 10px; white-space: nowrap; }
+    .btn-calc { width: 100%; padding: 18px; border-radius: 12px; font-size: 1.05rem; letter-spacing: 1px; }
     .btn-calc:hover, .add-city-btn:hover, .now-btn:hover {
-      background: var(--solid-silver);
+      background: var(--silver-bg-hover);
       border-color: var(--gold-bright);
-      box-shadow: 0 0 22px rgba(212,175,55,0.6);
+      box-shadow: 0 0 22px var(--gold-glow);
       transform: translateY(-2px);
     }
 
-    .clock-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(160px, 1fr)); gap:14px; margin-bottom:10px; }
-    .clock-card {
-      padding:20px 16px; position:relative; text-align:center;
-      transition: all 0.25s ease;
-    }
-    .clock-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0,0,0,0.5), 0 0 20px rgba(200,168,78,0.25); }
-    .clock-card .remove-btn { position:absolute; top:8px; right:10px; background:none; border:none; color:#555; font-size:0.9rem; cursor:pointer; }
-    .clock-card .remove-btn:hover { color:#FF6B6B; }
-    .clock-card .city-name {
-      font-weight: 800;
-      font-size: 1.05rem;
-      color: var(--gold-deep);
-      margin-bottom: 2px;
-      letter-spacing: 0.3px;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.5);
-    }
-    .clock-card .city-country { font-size:0.68rem; color:#333; margin-bottom:10px; }
-    .clock-card .time-display {
-      font-family:'Oswald',sans-serif; font-size:1.7rem; font-weight:700;
-      color: #0A0F14;
-      letter-spacing:1px;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.6);
-    }
-    .clock-card .date-display { font-size:0.72rem; color:#333; margin-top:4px; }
-    .badges { display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin-top:8px; }
-    .day-badge { display:inline-block; font-size:0.65rem; padding:2px 10px; border-radius:20px; font-weight:700; }
-    .day-badge.today { background:rgba(52,211,153,0.2); color:#1a7a3a; }
-    .day-badge.tomorrow { background:rgba(255,167,38,0.2); color:#b45f06; }
-    .day-badge.yesterday { background:rgba(255,107,107,0.2); color:#b30000; }
-    .day-night { display:inline-block; font-size:0.65rem; padding:2px 10px; border-radius:20px; font-weight:700; background:rgba(0,0,0,0.1); }
-    .day-night.day { color:#1a7a3a; }
-    .day-night.night { color:#1a237e; }
-
-    .card { padding:22px 20px; margin-bottom:18px; }
-    .field { margin-bottom:16px; }
-    .field label { display:block; font-size:0.85rem; font-weight:600; color:#0A0F14; margin-bottom:6px; }
-    .field select, .field input[type="time"] {
-      width:100%; padding:12px 14px; border-radius:10px;
+    /* Reset button — stacked below main */
+    .btn-reset-full {
+      width: 100%;
+      padding: 11px 20px;
+      border-radius: 10px;
+      background: var(--silver-bg);
       border: 2px solid var(--gold);
-      background: #ffffff;
       color: #0A0F14;
-      font-size:0.9rem;
-      font-family:'Inter',sans-serif;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.6px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.25s ease;
+      margin-top: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
     }
-    .field select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='14' viewBox='0 0 24 14'%3E%3Cpath d='M2 2 L12 12 L22 2' fill='none' stroke='%23FFD700' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      background-size: 20px 12px;
-      padding-right: 40px;
-    }
-    .field select:focus, .field input:focus { outline:none; border-color: var(--gold-bright); box-shadow:0 0 10px rgba(212,175,55,0.4); }
+    .btn-reset-full:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); }
 
-    .convert-result { margin-top:16px; background:rgba(255,255,255,0.8); border:1.5px solid var(--gold); border-radius:12px; padding:16px; text-align:center; color:#0A0F14; }
+    /* Clock grid */
+    /* ============================================ */
+/* LAVISH CLOCK CARDS — Premium Redesign */
+/* ============================================ */
+.clock-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.clock-card {
+  padding: 24px 18px 22px;
+  position: relative;
+  text-align: center;
+  background: linear-gradient(160deg, #f0f2f5 0%, #d5d9de 40%, #b8bec7 100%);
+  border: 2px solid var(--gold);
+  border-radius: 16px;
+  box-shadow:
+    0 10px 28px rgba(0,0,0,0.4),
+    0 0 0 1px rgba(255,215,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    inset 0 -2px 4px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.clock-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #FFD700 30%, #D4AF37 50%, #FFD700 70%, transparent);
+  opacity: 0.85;
+}
+.clock-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold-bright);
+  box-shadow:
+    0 16px 40px rgba(0,0,0,0.55),
+    0 0 30px rgba(212,175,55,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+}
+.clock-card .remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: rgba(0,0,0,0.06);
+  border: none;
+  color: #8B98A5;
+  font-size: 0.75rem;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.clock-card .remove-btn:hover {
+  background: rgba(255,107,107,0.15);
+  color: #CC0000;
+}
+.clock-card .city-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #0A0F14;
+  margin-bottom: 2px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+}
+.clock-card .city-country {
+  font-size: 0.7rem;
+  color: #4a4d55;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed rgba(212,175,55,0.5);
+}
+.clock-card .time-display {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0A0F14;
+  letter-spacing: 2px;
+  line-height: 1;
+  background: linear-gradient(180deg, #0A0F14 0%, #3a3f47 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,0.8));
+  margin-top: 4px;
+}
+.clock-card .date-display {
+  font-size: 0.75rem;
+  color: #4a4d55;
+  font-weight: 600;
+  margin-top: 8px;
+  letter-spacing: 0.3px;
+}
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+.day-badge {
+  display: inline-block;
+  font-size: 0.62rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.day-badge.today { background: linear-gradient(180deg, #d4f5e0, #a8e6cf); color: #0a6e3a; }
+.day-badge.tomorrow { background: linear-gradient(180deg, #ffe6c2, #ffd699); color: #a65400; }
+.day-badge.yesterday { background: linear-gradient(180deg, #ffd4d4, #ffb8b8); color: #b30000; }
+.day-night {
+  display: inline-block;
+  font-size: 0.62rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.day-night.day { background: linear-gradient(180deg, #fff5c2, #ffe680); color: #806600; }
+.day-night.night { background: linear-gradient(180deg, #d4dcf5, #a8b8e6); color: #1a237e; }
+    }
+    /* BIG GOLDEN ARROW */
+    .field select, .add-city-panel select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='14' viewBox='0 0 24 14'%3E%3Cpath d='M2 2 L12 12 L22 2' fill='none' stroke='%23D4AF37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 22px 13px;
+      padding-right: 48px;
+    }
+    .field select:focus, .field input:focus, .add-city-panel select:focus, .add-city-panel input:focus {
+      outline:none; border-color: var(--gold-bright); box-shadow: 0 0 15px var(--gold-glow);
+    }
+
+    .convert-result { margin-top:16px; background:#FFFFFF; border:2px solid var(--gold); border-radius:12px; padding:18px; text-align:center; color:#0A0F14; }
     .convert-result .result-time { font-family:'Oswald',sans-serif; font-size:1.4rem; font-weight:700; color:#0A0F14; }
-    .convert-result .result-sub { font-size:0.8rem; color:#333; margin-top:4px; }
+    .convert-result .result-sub { font-size:0.82rem; color:#333; margin-top:6px; font-weight: 500; }
 
     .add-city-panel { display:none; padding:16px; margin-bottom:16px; }
     .add-city-panel.open { display:block; }
-    .add-city-panel input, .add-city-panel select {
-      width:100%; padding:12px; border-radius:10px;
-      border: 2px solid var(--gold); background:#ffffff; color:#0A0F14;
-      margin-bottom:10px; font-family:'Inter',sans-serif;
-      appearance: none; -webkit-appearance:none; -moz-appearance:none;
-    }
-    .add-city-panel select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='14' viewBox='0 0 24 14'%3E%3Cpath d='M2 2 L12 12 L22 2' fill='none' stroke='%23FFD700' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      background-size: 20px 12px;
-      padding-right: 40px;
-    }
 
+    /* ============================================ */
+    /* SILVER EDUCATIONAL CONTENT — mobile margins */
+    /* ============================================ */
     .detail-section {
       margin-top: 40px;
       padding: 30px 24px;
       background: var(--solid-silver);
       border: 2px solid var(--gold);
       border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-      line-height: 1.8;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.85;
       font-size: 0.95rem;
       color: #0A0F14;
     }
-    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
-    .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
-    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
+    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.35rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; font-weight: 800; }
+    .detail-section h3 { color:#0A0F14; font-size:1.1rem; margin:22px 0 10px; font-weight: 800; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; color: #0A0F14; font-weight: 500; }
     .detail-section ul, .detail-section ol { padding-left:24px; }
     .detail-section li { margin-bottom:6px; }
-    .detail-section strong { color:#0A0F14; }
+    .detail-section strong { color:#0A0F14; font-weight: 800; }
 
-    .lead-capture {
-      background: rgba(15,22,32,0.9);
+    /* Pakistani block */
+    .pakistani-block {
+      margin: 30px auto;
+      padding: 24px 20px;
+      background: var(--solid-silver);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
       border: 2px solid var(--gold);
-      border-radius: 14px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+    }
+    .pakistani-block h2 { color:#0A0F14; font-family:'Oswald',sans-serif; font-size:1.15rem; margin-bottom:12px; font-weight: 800; }
+    .pakistani-block p { color:#0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color:#0A0F14; font-weight: 800; }
+
+    /* Related tools */
+    .related-tools-section {
+      margin: 20px auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+    }
+    .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; }
+    .related-tools-section a {
+      color:#4FC3F7; text-decoration:none;
+      background:rgba(79,195,247,0.1);
+      padding:8px 16px; border-radius:20px;
+      font-size:0.85rem; font-weight:600;
+      display: inline-block; margin: 4px 4px 4px 0;
+    }
+
+    /* Disclaimer */
+    .disclaimer-box {
+      margin: 20px auto;
+      padding: 16px 18px;
+      background: var(--solid-silver);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      font-size: 0.85rem; color: #0A0F14; line-height: 1.7; font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    /* ============================================ */
+    /* LEAD CAPTURE — silver premium */
+    /* ============================================ */
+    .lead-capture {
+      background: var(--solid-silver);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
       padding: 28px 24px;
       margin: 30px 0;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
     }
-    .lead-capture h3 { font-family:'Oswald',sans-serif; color:var(--gold-bright); font-size:1.25rem; margin-bottom:14px; letter-spacing:0.5px; }
-    .lead-capture p { color:#c5cdd6; margin-bottom:18px; font-size:0.9rem; }
+    .lead-capture h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.2rem; margin-bottom:12px; letter-spacing:0.5px; font-weight: 800; }
+    .lead-capture p { color:#0A0F14; margin-bottom:18px; font-size:0.9rem; font-weight: 500; }
     .lead-capture form { display:flex; flex-direction:column; gap:12px; }
-    .lead-capture input[type="email"] { background:#0e1520; border:1.5px solid rgba(212,175,55,0.6); border-radius:8px; padding:12px 16px; color:#fff; font-size:0.95rem; outline:none; }
-    .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.3); }
-    .lead-capture button { background:var(--solid-silver); border:none; border-radius:8px; padding:12px 20px; font-weight:700; font-size:0.95rem; color:#0A0F14; cursor:pointer; transition:background 0.25s; letter-spacing:0.5px; }
-    .lead-capture button:hover { background:#D5D9DE; box-shadow:0 0 20px rgba(212,175,55,0.5); }
+    .lead-capture input[type="email"] {
+      background:#FFFFFF; border:2px solid var(--gold);
+      border-radius:10px; padding:12px 16px; color:#0A0F14;
+      font-size:0.95rem; font-weight: 600; outline:none;
+    }
+    .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .lead-capture button {
+      background: var(--silver-bg); border:2px solid var(--gold); border-radius:10px;
+      padding:14px 20px; font-family: 'Oswald', sans-serif;
+      font-weight: 800; font-size: 0.95rem; color:#0A0F14; cursor:pointer;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      transition: background 0.25s;
+    }
+    .lead-capture button:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); box-shadow:0 0 20px var(--gold-glow); transform: translateY(-2px); }
 
-    .appreciation { text-align:center; margin:20px 0 10px; font-size:0.85rem; color:#ccc; border-top:1px solid rgba(255,255,255,0.08); padding-top:16px; line-height:1.8; }
-    .appreciation .gold { color:var(--gold-bright); }
-    footer { text-align:center; color:var(--muted); font-size:0.72rem; padding:25px 0 20px; border-top:1px solid rgba(255,255,255,0.06); margin-top:20px; }
+    footer { text-align:center; color:var(--muted); font-size:0.72rem; padding:30px 0 20px; border-top:2px solid var(--gold); margin-top:30px; }
     footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
-    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:44px; height:44px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
     @media (max-width:600px) {
       .clock-grid { grid-template-columns: 1fr 1fr; }
-      h1 { font-size:1.6rem; }
-      .share-tool-buttons { display:flex; }
-      .share-tool-btn { padding:14px 6px; font-size:0.85rem; }
-      .container { padding:15px; }
-      .detail-section { padding:20px 16px; }
+      h1 { font-size:1.5rem; }
+      .share-tool-btn { padding:12px 6px; font-size:0.82rem; }
+      .container { padding:14px; }
+      .detail-section, .pakistani-block, .lead-capture {
+        margin-left: -6px !important;
+        margin-right: -6px !important;
+        padding: 20px 16px !important;
+      }
+      .related-tools-section, .disclaimer-box {
+        margin-left: -6px !important;
+        margin-right: -6px !important;
+      }
       .now-btn { margin-left:0; margin-top:8px; width:100%; }
+      .get-quote-strip .quote-btn { font-size: 0.75rem; padding: 12px 10px; }
+      /* ============================================ */
+/* FINAL FIX — Clock cards + Time converter reset */
+/* ============================================ */
+
+/* Clock cards — lavish */
+.clock-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+  gap: 16px !important;
+  margin-bottom: 20px !important;
+}
+.clock-card {
+  padding: 24px 18px 22px !important;
+  background: linear-gradient(160deg, #f0f2f5 0%, #d5d9de 40%, #b8bec7 100%) !important;
+  border: 2px solid #D4AF37 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.9) !important;
+  position: relative !important;
+  text-align: center !important;
+  overflow: hidden !important;
+}
+.clock-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important; left: 0 !important; right: 0 !important;
+  height: 3px !important;
+  background: linear-gradient(90deg, transparent, #FFD700 30%, #D4AF37 50%, #FFD700 70%, transparent) !important;
+}
+.clock-card .city-name {
+  font-family: 'Oswald', sans-serif !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  color: #0A0F14 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  margin-bottom: 4px !important;
+}
+.clock-card .city-country {
+  font-size: 0.7rem !important;
+  color: #4a4d55 !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 10px !important;
+  border-bottom: 1px dashed rgba(212,175,55,0.5) !important;
+}
+.clock-card .time-display {
+  font-family: 'Oswald', sans-serif !important;
+  font-size: 2rem !important;
+  font-weight: 800 !important;
+  color: #0A0F14 !important;
+  letter-spacing: 2px !important;
+  line-height: 1 !important;
+  margin-top: 6px !important;
+}
+.clock-card .date-display {
+  font-size: 0.75rem !important;
+  color: #4a4d55 !important;
+  font-weight: 600 !important;
+  margin-top: 8px !important;
+}
+
+/* Time converter — proper card look */
+.card.premium-card {
+  background: linear-gradient(145deg, #e0e4e8 0%, #c4cad0 30%, #a9b0b8 60%, #d5d9de 100%) !important;
+  border: 2px solid #D4AF37 !important;
+  border-radius: 16px !important;
+  padding: 22px 20px !important;
+  margin-bottom: 18px !important;
+  color: #0A0F14 !important;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.8) !important;
+}
+.field label {
+  display: block !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  color: #0A0F14 !important;
+  margin-bottom: 6px !important;
+}
+.field input[type="time"],
+.field select,
+.add-city-panel input,
+.add-city-panel select {
+  width: 100% !important;
+  padding: 12px 14px !important;
+  border-radius: 10px !important;
+  border: 2px solid #D4AF37 !important;
+  background: #FFFFFF !important;
+  color: #0A0F14 !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  font-family: 'Inter', sans-serif !important;
+}
+.btn-calc {
+  width: 100% !important;
+  background: #C8CDD4 !important;
+  color: #0A0F14 !important;
+  border: 2px solid #D4AF37 !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  font-family: 'Oswald', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 1rem !important;
+  letter-spacing: 0.8px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  margin-top: 10px !important;
+}
+.btn-calc:hover {
+  background: #D5D9DE !important;
+  border-color: #FFD700 !important;
+}
+.now-btn {
+  background: #C8CDD4 !important;
+  color: #0A0F14 !important;
+  border: 2px solid #D4AF37 !important;
+  border-radius: 10px !important;
+  padding: 12px 20px !important;
+  font-family: 'Oswald', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  margin-left: 10px !important;
+}
+.btn-reset-full {
+  width: 100% !important;
+  background: #C8CDD4 !important;
+  color: #0A0F14 !important;
+  border: 2px solid #D4AF37 !important;
+  border-radius: 10px !important;
+  padding: 11px 20px !important;
+  font-family: 'Oswald', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 0.9rem !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  margin-top: 10px !important;
+}
+.convert-result {
+  margin-top: 16px !important;
+  background: #FFFFFF !important;
+  border: 2px solid #D4AF37 !important;
+  border-radius: 12px !important;
+  padding: 18px !important;
+  text-align: center !important;
+  color: #0A0F14 !important;
+}
+.convert-result .result-time {
+  font-family: 'Oswald', sans-serif !important;
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  color: #0A0F14 !important;
+}
+.convert-result .result-sub {
+  font-size: 0.82rem !important;
+  color: #333 !important;
+  margin-top: 6px !important;
+}
     }
   </style>
   <script type="application/ld+json">
@@ -316,19 +736,47 @@
   </script>
 </head>
 <body>
-<nav class="navbar"><div class="nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">❄️ ColdMatrix</a>
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="index.html#tools">🛠️ Tools</a></li>
+      <li><a href="blog.html">📝 Blog</a></li>
+      <li><a href="about.html">ℹ️ About</a></li>
+      <li><a href="contact.html">📞 Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
 <div class="container">
   <a href="index.html#tools" class="back-link">← Back to Tools</a>
   <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
   <h1>🌍 ColdMatrix <span>World Clock</span></h1>
-  <p class="subtitle">See live time in any city worldwide, monitor multiple time zones at once, and convert any time instantly — built for global teams, remote workers, travellers, and anyone coordinating across regions.</p>
+  <p class="subtitle">Live time in any city worldwide + instant time zone conversion — built for global teams, remote workers, and travel planning.</p>
+
+  <!-- GET QUOTE / LEAD STRIP -->
+  <div class="get-quote-strip">
+    <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20a%20custom%20global%20tool%20for%20my%20business." class="quote-btn whatsapp" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> Quick Chat
+    </a>
+    <a href="contact.html" class="quote-btn">
+      <i class="fa-solid fa-envelope"></i> Get a Quote
+    </a>
+  </div>
 
   <div class="share-tool-card">
     <div class="share-tool-title">Share World Clock</div>
     <div class="share-tool-buttons">
-      <button class="share-tool-btn" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
       <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
     </div>
+  </div>
+
+  <!-- AD ZONE 1 — Top -->
+  <div class="ad-zone">
+    <span>📢 Ad Space Available</span>
   </div>
 
   <div class="section-heading">
@@ -362,64 +810,105 @@
       <select id="toZone"></select>
     </div>
     <button class="btn-calc" onclick="convertTime()"><i class="fa-solid fa-right-left"></i> Convert Now</button>
+    <button class="btn-reset-full" onclick="resetConverter()"><i class="fa-solid fa-rotate"></i> Reset</button>
     <div class="convert-result" id="convertResult" style="display:none;">
       <div class="result-time" id="resultTime"></div>
       <div class="result-sub" id="resultSub"></div>
     </div>
   </div>
 
+<!-- ⬇️⬇️⬇️ CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
+
+  <!-- ============================================ -->
+  <!-- EDUCATIONAL CONTENT — SILVER, GLOBAL FRIENDLY -->
+  <!-- ============================================ -->
   <div class="detail-section">
-    <h2>📖 Complete Guide to World Clock & Time Zone Converter</h2>
-    <p>The ColdMatrix World Clock is a powerful, free tool that lets you see live time in any city around the globe and convert time between different time zones instantly. It's designed for international teams, frequent travellers, and anyone who needs to coordinate across regions.</p>
+    <h2>📖 Complete Guide to World Clock &amp; Time Zone Converter</h2>
+
+    <p>Coordinating across time zones is one of the biggest challenges in modern work and life. Whether you're running a remote team spanning New York and Tokyo, scheduling a call between London and Dubai, or planning a trip across continents — knowing the exact time elsewhere saves misunderstandings, missed meetings, and late-night calls.</p>
+
+    <p>The ColdMatrix World Clock combines a live clock grid with a full time zone converter — free, accurate, and built entirely in your browser.</p>
+
     <h3>What Is a World Clock?</h3>
-    <p>A world clock displays the current time in multiple cities or time zones simultaneously. Unlike a regular clock that shows only your local time, a world clock lets you monitor the time in several locations at once. The ColdMatrix World Clock goes a step further by adding a time zone converter, so you can input a specific time and see what it corresponds to elsewhere.</p>
+    <p>A world clock displays the current time in multiple cities simultaneously. Unlike a regular clock showing only your local time, a world clock lets you monitor several locations at a glance. Our tool goes further — you can add any city from a list of 70+ global locations, and even convert a specific time between any two zones.</p>
+
     <h3>Key Features</h3>
     <ul>
-      <li><strong>Live Clock Grid:</strong> Add any number of cities from a list of over 70 global locations and see their current time, date, and day/night status in real time.</li>
-      <li><strong>Daylight Saving Time (DST) aware:</strong> Automatically adjusts for DST changes using your browser's time zone database.</li>
-      <li><strong>Time Zone Converter:</strong> Pick a source time zone, a time, and a destination zone to instantly see the converted time and date.</li>
-      <li><strong>Persistent City List:</strong> Your selected cities are saved locally in your browser, so they appear every time you visit.</li>
-      <li><strong>Search & Filter:</strong> Quickly find a city by typing in the filter box.</li>
-      <li><strong>Day/Night Indicator:</strong> Each city card shows whether it is currently daytime or nighttime.</li>
-      <li><strong>Premium Design:</strong> Silver and gold themed interface that looks great on any device.</li>
-      <li><strong>Privacy First:</strong> All processing is done locally; no data is uploaded to any server.</li>
+      <li><strong>Live Clock Grid:</strong> Real-time clocks for 6–10 cities with day, date, and day/night indicator.</li>
+      <li><strong>70+ Global Cities:</strong> USA, Canada, Europe, Middle East, South Asia, East Asia, Oceania, Africa.</li>
+      <li><strong>Daylight Saving Time (DST) Aware:</strong> Automatically adjusts using your browser's Intl API.</li>
+      <li><strong>Time Zone Converter:</strong> Pick any source time and instantly see the converted destination time.</li>
+      <li><strong>Day / Night Indicator:</strong> Each card shows ☀️ Day or 🌙 Night at that location.</li>
+      <li><strong>Saved Cities:</strong> Your list is stored locally — reload the page, and they come back.</li>
+      <li><strong>Search &amp; Filter:</strong> Find any city fast with the filter box.</li>
+      <li><strong>100% Free &amp; Private:</strong> No signup, no tracking, no uploads.</li>
     </ul>
+
     <h3>How to Use the World Clock</h3>
     <ol>
-      <li><strong>View live times:</strong> The grid already includes default cities. To add more, click "+ Add City".</li>
-      <li><strong>Search for a city:</strong> Type a name in the filter box to narrow down the dropdown list.</li>
-      <li><strong>Add city:</strong> Select a city from the dropdown and click "Add to My Clocks". The new card will appear instantly.</li>
-      <li><strong>Remove a city:</strong> Click the × button on any clock card to remove it from your list.</li>
-      <li><strong>Convert a time:</strong> In the "Convert a Time" section, choose the source time zone, enter a time (or click "Now"), choose the destination zone, and click "Convert Now".</li>
+      <li><strong>View Live Times:</strong> The grid comes pre-loaded with major global cities (New York, London, Dubai, Karachi, Singapore, Tokyo, Sydney).</li>
+      <li><strong>Add a City:</strong> Click "+ Add City", search for a city, select it, and click "Add to My Clocks".</li>
+      <li><strong>Remove a City:</strong> Click the × on any clock card.</li>
+      <li><strong>Convert Time:</strong> Scroll to "Convert a Time", pick the source and destination zones, enter a time, and click Convert Now.</li>
+      <li><strong>Use "Now":</strong> The Now button auto-fills the current time in the source zone.</li>
     </ol>
-    <h3>Tips for Effective Use</h3>
+
+    <h3>Best Practices for Global Coordination</h3>
     <ul>
-      <li><strong>Keep important cities visible:</strong> Add cities where your team members, clients, or family are located.</li>
-      <li><strong>Use for scheduling:</strong> Use the converter to find the best meeting time across multiple zones.</li>
-      <li><strong>Plan travel:</strong> Check the time difference before booking flights or calling someone abroad.</li>
-      <li><strong>Remember DST:</strong> Some regions do not observe daylight saving, but the tool handles this automatically.</li>
+      <li><strong>Keep common zones visible:</strong> Add every city where clients, teammates, or family live.</li>
+      <li><strong>Book calls in the middle:</strong> Find the time that's reasonable in ALL zones — not just yours.</li>
+      <li><strong>Watch daylight saving:</strong> DST shifts can move meeting times by an hour. Our tool adjusts automatically, but always confirm before finalizing.</li>
+      <li><strong>Travel planning:</strong> Check the jet lag impact before booking flights.</li>
     </ul>
+
     <h3>Frequently Asked Questions</h3>
-    <p><strong>Does this tool work offline?</strong><br>Yes, after the initial page load, the clock grid and converter work entirely offline using your browser's time zone data.</p>
-    <p><strong>Is my city list private?</strong><br>Absolutely. Your selected cities are stored only in your browser's local storage. No information is sent to any server.</p>
-    <p><strong>Can I convert between any two time zones?</strong><br>Yes, the dropdown includes all major cities and UTC. You can convert any time between any two zones.</p>
-    <p><strong>Why do some cities show the same time?</strong><br>They may be in the same time zone or currently have the same offset due to DST.</p>
-    <p><strong>How accurate is the time?</strong><br>The times are calculated using the Intl API of your browser, which is highly accurate and updates every second.</p>
-    <h3>Business and Personal Use Cases</h3>
-    <ul>
-      <li><strong>Remote Teams:</strong> Coordinate across continents.</li>
-      <li><strong>Customer Support:</strong> Know when to contact clients in different regions.</li>
-      <li><strong>Travel Planning:</strong> Avoid calling at odd hours.</li>
-      <li><strong>Education:</strong> Learn about time zones and geography.</li>
-    </ul>
-    <h3>Why Choose ColdMatrix World Clock?</h3>
-    <p>It's free, fast, and beautifully designed. No other web-based world clock offers such a premium look combined with full functionality. The tool is perfect for anyone who values accuracy, privacy, and elegance.</p>
-    <p><strong>Disclaimer:</strong> Times are based on your device's settings and the IANA time zone database. Always double-check critical scheduling with an official source.</p>
+    <p><strong>Q: Does this tool work offline?</strong><br>A: Yes. After the first load, both the clock grid and converter work entirely offline.</p>
+    <p><strong>Q: Is my city list private?</strong><br>A: Absolutely. It's stored only in your browser's local storage. No data ever leaves your device.</p>
+    <p><strong>Q: Can I convert between any two time zones?</strong><br>A: Yes — the dropdown covers all major cities and UTC.</p>
+    <p><strong>Q: Why do some cities show the same time?</strong><br>A: They may be in the same zone or currently aligned due to DST.</p>
+    <p><strong>Q: How accurate is the time?</strong><br>A: Very — it uses your browser's Intl API, which is highly accurate and updates every second.</p>
+
+    <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ Whether you're running global operations or simply keeping in touch with family overseas — this tool keeps you on time, everywhere.</p>
   </div>
 
+  <!-- AD ZONE 2 — Middle of Content -->
+  <div class="ad-zone">
+    <span>📢 Ad Space Available</span>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- PAKISTANI / GLOBAL SERVICES BLOCK — LIGHT -->
+  <!-- ============================================ -->
+  <div class="pakistani-block">
+    <h2>🌐 ColdMatrix Advanced Solutions — Serving Clients Worldwide</h2>
+    <p>Our tools are used daily by professionals in the <strong>United States, Canada, United Kingdom, Europe, the Middle East, South Asia, and Australia</strong>. From remote teams coordinating across continents to travelers planning their next trip — ColdMatrix helps you stay on time, everywhere.</p>
+    <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients globally with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
+    <p>Need a custom global tool, a dedicated dashboard, or a project quote? Our team responds within 24 hours.</p>
+    <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- RELATED TOOLS -->
+  <!-- ============================================ -->
+  <div class="related-tools-section">
+    <h3>🔗 Related Tools You Might Need</h3>
+    <div>
+      <a href="currency-converter.html">💱 Currency Converter</a>
+      <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+      <a href="unit-converter.html">📏 Unit Converter</a>
+      <a href="age-calculator.html">🎂 Age Calculator</a>
+      <a href="stopwatch.html">⏱️ Stopwatch</a>
+      <a href="birthday-countdown.html">🎉 Birthday Countdown</a>
+      <a href="qr-code-generator.html">📱 QR &amp; Barcode Studio</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- LEAD CAPTURE — SILVER PREMIUM -->
+  <!-- ============================================ -->
   <div class="lead-capture">
     <h3>🚀 Need a Custom Global Tool?</h3>
-    <p>Get tailored calculators, dashboards, or automation for your business. Leave your email and we'll reach out with a free consultation.</p>
+    <p>Get tailored clocks, dashboards, or automation for your business — anywhere in the world. Leave your email and we'll reach out within 24 hours.</p>
     <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
@@ -428,18 +917,40 @@
     </form>
   </div>
 
-  <div class="appreciation">✨ <strong class="gold">Thank you</strong> for using our World Clock. Stay connected across the globe!<br><span style="font-size:0.75rem">Explore more <a href="index.html" style="color:var(--accent)">premium tools</a> designed for you.</span></div>
+  <!-- ============================================ -->
+  <!-- DISCLAIMER — SILVER -->
+  <!-- ============================================ -->
+  <div class="disclaimer-box">
+    <strong>⚠️ Disclaimer:</strong> Times are based on your device's settings and the IANA time zone database. Daylight Saving Time is automatically adjusted. Always double-check critical scheduling with an official source — especially for legal, medical, or financial deadlines.
+  </div>
+
 </div>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+
 <footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
 <script>
   const CITIES = [
@@ -488,9 +999,9 @@
     { name: 'Kuwait City', country: 'Kuwait', tz: 'Asia/Kuwait' },
     { name: 'Manama', country: 'Bahrain', tz: 'Asia/Bahrain' },
     { name: 'Muscat', country: 'Oman', tz: 'Asia/Muscat' },
-    { name: 'Karachi', country: 'Pakistan', tz: 'Asia/Karachi' },
-    { name: 'Lahore', country: 'Pakistan', tz: 'Asia/Karachi' },
-    { name: 'Islamabad', country: 'Pakistan', tz: 'Asia/Karachi' },
+{ name: 'Islamabad', country: 'Pakistan', tz: 'Asia/Karachi' },
+{ name: 'Karachi', country: 'Pakistan', tz: 'Asia/Karachi' },
+{ name: 'Lahore', country: 'Pakistan', tz: 'Asia/Karachi' },
     { name: 'Delhi', country: 'India', tz: 'Asia/Kolkata' },
     { name: 'Mumbai', country: 'India', tz: 'Asia/Kolkata' },
     { name: 'Dhaka', country: 'Bangladesh', tz: 'Asia/Dhaka' },
@@ -502,8 +1013,8 @@
     { name: 'Jakarta', country: 'Indonesia', tz: 'Asia/Jakarta' },
     { name: 'Manila', country: 'Philippines', tz: 'Asia/Manila' },
     { name: 'Hong Kong', country: 'China', tz: 'Asia/Hong_Kong' },
-    { name: 'Shanghai', country: 'China', tz: 'Asia/Shanghai' },
-    { name: 'Beijing', country: 'China', tz: 'Asia/Shanghai' },
+{ name: 'Beijing', country: 'China', tz: 'Asia/Shanghai' },
+{ name: 'Shanghai', country: 'China', tz: 'Asia/Shanghai' },
     { name: 'Taipei', country: 'Taiwan', tz: 'Asia/Taipei' },
     { name: 'Seoul', country: 'South Korea', tz: 'Asia/Seoul' },
     { name: 'Tokyo', country: 'Japan', tz: 'Asia/Tokyo' },
@@ -524,7 +1035,7 @@
     { name: 'UTC', country: 'Universal', tz: 'UTC' }
   ].sort((a,b) => a.name.localeCompare(b.name));
 
-  const DEFAULT_CITIES = ['America/New_York', 'Europe/London', 'Asia/Dubai', 'Asia/Riyadh', 'Asia/Karachi', 'Asia/Kolkata', 'Asia/Shanghai', 'Asia/Singapore', 'Asia/Tokyo', 'Australia/Sydney'];
+const DEFAULT_CITIES = ['America/New_York', 'Asia/Shanghai', 'Asia/Tokyo', 'Europe/London', 'Europe/Paris', 'Asia/Dubai', 'Asia/Karachi', 'Asia/Kolkata', 'America/Toronto', 'Australia/Sydney'];
 
   function getSavedCities() {
     try {
@@ -669,6 +1180,13 @@
     document.getElementById('resultTime').textContent = resultTimeStr + ' in ' + toInfo.name;
     document.getElementById('resultSub').textContent = resultDateStr + ' — converted from ' + timeVal + ' ' + fromInfo.name + ' time';
     document.getElementById('convertResult').style.display = 'block';
+  }
+
+  function resetConverter() {
+    document.getElementById('fromZone').value = 'Asia/Karachi';
+    document.getElementById('toZone').value = 'America/New_York';
+    document.getElementById('convertTime').value = '';
+    document.getElementById('convertResult').style.display = 'none';
   }
 
   window.addEventListener('DOMContentLoaded', function() {

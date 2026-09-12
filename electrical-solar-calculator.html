@@ -48,18 +48,38 @@
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 1000px; margin:0 auto; padding:0 24px; }
+
     .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
     .logo { font-size:1.3rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
-    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
-    .install-bar { background:var(--gold); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:700; font-size:0.85rem; display:block; box-shadow:0 4px 15px rgba(212,175,55,0.4); }
-    .install-bar button { background:#0A0F14; color:var(--gold-bright); border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:700; cursor:pointer; }
-    h1 { font-size:1.8rem; font-weight:800; margin-bottom:6px; }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--gold); text-decoration:none; font-weight:600; font-size:0.85rem; }
+
+    /* Golden install bar */
+    .install-bar {
+      display: block;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14;
+      text-align: center;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: 10px;
+      margin: 14px 0;
+      border: 1px solid #FFD700;
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+    }
+    .install-bar button {
+      background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+      padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+      font-weight: 800; cursor: pointer; font-size: 0.8rem;
+    }
+
+    h1 { font-size:1.7rem; font-weight:800; margin-bottom:8px; line-height: 1.25; }
     h1 span { color: var(--gold-bright); }
-    .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; margin-bottom:24px; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
+    .subtitle { color:#EAEDF0; font-size:0.98rem; font-weight:500; margin-bottom:24px; }
 
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
@@ -74,9 +94,11 @@
       display:flex; align-items:center; justify-content:center; gap:8px;
       padding:10px 12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
       background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+      transition: all 0.2s;
     }
     .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover { border-color:#25D366; }
 
     .card {
       background:var(--surface); border:1px solid var(--gold); border-radius:14px;
@@ -88,7 +110,7 @@
       margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px;
     }
     .field { margin-bottom:14px; }
-    .field label { display:block; font-size:0.85rem; color:#FFFFFF; margin-bottom:5px; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
+    .field label { display:block; font-size:0.85rem; color:#FFFFFF; margin-bottom:5px; font-weight:700; }
     .field input, .field select {
       width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
       padding:11px 13px; border-radius:10px; font-size:0.95rem;
@@ -98,22 +120,81 @@
     .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
     .row5 { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
 
-    /* CLEAN SOLID BUTTONS */
+    /* ============================================ */
+    /* STACKED BUTTONS — Calculate tall, Reset short */
+    /* ============================================ */
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 18px;
+    }
     .btn-calc {
-      width:100%; background:var(--silver-bg); color:#0A0F14; border:3px solid var(--gold);
-      padding:18px; border-radius:12px; font-weight:900; font-size:1.1rem; cursor:pointer; margin-top:8px;
-      letter-spacing:0.5px; min-height:56px;
+      width: 100%;
+      background: var(--silver-bg);
+      color: #0A0F14;
+      border: 2px solid var(--gold);
+      min-height: 64px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 900;
+      font-size: 1.15rem;
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
-      transition:all 0.25s ease;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
     .btn-calc:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 25px var(--gold-glow); transform:translateY(-2px); }
+
     .btn-reset {
-      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
-      padding:12px 16px; border-radius:10px; font-weight:800; font-size:0.85rem; cursor:pointer; white-space:nowrap;
+      width: 100%;
+      background: var(--silver-bg);
+      color: #0A0F14;
+      border: 2px solid var(--gold);
+      min-height: 46px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
       box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-      transition:all 0.25s ease;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
     .btn-reset:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+
+    /* Small inline button for Add Appliance */
+    .btn-add {
+      background: var(--silver-bg);
+      color: #0A0F14;
+      border: 2px solid var(--gold);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-add:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
     .result-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:12px; margin-top:16px; }
     .result-item {
@@ -134,7 +215,9 @@
       padding:10px 12px; border:none; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.85rem;
       display:flex; align-items:center; justify-content:center; gap:8px; text-transform:uppercase;
       background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
+      transition: all 0.2s;
     }
+    .action-btn:hover { background: var(--silver-bg-hover); transform: translateY(-2px); }
     .whatsapp-action { background:#25D366 !important; border:none !important; color:#fff !important; }
     .pdf-action { background:#0077B5 !important; border:none !important; color:#fff !important; }
     .jpg-action { background:#6C5CE7 !important; border:none !important; color:#fff !important; }
@@ -142,26 +225,91 @@
 
     .contact-note { margin-top:20px; padding:14px 12px; background:rgba(33,150,243,0.1); border:1px dashed var(--gold); border-radius:12px; text-align:center; color:#fff; font-size:0.85rem; word-break:break-word; }
 
-    /* SOLID SILVER DETAIL SECTION */
-    .detail-section {
-      margin-top:40px; padding:30px 24px;
-      background: var(--silver-bg);
-      border:2px solid var(--gold);
-      border-radius:16px;
-      line-height:1.8; font-size:0.95rem; color:#0A0F14;
+    /* ============================================ */
+    /* SILVER EDUCATIONAL CONTENT — Premium */
+    /* ============================================ */
+    .edu-content {
+      margin: 30px 0;
+      padding: 30px 24px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 16px;
+      color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
     }
-    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
-    .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
-    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
-    .detail-section ul, .detail-section ol { padding-left:24px; }
-    .detail-section li { margin-bottom:6px; }
-    .detail-section strong { color:#0A0F14; }
+    .edu-content h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.35rem; margin-bottom: 16px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; font-weight: 800; }
+    .edu-content h3 { color: #0A0F14; font-size: 1.1rem; margin: 22px 0 10px; font-weight: 800; }
+    .edu-content p, .edu-content li, .edu-content ul, .edu-content ol { color: #0A0F14; font-weight: 500; }
+    .edu-content ul, .edu-content ol { padding-left: 24px; margin-bottom: 14px; }
+    .edu-content li { margin-bottom: 6px; }
+    .edu-content strong { color: #0A0F14; font-weight: 800; }
+    .edu-content p { margin-bottom: 14px; }
 
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    /* Pakistani block */
+    .pakistani-block {
+      margin: 30px 0;
+      padding: 24px 20px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 16px;
+      color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .pakistani-block h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.2rem; margin-bottom: 12px; font-weight: 800; }
+    .pakistani-block p { color: #0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color: #0A0F14; font-weight: 800; }
+
+    /* Related tools */
+    .related-tools-section {
+      margin: 20px 0 10px;
+      padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid #D4AF37;
+      border-radius: 12px;
+    }
+    .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; }
+    .related-tools-section a {
+      color:#4FC3F7; text-decoration:none;
+      background:rgba(79,195,247,0.1);
+      padding:8px 16px; border-radius:20px;
+      font-size:0.85rem; font-weight:600;
+      display: inline-block;
+      margin: 4px 4px 4px 0;
+    }
+
+    /* Disclaimer box */
+    .disclaimer-box {
+      margin-top: 20px;
+      padding: 16px 18px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: #0A0F14;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:2px solid var(--gold); margin-top:50px; }
     footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
-    @media (max-width:600px){ .row2,.row3,.row5{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .action-buttons{grid-template-columns:1fr;} }
+    @media (max-width:600px){
+      .row2,.row3,.row5{grid-template-columns:1fr;}
+      .result-grid{grid-template-columns:1fr 1fr;}
+      .action-buttons{grid-template-columns:1fr;}
+      h1 { font-size: 1.4rem; }
+      .edu-content { padding: 20px 16px; font-size: 0.9rem; }
+      .edu-content h2 { font-size: 1.15rem; }
+    }
   </style>
 </head>
 <body>
@@ -183,7 +331,7 @@
     <a href="index.html#tools" class="back-link">← Back to Tools</a>
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
-    <h1>⚡ <span>ColdMatrix</span> Electrical Load & Solar System Calculator</h1>
+    <h1>⚡ <span>ColdMatrix</span> Electrical Load &amp; Solar System Calculator</h1>
     <p class="subtitle">Design your complete solar system — calculate electrical load, solar panel sizing, battery backup, inverter capacity, and cable size. Built for homeowners, engineers, and solar installers.</p>
 
     <div class="share-tool-card">
@@ -198,7 +346,7 @@
     <div class="card">
       <h2>1. 🔌 Appliances / Load</h2>
       <div id="applianceRows"></div>
-      <button class="btn-reset" onclick="addAppliance()">+ Add Appliance</button>
+      <button class="btn-add" onclick="addAppliance()">+ Add Appliance</button>
     </div>
 
     <!-- SECTION 3: SOLAR -->
@@ -277,7 +425,10 @@
       </div>
     </div>
 
-    <button class="btn-calc" onclick="calculateSolar()">⚡ Calculate System</button>
+    <div class="btn-stack">
+      <button class="btn-calc" onclick="calculateSolar()">⚡ Calculate System</button>
+      <button class="btn-reset" onclick="resetSolar()">↺ Reset All Fields</button>
+    </div>
 
     <!-- RESULTS -->
     <div class="card" id="resultCard" style="display:none;">
@@ -307,107 +458,165 @@
       <div class="contact-note">❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>For queries: <strong>+92 333 3228470</strong><br><span style="word-break:break-all;">contact@coldmatrixtools.com</span></div>
     </div>
 
- <div class="detail-section">
-  <h2>📖 The Complete Solar System Design Guide</h2>
-  <p>This comprehensive calculator helps you plan every aspect of your electrical and solar energy system — from calculating your daily electrical load to sizing solar panels, batteries, inverters, and cables. Whether you're designing a home backup system, an off-grid cabin, or a commercial solar installation, this guide and calculator give you the knowledge and tools you need.</p>
+<!-- ⬇️⬇️⬇️ CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
 
-  <h3>What Is an Electrical Load?</h3>
-  <p>Electrical load is the total amount of power consumed by all your electrical appliances and devices, measured in watts (W) or kilowatts (kW). Understanding your load is the foundation of any solar system design because it determines how much energy you need to generate, store, and distribute.</p>
-  <p><strong>Connected Load</strong> is the sum of all appliance wattages if everything runs at once. <strong>Actual Consumption</strong> is what you really use based on hours of operation. The difference is significant — most homes only use 30–50% of their connected load at any time.</p>
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — SILVER PREMIUM -->
+    <!-- ============================================ -->
+    <div class="edu-content">
+      <h2>📖 The Complete Solar System Design Guide</h2>
 
-  <h3>Step 1: Calculating Daily Energy Consumption</h3>
-  <p>Daily energy consumption = Sum of (Quantity × Wattage × Hours per day) for all appliances.</p>
-  <p><strong>Example:</strong></p>
-  <ul>
-    <li>5 LED lights × 15W × 6 hours = 450Wh</li>
-    <li>3 fans × 75W × 8 hours = 1,800Wh</li>
-    <li>1 refrigerator × 200W × 24 hours = 4,800Wh</li>
-    <li>1 TV × 100W × 4 hours = 400Wh</li>
-  </ul>
-  <p>Total = <strong>7,450Wh = 7.45 kWh per day</strong></p>
+      <p>This comprehensive calculator helps you plan every aspect of your electrical and solar energy system — from calculating your daily electrical load to sizing solar panels, batteries, inverters, and cables. Whether you're designing a home backup system, an off-grid cabin, or a commercial solar installation, this guide and calculator give you the knowledge and tools you need.</p>
 
-  <h3>Step 2: Solar Panel Sizing</h3>
-  <p>Solar panels convert sunlight into DC electricity. To size your array:</p>
-  <p><strong>Required Solar Capacity (kW) = Daily Consumption (kWh) ÷ (Peak Sun Hours × System Efficiency)</strong></p>
-  <p>Peak sun hours vary by location — typically 4–6 hours in Pakistan, India, and the Middle East. System efficiency (75–85%) accounts for losses from wiring, inverters, temperature, and panel degradation.</p>
-  <p><strong>Example:</strong> 7.45 kWh ÷ (5 × 0.8) = 1.86 kW. With 550W panels: 1860 ÷ 550 = 4 panels.</p>
+      <h3>What Is an Electrical Load?</h3>
+      <p>Electrical load is the total amount of power consumed by all your electrical appliances and devices, measured in watts (W) or kilowatts (kW). Understanding your load is the foundation of any solar system design because it determines how much energy you need to generate, store, and distribute.</p>
+      <p><strong>Connected Load</strong> is the sum of all appliance wattages if everything runs at once. <strong>Actual Consumption</strong> is what you really use based on hours of operation. The difference is significant — most homes only use 30–50% of their connected load at any time.</p>
 
-  <h3>Step 3: Battery Backup Sizing</h3>
-  <p>Batteries store solar energy for use at night or during outages. Sizing depends on backup hours, voltage, capacity, and depth of discharge (DoD).</p>
-  <p><strong>Battery Energy (Wh) = (Connected Load × Backup Hours) ÷ (DoD × Efficiency)</strong></p>
-  <ul>
-    <li><strong>Lead Acid:</strong> 50% DoD — cheaper but shorter life</li>
-    <li><strong>Lithium-ion:</strong> 80–90% DoD — higher efficiency, longer life</li>
-    <li><strong>Gel:</strong> 50% DoD — maintenance-free</li>
-  </ul>
+      <h3>Step 1: Calculating Daily Energy Consumption</h3>
+      <p>Daily energy consumption = Sum of (Quantity × Wattage × Hours per day) for all appliances.</p>
+      <p><strong>Example:</strong></p>
+      <ul>
+        <li>5 LED lights × 15W × 6 hours = 450 Wh</li>
+        <li>3 fans × 75W × 8 hours = 1,800 Wh</li>
+        <li>1 refrigerator × 200W × 24 hours = 4,800 Wh</li>
+        <li>1 TV × 100W × 4 hours = 400 Wh</li>
+      </ul>
+      <p>Total = <strong>7,450 Wh = 7.45 kWh per day</strong></p>
 
-  <h3>Step 4: Inverter Sizing</h3>
-  <p>The inverter converts DC to AC. It must handle your maximum load plus surge for motors and compressors.</p>
-  <p><strong>Inverter Size = Maximum Load × (1 + Surge%) × (1 + Safety Margin%)</strong></p>
-  <p><strong>Example:</strong> 3000W × 1.25 × 1.20 = 4,500W ≈ 5 kVA inverter.</p>
+      <h3>Step 2: Solar Panel Sizing</h3>
+      <p>Solar panels convert sunlight into DC electricity. To size your array:</p>
+      <p><strong>Required Solar Capacity (kW) = Daily Consumption (kWh) ÷ (Peak Sun Hours × System Efficiency)</strong></p>
+      <p>Peak sun hours vary by location — typically 4–6 hours in Pakistan, India, and the Middle East. System efficiency (75–85%) accounts for losses from wiring, inverters, temperature, and panel degradation.</p>
+      <p><strong>Example:</strong> 7.45 kWh ÷ (5 × 0.8) = 1.86 kW. With 550W panels: 1860 ÷ 550 ≈ 4 panels.</p>
 
-  <h3>Step 5: Cable Sizing</h3>
-  <p>Proper cable sizing prevents overheating, voltage drop, and fire risk. Cable area depends on current, voltage, length, conductor material (copper vs aluminum), and allowable voltage drop (2–3% typical).</p>
+      <h3>Step 3: Battery Backup Sizing</h3>
+      <p>Batteries store solar energy for use at night or during outages. Sizing depends on backup hours, voltage, capacity, and depth of discharge (DoD).</p>
+      <p><strong>Battery Energy (Wh) = (Connected Load × Backup Hours) ÷ (DoD × Efficiency)</strong></p>
+      <ul>
+        <li><strong>Lead Acid:</strong> 50% DoD — cheaper but shorter life</li>
+        <li><strong>Lithium-ion:</strong> 80–90% DoD — higher efficiency, longer life</li>
+        <li><strong>Gel:</strong> 50% DoD — maintenance-free</li>
+      </ul>
 
-  <h3>Solar Panel Types Comparison</h3>
-  <ul>
-    <li><strong>Monocrystalline:</strong> Highest efficiency (18–22%). Best for limited space.</li>
-    <li><strong>Polycrystalline:</strong> Lower cost, slightly lower efficiency (15–17%).</li>
-    <li><strong>Thin-Film:</strong> Flexible, lightweight, lower efficiency (10–12%).</li>
-  </ul>
+      <h3>Step 4: Inverter Sizing</h3>
+      <p>The inverter converts DC to AC. It must handle your maximum load plus surge for motors and compressors.</p>
+      <p><strong>Inverter Size = Maximum Load × (1 + Surge%) × (1 + Safety Margin%)</strong></p>
+      <p><strong>Example:</strong> 3000W × 1.25 × 1.20 = 4,500W ≈ 5 kVA inverter.</p>
 
-  <h3>Battery Types Comparison</h3>
-  <ul>
-    <li><strong>Lead Acid:</strong> $100–200/kWh, 3–5 year life, 50% DoD</li>
-    <li><strong>Lithium-ion:</strong> $300–500/kWh, 10–15 year life, 90% DoD</li>
-    <li><strong>Gel:</strong> $150–250/kWh, 5–7 year life, 50% DoD</li>
-  </ul>
+      <h3>Step 5: Cable Sizing</h3>
+      <p>Proper cable sizing prevents overheating, voltage drop, and fire risk. Cable area depends on current, voltage, length, conductor material (copper vs aluminum), and allowable voltage drop (2–3% typical).</p>
 
-  <h3>Common Mistakes to Avoid</h3>
-  <ul>
-    <li><strong>Underestimating consumption:</strong> Add 20–25% margin for future needs.</li>
-    <li><strong>Using wrong battery type:</strong> Match DoD and cycle life to your budget.</li>
-    <li><strong>Ignoring peak sun hours:</strong> Generation varies by season and location.</li>
-    <li><strong>Undersized cables:</strong> Causes overheating, fire risk, and voltage loss.</li>
-    <li><strong>Not considering surge requirements:</strong> Motors and pumps draw extra starting current.</li>
-    <li><strong>Forgetting system losses:</strong> Every component has efficiency losses.</li>
-  </ul>
+      <h3>Solar Panel Types Comparison</h3>
+      <ul>
+        <li><strong>Monocrystalline:</strong> Highest efficiency (18–22%). Best for limited space.</li>
+        <li><strong>Polycrystalline:</strong> Lower cost, slightly lower efficiency (15–17%).</li>
+        <li><strong>Thin-Film:</strong> Flexible, lightweight, lower efficiency (10–12%).</li>
+      </ul>
 
-  <h3>Real-World Applications</h3>
-  <ul>
-    <li><strong>Home Backup:</strong> Power essential appliances during outages.</li>
-    <li><strong>Off-Grid Homes:</strong> Complete self-sufficient energy systems.</li>
-    <li><strong>Commercial Solar:</strong> Reduce electricity bills for businesses.</li>
-    <li><strong>Agricultural:</strong> Power water pumps, irrigation, and farm equipment.</li>
-    <li><strong>Telecom Towers:</strong> Reliable remote power for communication.</li>
-  </ul>
+      <h3>Battery Types Comparison</h3>
+      <ul>
+        <li><strong>Lead Acid:</strong> $100–200/kWh, 3–5 year life, 50% DoD</li>
+        <li><strong>Lithium-ion:</strong> $300–500/kWh, 10–15 year life, 90% DoD</li>
+        <li><strong>Gel:</strong> $150–250/kWh, 5–7 year life, 50% DoD</li>
+      </ul>
 
-  <h3>Frequently Asked Questions</h3>
-  <p><strong>Q: Can I run my entire house on solar?</strong><br>A: Yes, if your solar capacity and battery storage match your daily consumption and backup needs.</p>
-  <p><strong>Q: How many solar panels do I need for a home?</strong><br>A: An average home using 10 kWh/day needs 8–12 panels of 550W each.</p>
-  <p><strong>Q: What battery type is best?</strong><br>A: Lithium-ion — higher efficiency, longer life, and deeper discharge. Lead acid is cheaper but requires more maintenance.</p>
-  <p><strong>Q: Does this calculator work for three-phase systems?</strong><br>A: Yes, it supports single-phase and three-phase cable sizing.</p>
-  <p><strong>Q: Is solar power worth it in Pakistan?</strong><br>A: Yes, Pakistan receives 5–6 peak sun hours daily, making solar highly viable with payback periods of 3–5 years.</p>
-  <p><strong>Q: How long do solar panels last?</strong><br>A: Most panels come with 25-year performance warranties, with 80% output guaranteed after 25 years.</p>
-  <p><strong>Q: What maintenance does a solar system need?</strong><br>A: Periodic panel cleaning, checking connections, and monitoring battery health.</p>
-  <p><strong>Q: Can I expand my solar system later?</strong><br>A: Yes, if your inverter and charge controller have spare capacity.</p>
+      <h3>Common Mistakes to Avoid</h3>
+      <ul>
+        <li><strong>Underestimating consumption:</strong> Add 20–25% margin for future needs.</li>
+        <li><strong>Using wrong battery type:</strong> Match DoD and cycle life to your budget.</li>
+        <li><strong>Ignoring peak sun hours:</strong> Generation varies by season and location.</li>
+        <li><strong>Undersized cables:</strong> Causes overheating, fire risk, and voltage loss.</li>
+        <li><strong>Not considering surge requirements:</strong> Motors and pumps draw extra starting current.</li>
+        <li><strong>Forgetting system losses:</strong> Every component has efficiency losses.</li>
+      </ul>
 
-  <h3>Why Choose ColdMatrix Electrical & Solar Calculator?</h3>
-  <p>This tool brings together five essential calculations in one place — load analysis, solar sizing, battery backup, inverter capacity, and cable estimation. It saves you time, prevents costly mistakes, and gives you a complete picture of your energy needs. Whether you're planning a home solar system or a commercial installation, this calculator makes the process simple and understandable.</p>
+      <h3>Real-World Applications</h3>
+      <ul>
+        <li><strong>Home Backup:</strong> Power essential appliances during outages.</li>
+        <li><strong>Off-Grid Homes:</strong> Complete self-sufficient energy systems.</li>
+        <li><strong>Commercial Solar:</strong> Reduce electricity bills for businesses.</li>
+        <li><strong>Agricultural:</strong> Power water pumps, irrigation, and farm equipment.</li>
+        <li><strong>Telecom Towers:</strong> Reliable remote power for communication.</li>
+      </ul>
 
-  <p><strong>Disclaimer:</strong> Results are estimates for preliminary planning only. Final system design must be verified by a qualified electrical engineer and comply with local electrical codes and installation conditions.</p>
-</div>
+      <h3>Frequently Asked Questions</h3>
+      <p><strong>Q: Can I run my entire house on solar?</strong><br>A: Yes, if your solar capacity and battery storage match your daily consumption and backup needs.</p>
+      <p><strong>Q: How many solar panels do I need for a home?</strong><br>A: An average home using 10 kWh/day needs 8–12 panels of 550W each.</p>
+      <p><strong>Q: What battery type is best?</strong><br>A: Lithium-ion — higher efficiency, longer life, and deeper discharge. Lead acid is cheaper but requires more maintenance.</p>
+      <p><strong>Q: Does this calculator work for three-phase systems?</strong><br>A: Yes, it supports single-phase and three-phase cable sizing.</p>
+      <p><strong>Q: Is solar power worth it in Pakistan?</strong><br>A: Yes, Pakistan receives 5–6 peak sun hours daily, making solar highly viable with payback periods of 3–5 years.</p>
+      <p><strong>Q: How long do solar panels last?</strong><br>A: Most panels come with 25-year performance warranties, with 80% output guaranteed after 25 years.</p>
+      <p><strong>Q: What maintenance does a solar system need?</strong><br>A: Periodic panel cleaning, checking connections, and monitoring battery health.</p>
+      <p><strong>Q: Can I expand my solar system later?</strong><br>A: Yes, if your inverter and charge controller have spare capacity.</p>
+
+      <h3>Why Choose ColdMatrix Electrical &amp; Solar Calculator?</h3>
+      <p>This tool brings together five essential calculations in one place — load analysis, solar sizing, battery backup, inverter capacity, and cable estimation. It saves you time, prevents costly mistakes, and gives you a complete picture of your energy needs. Whether you're planning a home solar system or a commercial installation, this calculator makes the process simple and understandable.</p>
+
+      <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ This guide, combined with our free calculator, gives you a complete solar system design toolkit — from load analysis to final cable sizing.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- PAKISTANI SERVICES BLOCK — SILVER -->
+    <!-- ============================================ -->
+    <div class="pakistani-block">
+      <h2>☀️ ColdMatrix Advanced Solutions — Solar &amp; Electrical System Design in Pakistan</h2>
+      <p>Whether you are sizing a residential solar system in Karachi, designing a commercial rooftop installation in Lahore, or planning an off-grid solar solution for an agricultural site in Balochistan, <strong>ColdMatrix Advanced Solutions</strong> provides end-to-end solar engineering across Pakistan. We handle everything from load analysis and system design to procurement, installation, and commissioning.</p>
+      <p>Our portfolio includes <strong>on-grid, off-grid, and hybrid solar systems</strong> with lithium-ion and lead-acid battery banks, tier-1 solar panels (Jinko, Longi, Canadian Solar), and premium inverters (SMA, Huawei, Growatt, Tesla Powerwall). Every installation is designed to comply with NEPRA standards and local DISCO net-metering requirements.</p>
+      <p>Pakistan receives 5–6 peak sun hours daily, making solar one of the most financially attractive investments available today. With payback periods of 3–5 years and 25-year panel warranties, a properly designed solar system can eliminate your electricity bill for decades.</p>
+      <p>Contact our <strong>Karachi engineering desk</strong> for site surveys, load assessments, solar system proposals, and factory-stamped technical drawings ready for submission to your bank or DISCO.</p>
+      <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- RELATED TOOLS -->
+    <!-- ============================================ -->
+    <div class="related-tools-section">
+        <h3>🔗 Related Tools You Might Need</h3>
+        <div>
+            <a href="cft-calculator.html">📐 CFT Calculator</a>
+            <a href="steel-weight-calculator.html">🛠️ Steel Weight Calculator</a>
+            <a href="concrete-calculator.html">🏗️ Concrete Calculator</a>
+            <a href="construction-cost-calculator.html">💰 Construction Cost Calculator</a>
+            <a href="peb-material-calculator.html">🏭 PEB Material Calculator</a>
+            <a href="cold-store-calculator.html">❄️ Cold Store Calculator</a>
+            <a href="sandwich-panel-calculator.html">🧱 Sandwich Panel Calculator</a>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- DISCLAIMER — SILVER -->
+    <!-- ============================================ -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> Results are estimates for preliminary planning only. Final system design must be verified by a qualified electrical engineer and comply with local electrical codes and installation conditions. Always confirm component ratings with the manufacturer's datasheet before procurement.
+    </div>
+
+  </div>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
 <footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-  <a href="https://wa.me/923333228470" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script>
     let appCount = 0;
@@ -448,7 +657,6 @@
       const connected = getConnectedLoad();
       const dailyWh = getDailyConsumption();
       const dailyKWh = dailyWh / 1000;
-      const monthlyKWh = dailyKWh * 30;
 
       const sunHours = parseFloat(document.getElementById('sunHours').value) || 5;
       const efficiency = (parseFloat(document.getElementById('sysEfficiency').value) || 80) / 100;
@@ -497,6 +705,61 @@
       drawChart(connected, dailyWh, solarCapacity, batteryEnergy);
     }
 
+    function resetSolar() {
+      // Reset all input fields to their original defaults
+      document.getElementById('sunHours').value = 5;
+      document.getElementById('sysEfficiency').value = 80;
+      document.getElementById('solarShare').value = 100;
+      document.getElementById('panelWatt').value = '550';
+      document.getElementById('customPanelWrap').style.display = 'none';
+      document.getElementById('customPanelWatt').value = 550;
+      document.getElementById('backupHours').value = 4;
+      document.getElementById('battVoltage').value = '48';
+      document.getElementById('battAh').value = 200;
+      document.getElementById('dod').value = 50;
+      document.getElementById('battType').value = 'lithium';
+      document.getElementById('maxLoad').value = 3000;
+      document.getElementById('surge').value = 25;
+      document.getElementById('safetyMargin').value = 20;
+      document.getElementById('loadCurrent').value = 20;
+      document.getElementById('voltage').value = 220;
+      document.getElementById('cableLength').value = 30;
+      document.getElementById('phase').value = 'single';
+      document.getElementById('conductor').value = 'copper';
+      document.getElementById('voltDrop').value = 3;
+
+      // Reset appliances — clear and re-add defaults
+      document.getElementById('applianceRows').innerHTML = '';
+      appCount = 0;
+
+      addAppliance();
+      document.getElementById('appName1').value = 'Lights';
+      document.getElementById('appQty1').value = 5;
+      document.getElementById('appWatt1').value = 15;
+      document.getElementById('appHours1').value = 6;
+      document.getElementById('appDays1').value = 30;
+
+      addAppliance();
+      document.getElementById('appName2').value = 'Fan';
+      document.getElementById('appQty2').value = 3;
+      document.getElementById('appWatt2').value = 75;
+      document.getElementById('appHours2').value = 8;
+      document.getElementById('appDays2').value = 30;
+
+      addAppliance();
+      document.getElementById('appName3').value = 'Refrigerator';
+      document.getElementById('appQty3').value = 1;
+      document.getElementById('appWatt3').value = 200;
+      document.getElementById('appHours3').value = 24;
+      document.getElementById('appDays3').value = 30;
+
+      // Hide results
+      document.getElementById('resultCard').style.display = 'none';
+
+      // Scroll to top
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
     let chartInstance = null;
     function drawChart(connected, daily, solar, battery) {
       const ctx = document.getElementById('solarChart').getContext('2d');
@@ -514,8 +777,49 @@
       });
     }
 
-    function shareSolar(){ window.open('https://wa.me/?text=' + encodeURIComponent('⚡ Solar System Report from ColdMatrix Tools')); }
-    function downloadSolar(t){ alert('Download feature ready for PDF/JPG/PNG — ' + t); }
+    function shareSolar(){
+      const conn = document.getElementById('rConnected').textContent;
+      const daily = document.getElementById('rDaily').textContent;
+      const solarCap = document.getElementById('rSolarCap').textContent;
+      const panels = document.getElementById('rPanels').textContent;
+      const battery = document.getElementById('rBattery').textContent;
+      const inverter = document.getElementById('rInverter').textContent;
+      const cable = document.getElementById('rCable').textContent;
+      const msg = `⚡ Solar System Report\n\nConnected Load: ${conn}\nDaily: ${daily}\nSolar: ${solarCap}\nPanels: ${panels}\nBattery: ${battery}\nInverter: ${inverter}\nCable: ${cable}\n\n🔗 coldmatrixtools.com/electrical-solar-calculator.html`;
+      window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+    }
+
+    function downloadSolar(type) {
+      const el = document.getElementById('resultCard');
+      html2canvas(el, { backgroundColor: '#0B0F14', scale: 2, logging: false }).then(canvas => {
+        if (type === 'pdf') {
+          const imgData = canvas.toDataURL('image/jpeg', 0.92);
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF('p', 'mm', 'a4');
+          const imgWidth = 210;
+          const pageHeight = 297;
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+          let heightLeft = imgHeight;
+          let position = 0;
+          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+          while (heightLeft > 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+          }
+          pdf.save('ColdMatrix-Solar-Report.pdf');
+        } else {
+          const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
+          const link = document.createElement('a');
+          link.download = 'ColdMatrix-Solar-Report.' + type;
+          link.href = canvas.toDataURL(mime, 0.92);
+          link.click();
+        }
+      }).catch(() => alert('Could not generate image. Try again.'));
+    }
+
     function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this Electrical Load & Solar Calculator from ColdMatrix Tools! ' + window.location.href)); }
     function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>alert(window.location.href)); }
 
@@ -524,6 +828,7 @@
     window.installAppTool = function(){ if(d){ d.prompt(); } else { alert('📱 Add to Home Screen via browser menu.'); } };
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
 
+    // Initial appliance rows
     addAppliance();
     document.getElementById('appName1').value = 'Lights';
     document.getElementById('appQty1').value = 5;
@@ -550,6 +855,10 @@
     });
   </script>
 
+  <!-- HTML2Canvas + jsPDF for report generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -561,6 +870,7 @@
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
   </script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

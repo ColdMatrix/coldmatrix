@@ -96,7 +96,6 @@
     .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:11px 13px; border-radius:10px; font-size:0.95rem; }
     .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 10px rgba(212,175,55,0.4); }
 
-    /* CLEAN SHINING BUTTONS */
     .btn-row { display:flex; gap:12px; margin-top:20px; align-items:stretch; }
     .btn-calc, .btn-reset {
       flex:1; padding:16px; border-radius:12px; font-weight:900; font-size:1.05rem; cursor:pointer;
@@ -135,25 +134,43 @@
     .note { font-size:0.75rem; color:var(--muted); margin-top:16px; border-top:1px solid var(--border); padding-top:12px; text-align:center; }
     #shareCapture { display:none; position:absolute; left:-9999px; top:0; }
 
+    /* ============================================ */
+    /* EDUCATIONAL CONTENT — SILVER PREMIUM */
+    /* ============================================ */
     .detail-section {
-      margin-top: 40px; padding: 30px 24px;
-      background: var(--silver-bg); border: 2px solid var(--gold); border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4); line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+      margin-top: 40px;
+      padding: 30px 24px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 16px;
+      color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
     }
-    .detail-section h2 { font-family: 'Oswald', sans-serif; color: #0A0F14; font-size: 1.5rem; margin-bottom: 16px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
-    .detail-section h3 { color: #0A0F14; font-size: 1.15rem; margin: 24px 0 10px; }
-    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom: 14px; }
+    .detail-section h2 { font-family: 'Oswald', sans-serif; color: #0A0F14; font-size: 1.5rem; margin-bottom: 16px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; font-weight: 800; }
+    .detail-section h3 { color: #0A0F14; font-size: 1.15rem; margin: 24px 0 10px; font-weight: 800; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom: 14px; color: #0A0F14; font-weight: 500; }
     .detail-section ul, .detail-section ol { padding-left: 24px; }
-    .detail-section li { margin-bottom: 6px; }
-    .detail-section strong { color: #0A0F14; }
+    .detail-section li { margin-bottom: 6px; color: #0A0F14; }
+    .detail-section strong { color: #0A0F14; font-weight: 800; }
 
     footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
     footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
-    @media (max-width:600px){ .grid2,.grid3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .btn-row{flex-direction:row;} .share-bar{grid-template-columns:1fr 1fr;} }
-
-    
+    @media (max-width:600px){
+      .grid2,.grid3{grid-template-columns:1fr;}
+      .result-grid{grid-template-columns:1fr 1fr;}
+      .share-bar{grid-template-columns:1fr 1fr;}
+      .detail-section { padding: 20px 16px; font-size: 0.9rem; }
+      .detail-section h2 { font-size: 1.25rem; }
+      .detail-section h3 { font-size: 1.05rem; }
+      .btn-row { flex-direction: column; }
+      .btn-row .btn-calc { min-height: 58px; font-size: 1.1rem; max-height: none; }
+      .btn-row .btn-reset { min-height: 44px; font-size: 0.9rem; max-height: none; }
+    }
   </style>
 </head>
 <body>
@@ -173,7 +190,7 @@
 
   <div class="container">
   <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
-  
+
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1>🏗️ <span>ColdMatrix</span> Concrete Calculator</h1>
@@ -275,88 +292,113 @@
     </div>
 
     <div class="detail-section">
-  <h2>📖 The Complete Concrete Calculation Guide</h2>
-  <p>Concrete is the most widely used construction material in the world — over 10 billion tons produced annually. This calculator helps you estimate cement bags, sand, aggregate, and cost for slabs, footings, columns, beams, and other concrete structures using standard industry formulas and mix ratios. Whether you're a professional engineer, contractor, or DIY builder, this tool gives you accurate material estimates in seconds.</p>
+      <h2>📖 The Complete Concrete Calculation Guide</h2>
+      <p>Concrete is the most widely used construction material in the world — over 10 billion tons produced annually. This calculator helps you estimate cement bags, sand, aggregate, and cost for slabs, footings, columns, beams, and other concrete structures using standard industry formulas and mix ratios. Whether you're a professional engineer, contractor, or DIY builder, this tool gives you accurate material estimates in seconds.</p>
 
-  <h3>What Is Concrete?</h3>
-  <p>Concrete is a composite material made from cement, sand (fine aggregate), coarse aggregate (gravel or crushed stone), and water. When mixed, these materials form a workable paste that hardens into a strong, durable solid. The proportions of each material determine the concrete's strength, workability, and cost.</p>
+      <h3>What Is Concrete?</h3>
+      <p>Concrete is a composite material made from cement, sand (fine aggregate), coarse aggregate (gravel or crushed stone), and water. When mixed, these materials form a workable paste that hardens into a strong, durable solid. The proportions of each material determine the concrete's strength, workability, and cost.</p>
 
-  <h3>Concrete Mix Ratios Explained</h3>
-  <ul>
-    <li><strong>1:2:4 (General Purpose):</strong> 1 part cement, 2 parts sand, 4 parts aggregate. Strength: 15–20 MPa. Ideal for slabs, footings, driveways, and general construction.</li>
-    <li><strong>1:1.5:3 (Structural):</strong> Higher cement content. Strength: 20–25 MPa. Used for columns, beams, and load-bearing structures.</li>
-    <li><strong>1:3:6 (Lean Concrete):</strong> Lower cement content. Used for blinding, leveling courses, and non-structural fill.</li>
-  </ul>
+      <h3>Concrete Mix Ratios Explained</h3>
+      <ul>
+        <li><strong>1:2:4 (General Purpose):</strong> 1 part cement, 2 parts sand, 4 parts aggregate. Strength: 15–20 MPa. Ideal for slabs, footings, driveways, and general construction.</li>
+        <li><strong>1:1.5:3 (Structural):</strong> Higher cement content. Strength: 20–25 MPa. Used for columns, beams, and load-bearing structures.</li>
+        <li><strong>1:3:6 (Lean Concrete):</strong> Lower cement content. Used for blinding, leveling courses, and non-structural fill.</li>
+      </ul>
 
-  <h3>How the Calculator Works</h3>
-  <p>The calculator uses the <strong>dry volume method</strong> — an industry-standard approach that accounts for the fact that dry materials shrink when mixed with water:</p>
-  <ul>
-    <li><strong>Step 1:</strong> Calculate wet volume = Length × Width × Thickness</li>
-    <li><strong>Step 2:</strong> Convert to dry volume = Wet volume × 1.54</li>
-    <li><strong>Step 3:</strong> Distribute dry volume according to mix ratio (e.g., 1:2:4 = 7 total parts)</li>
-    <li><strong>Step 4:</strong> Convert volumes to weights using material densities</li>
-  </ul>
-  <p><strong>Material Densities Used:</strong> Cement 1440 kg/m³ | Sand 1600 kg/m³ | Aggregate 1500 kg/m³</p>
+      <h3>How the Calculator Works</h3>
+      <p>The calculator uses the <strong>dry volume method</strong> — an industry-standard approach that accounts for the fact that dry materials shrink when mixed with water:</p>
+      <ul>
+        <li><strong>Step 1:</strong> Calculate wet volume = Length × Width × Thickness</li>
+        <li><strong>Step 2:</strong> Convert to dry volume = Wet volume × 1.54</li>
+        <li><strong>Step 3:</strong> Distribute dry volume according to mix ratio (e.g., 1:2:4 = 7 total parts)</li>
+        <li><strong>Step 4:</strong> Convert volumes to weights using material densities</li>
+      </ul>
+      <p><strong>Material Densities Used:</strong> Cement 1440 kg/m³ | Sand 1600 kg/m³ | Aggregate 1500 kg/m³</p>
 
-  <h3>Material Requirements per m³ (1:2:4 Mix)</h3>
-  <ul>
-    <li><strong>Cement:</strong> 320–350 kg (6.4–7 bags of 50 kg)</li>
-    <li><strong>Sand:</strong> 650–700 kg</li>
-    <li><strong>Aggregate:</strong> 1,200–1,300 kg</li>
-    <li><strong>Water:</strong> 180–200 litres</li>
-  </ul>
+      <h3>Material Requirements per m³ (1:2:4 Mix)</h3>
+      <ul>
+        <li><strong>Cement:</strong> 320–350 kg (6.4–7 bags of 50 kg)</li>
+        <li><strong>Sand:</strong> 650–700 kg</li>
+        <li><strong>Aggregate:</strong> 1,200–1,300 kg</li>
+        <li><strong>Water:</strong> 180–200 litres</li>
+      </ul>
 
-  <h3>Real-World Example — House Slab</h3>
-  <p>For a slab 10m × 8m × 0.15m using 1:2:4 mix:</p>
-  <ul>
-    <li>Wet volume = 10 × 8 × 0.15 = 12 m³</li>
-    <li>Dry volume = 12 × 1.54 = 18.48 m³</li>
-    <li>Cement = (1/7) × 18.48 × 1440 ≈ 3,802 kg ≈ 76 bags (50 kg)</li>
-    <li>Sand = (2/7) × 18.48 × 1600 ≈ 8,448 kg ≈ 8.45 tons</li>
-    <li>Aggregate = (4/7) × 18.48 × 1500 ≈ 15,840 kg ≈ 15.84 tons</li>
-  </ul>
+      <h3>Real-World Example — House Slab</h3>
+      <p>For a slab 10m × 8m × 0.15m using 1:2:4 mix:</p>
+      <ul>
+        <li>Wet volume = 10 × 8 × 0.15 = 12 m³</li>
+        <li>Dry volume = 12 × 1.54 = 18.48 m³</li>
+        <li>Cement = (1/7) × 18.48 × 1440 ≈ 3,802 kg ≈ 76 bags (50 kg)</li>
+        <li>Sand = (2/7) × 18.48 × 1600 ≈ 8,448 kg ≈ 8.45 tons</li>
+        <li>Aggregate = (4/7) × 18.48 × 1500 ≈ 15,840 kg ≈ 15.84 tons</li>
+      </ul>
 
-  <h3>Where Concrete Is Used</h3>
-  <ul>
-    <li><strong>Foundations & Footings:</strong> Supporting walls and columns.</li>
-    <li><strong>Slabs:</strong> Floors, driveways, patios, and roofs.</li>
-    <li><strong>Columns & Beams:</strong> Structural framework for buildings.</li>
-    <li><strong>Roads & Pavements:</strong> Highways, sidewalks, and parking lots.</li>
-    <li><strong>Bridges & Dams:</strong> Large-scale infrastructure projects.</li>
-    <li><strong>Precast Elements:</strong> Pipes, blocks, panels, and barriers.</li>
-  </ul>
+      <h3>Where Concrete Is Used</h3>
+      <ul>
+        <li><strong>Foundations &amp; Footings:</strong> Supporting walls and columns.</li>
+        <li><strong>Slabs:</strong> Floors, driveways, patios, and roofs.</li>
+        <li><strong>Columns &amp; Beams:</strong> Structural framework for buildings.</li>
+        <li><strong>Roads &amp; Pavements:</strong> Highways, sidewalks, and parking lots.</li>
+        <li><strong>Bridges &amp; Dams:</strong> Large-scale infrastructure projects.</li>
+        <li><strong>Precast Elements:</strong> Pipes, blocks, panels, and barriers.</li>
+      </ul>
 
-  <h3>Common Mistakes to Avoid</h3>
-  <ul>
-    <li><strong>Forgetting the 1.54 dry volume factor</strong> — leads to material shortage.</li>
-    <li><strong>Using the wrong mix ratio</strong> — structural elements need stronger mixes.</li>
-    <li><strong>Adding too much water</strong> — weakens the concrete and reduces strength.</li>
-    <li><strong>Not adding wastage allowance</strong> — always add 5–10% extra material.</li>
-    <li><strong>Mixing units</strong> — don't mix feet and meters; convert all dimensions to one unit.</li>
-  </ul>
+      <h3>Common Mistakes to Avoid</h3>
+      <ul>
+        <li><strong>Forgetting the 1.54 dry volume factor</strong> — leads to material shortage.</li>
+        <li><strong>Using the wrong mix ratio</strong> — structural elements need stronger mixes.</li>
+        <li><strong>Adding too much water</strong> — weakens the concrete and reduces strength.</li>
+        <li><strong>Not adding wastage allowance</strong> — always add 5–10% extra material.</li>
+        <li><strong>Mixing units</strong> — don't mix feet and meters; convert all dimensions to one unit.</li>
+      </ul>
 
-  <h3>Tips for Accurate Concrete Estimation</h3>
-  <ul>
-    <li>Measure dimensions carefully — even small errors compound over large areas.</li>
-    <li>Use the correct mix ratio for your structural element.</li>
-    <li>Account for formwork, reinforcement, and wastage.</li>
-    <li>Order slightly more concrete than calculated (5–10% buffer).</li>
-    <li>Consider weather conditions — hot weather accelerates setting.</li>
-    <li>Use clean, well-graded aggregates for better workability.</li>
-  </ul>
+      <h3>Tips for Accurate Concrete Estimation</h3>
+      <ul>
+        <li>Measure dimensions carefully — even small errors compound over large areas.</li>
+        <li>Use the correct mix ratio for your structural element.</li>
+        <li>Account for formwork, reinforcement, and wastage.</li>
+        <li>Order slightly more concrete than calculated (5–10% buffer).</li>
+        <li>Consider weather conditions — hot weather accelerates setting.</li>
+        <li>Use clean, well-graded aggregates for better workability.</li>
+      </ul>
 
-  <h3>Frequently Asked Questions</h3>
-  <p><strong>Q: What mix ratio should I use for a house slab?</strong><br>A: 1:2:4 is standard for house slabs. Use 1:1.5:3 for columns and structural beams.</p>
-  <p><strong>Q: Why multiply by 1.54?</strong><br>A: Dry materials occupy more volume. Adding water compacts them. The 1.54 factor accounts for this bulkage.</p>
-  <p><strong>Q: How many cement bags per m³ of concrete?</strong><br>A: Approximately 7 bags of 50 kg cement per m³ for 1:2:4 mix.</p>
-  <p><strong>Q: Can I use this for footings?</strong><br>A: Yes, enter footing dimensions as length, width, and thickness.</p>
-  <p><strong>Q: What is the strength of 1:2:4 concrete?</strong><br>A: Approximately 15–20 MPa after 28 days of curing.</p>
-  <p><strong>Q: How much water should I add?</strong><br>A: Water-cement ratio of 0.45–0.55 is typical. Too much water weakens concrete.</p>
-  <p><strong>Q: Does this calculator work for columns?</strong><br>A: Yes, enter column dimensions as length, width, and height.</p>
-  <p><strong>Q: What is the difference between cement and concrete?</strong><br>A: Cement is an ingredient. Concrete is the final mixture of cement, sand, aggregate, and water.</p>
+      <h3>Frequently Asked Questions</h3>
+      <p><strong>Q: What mix ratio should I use for a house slab?</strong><br>A: 1:2:4 is standard for house slabs. Use 1:1.5:3 for columns and structural beams.</p>
+      <p><strong>Q: Why multiply by 1.54?</strong><br>A: Dry materials occupy more volume. Adding water compacts them. The 1.54 factor accounts for this bulkage.</p>
+      <p><strong>Q: How many cement bags per m³ of concrete?</strong><br>A: Approximately 7 bags of 50 kg cement per m³ for 1:2:4 mix.</p>
+      <p><strong>Q: Can I use this for footings?</strong><br>A: Yes, enter footing dimensions as length, width, and thickness.</p>
+      <p><strong>Q: What is the strength of 1:2:4 concrete?</strong><br>A: Approximately 15–20 MPa after 28 days of curing.</p>
+      <p><strong>Q: How much water should I add?</strong><br>A: Water-cement ratio of 0.45–0.55 is typical. Too much water weakens concrete.</p>
+      <p><strong>Q: Does this calculator work for columns?</strong><br>A: Yes, enter column dimensions as length, width, and height.</p>
+      <p><strong>Q: What is the difference between cement and concrete?</strong><br>A: Cement is an ingredient. Concrete is the final mixture of cement, sand, aggregate, and water.</p>
 
-  <p><strong>Disclaimer:</strong> This tool provides preliminary estimates based on standard industry formulas. Results may vary due to material moisture, compaction, and local conditions. Always consult a licensed engineer for final design verification.</p>
+      <p><strong>Disclaimer:</strong> This tool provides preliminary estimates based on standard industry formulas. Results may vary due to material moisture, compaction, and local conditions. Always consult a licensed engineer for final design verification.</p>
+    </div>
+
+    <!-- Localized Pakistani Text — Concrete & Construction Services -->
+<div style="margin:30px 0; padding:24px 20px; background:#C8CDD4; background-image:linear-gradient(145deg, #D5D9DE, #C8CDD4); border:2px solid #D4AF37; border-radius:16px; line-height:1.8; font-size:0.95rem; color:#0A0F14; box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);">
+  <h2 style="font-size:1.3rem; margin-bottom:12px; color:#0A0F14; font-family:'Oswald',sans-serif; font-weight:800;">🏗️ Factory-Direct Concrete, Cement & Construction Materials in Pakistan</h2>
+  <p style="margin-top:10px; color:#0A0F14; font-weight:500;">While our Concrete Calculator serves engineers and contractors worldwide, <strong style="color:#0A0F14; font-weight:800;">ColdMatrix Advanced Solutions</strong> supplies premium construction materials and ready-mix concrete across Pakistan — from large infrastructure projects in Karachi to residential developments in Lahore and Islamabad. Our quality-certified cement, sand, and aggregate meet ASTM and PSQCA standards, ensuring consistent strength and workability in every batch.</p>
+  <p style="margin-top:10px; color:#0A0F14; font-weight:500;">Whether you are casting foundations for a cold storage warehouse, pouring slabs for a PEB industrial shed, or building residential footings, our material supply team ensures on-time delivery directly to your site — with verified quantities and quality test reports.</p>
+  <p style="margin-top:10px; color:#0A0F14; font-weight:500;">We also provide <strong style="color:#0A0F14; font-weight:800;">turnkey construction services</strong> — from site surveys and mix design consultation to full project execution. Our in-house engineering team can review your concrete calculations and recommend the optimal mix ratio for your specific structural requirements, ambient conditions, and budget.</p>
+  <p style="margin-top:10px; color:#0A0F14; font-weight:500;">Contact our <strong style="color:#0A0F14; font-weight:800;">Karachi engineering desk</strong> for material quotations, bulk delivery scheduling, and technical consultation on any concrete or construction project — big or small.</p>
+  <p style="margin-top:14px; font-weight:800; color:#0A0F14;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
 </div>
+
+    <!-- Related tools -->
+    <div style="margin:20px 0 10px; padding:20px; background:rgba(255,255,255,0.03); border:2px solid #D4AF37; border-radius:12px;">
+        <h3 style="color:#FFD700; font-size:1rem; margin-bottom:10px;">🔗 Related Tools You Might Need</h3>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+            <a href="cft-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">📐 CFT Calculator</a>
+            <a href="steel-weight-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">🛠️ Steel Weight Calculator</a>
+            <a href="peb-material-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">🏗️ PEB Material Calculator</a>
+            <a href="construction-cost-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">💰 Construction Cost Calculator</a>
+            <a href="cold-store-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">❄️ Cold Store Calculator</a>
+            <a href="sandwich-panel-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">🧱 Sandwich Panel Calculator</a>
+        </div>
+    </div>
+
+  </div>
 
 <!-- Combined Footer + Floating WhatsApp -->
 <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" style="position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem;">
@@ -364,12 +406,11 @@
 </a>
 
 <footer style="background:rgba(10,15,20,0.9); border-top:2px solid #D4AF37; padding:30px 20px; margin-top:50px; text-align:center;">
-    <!-- Contact Info -->
     <div style="margin-bottom:15px;">
         <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
         <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
         <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
-            📞 <strong>Call / WhatsApp:</strong> 
+            📞 <strong>Call / WhatsApp:</strong>
             <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
             <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
                 <i class="fa-brands fa-whatsapp"></i>
@@ -377,17 +418,16 @@
         </p>
     </div>
 
-    <!-- Legal Links -->
     <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
     </div>
 
-    <!-- Copyright -->
     <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
+
   <script>
     document.getElementById('lengthUnit').addEventListener('change', updateLabels);
     document.getElementById('weightDisplay').addEventListener('change', updateLabels);
@@ -566,7 +606,5 @@
     ]
   }
   </script>
-  
-  
 </body>
 </html>

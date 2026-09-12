@@ -11,8 +11,8 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Steel Weight Calculator – Plates, Bars, Pipes & Beams | Free Online | ColdMatrix</title>
-<meta name="description" content="Free steel weight calculator for plates, round bars, pipes, and beams. Supports feet or meters, kg/tons or lb/short tons. Instant accurate results for engineers, fabricators, and builders.">
+  <title>Steel Weight Calculator – Plates, Bars, Pipes & Beams | ColdMatrix</title>
+  <meta name="description" content="Free steel weight calculator for plates, round bars, pipes, and beams. Supports feet or meters, kg/tons or lb/short tons. Instant accurate results for engineers, fabricators, and builders.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
   <meta property="og:title" content="ColdMatrix Steel Weight Calculator — Plates, Bars, Pipes & Beams">
@@ -47,18 +47,38 @@
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 880px; margin:0 auto; padding:0 24px; }
-    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
     .logo { font-size:1.3rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
-    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
-    h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--gold); text-decoration:none; font-weight:600; font-size:0.85rem; }
+
+    /* Golden install bar */
+    .install-bar {
+      display: block;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14;
+      text-align: center;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: 10px;
+      margin: 14px 0;
+      border: 1px solid #FFD700;
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+    }
+    .install-bar button {
+      background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+      padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+      font-weight: 800; cursor: pointer; font-size: 0.8rem;
+    }
+
+    h1 { font-size:1.75rem; font-weight:800; margin-bottom:8px; line-height: 1.25; }
     h1 span { color: var(--gold-bright); }
-    .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; margin-bottom:24px; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
+    .subtitle { color:#EAEDF0; font-size:0.98rem; font-weight:500; margin-bottom:24px; }
 
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
@@ -108,7 +128,7 @@
       background:var(--silver-bg); color:#0A0F14;
       border-radius:10px; font-weight:800; font-size:0.85rem; cursor:pointer; text-align:center;
       transition:all 0.2s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
     }
     .tab-btn.active {
       border-color:var(--gold-bright); color:#0A0F14;
@@ -128,20 +148,59 @@
     }
     .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
 
+    /* ============================================ */
+    /* STACKED BUTTONS — Calculate tall, Reset short */
+    /* ============================================ */
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 18px;
+    }
     .btn-calc {
-      width:100%; background:var(--silver-bg); color:#0A0F14; border:3px solid var(--gold);
-      padding:18px; border-radius:12px; font-weight:900; font-size:1.1rem; cursor:pointer; margin-top:6px;
-      letter-spacing:0.5px;
+      width: 100%;
+      background: var(--silver-bg);
+      color: #0A0F14;
+      border: 2px solid var(--gold);
+      min-height: 64px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 900;
+      font-size: 1.15rem;
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
-      transition:all 0.25s ease; min-height:56px;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
     .btn-calc:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 25px var(--gold-glow); transform:translateY(-2px); }
+
     .btn-reset {
-      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
-      padding:14px 16px; border-radius:10px; font-weight:800; font-size:0.85rem; cursor:pointer;
-      white-space:nowrap;
+      width: 100%;
+      background: var(--silver-bg);
+      color: #0A0F14;
+      border: 2px solid var(--gold);
+      min-height: 46px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
       box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-      transition:all 0.25s ease; align-self: stretch; min-height:56px;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
     .btn-reset:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
@@ -175,49 +234,93 @@
     .shape-visual .diagram.beam { width: 200px; height: 80px; background: rgba(79,195,247,0.15); }
     .shape-visual .shape-label { font-size: 0.85rem; font-weight: 600; color: #FFD700; margin-top: 8px; }
 
-    .detail-section {
-      margin-top: 40px; padding: 30px 24px;
-      background: var(--silver-bg); border: 2px solid var(--gold); border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4); line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+    /* ============================================ */
+    /* SILVER EDUCATIONAL CONTENT — Premium */
+    /* ============================================ */
+    .edu-content {
+      margin: 30px 0;
+      padding: 30px 24px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 16px;
+      color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
     }
-    .detail-section h2 { font-family: 'Oswald', sans-serif; color: #0A0F14; font-size: 1.5rem; margin-bottom: 16px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
-    .detail-section h3 { color: #0A0F14; font-size: 1.15rem; margin: 24px 0 10px; }
-    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom: 14px; }
-    .detail-section ul, .detail-section ol { padding-left: 24px; }
-    .detail-section li { margin-bottom: 6px; }
-    .detail-section strong { color: #0A0F14; }
+    .edu-content h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.35rem; margin-bottom: 16px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; font-weight: 800; }
+    .edu-content h3 { color: #0A0F14; font-size: 1.1rem; margin: 22px 0 10px; font-weight: 800; }
+    .edu-content p, .edu-content li, .edu-content ul, .edu-content ol { color: #0A0F14; font-weight: 500; }
+    .edu-content ul, .edu-content ol { padding-left: 24px; margin-bottom: 14px; }
+    .edu-content li { margin-bottom: 6px; }
+    .edu-content strong { color: #0A0F14; font-weight: 800; }
+    .edu-content p { margin-bottom: 14px; }
 
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    /* Pakistani block */
+    .pakistani-block {
+      margin: 30px 0;
+      padding: 24px 20px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 16px;
+      color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .pakistani-block h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.2rem; margin-bottom: 12px; font-weight: 800; }
+    .pakistani-block p { color: #0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color: #0A0F14; font-weight: 800; }
+
+    /* Related tools */
+    .related-tools-section {
+      margin: 20px 0 10px;
+      padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid #D4AF37;
+      border-radius: 12px;
+    }
+    .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; }
+    .related-tools-section a {
+      color:#4FC3F7; text-decoration:none;
+      background:rgba(79,195,247,0.1);
+      padding:8px 16px; border-radius:20px;
+      font-size:0.85rem; font-weight:600;
+      display: inline-block;
+      margin: 4px 4px 4px 0;
+    }
+
+    /* Disclaimer */
+    .disclaimer-box {
+      margin-top: 20px;
+      padding: 16px 18px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: #0A0F14;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:2px solid var(--gold); margin-top:50px; }
     footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
-    @media (max-width:600px){ .grid2,.grid3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .share-bar{grid-template-columns:1fr 1fr;} }
-    /* FIX 1: Equal height for Calculate and Reset buttons */
-.btn-calc,
-.btn-reset {
-    height: 56px !important;
-    min-height: 56px !important;
-    max-height: 56px !important;
-    align-self: center !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    line-height: 1 !important;
-}
+    #shareCapture { display:none !important; position:absolute !important; left:-9999px !important; visibility:hidden !important; opacity:0 !important; pointer-events:none !important; }
 
-/* FIX 2: Hide the capture page completely */
-#shareCapture {
-    display: none !important;
-    position: absolute !important;
-    left: -9999px !important;
-    top: 0 !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-}
-
+    @media (max-width:600px){
+      .grid2, .grid3 { grid-template-columns:1fr; }
+      .result-grid { grid-template-columns:1fr 1fr; }
+      .share-bar { grid-template-columns:1fr 1fr; }
+      h1 { font-size:1.4rem; }
+      .edu-content { padding: 20px 16px; font-size: 0.9rem; }
+      .edu-content h2 { font-size: 1.15rem; }
+    }
   </style>
 </head>
 <body>
@@ -237,7 +340,7 @@
 
   <div class="container">
   <a href="index.html#tools" class="back-link">← Back to Tools</a>
-  
+
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1>🛠️ <span>ColdMatrix</span> Steel Weight Calculator</h1>
@@ -264,8 +367,8 @@
         <div class="unit-group">
           <label>Weight Display</label>
           <select id="weightDisplay">
-            <option value="kgton" selected>kg & Metric Tons</option>
-            <option value="lbshort">lb & Short Tons</option>
+            <option value="kgton" selected>kg &amp; Metric Tons</option>
+            <option value="lbshort">lb &amp; Short Tons</option>
           </select>
         </div>
       </div>
@@ -341,9 +444,9 @@
         </select></div>
       </div>
 
-      <div style="display:flex; gap:10px; align-items:stretch; margin-top:6px;">
-        <button class="btn-calc" style="flex:2;" onclick="calculate()">📊 Calculate Weight</button>
-        <button class="btn-reset" style="flex:1;" onclick="resetForm()">↺ Reset</button>
+      <div class="btn-stack">
+        <button class="btn-calc" onclick="calculate()">📊 Calculate Weight</button>
+        <button class="btn-reset" onclick="resetForm()">↺ Reset</button>
       </div>
     </div>
 
@@ -355,7 +458,7 @@
         <div class="result-item"><div class="val" id="resUnitWt">—</div><div class="lbl" id="lblUnitWt">Unit Weight</div></div>
         <div class="result-item highlight"><div class="val" id="resCost">—</div><div class="lbl">Estimated Cost</div></div>
       </div>
-      <div class="note" style="font-size:0.75rem;color:var(--muted);margin-top:16px;border-top:1px solid var(--border);padding-top:12px;text-align:center;">⚠️ Based on nominal dimensions. Actual weight may vary by ±3%.</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:16px;border-top:1px solid var(--border);padding-top:12px;text-align:center;">⚠️ Based on nominal dimensions. Actual weight may vary by ±3%.</div>
     </div>
 
     <div id="shareCapture"><div style="background:#fff;color:#111;border-radius:10px;padding:28px;font-family:'Inter',sans-serif;width:340px;"><div style="font-size:1.3rem;font-weight:800;color:#0A0F14;margin-bottom:14px;">❄️ ColdMatrix <span style="color:#2196F3;">Steel Weight</span></div><table style="width:100%;border-collapse:collapse;font-size:0.95rem;"><tr><td style="padding:10px 0;border-bottom:1px solid #eee;">Shape</td><td style="padding:10px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvShape"></td></tr><tr><td style="padding:10px 0;border-bottom:1px solid #eee;">Weight</td><td style="padding:10px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;color:#2196F3;" id="pvWeight"></td></tr><tr><td style="padding:10px 0;">Estimated Cost</td><td style="padding:10px 0;text-align:right;font-weight:800;color:#2196F3;" id="pvCost"></td></tr></table><div style="font-size:0.72rem;color:#666;margin-top:16px;border-top:1px solid #eee;padding-top:10px;">🙏 Thank you for using ColdMatrix Tools — your 24/7 business companion.<br>📧 contact@coldmatrixtools.com &nbsp;💬 +92 333 3228470</div></div></div>
@@ -367,80 +470,65 @@
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
 
-    <div class="detail-section">
-      <h2>📖 Steel Weight Calculation — Complete Guide</h2>
-      <p>Steel weight calculation is the process of determining the mass of a steel component based on its shape, dimensions, and material density. It is a fundamental task in construction, fabrication, and engineering projects, helping you estimate material requirements, transportation loads, and overall project costs accurately.</p>
-<h3>Steel Types and Their Densities</h3>
-<ul>
-  <li><strong>Mild Steel (MS):</strong> 7850 kg/m³ — most common for construction and fabrication</li>
-  <li><strong>Stainless Steel 304:</strong> 8030 kg/m³ — corrosion-resistant, food-grade applications</li>
-  <li><strong>Stainless Steel 316:</strong> 7980 kg/m³ — marine-grade, chemical processing</li>
-  <li><strong>Carbon Steel:</strong> 7800 kg/m³ — high strength, used in structural applications</li>
-  <li><strong>Alloy Steel:</strong> 7700 kg/m³ — enhanced properties for specific uses</li>
-  <li><strong>Aluminum:</strong> 2700 kg/m³ — lightweight, corrosion-resistant</li>
-  <li><strong>Copper:</strong> 8960 kg/m³ — electrical and plumbing applications</li>
-  <li><strong>Brass:</strong> 8500 kg/m³ — decorative, low-friction applications</li>
-</ul>
+<!-- ⬇️⬇️⬇️ CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — MERGED, NO DUPLICATES, SILVER -->
+    <!-- ============================================ -->
+    <div class="edu-content">
+      <h2>📖 Steel Weight Calculation — Complete Engineering Guide</h2>
 
-<h3>How to Use This Calculator</h3>
-<ol>
-  <li><strong>Select length unit:</strong> Choose Meter or Foot for your dimensions.</li>
-  <li><strong>Select weight display:</strong> Choose kg/metric tons or lb/short tons.</li>
-  <li><strong>Choose shape:</strong> Plate, Round Bar, Pipe/Tube, or Beam.</li>
-  <li><strong>Enter dimensions:</strong> Fill in length, width, thickness, diameter, or section size.</li>
-  <li><strong>Set quantity:</strong> Enter how many pieces you need.</li>
-  <li><strong>Select material:</strong> Choose from 9 materials or enter custom density.</li>
-  <li><strong>Optional pricing:</strong> Add rate and currency for cost estimation.</li>
-  <li><strong>Click Calculate:</strong> Results appear instantly.</li>
-</ol>
+      <p>Steel weight calculation is the process of determining the mass of a steel component based on its shape, dimensions, and material density. It is a fundamental task in construction, fabrication, and engineering projects — helping you estimate material requirements, transportation loads, and overall project costs accurately. Even small errors in weight estimation can lead to significant budget differences or structural safety risks.</p>
 
-<h3>Applications in Different Industries</h3>
-<ul>
-  <li><strong>Construction:</strong> Estimating steel for columns, beams, slabs, and reinforcement.</li>
-  <li><strong>PEB (Pre-Engineered Buildings):</strong> Calculating weight of structural components.</li>
-  <li><strong>Fabrication:</strong> Material procurement and cutting plans.</li>
-  <li><strong>Manufacturing:</strong> Raw material costing and inventory management.</li>
-  <li><strong>Logistics:</strong> Determining transport requirements and load capacity.</li>
-  <li><strong>Welding:</strong> Estimating filler material and labor costs based on steel weight.</li>
-</ul>
-
-<h3>Unit Conversion Reference</h3>
-<ul>
-  <li>1 meter = 3.28084 feet</li>
-  <li>1 kg = 2.20462 pounds (lb)</li>
-  <li>1 metric ton = 1000 kg = 2204.62 lb</li>
-  <li>1 short ton = 2000 lb = 907.185 kg</li>
-  <li>1 mm = 0.001 meter</li>
-  <li>1 m³ = 1,000,000,000 mm³</li>
-</ul>
-
-<h3>FAQ — Steel Weight and Material Selection</h3>
-<p><strong>Q: How accurate is this steel weight calculator?</strong><br>A: It uses standard industry formulas with ±3% accuracy for nominal dimensions. Actual weight may vary slightly due to manufacturing tolerances.</p>
-<p><strong>Q: Can I calculate hollow sections?</strong><br>A: Yes, use the Pipe/Tube option and enter outer diameter and wall thickness.</p>
-<p><strong>Q: What is the difference between mild steel and stainless steel?</strong><br>A: Mild steel is cheaper and used for general construction. Stainless steel contains chromium for corrosion resistance.</p>
-<p><strong>Q: Do I need to add wastage percentage?</strong><br>A: Yes, for project planning, add 5-10% wastage to the calculated weight for cutting and fabrication losses.</p>
-<p><strong>Q: Can this calculator be used for aluminum?</strong><br>A: Yes, select Aluminum from the material dropdown — it uses 2700 kg/m³ density.</p>
-<p><strong>Q: What is the rate field for?</strong><br>A: Enter the price per kg (or lb) to get an estimated total cost for your steel.</p>
-
-<p><strong>Disclaimer:</strong> This tool provides preliminary estimates based on standard industry formulas and typical material properties. Results may vary due to local conditions, material grades, and project-specific requirements. Always consult a licensed engineer for final design verification.</p>
       <h3>Why Accurate Weight Matters</h3>
       <ul>
-        <li><strong>Cost estimation:</strong> Steel is usually priced by weight. Even small errors can lead to significant budget differences.</li>
+        <li><strong>Cost estimation:</strong> Steel is usually priced by weight. Accurate calculation ensures correct budgeting.</li>
         <li><strong>Structural safety:</strong> Knowing the exact weight helps engineers design safe foundations and support structures.</li>
         <li><strong>Transportation planning:</strong> Correct weight ensures you select the right vehicle and avoid overloading.</li>
         <li><strong>Inventory management:</strong> Accurate weight helps track material usage and reduce wastage.</li>
       </ul>
 
-      <h3>Common Steel Shapes & Formulas</h3>
+      <h3>Steel Types and Their Densities</h3>
+      <ul>
+        <li><strong>Mild Steel (MS):</strong> 7850 kg/m³ — most common for construction and fabrication</li>
+        <li><strong>Stainless Steel 304:</strong> 8030 kg/m³ — corrosion-resistant, food-grade applications</li>
+        <li><strong>Stainless Steel 316:</strong> 7980 kg/m³ — marine-grade, chemical processing</li>
+        <li><strong>Carbon Steel:</strong> 7800 kg/m³ — high strength, used in structural applications</li>
+        <li><strong>Alloy Steel:</strong> 7700 kg/m³ — enhanced properties for specific uses</li>
+        <li><strong>Aluminum:</strong> 2700 kg/m³ — lightweight, corrosion-resistant</li>
+        <li><strong>Copper:</strong> 8960 kg/m³ — electrical and plumbing applications</li>
+        <li><strong>Brass:</strong> 8500 kg/m³ — decorative, low-friction applications</li>
+      </ul>
+
+      <h3>Common Steel Shapes &amp; Formulas</h3>
       <ul>
         <li><strong>Plate / Sheet:</strong> Weight = Length × Width × Thickness × Density</li>
         <li><strong>Round Bar:</strong> Weight = π × (Diameter/2)² × Length × Density</li>
-        <li><strong>Pipe / Tube:</strong> Weight = π × ((Outer Diameter/2)² - (Inner Diameter/2)²) × Length × Density</li>
+        <li><strong>Pipe / Tube:</strong> Weight = π × ((Outer Diameter/2)² − (Inner Diameter/2)²) × Length × Density</li>
         <li><strong>Beam / Section:</strong> Uses standard published weight per meter (kg/m) for sections like IPE, HE, Channel, and Angle</li>
       </ul>
 
+      <h3>Applications in Different Industries</h3>
+      <ul>
+        <li><strong>Construction:</strong> Estimating steel for columns, beams, slabs, and reinforcement.</li>
+        <li><strong>PEB (Pre-Engineered Buildings):</strong> Calculating weight of structural components.</li>
+        <li><strong>Fabrication:</strong> Material procurement and cutting plans.</li>
+        <li><strong>Manufacturing:</strong> Raw material costing and inventory management.</li>
+        <li><strong>Logistics:</strong> Determining transport requirements and load capacity.</li>
+        <li><strong>Welding:</strong> Estimating filler material and labor costs based on steel weight.</li>
+      </ul>
+
+      <h3>Unit Conversion Reference</h3>
+      <ul>
+        <li>1 meter = 3.28084 feet</li>
+        <li>1 kg = 2.20462 pounds (lb)</li>
+        <li>1 metric ton = 1000 kg = 2204.62 lb</li>
+        <li>1 short ton = 2000 lb = 907.185 kg</li>
+        <li>1 mm = 0.001 meter</li>
+        <li>1 m³ = 1,000,000,000 mm³</li>
+      </ul>
+
       <h3>Real-World Example</h3>
-      <p>Suppose you need to calculate the weight of 5 mild steel plates, each 2 meters long, 1 meter wide, and 10 mm thick.</p>
+      <p>Suppose you need to calculate the weight of 5 mild steel plates, each 2 meters long, 1 meter wide, and 10 mm thick:</p>
       <ul>
         <li>Volume of one plate = 2 × 1 × 0.010 = 0.02 m³</li>
         <li>Weight of one plate = 0.02 × 7850 = 157 kg</li>
@@ -453,25 +541,82 @@
         <li>Using the wrong material density (e.g., mild steel vs stainless steel).</li>
         <li>Ignoring quantity — always multiply by the number of pieces.</li>
         <li>Not accounting for beams' published weight per meter vs manual volume calculation.</li>
+        <li>Not adding 5–10% wastage for cutting and fabrication losses.</li>
       </ul>
 
       <h3>Frequently Asked Questions</h3>
-      <p><strong>Q: How do I know which density to use?</strong><br>A: Mild steel is 7850 kg/m³. Stainless steel is around 8000 kg/m³. Aluminum is 2700 kg/m³.</p>
+      <p><strong>Q: How do I know which density to use?</strong><br>A: Mild steel is 7850 kg/m³. Stainless steel is around 8000 kg/m³. Aluminum is 2700 kg/m³. Choose the material that matches your actual component.</p>
       <p><strong>Q: Can I use feet instead of meters?</strong><br>A: Yes, the calculator has a length unit selector so you can work in meters or feet.</p>
-      <p><strong>Q: What about beams like IPE 200?</strong><br>A: For beams, the calculator uses standard published weight per meter. Just enter the section name.</p>
+      <p><strong>Q: What about beams like IPE 200?</strong><br>A: For beams, the calculator uses standard published weight per meter. Just enter the section name (e.g., IPE 200, HE 200A, U 200, L 50x5).</p>
+      <p><strong>Q: How accurate is this steel weight calculator?</strong><br>A: It uses standard industry formulas with ±3% accuracy for nominal dimensions. Actual weight may vary slightly due to manufacturing tolerances.</p>
+      <p><strong>Q: Can I calculate hollow sections?</strong><br>A: Yes, use the Pipe/Tube option and enter outer diameter and wall thickness.</p>
+      <p><strong>Q: What is the rate field for?</strong><br>A: Enter the price per kg (or lb) to get an estimated total cost for your steel.</p>
+      <p><strong>Q: Do I need to add wastage percentage?</strong><br>A: Yes, for project planning, add 5–10% wastage to the calculated weight for cutting and fabrication losses.</p>
+
+      <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ This guide, combined with our free calculator, gives you a complete understanding of steel weight estimation — from theory to real-world application.</p>
     </div>
+
+    <!-- ============================================ -->
+    <!-- PAKISTANI SERVICES BLOCK — SILVER -->
+    <!-- ============================================ -->
+    <div class="pakistani-block">
+      <h2>🏗️ ColdMatrix Advanced Solutions — Steel Fabrication &amp; Structural Supply in Pakistan</h2>
+      <p>Whether you are estimating plates for a Karachi shipyard, round bars for a Lahore fabrication workshop, or beams for a PEB warehouse in Faisalabad, <strong>ColdMatrix Advanced Solutions</strong> provides engineering-grade steel supply and turnkey structural fabrication across Pakistan. We source ASTM A36, A572, and equivalent grades from certified mills — with full mill test certificates on request.</p>
+      <p>Our portfolio includes <strong>PEB warehouses, cold storage steel structures, sandwich panel buildings, industrial sheds, and heavy fabrication</strong> for factories and logistics hubs. Every project is delivered with dimensional accuracy, on-time fabrication, and strict quality control at every stage — from shop drawings to final bolt torque verification on site.</p>
+      <p>Contact our <strong>Karachi engineering desk</strong> for steel weight verification, material quotations, section takeoffs, and factory-stamped technical drawings ready for submission to your consultant or bank.</p>
+      <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- RELATED TOOLS -->
+    <!-- ============================================ -->
+    <div class="related-tools-section">
+        <h3>🔗 Related Tools You Might Need</h3>
+        <div>
+            <a href="cft-calculator.html">📐 CFT Calculator</a>
+            <a href="concrete-calculator.html">🏗️ Concrete Calculator</a>
+            <a href="peb-material-calculator.html">🏭 PEB Material Calculator</a>
+            <a href="construction-cost-calculator.html">💰 Construction Cost Calculator</a>
+            <a href="cold-store-calculator.html">❄️ Cold Store Calculator</a>
+            <a href="sandwich-panel-calculator.html">🧱 Sandwich Panel Calculator</a>
+            <a href="build-vs-buy-calculator.html">🏗️ Build vs Buy Calculator</a>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- DISCLAIMER — SILVER -->
+    <!-- ============================================ -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> This tool provides <strong>preliminary estimates</strong> based on standard industry formulas and typical material properties. Results may vary due to local conditions, material grades, and project-specific requirements. Always consult a <strong>licensed engineer or qualified professional</strong> for final design verification.
+    </div>
+
   </div>
 
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+
 <footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script>
     let currentShape = 'plate';
@@ -694,6 +839,7 @@
     updateLabels();
     updateShapeVisual('plate');
   </script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -705,6 +851,7 @@
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
   </script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

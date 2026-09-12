@@ -7,84 +7,456 @@
     <meta name="description" content="Dual-mode decision calculator: Build vs Buy comparison and Rent vs Construct analysis. Multi-currency, total cost comparison, break-even point, and professional reports.">
     <link rel="canonical" href="https://coldmatrixtools.com/build-vs-buy-calculator.html">
     <meta name="theme-color" content="#0A0F14">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0B0F14; --foam: #F0F4F8; --frost: #4FC3F7;
-            --line: rgba(79,195,247,0.35); --accent: #00b894;
-            --gold: #D4AF37; --gold-bright: #FFD700;
-            --input-bg: #f5f5f5; --input-text: #1a1a1a;
-            --display-bg: #0a0d11; --desk: #111418;
+            --bg: #0B0F14;
+            --foam: #F0F4F8;
+            --frost: #4FC3F7;
+            --line: rgba(79,195,247,0.35);
+            --accent: #00b894;
+            --gold: #D4AF37;
+            --gold-bright: #FFD700;
+            --gold-border: #D4AF37;
+            --input-bg: #f5f5f5;
+            --input-text: #1a1a1a;
+            --display-bg: #0a0d11;
+            --desk: #111418;
             --label-color: #1a1a1a;
+            --silver-bg: #C8CDD4;
+            --silver-bg-hover: #D5D9DE;
             --silver-gradient: linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-            --silver-gradient-hover: linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
         }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { background: var(--desk); color: var(--foam); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh; }
+        body {
+            background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--desk);
+            color: var(--foam); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
+        }
         .container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
-        .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+
+        .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold); }
         .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-        .logo { font-size:1.3rem; font-weight:700; color:var(--frost); text-decoration:none; }
+        .logo { font-size:1.3rem; font-weight:700; color:var(--gold-bright); text-decoration:none; }
         .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
         .nav-links a { color:#8B98A5; text-decoration:none; font-weight:500; font-size:0.95rem; }
-        .nav-links a:hover { color:var(--frost); }
-        .tool-title { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:700; color:#FFFFFF; margin-bottom:6px; }
-        .subtitle { color:#ccc; font-size:1rem; margin-bottom:20px; }
-        .mode-cards { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
-        .mode-card { background: var(--silver-gradient); border: 2px solid var(--gold); border-radius: 20px; padding: 32px 24px; text-align: center; cursor: pointer; box-shadow: 0 20px 40px rgba(0,0,0,0.6); transition: transform 0.25s; }
-        .mode-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(0,0,0,0.7), 0 0 25px var(--gold); }
-        .mode-card .icon { font-size: 2.5rem; margin-bottom: 12px; }
-        .mode-card h3 { font-family:'Oswald',sans-serif; font-size:1.3rem; font-weight:700; color:#0A0F14; margin-bottom:6px; }
-        .mode-card p { color:#111; font-size:0.9rem; font-weight:600; }
-        .laptop-body { background: var(--silver-gradient); border: 2px solid var(--gold); border-radius: 28px; padding: 32px 30px; margin-top: 24px; display:none; }
+        .nav-links a:hover { color:var(--gold-bright); }
+
+        /* Golden install bar */
+        .install-bar {
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            color: #0A0F14; text-align:center; padding:10px 16px;
+            font-weight:700; font-size:0.85rem; border-radius:10px;
+            margin:14px 0; border: 1px solid #FFD700;
+            box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+        }
+        .install-bar button {
+            background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+            padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+            font-weight: 800; cursor: pointer; font-size: 0.8rem;
+        }
+
+        .tool-title { font-family:'Oswald',sans-serif; font-size:2rem; font-weight:700; color:#FFFFFF; margin-bottom:6px; }
+        .tool-title span { color: var(--gold-bright); }
+        .subtitle { color:#EAEDF0; font-size:1rem; margin-bottom:20px; font-weight: 500; }
+
+/* ============================================ */
+/* MODE CARDS — SILVER premium + golden accents */
+/* ============================================ */
+.mode-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.mode-card {
+    position: relative;
+    background: #C8CDD4;
+    background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+    border: 2px solid #D4AF37;
+    border-radius: 20px;
+    padding: 36px 22px 30px;
+    text-align: center;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.7);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Golden glow ring on hover */
+.mode-card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(135deg, #D4AF37, #FFD700, #B8952B);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+}
+.mode-card:hover::before { opacity: 1; }
+
+.mode-card:hover {
+    transform: translateY(-6px);
+    border-color: #FFD700;
+    box-shadow:
+        0 18px 40px rgba(0,0,0,0.55),
+        0 0 30px rgba(212,175,55,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+/* Gold icon in a glowing circle */
+.mode-card .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 18px;
+    background: radial-gradient(circle at 30% 30%, #FFD700, #B8952B 75%);
+    border-radius: 50%;
+    font-size: 2rem;
+    box-shadow:
+        0 6px 18px rgba(184,149,43,0.6),
+        inset 0 -3px 6px rgba(0,0,0,0.2),
+        inset 0 3px 6px rgba(255,255,255,0.45);
+    line-height: 1;
+}
+
+/* Golden heading — deeper gold for readability on silver */
+.mode-card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #B8952B;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+}
+
+/* Description — BLACK text for premium contrast */
+.mode-card p {
+    color: #0A0F14;
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+/* "TAP TO OPEN" — gold micro-label */
+.mode-card::after {
+    content: "TAP TO OPEN →";
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #B8952B;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, color 0.3s ease;
+}
+.mode-card:hover::after {
+    opacity: 1;
+    color: #0A0F14;
+}
+}
+
+        /* Calculator body — silver premium */
+        .laptop-body {
+            background: var(--silver-bg);
+            background-image: var(--silver-gradient);
+            border: 2px solid var(--gold);
+            border-radius: 24px;
+            padding: 28px 26px;
+            margin-top: 24px;
+            display: none;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+        }
         .laptop-body.active { display:block; }
-        .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid var(--gold); border-radius:12px; padding:18px 20px; margin-bottom:24px; }
-        .share-tool-title { font-weight:800; font-size:1rem; color:#E8B93A; text-align:center; margin-bottom:14px; text-transform:uppercase; }
+
+        .share-tool-card {
+            background: linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+            border: 2px solid var(--gold);
+            border-radius:12px; padding:18px 20px; margin-bottom:24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .share-tool-title { font-weight:800; font-size:1rem; color:#E8B93A; text-align:center; margin-bottom:14px; text-transform:uppercase; letter-spacing: 0.5px; }
         .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-        .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; border-radius:8px; font-weight:700; font-size:0.85rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); }
-        .back-btn { background: var(--silver-gradient); border: 2px solid var(--gold); color: #0A0F14; padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-bottom: 16px; }
-        .section-heading { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:700; color:var(--label-color); margin:18px 0 10px; text-transform:uppercase; border-left:4px solid var(--gold); padding-left:10px; }
+        .share-tool-btn {
+            display:flex; align-items:center; justify-content:center; gap:8px;
+            padding:12px; border-radius:8px; font-weight:700; font-size:0.85rem;
+            cursor:pointer;
+            background: rgba(15,20,30,0.75); color:#EAEDF0;
+            border:1.5px solid rgba(200,168,78,0.45);
+            transition: all 0.2s;
+        }
+        .share-tool-btn:hover { border-color: var(--gold-bright); box-shadow: 0 0 12px rgba(212,175,55,0.35); }
+
+        .back-btn {
+            background: var(--silver-bg);
+            border: 2px solid var(--gold);
+            color: #0A0F14;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+        .back-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); }
+
+        .section-heading {
+            font-family:'Oswald',sans-serif;
+            font-size:1rem;
+            font-weight:700;
+            color: var(--label-color);
+            margin:18px 0 10px;
+            text-transform:uppercase;
+            border-left:4px solid var(--gold);
+            padding-left:10px;
+        }
         .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
         .field { margin-bottom:14px; }
         .field label { display:block; font-size:0.82rem; color:var(--label-color); font-weight:700; margin-bottom:6px; }
-        .field input, .field select { width:100%; background:var(--input-bg); border:2px solid var(--gold); color:var(--input-text); padding:12px 14px; border-radius:8px; font-size:0.95rem; font-weight:500; outline:none; }
-        .btn-gold { width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold); padding:18px; border-radius:14px; font-weight:700; font-size:1.1rem; cursor:pointer; text-transform:uppercase; margin-top:8px; }
-        .display-screen { background:var(--display-bg); border-radius:14px; padding:24px; margin-top:20px; border:2px solid var(--gold); color:#e0e0e0; display:none; }
-        .result-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.1); font-size:0.9rem; }
+        .field input, .field select {
+            width:100%;
+            background: #FFFFFF;
+            border: 2px solid var(--gold);
+            color: var(--input-text);
+            padding:12px 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .field input:focus, .field select:focus { border-color: var(--gold-bright); box-shadow: 0 0 12px rgba(212,175,55,0.5); }
+
+        /* Buttons — Calculate tall, Reset short */
+        .btn-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; }
+        .btn-gold {
+            width: 100%;
+            background: #C8CDD4;
+            color: #0A0F14;
+            border: 2px solid var(--gold);
+            min-height: 64px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-weight: 900;
+            font-size: 1.15rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.3);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-gold:hover { background: #D5D9DE; border-color: var(--gold-bright); box-shadow: 0 0 22px rgba(212,175,55,0.6); transform: translateY(-2px); }
+        .btn-reset-mode {
+            width: 100%;
+            background: #C8CDD4;
+            color: #0A0F14;
+            border: 2px solid var(--gold);
+            min-height: 46px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-reset-mode:hover { background: #D5D9DE; border-color: var(--gold-bright); transform: translateY(-2px); }
+
+        .display-screen {
+            background: var(--display-bg);
+            border-radius: 14px;
+            padding: 24px;
+            margin-top: 20px;
+            border: 2px solid var(--gold);
+            color: #e0e0e0;
+            display: none;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+        }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+        .result-row:last-child { border-bottom: none; }
         .result-row .val { font-weight:700; color:var(--frost); }
-        .val.gold { color: var(--gold); font-size: 1.1rem; }
-        .footer-text { text-align:center; color:#ccc; font-size:0.8rem; margin-top:30px; }
-        .footer-text a { color:var(--frost); text-decoration:none; }
-        .edu-section { padding:16px; border-radius:12px; background:rgba(0,0,0,0.3); margin-bottom:14px; }
-        .edu-section h3 { color:var(--gold); margin-bottom:8px; }
-        .edu-section p, .edu-section li { color:#EAEDF0; font-size:0.88rem; line-height:1.8; }
-        .edu-section ul { padding-left:20px; }
-        .install-bar { background:#4FC3F7; color:#0A0F14; text-align:center; padding:10px; font-weight:600; font-size:0.85rem; border-radius:8px; margin:16px 0; }
-        .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
-        @media (max-width:768px) { .mode-cards { grid-template-columns:1fr; } .grid-2 { grid-template-columns:1fr; } }
+        .val.gold { color: var(--gold-bright); font-size: 1.05rem; font-weight: 800; }
+
+        footer { text-align:center; color:#8B98A5; font-size:0.8rem; padding:30px 0 20px; border-top:2px solid var(--gold); margin-top:50px; }
+        footer a { color:var(--gold-bright); text-decoration:none; font-weight: 600; }
+        .whatsapp-float {
+            position:fixed; bottom:20px; right:20px; z-index:999;
+            width:48px; height:48px; background:#25D366; border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            box-shadow:0 4px 15px rgba(0,0,0,0.4);
+            text-decoration:none; color:#fff; font-size:1.3rem;
+        }
+
+        /* ============================================ */
+        /* SILVER PREMIUM EDUCATIONAL CONTENT */
+        /* ============================================ */
+        .edu-content {
+            margin: 30px 0;
+            padding: 30px 24px;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid #D4AF37;
+            border-radius: 16px;
+            color: #0A0F14;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        .edu-content h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.35rem; margin-bottom: 16px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; font-weight: 800; }
+        .edu-content h3 { color: #0A0F14; font-size: 1.1rem; margin: 22px 0 10px; font-weight: 800; }
+        .edu-content p, .edu-content li, .edu-content ul, .edu-content ol { color: #0A0F14; font-weight: 500; }
+        .edu-content ul, .edu-content ol { padding-left: 24px; margin-bottom: 14px; }
+        .edu-content li { margin-bottom: 6px; }
+        .edu-content strong { color: #0A0F14; font-weight: 800; }
+        .edu-content p { margin-bottom: 14px; }
+
+        /* Pakistani block */
+        .pakistani-block {
+            margin: 30px 0;
+            padding: 24px 20px;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid #D4AF37;
+            border-radius: 16px;
+            color: #0A0F14;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        .pakistani-block h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.2rem; margin-bottom: 12px; font-weight: 800; }
+        .pakistani-block p { color: #0A0F14; font-weight: 500; margin-top: 10px; }
+        .pakistani-block strong { color: #0A0F14; font-weight: 800; }
+
+        /* Related tools */
+        .related-tools {
+            margin: 20px 0 10px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 2px solid #D4AF37;
+            border-radius: 12px;
+        }
+        .related-tools h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; }
+        .related-tools a {
+            color:#4FC3F7; text-decoration:none;
+            background:rgba(79,195,247,0.1);
+            padding:8px 16px; border-radius:20px;
+            font-size:0.85rem; font-weight:600;
+            display: inline-block;
+            margin: 4px 4px 4px 0;
+        }
+
+        @media (max-width:768px) {
+            .mode-cards { grid-template-columns:1fr; }
+            .grid-2 { grid-template-columns:1fr; }
+            .tool-title { font-size: 1.5rem; }
+            .edu-content { padding: 20px 16px; font-size: 0.9rem; }
+            .edu-content h2 { font-size: 1.15rem; }
+            /* ============================================ */
+/* FIX: Force calculator body to hide by default */
+/* ============================================ */
+.laptop-body {
+    display: none !important;
+}
+.laptop-body.active {
+    display: block !important;
+}
+        }
     </style>
 </head>
 <body>
-<nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">❄️ ColdMatrix</a>
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="index.html#tools">🛠️ Tools</a></li>
+      <li><a href="solutions.html">❄️ Cold Matrix</a></li>
+      <li><a href="blog.html">📝 Blog</a></li>
+      <li><a href="about.html">ℹ️ About</a></li>
+      <li><a href="contact.html">📞 Contact</a></li>
+    </ul>
+  </div>
+</nav>
 
 <div class="container">
     <div class="install-bar" id="cmInstallBar">📱 Add to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
-    <h1 class="tool-title">🏗️ Build vs Buy & Rent vs Construct</h1>
-    <p class="subtitle">Dual-mode decision calculator — compare building vs buying, or renting vs constructing.</p>
+    <h1 class="tool-title"><span>ColdMatrix</span> Build vs Buy & Rent vs Construct</h1>
+    <p class="subtitle">Dual-mode decision calculator — compare building vs buying, or renting vs constructing. Real financial insight in seconds.</p>
 
-    <div class="share-tool-card"><div class="share-tool-title">Share This Tool</div><div class="share-tool-buttons"><button class="share-tool-btn" onclick="shareWhatsApp()">💬 WhatsApp</button><button class="share-tool-btn" onclick="copyLink()">🔗 Copy Link</button></div></div>
-
-    <div class="mode-cards" id="modeSelection">
-        <div class="mode-card" onclick="openMode('build')"><div class="icon">🏗️</div><h3>Build vs Buy</h3><p>Compare building yourself vs buying or outsourcing.</p></div>
-        <div class="mode-card" onclick="openMode('rent')"><div class="icon">🏠</div><h3>Rent vs Construct</h3><p>Compare renting vs constructing your own asset.</p></div>
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share This Tool</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
     </div>
 
+    <div class="mode-cards" id="modeSelection">
+        <div class="mode-card" onclick="openMode('build')">
+            <div class="icon">🏗️</div>
+            <h3>Build vs Buy</h3>
+            <p>Compare building yourself vs buying or outsourcing.</p>
+        </div>
+        <div class="mode-card" onclick="openMode('rent')">
+            <div class="icon">🏠</div>
+            <h3>Rent vs Construct</h3>
+            <p>Compare renting vs constructing your own asset.</p>
+        </div>
+    </div>
+
+    <!-- BUILD VS BUY MODE -->
     <div class="laptop-body" id="buildMode">
-        <button class="back-btn" onclick="goBack()">← Back</button>
+        <button class="back-btn" onclick="goBack()">← Back to Modes</button>
         <div class="section-heading">💱 Currency</div>
-        <div class="field"><select id="currency1"><option value="USD">🇺🇸 USD</option><option value="PKR">🇵🇰 PKR</option><option value="INR">🇮🇳 INR</option><option value="EUR">🇪🇺 EUR</option><option value="GBP">🇬🇧 GBP</option><option value="CAD">🇨🇦 CAD</option><option value="CNY">🇨🇳 CNY</option><option value="AED">🇦🇪 AED</option><option value="SAR">🇸🇦 SAR</option><option value="AUD">🇦🇺 AUD</option></select></div>
+        <div class="field">
+          <select id="currency1">
+            <option value="USD">🇺🇸 USD</option>
+            <option value="PKR">🇵🇰 PKR</option>
+            <option value="INR">🇮🇳 INR</option>
+            <option value="EUR">🇪🇺 EUR</option>
+            <option value="GBP">🇬🇧 GBP</option>
+            <option value="CAD">🇨🇦 CAD</option>
+            <option value="CNY">🇨🇳 CNY</option>
+            <option value="AED">🇦🇪 AED</option>
+            <option value="SAR">🇸🇦 SAR</option>
+            <option value="AUD">🇦🇺 AUD</option>
+          </select>
+        </div>
+
         <div class="section-heading">🔨 Build Costs</div>
         <div class="grid-2">
             <div class="field"><label>Initial Development</label><input type="number" id="bInit" value="50000"></div>
@@ -98,6 +470,7 @@
             <div class="field"><label>Monthly Maintenance</label><input type="number" id="bMaint" value="500"></div>
             <div class="field"><label>Life (years)</label><input type="number" id="bLife" value="5"></div>
         </div>
+
         <div class="section-heading">🛒 Buy Costs</div>
         <div class="grid-2">
             <div class="field"><label>Purchase Price</label><input type="number" id="buyInit" value="80000"></div>
@@ -108,104 +481,177 @@
             <div class="field"><label>Annual Maintenance</label><input type="number" id="buyAnnual" value="3000"></div>
         </div>
         <div class="field"><label>Vendor Support / Year</label><input type="number" id="buySupport" value="2000"></div>
-        <button class="btn-gold" onclick="calcBuild()">⚡ Compare</button>
+
+        <div class="btn-stack">
+            <button class="btn-gold" onclick="calcBuild()">📊 Compare Build vs Buy</button>
+            <button class="btn-reset-mode" onclick="resetBuild()">↺ Reset Build vs Buy</button>
+        </div>
         <div class="display-screen" id="buildResult"></div>
     </div>
 
+    <!-- RENT VS CONSTRUCT MODE -->
     <div class="laptop-body" id="rentMode">
-        <button class="back-btn" onclick="goBack()">← Back</button>
+        <button class="back-btn" onclick="goBack()">← Back to Modes</button>
         <div class="section-heading">💱 Currency</div>
-        <div class="field"><select id="currency2"><option value="USD">🇺🇸 USD</option><option value="PKR">🇵🇰 PKR</option><option value="INR">🇮🇳 INR</option><option value="EUR">🇪🇺 EUR</option><option value="GBP">🇬🇧 GBP</option><option value="CAD">🇨🇦 CAD</option><option value="CNY">🇨🇳 CNY</option><option value="AED">🇦🇪 AED</option><option value="SAR">🇸🇦 SAR</option><option value="AUD">🇦🇺 AUD</option></select></div>
+        <div class="field">
+          <select id="currency2">
+            <option value="USD">🇺🇸 USD</option>
+            <option value="PKR">🇵🇰 PKR</option>
+            <option value="INR">🇮🇳 INR</option>
+            <option value="EUR">🇪🇺 EUR</option>
+            <option value="GBP">🇬🇧 GBP</option>
+            <option value="CAD">🇨🇦 CAD</option>
+            <option value="CNY">🇨🇳 CNY</option>
+            <option value="AED">🇦🇪 AED</option>
+            <option value="SAR">🇸🇦 SAR</option>
+            <option value="AUD">🇦🇺 AUD</option>
+          </select>
+        </div>
+
         <div class="section-heading">🏠 Rent Costs</div>
         <div class="field"><label>Monthly Rent</label><input type="number" id="rMonthly" value="2000"></div>
         <div class="field"><label>Utilities (Monthly)</label><input type="number" id="rUtils" value="300"></div>
+
         <div class="section-heading">🏗️ Construct Costs</div>
         <div class="field"><label>Construction Cost</label><input type="number" id="cConstruct" value="200000"></div>
         <div class="grid-2">
             <div class="field"><label>Annual Maintenance</label><input type="number" id="cMaint" value="5000"></div>
             <div class="field"><label>Life (years)</label><input type="number" id="cLife" value="20"></div>
         </div>
-        <button class="btn-gold" onclick="calcRent()">⚡ Compare</button>
+
+        <div class="btn-stack">
+            <button class="btn-gold" onclick="calcRent()">📊 Compare Rent vs Construct</button>
+            <button class="btn-reset-mode" onclick="resetRent()">↺ Reset Rent vs Construct</button>
+        </div>
         <div class="display-screen" id="rentResult"></div>
     </div>
 
-    <!-- EXPANDED EDUCATIONAL CONTENT -->
-    <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-        <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">📚 Complete Guide: Build vs Buy & Rent vs Construct</h2>
-        <p>The decision between building something yourself versus buying it — or renting versus constructing — is one of the most important financial choices a business can make. This calculator helps you compare total costs over 3, 5, and 10 years.</p>
-        <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">When Building Makes Sense</h3>
-        <ul style="padding-left:20px;">
-            <li>Requirements are unique and no existing solution fits</li>
-            <li>You have in-house talent</li>
-            <li>Long-term savings outweigh initial investment</li>
-            <li>Full control and customization needed</li>
-            <li>Solution becomes competitive advantage</li>
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — SILVER PREMIUM -->
+    <!-- ============================================ -->
+    <div class="edu-content">
+        <h2>📚 Complete Guide: Build vs Buy & Rent vs Construct</h2>
+
+        <p>The decision between building something yourself versus buying it — or renting versus constructing — is one of the most important financial choices a business can make. This calculator helps you compare total costs over 3, 5, and 10 years so you can make a data-driven decision.</p>
+
+        <h3>Build vs Buy — The Core Trade-Off</h3>
+        <p>Every "build vs buy" decision comes down to a simple question: <strong>do the long-term savings of building outweigh the short-term cost and complexity?</strong> Building gives you customization and full control, but requires capital, time, and technical expertise. Buying gives you speed and lower initial cost, but sacrifices customization and creates vendor dependency.</p>
+
+        <h3>When Building Makes Financial Sense</h3>
+        <ul>
+            <li><strong>Unique Requirements:</strong> No off-the-shelf solution fits your needs.</li>
+            <li><strong>In-House Capability:</strong> You already have the technical talent.</li>
+            <li><strong>Long-Term Savings:</strong> Total cost over 5+ years is lower than buying.</li>
+            <li><strong>Competitive Advantage:</strong> The solution becomes part of your core business value.</li>
+            <li><strong>Volume:</strong> High usage justifies the upfront investment.</li>
         </ul>
-        <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">When Buying Makes Sense</h3>
-        <ul style="padding-left:20px;">
-            <li>Proven off-the-shelf solution exists</li>
-            <li>Time to market is critical</li>
-            <li>Vendor handles maintenance</li>
-            <li>Lower initial investment</li>
-            <li>No in-house technical expertise</li>
+
+        <h3>When Buying Makes Financial Sense</h3>
+        <ul>
+            <li><strong>Proven Solution Exists:</strong> A mature product solves 80%+ of your need.</li>
+            <li><strong>Time to Market:</strong> Speed matters more than perfection.</li>
+            <li><strong>Vendor Maintains It:</strong> Reduced internal burden.</li>
+            <li><strong>Lower Initial Cost:</strong> Cash flow friendly for smaller businesses.</li>
+            <li><strong>No Technical Team:</strong> Building would require hiring.</li>
         </ul>
-        <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Hidden Costs People Forget</h3>
-        <ul style="padding-left:20px;">
-            <li>Opportunity cost — time spent building could be used elsewhere</li>
-            <li>Downtime cost — every delay costs money</li>
-            <li>Training cost — staff need to learn the new system</li>
-            <li>Integration cost — connecting with existing systems</li>
-            <li>Upgrade cost — future enhancements</li>
-            <li>Exit cost — switching later</li>
+
+        <h3>The Hidden Costs People Forget</h3>
+        <ul>
+            <li><strong>Opportunity Cost:</strong> Time spent building is time away from revenue-generating activities. At $100/hour, 500 hours of build time = $50,000 of foregone revenue.</li>
+            <li><strong>Downtime Cost:</strong> Every delay in launch has a dollar value — usually 10–20% of annual revenue for a launch-critical tool.</li>
+            <li><strong>Training Cost:</strong> Staff need time to learn the new system — often 5–10% of build cost.</li>
+            <li><strong>Integration Cost:</strong> Connecting with existing systems can add 15–30% to build costs.</li>
+            <li><strong>Upgrade & Maintenance:</strong> Year 2+ costs are often 20–30% of initial build per year.</li>
+            <li><strong>Exit Cost:</strong> Switching vendors or replacing built systems later costs 30–50% of original.</li>
         </ul>
-        <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Rent vs Construct — Complete Guide</h3>
-        <p>Rent vs Construct compares ongoing rent payments against the cost of building your own asset. Renting offers flexibility but costs more over time. Constructing requires upfront capital but pays for itself.</p>
-        <ul style="padding-left:20px;">
-            <li><strong>Rent when:</strong> flexibility needed, uncertain long-term plans, lower capital</li>
-            <li><strong>Construct when:</strong> long-term stability, asset appreciation, customization needs</li>
+
+        <h3>Rent vs Construct — Real Estate & Equipment Decision</h3>
+        <p>Rent vs Construct compares ongoing rent payments against the cost of building your own asset. Renting offers flexibility with low upfront capital. Constructing requires significant investment but builds equity and eliminates ongoing rent.</p>
+        <ul>
+            <li><strong>Rent when:</strong> flexibility needed, uncertain long-term plans, lower capital available, or the market rent is below the cost of ownership.</li>
+            <li><strong>Construct when:</strong> long-term stability required, asset appreciation expected, customization is critical, or rental yields are high relative to construction cost.</li>
         </ul>
-        <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Frequently Asked Questions</h3>
-        <p><strong>Q: Which is usually cheaper long-term?</strong><br>Building/constructing often becomes cheaper after 3-5 years.</p>
-        <p><strong>Q: Should I count my own time?</strong><br>Yes — your time has value. 100 hours building is 100 hours away from core business.</p>
-        <p><strong>Q: Is this calculator accurate?</strong><br>It provides estimates based on your inputs. Verify with financial advisor for major decisions.</p>
-        <p><strong>Q: Does this work for any asset?</strong><br>Yes — buildings, software, equipment, machinery, vehicles.</p>
-        <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Real-World Example</h3>
-        <p>A logistics company needs warehouse space. Rent at $15,000/month = $1.8M over 10 years. Construct for $500,000 + $10,000/year maintenance = $600,000 over 10 years. Constructing saves $1.2M.</p>
-        <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Why This Tool Is Free</h3>
-        <p>ColdMatrix builds free professional tools because small businesses deserve access to decision-making power once reserved for large corporations.</p>
+
+        <h3>Financial Metrics That Matter</h3>
+        <ul>
+            <li><strong>Payback Period:</strong> How many years until construction cost equals the rent you would have paid?</li>
+            <li><strong>Net Present Value (NPV):</strong> Future costs discounted to today — a rupee today is worth more than a rupee in 5 years.</li>
+            <li><strong>Break-Even Point:</strong> The year when cumulative ownership cost equals cumulative rental cost.</li>
+            <li><strong>Total Cost of Ownership (TCO):</strong> All costs including maintenance, upgrades, insurance, and taxes.</li>
+        </ul>
+
+        <h3>Frequently Asked Questions</h3>
+        <p><strong>Q: Which is usually cheaper long-term?</strong><br>A: Building/constructing often becomes cheaper after 3–5 years. But this depends on interest rates, opportunity cost, and how long you'll actually need the asset.</p>
+        <p><strong>Q: Should I count my own time in the build cost?</strong><br>A: Yes. Your time has value. If you would have billed clients during build hours, that foregone revenue is a real cost.</p>
+        <p><strong>Q: Is this calculator accurate enough for major decisions?</strong><br>A: It provides reliable estimates based on your inputs. For investments above $50,000, always verify with a financial advisor or accountant.</p>
+        <p><strong>Q: Does this work for any asset?</strong><br>A: Yes — buildings, software platforms, industrial equipment, machinery, vehicles, cold storage facilities, and PEB structures.</p>
+        <p><strong>Q: What if the numbers are close?</strong><br>A: If the difference is under 10%, choose based on strategic fit — flexibility, core competency, and long-term vision matter as much as the math.</p>
+
+        <h3>Real-World Example: Logistics Warehouse</h3>
+        <p>A logistics company needs warehouse space for 10 years. Renting at $15,000/month = $1.8M over 10 years. Constructing a PEB warehouse for $500,000 + $10,000/year maintenance = $600,000 over 10 years. Constructing saves $1.2M over the period — a 300% return on the initial construction cost. The break-even point is around year 3.</p>
+
+        <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ This guide, combined with our free calculator, gives you a solid foundation for one of the biggest financial decisions you'll make.</p>
     </div>
 
-<!-- Combined Footer + Floating WhatsApp -->
-<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" style="position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem;">
+    <!-- ============================================ -->
+    <!-- PAKISTANI SERVICES BLOCK — SILVER -->
+    <!-- ============================================ -->
+    <div class="pakistani-block">
+        <h2>🏗️ ColdMatrix Advanced Solutions — Build, Rent, or Construct with Confidence in Pakistan</h2>
+        <p>Whether you are weighing a <strong>build vs buy decision</strong> for industrial equipment or a <strong>rent vs construct decision</strong> for your next facility, ColdMatrix Advanced Solutions provides the real-world engineering and construction capacity to back it up. We deliver <strong>PEB warehouses, cold storage facilities, prefab structures, and turnkey industrial construction</strong> across Karachi, Lahore, Islamabad, and Balochistan.</p>
+        <p>Our in-house team handles everything from <strong>site evaluation and soil testing</strong> to <strong>structural design, steel fabrication, concrete casting, and final commissioning</strong>. We work with ASTM-graded steel, PSQCA-certified cement, and internationally approved sandwich panel systems — giving you construction quality that matches international benchmarks at local costs.</p>
+        <p>If your calculator shows that building or constructing is the better long-term decision, we are ready to provide a <strong>free preliminary consultation</strong> with a verified cost estimate. If renting makes more sense for now, we can advise on equipment and facility rental strategies that fit your capital profile.</p>
+        <p>Contact our <strong>Karachi engineering desk</strong> for site evaluations, soil test matching, formal commercial bidding documentation, and factory-stamped technical drawings ready for submission to your consultant or bank.</p>
+        <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- RELATED TOOLS -->
+    <!-- ============================================ -->
+    <div class="related-tools">
+        <h3>🔗 Related Tools You Might Need</h3>
+        <div>
+            <a href="construction-cost-calculator.html">💰 Construction Cost Calculator</a>
+            <a href="peb-material-calculator.html">🏗️ PEB Material Calculator</a>
+            <a href="roi-calculator.html">📈 ROI Calculator</a>
+            <a href="startup-cost-calculator.html">🚀 Startup Cost Planner</a>
+            <a href="cold-store-calculator.html">❄️ Cold Store Calculator</a>
+            <a href="sandwich-panel-calculator.html">🧱 Sandwich Panel Calculator</a>
+            <a href="cft-calculator.html">📐 CFT Calculator</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
 </a>
 
-<footer style="background:rgba(10,15,20,0.9); border-top:2px solid #D4AF37; padding:30px 20px; margin-top:50px; text-align:center;">
-    <!-- Contact Info -->
-    <div style="margin-bottom:15px;">
-        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
-        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
-        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
-            📞 <strong>Call / WhatsApp:</strong> 
-            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
-            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
-                <i class="fa-brands fa-whatsapp"></i>
-            </a>
-        </p>
-    </div>
+<footer>
+    <div class="container" style="padding: 0 20px;">
+        <div style="margin-bottom:15px;">
+            <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+            <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com">contact@coldmatrixtools.com</a></p>
+            <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+                📞 <strong>Call / WhatsApp:</strong>
+                <a href="tel:+923333228470">+92 333 3228470</a>
+                <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; font-size:1.1rem;" title="Chat on WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </p>
+        </div>
 
-    <!-- Legal Links -->
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
-    </div>
+        <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+            <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+            <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+            <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+            <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+        </div>
 
-    <!-- Copyright -->
-    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+        <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+    </div>
 </footer>
-</div>
 
 <script>
 const SYMBOLS = {'USD':'$','PKR':'₨','INR':'₹','EUR':'€','GBP':'£','CAD':'C$','CNY':'¥','AED':'د.إ','SAR':'﷼','AUD':'A$'};
@@ -218,101 +664,192 @@ function openMode(mode) {
     else document.getElementById('rentMode').classList.add('active');
     window.scrollTo({top:0, behavior:'smooth'});
 }
+
 function goBack() {
     document.getElementById('buildMode').classList.remove('active');
     document.getElementById('rentMode').classList.remove('active');
     document.getElementById('modeSelection').style.display = 'grid';
+    document.getElementById('buildResult').style.display = 'none';
+    document.getElementById('rentResult').style.display = 'none';
     window.scrollTo({top:0, behavior:'smooth'});
 }
-function formatMoney(v, c){ return SYMBOLS[c]+Math.round(v).toLocaleString(); }
+
+function formatMoney(v, c){
+    return SYMBOLS[c] + Math.round(v).toLocaleString();
+}
+
+function resetBuild() {
+    document.getElementById('currency1').value = 'USD';
+    document.getElementById('bInit').value = 50000;
+    document.getElementById('bEquip').value = 20000;
+    document.getElementById('bLabor').value = 3000;
+    document.getElementById('bTrain').value = 5000;
+    document.getElementById('bMaint').value = 500;
+    document.getElementById('bLife').value = 5;
+    document.getElementById('buyInit').value = 80000;
+    document.getElementById('buyInstall').value = 10000;
+    document.getElementById('buyMonthly').value = 2000;
+    document.getElementById('buyAnnual').value = 3000;
+    document.getElementById('buySupport').value = 2000;
+    document.getElementById('buildResult').style.display = 'none';
+}
+
+function resetRent() {
+    document.getElementById('currency2').value = 'USD';
+    document.getElementById('rMonthly').value = 2000;
+    document.getElementById('rUtils').value = 300;
+    document.getElementById('cConstruct').value = 200000;
+    document.getElementById('cMaint').value = 5000;
+    document.getElementById('cLife').value = 20;
+    document.getElementById('rentResult').style.display = 'none';
+}
 
 function calcBuild() {
     const c = document.getElementById('currency1').value;
-    const bInit = parseFloat(document.getElementById('bInit').value)||0;
-    const bEquip = parseFloat(document.getElementById('bEquip').value)||0;
-    const bLabor = parseFloat(document.getElementById('bLabor').value)||0;
-    const bTrain = parseFloat(document.getElementById('bTrain').value)||0;
-    const bMaint = parseFloat(document.getElementById('bMaint').value)||0;
-    const buyInit = parseFloat(document.getElementById('buyInit').value)||0;
-    const buyInstall = parseFloat(document.getElementById('buyInstall').value)||0;
-    const buyMonthly = parseFloat(document.getElementById('buyMonthly').value)||0;
-    const buyAnnual = parseFloat(document.getElementById('buyAnnual').value)||0;
-    const buySupport = parseFloat(document.getElementById('buySupport').value)||0;
+    const bInit = parseFloat(document.getElementById('bInit').value) || 0;
+    const bEquip = parseFloat(document.getElementById('bEquip').value) || 0;
+    const bLabor = parseFloat(document.getElementById('bLabor').value) || 0;
+    const bTrain = parseFloat(document.getElementById('bTrain').value) || 0;
+    const bMaint = parseFloat(document.getElementById('bMaint').value) || 0;
+    const buyInit = parseFloat(document.getElementById('buyInit').value) || 0;
+    const buyInstall = parseFloat(document.getElementById('buyInstall').value) || 0;
+    const buyMonthly = parseFloat(document.getElementById('buyMonthly').value) || 0;
+    const buyAnnual = parseFloat(document.getElementById('buyAnnual').value) || 0;
+    const buySupport = parseFloat(document.getElementById('buySupport').value) || 0;
 
-    const buildBase = bInit+bEquip+bTrain;
-    const buildMonthly = bLabor+bMaint;
-    const build3 = buildBase+(buildMonthly*36);
-    const build5 = buildBase+(buildMonthly*60);
-    const build10 = buildBase+(buildMonthly*120);
+    const buildBase = bInit + bEquip + bTrain;
+    const buildMonthly = bLabor + bMaint;
+    const build3 = buildBase + (buildMonthly * 36);
+    const build5 = buildBase + (buildMonthly * 60);
+    const build10 = buildBase + (buildMonthly * 120);
 
-    const buyBase = buyInit+buyInstall;
-    const buyMonthlyCost = buyMonthly+((buyAnnual+buySupport)/12);
-    const buy3 = buyBase+(buyMonthlyCost*36);
-    const buy5 = buyBase+(buyMonthlyCost*60);
-    const buy10 = buyBase+(buyMonthlyCost*120);
+    const buyBase = buyInit + buyInstall;
+    const buyMonthlyCost = buyMonthly + ((buyAnnual + buySupport) / 12);
+    const buy3 = buyBase + (buyMonthlyCost * 36);
+    const buy5 = buyBase + (buyMonthlyCost * 60);
+    const buy10 = buyBase + (buyMonthlyCost * 120);
 
     const cheaper = build5 < buy5 ? 'BUILD' : 'BUY';
-    const diff = Math.abs(build5-buy5);
+    const diff = Math.abs(build5 - buy5);
+    const paybackYears = buyMonthlyCost > buildMonthly
+        ? ((buyBase - buildBase) / (buyMonthlyCost - buildMonthly)) / 12
+        : 0;
 
     document.getElementById('buildResult').innerHTML = `
-        <div class="result-row"><span>3-Year — Build</span><span class="val">${formatMoney(build3,c)}</span></div>
-        <div class="result-row"><span>3-Year — Buy</span><span class="val">${formatMoney(buy3,c)}</span></div>
-        <div class="result-row"><span>5-Year — Build</span><span class="val">${formatMoney(build5,c)}</span></div>
-        <div class="result-row"><span>5-Year — Buy</span><span class="val">${formatMoney(buy5,c)}</span></div>
-        <div class="result-row"><span>10-Year — Build</span><span class="val">${formatMoney(build10,c)}</span></div>
-        <div class="result-row"><span>10-Year — Buy</span><span class="val">${formatMoney(buy10,c)}</span></div>
-        <div class="result-row"><span>✅ Recommendation</span><span class="val gold">${cheaper} is cheaper by ${formatMoney(diff,c)} over 5 years</span></div>
+        <div class="result-row"><span>📅 3-Year — Build</span><span class="val">${formatMoney(build3, c)}</span></div>
+        <div class="result-row"><span>📅 3-Year — Buy</span><span class="val">${formatMoney(buy3, c)}</span></div>
+        <div class="result-row"><span>📅 5-Year — Build</span><span class="val">${formatMoney(build5, c)}</span></div>
+        <div class="result-row"><span>📅 5-Year — Buy</span><span class="val">${formatMoney(buy5, c)}</span></div>
+        <div class="result-row"><span>📅 10-Year — Build</span><span class="val">${formatMoney(build10, c)}</span></div>
+        <div class="result-row"><span>📅 10-Year — Buy</span><span class="val">${formatMoney(buy10, c)}</span></div>
+        <div class="result-row"><span>✅ Recommendation</span><span class="val gold">${cheaper} is cheaper by ${formatMoney(diff, c)} over 5 years</span></div>
+        ${paybackYears > 0 ? `<div class="result-row"><span>💡 Break-even</span><span class="val gold">Building pays back in ~${paybackYears.toFixed(1)} years</span></div>` : ''}
     `;
     document.getElementById('buildResult').style.display = 'block';
+    document.getElementById('buildResult').scrollIntoView({behavior: 'smooth', block: 'nearest'});
 }
 
 function calcRent() {
     const c = document.getElementById('currency2').value;
-    const rMonthly = parseFloat(document.getElementById('rMonthly').value)||0;
-    const rUtils = parseFloat(document.getElementById('rUtils').value)||0;
-    const cConstruct = parseFloat(document.getElementById('cConstruct').value)||0;
-    const cMaint = parseFloat(document.getElementById('cMaint').value)||0;
+    const rMonthly = parseFloat(document.getElementById('rMonthly').value) || 0;
+    const rUtils = parseFloat(document.getElementById('rUtils').value) || 0;
+    const cConstruct = parseFloat(document.getElementById('cConstruct').value) || 0;
+    const cMaint = parseFloat(document.getElementById('cMaint').value) || 0;
 
-    const rentAnnual = (rMonthly+rUtils)*12;
-    const rent3 = rentAnnual*3;
-    const rent5 = rentAnnual*5;
-    const rent10 = rentAnnual*10;
+    const rentAnnual = (rMonthly + rUtils) * 12;
+    const rent3 = rentAnnual * 3;
+    const rent5 = rentAnnual * 5;
+    const rent10 = rentAnnual * 10;
 
-    const construct3 = cConstruct+(cMaint*3);
-    const construct5 = cConstruct+(cMaint*5);
-    const construct10 = cConstruct+(cMaint*10);
+    const construct3 = cConstruct + (cMaint * 3);
+    const construct5 = cConstruct + (cMaint * 5);
+    const construct10 = cConstruct + (cMaint * 10);
 
     const cheaper = construct5 < rent5 ? 'CONSTRUCT' : 'RENT';
-    const diff = Math.abs(construct5-rent5);
+    const diff = Math.abs(construct5 - rent5);
+    const paybackYears = rentAnnual > cMaint
+        ? cConstruct / (rentAnnual - cMaint)
+        : 0;
 
     document.getElementById('rentResult').innerHTML = `
-        <div class="result-row"><span>3-Year — Rent</span><span class="val">${formatMoney(rent3,c)}</span></div>
-        <div class="result-row"><span>3-Year — Construct</span><span class="val">${formatMoney(construct3,c)}</span></div>
-        <div class="result-row"><span>5-Year — Rent</span><span class="val">${formatMoney(rent5,c)}</span></div>
-        <div class="result-row"><span>5-Year — Construct</span><span class="val">${formatMoney(construct5,c)}</span></div>
-        <div class="result-row"><span>10-Year — Rent</span><span class="val">${formatMoney(rent10,c)}</span></div>
-        <div class="result-row"><span>10-Year — Construct</span><span class="val">${formatMoney(construct10,c)}</span></div>
-        <div class="result-row"><span>✅ Recommendation</span><span class="val gold">${cheaper} is cheaper by ${formatMoney(diff,c)} over 5 years</span></div>
+        <div class="result-row"><span>📅 3-Year — Rent</span><span class="val">${formatMoney(rent3, c)}</span></div>
+        <div class="result-row"><span>📅 3-Year — Construct</span><span class="val">${formatMoney(construct3, c)}</span></div>
+        <div class="result-row"><span>📅 5-Year — Rent</span><span class="val">${formatMoney(rent5, c)}</span></div>
+        <div class="result-row"><span>📅 5-Year — Construct</span><span class="val">${formatMoney(construct5, c)}</span></div>
+        <div class="result-row"><span>📅 10-Year — Rent</span><span class="val">${formatMoney(rent10, c)}</span></div>
+        <div class="result-row"><span>📅 10-Year — Construct</span><span class="val">${formatMoney(construct10, c)}</span></div>
+        <div class="result-row"><span>✅ Recommendation</span><span class="val gold">${cheaper} is cheaper by ${formatMoney(diff, c)} over 5 years</span></div>
+        ${paybackYears > 0 ? `<div class="result-row"><span>💡 Break-even</span><span class="val gold">Constructing pays back in ~${paybackYears.toFixed(1)} years</span></div>` : ''}
     `;
     document.getElementById('rentResult').style.display = 'block';
+    document.getElementById('rentResult').scrollIntoView({behavior: 'smooth', block: 'nearest'});
 }
 
-function shareWhatsApp(){ window.open('https://wa.me/?text='+encodeURIComponent('🏗️ Build vs Buy & Rent vs Construct Calculator\n👉 https://coldmatrixtools.com/build-vs-buy-calculator.html')); }
-function copyLink(){ navigator.clipboard.writeText('https://coldmatrixtools.com/build-vs-buy-calculator.html').then(()=>alert('Link copied!')); }
+function shareWhatsApp(){
+    window.open('https://wa.me/?text=' + encodeURIComponent('🏗️ Build vs Buy & Rent vs Construct Calculator\n👉 https://coldmatrixtools.com/build-vs-buy-calculator.html'));
+}
+
+function copyLink(){
+    navigator.clipboard.writeText('https://coldmatrixtools.com/build-vs-buy-calculator.html')
+      .then(() => alert('Link copied!'))
+      .catch(() => alert('https://coldmatrixtools.com/build-vs-buy-calculator.html'));
+}
 
 let cmDeferredPrompt;
 window.addEventListener('beforeinstallprompt', function(e) {
-  e.preventDefault();
-  cmDeferredPrompt = e;
-  document.getElementById('cmInstallBar').style.display = 'block';
+    e.preventDefault();
+    cmDeferredPrompt = e;
+    document.getElementById('cmInstallBar').style.display = 'block';
 });
+
 function cmInstallApp() {
-  if (cmDeferredPrompt) {
-    cmDeferredPrompt.prompt();
-  } else {
-    alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');
-  }
+    if (cmDeferredPrompt) {
+        cmDeferredPrompt.prompt();
+    } else {
+        alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');
+    }
+}
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js').catch(function(){});
 }
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ColdMatrix Build vs Buy & Rent vs Construct Calculator",
+  "url": "https://coldmatrixtools.com/build-vs-buy-calculator.html",
+  "applicationCategory": "BusinessApplication",
+  "description": "Dual-mode decision calculator comparing build vs buy and rent vs construct scenarios with 3, 5, and 10-year total cost analysis and break-even point.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which is usually cheaper long-term — build or buy?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Building often becomes cheaper after 3–5 years, depending on interest rates, opportunity cost, and how long you actually need the asset." }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I count my own time in the build cost?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your time has real value. Foregone revenue during build hours is a genuine cost that most people overlook." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator work for any asset type?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes — buildings, software platforms, industrial equipment, machinery, vehicles, cold storage facilities, and PEB structures." }
+    }
+  ]
+}
+</script>
+
 </body>
 </html>

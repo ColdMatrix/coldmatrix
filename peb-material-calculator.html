@@ -268,7 +268,400 @@
     .nav-links a {
         padding: 12px 14px !important;
     }
+    /* ============================================ */
+/* FIX: Grid overlap on mobile — stack to single column */
+/* ============================================ */
+@media (max-width: 640px) {
+    .grid2,
+    .grid-2,
+    .grid3,
+    .grid-3,
+    .grid4,
+    .grid-4 {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
 }
+
+/* FIX: Long labels wrapping properly */
+.field label {
+    display: block;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    margin-bottom: 6px;
+}
+
+/* FIX: Checkbox rows not overlapping */
+.checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 14px;
+    line-height: 1.4;
+    flex-wrap: wrap;
+}
+.checkbox-row label {
+    flex: 1;
+    min-width: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* FIX: Prevent any field from overflowing */
+.field {
+    min-width: 0;
+    overflow: hidden;
+}
+.field input,
+.field select {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+}
+/* ============================================ */
+/* MOBILE FIX — Stack all grids into single column */
+/* ============================================ */
+@media (max-width: 700px) {
+    .grid2, .grid-2,
+    .grid3, .grid-3,
+    .grid4, .grid-4,
+    [class*="grid"],
+    .row2, .row3, .row4,
+    .field-grid, .input-grid, .form-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+}
+
+/* Fix long labels wrapping */
+.field label,
+label {
+    display: block !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    margin-bottom: 6px !important;
+}
+
+/* Fix field containers */
+.field {
+    min-width: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+.field input,
+.field select,
+.field textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Fix checkbox rows */
+.checkbox-row,
+.field.checkbox,
+label[for] {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    line-height: 1.4 !important;
+}
+.checkbox-row label {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+}
+
+/* ============================================ */
+/* CLEAN SILVER BUTTONS — No gradients */
+/* ============================================ */
+.btn-calc,
+.btn-reset,
+.btn-primary,
+.unit-btn,
+.action-btn,
+.share-tool-btn,
+button[class*="btn"],
+input[type="button"],
+input[type="submit"] {
+    background: #C8CDD4 !important;
+    background-image: none !important;
+    color: #0A0F14 !important;
+    border: 2px solid #D4AF37 !important;
+    border-radius: 10px !important;
+    font-weight: 800 !important;
+    text-shadow: none !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+}
+
+.btn-calc:hover,
+.btn-reset:hover,
+.btn-primary:hover,
+.unit-btn:hover,
+.action-btn:hover,
+.share-tool-btn:hover,
+button[class*="btn"]:hover {
+    background: #D5D9DE !important;
+    border-color: #FFD700 !important;
+    box-shadow: 0 0 14px rgba(212,175,55,0.5) !important;
+}
+
+/* Keep unit-toggle active state blue */
+.unit-btn.active {
+    background: #2196F3 !important;
+    background-image: none !important;
+    color: #fff !important;
+    border-color: #2196F3 !important;
+}
+
+/* Keep brand colors for special buttons */
+.whatsapp-action,
+button.whatsapp-action { background: #25D366 !important; border: none !important; color: #fff !important; }
+.pdf-action,
+button.pdf-action { background: #0077B5 !important; border: none !important; color: #fff !important; }
+.download-jpg-action,
+button.download-jpg-action { background: #6C5CE7 !important; border: none !important; color: #fff !important; }
+.download-png-action,
+button.download-png-action { background: #F59E0B !important; border: none !important; color: #fff !important; }
+
+/* ============================================ */
+/* INSTALL BAR — Slim height, full width, consistent */
+/* ============================================ */
+#cmInstallBar,
+.install-bar,
+[id*="installBar"],
+[class*="install-bar"],
+[class*="installBar"] {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    padding: 8px 14px !important;
+    margin: 14px 0 !important;
+    line-height: 1.3 !important;
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    border-radius: 10px !important;
+    background: linear-gradient(135deg, #D4AF37, #FFD700) !important;
+    background-color: #D4AF37 !important;
+    color: #0A0F14 !important;
+    border: 1px solid #FFD700 !important;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3) !important;
+}
+
+/* Inner Install button — compact */
+#cmInstallBar button,
+.install-bar button,
+[id*="installBar"] button,
+[class*="install-bar"] button,
+[class*="installBar"] button {
+    padding: 4px 14px !important;
+    font-size: 0.78rem !important;
+    line-height: 1.2 !important;
+    margin-left: 10px !important;
+    height: auto !important;
+    min-height: 0 !important;
+    vertical-align: middle !important;
+    background: #0A0F14 !important;
+    color: #FFD700 !important;
+    border: 2px solid #FFD700 !important;
+    border-radius: 6px !important;
+    font-weight: 800 !important;
+}
+
+/* Mobile — even tighter */
+@media (max-width: 600px) {
+    #cmInstallBar,
+    .install-bar,
+    [id*="installBar"],
+    [class*="install-bar"],
+    [class*="installBar"] {
+        padding: 7px 12px !important;
+        font-size: 0.78rem !important;
+        margin: 10px 0 !important;
+    }
+    #cmInstallBar button,
+    .install-bar button {
+        padding: 4px 12px !important;
+        font-size: 0.75rem !important;
+        margin-left: 8px !important;
+    }
+}
+/* ============================================ */
+/* PEB FIX 1 — Building visual graph: no overlap */
+/* ============================================ */
+#buildingVisual,
+.building-visual,
+.visual-box,
+.building-graph,
+[id*="visual"],
+[class*="visual"],
+[class*="building"] {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 180px !important;
+    overflow: hidden !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+}
+
+/* Labels / headings inside the visual */
+#buildingVisual *,
+.building-visual *,
+.visual-box *,
+.building-graph *,
+[id*="visual"] *,
+[class*="visual"] *,
+[class*="building"] * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+/* Any dimension text labels inside the graph */
+#buildingVisual span,
+#buildingVisual div,
+.building-visual span,
+.building-visual div {
+    line-height: 1.3 !important;
+    font-size: 0.75rem !important;
+    position: relative !important;
+}
+
+/* ============================================ */
+/* PEB FIX 2 — Calculate & Reset buttons stacked vertically */
+/* ============================================ */
+
+/* Container holding both buttons — force vertical stack */
+.btn-row-fixed,
+.buttons-row,
+.button-row,
+.calc-buttons,
+[class*="btn-row"],
+[class*="button-row"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-top: 20px !important;
+    width: 100% !important;
+}
+
+/* Calculate button — full width, taller */
+.btn-calc,
+button.btn-calc,
+#calcBtn,
+#calculateBtn,
+button[onclick*="calcPEB"],
+button[onclick*="calculate"] {
+    width: 100% !important;
+    min-height: 64px !important;
+    height: auto !important;
+    padding: 18px 20px !important;
+    font-size: 1.15rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    background: #C8CDD4 !important;
+    background-image: none !important;
+    color: #0A0F14 !important;
+    border: 2px solid #D4AF37 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2) !important;
+    text-shadow: none !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+}
+
+.btn-calc:hover,
+button.btn-calc:hover,
+#calcBtn:hover,
+button[onclick*="calcPEB"]:hover {
+    background: #D5D9DE !important;
+    border-color: #FFD700 !important;
+    box-shadow: 0 0 18px rgba(212,175,55,0.5) !important;
+}
+
+/* Reset button — full width, shorter height */
+.btn-reset,
+button.btn-reset,
+#resetBtn,
+button[onclick*="resetPEB"] {
+    width: 100% !important;
+    min-height: 46px !important;
+    height: auto !important;
+    padding: 10px 20px !important;
+    font-size: 0.95rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    background: #C8CDD4 !important;
+    background-image: none !important;
+    color: #0A0F14 !important;
+    border: 2px solid #D4AF37 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+    text-shadow: none !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+}
+
+.btn-reset:hover,
+button.btn-reset:hover,
+#resetBtn:hover,
+button[onclick*="resetPEB"]:hover {
+    background: #D5D9DE !important;
+    border-color: #FFD700 !important;
+    box-shadow: 0 0 14px rgba(212,175,55,0.45) !important;
+}
+
+/* Mobile — keep it stacked, slight adjustment */
+@media (max-width: 600px) {
+    .btn-calc,
+    button.btn-calc,
+    #calcBtn,
+    button[onclick*="calcPEB"] {
+        min-height: 58px !important;
+        font-size: 1.05rem !important;
+        padding: 16px 16px !important;
+    }
+    .btn-reset,
+    button.btn-reset,
+    #resetBtn,
+    button[onclick*="resetPEB"] {
+        min-height: 42px !important;
+        font-size: 0.9rem !important;
+        padding: 10px 16px !important;
+    }
+    #buildingVisual,
+    .building-visual,
+    .visual-box,
+    [id*="visual"],
+    [class*="visual"] {
+        min-height: 150px !important;
+        padding: 10px !important;
+    }
+}
+
   </style>
 </head>
 <body>
@@ -338,7 +731,37 @@
           </select>
         </div>
       </div>
-      <div class="checkbox-row"><input type="checkbox" id="pInsulated"><label for="pInsulated" style="margin:0;">Insulated (sandwich panel) roof & walls</label></div>
+      <div class="field">
+  <label>Wind Zone</label>
+  <select id="pWind">
+    <option value="0">Low wind (90 km/h)</option>
+    <option value="1" selected>Inland (110 km/h)</option>
+    <option value="2">Coastal / Cyclonic (130+ km/h)</option>
+  </select>
+</div>
+<div class="field">
+  <label>Collateral Load (roof)</label>
+  <select id="pCollateral">
+    <option value="0">None (bare roof)</option>
+    <option value="1" selected>Light (sprinklers, conduit) ~5 kg/m²</option>
+    <option value="2">Medium (HVAC, ceiling) ~10 kg/m²</option>
+    <option value="3">Heavy (solar panels) ~20 kg/m²</option>
+  </select>
+</div>
+<div class="field">
+  <label>Steel Grade</label>
+  <select id="pSteelGrade">
+    <option value="a36" selected>A36 (250 MPa) — Standard</option>
+    <option value="a572">A572 Gr.50 (345 MPa) — High Strength</option>
+    <option value="s355">S355 (355 MPa) — Premium</option>
+  </select>
+</div>
+<div class="field" style="display:flex; align-items:center; gap:8px;">
+  <input type="checkbox" id="pMezz" style="width:auto;">
+  <label for="pMezz" style="margin:0; cursor:pointer;">Include internal mezzanine (adds ~20% steel)</label>
+</div>
+
+      <div class="checkbox-row"><input type="checkbox" id="pInsulated"><label for="pInsulated" style="margin:0;"> insulated (sandwich panel) roof & walls — for cold storage & temperature-controlled buildings</label></div>
 
       <div class="building-visual">
         <div style="font-size:0.8rem;color:#D4AF37;margin-bottom:10px;font-weight:700;"> BUILDING FOOTPRINT</div>
@@ -408,12 +831,30 @@
       </div>
     </div>
 
-    <!-- Localized Pakistani Text -->
-    <div style="margin:30px 0; padding:24px 20px; background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.3); border-radius:14px; line-height:1.8; font-size:0.95rem; color:#cfd6dd;">
-      <h2 style="font-size:1.2rem; margin-bottom:12px; color:#FFD700;"> Pre-Engineered Steel Buildings (PEB) & Industrial Civil Contracting</h2>
-      <p>Planning an industrial production facility, multi-story factory layout, or logistical hub in Pakistan? Our PEB Material Calculator provides structural steel weight baselines using international AISC configurations, fine-tuned for local construction realities. <strong>ColdMatrix</strong> offers complete turnkey solutions from concrete foundation casting to final structural steel erection.</p>
-      <p style="margin-top:10px;">Contact our <strong>Karachi engineering desk</strong> for site evaluations, soil test matching, and formal commercial bidding documentation.</p>
-    </div>
+<div style="margin:20px 0; padding:24px 20px; background:rgba(255,255,255,0.04); border:2px solid #D4AF37; border-radius:14px; line-height:1.85; font-size:0.92rem; color:#cfd6dd;">
+    <h2 style="font-size:1.1rem; margin-bottom:12px; color:#FFD700;"> Structural Engineering Behind PEB Steel Design</h2>
+
+    <p>Pre-Engineered Buildings (PEB) are designed according to the <strong>MBMA (Metal Building Manufacturers Association)</strong> design philosophy and validated against the local building code — typically <strong>ASCE 7</strong> (US), <strong>Eurocode 3</strong> (Europe), or <strong>UBC 97</strong> (Pakistan and Middle East). These codes define how a steel structure must respond to four primary load types: <strong>Dead Load</strong> (permanent weight of steel, roof, insulation), <strong>Live Load</strong> (temporary loads like workers, maintenance equipment, and collateral loads such as sprinklers or solar panels), <strong>Wind Load</strong> (lateral force from wind on the building envelope), and <strong>Seismic Load</strong> (ground acceleration in earthquake zones).</p>
+
+    <p><strong>Why Wind Load Dominates in Coastal Pakistan:</strong> In areas like Karachi, Port Qasim, and coastal Balochistan, wind speeds can reach 130–150 km/h during cyclonic events. Wind load on a PEB is calculated as <strong>P = 0.00256 × V² × Cd</strong> (in imperial units), where V is the basic wind speed and Cd is the drag coefficient based on building shape and height. A coastal warehouse with a 130 km/h wind zone can require 12–20% more steel than the same building in a 90 km/h inland zone — because the columns, rafters, and bracing must resist the additional lateral force.</p>
+
+    <p><strong>Bay Spacing and Steel Optimization:</strong> The distance between frames directly impacts steel weight. At 6m bay spacing, a typical warehouse uses 10–12 kg/m² of steel. At 8m spacing, the same building needs 9–10 kg/m² — less steel per square meter because fewer frames are needed. However, each frame becomes heavier to handle the increased span. The optimal bay spacing (6–8m for most warehouses) balances fewer frames against heavier members to achieve the lowest total cost.</p>
+
+    <p><strong>Why Higher-Grade Steel Saves Money:</strong> Using A572 Gr.50 (345 MPa yield strength) instead of A36 (250 MPa) allows the structural engineer to use thinner steel sections for the same load capacity — reducing overall steel weight by 12–15%. Although the steel costs slightly more per ton, the total project cost is often lower because fewer tons are needed. This is why our calculator includes a Steel Grade selector that adjusts the estimated weight accordingly.</p>
+
+    <p style="margin-top:14px; font-weight:700; color:#FFD700;"> This calculator applies MBMA-style design factors for wind, crane, and collateral loads — giving you a defensible preliminary estimate for budgeting and structural planning.</p>
+</div>
+
+    <!-- Localized Pakistani Text — PEB & Industrial Contracting -->
+<div style="margin:30px 0; padding:24px 20px; background:rgba(212,175,55,0.06); border:2px solid #D4AF37; border-radius:14px; line-height:1.8; font-size:0.95rem; color:#cfd6dd;">
+  <h2 style="font-size:1.2rem; margin-bottom:12px; color:#FFD700;"> Pre-Engineered Steel Buildings (PEB) & Industrial Civil Contracting in Pakistan</h2>
+  <p>Planning an industrial production facility, multi-story factory layout, or logistical hub in Pakistan? Our PEB Material Calculator provides structural steel weight baselines using international AISC configurations, fine-tuned for local construction realities. <strong>ColdMatrix</strong> offers complete turnkey solutions from concrete foundation casting to final structural steel erection.</p>
+  <p style="margin-top:10px;">Our portfolio covers a wide range of industrial structures — from clear-span warehouses and cold storage PEB halls to factory sheds, textile units, packaging plants, and aircraft hangars. Whether your project is in Karachi, Lahore, Islamabad, Faisalabad, or the industrial corridors of Balochistan, we deliver PEB structures engineered to international standards and fabricated locally for cost efficiency.</p>
+  <p style="margin-top:10px;">We work with premium-grade structural steel (ASTM A36, A572, and equivalent), hot-dip galvanized purlins and girts for corrosion resistance in coastal climates, and precision bolted connections tested for wind and seismic loads. Our in-house fabrication ensures dimensional accuracy, on-time delivery, and strict quality control at every stage — from shop drawings to final bolt torque verification on site.</p>
+  <p style="margin-top:10px;">Every project begins with a <strong>free preliminary consultation</strong>. Our engineers match your building dimensions, crane requirements, and site conditions against real steel pricing — giving you an honest, transparent estimate before you commit to a single rupee.</p>
+  <p style="margin-top:10px;">Contact our <strong>Karachi engineering desk</strong> for site evaluations, soil test matching, formal commercial bidding documentation, and factory-stamped technical drawings ready for submission to your project consultant.</p>
+  <p style="margin-top:14px; font-weight:700; color:#FFD700;"> Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp;  contact@coldmatrixtools.com</p>
+</div>
 
     <!-- Project Gallery -->
     <div style="margin:40px 0 30px;">
@@ -451,147 +892,100 @@
 
   </div>
   
-  <!-- Educational Content (preserved from original) -->
-  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">What Is a PEB Structure?</h2>
-    <p>A Pre-Engineered Building (PEB) is a steel structure that is designed, fabricated, and assembled using standardized sections and components. Unlike conventional buildings that are built piece by piece on site, PEB structures are pre-designed in a factory, then delivered and assembled quickly. They are widely used for warehouses, factories, cold storage, showrooms, and commercial buildings because they offer faster construction, lower cost, and high strength.</p>
-    <p>PEB construction reduces project time significantly — a structure that might take 6-8 months with conventional methods can often be completed in 6-8 weeks with PEB. The steel components are lighter, stronger, and more precise than traditional fabrication, making PEB the preferred choice for industrial and commercial buildings worldwide.</p>
+<!-- EDUCATIONAL CONTENT — CLEANED & MERGED -->
+<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:2px solid #D4AF37;border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+
+    <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;"> Pre-Engineered Buildings (PEB): The Complete Material & Design Guide</h2>
+
+    <p>Pre-Engineered Buildings (PEB) are revolutionizing industrial and commercial construction. Unlike conventional buildings built piece by piece on site, PEBs are designed, fabricated, and assembled using standardized sections and components. This results in faster construction, lower cost, and higher strength — making PEB the preferred choice for warehouses, factories, cold storage, showrooms, and aircraft hangars worldwide.</p>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">What Is a PEB Structure?</h2>
+    <p>A Pre-Engineered Building (PEB) is a steel structure designed, fabricated, and assembled using standardized sections and components. Unlike conventional buildings that are built piece by piece on site, PEB structures are pre-designed in a factory, then delivered and assembled quickly. The primary components include rigid frames, columns, rafters, purlins, girts, bracing, and sheeting. Because the components are pre-engineered, they can be optimized for specific loads and spans — reducing material waste and cost.</p>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Advantages of PEB Over Conventional Construction</h2>
+    <ul style="padding-left:20px;">
+        <li><strong>Faster Construction:</strong> PEBs can be erected in weeks, not months. A typical warehouse can be completed in 6–8 weeks, compared to 6–8 months with conventional methods.</li>
+        <li><strong>Lower Cost:</strong> Optimized design means less steel weight and lower fabrication cost.</li>
+        <li><strong>High Strength & Durability:</strong> Steel's ductility and bolted connections make PEBs safe in seismic zones.</li>
+        <li><strong>Clear Span Flexibility:</strong> Single-span PEBs can achieve 60–70 meters without internal columns.</li>
+        <li><strong>Easy Expansion:</strong> PEBs are designed for future expansion — simply add more bays.</li>
+        <li><strong>Low Maintenance:</strong> Steel requires minimal upkeep compared to wood or concrete.</li>
+    </ul>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Key Components of a PEB</h2>
+    <ul style="padding-left:20px;">
+        <li><strong>Primary Framing:</strong> Columns, rafters, and beams that form the main structural skeleton.</li>
+        <li><strong>Secondary Framing:</strong> Purlins (roof), girts (walls), eave struts, and bracing that support the sheeting.</li>
+        <li><strong>Roof & Wall Sheeting:</strong> Steel panels (single skin or sandwich panels) that provide enclosure and insulation.</li>
+        <li><strong>Bracing Systems:</strong> Diagonal rods or cables that resist wind and seismic forces.</li>
+        <li><strong>Accessories:</strong> Doors, windows, ventilators, gutters, downspouts, and skylights.</li>
+    </ul>
 
     <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">How the PEB Material Calculator Works</h2>
-    <p>This calculator estimates the major material quantities for a PEB based on building dimensions, bay spacing, crane load, and insulation type. It uses typical industry factors to approximate steel weight and sheeting area. The calculations are based on standard PEB design principles and typical material specifications used by manufacturers worldwide.</p>
-    <p>While it gives a reliable preliminary estimate for budgeting and planning, final structural design must be done by a licensed engineer using actual load calculations, soil conditions, and local building codes.</p>
+    <p>This calculator estimates the major material quantities for a PEB based on building dimensions, bay spacing, crane load, and insulation type. It uses typical industry factors to approximate steel weight and sheeting area. The calculations are based on standard PEB design principles and typical material specifications used by manufacturers worldwide. While it gives a reliable preliminary estimate for budgeting and planning, final structural design must be done by a licensed engineer using actual load calculations, soil conditions, and local building codes.</p>
 
     <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Key Inputs Explained</h2>
     <ul style="padding-left:20px;">
-      <li><strong>Length & Width:</strong> Determine the building footprint and roof area. Together they define the total floor space.</li>
-      <li><strong>Eave Height:</strong> Affects wall area and steel column weight. Higher eaves need stronger columns.</li>
-      <li><strong>Bay Spacing:</strong> Smaller spacing means more frames but lighter members; larger spacing means fewer frames but heavier sections. Optimal spacing is usually 6-8 meters.</li>
-      <li><strong>Crane Load:</strong> Adds significant steel for crane girders and stronger columns. Always specify cranes upfront.</li>
-      <li><strong>Insulated Panels:</strong> Increases sheeting weight and cost but required for cold storage and temperature-controlled buildings.</li>
+        <li><strong>Length & Width:</strong> Determine the building footprint and roof area. Together they define the total floor space.</li>
+        <li><strong>Eave Height:</strong> Affects wall area and steel column weight. Higher eaves need stronger columns.</li>
+        <li><strong>Bay Spacing:</strong> Smaller spacing means more frames but lighter members; larger spacing means fewer frames but heavier sections. Optimal spacing is usually 6–8 meters. For heavy cranes or tall buildings, spacing may be reduced to 5 meters to control deflection.</li>
+        <li><strong>Crane Load:</strong> Adds significant steel for crane girders and stronger columns. Always specify cranes upfront.</li>
+        <li><strong>Insulated Panels:</strong> Increases sheeting weight and cost but required for cold storage and temperature-controlled buildings.</li>
     </ul>
 
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Real-World Example</h2>
-    <p>Consider a warehouse PEB with:</p>
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Steel Weight Estimation: The Heart of PEB Cost</h2>
+    <p>Steel weight is the primary cost driver in any PEB. It depends on building dimensions, bay spacing, crane load, insulation type, and local wind/seismic factors. Our calculator uses industry-standard factors to estimate steel tonnage:</p>
     <ul style="padding-left:20px;">
-      <li>Length: 40 m</li>
-      <li>Width / Span: 20 m</li>
-      <li>Eave Height: 6 m</li>
-      <li>Bay Spacing: 6 m</li>
-      <li>No crane</li>
+        <li><strong>Standard warehouse without crane:</strong> 10–12 kg/m²</li>
+        <li><strong>With light crane (up to 5T):</strong> 16–20 kg/m²</li>
+        <li><strong>With medium crane (5–15T):</strong> 22–30 kg/m²</li>
+        <li><strong>Cold storage PEB:</strong> 15–20 kg/m² due to thicker panels and additional structural support</li>
     </ul>
-    <p>Footprint = 40 × 20 = 800 m². Using a typical factor of 10–12 kg/m² for a standard warehouse, estimated steel weight would be around 8 to 10 tons. Sheeting area would include roof plus walls. This gives a quick budget figure before detailed design.</p>
-    <p>Adding a 5T crane would increase steel weight by approximately 25-30%, or 2.5-3 additional tons. Insulated panels would add about 15% to sheeting cost.</p>
+    <p>Always include a safety factor of 10–15% for connections, plates, and field adjustments.</p>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Roof & Wall Sheeting Options</h2>
+    <ul style="padding-left:20px;">
+        <li><strong>Single Skin Steel Sheets:</strong> Economical for warehouses where insulation is not critical. Available in corrugated or trapezoidal profiles.</li>
+        <li><strong>Insulated Sandwich Panels:</strong> For temperature-controlled buildings like cold storage. Provide both insulation and structural support.</li>
+        <li><strong>Standing Seam Roofs:</strong> Premium, weather-tight roofing with concealed fasteners.</li>
+    </ul>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Foundation Considerations</h2>
+    <p>PEB structures require properly designed foundations to transfer loads to the ground. Common foundation types include isolated footings, strip footings, and raft foundations. Soil testing is essential before design. For poor soils, pile foundations may be required. Foundation design is separate from the steel structure and depends entirely on soil conditions at the site.</p>
+
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Real-World Example: 40 m × 20 m × 6 m Warehouse in Karachi</h2>
+    <p>Let's estimate a standard warehouse without crane, using our calculator:</p>
+    <ul style="padding-left:20px;">
+        <li><strong>Footprint area:</strong> 800 m² (40 × 20)</li>
+        <li><strong>Eave height:</strong> 6 m</li>
+        <li><strong>Bay spacing:</strong> 6 m</li>
+        <li><strong>Estimated steel weight:</strong> ~9.6 tons (12 kg/m²)</li>
+        <li><strong>Roof sheeting area:</strong> ~848 m² (including slope)</li>
+        <li><strong>Wall sheeting area:</strong> ~777 m² (perimeter × height)</li>
+    </ul>
+    <p>Adding a 5T crane would increase steel weight by approximately 25–30% — adding 2.5–3 tons to the total. Insulated panels would add about 15% to sheeting cost.</p>
 
     <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Common Mistakes to Avoid</h2>
     <ul style="padding-left:20px;">
-      <li>Forgetting to include crane load — this can increase steel weight by 30% or more.</li>
-      <li>Using only footprint area for walls — wall area requires perimeter × height.</li>
-      <li>Not accounting for insulated panels when the building is for cold storage.</li>
-      <li>Using feet and meters mixed without proper conversion.</li>
-      <li>Ignoring bay spacing optimization — wrong spacing increases steel cost unnecessarily.</li>
-      <li>Not planning for future expansion — PEBs are easy to expand if designed correctly upfront.</li>
+        <li><strong>Forgetting crane load:</strong> This can increase steel weight by 30% or more. Always specify cranes upfront.</li>
+        <li><strong>Using only footprint area for walls:</strong> Wall area requires perimeter × height, not just footprint.</li>
+        <li><strong>Not accounting for insulated panels:</strong> Cold storage PEBs need insulated panels — never skip this check.</li>
+        <li><strong>Mixing feet and meters:</strong> Keep units consistent throughout the calculation.</li>
+        <li><strong>Ignoring bay spacing optimization:</strong> Wrong spacing increases steel cost unnecessarily.</li>
+        <li><strong>Not planning for future expansion:</strong> PEBs are easy to expand if designed correctly upfront.</li>
     </ul>
 
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Frequently Asked Questions (FAQ)</h2>
-    <p><strong>Q: Is this calculator accurate enough for ordering steel?</strong><br>
-    A: No, it's for preliminary estimates. Final ordering requires detailed structural design by a licensed engineer.</p>
-    <p><strong>Q: Can I use it for cold storage PEB?</strong><br>
-    A: Yes, check the insulated panel option and combine with our Cold Storage Calculator for complete estimation.</p>
-    <p><strong>Q: Does it include foundation?</strong><br>
-    A: No, it estimates steel and sheeting only. Foundation design is separate and depends on soil conditions.</p>
-    <p><strong>Q: What's the typical steel weight per square meter for a warehouse?</strong><br>
-    A: Standard warehouse without crane: 10-12 kg/m². With crane: 20-35 kg/m². Cold storage: 15-20 kg/m².</p>
-    <p><strong>Q: How much does a PEB warehouse cost?</strong><br>
-    A: Typically $25-45 per sqm for standard warehouse (excluding foundation). This varies by location, steel prices, and specifications.</p>
-    <p><strong>Q: What's the maximum clear span for PEB?</strong><br>
-    A: Single-span PEBs can achieve clear spans of 60-70 meters. Beyond that, multi-span or truss systems are more economical.</p>
-    <p><strong>Q: Are PEBs safe in earthquakes?</strong><br>
-    A: Yes. Steel's ductility and bolted connections make PEBs among the safest structures in seismic zones. Proper bracing design is essential.</p>
-    <p><strong>Q: How long does PEB construction take?</strong><br>
-    A: Typically 4-8 weeks from foundation completion, compared to 4-8 months for conventional construction.</p>
-  </div>
+    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Frequently Asked Questions</h2>
+    <p><strong>Q: Is this calculator accurate enough for ordering steel?</strong><br>A: No, it's for preliminary estimates only. Final ordering requires detailed structural design by a licensed engineer.</p>
+    <p><strong>Q: Can I use it for cold storage PEB?</strong><br>A: Yes. Check the insulated panel option and combine with our Cold Storage Calculator for a complete estimation.</p>
+    <p><strong>Q: Does it include foundation?</strong><br>A: No. It estimates steel and sheeting only. Foundation design is separate and depends on soil conditions.</p>
+    <p><strong>Q: What's the typical steel weight per square meter?</strong><br>A: Standard warehouse without crane: 10–12 kg/m². With crane: 20–35 kg/m². Cold storage: 15–20 kg/m².</p>
+    <p><strong>Q: How much does a PEB warehouse cost?</strong><br>A: Typically $25–45 per m² for a standard warehouse (excluding foundation). This varies by location, steel prices, and specifications.</p>
+    <p><strong>Q: What's the maximum clear span for PEB?</strong><br>A: Single-span PEBs achieve 60–70 meters. Beyond that, multi-span or truss systems are more economical.</p>
+    <p><strong>Q: Are PEBs safe in earthquakes?</strong><br>A: Yes. Steel's ductility and bolted connections make PEBs among the safest structures in seismic zones. Proper bracing design is essential.</p>
+    <p><strong>Q: How long does PEB construction take?</strong><br>A: Typically 4–8 weeks from foundation completion — compared to 4–8 months for conventional construction.</p>
 
-<!-- DEEP DIVE GUIDE: Pre-Engineered Building (PEB) Materials & Design -->
-<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;"> Pre-Engineered Buildings (PEB): The Complete Material & Design Guide</h2>
-
-  <p>Pre-Engineered Buildings (PEB) are revolutionizing industrial and commercial construction. Unlike conventional buildings built piece by piece on site, PEBs are designed, fabricated, and assembled using standardized sections and components. This results in faster construction, lower cost, and higher strength — making PEB the preferred choice for warehouses, factories, cold storage, showrooms, and aircraft hangars.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">1. What Is a PEB Structure?</h3>
-  <p>A PEB is a steel structure that is designed in a factory, then delivered and assembled quickly. The primary components include rigid frames, columns, rafters, purlins, girts, bracing, and sheeting. Because the components are pre-engineered, they can be optimized for the specific loads and spans, reducing material waste and cost.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">2. Advantages of PEB Over Conventional Construction</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Faster Construction:</strong> PEBs can be erected in weeks, not months. A typical warehouse can be completed in 6–8 weeks.</li>
-    <li><strong>Lower Cost:</strong> Optimized design means less steel weight and lower fabrication cost.</li>
-    <li><strong>High Strength & Durability:</strong> Steel's ductility and bolted connections make PEBs safe in seismic zones.</li>
-    <li><strong>Clear Span Flexibility:</strong> Single-span PEBs can achieve 60–70 meters without internal columns.</li>
-    <li><strong>Easy Expansion:</strong> PEBs are designed for future expansion — simply add more bays.</li>
-    <li><strong>Low Maintenance:</strong> Steel requires minimal upkeep compared to wood or concrete.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">3. Key Components of a PEB</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Primary Framing:</strong> Columns, rafters, and beams that form the main structural skeleton.</li>
-    <li><strong>Secondary Framing:</strong> Purlins (roof), girts (walls), eave struts, and bracing that support the sheeting.</li>
-    <li><strong>Roof & Wall Sheeting:</strong> Steel panels (single skin or sandwich panels) that provide enclosure and insulation.</li>
-    <li><strong>Bracing Systems:</strong> Diagonal rods or cables that resist wind and seismic forces.</li>
-    <li><strong>Accessories:</strong> Doors, windows, ventilators, gutters, downspouts, and skylights.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">4. Steel Weight Estimation: The Heart of PEB Cost</h3>
-  <p>Steel weight is the primary cost driver in any PEB. It depends on building dimensions, bay spacing, crane load, insulation type, and local wind/seismic factors. Our calculator uses industry-standard factors to estimate steel tonnage:</p>
-  <ul style="padding-left:20px;">
-    <li><strong>Standard warehouse without crane:</strong> 10–12 kg/m²</li>
-    <li><strong>With light crane (up to 5T):</strong> 16–20 kg/m²</li>
-    <li><strong>With medium crane (5–15T):</strong> 22–30 kg/m²</li>
-    <li><strong>Cold storage PEB:</strong> 15–20 kg/m² due to thicker panels and additional structural support</li>
-  </ul>
-  <p>Always include a safety factor of 10–15% for connections, plates, and field adjustments.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">5. Bay Spacing & Its Impact on Steel Usage</h3>
-  <p>Bay spacing is the distance between two adjacent frames. Smaller spacing means more frames but lighter members; larger spacing means fewer frames but heavier sections. Optimal spacing is usually 6–8 meters for standard warehouses. For heavy cranes or tall buildings, spacing may be reduced to 5 meters to control deflection.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">6. Roof & Wall Sheeting Options</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Single Skin Steel Sheets:</strong> Economical for warehouses where insulation is not critical. Available in corrugated or trapezoidal profiles.</li>
-    <li><strong>Insulated Sandwich Panels:</strong> For temperature-controlled buildings like cold storage. Provide both insulation and structural support.</li>
-    <li><strong>Standing Seam Roofs:</strong> Premium, weather-tight roofing with concealed fasteners.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">7. Foundation Considerations</h3>
-  <p>PEB structures require properly designed foundations to transfer loads to the ground. Common foundation types include isolated footings, strip footings, and raft foundations. Soil testing is essential before design. For poor soils, pile foundations may be required.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">8. Real-World Example: 40m × 20m × 6m Warehouse in Karachi</h3>
-  <p>Let's estimate a standard warehouse without crane, using our calculator:</p>
-  <ul style="padding-left:20px;">
-    <li><strong>Footprint area:</strong> 800 m²</li>
-    <li><strong>Eave height:</strong> 6 m</li>
-    <li><strong>Bay spacing:</strong> 6 m</li>
-    <li><strong>Estimated steel weight:</strong> ~9.6 tons (12 kg/m²)</li>
-    <li><strong>Roof sheeting area:</strong> ~848 m² (including slope)</li>
-    <li><strong>Wall sheeting area:</strong> ~777 m²</li>
-  </ul>
-  <p>Adding a 5T crane would increase steel weight by 25–30%.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">9. Common Mistakes to Avoid</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Forgetting crane load:</strong> This can increase steel by 30% or more.</li>
-    <li><strong>Underestimating bay spacing impact:</strong> Wrong spacing increases cost unnecessarily.</li>
-    <li><strong>Ignoring insulation for cold storage:</strong> Always check panel option for temperature-controlled buildings.</li>
-    <li><strong>Mixing units:</strong> Keep length and weight units consistent.</li>
-    <li><strong>Not planning for expansion:</strong> PEBs are easy to expand if designed correctly upfront.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">10. Extended FAQ – PEB Deep Dive</h3>
-  <p><strong>Q: Is this calculator accurate enough for ordering steel?</strong><br>A: No, it's for preliminary estimates. Final design requires licensed structural engineer.</p>
-  <p><strong>Q: Can I use it for cold storage PEB?</strong><br>A: Yes, check the insulated panel option and combine with Cold Storage Calculator.</p>
-  <p><strong>Q: Does it include foundation?</strong><br>A: No, foundation design is separate and depends on soil conditions.</p>
-  <p><strong>Q: What's the maximum clear span for PEB?</strong><br>A: 60–70 meters single-span. Beyond that, multi-span or truss systems are more economical.</p>
-  <p><strong>Q: Are PEBs safe in earthquakes?</strong><br>A: Yes, steel's ductility and bolted connections make them among the safest structures in seismic zones.</p>
-  <p><strong>Q: How long does PEB construction take?</strong><br>A: Typically 4–8 weeks from foundation completion.</p>
-
-  <p style="margin-top:15px; font-weight:700; color:#FFD700;"> This guide, combined with our free calculator, gives you a solid foundation for PEB planning.</p>
+    <p style="margin-top:18px;font-weight:700;color:#FFD700;"> This guide, combined with our free calculator, gives you a solid foundation for PEB planning — from concept to construction.</p>
 </div>
 
   <!-- Related tools -->
@@ -742,56 +1136,80 @@
       document.getElementById(id).addEventListener('input', updateBuildingVisual);
     });
 
-    function calcPEB(){
-      let L = parseFloat(document.getElementById('pLen').value) || 0;
-      let W = parseFloat(document.getElementById('pWid').value) || 0;
-      let H = parseFloat(document.getElementById('pHt').value) || 0;
-      const crane = parseInt(document.getElementById('pCrane').value);
-      const insulated = document.getElementById('pInsulated').checked;
-      const steelRate = parseFloat(document.getElementById('pSteelRate').value) || 0;
-      const sheetRate = parseFloat(document.getElementById('pSheetRate').value) || 0;
-      const sym = document.getElementById('pCurrency').value;
+function calcPEB(){
+  let L = parseFloat(document.getElementById('pLen').value) || 0;
+  let W = parseFloat(document.getElementById('pWid').value) || 0;
+  let H = parseFloat(document.getElementById('pHt').value) || 0;
+  const crane = parseInt(document.getElementById('pCrane').value);
+  const wind = parseInt(document.getElementById('pWind')?.value || 0);
+  const collateral = parseInt(document.getElementById('pCollateral')?.value || 0);
+  const steelGrade = document.getElementById('pSteelGrade')?.value || 'a36';
+  const mezz = document.getElementById('pMezz')?.checked || false;
+  const insulated = document.getElementById('pInsulated').checked;
+  const steelRate = parseFloat(document.getElementById('pSteelRate').value) || 0;
+  const sheetRate = parseFloat(document.getElementById('pSheetRate').value) || 0;
+  const sym = document.getElementById('pCurrency').value;
 
-      L = toMeter(L); W = toMeter(W); H = toMeter(H);
-      const footprint = L * W;
+  L = toMeter(L); W = toMeter(W); H = toMeter(H);
+  const footprint = L * W;
 
-      let factor = 10 + (W - 15) * 0.35 + (H - 5) * 0.6;
-      if(factor < 9) factor = 9;
-      if(crane === 1) factor += 6;
-      if(crane === 2) factor += 14;
+  // ---- Base steel factor ----
+  let factor = 10 + (W - 15) * 0.35 + (H - 5) * 0.6;
+  if(factor < 9) factor = 9;
 
-      const steelKg = footprint * factor;
-      const roofArea = footprint * 1.06;
-      const perimeter = 2 * (L + W);
-      const wallArea = perimeter * H * 1.08;
-      const totalSheetArea = roofArea + wallArea;
+  // ---- Crane load ----
+  if(crane === 1) factor += 6;
+  if(crane === 2) factor += 14;
 
-      const steelCost = steelKg * steelRate;
-      const sheetCost = totalSheetArea * sheetRate;
-      const totalCost = steelCost + sheetCost;
+  // ---- NEW: Wind zone multiplier ----
+  if(wind === 1) factor *= 1.05;      // Inland 110 km/h
+  else if(wind === 2) factor *= 1.12; // Coastal / Cyclonic 130+ km/h
 
-      const footprintDisp = fromSqMeter(footprint);
-      const roofDisp = fromSqMeter(roofArea);
-      const wallDisp = fromSqMeter(wallArea);
-      const steelDisp = fromKg(steelKg);
-      const steelTonsDisp = fromTons(steelKg);
-      const costDisp = (steelRate || sheetRate) ? (sym + ' ' + Math.round(totalCost).toLocaleString()) : '—';
+  // ---- NEW: Collateral load (roof-only weight) ----
+  if(collateral === 1) factor += 1.5;  // Light
+  else if(collateral === 2) factor += 3; // Medium
+  else if(collateral === 3) factor += 6; // Heavy (solar panels)
 
-      document.getElementById('rFootprint').textContent = footprintDisp.toFixed(1);
-      document.getElementById('rSteel').textContent = steelDisp.toFixed(1);
-      document.getElementById('rSteelTons').textContent = steelTonsDisp.toFixed(3);
-      document.getElementById('rRoof').textContent = roofDisp.toFixed(1);
-      document.getElementById('rWall').textContent = wallDisp.toFixed(1);
-      document.getElementById('rTotalCost').textContent = costDisp;
-      document.getElementById('pebResultCard').style.display = 'block';
-      document.getElementById('shareCapture').style.display = 'none';
+  // ---- NEW: Mezzanine ----
+  if(mezz) factor *= 1.20;
 
-      document.getElementById('pvFootprint').textContent = footprintDisp.toFixed(1) + ' ' + (document.getElementById('lengthUnit').value === 'meter' ? 'sqm' : 'sqft');
-      document.getElementById('pvSteel').textContent = steelDisp.toFixed(1) + ' ' + (document.getElementById('weightDisplay').value === 'kgton' ? 'kg' : 'lb') + ' / ' + steelTonsDisp.toFixed(3) + ' ' + (document.getElementById('weightDisplay').value === 'kgton' ? 'tons' : 'short tons');
-      document.getElementById('pvRoof').textContent = roofDisp.toFixed(1) + ' ' + (document.getElementById('lengthUnit').value === 'meter' ? 'sqm' : 'sqft');
-      document.getElementById('pvWall').textContent = wallDisp.toFixed(1) + ' ' + (document.getElementById('lengthUnit').value === 'meter' ? 'sqm' : 'sqft');
-      document.getElementById('pvTotalCost').textContent = costDisp;
-    }
+  // ---- NEW: Steel grade (higher grade = lighter sections) ----
+  if(steelGrade === 'a572') factor *= 0.88;
+  else if(steelGrade === 's355') factor *= 0.85;
+
+  // ---- Steel weight & sheeting area (original logic) ----
+  const steelKg = footprint * factor;
+  const roofArea = footprint * 1.06;
+  const perimeter = 2 * (L + W);
+  const wallArea = perimeter * H * 1.08;
+  const totalSheetArea = roofArea + wallArea;
+
+  const steelCost = steelKg * steelRate;
+  const sheetCost = totalSheetArea * sheetRate;
+  const totalCost = steelCost + sheetCost;
+
+  const footprintDisp = fromSqMeter(footprint);
+  const roofDisp = fromSqMeter(roofArea);
+  const wallDisp = fromSqMeter(wallArea);
+  const steelDisp = fromKg(steelKg);
+  const steelTonsDisp = fromTons(steelKg);
+  const costDisp = (steelRate || sheetRate) ? (sym + ' ' + Math.round(totalCost).toLocaleString()) : '—';
+
+  document.getElementById('rFootprint').textContent = footprintDisp.toFixed(1);
+  document.getElementById('rSteel').textContent = steelDisp.toFixed(1);
+  document.getElementById('rSteelTons').textContent = steelTonsDisp.toFixed(3);
+  document.getElementById('rRoof').textContent = roofDisp.toFixed(1);
+  document.getElementById('rWall').textContent = wallDisp.toFixed(1);
+  document.getElementById('rTotalCost').textContent = costDisp;
+  document.getElementById('pebResultCard').style.display = 'block';
+  document.getElementById('shareCapture').style.display = 'none';
+
+  document.getElementById('pvFootprint').textContent = footprintDisp.toFixed(1) + ' ' + (document.getElementById('lengthUnit').value === 'meter' ? 'sqm' : 'sqft');
+  document.getElementById('pvSteel').textContent = steelDisp.toFixed(1) + ' ' + (document.getElementById('weightDisplay').value === 'kgton' ? 'kg' : 'lb') + ' / ' + steelTonsDisp.toFixed(3) + ' ' + (document.getElementById('weightDisplay').value === 'kgton' ? 'tons' : 'short tons');
+  document.getElementById('pvRoof').textContent = roofDisp.toFixed(1) + ' ' + (document.getElementById('lengthUnit').value === 'meter' ? 'sqm' : 'sqft');
+  document.getElementById('pvWall').textContent = wallDisp.toFixed(1) + ' ' + (document.getElementById('lengthUnit').value === 'meter' ? 'sqm' : 'sqft');
+  document.getElementById('pvTotalCost').textContent = costDisp;
+}
 
     function resetPEBForm() {
       document.getElementById('pLen').value = 40;
@@ -809,7 +1227,7 @@
       updateLabels();
       updateBuildingVisual();
       window.scrollTo({top:0, behavior:'smooth'});
-    }
+    } 
 
     async function captureCanvas(){
       const el = document.getElementById('shareCapture');

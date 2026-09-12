@@ -29,7 +29,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -40,11 +40,11 @@
   <style>
     :root {
       --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
-      --text:#EAEDF0; --muted:#A0B0C0; --accent:#4FC3F7; --accent-glow:rgba(79,195,247,0.35);
-      --gradient:linear-gradient(135deg,#4FC3F7,#2196F3);
+      --text:#EAEDF0; --muted:#A0B0C0; --accent:#D4AF37; --accent-glow:rgba(212,175,55,0.35);
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
       --silver-bg: #C8CDD4;
       --silver-bg-hover: #D5D9DE;
+      --silver-gradient: linear-gradient(145deg, #D5D9DE, #C8CDD4);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -55,67 +55,100 @@
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 800px; margin:0 auto; padding:0 20px; }
-    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:10px 0; flex-wrap:wrap; }
     .logo { font-size:1.2rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.9rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
-    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:10px 16px; border-radius:8px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:10px; font-weight:600; cursor:pointer; }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--gold); text-decoration:none; font-weight:600; font-size:0.85rem; }
 
-    h1 { font-size:1.8rem; font-weight:800; margin-bottom:4px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    /* GOLDEN INSTALL BAR */
+    .install-bar {
+      display: block;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14; text-align: center;
+      padding: 10px 16px; border-radius: 10px; margin: 14px 0;
+      font-weight: 700; font-size: 0.85rem;
+      border: 1px solid #FFD700;
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+    }
+    .install-bar button {
+      background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+      padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+      font-weight: 800; cursor: pointer; font-size: 0.8rem;
+    }
+
+    h1 { font-size:1.8rem; font-weight:800; margin-bottom:4px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; line-height: 1.25; }
     h1 .icon { font-size:2rem; }
     h1 .coldmatrix { color: var(--gold-bright); }
     h1 .title { color: var(--gold-bright); }
-    .subtitle {
-      color: #FFFFFF; font-weight: 500; margin-bottom:22px; font-size:0.95rem;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-    }
+    .subtitle { color:#FFFFFF; font-weight:500; margin-bottom:22px; font-size:0.95rem; }
 
-    .share-tool-card{
+    .share-tool-card {
       background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
       border: 2px solid;
       border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
-      border-radius:12px; padding:22px 20px; margin-bottom:26px;
-      box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+      border-radius:12px; padding:18px 20px; margin-bottom:22px;
+      box-shadow: 0 10px 34px rgba(0,0,0,0.55);
     }
-    .share-tool-title{font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase;}
-    .share-tool-buttons{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-    .share-tool-btn{
+    .share-tool-title { font-weight:800; font-size:1rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:14px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .share-tool-btn {
       display:flex; align-items:center; justify-content:center; gap:9px;
-      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
-      background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+      padding:13px; border-radius:10px; font-weight:700; font-size:0.88rem; cursor:pointer;
+      background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
       transition:all 0.25s ease;
     }
-    .share-tool-btn:hover{ border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
-    .share-tool-btn.wa{ border-color:rgba(37,211,102,0.55); }
-    .share-tool-btn.wa:hover{ border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-    .share-tool-btn i{font-size:1rem;}
+    .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover { border-color:#25D366; }
+    .share-tool-btn i { font-size:1rem; }
 
-    .card { background:var(--surface); border:1px solid var(--gold); border-radius:14px; padding:20px; margin-bottom:18px; position:relative; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
-    .card h2 { font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:600; margin-bottom:14px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px; }
+    /* ============================================ */
+    /* SILVER CARD — Premium input container */
+    /* ============================================ */
+    .card {
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 22px 20px;
+      margin-bottom: 18px;
+      position: relative;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .card h2 {
+      font-family:'Oswald',sans-serif; font-size:1rem; font-weight:700;
+      margin-bottom:14px; color:#0A0F14; text-transform:uppercase;
+      letter-spacing:0.5px; border-bottom: 2px solid var(--gold);
+      padding-bottom: 10px;
+    }
 
+    /* Mode toggle — dark for contrast against silver cards */
     .mode-toggle { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
     .mode-btn {
       display:flex; align-items:center; justify-content:center; gap:8px;
       padding:15px 10px; border-radius:12px; font-weight:700; font-size:0.92rem;
       cursor:pointer; background:var(--surface2); color:#EAEDF0;
       border:2px solid var(--gold); transition:all .25s;
-      text-shadow:0 1px 2px rgba(0,0,0,0.6);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 4px 12px rgba(0,0,0,0.3);
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
     }
     .mode-btn i { font-size:1.1rem; color:var(--gold-bright); }
-    .mode-btn.active { background:var(--silver-bg); color:#0A0F14; border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); text-shadow:none; }
+    .mode-btn.active { background:var(--silver-bg); color:#0A0F14; border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); }
     .mode-btn.active i { color:#0A0F14; }
 
-    /* FIX 2: All QR type buttons as proper rectangles */
+    /* QR TYPE BUTTONS — Dark with colored icons on silver card */
     .qr-type-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:18px; }
     .qr-type-btn {
-      padding:14px 8px; border:2px solid var(--gold); background:var(--surface2);
-      color:#EAEDF0; border-radius:12px; font-weight:700; font-size:0.85rem;
-      cursor:pointer; text-align:center; transition:all 0.25s; position:relative;
+      padding:14px 8px; border:2px solid var(--gold); background:#0A0F14;
+      color:#EAEDF0; border-radius:12px; font-weight:700; font-size:0.82rem;
+      cursor:pointer; text-align:center; transition:all 0.25s;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
     }
     .qr-type-btn i { display:block; font-size:1.5rem; margin-bottom:6px; }
     .qr-type-btn[data-type="url"] i { color: #4FC3F7; }
@@ -126,130 +159,380 @@
     .qr-type-btn[data-type="contact"] i { color: #AB47BC; }
     .qr-type-btn[data-type="map"] i { color: #26A69A; }
     .qr-type-btn[data-type="sms"] i { color: #FF7043; }
-    .qr-type-btn[data-type="text"] i { color: #78909C; }
-    .qr-type-btn:hover { border-color:var(--gold-bright); transform: translateY(-2px); background:rgba(212,175,55,0.1); }
+    .qr-type-btn[data-type="text"] i { color: #90A4AE; }
+    .qr-type-btn:hover { border-color:var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 15px var(--gold-glow); }
     .qr-type-btn.active {
-      border-color:var(--gold-bright); background:var(--silver-bg);
-      color:#0A0F14; box-shadow:0 5px 15px rgba(212,175,55,0.5); transform:translateY(-3px);
+      border-color:var(--gold-bright); background: var(--gold);
+      color:#0A0F14; box-shadow:0 5px 18px rgba(212,175,55,0.6); transform:translateY(-3px);
     }
     .qr-type-btn.active i { color:#0A0F14 !important; }
 
+    /* ============================================ */
+    /* WHITE INPUTS with GOLDEN border on silver card */
+    /* ============================================ */
     .field { margin-bottom:14px; }
-    .field label { display:block; font-size:0.85rem; color:#FFFFFF; margin-bottom:4px; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
+    .field label { display:block; font-size:0.85rem; color:#0A0F14; margin-bottom:5px; font-weight:700; }
     .field input, .field textarea, .field select {
-      width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
-      padding:11px 13px; border-radius:10px; font-size:0.95rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+      width:100%; background: #FFFFFF; border:2px solid var(--gold); color: #0A0F14;
+      padding:12px 14px; border-radius:10px; font-size:0.95rem; font-weight: 600;
+      font-family: 'Inter', sans-serif;
     }
     .field input:focus, .field textarea:focus, .field select:focus {
-      outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow);
+      outline:none; border-color: var(--gold-bright); box-shadow: 0 0 15px var(--gold-glow);
     }
+    .field input::placeholder, .field textarea::placeholder { color:#8B98A5; font-weight: 500; }
+
+    /* BIG GOLDEN DROPDOWN ARROW */
     .field select {
       appearance:none; -webkit-appearance:none; -moz-appearance:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M2 2 L10 10 L18 2' fill='none' stroke='%23D4AF37' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat:no-repeat; background-position:right 14px center; background-size:20px 12px;
-      padding-right:44px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14' viewBox='0 0 22 14'%3E%3Cpath d='M2 3 L11 11 L20 3' fill='none' stroke='%23D4AF37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 14px center; background-size:22px 14px;
+      padding-right:48px;
     }
+    .field select option { background:#FFFFFF; color:#0A0F14; font-weight: 600; }
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
+    /* ============================================ */
+    /* STACKED BUTTONS — Generate tall, Reset short */
+    /* ============================================ */
+    .btn-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+
     .btn-generate {
-      width:100%; background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
-      padding:16px; border-radius:12px; font-weight:800; font-size:1.05rem; cursor:pointer;
-      margin-top:6px; letter-spacing:0.5px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      width:100%;
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border: 2px solid var(--gold);
+      min-height: 64px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-family:'Oswald',sans-serif;
+      font-weight: 900;
+      font-size: 1.15rem;
+      cursor:pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
       transition:all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
-    .btn-generate:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
+    .btn-generate:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
+
     .btn-reset {
-      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
-      padding:16px 18px; border-radius:12px; font-weight:800; font-size:0.9rem; cursor:pointer;
-      white-space:nowrap;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      width:100%;
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border: 2px solid var(--gold);
+      min-height: 46px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-family:'Oswald',sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor:pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
       transition:all 0.25s ease;
-      align-self: stretch;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
-    .btn-reset:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+    .btn-reset:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform:translateY(-2px); }
 
     .qr-result { text-align:center; margin-top:22px; display:none; }
-    .qr-code-wrapper { background:#fff; display:inline-block; padding:18px; border-radius:16px; margin-bottom:14px; box-shadow:0 0 35px var(--accent-glow); }
+    .qr-code-wrapper { background:#fff; display:inline-block; padding:18px; border-radius:16px; margin-bottom:14px; box-shadow:0 0 35px var(--gold-glow); border: 2px solid var(--gold); }
 
     .share-bar { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:18px 0; }
-    .share-btn { display:flex; align-items:center; gap:6px; padding:11px 18px; border-radius:8px; font-weight:700; font-size:0.85rem; cursor:pointer; border:none; text-decoration:none; color:#fff; }
-    .share-whatsapp { background:#25D366; }
-    .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:#545860; color:#fff; border:1px solid var(--gold); }
+    .share-btn {
+      display:flex; align-items:center; gap:6px; padding:12px 18px;
+      border-radius:10px; font-family:'Oswald',sans-serif; font-weight:700;
+      font-size:0.82rem; cursor:pointer; text-decoration:none; color:#fff;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      transition: all 0.25s ease;
+    }
+    .share-btn:hover { transform: translateY(-2px); }
+    .share-whatsapp { background:#25D366; border:none; }
+    .share-pdf { background:#E53935; border:none; }
+    .share-jpg, .share-png { background: var(--silver-bg); color:#0A0F14; border:2px solid var(--gold); }
 
     #shareCapture { display:none; }
 
+    /* ============================================ */
+    /* SILVER EDUCATIONAL CONTENT — Narrow + Table fix */
+    /* ============================================ */
     .detail-section {
-      margin-top:40px; padding:30px 24px;
-      background: var(--silver-bg);
-      border:2px solid var(--gold);
-      border-radius:16px;
-      line-height:1.8; font-size:0.95rem; color:#0A0F14;
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 30px 24px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.85;
+      font-size: 0.95rem;
     }
-    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
-    .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
-    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
+    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.35rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; font-weight: 800; }
+    .detail-section h3 { color:#0A0F14; font-size:1.1rem; margin:22px 0 10px; font-weight: 800; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; color: #0A0F14; font-weight: 500; }
     .detail-section ul, .detail-section ol { padding-left:24px; }
     .detail-section li { margin-bottom:6px; }
-    .detail-section strong { color:#0A0F14; }
+    .detail-section strong { color:#0A0F14; font-weight: 800; }
 
-    .lead-capture {
-      background: rgba(15,22,32,0.9);
+    /* Table styling */
+    .detail-section table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.85rem; }
+    .detail-section table th { background: #0A0F14; color: #FFD700; text-align: left; padding: 10px 8px; font-weight: 800; }
+    .detail-section table td { color: #0A0F14; padding: 10px 8px; border-bottom: 1px solid rgba(212,175,55,0.3); font-weight: 600; }
+
+    /* Pakistani block */
+    .pakistani-block {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 24px 20px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
       border: 2px solid var(--gold);
-      border-radius: 14px;
-      padding: 28px 24px;
-      margin: 30px 0;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      border-radius: 16px;
+      color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
     }
-    .lead-capture h3 { font-family:'Oswald',sans-serif; color:var(--gold-bright); font-size:1.25rem; margin-bottom:14px; letter-spacing:0.5px; }
-    .lead-capture p { color:#c5cdd6; margin-bottom:18px; font-size:0.9rem; }
-    .lead-capture form { display:flex; flex-direction:column; gap:12px; }
-    .lead-capture input[type="email"] { background:#0e1520; border:1.5px solid rgba(212,175,55,0.6); border-radius:8px; padding:12px 16px; color:#fff; font-size:0.95rem; outline:none; }
-    .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.3); }
-    .lead-capture button { background:var(--silver-bg); border:none; border-radius:8px; padding:12px 20px; font-weight:700; font-size:0.95rem; color:#0A0F14; cursor:pointer; transition:background 0.25s; letter-spacing:0.5px; }
-    .lead-capture button:hover { background:var(--silver-bg-hover); box-shadow:0 0 20px rgba(212,175,55,0.5); }
+    .pakistani-block h2 { color:#0A0F14; font-family:'Oswald',sans-serif; font-size:1.2rem; margin-bottom:12px; font-weight: 800; }
+    .pakistani-block p { color: #0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color: #0A0F14; font-weight: 800; }
 
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
-    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:44px; height:44px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+    /* Related tools */
+    .related-tools-section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+    }
+    .related-tools-section h3 { color: #FFD700; font-size:1rem; margin-bottom:10px; }
+    .related-tools-section a {
+      color: #4FC3F7; text-decoration: none;
+      background: rgba(79,195,247,0.1);
+      padding: 8px 16px; border-radius: 20px;
+      font-size: 0.85rem; font-weight: 600;
+      display: inline-block; margin: 4px 4px 4px 0;
+    }
+
+    /* Disclaimer box */
+    .disclaimer-box {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 16px 18px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      font-size: 0.85rem; color: #0A0F14;
+      line-height: 1.7; font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    /* Lead capture — silver */
+    .lead-capture {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 28px 24px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .lead-capture h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.2rem; margin-bottom:12px; letter-spacing: 0.5px; font-weight: 800; }
+    .lead-capture p { color:#0A0F14; margin-bottom:16px; font-size:0.9rem; font-weight: 500; }
+    .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+    .lead-capture input[type="email"] {
+      background: #FFFFFF; border: 2px solid var(--gold); border-radius: 10px;
+      padding: 12px 16px; color: #0A0F14; font-size: 0.95rem;
+      font-weight: 600; outline: none;
+    }
+    .lead-capture input[type="email"]:focus { border-color: var(--gold-bright); box-shadow: 0 0 12px var(--gold-glow); }
+    .lead-capture button {
+      background: var(--silver-bg); border: 2px solid var(--gold); border-radius: 10px;
+      padding: 14px 20px; font-family: 'Oswald', sans-serif; font-weight: 800;
+      font-size: 0.95rem; color: #0A0F14; cursor: pointer;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      transition: all 0.25s ease;
+    }
+    .lead-capture button:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 20px var(--gold-glow); }
+
+    /* Scan panes — subtle silver theme */
+    .scan-subtabs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+    .scan-subtab {
+      padding: 12px 8px; border-radius:10px; font-family: 'Oswald', sans-serif;
+      font-weight: 700; font-size: 0.82rem; cursor:pointer;
+      background: #0A0F14; color:#EAEDF0; border:2px solid var(--gold);
+      text-align: center; letter-spacing: 0.4px; text-transform: uppercase;
+      transition: all 0.25s;
+    }
+    .scan-subtab.active { background: var(--gold); color:#0A0F14; border-color: var(--gold-bright); }
+
+    .camera-wrap { position:relative; border-radius:14px; overflow:hidden; background:#000; aspect-ratio:1/1; max-width:360px; margin:0 auto; display:none; }
+    .camera-wrap video { width:100%; height:100%; object-fit:cover; display:block; }
+    .viewfinder { position:absolute; inset:14%; border:3px solid rgba(212,175,55,0.9); border-radius:16px; box-shadow:0 0 0 999px rgba(0,0,0,0.35); pointer-events:none; }
+    .scan-line { position:absolute; left:14%; right:14%; height:2px; background:linear-gradient(90deg,transparent,#FFD700,transparent); top:14%; animation:scanmove 2.2s linear infinite; box-shadow:0 0 10px #FFD700; }
+    @keyframes scanmove{0%{top:14%}50%{top:86%}100%{top:14%}}
+
+    .camera-controls { display:flex; gap:8px; justify-content:center; margin-top:14px; flex-wrap:wrap; }
+    .cam-btn {
+      padding: 11px 18px; border-radius:12px; font-family: 'Oswald', sans-serif;
+      font-weight: 700; font-size: 0.85rem; cursor:pointer;
+      border: 2px solid var(--gold); background: var(--silver-bg);
+      color: #0A0F14; display: flex; align-items: center; gap: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .cam-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); }
+    .cam-status { text-align:center; font-size:0.78rem; color:#0A0F14; margin-top:10px; min-height:1.2em; font-weight: 600; }
+
+    .scan-drop-area { border:2px dashed var(--gold); border-radius:12px; padding:30px 16px; text-align:center; cursor:pointer; transition:.25s; background: #FFFFFF; }
+    .scan-drop-area:hover, .scan-drop-area.drag-over { border-color:var(--gold-bright); background: #F5F5F5; }
+    .scan-drop-area i { font-size:2rem; color:var(--gold); }
+    .scan-drop-area p { color: #0A0F14; margin-top:8px; font-size:0.85rem; font-weight: 600; }
+    #scanUploadPreview { max-width:100%; border-radius:10px; margin-top:14px; display:none; }
+
+    .scan-result { display:none; margin-top:20px; background: #FFFFFF; border: 2px solid var(--gold); border-radius:14px; padding:18px; }
+    .scan-result-format { display:inline-block; background: rgba(212,175,55,0.15); color: #B8952B; font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 8px; margin-bottom: 10px; }
+    .scan-result-text { background: #F5F5F5; border: 1px solid rgba(212,175,55,0.4); border-radius: 10px; padding: 12px 14px; font-size: 0.9rem; word-break: break-all; margin-bottom: 14px; color: #0A0F14; font-weight: 500; max-height: 140px; overflow-y: auto; }
+    .scan-actions { display:flex; flex-wrap:wrap; gap: 8px; }
+    .scan-action-btn { flex:1; min-width:110px; display:flex; align-items:center; justify-content:center; gap:6px; padding:11px 10px; border-radius:10px; font-family: 'Oswald', sans-serif; font-weight: 700; font-size:0.82rem; cursor:pointer; color:#fff; letter-spacing: 0.4px; text-transform: uppercase; transition: all 0.25s ease; }
+    .scan-action-btn:hover { transform: translateY(-2px); }
+    .scan-action-btn.primary { background: var(--silver-bg); color: #0A0F14; border: 2px solid var(--gold); }
+    .scan-action-btn.wa { background: #25D366; border: none; }
+    .scan-action-btn.neutral { background: #0A0F14; color: #EAEDF0; border: 2px solid var(--gold); }
+
+    .scan-history { margin-top:16px; }
+    .scan-history p { color: #0A0F14; font-weight: 700; }
+    .scan-history-item { display:flex; justify-content:space-between; align-items:center; gap:8px; background: #FFFFFF; border: 1px solid rgba(212,175,55,0.4); border-radius:8px; padding:8px 10px; font-size:0.78rem; color: #4a4d55; margin-bottom:6px; }
+    .scan-history-item span.h-text { flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color: #0A0F14; font-weight: 500; }
+    .scan-history-item button { background: none; border: none; color: #B8952B; cursor: pointer; font-size: 0.75rem; font-weight: 700; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:2px solid var(--gold); margin-top:50px; }
+    footer a { color:var(--gold-bright); text-decoration:none; font-weight: 600; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
     @media (max-width:500px) {
       .qr-type-grid { grid-template-columns:repeat(3, 1fr); gap:6px; }
-      .qr-type-btn { padding:10px 5px; font-size:0.7rem; }
-      .qr-type-btn i { font-size:1.2rem; }
+      .qr-type-btn { padding:11px 5px; font-size:0.68rem; }
+      .qr-type-btn i { font-size:1.25rem; }
       .row2 { grid-template-columns:1fr; }
+      .detail-section, .pakistani-block, .lead-capture { padding: 20px 16px; }
+      .detail-section h2 { font-size: 1.15rem; }
+      h1 { font-size: 1.4rem; }
     }
+    /* ============================================ */
+/* FIX — Educational content stays inside screen with margins */
+/* ============================================ */
 
-    .scan-subtabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
-    .scan-subtab{padding:11px 8px;border-radius:10px;font-weight:700;font-size:0.82rem;cursor:pointer;background:var(--surface2);color:#EAEDF0;border:2px solid var(--gold);text-align:center;transition:.2s;}
-    .scan-subtab.active{background:var(--silver-bg);color:#0A0F14;border-color:var(--gold-bright);}
-    .camera-wrap{position:relative;border-radius:14px;overflow:hidden;background:#000;aspect-ratio:1/1;max-width:360px;margin:0 auto;display:none;}
-    .camera-wrap video{width:100%;height:100%;object-fit:cover;display:block;}
-    .viewfinder{position:absolute;inset:14%;border:3px solid rgba(79,195,247,0.85);border-radius:16px;box-shadow:0 0 0 999px rgba(0,0,0,0.35);pointer-events:none;}
-    .scan-line{position:absolute;left:14%;right:14%;height:2px;background:linear-gradient(90deg,transparent,#4FC3F7,transparent);top:14%;animation:scanmove 2.2s linear infinite;box-shadow:0 0 10px #4FC3F7;}
-    @keyframes scanmove{0%{top:14%}50%{top:86%}100%{top:14%}}
-    .camera-controls{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap;}
-    .cam-btn{padding:10px 18px;border-radius:12px;font-weight:700;font-size:0.85rem;cursor:pointer;border:2px solid var(--gold);background:var(--silver-bg);color:#0A0F14;display:flex;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(0,0,0,0.35);}
-    .cam-btn.primary{background:var(--silver-bg);color:#0A0F14;border:2px solid var(--gold);}
-    .cam-status{text-align:center;font-size:0.78rem;color:var(--muted);margin-top:10px;min-height:1.2em;}
-    .scan-drop-area{border:2px dashed var(--gold);border-radius:12px;padding:30px 16px;text-align:center;cursor:pointer;transition:.25s;background:var(--surface2);}
-    .scan-drop-area:hover, .scan-drop-area.drag-over{border-color:var(--gold-bright);background:rgba(212,175,55,0.06);}
-    .scan-drop-area i{font-size:2rem;color:var(--gold-bright);}
-    .scan-drop-area p{color:#EAEDF0;margin-top:8px;font-size:0.85rem;font-weight:600;}
-    #scanUploadPreview{max-width:100%;border-radius:10px;margin-top:14px;display:none;}
-    .scan-result{display:none;margin-top:20px;background:var(--surface2);border:1.5px solid var(--gold);border-radius:14px;padding:18px;}
-    .scan-result-format{display:inline-block;background:rgba(79,195,247,0.15);color:var(--accent);font-weight:700;font-size:0.72rem;letter-spacing:0.5px;text-transform:uppercase;padding:4px 12px;border-radius:8px;margin-bottom:10px;}
-    .scan-result-text{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:0.9rem;word-break:break-all;margin-bottom:14px;color:var(--text);max-height:140px;overflow-y:auto;}
-    .scan-actions{display:flex;flex-wrap:wrap;gap:8px;}
-    .scan-action-btn{flex:1;min-width:110px;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 10px;border-radius:10px;font-weight:700;font-size:0.82rem;cursor:pointer;border:none;color:#fff;}
-    .scan-action-btn.primary{background:var(--silver-bg);color:#0A0F14;border:2px solid var(--gold);}
-    .scan-action-btn.wa{background:#25D366;}
-    .scan-action-btn.neutral{background:var(--surface);color:var(--text);border:1px solid var(--border);}
-    .scan-history{margin-top:16px;}
-    .scan-history-item{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:0.78rem;color:var(--muted);margin-bottom:6px;}
-    .scan-history-item span.h-text{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text);}
-    .scan-history-item button{background:none;border:none;color:var(--accent);cursor:pointer;font-size:0.75rem;font-weight:600;}
+/* Desktop: side margins so blocks don't touch viewport edges */
+.detail-section,
+.pakistani-block,
+.related-tools-section,
+.disclaimer-box,
+.lead-capture {
+  margin-left: 20px !important;
+  margin-right: 20px !important;
+}
+
+/* Wider screens: center with max-width */
+@media (min-width: 841px) {
+  .detail-section,
+  .pakistani-block,
+  .related-tools-section,
+  .disclaimer-box,
+  .lead-capture {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 800px !important;
+  }
+}
+
+/* Mobile: proper padding inside the border */
+@media (max-width: 840px) {
+  .detail-section,
+  .pakistani-block,
+  .lead-capture {
+    margin: 20px 12px !important;
+    padding: 20px 16px !important;
+  }
+  .related-tools-section,
+  .disclaimer-box {
+    margin: 16px 12px !important;
+    padding: 16px 14px !important;
+  }
+  .detail-section h2 {
+    font-size: 1.15rem !important;
+    line-height: 1.35 !important;
+  }
+  .detail-section h3 {
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+  .detail-section p,
+  .detail-section li {
+    font-size: 0.92rem !important;
+    line-height: 1.7 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+}
+/* ============================================ */
+/* HERO — Premium title + subtitle box */
+/* ============================================ */
+h1 {
+  background: #C8CDD4 !important;
+  background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4) !important;
+  border: 2px solid #D4AF37 !important;
+  border-radius: 14px 14px 0 0 !important;
+  padding: 16px 20px !important;
+  margin-bottom: 0 !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7) !important;
+  color: #0A0F14 !important;
+  text-shadow: none !important;
+  font-size: 1.5rem !important;
+  line-height: 1.3 !important;
+}
+h1 .coldmatrix,
+h1 .title {
+  color: #B8952B !important;
+  text-shadow: none !important;
+}
+h1 .icon {
+  color: #D4AF37 !important;
+}
+
+.subtitle {
+  background: #C8CDD4 !important;
+  background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4) !important;
+  border: 2px solid #D4AF37 !important;
+  border-top: none !important;
+  border-radius: 0 0 14px 14px !important;
+  padding: 14px 20px !important;
+  margin-bottom: 22px !important;
+  color: #0A0F14 !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  text-shadow: none !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5) !important;
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 1.15rem !important; padding: 14px 16px !important; }
+  .subtitle { font-size: 0.78rem !important; padding: 12px 16px !important; }
+}
   </style>
   <script type="application/ld+json">
   {
@@ -260,38 +543,6 @@
     "applicationCategory": "UtilityApplication",
     "description": "Generate 9 types of QR codes and scan QR codes & barcodes with camera or image upload.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Is the QR & Barcode Studio free?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, 100% free, no registration, and works offline after first load."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I scan barcodes with this tool?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes — the camera scanner supports common 1D and 2D barcode formats."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Which QR type should I use for my business card?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use the Contact (vCard) type to let people save your details instantly."
-        }
-      }
-    ]
   }
   </script>
 </head>
@@ -318,13 +569,12 @@
     <h1>
       <span class="icon">📱</span>
       <span class="coldmatrix">ColdMatrix</span>
-      <span class="title">QR & Barcode Studio</span>
+      <span class="title">QR &amp; Barcode Studio</span>
     </h1>
-    <p class="subtitle">Generate QR codes for websites, WhatsApp, phone, email, Wi-Fi, contacts, maps, SMS, and text — then scan or read any QR code or barcode using your camera or an uploaded image. Two powerful tools in one complete studio.</p>
+<p class="subtitle">Generate 9 types of QR codes — and scan any QR or barcode instantly.</p>
 
-    <!-- FIX 1: Share card moved above mode toggle, near title -->
     <div class="share-tool-card">
-      <div class="share-tool-title">Share QR & Barcode Studio</div>
+      <div class="share-tool-title">Share QR &amp; Barcode Studio</div>
       <div class="share-tool-buttons">
         <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
@@ -354,15 +604,15 @@
 
         <div id="dynamicFields"></div>
 
-        <div style="display:flex; gap:10px; align-items:stretch;">
-          <button class="btn-generate" style="flex:1;" onclick="generateQR()">Generate QR Code</button>
+        <div class="btn-stack">
+          <button class="btn-generate" onclick="generateQR()">⚡ Generate QR Code</button>
           <button class="btn-reset" onclick="resetGenerator()">↺ Reset</button>
         </div>
 
         <div class="qr-result" id="qrResult">
           <div class="qr-code-wrapper" id="qrCodeBox"></div>
           <div class="share-bar" id="shareBarWrap" style="display:none;">
-            <span style="width:100%; text-align:center; font-size:0.8rem; color:var(--muted); margin-bottom:2px;">📋 Take your QR code:</span>
+            <span style="width:100%; text-align:center; font-size:0.8rem; color:#0A0F14; margin-bottom:2px; font-weight: 700;">📋 Take your QR code:</span>
             <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
             <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
             <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
@@ -374,7 +624,7 @@
 
     <div id="scannerSection" style="display:none;">
       <div class="card">
-        <h2>Scan / Read — QR Code & Barcode</h2>
+        <h2>Scan / Read — QR Code &amp; Barcode</h2>
         <div class="scan-subtabs" id="scanSubtabs">
           <button class="scan-subtab active" data-scanmode="camera"><i class="fa-solid fa-video"></i> Camera Scan</button>
           <button class="scan-subtab" data-scanmode="upload"><i class="fa-solid fa-upload"></i> Upload Image</button>
@@ -410,7 +660,7 @@
         </div>
 
         <div class="scan-history" id="scanHistoryWrap" style="display:none;">
-          <p style="font-size:0.78rem;color:var(--muted);margin-bottom:8px;font-weight:600;">RECENT SCANS (this session)</p>
+          <p style="font-size:0.78rem;color:#0A0F14;margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">RECENT SCANS (this session)</p>
           <div id="scanHistoryList"></div>
         </div>
       </div>
@@ -418,7 +668,7 @@
 
     <div id="shareCapture">
       <div style="background:#fff;color:#111;border-radius:12px;padding:24px;font-family:'Inter',sans-serif;width:340px; text-align:center;">
-        <div style="font-size:1.2rem;font-weight:800;color:#0A0F14;margin-bottom:10px;">📱 <span style="color:#2196F3;">ColdMatrix</span> QR Code</div>
+        <div style="font-size:1.2rem;font-weight:800;color:#0A0F14;margin-bottom:10px;">📱 <span style="color:#D4AF37;">ColdMatrix</span> QR Code</div>
         <div id="pvQrImg" style="display:inline-block; padding:8px; background:#fff; border-radius:10px; margin-bottom:10px;"></div>
         <div style="font-size:0.8rem; color:#555; margin-bottom:8px;" id="pvType"></div>
         <div style="font-size:0.7rem;color:#888;margin-top:14px;border-top:1px solid #eee;padding-top:10px;">
@@ -429,107 +679,144 @@
     </div>
   </div>
 
-<!-- ENHANCED EDUCATIONAL CONTENT -->
-<div class="detail-section">
-  <h2>📖 The Complete QR & Barcode Studio Guide</h2>
-  <p>ColdMatrix QR & Barcode Studio is a comprehensive two-in-one platform for creating and reading codes. Whether you need to generate a QR code for your website, WhatsApp, Wi-Fi network, or contact details — or you need to scan an existing QR code or barcode — this tool handles everything with speed and precision.</p>
+  <!-- ============================================ -->
+  <!-- EDUCATIONAL CONTENT — SILVER, NARROW, NO DUPLICATION -->
+  <!-- ============================================ -->
+  <div class="detail-section">
+    <h2>📖 The Complete QR &amp; Barcode Studio Guide</h2>
 
-  <h3>What Is a QR Code?</h3>
-  <p>A QR code (Quick Response code) is a two-dimensional barcode that can store information — URLs, phone numbers, text, Wi-Fi credentials, contact details, and more. When scanned with a smartphone camera, the QR code instantly triggers an action: opening a website, calling a number, connecting to Wi-Fi, or saving a contact.</p>
+    <p>ColdMatrix QR &amp; Barcode Studio is a comprehensive two-in-one platform for creating and reading codes. Whether you need to generate a QR code for your website, WhatsApp, Wi-Fi network, or contact details — or you need to scan an existing QR code or barcode — this tool handles everything with speed and precision.</p>
 
-  <h3>What Is a Barcode?</h3>
-  <p>A barcode is a visual representation of data in the form of parallel lines (1D barcode) or geometric patterns (2D barcode). Barcodes are used extensively in retail for product identification, inventory management, and point-of-sale systems. This studio supports scanning both QR codes and common barcode formats.</p>
+    <h3>What Is a QR Code?</h3>
+    <p>A QR code (Quick Response code) is a two-dimensional barcode that can store information — URLs, phone numbers, text, Wi-Fi credentials, contact details, and more. When scanned with a smartphone camera, the QR code instantly triggers an action: opening a website, calling a number, connecting to Wi-Fi, or saving a contact.</p>
 
-  <h3>Complete Feature List</h3>
-  <ul>
-    <li><strong>9 QR Code Types:</strong> Website URL, WhatsApp, Phone, Email, Wi-Fi, Contact (vCard), Maps, SMS, and Plain Text.</li>
-    <li><strong>Live Camera Scanner:</strong> Real-time QR and barcode scanning using your device camera.</li>
-    <li><strong>Image Upload Scanner:</strong> Decode codes from saved images or screenshots.</li>
-    <li><strong>Smart Actions:</strong> Open links, call numbers, send emails, save contacts, copy Wi-Fi passwords, or search Google.</li>
-    <li><strong>Download & Share:</strong> Export as PDF, JPG, or PNG, and share on WhatsApp.</li>
-    <li><strong>Scan History:</strong> Keeps recent scans for quick access during your session.</li>
-    <li><strong>High-Quality QR Codes:</strong> Uses error correction level H (30%) — QR codes remain scannable even if partially damaged.</li>
-    <li><strong>100% Free:</strong> No registration, no hidden fees, no watermarks.</li>
-  </ul>
+    <h3>What Is a Barcode?</h3>
+    <p>A barcode is a visual representation of data in the form of parallel lines (1D barcode) or geometric patterns (2D barcode). Barcodes are used extensively in retail for product identification, inventory management, and point-of-sale systems. This studio supports scanning both QR codes and common barcode formats.</p>
 
-  <h3>The 9 QR Code Types Explained</h3>
-  <ul>
-    <li><strong>🌐 Website URL:</strong> Create a QR code that opens any website when scanned. Perfect for marketing materials, product packaging, and business cards.</li>
-    <li><strong>💬 WhatsApp:</strong> Generate a QR code that opens a WhatsApp chat with a specific phone number — optionally with a pre-filled message. Ideal for customer support and lead generation.</li>
-    <li><strong>📞 Phone:</strong> Create a QR code that initiates a phone call when scanned. Great for real estate signs, service businesses, and contact cards.</li>
-    <li><strong>✉️ Email:</strong> Generate a QR code that opens the email app with a pre-filled recipient, subject, and message. Perfect for feedback forms and inquiries.</li>
-    <li><strong>📶 Wi-Fi:</strong> Create a QR code that automatically connects devices to your Wi-Fi network without typing the password. Ideal for cafés, hotels, offices, and homes.</li>
-    <li><strong>👤 Contact (vCard):</strong> Generate a QR code that saves your full contact details (name, phone, email, company, title) directly to the scanner's phone.</li>
-    <li><strong>📍 Maps:</strong> Create a QR code that opens a specific GPS location in Google Maps. Perfect for event invitations and business locations.</li>
-    <li><strong>💬 SMS:</strong> Generate a QR code that opens the messaging app with a pre-filled number and message. Great for voting, subscriptions, and quick responses.</li>
-    <li><strong>📝 Text:</strong> Create a QR code that displays plain text when scanned — useful for notes, instructions, or hidden messages.</li>
-  </ul>
+    <h3>Complete Feature List</h3>
+    <ul>
+      <li><strong>9 QR Code Types:</strong> Website URL, WhatsApp, Phone, Email, Wi-Fi, Contact (vCard), Maps, SMS, and Plain Text.</li>
+      <li><strong>Live Camera Scanner:</strong> Real-time QR and barcode scanning using your device camera.</li>
+      <li><strong>Image Upload Scanner:</strong> Decode codes from saved images or screenshots.</li>
+      <li><strong>Smart Actions:</strong> Open links, call numbers, send emails, save contacts, copy Wi-Fi passwords, or search Google.</li>
+      <li><strong>Download &amp; Share:</strong> Export as PDF, JPG, or PNG, and share on WhatsApp.</li>
+      <li><strong>Scan History:</strong> Keeps recent scans for quick access during your session.</li>
+      <li><strong>High-Quality QR Codes:</strong> Uses error correction level H (30%) — QR codes remain scannable even if partially damaged.</li>
+      <li><strong>100% Free:</strong> No registration, no hidden fees, no watermarks.</li>
+    </ul>
 
-  <h3>How to Generate a QR Code</h3>
-  <ol>
-    <li>Select the QR type from the grid (Website, WhatsApp, Phone, Email, Wi-Fi, Contact, Maps, SMS, or Text).</li>
-    <li>Fill in the required fields that appear.</li>
-    <li>Click <strong>"Generate QR Code"</strong>.</li>
-    <li>Your QR code appears instantly in the preview box.</li>
-    <li>Download as PDF, JPG, or PNG — or share directly on WhatsApp.</li>
-  </ol>
+    <h3>The 9 QR Code Types Explained</h3>
+    <ul>
+      <li><strong>🌐 Website URL:</strong> Opens any website when scanned. Perfect for marketing materials, product packaging, and business cards.</li>
+      <li><strong>💬 WhatsApp:</strong> Opens a WhatsApp chat with a specific phone number — optionally with a pre-filled message. Ideal for customer support and lead generation.</li>
+      <li><strong>📞 Phone:</strong> Initiates a phone call when scanned. Great for real estate signs, service businesses, and contact cards.</li>
+      <li><strong>✉️ Email:</strong> Opens the email app with pre-filled recipient, subject, and message. Perfect for feedback forms and inquiries.</li>
+      <li><strong>📶 Wi-Fi:</strong> Automatically connects devices to your Wi-Fi network without typing the password. Ideal for cafés, hotels, offices, and homes.</li>
+      <li><strong>👤 Contact (vCard):</strong> Saves your full contact details (name, phone, email, company, title) directly to the scanner's phone.</li>
+      <li><strong>📍 Maps:</strong> Opens a specific GPS location in Google Maps. Perfect for event invitations and business locations.</li>
+      <li><strong>💬 SMS:</strong> Opens the messaging app with pre-filled number and message. Great for voting, subscriptions, and quick responses.</li>
+      <li><strong>📝 Text:</strong> Displays plain text when scanned — useful for notes, instructions, or hidden messages.</li>
+    </ul>
 
-  <h3>How to Scan a QR Code or Barcode</h3>
-  <ol>
-    <li>Click the <strong>"Scan / Read Code"</strong> tab.</li>
-    <li>Choose <strong>Camera Scan</strong> or <strong>Upload Image</strong>.</li>
-    <li>For camera scan: Tap "Start Camera" and point at the code. The scanner will detect it automatically.</li>
-    <li>For upload: Select an image containing the QR code or barcode.</li>
-    <li>Once detected, you'll see the decoded content with smart action buttons.</li>
-  </ol>
+    <h3>How to Generate a QR Code</h3>
+    <ol>
+      <li>Select the QR type from the grid.</li>
+      <li>Fill in the required fields that appear.</li>
+      <li>Click <strong>"Generate QR Code"</strong>.</li>
+      <li>Your QR code appears instantly in the preview box.</li>
+      <li>Download as PDF, JPG, or PNG — or share directly on WhatsApp.</li>
+    </ol>
 
-  <h3>Where QR & Barcode Codes Are Used</h3>
-  <ul>
-    <li><strong>Retail & E-commerce:</strong> Product barcodes for checkout, inventory tracking, and QR codes for product information.</li>
-    <li><strong>Marketing & Advertising:</strong> QR codes on flyers, business cards, posters, and advertisements linking to websites or offers.</li>
-    <li><strong>Hospitality:</strong> Wi-Fi QR codes for guests, digital menus, contactless payments, and room service.</li>
-    <li><strong>Healthcare:</strong> Patient identification wristbands, medication tracking, and appointment reminders.</li>
-    <li><strong>Logistics & Warehousing:</strong> Package tracking, shipping labels, and inventory management.</li>
-    <li><strong>Education:</strong> Quick links to learning resources, attendance tracking, and assignment submission.</li>
-    <li><strong>Events:</strong> Digital tickets, check-in codes, and networking contact exchange.</li>
-    <li><strong>Personal Use:</strong> Share Wi-Fi passwords with guests, share contact details, or link to social media profiles.</li>
-  </ul>
+    <h3>How to Scan a QR Code or Barcode</h3>
+    <ol>
+      <li>Click the <strong>"Scan / Read Code"</strong> tab.</li>
+      <li>Choose <strong>Camera Scan</strong> or <strong>Upload Image</strong>.</li>
+      <li>For camera scan: Tap "Start Camera" and point at the code. The scanner will detect it automatically.</li>
+      <li>For upload: Select an image containing the QR code or barcode.</li>
+      <li>Once detected, you'll see the decoded content with smart action buttons.</li>
+    </ol>
 
-  <h3>Tips for Creating Effective QR Codes</h3>
-  <ul>
-    <li><strong>Test before printing:</strong> Always scan your QR code with multiple devices before mass printing.</li>
-    <li><strong>Use sufficient size:</strong> For print, keep QR codes at least 2cm × 2cm (0.8 × 0.8 inches).</li>
-    <li><strong>Maintain contrast:</strong> Dark code on light background works best. Avoid inverted colors.</li>
-    <li><strong>Leave quiet zone:</strong> Keep a clear margin around the QR code (at least 4 modules wide).</li>
-    <li><strong>Use correct data:</strong> Double-check URLs, phone numbers, and email addresses before generating.</li>
-    <li><strong>Track your codes:</strong> Use URL shorteners with tracking if you want to monitor scan analytics.</li>
-  </ul>
+    <h3>Where QR &amp; Barcode Codes Are Used</h3>
+    <ul>
+      <li><strong>Retail &amp; E-commerce:</strong> Product barcodes for checkout, inventory tracking, and QR codes for product info.</li>
+      <li><strong>Marketing &amp; Advertising:</strong> QR codes on flyers, business cards, posters, and ads linking to websites or offers.</li>
+      <li><strong>Hospitality:</strong> Wi-Fi QR codes for guests, digital menus, contactless payments, and room service.</li>
+      <li><strong>Healthcare:</strong> Patient identification wristbands, medication tracking, and appointment reminders.</li>
+      <li><strong>Logistics &amp; Warehousing:</strong> Package tracking, shipping labels, and inventory management.</li>
+      <li><strong>Education:</strong> Quick links to learning resources, attendance tracking, and assignment submission.</li>
+      <li><strong>Events:</strong> Digital tickets, check-in codes, and networking contact exchange.</li>
+      <li><strong>Personal Use:</strong> Share Wi-Fi passwords with guests, share contact details, or link to social media.</li>
+    </ul>
 
-  <h3>Tips for Scanning Codes Successfully</h3>
-  <ul>
-    <li><strong>Good lighting:</strong> Ensure the code is well-lit and not in shadow.</li>
-    <li><strong>Steady hand:</strong> Hold the camera steady for a moment to allow detection.</li>
-    <li><strong>Fill the frame:</strong> Position the code within the viewfinder area.</li>
-    <li><strong>Clean camera lens:</strong> A smudged lens can prevent successful scanning.</li>
-    <li><strong>Use upload for screenshots:</strong> If scanning from a screen, use the Upload Image option for better results.</li>
-  </ul>
+    <h3>Tips for Creating Effective QR Codes</h3>
+    <ul>
+      <li><strong>Test before printing:</strong> Always scan your QR code with multiple devices before mass printing.</li>
+      <li><strong>Use sufficient size:</strong> For print, keep QR codes at least 2cm × 2cm (0.8 × 0.8 inches).</li>
+      <li><strong>Maintain contrast:</strong> Dark code on light background works best. Avoid inverted colors.</li>
+      <li><strong>Leave quiet zone:</strong> Keep a clear margin around the QR code (at least 4 modules wide).</li>
+      <li><strong>Use correct data:</strong> Double-check URLs, phone numbers, and email addresses before generating.</li>
+      <li><strong>Track your codes:</strong> Use URL shorteners with tracking if you want to monitor scan analytics.</li>
+    </ul>
 
-  <h3>Frequently Asked Questions</h3>
-  <p><strong>Is the QR & Barcode Studio free?</strong><br>Yes, 100% free, no registration, and works offline after first load.</p>
-  <p><strong>Can I scan barcodes with this tool?</strong><br>Yes — the camera scanner supports common 1D and 2D barcode formats including EAN, UPC, Code 128, Code 39, and more.</p>
-  <p><strong>Which QR type should I use for my business card?</strong><br>Use the Contact (vCard) type to let people save your details instantly.</p>
-  <p><strong>Can I generate a Wi-Fi QR code for my home?</strong><br>Yes, select the Wi-Fi type, enter your network name and password, and generate. Guests can scan to connect instantly.</p>
-  <p><strong>What is the maximum data a QR code can hold?</strong><br>A standard QR code can hold up to 3KB of data — about 4,296 alphanumeric characters or 7,089 numeric characters.</p>
-  <p><strong>Does the QR code expire?</strong><br>No, QR codes do not expire. As long as the underlying data (URL, phone number, etc.) remains valid, the code works forever.</p>
-  <p><strong>Can I use the generated QR code commercially?</strong><br>Yes, all QR codes generated are royalty-free and can be used for any commercial or personal purpose.</p>
-  <p><strong>What if my QR code doesn't scan?</strong><br>Ensure sufficient contrast, adequate size, and test with multiple devices. Try regenerating with simpler data if issues persist.</p>
+    <h3>Tips for Scanning Codes Successfully</h3>
+    <ul>
+      <li><strong>Good lighting:</strong> Ensure the code is well-lit and not in shadow.</li>
+      <li><strong>Steady hand:</strong> Hold the camera steady for a moment to allow detection.</li>
+      <li><strong>Fill the frame:</strong> Position the code within the viewfinder area.</li>
+      <li><strong>Clean camera lens:</strong> A smudged lens can prevent successful scanning.</li>
+      <li><strong>Use upload for screenshots:</strong> If scanning from a screen, use the Upload Image option for better results.</li>
+    </ul>
 
-  <h3>Why Choose ColdMatrix QR & Barcode Studio?</h3>
-  <p>It's the most complete QR tool available — combining a full-featured QR generator with a professional-grade scanner. The premium silver and gold interface makes it a pleasure to use, while the high-quality QR output ensures your codes work reliably everywhere. Whether for business or personal use, this studio has everything you need in one place.</p>
+    <h3>Frequently Asked Questions</h3>
+    <p><strong>Is the QR &amp; Barcode Studio free?</strong><br>A: Yes, 100% free, no registration, and works offline after first load.</p>
+    <p><strong>Can I scan barcodes with this tool?</strong><br>A: Yes — the camera scanner supports common 1D and 2D barcode formats including EAN, UPC, Code 128, Code 39, and more.</p>
+    <p><strong>Which QR type should I use for my business card?</strong><br>A: Use the Contact (vCard) type to let people save your details instantly.</p>
+    <p><strong>Can I generate a Wi-Fi QR code for my home?</strong><br>A: Yes, select the Wi-Fi type, enter your network name and password, and generate. Guests can scan to connect instantly.</p>
+    <p><strong>What is the maximum data a QR code can hold?</strong><br>A: A standard QR code can hold up to 3KB of data — about 4,296 alphanumeric characters or 7,089 numeric characters.</p>
+    <p><strong>Does the QR code expire?</strong><br>A: No, QR codes do not expire. As long as the underlying data remains valid, the code works forever.</p>
+    <p><strong>Can I use the generated QR code commercially?</strong><br>A: Yes, all QR codes generated are royalty-free and can be used for any commercial or personal purpose.</p>
+    <p><strong>What if my QR code doesn't scan?</strong><br>A: Ensure sufficient contrast, adequate size, and test with multiple devices. Try regenerating with simpler data if issues persist.</p>
 
-  <p><strong>Disclaimer:</strong> QR codes and barcodes generated or scanned with this tool are for general use. Always verify critical codes with official sources.</p>
-</div>
+    <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ This studio combines a full-featured QR generator with a professional-grade scanner — everything you need in one premium tool.</p>
+  </div>
 
+  <!-- ============================================ -->
+  <!-- PAKISTANI SERVICES BLOCK — SILVER -->
+  <!-- ============================================ -->
+  <div class="pakistani-block">
+    <h2>🇵🇰 ColdMatrix Advanced Solutions — Serving Pakistan's Business &amp; Engineering Community</h2>
+    <p>Our QR &amp; Barcode Studio is used daily by retailers, restaurateurs, event organizers, and business owners across Pakistan. But we do more than digital tools — <strong>ColdMatrix Advanced Solutions</strong> is a full-service engineering and construction firm serving Pakistan from Karachi to Islamabad, Lahore to Balochistan.</p>
+    <p>Whether you need QR codes for <strong>product packaging, Wi-Fi access for your café, or contact cards for your team</strong> — or engineering and construction support for your PEB warehouse, cold storage facility, or sandwich panel building — we're here to help. We deliver <strong>PEB structures, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong> across Pakistan with international engineering standards and honest local pricing.</p>
+    <p>Contact our <strong>Karachi engineering desk</strong> for project quotations, material verification, structural drawings, and factory-stamped documentation.</p>
+    <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- RELATED TOOLS -->
+  <!-- ============================================ -->
+  <div class="related-tools-section">
+    <h3>🔗 Related Tools You Might Need</h3>
+    <div>
+      <a href="quotation-generator.html">📄 Quotation &amp; Invoice Maker</a>
+      <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+      <a href="unit-converter.html">📏 Unit Converter</a>
+      <a href="profit-margin-calculator.html">💰 Profit Margin Calculator</a>
+      <a href="age-calculator.html">🎂 Age Calculator</a>
+      <a href="roi-calculator.html">📈 ROI Calculator</a>
+      <a href="startup-cost-calculator.html">🚀 Startup Cost Planner</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- DISCLAIMER — SILVER -->
+  <!-- ============================================ -->
+  <div class="disclaimer-box">
+    <strong>⚠️ Disclaimer:</strong> QR codes and barcodes generated or scanned with this tool are for general use. All generation and scanning happens locally in your browser — no data is uploaded. Always verify critical codes with official sources before commercial use.
+  </div>
+
+  <!-- ============================================ -->
+  <!-- LEAD CAPTURE — SILVER -->
+  <!-- ============================================ -->
   <div class="lead-capture">
     <h3>🚀 Need a Custom QR Solution?</h3>
     <p>Get tailored QR tools, dashboards, or automation for your business. Leave your email and we'll reach out with a free consultation.</p>
@@ -541,18 +828,17 @@
     </form>
   </div>
 
-<!-- Combined Footer + Floating WhatsApp -->
-<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" style="position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem;">
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
-</a>
+  </a>
 
-<footer style="background:rgba(10,15,20,0.9); border-top:2px solid #D4AF37; padding:30px 20px; margin-top:50px; text-align:center;">
-    <!-- Contact Info -->
+<footer>
     <div style="margin-bottom:15px;">
         <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
         <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
         <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
-            📞 <strong>Call / WhatsApp:</strong> 
+            📞 <strong>Call / WhatsApp:</strong>
             <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
             <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
                 <i class="fa-brands fa-whatsapp"></i>
@@ -560,15 +846,13 @@
         </p>
     </div>
 
-    <!-- Legal Links -->
     <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
     </div>
 
-    <!-- Copyright -->
     <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
 
@@ -670,6 +954,10 @@
       document.getElementById('qrResult').style.display = 'none';
       document.getElementById('shareBarWrap').style.display = 'none';
       document.getElementById('qrCodeBox').innerHTML = '';
+      if(currentType === 'url') {
+        const urlInput = document.getElementById('urlInput');
+        if(urlInput) urlInput.value = 'https://coldmatrixtools.com';
+      }
     }
 
     document.getElementById('qrTypeGrid').addEventListener('click', function(e) {
@@ -918,42 +1206,42 @@
       const addBtn = (label, icon, cls, onClick) => {
         const b = document.createElement('button');
         b.className = 'scan-action-btn ' + cls;
-        b.innerHTML = `<i class="fa-solid ${icon}"></i> ${label}`;
+        b.innerHTML = `<i class="${icon}"></i> ${label}`;
         b.onclick = onClick;
         row.appendChild(b);
       };
 
-      addBtn('Copy Text', 'fa-copy', 'neutral', ()=>{
+      addBtn('Copy Text', 'fa-solid fa-copy', 'neutral', ()=>{
         navigator.clipboard.writeText(text).then(()=>alert('Copied!')).catch(()=>{});
       });
 
       if(/^https?:\/\//i.test(text)){
-        addBtn('Open Link', 'fa-arrow-up-right-from-square', 'primary', ()=>window.open(text, '_blank'));
+        addBtn('Open Link', 'fa-solid fa-arrow-up-right-from-square', 'primary', ()=>window.open(text, '_blank'));
       } else if(/^tel:/i.test(text)){
-        addBtn('Call Number', 'fa-phone', 'primary', ()=>window.location.href=text);
+        addBtn('Call Number', 'fa-solid fa-phone', 'primary', ()=>window.location.href=text);
       } else if(/^mailto:/i.test(text)){
-        addBtn('Send Email', 'fa-envelope', 'primary', ()=>window.location.href=text);
+        addBtn('Send Email', 'fa-solid fa-envelope', 'primary', ()=>window.location.href=text);
       } else if(/^smsto:|^sms:/i.test(text)){
-        addBtn('Send SMS', 'fa-comment-sms', 'primary', ()=>window.location.href=text);
+        addBtn('Send SMS', 'fa-solid fa-comment-sms', 'primary', ()=>window.location.href=text);
       } else if(/^WIFI:/i.test(text)){
         const ssidMatch = text.match(/S:([^;]*)/);
         const passMatch = text.match(/P:([^;]*)/);
-        addBtn('Copy Wi-Fi Password', 'fa-wifi', 'primary', ()=>{
+        addBtn('Copy Wi-Fi Password', 'fa-solid fa-wifi', 'primary', ()=>{
           navigator.clipboard.writeText(passMatch ? passMatch[1] : '').then(()=>alert('Password copied! Network: ' + (ssidMatch ? ssidMatch[1] : 'unknown')));
         });
       } else if(/^BEGIN:VCARD/i.test(text)){
-        addBtn('Save Contact', 'fa-address-card', 'primary', ()=>{
+        addBtn('Save Contact', 'fa-solid fa-address-card', 'primary', ()=>{
           const blob = new Blob([text], {type:'text/vcard'});
           const a = document.createElement('a');
           a.href = URL.createObjectURL(blob); a.download = 'contact.vcf'; a.click();
         });
       } else if(/^geo:/i.test(text)){
-        addBtn('Open in Maps', 'fa-map-location-dot', 'primary', ()=>{
+        addBtn('Open in Maps', 'fa-solid fa-map-location-dot', 'primary', ()=>{
           const coords = text.replace('geo:','');
           window.open('https://www.google.com/maps?q='+coords, '_blank');
         });
       } else {
-        addBtn('Search Google', 'fa-magnifying-glass', 'primary', ()=>window.open('https://www.google.com/search?q='+encodeURIComponent(text), '_blank'));
+        addBtn('Search Google', 'fa-solid fa-magnifying-glass', 'primary', ()=>window.open('https://www.google.com/search?q='+encodeURIComponent(text), '_blank'));
       }
 
       addBtn('Share on WhatsApp', 'fa-brands fa-whatsapp', 'wa', ()=>{
@@ -984,11 +1272,46 @@
         list.appendChild(row);
       });
     }
+
     document.addEventListener("DOMContentLoaded", function() {
-    var urlInput = document.getElementById('urlInput');
-    if (urlInput) urlInput.value = 'https://coldmatrixtools.com';
-    buildFields('url');
-});
+      var urlInput = document.getElementById('urlInput');
+      if (urlInput) urlInput.value = 'https://coldmatrixtools.com';
+      buildFields('url');
+    });
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the QR & Barcode Studio free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, 100% free, no registration, and works offline after first load."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I scan barcodes with this tool?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — the camera scanner supports common 1D and 2D barcode formats including EAN, UPC, Code 128, Code 39, and more."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which QR type should I use for my business card?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use the Contact (vCard) type to let people save your details instantly."
+        }
+      }
+    ]
+  }
   </script>
 </body>
 </html>
+

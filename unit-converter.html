@@ -11,8 +11,8 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit Converter – Length, Weight, Temperature & More | ColdMatrix</title>
-<meta name="description" content="Convert length, weight, temperature, area, and volume instantly. Free online unit converter with metric and imperial units.">
+  <title>Unit Converter – Length, Weight, Temperature & More | ColdMatrix</title>
+  <meta name="description" content="Convert length, weight, temperature, area, and volume instantly. Free online unit converter with metric and imperial units.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
   <meta property="og:title" content="ColdMatrix Unit Converter — Length, Weight, Temperature & More">
@@ -25,7 +25,7 @@
   <meta name="twitter:image" content="https://coldmatrixtools.com/unit_converter.jpg">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -34,40 +34,61 @@
   <style>
     :root {
       --bg: #0A0F14; --surface: #12181F; --surface2: #1B232C; --border: #2A3540;
-      --text: #EAEDF0; --muted: #8B98A5; --accent: #4FC3F7; --accent2: #2196F3;
+      --text: #EAEDF0; --muted: #8B98A5; --accent: #D4AF37; --accent2: #FFD700;
       --gold: #D4AF37; --gold-bright: #FFD700; --gold-glow: rgba(212,175,55,0.45);
-      --silver-gradient: linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%);
-      --silver-gradient-hover: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
+      --silver-bg: #C8CDD4;
+      --silver-bg-hover: #D5D9DE;
+      --silver-gradient: linear-gradient(145deg, #D5D9DE, #C8CDD4);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background: #0B0F14;
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), #0B0F14;
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 750px; margin:0 auto; padding:0 24px; }
-    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .logo { font-size:1.3rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
-    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:10px; font-weight:600; cursor:pointer; }
-    h1 { font-size:1.8rem; font-weight:800; margin-bottom:6px; }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--gold); text-decoration:none; font-weight:600; font-size:0.85rem; }
+
+    /* GOLDEN INSTALL BAR */
+    .install-bar {
+      display: block;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14;
+      text-align: center;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: 10px;
+      margin: 14px 0;
+      border: 1px solid #FFD700;
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+    }
+    .install-bar button {
+      background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+      padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+      font-weight: 800; cursor: pointer; font-size: 0.8rem;
+    }
+
+    h1 { font-size:1.75rem; font-weight:800; margin-bottom:8px; line-height:1.25; }
     h1 span { color: var(--gold-bright); }
-    .subtitle { color:var(--muted); margin-bottom:28px; }
+    .subtitle { color:#EAEDF0; margin-bottom:28px; font-size:0.98rem; font-weight:500; }
 
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
       border:2px solid;
       border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
       border-radius:12px;
-      padding:22px 20px;
+      padding:18px 20px;
       margin-bottom:26px;
       box-shadow:0 10px 34px rgba(0,0,0,0.55);
     }
-    .share-tool-title { font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase; }
+    .share-tool-title { font-weight:800; font-size:1rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase; }
     .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
     .share-tool-btn {
       display:flex; align-items:center; justify-content:center; gap:9px;
@@ -91,12 +112,12 @@
     }
 
     .field { margin-bottom:14px; }
-    .field label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:5px; font-weight:500; }
+    .field label { display:block; font-size:0.82rem; color:#EAEDF0; margin-bottom:5px; font-weight:600; }
     .field input, .field select {
       width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
       padding:11px 13px; border-radius:10px; font-size:0.95rem;
     }
-    .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 10px var(--gold-glow); }
+    .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 12px var(--gold-glow); }
     .field select {
       appearance:none; -webkit-appearance:none; -moz-appearance:none;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M2 2 L10 10 L18 2' fill='none' stroke='%23D4AF37' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -106,49 +127,265 @@
     .field select option { background:var(--surface2); color:var(--text); }
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 
+    /* ============================================ */
+    /* STACKED BUTTONS — Calculate tall, Reset short */
+    /* ============================================ */
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
     .btn-calc {
-      width:100%; background: var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
-      padding:16px; border-radius:12px; font-weight:700; font-size:1.1rem; cursor:pointer;
-      letter-spacing:0.5px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      width:100%;
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border:2px solid var(--gold);
+      min-height: 64px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-family:'Oswald',sans-serif;
+      font-weight: 900;
+      font-size: 1.15rem;
+      cursor:pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
       transition:all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
-    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); box-shadow:0 0 22px var(--gold-glow); }
+    .btn-calc:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform:translateY(-2px); box-shadow: 0 0 22px var(--gold-glow); }
+
     .btn-reset {
-      background: var(--silver-gradient); border:2px solid var(--gold); color:#0A0F14;
-      padding:14px 22px; border-radius:12px; font-weight:700; font-size:0.9rem; cursor:pointer;
-      white-space:nowrap; text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      width:100%;
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border:2px solid var(--gold);
+      min-height: 46px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-family:'Oswald',sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor:pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
       transition:all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
-    .btn-reset:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+    .btn-reset:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform:translateY(-2px); }
 
     .result-box {
-      background: var(--silver-gradient); border:2px solid var(--gold-bright); border-radius:12px;
+      background: var(--silver-bg);
+      background-image: var(--silver-gradient);
+      border:2px solid var(--gold-bright);
+      border-radius:12px;
       padding:20px; margin-top:20px; text-align:center; display:none;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 0 20px rgba(212,175,55,0.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 20px rgba(212,175,55,0.3);
     }
-    .result-value { font-family:'Oswald',sans-serif; font-size:2rem; font-weight:800; color:#0A0F14; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
-    .result-label { font-size:0.9rem; color:#111; margin-top:4px; font-weight:600; }
+    .result-value { font-family:'Oswald',sans-serif; font-size:2rem; font-weight:800; color:#0A0F14; }
+    .result-label { font-size:0.9rem; color:#0A0F14; margin-top:4px; font-weight:600; }
 
+    /* Share bar — rectangular buttons */
     .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
     .share-btn {
-      display:flex; align-items:center; gap:8px; padding:12px 20px; border-radius:50px;
-      font-weight:600; font-size:0.9rem; cursor:pointer; border:none; text-decoration:none; color:#fff;
+      display:flex; align-items:center; gap:8px; padding:12px 20px;
+      border-radius:10px;
+      font-family:'Oswald',sans-serif;
+      font-weight: 700; font-size:0.85rem; cursor:pointer; text-decoration:none; color:#fff;
       transition:all 0.25s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     .share-btn:hover { transform:translateY(-2px); }
-    .share-whatsapp { background:#25D366; }
-    .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--gold); }
+    .share-whatsapp { background:#25D366; border:none; }
+    .share-pdf { background:#E53935; border:none; }
+    .share-jpg, .share-png { background: var(--silver-bg); color:#0A0F14; border:2px solid var(--gold); }
 
     #shareCapture { display:none; }
-    .note { font-size:0.75rem; color:var(--muted); margin-top:16px; border-top:1px solid var(--border); padding-top:12px; text-align:center; }
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
-    footer a { color:var(--gold-bright); text-decoration:none; }
+
+    /* ============================================ */
+    /* SILVER EDUCATIONAL CONTENT — Premium */
+    /* ============================================ */
+    .edu-content {
+      margin: 30px 0;
+      padding: 30px 24px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 16px;
+      color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.85;
+      font-size: 0.95rem;
+    }
+    .edu-content h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.35rem; margin-bottom: 16px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; font-weight: 800; }
+    .edu-content h3 { color: #0A0F14; font-size: 1.1rem; margin: 22px 0 10px; font-weight: 800; }
+    .edu-content p, .edu-content li, .edu-content ul, .edu-content ol { color: #0A0F14; font-weight: 500; }
+    .edu-content ul, .edu-content ol { padding-left: 24px; margin-bottom: 14px; }
+    .edu-content li { margin-bottom: 6px; }
+    .edu-content strong { color: #0A0F14; font-weight: 800; }
+    .edu-content p { margin-bottom: 14px; }
+
+    /* Pakistani block */
+    .pakistani-block {
+      margin: 30px 0;
+      padding: 24px 20px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 16px;
+      color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .pakistani-block h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.2rem; margin-bottom: 12px; font-weight: 800; }
+    .pakistani-block p { color: #0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color: #0A0F14; font-weight: 800; }
+
+    /* Related tools */
+    .related-tools-section {
+      margin: 20px 0 10px;
+      padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid #D4AF37;
+      border-radius: 12px;
+    }
+    .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; }
+    .related-tools-section a {
+      color:#4FC3F7; text-decoration:none;
+      background:rgba(79,195,247,0.1);
+      padding:8px 16px; border-radius:20px;
+      font-size:0.85rem; font-weight:600;
+      display: inline-block; margin: 4px 4px 4px 0;
+    }
+
+    /* Disclaimer box */
+    .disclaimer-box {
+      margin-top: 20px;
+      padding: 16px 18px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: #0A0F14;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:2px solid var(--gold); margin-top:50px; }
+    footer a { color:var(--gold-bright); text-decoration:none; font-weight: 600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.4rem; }
 
-    @media (max-width:600px){ .row2{grid-template-columns:1fr;} }
+    @media (max-width:600px){
+      .row2{grid-template-columns:1fr;}
+      h1{font-size:1.4rem;}
+      .edu-content{padding:20px 16px;font-size:0.9rem;}
+      .edu-content h2{font-size:1.15rem;}
+      
+      /* ============================================ */
+/* SILVER INPUT CARD — Personal Request */
+/* ============================================ */
+
+/* Card becomes silver with golden border */
+.card {
+    background: #C8CDD4 !important;
+    background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4) !important;
+    border: 2px solid #D4AF37 !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7) !important;
+}
+
+/* Card heading — dark on silver */
+.card h2 {
+    color: #0A0F14 !important;
+    border-bottom: 2px solid #D4AF37 !important;
+    padding-bottom: 10px !important;
+    font-weight: 800 !important;
+}
+
+/* Labels — dark text, bold */
+.field label {
+    color: #0A0F14 !important;
+    font-weight: 700 !important;
+}
+
+/* Input fields & selects — white background, golden border */
+.field input,
+.field select {
+    background: #FFFFFF !important;
+    background-image: none !important;
+    color: #0A0F14 !important;
+    border: 2px solid #D4AF37 !important;
+    font-weight: 600 !important;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: #FFD700 !important;
+    box-shadow: 0 0 15px rgba(212,175,55,0.55) !important;
+}
+
+/* GOLDEN ARROW — clearly visible on white background */
+.field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14' viewBox='0 0 22 14'%3E%3Cpath d='M2 3 L11 11 L20 3' fill='none' stroke='%23D4AF37' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    background-color: #FFFFFF !important;
+    background-repeat: no-repeat !important;
+    background-position: right 14px center !important;
+    background-size: 22px 14px !important;
+    padding-right: 48px !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+}
+
+/* DROPDOWN OPTIONS — Silver/white with golden hover */
+.field select option {
+    background: #FFFFFF !important;
+    color: #0A0F14 !important;
+    font-weight: 600 !important;
+    padding: 10px !important;
+}
+
+.field select option:checked,
+.field select option:hover,
+.field select option:focus {
+    background: linear-gradient(#FFD700, #D4AF37) !important;
+    color: #0A0F14 !important;
+}
+
+/* Dropdown groups — darker silver with bold dark text */
+.field select optgroup {
+    background: #B8BDC4 !important;
+    color: #0A0F14 !important;
+    font-weight: 800 !important;
+    font-style: normal !important;
+    padding: 6px !important;
+}
+
+/* Result box — white with golden border for max clarity */
+.result-box {
+    background: #FFFFFF !important;
+    background-image: none !important;
+    border: 2px solid #D4AF37 !important;
+}
+.result-value {
+    color: #0A0F14 !important;
+}
+.result-label {
+    color: #0A0F14 !important;
+    font-weight: 700 !important;
+}
+    }
   </style>
 </head>
 <body>
@@ -168,11 +405,11 @@
 
   <div class="container">
   <a href="index.html#tools" class="back-link">← Back to Tools</a>
-  
+
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1><span>ColdMatrix</span> Unit Converter</h1>
-    <p class="subtitle">Convert length, weight, temperature, area, volume, speed, and currency — instantly and accurately.</p>
+    <p class="subtitle">Convert length, weight, temperature, area, volume, and speed — instantly and accurately.</p>
 
     <div class="share-tool-card">
       <div class="share-tool-title">Share ColdMatrix Unit Converter</div>
@@ -271,9 +508,10 @@
         <label>Value</label>
         <input type="number" id="inputValue" placeholder="e.g. 32" value="1">
       </div>
-      <div style="display:flex;gap:10px;">
-        <button class="btn-calc" style="flex:1" onclick="convert()">Convert</button>
-        <button class="btn-reset" onclick="resetConverter()">🔄 Reset</button>
+
+      <div class="btn-stack">
+        <button class="btn-calc" onclick="convert()">📊 Convert</button>
+        <button class="btn-reset" onclick="resetConverter()">↺ Reset</button>
       </div>
 
       <div class="result-box" id="resultBox">
@@ -284,11 +522,11 @@
 
     <div id="shareCapture">
       <div style="background:#fff;color:#111;border-radius:12px;padding:28px;font-family:'Inter',sans-serif;width:360px;">
-        <div style="font-size:1.3rem;font-weight:800;color:#0A0F14;margin-bottom:12px;">❄️ <span style="color:#2196F3;">ColdMatrix</span> Unit Converter</div>
+        <div style="font-size:1.3rem;font-weight:800;color:#0A0F14;margin-bottom:12px;">❄️ <span style="color:#D4AF37;">ColdMatrix</span> Unit Converter</div>
         <div style="font-size:1rem;font-weight:700;color:#111;margin-bottom:4px;" id="pvResult">—</div>
         <div style="font-size:0.85rem;color:#555;margin-bottom:16px;" id="pvLabel"></div>
         <table style="width:100%;border-collapse:collapse;font-size:0.85rem;border-top:1px solid #eee;padding-top:10px;">
-          <tr><td style="padding:6px 0;">Conversion</td><td style="padding:6px 0;text-align:right;font-weight:700;color:#2196F3;" id="pvValue"></td></tr>
+          <tr><td style="padding:6px 0;">Conversion</td><td style="padding:6px 0;text-align:right;font-weight:700;color:#D4AF37;" id="pvValue"></td></tr>
         </table>
         <div style="font-size:0.7rem;color:#888;margin-top:16px;border-top:1px solid #eee;padding-top:12px;">
           🙏 Thank you for using ColdMatrix Tools — your 24/7 business companion.<br>
@@ -305,109 +543,150 @@
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
 
-    <div class="note">ℹ️ Instant conversions for length, weight, temperature, area, volume, speed, and currency. All calculations are performed directly in your browser.</div>
+<!-- ⬇️⬇️⬇️ CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
+
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — MERGED, NO DUPLICATES, SILVER -->
+    <!-- ============================================ -->
+    <div class="edu-content">
+      <h2>📏 Unit Conversion: The Complete Reference Guide</h2>
+
+      <p>ColdMatrix Unit Converter is a fast, precise tool for converting between all common units of measurement — length, weight, temperature, area, volume, and speed. Whether you're working on an engineering project, planning a trip, or just doing homework, this converter gives you instant results in seconds.</p>
+
+      <p>Unit conversion is a fundamental skill in engineering, science, business, and daily life. It involves changing a quantity expressed in one unit to another unit of the same physical quantity. For example, converting meters to feet, kilograms to pounds, or Celsius to Fahrenheit. Understanding the underlying conversion factors and formulas ensures accuracy and prevents costly mistakes.</p>
+
+      <h3>Complete Unit Categories Supported</h3>
+      <ul>
+        <li><strong>Length:</strong> Meter, Kilometer, Centimeter, Millimeter, Inch, Foot, Yard, Mile</li>
+        <li><strong>Weight:</strong> Kilogram, Gram, Milligram, Pound, Ounce, Metric Ton</li>
+        <li><strong>Temperature:</strong> Celsius, Fahrenheit, Kelvin</li>
+        <li><strong>Area:</strong> Square Meter, Square Foot, Square Inch, Hectare, Acre</li>
+        <li><strong>Volume:</strong> Liter, Milliliter, US Gallon, Cubic Meter, Cubic Foot</li>
+        <li><strong>Speed:</strong> km/h, mph, m/s</li>
+      </ul>
+
+      <h3>1. Length Conversion Factors</h3>
+      <ul>
+        <li>1 inch = 2.54 centimeters</li>
+        <li>1 foot = 12 inches = 0.3048 meters</li>
+        <li>1 yard = 3 feet = 0.9144 meters</li>
+        <li>1 mile = 1,760 yards = 1.609344 kilometers</li>
+        <li>1 meter = 100 centimeters = 1,000 millimeters</li>
+      </ul>
+
+      <h3>2. Weight &amp; Mass Conversion Factors</h3>
+      <ul>
+        <li>1 kilogram = 1,000 grams</li>
+        <li>1 pound = 0.453592 kilograms</li>
+        <li>1 ounce = 28.3495 grams</li>
+        <li>1 metric ton = 1,000 kilograms</li>
+      </ul>
+
+      <h3>3. Temperature Conversion Formulas</h3>
+      <ul>
+        <li><strong>Celsius to Fahrenheit:</strong> °F = (°C × 9/5) + 32</li>
+        <li><strong>Fahrenheit to Celsius:</strong> °C = (°F − 32) × 5/9</li>
+        <li><strong>Celsius to Kelvin:</strong> K = °C + 273.15</li>
+        <li><strong>Kelvin to Celsius:</strong> °C = K − 273.15</li>
+      </ul>
+
+      <h3>4. Area &amp; Volume Conversions</h3>
+      <ul>
+        <li>1 square foot = 0.092903 square meters</li>
+        <li>1 hectare = 10,000 square meters</li>
+        <li>1 acre = 4,046.86 square meters</li>
+        <li>1 liter = 1,000 milliliters</li>
+        <li>1 US gallon = 3.78541 liters</li>
+        <li>1 cubic meter = 1,000 liters</li>
+      </ul>
+
+      <h3>5. Where Unit Conversion Is Used</h3>
+      <ul>
+        <li><strong>Engineering &amp; Construction:</strong> Converting between metric and imperial measurements for plans and site work.</li>
+        <li><strong>Science &amp; Education:</strong> Temperature, volume, and length conversions for experiments and homework.</li>
+        <li><strong>Travel &amp; Navigation:</strong> Speed and distance conversions for international travel.</li>
+        <li><strong>Cooking &amp; Baking:</strong> Volume and weight conversions for recipes.</li>
+        <li><strong>International Trade:</strong> Weight and area conversions for shipping and customs.</li>
+      </ul>
+
+      <h3>6. Real-World Examples</h3>
+      <p><strong>Example 1 – Construction:</strong> A room is 12 feet wide. Convert to meters: 12 × 0.3048 = 3.6576 m.</p>
+      <p><strong>Example 2 – Cooking:</strong> A recipe calls for 2 cups of flour. Since 1 cup ≈ 236.6 mL, 2 cups = 473.2 mL ≈ 0.473 L.</p>
+      <p><strong>Example 3 – Travel:</strong> Driving at 60 mph in a country using km/h. Convert: 60 × 1.60934 = 96.56 km/h.</p>
+
+      <h3>7. Frequently Asked Questions</h3>
+      <p><strong>Q: How many feet are in a meter?</strong><br>A: 1 meter = 3.28084 feet.</p>
+      <p><strong>Q: How do I convert Celsius to Fahrenheit?</strong><br>A: Multiply Celsius by 9/5 and add 32.</p>
+      <p><strong>Q: How many liters are in a gallon?</strong><br>A: 1 US gallon = 3.78541 liters. (1 UK gallon = 4.546 L.)</p>
+      <p><strong>Q: Does the converter work offline?</strong><br>A: Yes, after the first load it works offline for most features.</p>
+      <p><strong>Q: What is the most common unit conversion mistake?</strong><br>A: Mixing up volume and weight. For example, assuming 1 liter of water weighs 1 kg is only true for water at a specific temperature; other liquids have different densities.</p>
+      <p><strong>Q: Are US and UK gallons different?</strong><br>A: Yes. 1 US gallon = 3.785 L, while 1 UK gallon = 4.546 L. This tool uses US gallons.</p>
+      <p><strong>Q: Is the tool accurate enough for engineering work?</strong><br>A: Yes, it uses standard conversion factors with high precision. For critical designs, always double-check with official standards.</p>
+
+      <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ This guide, combined with our free calculator, gives you a complete understanding of unit conversion — from basic formulas to real-world application.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- PAKISTANI SERVICES BLOCK — SILVER -->
+    <!-- ============================================ -->
+    <div class="pakistani-block">
+      <h2>🇵🇰 ColdMatrix Advanced Solutions — Serving Pakistan's Engineering &amp; Business Community</h2>
+      <p>Our Unit Converter is used daily by engineers, contractors, importers, and students across Pakistan. But we do more than just digital tools — <strong>ColdMatrix Advanced Solutions</strong> is a full-service engineering and construction firm serving Pakistan from Karachi to Islamabad, Lahore to Balochistan.</p>
+      <p>Whether you are <strong>converting steel weights for a PEB warehouse</strong>, calculating concrete volumes for a foundation, or sizing panels for a cold storage facility — our team handles the real-world execution. We deliver <strong>PEB structures, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong> across Pakistan, with international engineering standards and honest local pricing.</p>
+      <p>Contact our <strong>Karachi engineering desk</strong> for site evaluations, material quotations, structural verification, and factory-stamped technical drawings ready for submission to your consultant or bank.</p>
+      <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- RELATED TOOLS -->
+    <!-- ============================================ -->
+    <div class="related-tools-section">
+        <h3>🔗 Related Tools You Might Need</h3>
+        <div>
+            <a href="cft-calculator.html">📐 CFT Calculator</a>
+            <a href="steel-weight-calculator.html">🛠️ Steel Weight Calculator</a>
+            <a href="concrete-calculator.html">🏗️ Concrete Calculator</a>
+            <a href="construction-cost-calculator.html">💰 Construction Cost Calculator</a>
+            <a href="age-calculator.html">🎂 Age Calculator</a>
+            <a href="peb-material-calculator.html">🏭 PEB Material Calculator</a>
+            <a href="cold-store-calculator.html">❄️ Cold Store Calculator</a>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- DISCLAIMER — SILVER -->
+    <!-- ============================================ -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> This tool provides unit conversion using internationally recognized standard factors verified against NIST and ISO references. For critical engineering or trade decisions, always cross-verify with official measurement standards and local regulatory requirements.
+    </div>
+
   </div>
 
-  <!-- ENHANCED EDUCATIONAL CONTENT (Existing) -->
-  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Unit Converter</h2>
-    <p>ColdMatrix Unit Converter is a fast, precise, and easy-to-use tool for converting between all common units of measurement — length, weight, temperature, area, volume, speed, and more. Whether you're working on an engineering project, planning a trip, or just doing homework, this converter gives you instant results in seconds.</p>
-
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Complete Feature List</h3>
-    <ul style="padding-left:20px;">
-      <li><strong>Length:</strong> Meter, Kilometer, Centimeter, Millimeter, Inch, Foot, Yard, Mile</li>
-      <li><strong>Weight:</strong> Kilogram, Gram, Milligram, Pound, Ounce, Metric Ton</li>
-      <li><strong>Temperature:</strong> Celsius, Fahrenheit, Kelvin</li>
-      <li><strong>Area:</strong> Square Meter, Square Foot, Square Inch, Hectare, Acre</li>
-      <li><strong>Volume:</strong> Liter, Milliliter, US Gallon, Cubic Meter, Cubic Foot</li>
-      <li><strong>Speed:</strong> km/h, mph, m/s</li>
-    </ul>
-
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Where Unit Conversion Is Used</h3>
-    <ul style="padding-left:20px;">
-      <li><strong>Engineering & Construction:</strong> Converting between metric and imperial measurements for plans and site work.</li>
-      <li><strong>Science & Education:</strong> Temperature, volume, and length conversions for experiments and homework.</li>
-      <li><strong>Travel & Navigation:</strong> Speed and distance conversions for international travel.</li>
-      <li><strong>Cooking & Baking:</strong> Volume and weight conversions for recipes.</li>
-      <li><strong>International Trade:</strong> Weight and area conversions for shipping and customs.</li>
-    </ul>
-
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
-    <p><strong>Q: How many feet are in a meter?</strong><br>
-    A: 1 meter = 3.28084 feet.</p>
-    <p><strong>Q: How do I convert Celsius to Fahrenheit?</strong><br>
-    A: Multiply Celsius by 9/5 and add 32.</p>
-    <p><strong>Q: How many liters are in a gallon?</strong><br>
-    A: 1 US gallon = 3.78541 liters.</p>
-    <p><strong>Q: Does the converter work offline?</strong><br>
-    A: Yes, after first load it works offline for most features.</p>
-  </div>
-
-  <!-- NEW DEEP DIVE GUIDE (ADDED FOR ADSENSE) -->
-  <div style="margin:30px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">📚 Unit Conversion: The Complete Reference Guide</h2>
-    <p>Unit conversion is a fundamental skill in engineering, science, business, and daily life. It involves changing a quantity expressed in one unit to another unit of the same physical quantity. For example, converting meters to feet, kilograms to pounds, or Celsius to Fahrenheit. Understanding the underlying conversion factors and formulas ensures accuracy and prevents costly mistakes.</p>
-
-    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">1. Length Conversion Factors</h3>
-    <ul style="padding-left:20px;">
-      <li>1 inch = 2.54 centimeters</li>
-      <li>1 foot = 12 inches = 0.3048 meters</li>
-      <li>1 yard = 3 feet = 0.9144 meters</li>
-      <li>1 mile = 1,760 yards = 1.609344 kilometers</li>
-      <li>1 meter = 100 centimeters = 1,000 millimeters</li>
-    </ul>
-
-    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">2. Weight & Mass Conversion Factors</h3>
-    <ul style="padding-left:20px;">
-      <li>1 kilogram = 1,000 grams</li>
-      <li>1 pound = 0.453592 kilograms</li>
-      <li>1 ounce = 28.3495 grams</li>
-      <li>1 metric ton = 1,000 kilograms</li>
-    </ul>
-
-    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">3. Temperature Conversion Formulas</h3>
-    <ul style="padding-left:20px;">
-      <li><strong>Celsius to Fahrenheit:</strong> °F = (°C × 9/5) + 32</li>
-      <li><strong>Fahrenheit to Celsius:</strong> °C = (°F − 32) × 5/9</li>
-      <li><strong>Celsius to Kelvin:</strong> K = °C + 273.15</li>
-      <li><strong>Kelvin to Celsius:</strong> °C = K − 273.15</li>
-    </ul>
-
-    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">4. Area & Volume Conversions</h3>
-    <ul style="padding-left:20px;">
-      <li>1 square foot = 0.092903 square meters</li>
-      <li>1 hectare = 10,000 square meters</li>
-      <li>1 acre = 4,046.86 square meters</li>
-      <li>1 liter = 1,000 milliliters</li>
-      <li>1 US gallon = 3.78541 liters</li>
-      <li>1 cubic meter = 1,000 liters</li>
-    </ul>
-
-    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">5. Real-World Examples</h3>
-    <p><strong>Example 1 – Construction:</strong> A room is 12 feet wide. Convert to meters: 12 × 0.3048 = 3.6576 m.</p>
-    <p><strong>Example 2 – Cooking:</strong> A recipe calls for 2 cups of flour. Since 1 cup ≈ 236.6 mL, 2 cups = 473.2 mL ≈ 0.473 L.</p>
-    <p><strong>Example 3 – Travel:</strong> Driving at 60 mph in a country using km/h. Convert: 60 × 1.60934 = 96.56 km/h.</p>
-
-    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">6. Frequently Asked Questions</h3>
-    <p><strong>Q: What is the most common unit conversion mistake?</strong><br>A: Mixing up volume and weight. For example, assuming 1 liter of water weighs 1 kg is only true for water at a specific temperature; other liquids have different densities.</p>
-    <p><strong>Q: How do I convert between metric and imperial?</strong><br>A: Use the conversion factors provided. This calculator does it automatically for you.</p>
-    <p><strong>Q: Are US and UK gallons different?</strong><br>A: Yes. 1 US gallon = 3.785 L, while 1 UK gallon = 4.546 L. This tool uses US gallons.</p>
-    <p><strong>Q: Can I convert currency?</strong><br>A: Yes, but exchange rates vary daily. Our currency converter is available separately.</p>
-    <p><strong>Q: Is the tool accurate enough for engineering work?</strong><br>A: Yes, it uses standard conversion factors with high precision. For critical designs, always double-check with official standards.</p>
-
-    <p style="margin-top:15px; font-weight:700; color:#FFD700;">✅ This guide, combined with our free calculator, gives you a complete understanding of unit conversion.</p>
-  </div>
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
 <footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script>
     const toBase = {
@@ -426,6 +705,7 @@
       document.getElementById('inputValue').value = '1';
       document.getElementById('resultBox').style.display = 'none';
       document.getElementById('shareBarWrap').style.display = 'none';
+      window.scrollTo({top:0, behavior:'smooth'});
     }
 
     function convert() {
@@ -538,34 +818,52 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix Unit Converter",
+    "url": "https://coldmatrixtools.com/unit-converter.html",
+    "applicationCategory": "UtilityApplication",
+    "description": "Convert length, weight, temperature, area, volume, and speed — instantly and accurately with metric and imperial units.",
+    "author": {
+      "@type": "Organization",
+      "name": "Cold Matrix Advanced Solutions",
+      "url": "https://coldmatrixtools.com/solutions.html"
+    },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Are ColdMatrix tools free to use?",
+        "name": "How many feet are in a meter?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+          "text": "1 meter = 3.28084 feet."
         }
       },
       {
         "@type": "Question",
-        "name": "How accurate are ColdMatrix calculators?",
+        "name": "How do I convert Celsius to Fahrenheit?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+          "text": "Multiply Celsius by 9/5 and add 32. Formula: °F = (°C × 9/5) + 32"
         }
       },
       {
         "@type": "Question",
-        "name": "Does ColdMatrix store my data?",
+        "name": "Are US and UK gallons different?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+          "text": "Yes. 1 US gallon = 3.785 L, while 1 UK gallon = 4.546 L. This tool uses US gallons."
         }
       }
     ]
   }
   </script>
+
 </body>
 </html>

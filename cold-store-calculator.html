@@ -622,7 +622,70 @@ button:hover,
     color: #0A0F14 !important;
     border-color: #FFD700 !important;
 }
+/* CLS Fix — protects against layout shift */
+#resultCard,
+#resultsContainer,
+#results-card,
+#results-container,
+.results-container {
+    min-height: 400px;
+}
+@media (max-width: 600px) {
+    #resultCard,
+    #resultsContainer,
+    #results-card,
+    #results-container,
+    .results-container {
+        min-height: 300px;
+    }
+}
+.ad-container,
+.adsbygoogle {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+/* ============================================ */
+/* CLEAN SOLID SILVER — No gradients, no dark shadows */
+/* ============================================ */
+.btn-calc,
+.btn-reset,
+.unit-btn,
+.action-btn,
+.share-tool-btn,
+.btn-primary,
+.result-item {
+    background: #C8CDD4 !important;
+    background-image: none !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+    text-shadow: none !important;
+    border: 2px solid #D4AF37 !important;
+}
+
+.btn-calc:hover,
+.btn-reset:hover,
+.unit-btn:hover,
+.action-btn:hover,
+.share-tool-btn:hover,
+.btn-primary:hover {
+    background: #D5D9DE !important;
+    box-shadow: 0 0 12px rgba(212,175,55,0.45) !important;
+}
+
+/* Keep active state blue (for unit toggle) but clean */
+.unit-btn.active {
+    background: #2196F3 !important;
+    background-image: none !important;
+    color: #fff !important;
+    box-shadow: 0 0 12px rgba(79,195,247,0.5) !important;
+}
+
+/* Keep brand colors for special buttons */
+.whatsapp-action { background: #25D366 !important; border: none !important; }
+.pdf-action { background: #0077B5 !important; border: none !important; }
+.download-jpg-action { background: #6C5CE7 !important; border: none !important; }
+.download-png-action { background: #F59E0B !important; border: none !important; }
   </style>
+  
 </head>
 <body>
 <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="solutions.html">❄️ Cold Matrix</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
@@ -676,7 +739,7 @@ button:hover,
                 <input type="number" id="w1H" value="15" step="any" placeholder="Height">
             </div>
             <label style="font-size:0.8rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
-              <input type="checkbox" id="w1Shared" style="width:auto;"> Shared / Existing Wall (No Panels)
+              <input type="checkbox" id="w1Shared" style="width:auto;"> Shared Wall – Already Insulated (Skip Panels)
               <span class="tooltip-trigger">?<span class="tooltip-text">A shared wall is one that already exists (e.g., adjoining another cold room or building wall). It's included in the cooling load calculation but excluded from panel billing.</span></span>
             </label>
         </div>
@@ -687,7 +750,7 @@ button:hover,
                 <input type="number" id="w2H" value="15" step="any" placeholder="Height">
             </div>
             <label style="font-size:0.8rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
-              <input type="checkbox" id="w2Shared" style="width:auto;"> Shared / Existing Wall (No Panels)
+              <input type="checkbox" id="w2Shared" style="width:auto;"> Shared Wall – Already Insulated (Skip Panels)
             </label>
         </div>
         <div class="field" style="border: 2px solid var(--gold-border); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
@@ -697,7 +760,7 @@ button:hover,
                 <input type="number" id="w3H" value="15" step="any" placeholder="Height">
             </div>
             <label style="font-size:0.8rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
-              <input type="checkbox" id="w3Shared" style="width:auto;"> Shared / Existing Wall (No Panels)
+              <input type="checkbox" id="w3Shared" style="width:auto;"> Shared Wall – Already Insulated (Skip Panels)
             </label>
         </div>
         <div class="field" style="border: 2px solid var(--gold-border); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
@@ -707,7 +770,7 @@ button:hover,
                 <input type="number" id="w4H" value="15" step="any" placeholder="Height">
             </div>
             <label style="font-size:0.8rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
-              <input type="checkbox" id="w4Shared" style="width:auto;"> Shared / Existing Wall (No Panels)
+              <input type="checkbox" id="w4Shared" style="width:auto;"> Shared Wall – Already Insulated (Skip Panels)
             </label>
         </div>
     </div>
@@ -1178,15 +1241,29 @@ button:hover,
     </div>
   </div>
 
-  <!-- Localized Pakistani Text: Cold Store & Panels -->
-  <div style="margin:30px 0; padding:24px 20px; background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.3); border-radius:14px; line-height:1.8; font-size:0.95rem; color:#cfd6dd;">
+<div style="margin:20px 0; padding:24px 20px; background:rgba(255,255,255,0.04); border:2px solid #D4AF37; border-radius:14px; line-height:1.85; font-size:0.92rem; color:#cfd6dd;">
+    <h2 style="font-size:1.1rem; margin-bottom:12px; color:#FFD700;">📘 Understanding Fourier's Heat Conduction Law in Cold Storage Design</h2>
+
+    <p>Every cold storage calculation begins with a fundamental principle of thermodynamics: <strong>Fourier's Law of Heat Conduction</strong>. This law states that the rate of heat transfer through a material is directly proportional to the temperature difference across it, the surface area, and the material's thermal conductivity (λ-value), while being inversely proportional to the material's thickness. In practical terms, this means heat will always flow from the warm exterior toward the cold interior — and your refrigeration system must remove that heat continuously to maintain the set temperature.</p>
+
+    <p>The transmission load — typically 60–70% of the total cooling requirement in any cold room — is calculated using this formula: <strong>Q = U × A × ΔT</strong>, where Q is the heat transfer rate (Watts), U is the overall heat transfer coefficient (W/m²K), A is the total surface area of walls, roof, and floor (m²), and ΔT is the temperature difference between outside ambient and inside room temperature.</p>
+
+    <p><strong>How insulated sandwich panels minimize transmission load:</strong> PUF and PIR sandwich panels use a rigid foam core with very low thermal conductivity — around 0.022 W/mK for PUF and 0.020 W/mK for PIR. A 150mm PIR panel achieves a U-value of approximately 0.15 W/m²K. This means for every square meter of wall area and every degree of temperature difference, only 0.15 Watts of heat enters the room. Compare this to an uninsulated brick wall with a U-value of 1.5–2.0 W/m²K — that is 10 times more heat gain, requiring a 10 times larger refrigeration system.</p>
+
+    <p>For cold storage projects in hot climates like Pakistan, where ambient temperatures reach 45–50°C, selecting the correct panel thickness and core material is not just about energy efficiency — it directly determines whether your refrigeration system can maintain temperature at all. A well-designed 150mm PIR cold room at -25°C in Karachi draws 40% less energy than a 100mm PUF room of the same size, simply because of the lower transmission load.</p>
+
+    <p style="margin-top:14px; font-weight:700; color:#FFD700;">✅ This calculator applies Fourier's Law with industry-standard U-values for PUF, PIR, and EPS panels — giving you a reliable preliminary estimate for budgeting and planning.</p>
+</div>
+
+<!-- Localized Pakistani Text: Cold Store & Panels -->
+<div style="margin:30px 0; padding:24px 20px; background:rgba(212,175,55,0.06); border:2px solid #D4AF37; border-radius:14px; line-height:1.8; font-size:0.95rem; color:#cfd6dd;">
     <h2 style="font-size:1.2rem; margin-bottom:12px; color:#FFD700;">🏭 Factory-Direct PU/PIR Sandwich Panels & Cold Room Construction in Pakistan</h2>
     <p>While our digital engineering suite supports global standards, <strong>ColdMatrix Advanced Solutions</strong> operates a state-of-the-art manufacturing infrastructure supplying <strong>PU/PIR Sandwich Panels</strong> across Karachi, Lahore, Islamabad, and Balochistan. Whether you are planning a +4°C commercial pharmaceutical cold store or a -25°C deep-freeze industrial warehouse, our panels strictly comply with structural thermal demands.</p>
     <ul style="padding-left:20px; margin-top:10px;">
       <li><strong>Local Optimization:</strong> Designed to withstand extreme ambient temperatures up to 50°C in industrial hubs like Landhi, Korangi, and Port Qasim.</li>
       <li><strong>Cost Advantage:</strong> Save on international freight and import duties by sourcing premium, international-grade panels engineered right here in Karachi.</li>
     </ul>
-  </div>
+</div>
 
   <!-- Project Gallery: Proof of Work (Updated with real image filenames) -->
   <div style="margin:40px 0 30px;">
@@ -1243,220 +1320,109 @@ button:hover,
     </div>
   </div>
 
-  <!-- EXTENDED INDUSTRY CONTENT -->
-<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+<!-- EXTENDED INDUSTRY CONTENT — CLEANED & MERGED -->
+<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:2px solid #D4AF37;border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
+
     <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">📚 The Complete Cold Storage Engineering Guide</h2>
-    
+
     <p>Cold storage is a critical part of the global food supply chain, pharmaceutical distribution, and industrial processing. Every cold room — whether a small walk-in freezer in a restaurant or a massive warehouse cold storage facility — relies on the same fundamental principles: proper insulation, accurate cooling load calculation, and reliable refrigeration equipment. Getting any one of these wrong means wasted energy, spoiled products, or premature equipment failure.</p>
 
     <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Understanding Cooling Load Components</h3>
     <p>Cooling load is the total amount of heat energy your refrigeration system must remove to maintain the desired temperature. It has four main components:</p>
     <ul style="padding-left:20px;">
-        <li><strong>Transmission Load (Wall Heat Gain):</strong> Heat flowing through walls, roof, and floor due to temperature difference between inside and outside. This is the largest load in most cold rooms — typically 60-70% of total load. Better insulation directly reduces this load.</li>
-        <li><strong>Product Load:</strong> Heat released by products as they cool from entry temperature to storage temperature. For freezers, this includes latent heat of freezing — the energy required to turn water in the product into ice. Product load can be massive when warm products enter a freezer.</li>
-        <li><strong>Infiltration Load:</strong> Warm outside air entering through door openings and gaps. Every time a door opens, warm moist air rushes in. This is especially significant in high-traffic cold rooms with frequent forklift access.</li>
-        <li><strong>Equipment Load:</strong> Heat from electric motors, lights, fans, and people working inside. This is typically 10-15% of total load and is often estimated as a percentage.</li>
+        <li><strong>Transmission Load (60–70%):</strong> Heat flowing through walls, roof, and floor due to temperature difference between inside and outside. This is the largest load in most cold rooms. Better insulation directly reduces this load.</li>
+        <li><strong>Product Load (10–20%):</strong> Heat released by products as they cool from entry temperature to storage temperature. For freezers, this includes the latent heat of freezing — the energy required to turn water in the product into ice.</li>
+        <li><strong>Infiltration Load (10–15%):</strong> Warm outside air entering through door openings and gaps. Every time a door opens, warm moist air rushes in. This is especially significant in high-traffic cold rooms with frequent forklift access.</li>
+        <li><strong>Equipment Load (10–15%):</strong> Heat from electric motors, lights, fans, and people working inside. Often estimated as a percentage of total load.</li>
     </ul>
 
     <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Panel Selection: PUF vs PIR vs EPS</h3>
     <p>The insulation core is the heart of your cold room panel. Three materials dominate the market:</p>
     <ul style="padding-left:20px;">
-        <li><strong>PUF (Polyurethane Foam):</strong> The most widely used. Offers excellent thermal performance (λ=0.022), good structural strength, and reasonable cost. Standard density is 40-45 kg/m³. Recommended for most cold room applications from -35°C to +25°C.</li>
-        <li><strong>PIR (Polyisocyanurate):</strong> An upgraded version of PUF with better fire resistance and slightly better insulation (λ=0.020). Costs 15-20% more but worth it for high-value projects, pharmaceutical storage, or where fire codes are strict.</li>
-        <li><strong>EPS (Expanded Polystyrene):</strong> Cheapest option but with significantly lower insulation value (λ=0.035). Requires thicker panels to achieve the same insulation as PUF. Only recommended for chilled rooms (above 0°C) where cost is the primary concern.</li>
+        <li><strong>PUF (Polyurethane Foam):</strong> The most widely used. Excellent thermal performance (λ = 0.022 W/mK), good structural strength, and reasonable cost. Standard density 40–45 kg/m³. Recommended for most cold room applications from -35°C to +25°C.</li>
+        <li><strong>PIR (Polyisocyanurate):</strong> An upgraded version of PUF with better fire resistance and slightly better insulation (λ = 0.020 W/mK). Costs 15–20% more but worth it for high-value projects, pharmaceutical storage, or where fire codes are strict.</li>
+        <li><strong>EPS (Expanded Polystyrene):</strong> Cheapest option but with significantly lower insulation value (λ = 0.035 W/mK). Requires thicker panels to achieve the same insulation as PUF. Only recommended for chilled rooms (above 0°C) where cost is the primary concern.</li>
     </ul>
-    <p><strong>Pro tip:</strong> For freezers below -15°C, always use minimum 125mm PUF/PIR panels. For chillers (0°C to +5°C), 75-100mm is usually sufficient. In extreme climates like the Middle East or South Asia summers, consider one step thicker.</p>
+    <p><strong>Pro tip:</strong> For freezers below -15°C, always use minimum 125 mm PUF/PIR panels. For chillers (0°C to +5°C), 75–100 mm is usually sufficient. In extreme climates like the Middle East or South Asian summers, consider one step thicker.</p>
 
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Fire Safety Regional Compliance</h3>
-    <p>Fire safety regulations for insulated panels vary significantly by region. Selecting the correct panel core material is critical for both compliance and insurability:</p>
+    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Advanced Thermal Engineering: Bridging, Vapor Barriers & Blast Freezing</h3>
+
+    <h4 style="font-size:0.95rem;margin:14px 0 8px;color:#FFD700;">Thermal Bridging at Panel Joints and Corners</h4>
+    <p>Thermal bridging is one of the most overlooked factors in cold storage efficiency. Even with 150 mm PIR panels, heat finds the path of least resistance through panel-to-panel joints, corner connections, and floor-wall junctions. Research from prefabricated cold storage systems shows that flat and Z-type joints can experience heat flux levels reaching <strong>10 W/m² at 273 K</strong> and <strong>13 W/m² at 255 K</strong> — significantly higher than the surrounding panel surface. Stepped and interlocking joint configurations reduce this to below <strong>8 W/m²</strong> and approximately <strong>12 W/m²</strong> respectively. This means the joint profile you choose has a measurable impact on your total refrigeration load. When calculating cooling requirements, always add a <strong>thermal bridge allowance</strong> of 5–10% for panel joints, and ensure your installation team uses cam-lock or interlocking profiles rather than simple butt joints. The linear thermal transmittance (ψ-value) at corner joints can add 0.05–0.15 W/mK to your overall heat transfer — small per meter, but significant across a large facility.</p>
+
+    <h4 style="font-size:0.95rem;margin:14px 0 8px;color:#FFD700;">Vapor Barriers and Condensation Prevention</h4>
+    <p>In hot and humid climates — like Karachi, Lahore, or the Gulf region — vapor barriers are not optional. They are mandatory. The physics is simple: warm, moist air from outside migrates toward the cold interior. Without a proper vapor barrier on the warm side of the insulation, moisture condenses inside the panel core, destroying insulation value and eventually causing ice crystallization on external walls. Studies on refrigerated warehouse walls show that increasing outdoor relative humidity by 50% shifts the condensation onset location toward the mid-thickness of the insulation. For a typical cold store with 85% relative humidity and 34°C dry bulb temperature (standard for Mumbai or Karachi summers), a <strong>0.25 mm polythene sheet</strong> or <strong>bitumen grade 85/25</strong> vapor barrier is the prescriptive minimum. The vapor barrier must be continuous — any tear or gap becomes a condensation point. For freezer applications below -18°C, consider a vapor barrier with a permeance of less than <strong>0.1 ng/(Pa·s·m²)</strong> and ensure all joints are sealed with approved vapor-tight tape.</p>
+
+    <h4 style="font-size:0.95rem;margin:14px 0 8px;color:#FFD700;">Blast Freezing vs Standard Pull-Down Loads</h4>
+    <p>Standard cold room calculations assume a 24-hour pull-down period. This is acceptable for chillers and storage freezers, but <strong>fundamentally wrong for blast freezers</strong>. A blast freezer must pull product through its freezing point rapidly — typically in 2–6 hours — which means the refrigeration system must handle <strong>latent heat of fusion</strong> at a much higher rate. For a typical 20,000 sq ft blast freezer pulling 200,000 lbs/day from +40°F to 0°F, expect a refrigeration capacity of <strong>250–400 TR</strong> — several times higher than a storage freezer of the same size. The calculation must account for: (1) the mass of product per batch, (2) the specific heat above freezing, (3) the latent heat of fusion (typically 144 BTU/lb for water), (4) the specific heat below freezing, and (5) the required pull-down time. Our calculator adjusts the default pull-down period based on your target temperature — but for blast freezing projects, always consult a refrigeration engineer to verify the compressor and evaporator capacity.</p>
+
+    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">The Four Types of Cold Rooms</h3>
+    <ul style="padding-left:20px;">
+        <li><strong>Chillers (0°C to +8°C):</strong> For fruits, vegetables, dairy, eggs, and pharmaceuticals. Moderate insulation (75–100 mm PUF/PIR) and basic refrigeration systems.</li>
+        <li><strong>Freezers (-15°C to -25°C):</strong> For frozen meat, seafood, ice cream, and ready-to-cook products. Thicker insulation (125–150 mm), door heaters, and floor insulation to prevent frost heave.</li>
+        <li><strong>Blast Freezers (-30°C to -40°C):</strong> Rapid freezing of products in food processing plants. Very high airflow, heavy-duty evaporators, and special compressor configurations.</li>
+        <li><strong>Multipurpose / Multi-Temperature Rooms:</strong> Separate zones at different temperatures, each with independent evaporators and control systems.</li>
+    </ul>
+
+    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Fire Safety & Regional Compliance</h3>
+    <p>Fire safety regulations for insulated panels vary significantly by region. Selecting the correct core material is critical for both compliance and insurability:</p>
     <ul style="padding-left:20px;">
         <li><strong>Middle East (GCC):</strong> Civil Defense approvals in Dubai, Riyadh, and Doha demand FM-Approved PIR panels or Rockwool core panels with a minimum 2-hour fire rating. Standard PU panels are often rejected.</li>
         <li><strong>North America & Europe:</strong> Projects must comply with ASTM E84 (USA) or EN 13501-1 (Europe). PIR panels with Class B-s1, d0 fire rating are recommended. Avoid EPS in freezer applications.</li>
         <li><strong>South Asia:</strong> Local building codes typically accept PUF panels. However, for high-value pharmaceutical or export-oriented facilities, PIR is recommended for enhanced safety.</li>
-        <li><strong>Oceania:</strong> AS/NZS standards require PIR or Rockwool for high-hazard installations. Always check local authority requirements.</li>
+        <li><strong>Oceania:</strong> AS/NZS standards require PIR or Rockwool for high-hazard installations.</li>
     </ul>
     <p><strong>Our calculator automatically applies these regional rules when you select your country.</strong></p>
 
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Refrigeration System Types</h3>
+    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Refrigeration System Selection</h3>
     <ul style="padding-left:20px;">
         <li><strong>Monoblock Units:</strong> Self-contained units mounted through the wall. Ideal for small cold rooms up to 3 TR. Easy installation, lower cost, but limited capacity.</li>
-        <li><strong>Split Systems:</strong> Separate condensing unit outside and evaporator inside. For 3-15 TR applications. Most common for commercial cold rooms. Offers better performance and easier maintenance.</li>
-        <li><strong>Compressor Racks:</strong> Multiple compressors connected together for large facilities above 15 TR. Provides redundancy and staged capacity. Standard for distribution warehouses and processing plants.</li>
+        <li><strong>Split Systems:</strong> Separate condensing unit outside and evaporator inside. For 3–15 TR applications. Most common for commercial cold rooms. Offers better performance and easier maintenance.</li>
+        <li><strong>Compressor Racks:</strong> Multiple compressors connected together for large facilities above 15 TR. Provides redundancy and staged capacity. Standard for distribution warehouses.</li>
         <li><strong>Ammonia (NH3) Systems:</strong> For industrial plants above 20 TR. Highest efficiency but requires trained operators and special safety measures.</li>
     </ul>
+    <p>Choose modern refrigerants like R448A / R449A for new installations — better efficiency and lower GWP than legacy R404A.</p>
 
     <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Energy Efficiency Best Practices</h3>
     <ul style="padding-left:20px;">
-        <li><strong>Right-size the system:</strong> Oversized systems cycle on/off frequently, reducing efficiency and increasing wear. Undersized systems run constantly and fail to maintain temperature.</li>
-        <li><strong>Invest in insulation:</strong> Each additional 25mm of PUF insulation typically reduces energy consumption by 8-12%. The upfront panel cost pays back within 2-3 years of energy savings.</li>
-        <li><strong>Use door heaters on freezers:</strong> Without door heaters, ice builds up around the door frame, preventing proper sealing and forcing the compressor to work harder.</li>
-        <li><strong>Install strip curtains:</strong> PVC strip curtains on door openings can reduce infiltration by 60-80% while maintaining access speed.</li>
-        <li><strong>Choose modern refrigerants:</strong> R448A/R449A provide 10-15% better energy efficiency than legacy R404A while reducing environmental impact.</li>
-        <li><strong>Regular maintenance:</strong> Dirty condenser coils reduce heat rejection efficiency by 20-30%. Schedule quarterly coil cleaning.</li>
+        <li><strong>Right-size the system:</strong> Oversized systems cycle on/off frequently, reducing efficiency. Undersized systems run constantly and fail to maintain temperature.</li>
+        <li><strong>Invest in insulation:</strong> Each additional 25 mm of PUF insulation typically reduces energy consumption by 8–12%. The upfront panel cost pays back within 2–3 years.</li>
+        <li><strong>Use door heaters on freezers:</strong> Without door heaters, ice builds up around the door frame, preventing proper sealing.</li>
+        <li><strong>Install strip curtains:</strong> PVC strip curtains on door openings can reduce infiltration by 60–80% while maintaining access speed.</li>
+        <li><strong>Choose modern refrigerants:</strong> R448A / R449A provide 10–15% better energy efficiency than legacy R404A.</li>
+        <li><strong>Regular maintenance:</strong> Dirty condenser coils reduce heat rejection efficiency by 20–30%. Schedule quarterly coil cleaning.</li>
     </ul>
 
     <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Common Installation Mistakes to Avoid</h3>
     <ul style="padding-left:20px;">
         <li><strong>Missing vapour barrier:</strong> Moisture entering panels destroys insulation over time and causes ice formation inside panels — leading to panel delamination.</li>
-        <li><strong>Poor floor insulation:</strong> Cold room floors without insulation cause condensation, frost heave, and structural damage. Always use minimum 100mm insulation under freezer floors.</li>
+        <li><strong>Poor floor insulation:</strong> Cold room floors without insulation cause condensation, frost heave, and structural damage. Always use minimum 100 mm insulation under freezer floors.</li>
         <li><strong>Improper panel sealing:</strong> Gaps between panels create thermal bridges. Use proper cam-lock mechanisms and sealant at all joints.</li>
         <li><strong>Ignoring door traffic:</strong> Undersizing the system for actual door usage leads to temperature recovery failures. Always specify door usage correctly.</li>
-        <li><strong>No safety margin:</strong> New installations age — compressor performance drops 5-10% in first 5 years. Always include a 15-25% safety factor.</li>
+        <li><strong>No safety margin:</strong> Compressor performance drops 5–10% in the first 5 years. Always include a 15–25% safety factor.</li>
+        <li><strong>Ignoring regional fire safety:</strong> Using non-compliant panels can lead to project rejection or insurance issues.</li>
     </ul>
 
     <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Real-World Design Scenarios</h3>
-    <p><strong>Scenario 1 — Restaurant Walk-in Freezer (Pakistan):</strong> 10ft × 8ft × 8ft freezer at -18°C in Lahore summer (45°C). Typical load: 2.5-3 TR. Recommended: 100mm PUF panels, R448A split system, 1 door with heater. Approximate cost: Rs. 1.8-2.5 million.</p>
-    <p><strong>Scenario 2 — Fruit Cold Store (UAE):</strong> 40ft × 30ft × 15ft at +2°C in Dubai (48°C). Typical load: 8-10 TR. Recommended: 75mm PIR panels (FM-Approved), R448A split system with dual compressor. Approximate cost: AED 85,000-120,000.</p>
-    <p><strong>Scenario 3 — Frozen Distribution Warehouse (Saudi Arabia):</strong> 100ft × 60ft × 25ft at -25°C in Riyadh (50°C). Typical load: 60-75 TR. Recommended: 150mm PIR panels, ammonia or CO2 rack system. Approximate cost: SAR 1.5-2.5 million.</p>
+    <p><strong>Scenario 1 — Restaurant Walk-in Freezer (Pakistan):</strong> 10 ft × 8 ft × 8 ft freezer at -18°C in Lahore summer (45°C). Typical load: 2.5–3 TR. Recommended: 100 mm PUF panels, R448A split system, 1 door with heater. Approximate cost: Rs. 1.8–2.5 million.</p>
+    <p><strong>Scenario 2 — Fruit Cold Store (UAE):</strong> 40 ft × 30 ft × 15 ft at +2°C in Dubai (48°C). Typical load: 8–10 TR. Recommended: 75 mm PIR panels (FM-Approved), R448A split system with dual compressor. Approximate cost: AED 85,000–120,000.</p>
+    <p><strong>Scenario 3 — Frozen Distribution Warehouse (Saudi Arabia):</strong> 100 ft × 60 ft × 25 ft at -25°C in Riyadh (50°C). Typical load: 60–75 TR. Recommended: 150 mm PIR panels, ammonia or CO2 rack system. Approximate cost: SAR 1.5–2.5 million.</p>
 
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Extended FAQ</h3>
-    <p><strong>Q: What's the difference between a chiller and a freezer?</strong><br>A chiller maintains temperatures above 0°C (typically +1°C to +8°C). A freezer maintains below 0°C (typically -15°C to -25°C). Freezers require thicker insulation, door heaters, and floor insulation.</p>
-    <p><strong>Q: How often should I defrost?</strong><br>Modern systems have automatic defrost cycles every 6-8 hours. Manual defrosting is only needed on older systems.</p>
-    <p><strong>Q: What TR means?</strong><br>TR = Ton of Refrigeration = 12,000 BTU/hr = 3.517 kW. It's the cooling required to freeze 1 ton of water into ice in 24 hours.</p>
-    <p><strong>Q: Can I add more rooms to an existing system?</strong><br>No. Each cold room should have its own evaporator and dedicated or shared condensing unit sized correctly for its specific load.</p>
-    <p><strong>Q: How long do cold room panels last?</strong><br>With proper installation and maintenance, PUF/PIR panels last 15-25 years. Steel skins may need repainting or replacement after 12-15 years in humid environments.</p>
-    <p><strong>Q: What's the ideal floor construction for freezers?</strong><br>From top: reinforced concrete slab → vapour barrier → insulation (100mm XPS or PUF) → structural concrete with heating cables for frost heave prevention.</p>
-    <p><strong>Q: Why is my electricity bill so high?</strong><br>Common causes: dirty condensers, worn door gaskets, missing strip curtains, insufficient insulation, oversized system, or high ambient temperatures. Regular maintenance can reduce bills by 15-25%.</p>
-    <p><strong>Q: Should I use a second compressor for redundancy?</strong><br>For critical storage (pharma, high-value goods), yes. The cost of spoilage from a failed compressor far exceeds the cost of a standby unit.</p>
-    <p><strong>Q: How do I choose between wall-mounted and ceiling-mounted evaporators?</strong><br>Wall-mounted works best for small rooms under 15ft height. Ceiling-mounted provides better air distribution for larger rooms.</p>
-    <p><strong>Q: What's the typical lead time for a cold room project?</strong><br>Panel manufacturing: 2-4 weeks. Installation: 1-3 weeks. Refrigeration setup and commissioning: 1-2 weeks. Total: 4-9 weeks depending on size and complexity.</p>
+    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Frequently Asked Questions</h3>
+    <p><strong>Q: What's the difference between a chiller and a freezer?</strong><br>A: A chiller maintains temperatures above 0°C (typically +1°C to +8°C). A freezer maintains below 0°C (typically -15°C to -25°C). Freezers require thicker insulation, door heaters, and floor insulation.</p>
+    <p><strong>Q: What is the best insulation for a cold storage room?</strong><br>A: PU (Polyurethane) or PIR (Polyisocyanurate) panels are recommended because they offer the best thermal performance per mm of thickness. EPS panels can be used for less demanding applications.</p>
+    <p><strong>Q: How thick should my panels be?</strong><br>A: For frozen storage (-18°C), 100–150 mm PU/PIR is typical. For fresh products (+2°C), 60–80 mm is often sufficient, depending on climate.</p>
+    <p><strong>Q: What does TR mean?</strong><br>A: TR = Ton of Refrigeration = 12,000 BTU/hr = 3.517 kW. It's the cooling required to freeze 1 ton of water into ice in 24 hours.</p>
+    <p><strong>Q: How often should I defrost?</strong><br>A: Modern systems auto-defrost every 6–8 hours. Manual defrosting is only needed on older systems.</p>
+    <p><strong>Q: How long do cold room panels last?</strong><br>A: 15–25 years with proper installation and maintenance. Steel skins may need repainting after 12–15 years in humid environments.</p>
+    <p><strong>Q: What's the ideal floor construction for freezers?</strong><br>A: From top: reinforced concrete slab → vapour barrier → insulation (100 mm XPS or PUF) → structural concrete with heating cables for frost heave prevention.</p>
+    <p><strong>Q: Why is my electricity bill so high?</strong><br>A: Common causes: dirty condensers, worn door gaskets, missing strip curtains, insufficient insulation, oversized system, or high ambient temperatures. Regular maintenance can reduce bills by 15–25%.</p>
+    <p><strong>Q: Should I use a second compressor for redundancy?</strong><br>A: For critical storage (pharma, high-value goods), yes. The cost of spoilage from a failed compressor far exceeds the cost of a standby unit.</p>
+    <p><strong>Q: Can I add more rooms to an existing system?</strong><br>A: No. Each cold room should have its own evaporator and dedicated or shared condensing unit sized correctly for its specific load.</p>
+    <p><strong>Q: What's the typical lead time for a cold room project?</strong><br>A: Panel manufacturing: 2–4 weeks. Installation: 1–3 weeks. Refrigeration setup: 1–2 weeks. Total: 4–9 weeks depending on size and complexity.</p>
+
+    <p style="margin-top:18px;font-weight:700;color:#FFD700;">✅ This guide, combined with our free calculator, gives you everything needed to plan a professional cold storage project.</p>
 </div>
-
-  <!-- EDUCATIONAL CONTENT ADDED BELOW THE TOOL -->
-  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">What Is a Cold Storage Room?</h2>
-    <p>A cold storage room is a temperature-controlled space used to preserve perishable goods such as food, pharmaceuticals, and industrial materials. It is built with insulated panels, a cooling system, and a vapour barrier to maintain a stable low temperature and protect products from spoilage.</p>
-    <p>Cold storage rooms are commonly used in food processing, restaurants, supermarkets, pharmaceutical storage, agricultural cold chains, and industrial test chambers. The performance of a cold room depends on correct insulation, accurate cooling load calculation, and proper installation of panels and doors.</p>
-
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">How the Cold Storage Calculator Works</h2>
-    <p>This calculator estimates the cooling load and helps you understand the key parameters for designing a cold room. It considers room dimensions, internal and external temperatures, insulation type and thickness, product type and quantity, door openings, and daily usage. While it gives a reliable estimate, final cooling system selection should always be confirmed by a qualified HVAC or refrigeration engineer.</p>
-
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Key Inputs Explained</h2>
-    <ul style="padding-left:20px;">
-      <li><strong>Room dimensions:</strong> Determines the total volume and surface area to be cooled.</li>
-      <li><strong>External temperature:</strong> The hotter the outside air, the higher the cooling load.</li>
-      <li><strong>Internal temperature:</strong> Depends on product storage requirements (e.g., -18°C for frozen, +2°C for fresh).</li>
-      <li><strong>Insulation type:</strong> PU/PIR panels provide better thermal resistance than EPS.</li>
-      <li><strong>Insulation thickness:</strong> Thicker insulation reduces heat gain and energy consumption.</li>
-      <li><strong>Product type:</strong> Different products release different amounts of heat.</li>
-      <li><strong>Daily door openings:</strong> Frequent openings increase warm air infiltration.</li>
-      <li><strong>Country / Region:</strong> Fire safety standards vary; selecting the right region ensures compliance.</li>
-    </ul>
-
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Real-World Example</h2>
-    <p>Imagine a cold room with internal dimensions of 6 m × 4 m × 3 m. The outside temperature is 35°C, and the desired internal temperature is -18°C. The room uses 100 mm PU/PIR insulated panels.</p>
-    <ul style="padding-left:20px;">
-      <li>Volume: 6 × 4 × 3 = 72 m³</li>
-      <li>Surface area: Approximately 108 m²</li>
-      <li>Temperature difference: 35°C - (-18°C) = 53°C</li>
-      <li>Estimated cooling load: High, due to large temperature difference and frozen storage</li>
-    </ul>
-    <p>Using the calculator, you can adjust insulation thickness and see how it reduces the estimated load. This helps in selecting the right panels and cooling unit.</p>
-
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Common Mistakes to Avoid</h2>
-    <ul style="padding-left:20px;">
-      <li>Underestimating heat infiltration — every door opening brings warm air inside. Always add a safety margin.</li>
-      <li>Wrong insulation thickness — saving money on panels leads to high energy bills later.</li>
-      <li>Ignoring floor insulation — cold rooms need floor insulation to prevent condensation and structural damage.</li>
-      <li>Poor vapour barrier installation — moisture entering the panels reduces insulation performance and causes ice build-up.</li>
-      <li>Not considering product load — products entering at higher temperature add extra load that must be removed quickly.</li>
-      <li>Ignoring regional fire safety — using non-compliant panels can lead to project rejection or insurance issues.</li>
-    </ul>
-
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Frequently Asked Questions (FAQ)</h2>
-    <p><strong>Q: What is the best insulation for a cold storage room?</strong><br>
-    A: PU (Polyurethane) or PIR (Polyisocyanurate) panels are recommended because they offer the best thermal performance per mm of thickness. EPS panels can be used for less demanding applications.</p>
-    <p><strong>Q: How thick should my panels be?</strong><br>
-    A: For frozen storage (-18°C), 100 mm to 150 mm PU/PIR is typical. For fresh products (+2°C), 60 mm to 80 mm is often sufficient, depending on climate.</p>
-    <p><strong>Q: Can I use this calculator for a freezer room?</strong><br>
-    A: Yes, simply set the internal temperature to your desired freezer temperature and use appropriate insulation values.</p>
-    <p><strong>Q: Is this calculator accurate enough for project execution?</strong><br>
-    A: It gives a reliable estimate for planning and budgeting. For final equipment selection, always consult a licensed HVAC engineer.</p>
-  </div>
-<!-- DEEP DIVE GUIDE: Cold Storage Design & Engineering -->
-<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">❄️ Cold Storage Design & Engineering: The Complete Professional Guide</h2>
-  
-  <p>Cold storage is not just about keeping things cold — it's about <strong>precision, efficiency, and long-term reliability</strong>. Whether you're building a small walk-in freezer for a restaurant or a massive distribution warehouse for frozen foods, the principles remain the same: accurate thermal load calculation, proper insulation selection, and correct refrigeration system design. This guide will take you through everything you need to know to plan and build a successful cold room.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">1. Understanding the Four Types of Cold Rooms</h3>
-  <p>Cold rooms are categorized by their operating temperature and the products they store. Each type requires different insulation thickness, door design, and refrigeration capacity.</p>
-  <ul style="padding-left:20px;">
-    <li><strong>Chillers (0°C to +8°C):</strong> For fruits, vegetables, dairy, eggs, and pharmaceuticals. These rooms need moderate insulation (75–100mm PUF/PIR panels) and basic refrigeration systems.</li>
-    <li><strong>Freezers (-15°C to -25°C):</strong> For frozen meat, seafood, ice cream, and ready-to-cook products. Freezers require thicker insulation (125–150mm panels), door heaters, and floor insulation to prevent frost heave and ice build-up.</li>
-    <li><strong>Blast Freezers (-30°C to -40°C):</strong> Used for rapid freezing of products, often in food processing plants. These demand very high airflow, heavy-duty evaporators, and special compressor configurations.</li>
-    <li><strong>Multipurpose / Multi-Temperature Rooms:</strong> Facilities with separate zones at different temperatures, each with independent evaporators and control systems. Ideal for businesses handling mixed product lines.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">2. The Importance of Accurate Cooling Load Calculation</h3>
-  <p>Cooling load is the total amount of heat energy your refrigeration system must remove to maintain the desired temperature. It has four main components:</p>
-  <ul style="padding-left:20px;">
-    <li><strong>Transmission Load (60–70%):</strong> Heat flowing through walls, roof, and floor due to temperature difference between inside and outside. This is why insulation quality is critical.</li>
-    <li><strong>Product Load (10–20%):</strong> Heat released by products as they cool from entry temperature to storage temperature. For freezers, this includes latent heat of freezing.</li>
-    <li><strong>Infiltration Load (10–15%):</strong> Warm air entering through door openings and gaps. Every time a door opens, warm moist air rushes in, increasing load and causing frost.</li>
-    <li><strong>Equipment Load (10–15%):</strong> Heat from electric motors, lights, fans, and people working inside.</li>
-  </ul>
-  <p>Our calculator uses these principles with a 15% safety factor to recommend the correct refrigeration unit. Always include a safety margin to account for aging equipment and unexpected usage.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">3. Choosing the Right Insulation: PUF vs PIR vs EPS</h3>
-  <p>Insulation is the heart of your cold room. Three materials dominate:</p>
-  <ul style="padding-left:20px;">
-    <li><strong>PUF (Polyurethane Foam):</strong> Most common. Excellent thermal performance (λ=0.022), good structural strength, reasonable cost. Standard density 40–45 kg/m³.</li>
-    <li><strong>PIR (Polyisocyanurate):</strong> Better fire resistance and slightly better insulation (λ=0.020). Costs 15–20% more but recommended for high-value projects and strict fire codes.</li>
-    <li><strong>EPS (Expanded Polystyrene):</strong> Cheapest but lower insulation value (λ=0.035). Only for chilled rooms (above 0°C) where cost is primary.</li>
-  </ul>
-  <p><strong>Pro tip:</strong> For freezers below -15°C, always use minimum 125mm PUF/PIR panels. For chillers, 75–100mm is usually sufficient. In extreme climates like the Middle East or South Asian summers, consider one step thicker.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">4. Fire Safety & Regional Compliance</h3>
-  <p>Fire safety regulations for insulated panels vary significantly by region. Selecting the correct core material is critical for compliance and insurability:</p>
-  <ul style="padding-left:20px;">
-    <li><strong>Middle East (GCC):</strong> Civil Defense demands FM-Approved PIR or Rockwool panels with minimum 2-hour fire rating. Standard PU panels often rejected.</li>
-    <li><strong>North America & Europe:</strong> ASTM E84 or EN 13501-1. PIR Class B-s1, d0 recommended.</li>
-    <li><strong>South Asia:</strong> PUF generally accepted, but PIR recommended for export/pharma.</li>
-    <li><strong>Oceania:</strong> AS/NZS standards require PIR or Rockwool for high-hazard installations.</li>
-  </ul>
-  <p>Our calculator automatically recommends the appropriate core and standard when you select the country.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">5. Refrigeration System Selection</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Monoblock Units:</strong> Self-contained, for small rooms up to 3 TR.</li>
-    <li><strong>Split Systems:</strong> Separate condensing unit and evaporator, for 3–15 TR. Most common commercial choice.</li>
-    <li><strong>Compressor Racks:</strong> Multiple compressors for 15+ TR. Provides redundancy.</li>
-    <li><strong>Ammonia (NH3):</strong> Industrial plants above 20 TR. Highest efficiency but needs trained operators.</li>
-  </ul>
-  <p>Choose modern refrigerants like R448A/R449A for new installations — better efficiency, lower GWP.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">6. Real-World Example: 40×20×15 ft Freezer in Lahore</h3>
-  <p>Let's design a frozen meat storage room in Lahore, where summer ambient reaches 45°C. Room temperature: -20°C. Using our calculator:</p>
-  <ul style="padding-left:20px;">
-    <li><strong>Thermal envelope area:</strong> approximately 2,400 ft²</li>
-    <li><strong>Volume:</strong> 12,000 ft³</li>
-    <li><strong>Recommended panel thickness:</strong> 125mm PUF/PIR</li>
-    <li><strong>Estimated cooling load:</strong> 12–15 TR</li>
-    <li><strong>Recommended refrigeration:</strong> Dual compressor split system with R448A</li>
-  </ul>
-  <p>This setup ensures product integrity even during extreme summer peaks.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">7. Common Mistakes & How to Avoid Them</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Underestimating infiltration:</strong> Always add door heaters and strip curtains.</li>
-    <li><strong>Ignoring floor insulation:</strong> Cold room floors need minimum 100mm insulation.</li>
-    <li><strong>Using non-compliant panels:</strong> Check local fire codes before ordering.</li>
-    <li><strong>Oversizing or undersizing refrigeration:</strong> Use proper load calculation, not guesswork.</li>
-    <li><strong>Poor vapour barrier:</strong> Moisture ingress destroys panels over time.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">8. Extended FAQ – Cold Storage Deep Dive</h3>
-  <p><strong>Q: What's the ideal floor construction for a freezer?</strong><br>A: Reinforced concrete slab → vapour barrier → 100mm XPS/PUF insulation → structural concrete with heating cables for frost heave prevention.</p>
-  <p><strong>Q: How often should I defrost?</strong><br>A: Modern systems auto-defrost every 6–8 hours. Manual only on older systems.</p>
-  <p><strong>Q: What's the typical lifespan of a cold room?</strong><br>A: 15–25 years with proper maintenance. Steel skins may need repainting after 12–15 years in humid climates.</p>
-  <p><strong>Q: Should I use a second compressor for redundancy?</strong><br>A: Yes for critical storage (pharma, high-value). Cost of spoilage far exceeds standby unit cost.</p>
-  <p><strong>Q: Can I add more rooms to an existing system?</strong><br>A: No. Each room should have its own evaporator and dedicated capacity.</p>
-  <p><strong>Q: Why is my electricity bill so high?</strong><br>A: Dirty condensers, worn gaskets, missing strip curtains, insufficient insulation, or oversized system. Regular maintenance reduces bills by 15–25%.</p>
-
-  <p style="margin-top:15px; font-weight:700; color:#FFD700;">✅ This guide, combined with our free calculator, gives you everything needed to plan a professional cold storage project.</p>
-</div>
-
   <!-- Related Tools cross-links for SEO -->
   <div style="margin:20px 0 10px; padding:20px; background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.2); border-radius:12px;">
     <h3 style="color:#FFD700; font-size:1rem; margin-bottom:10px;">🔗 Related Tools You Might Need</h3>
@@ -1791,7 +1757,7 @@ function generateColdStorePDF(leadData, calcData) {
     const wallInputs=[{l:document.getElementById('w1L'),h:document.getElementById('w1H'),shared:document.getElementById('w1Shared')},{l:document.getElementById('w2L'),h:document.getElementById('w2H'),shared:document.getElementById('w2Shared')},{l:document.getElementById('w3L'),h:document.getElementById('w3H'),shared:document.getElementById('w3Shared')},{l:document.getElementById('w4L'),h:document.getElementById('w4H'),shared:document.getElementById('w4Shared')}];
     function toFeet(v,u){switch(u){case'mm':return v/304.8;case'in':return v/12;case'ft':return v;case'm':return v*3.28084;default:return v;}}
     function formatNum(n){return Math.round(n).toLocaleString('en-US');}
-    function getThermalEnvelopeArea(){let wa=0;wallInputs.forEach(w=>{if(!w.shared.checked)wa+=(parseFloat(w.l.value)||0)*(parseFloat(w.h.value)||0);});let ra=(parseFloat(wallInputs[0].l.value)||0)*(parseFloat(wallInputs[1].l.value)||0);return wa+ra;}
+function getThermalEnvelopeArea(){let wa=0;wallInputs.forEach(w=>{wa+=(parseFloat(w.l.value)||0)*(parseFloat(w.h.value)||0);});let ra=(parseFloat(wallInputs[0].l.value)||0)*(parseFloat(wallInputs[1].l.value)||0);return wa+ra;}
     function getVolumeEstimate(){let l1=parseFloat(wallInputs[0].l.value)||0,l2=parseFloat(wallInputs[1].l.value)||0,tH=0;wallInputs.forEach(w=>tH+=(parseFloat(w.h.value)||0));return l1*l2*(tH/4);}
     function getActivePerimeter(){let p=0;wallInputs.forEach(w=>{if(!w.shared.checked)p+=(parseFloat(w.l.value)||0);});return p;}
     function getBillableWallArea(){let p=getActivePerimeter(),tH=0,c=0;wallInputs.forEach(w=>{if(!w.shared.checked){tH+=(parseFloat(w.h.value)||0);c++;}});return p*(c?tH/c:15);}

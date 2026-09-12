@@ -11,7 +11,6 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Cache-control meta tags -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -39,7 +38,6 @@
   <meta name="keywords" content="construction cost calculator, building cost estimator, construction cost estimator, house construction cost, building estimate calculator">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -47,30 +45,26 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
   <style>
-    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); --good:#34D399; --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45); --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%); --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%); }
+    :root { --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gradient:linear-gradient(135deg,#4FC3F7,#2196F3); --good:#34D399; --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45); --silver-bg:#C8CDD4; --silver-bg-hover:#D5D9DE; }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.10), transparent 55%), radial-gradient(circle at 90% 100%, rgba(232,185,58,0.08), transparent 55%), var(--bg);
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 880px; margin:0 auto; padding:0 24px; }
-    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; max-width:880px; margin:0 auto; padding-left:24px; padding-right:24px; }
-    .logo { font-size:1.2rem; font-weight:700; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:6px; }
+    .logo { font-size:1.2rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:6px; }
     .nav-links { display:flex; gap:18px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.9rem; }
-    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
-    .ad-card { border-radius:12px; overflow:hidden; background:linear-gradient(120deg,rgba(20,28,40,0.9),rgba(10,15,20,0.75)); border:1px solid var(--border); padding:14px; margin:16px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; font-size:0.85rem; }
-    .ad-card ul { list-style:none; padding:0; margin:0; }
-    .ad-card li { font-size:0.8rem; font-weight:600; color:#fff; margin-bottom:3px; }
-    .ad-card li::before { content:"✓"; color:#4caf50; font-weight:700; margin-right:5px; }
-    .whatsapp-btn { background:#25D366; color:white; border-radius:50px; padding:8px 18px; text-decoration:none; font-weight:600; white-space:nowrap; font-size:0.85rem; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:10px; border-radius:8px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; }
-    .install-bar button { background:#0A0F14; color:white; border:none; padding:5px 14px; border-radius:5px; margin-left:10px; font-weight:600; cursor:pointer; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+
+    .install-bar { background:linear-gradient(135deg, #D4AF37, #FFD700); color:#0A0F14; text-align:center; padding:10px 16px; border-radius:10px; margin:14px 0; font-weight:700; font-size:0.85rem; display:block; box-shadow:0 3px 10px rgba(212,175,55,0.35); border:1px solid #FFD700; }
+    .install-bar button { background:#0A0F14; color:#FFD700; border:2px solid #FFD700; padding:5px 16px; border-radius:6px; margin-left:10px; font-weight:800; cursor:pointer; font-size:0.8rem; }
 
     h1 { font-size:1.6rem; font-weight:800; margin-bottom:6px; }
-    h1 span { color: var(--accent); }
-.subtitle { color:#EAEDF0; margin-bottom:20px; font-size:1rem; font-weight:500; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
+    h1 span { color: var(--gold-bright); }
+    .subtitle { color:#EAEDF0; margin-bottom:20px; font-size:1rem; font-weight:500; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
 
     .share-tool-card{
       background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
@@ -95,12 +89,11 @@
     .share-tool-btn i{font-size:1rem;}
 
     .card { background:var(--surface); border:1px solid var(--gold); border-radius:12px; padding:20px; margin-bottom:16px; position:relative; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
-
     .card h2 { font-family:'Oswald',sans-serif; font-size:0.95rem; font-weight:600; margin-bottom:4px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px; }
     .card .card-sub { font-size:0.75rem; color:var(--muted); margin-bottom:14px; }
 
     .field { margin-bottom:12px; }
-.field label { display:block; font-size:0.8rem; color:#EAEDF0; margin-bottom:4px; font-weight:600; }
+    .field label { display:block; font-size:0.8rem; color:#EAEDF0; margin-bottom:4px; font-weight:600; }
     .field label .tag { color:var(--gold); font-size:0.7rem; }
     .field input, .field select { width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text); padding:10px 12px; border-radius:8px; font-size:0.9rem; box-shadow: inset 0 1px 3px rgba(0,0,0,0.4); }
     .field input:focus, .field select:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
@@ -117,10 +110,55 @@
     .checkline { display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:0.85rem; color:var(--text); }
     .checkline input { width:auto; }
 
-.btn-calc { width:100%; background:#C8CDD4; color:#0A0F14; border:2px solid var(--gold); padding:15px; border-radius:10px; font-weight:800; font-size:1.05rem; cursor:pointer; margin-top:6px; letter-spacing:0.5px; box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow); transition:all 0.25s ease; }
-    .btn-calc:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
-.btn-reset { background:#C8CDD4; color:#0A0F14; border:2px solid var(--gold); padding:14px 18px; border-radius:10px; font-weight:800; font-size:0.9rem; cursor:pointer; white-space:nowrap; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition:all 0.25s ease; }
-    .btn-reset:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+    /* ============================================ */
+    /* STACKED BUTTONS — Calculate tall, Reset short */
+    /* ============================================ */
+    .btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .btn-calc {
+      width: 100%;
+      min-height: 64px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 1.15rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: #C8CDD4;
+      color: #0A0F14;
+      border: 2px solid var(--gold);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-calc:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
+    .btn-reset {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: #C8CDD4;
+      color: #0A0F14;
+      border: 2px solid var(--gold);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-reset:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform:translateY(-2px); }
 
     .result-hero { background:linear-gradient(135deg, rgba(52,211,153,0.10), rgba(79,195,247,0.08)); border:1px solid var(--good); border-radius:14px; padding:22px; text-align:center; margin-bottom:16px; }
     .result-hero .val { font-family:'Oswald',sans-serif; font-size:2.1rem; font-weight:800; color:var(--good); word-break:break-word; }
@@ -136,11 +174,11 @@
 
     .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
     .result-item {
-      background:var(--silver-gradient); border:1px solid var(--gold-bright); border-radius:10px;
+      background: #C8CDD4; border:1px solid var(--gold-bright); border-radius:10px;
       padding:14px; text-align:center; word-break:break-word;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3), 0 0 10px var(--gold-glow);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px var(--gold-glow);
     }
-    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.15rem; font-weight:800; color:#0A0F14; line-height:1.2; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
+    .result-item .val { font-family:'Oswald',sans-serif; font-size:1.15rem; font-weight:800; color:#0A0F14; line-height:1.2; }
     .result-item .lbl { font-size:0.68rem; color:#111; margin-top:3px; text-transform:uppercase; letter-spacing:0.5px; font-weight:700; }
 
     .share-bar { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
@@ -150,11 +188,79 @@
     .share-jpg, .share-png { background:var(--surface2); color:var(--text); border:1px solid var(--gold); }
 
     .note { font-size:0.72rem; color:var(--muted); margin-top:12px; border-top:1px solid var(--border); padding-top:10px; }
-    .disclaimer { font-size:0.72rem; color:var(--muted); background:rgba(232,185,58,0.06); border:1px solid rgba(232,185,58,0.3); border-radius:8px; padding:12px; margin-top:14px; }
     #shareCapture { display:none; }
     footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:30px 0 20px; border-top:1px solid var(--border); margin-top:40px; }
     footer a { color:var(--gold-bright); text-decoration:none; }
     .whatsapp-float { position:fixed; bottom:18px; right:18px; z-index:999; width:44px; height:44px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.2rem; }
+
+    /* ============================================ */
+    /* SILVER EDUCATIONAL CONTENT — Premium look */
+    /* ============================================ */
+    .edu-content {
+      margin: 30px 0;
+      padding: 30px 24px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 16px;
+      color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .edu-content h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.35rem; margin-bottom: 16px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; font-weight: 800; }
+    .edu-content h3 { color: #0A0F14; font-size: 1.1rem; margin: 22px 0 10px; font-weight: 800; }
+    .edu-content p, .edu-content li, .edu-content ul, .edu-content ol { color: #0A0F14; font-weight: 500; }
+    .edu-content ul, .edu-content ol { padding-left: 24px; margin-bottom: 14px; }
+    .edu-content li { margin-bottom: 6px; }
+    .edu-content strong { color: #0A0F14; font-weight: 800; }
+    .edu-content p { margin-bottom: 14px; }
+
+    /* ============================================ */
+    /* SILVER PAKISTANI BLOCK */
+    /* ============================================ */
+    .pakistani-block {
+      margin: 30px 0;
+      padding: 24px 20px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 16px;
+      color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+    .pakistani-block h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.2rem; margin-bottom: 12px; font-weight: 800; }
+    .pakistani-block p { color: #0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color: #0A0F14; font-weight: 800; }
+
+    /* ============================================ */
+    /* SILVER DISCLAIMER BOX */
+    /* ============================================ */
+    .disclaimer-box {
+      margin-top: 20px;
+      padding: 16px 18px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: #0A0F14;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    /* Related tools */
+    .related-tools {
+      margin: 20px 0 10px;
+      padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid #D4AF37;
+      border-radius: 12px;
+    }
+    .related-tools h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; }
 
     /* Lead Capture Modal */
     .lead-modal-overlay {
@@ -169,37 +275,13 @@
       box-shadow: 0 0 40px rgba(212,175,55,0.4), 0 20px 60px rgba(0,0,0,0.8);
       position: relative; text-align: center;
     }
-    .lead-modal-close {
-      position: absolute; top: 10px; right: 15px; background: transparent;
-      border: none; color: #D4AF37; font-size: 2rem; cursor: pointer; line-height: 1;
-    }
-    .lead-modal h3 {
-      font-family: 'Oswald', sans-serif; color: #FFD700; font-size: 1.5rem;
-      margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
-    }
-    .lead-modal p {
-      color: #cfd6dd; font-size: 0.9rem; margin-bottom: 20px;
-    }
-    .lead-form input {
-      width: 100%; background: #1B232C; border: 2px solid #D4AF37; color: #fff;
-      padding: 12px 14px; border-radius: 8px; margin-bottom: 12px; font-size: 0.95rem;
-    }
-    .lead-form input:focus {
-      outline: none; border-color: #FFD700; box-shadow: 0 0 15px rgba(212,175,55,0.5);
-    }
-    .lead-form .btn-primary {
-      width: 100%; padding: 14px; background: linear-gradient(145deg, #e6eaf0, #8a929c);
-      color: #0A0F14; border: 2px solid #D4AF37; border-radius: 10px;
-      font-weight: 800; font-size: 1rem; cursor: pointer; margin-top: 8px;
-      letter-spacing: 0.5px; text-shadow: 0 1px 2px rgba(255,255,255,0.4);
-    }
-    .lead-form .btn-primary:hover {
-      background: linear-gradient(145deg, #f8fafc, #b8c0c9);
-      border-color: #FFD700;
-    }
-    .privacy-note {
-      margin-top: 10px; font-size: 0.7rem; color: #8B98A5;
-    }
+    .lead-modal-close { position: absolute; top: 10px; right: 15px; background: transparent; border: none; color: #D4AF37; font-size: 2rem; cursor: pointer; line-height: 1; }
+    .lead-modal h3 { font-family: 'Oswald', sans-serif; color: #FFD700; font-size: 1.5rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .lead-modal p { color: #cfd6dd; font-size: 0.9rem; margin-bottom: 20px; }
+    .lead-form input { width: 100%; background: #1B232C; border: 2px solid #D4AF37; color: #fff; padding: 12px 14px; border-radius: 8px; margin-bottom: 12px; font-size: 0.95rem; }
+    .lead-form input:focus { outline: none; border-color: #FFD700; box-shadow: 0 0 15px rgba(212,175,55,0.5); }
+    .lead-form .btn-primary { width: 100%; padding: 14px; background: #C8CDD4; color: #0A0F14; border: 2px solid #D4AF37; border-radius: 10px; font-weight: 800; font-size: 1rem; cursor: pointer; margin-top: 8px; }
+    .privacy-note { margin-top: 10px; font-size: 0.7rem; color: #8B98A5; }
 
     @media (max-width:460px) {
       .row2, .row3, .row4 { grid-template-columns:1fr 1fr; }
@@ -207,15 +289,6 @@
       h1 { font-size:1.35rem; }
       .result-hero .val { font-size:1.6rem; }
     }
-    .btn-calc, .btn-reset {
-    min-height: 56px;
-    max-height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 0;
-    padding-bottom: 0;
-}
   </style>
 </head>
 <body>
@@ -234,20 +307,7 @@
   </nav>
 
   <div class="container">
-  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
-  
-    <div class="ad-card">
-      <div>
-        <ul>
-          <li>PEB Structures</li>
-          <li>Cold Storage & Freezer Rooms</li>
-          <li>PU/PIR Sandwich Panels</li>
-          <li>Prefab Construction Solutions</li>
-        </ul>
-        <div style="font-size:0.7rem;color:#c8d0d8;margin-top:2px;">✓ Karachi, Lahore, Islamabad & all Pakistan</div>
-      </div>
-      <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-btn" target="_blank">💬 Get Quote</a>
-    </div>
+  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
 
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
@@ -470,10 +530,10 @@
       <div class="field"><label>Government Approval / NOC Fees <span class="tag">(fixed amount, optional)</span></label><input type="number" id="govFees" value="0" step="any" min="0"></div>
     </div>
 
-<div style="display:flex;gap:10px;align-items:center;">
-  <button class="btn-calc" style="flex:1; height:56px; margin:0;" onclick="calculateConstruction()">Calculate Total Cost</button>
-  <button class="btn-reset" style="height:56px; margin:0; padding-top:0; padding-bottom:0;" onclick="resetConstructionForm()">↺ Reset</button>
-</div>
+    <div class="btn-stack">
+      <button class="btn-calc" onclick="calculateConstruction()">📊 Calculate Total Cost</button>
+      <button class="btn-reset" onclick="resetConstructionForm()">↺ Reset</button>
+    </div>
 
     <!-- RESULTS -->
     <div id="resultsWrap" style="display:none;">
@@ -501,11 +561,8 @@
         </div>
       </div>
 
-      <div class="disclaimer">⚠️ This is a preliminary estimate using general industry rule-of-thumb rates and thumb-rule material factors. Actual costs vary significantly by location, market rates, site conditions, and design specifics. For an accurate quotation, please consult a professional contractor or structural engineer.</div>
-
-      <!-- New Premium PDF Button -->
       <div style="margin-top: 20px; text-align: center;">
-        <button class="btn-primary" style="width:100%; padding:14px; font-size:1rem;" onclick="openLeadModal()">
+        <button class="btn-primary" style="width:100%; padding:14px; font-size:1rem; background:#C8CDD4; color:#0A0F14; border:2px solid #D4AF37; border-radius:10px; font-weight:800; cursor:pointer;" onclick="openLeadModal()">
           📥 Download Certified Technical Estimate & Material Specification PDF
         </button>
       </div>
@@ -531,21 +588,163 @@
       </div>
     </div>
 
-    <!-- Localized Pakistani Text: PEB & Construction -->
-    <div style="margin:30px 0; padding:24px 20px; background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.3); border-radius:14px; line-height:1.8; font-size:0.95rem; color:#cfd6dd;">
-      <h2 style="font-size:1.2rem; margin-bottom:12px; color:#FFD700;">🏗️ Pre-Engineered Steel Buildings (PEB) & Industrial Civil Contracting</h2>
-      <p>Planning an industrial production facility, multi-story factory layout, or logistical hub in Pakistan? Our PEB Material Calculator provides structural steel weight baselines using international AISC configurations, fine-tuned for local construction realities. <strong>ColdMatrix</strong> offers complete turnkey solutions from concrete foundation casting to final structural steel erection.</p>
-      <p style="margin-top:10px;">Contact our <strong>Karachi engineering desk</strong> for site evaluations, soil test matching, and formal commercial bidding documentation.</p>
+<!-- ⬇️⬇️⬇️ END OF PART 1 — CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
+
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — MERGED, NO DUPLICATES, SILVER -->
+    <!-- ============================================ -->
+    <div class="edu-content">
+      <h2>🏗️ Construction Cost Estimation: The Complete Professional Guide</h2>
+
+      <p>Construction is one of the largest investments most people will ever make. Whether building a family home, a commercial plaza, a factory, or a cold storage facility, the difference between a successful project and a financial disaster often comes down to accurate cost estimation. This guide explains the key principles behind our construction cost calculator and helps you understand where every rupee, dollar, or dirham goes.</p>
+
+      <h3>1. The True Cost of Construction: Beyond Materials</h3>
+      <p>Many people think construction cost = bricks + cement + steel. The reality is far more complex. A proper construction budget includes:</p>
+      <ul>
+        <li><strong>Direct Costs:</strong> Materials, labor, equipment — the visible expenses.</li>
+        <li><strong>Indirect Costs:</strong> Permits, design fees, inspections, insurance — often 10–20% of total.</li>
+        <li><strong>Professional Fees:</strong> Architects, structural engineers, project managers.</li>
+        <li><strong>Contingency Reserve:</strong> 5–15% for unexpected issues, design changes, and market fluctuations.</li>
+        <li><strong>Government Fees:</strong> Approvals, NOCs, municipal taxes, and utility connections.</li>
+      </ul>
+
+      <h3>2. Global Construction Cost Benchmarks (2026)</h3>
+      <ul>
+        <li><strong>Pakistan:</strong> PKR 2,500–6,500 per sq ft (residential, depending on quality)</li>
+        <li><strong>India:</strong> INR 1,500–4,000 per sq ft</li>
+        <li><strong>USA:</strong> USD 150–300 per sq ft</li>
+        <li><strong>UK:</strong> GBP 120–250 per sq ft</li>
+        <li><strong>UAE:</strong> AED 200–450 per sq ft</li>
+        <li><strong>Saudi Arabia:</strong> SAR 150–350 per sq ft</li>
+      </ul>
+      <p><strong>Note:</strong> These are general ranges. Actual costs vary significantly by city, design complexity, material quality, and labor availability.</p>
+
+      <h3>3. Cost Breakdown: Where the Money Goes</h3>
+      <ul>
+        <li><strong>Structure &amp; Foundation (40–50%):</strong> The skeleton of your building — concrete, steel, bricks, formwork.</li>
+        <li><strong>Finishing (20–25%):</strong> Flooring, walls, paint, ceilings — what makes it look good.</li>
+        <li><strong>MEP Systems (15–20%):</strong> Electrical, plumbing, HVAC — what makes it functional.</li>
+        <li><strong>Doors &amp; Windows (5–10%):</strong> Often underestimated but significant.</li>
+        <li><strong>Fees &amp; Contingency (10–15%):</strong> Professional services and reserves.</li>
+      </ul>
+
+      <h3>4. Quality Grades Explained</h3>
+      <ul>
+        <li><strong>Economy:</strong> Basic materials, minimal finishing. Suitable for rental properties or budget constraints. Expect 10–15 year lifespan before renovations.</li>
+        <li><strong>Standard:</strong> Good quality materials, decent finishing. Most common choice for family homes. 20–25 year lifespan.</li>
+        <li><strong>Premium:</strong> High-end materials, superior finishing. Marble flooring, premium fixtures, better insulation. 30+ year lifespan.</li>
+        <li><strong>Luxury:</strong> Top-tier everything — imported materials, custom design, smart home systems. 40+ year lifespan.</li>
+      </ul>
+
+      <h3>5. Structure Types: RCC vs Steel vs PEB</h3>
+      <ul>
+        <li><strong>RCC (Reinforced Cement Concrete):</strong> Most common for residential and small commercial. Strong, durable, but slow to build. Good for 1–10 floors.</li>
+        <li><strong>Load Bearing:</strong> Traditional brick/block walls carrying the load. Cheapest for small buildings (1–2 floors). Limited heights.</li>
+        <li><strong>Steel Structure:</strong> Faster than RCC, lighter, better for large spans. More expensive for small buildings. Common for warehouses and factories.</li>
+        <li><strong>PEB (Pre-Engineered Building):</strong> Fastest construction (weeks, not months). Ideal for warehouses, factories, cold storage. Lower cost for large clear spans.</li>
+      </ul>
+
+      <h3>6. Foundation Types: The Hidden Cost</h3>
+      <ul>
+        <li><strong>Shallow / Isolated Footing:</strong> Most common. Suitable for normal soil conditions. Cheapest option.</li>
+        <li><strong>Strip Foundation:</strong> For load-bearing walls. Slightly more concrete required.</li>
+        <li><strong>Raft Foundation:</strong> For weak soils or heavy loads. Costlier but provides uniform support.</li>
+        <li><strong>Pile Foundation:</strong> For very weak soils or high-rise buildings. Most expensive, requires specialized equipment.</li>
+      </ul>
+      <p><strong>Pro tip:</strong> Soil testing before design saves money. Building on poor soil without proper foundation design leads to structural issues that cost 10x more to fix later.</p>
+
+      <h3>7. How the Calculator Works</h3>
+      <p>This tool uses industry-standard rule-of-thumb rates and material factors to give a preliminary estimate. You enter the building type, structure type, quality grade, covered area, and finishing choices. The calculator then applies local market rates and generates a detailed cost breakdown along with approximate material quantities.</p>
+
+      <h3>8. Key Inputs Explained</h3>
+      <ul>
+        <li><strong>Building Type:</strong> Residential, commercial, industrial, or warehouse. Different types have different structural requirements.</li>
+        <li><strong>Structure Type:</strong> RCC, load bearing, steel, or PEB. Steel/PEB is faster but may cost more for small buildings.</li>
+        <li><strong>Covered Area &amp; Floors:</strong> Determines total floor area, which is the main cost driver.</li>
+        <li><strong>Quality Grade:</strong> Economy, standard, premium, or luxury. This affects material and finishing costs significantly.</li>
+        <li><strong>Foundation, Wall, Roof Types:</strong> These adjust the base structure cost based on complexity.</li>
+        <li><strong>Finishing &amp; MEP:</strong> Flooring, electrical, plumbing, HVAC, doors, and paint — each adds to the total.</li>
+      </ul>
+
+      <h3>9. Real-World Example: 1,500 sq ft Standard Home in Lahore</h3>
+      <p>Using our calculator with standard quality, RCC structure, and typical finishes:</p>
+      <ul>
+        <li><strong>Base structure rate:</strong> PKR 3,200/sq ft</li>
+        <li><strong>Total covered area:</strong> 1,500 sq ft</li>
+        <li><strong>Estimated total cost:</strong> PKR 6.5–7.5 million</li>
+        <li><strong>Includes:</strong> Foundation, structure, finishing, MEP, fees, and 5% contingency</li>
+      </ul>
+
+      <h3>10. Common Cost Overrun Causes</h3>
+      <ul>
+        <li><strong>Design Changes Mid-Construction:</strong> Every change after work begins costs 2–3x the original price.</li>
+        <li><strong>Material Price Fluctuations:</strong> Steel, cement, and fuel prices change. Lock in rates with suppliers where possible.</li>
+        <li><strong>Site Conditions:</strong> Poor soil, water table issues, or hidden obstacles add unexpected costs.</li>
+        <li><strong>Weather Delays:</strong> Rain, extreme heat, or cold stops work and extends timelines.</li>
+        <li><strong>Labor Shortages:</strong> Skilled labor availability affects both cost and schedule.</li>
+        <li><strong>Scope Creep:</strong> "While we're building, let's also add..." — every addition increases cost.</li>
+      </ul>
+
+      <h3>11. Common Mistakes to Avoid</h3>
+      <ul>
+        <li>Forgetting contingency — always add 5–10% for unforeseen issues.</li>
+        <li>Not adjusting rates to local market — always update suggested rates with actual local quotes.</li>
+        <li>Ignoring MEP costs — electrical, plumbing, and HVAC can be 20% or more of the total.</li>
+        <li>Using wrong area units — mixing feet and meters can cause large errors.</li>
+      </ul>
+
+      <h3>12. Extended FAQ</h3>
+      <p><strong>Q: How accurate is this calculator?</strong><br>A: It gives a preliminary estimate suitable for budgeting and early planning. Final costs require detailed design and local contractor quotes.</p>
+      <p><strong>Q: Does it include land cost?</strong><br>A: No. Land cost is separate and varies dramatically by location.</p>
+      <p><strong>Q: Can I use it for commercial projects?</strong><br>A: Yes, select the commercial building type and adjust rates accordingly.</p>
+      <p><strong>Q: What's the best way to reduce construction cost?</strong><br>A: Value engineering — optimize design, use locally available materials, and avoid unnecessary features. Quality control prevents costly rework.</p>
+      <p><strong>Q: Should I hire a contractor or manage myself?</strong><br>A: For projects over $50,000, a professional contractor saves more through efficiency than their fees cost. Self-management works for small projects if you have construction experience.</p>
+      <p><strong>Q: How much contingency should I add?</strong><br>A: Standard: 5–10%. For renovation projects or uncertain sites: 15–20%.</p>
+      <p><strong>Q: Can I build in phases to reduce upfront cost?</strong><br>A: Yes. Many builders complete the structure first, then finish one floor at a time as funds allow. This calculator works for phased construction too.</p>
+      <p><strong>Q: What's the typical construction timeline?</strong><br>A: Small house (1–2 floors): 6–12 months. Commercial building: 12–24 months. PEB warehouse: 8–16 weeks.</p>
+      <p><strong>Q: How do I prevent cost overruns?</strong><br>A: Finalize designs before starting. Get detailed written quotes. Add 10% contingency. Monitor progress weekly. Avoid mid-construction changes.</p>
+      <p><strong>Q: Does building quality affect resale value?</strong><br>A: Yes. Premium quality construction can increase property value by 20–30%. Cheap construction often costs more in repairs than the initial savings.</p>
+      <p><strong>Q: What currencies are supported?</strong><br>A: USD, PKR, EUR, GBP, AED, SAR, INR, CNY, AUD, CAD.</p>
+
+      <p style="margin-top:15px; font-weight:800; color:#0A0F14;">✅ This guide, combined with our free calculator, gives you a solid foundation for construction cost planning.</p>
     </div>
 
-        
-        <!-- Project Gallery: Proof of Work (Updated with real image filenames) -->
+    <!-- ============================================ -->
+    <!-- PAKISTANI SERVICES BLOCK — SILVER -->
+    <!-- ============================================ -->
+    <div class="pakistani-block">
+      <h2>🏗️ Pre-Engineered Steel Buildings (PEB) &amp; Industrial Civil Contracting in Pakistan</h2>
+      <p>Planning an industrial production facility, multi-story factory layout, or logistical hub in Pakistan? Our Construction Cost Calculator provides accurate cost baselines using international AISC and RCC standards, fine-tuned for local construction realities. <strong>ColdMatrix Advanced Solutions</strong> offers complete turnkey solutions from concrete foundation casting to final structural steel erection.</p>
+      <p>Our portfolio covers a wide range of industrial structures — from clear-span warehouses and cold storage PEB halls to factory sheds, textile units, packaging plants, and aircraft hangars. Whether your project is in Karachi, Lahore, Islamabad, Faisalabad, or the industrial corridors of Balochistan, we deliver construction projects engineered to international standards and executed locally for cost efficiency.</p>
+      <p>We work with premium-grade structural steel (ASTM A36, A572, and equivalent), quality-certified cement and aggregates (ASTM and PSQCA standards), and precision bolted connections tested for wind and seismic loads. Our in-house team ensures dimensional accuracy, on-time delivery, and strict quality control at every stage — from shop drawings to final bolt torque verification on site.</p>
+      <p>Every project begins with a <strong>free preliminary consultation</strong>. Our engineers match your building dimensions, foundation requirements, and site conditions against real material pricing — giving you an honest, transparent estimate before you commit to a single rupee.</p>
+      <p>Contact our <strong>Karachi engineering desk</strong> for site evaluations, soil test matching, formal commercial bidding documentation, and factory-stamped technical drawings ready for submission to your project consultant.</p>
+      <p style="margin-top:14px; font-weight:800; color:#0A0F14;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- RELATED TOOLS -->
+    <!-- ============================================ -->
+    <div class="related-tools">
+        <h3>🔗 Related Tools You Might Need</h3>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+            <a href="concrete-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">🏗️ Concrete Calculator</a>
+            <a href="cft-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">📐 CFT Calculator</a>
+            <a href="steel-weight-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">🛠️ Steel Weight Calculator</a>
+            <a href="peb-material-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">🏭 PEB Material Calculator</a>
+            <a href="cold-store-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">❄️ Cold Store Calculator</a>
+            <a href="sandwich-panel-calculator.html" style="color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600;">🧱 Sandwich Panel Calculator</a>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- PROJECT GALLERY -->
+    <!-- ============================================ -->
     <div style="margin:40px 0 30px;">
       <h2 style="font-family:'Oswald',sans-serif; color:#FFD700; font-size:1.4rem; margin-bottom:20px; text-align:center; text-transform:uppercase; letter-spacing:0.5px;">📸 Recent Physical Deployments by ColdMatrix</h2>
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
 
-        <!-- Project 1: Karachi Cold Storage Installation -->
-        <div style="background:#12181F; border:1px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+        <div style="background:#12181F; border:2px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
           <img src="karachi-cold-storage.jpg" alt="Cold Storage Installation in Karachi" style="width:100%; height:180px; object-fit:cover;">
           <div style="padding:14px;">
             <h4 style="color:#FFD700; font-size:0.9rem; margin-bottom:8px;">🧊 Cold Storage Installation</h4>
@@ -553,8 +752,7 @@
           </div>
         </div>
 
-        <!-- Project 2: Hub Balochistan PEB Warehouse -->
-        <div style="background:#12181F; border:1px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+        <div style="background:#12181F; border:2px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
           <img src="hub-balochistan-peb-warehouse.jpg" alt="PEB Warehouse Structure in Hub, Balochistan" style="width:100%; height:180px; object-fit:cover;">
           <div style="padding:14px;">
             <h4 style="color:#FFD700; font-size:0.9rem; margin-bottom:8px;">🏗️ PEB Warehouse Structure</h4>
@@ -562,8 +760,7 @@
           </div>
         </div>
 
-        <!-- Project 3: Lahore Sandwich Panel Supply -->
-        <div style="background:#12181F; border:1px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+        <div style="background:#12181F; border:2px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
           <img src="lahore-sandwich-panel-supply.jpg" alt="Sandwich Panel Supply to Lahore" style="width:100%; height:180px; object-fit:cover;">
           <div style="padding:14px;">
             <h4 style="color:#FFD700; font-size:0.9rem; margin-bottom:8px;">📦 Sandwich Panel Supply</h4>
@@ -571,8 +768,7 @@
           </div>
         </div>
 
-        <!-- Project 4: Islamabad Sandwich Panel Supply -->
-        <div style="background:#12181F; border:1px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
+        <div style="background:#12181F; border:2px solid #D4AF37; border-radius:12px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.3);">
           <img src="islamabad-sandwich-panel-supply.jpg" alt="Sandwich Panel Supply to Islamabad" style="width:100%; height:180px; object-fit:cover;">
           <div style="padding:14px;">
             <h4 style="color:#FFD700; font-size:0.9rem; margin-bottom:8px;">📦 Sandwich Panel Supply</h4>
@@ -583,261 +779,37 @@
       </div>
     </div>
 
+    <!-- ============================================ -->
+    <!-- DISCLAIMER — SILVER -->
+    <!-- ============================================ -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> This tool provides <strong>preliminary estimates</strong> based on standard industry formulas and typical material properties. Results may vary due to local conditions, material grades, environmental factors, and project-specific requirements. Always consult a <strong>licensed engineer or qualified professional</strong> for final design, verification, and execution.
     </div>
 
     <!-- Local Business Bridge Footer -->
-    <div style="background: #1a365d; color: white; padding: 30px; border-radius: 12px; margin-top: 40px; border-left: 6px solid #e05624;">
-      <h3 style="color: #e05624; margin-top: 0; font-family:'Oswald',sans-serif;">📱 Discuss Your Industrial Project Locally</h3>
-      <p style="color:#e0e0e0; margin-bottom:15px;">Need urgent technical verification, physical material samples delivered to your office, or a verified commercial invoice layout? Skip the automated queue and connect directly with our head engineering office in Karachi.</p>
+    <div style="background: #12181F; color: white; padding: 30px; border-radius: 12px; margin-top: 40px; border:2px solid #D4AF37;">
+      <h3 style="color: #FFD700; margin-top: 0; font-family:'Oswald',sans-serif;">📱 Discuss Your Industrial Project Locally</h3>
+      <p style="color:#cfd6dd; margin-bottom:15px;">Need urgent technical verification, physical material samples delivered to your office, or a verified commercial invoice layout? Skip the automated queue and connect directly with our head engineering office in Karachi.</p>
       <div style="display: flex; gap: 20px; flex-wrap: wrap; font-weight: bold; margin-top: 15px;">
-        <span>📞 Office Phone: <a href="tel:+923333228470" style="color:#fff;">+92 333 3228470</a></span>
+        <span style="color:#EAEDF0;">📞 Office Phone: <a href="tel:+923333228470" style="color:#FFD700;">+92 333 3228470</a></span>
         <span style="color: #25d366;">💬 WhatsApp Desk: <a href="https://wa.me/923333228470" target="_blank" style="color:#25d366;">+92 333 3228470</a></span>
-        <span>📍 Factory/H.Q: Karachi, Pakistan</span>
+        <span style="color:#EAEDF0;">📍 Factory/H.Q: Karachi, Pakistan</span>
       </div>
     </div>
 
   </div>
-  
-  <!-- DEEP DIVE GUIDE: Construction Cost Estimation & Budgeting -->
-<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">🏗️ Construction Cost Estimation: The Complete Professional Guide</h2>
-
-  <p>Construction is one of the largest investments most people will ever make. Whether building a family home, a commercial plaza, a factory, or a cold storage facility, the difference between a successful project and a financial disaster often comes down to accurate cost estimation. This guide explains the key principles behind our construction cost calculator and helps you understand where every rupee, dollar, or dirham goes.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">1. The True Cost of Construction: Beyond Materials</h3>
-  <p>Many people think construction cost = bricks + cement + steel. The reality is far more complex. A proper construction budget includes:</p>
-  <ul style="padding-left:20px;">
-    <li><strong>Direct Costs:</strong> Materials, labor, equipment — the visible expenses.</li>
-    <li><strong>Indirect Costs:</strong> Permits, design fees, inspections, insurance — often 10–20% of total.</li>
-    <li><strong>Professional Fees:</strong> Architects, structural engineers, project managers.</li>
-    <li><strong>Contingency Reserve:</strong> 5–15% for unexpected issues, design changes, and market fluctuations.</li>
-    <li><strong>Government Fees:</strong> Approvals, NOCs, municipal taxes, and utility connections.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">2. Global Construction Cost Benchmarks (2026)</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Pakistan:</strong> PKR 2,500–6,500 per sq ft (residential, depending on quality)</li>
-    <li><strong>India:</strong> INR 1,500–4,000 per sq ft</li>
-    <li><strong>USA:</strong> USD 150–300 per sq ft</li>
-    <li><strong>UK:</strong> GBP 120–250 per sq ft</li>
-    <li><strong>UAE:</strong> AED 200–450 per sq ft</li>
-    <li><strong>Saudi Arabia:</strong> SAR 150–350 per sq ft</li>
-  </ul>
-  <p><strong>Note:</strong> These are general ranges. Actual costs vary significantly by city, design complexity, material quality, and labor availability.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">3. Cost Breakdown: Where the Money Goes</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Structure & Foundation (40–50%):</strong> The skeleton of your building — concrete, steel, bricks, formwork.</li>
-    <li><strong>Finishing (20–25%):</strong> Flooring, walls, paint, ceilings — what makes it look good.</li>
-    <li><strong>MEP Systems (15–20%):</strong> Electrical, plumbing, HVAC — what makes it functional.</li>
-    <li><strong>Doors & Windows (5–10%):</strong> Often underestimated but significant.</li>
-    <li><strong>Fees & Contingency (10–15%):</strong> Professional services and reserves.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">4. Quality Grades Explained</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Economy:</strong> Basic materials, minimal finishing. Suitable for rental properties or budget constraints. Expect 10–15 year lifespan before renovations.</li>
-    <li><strong>Standard:</strong> Good quality materials, decent finishing. Most common choice for family homes. 20–25 year lifespan.</li>
-    <li><strong>Premium:</strong> High-end materials, superior finishing. Marble flooring, premium fixtures, better insulation. 30+ year lifespan.</li>
-    <li><strong>Luxury:</strong> Top-tier everything — imported materials, custom design, smart home systems. 40+ year lifespan.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">5. Structure Types: RCC vs Steel vs PEB</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>RCC (Reinforced Cement Concrete):</strong> Most common for residential and small commercial. Strong, durable, but slow to build. Good for 1–10 floors.</li>
-    <li><strong>Load Bearing:</strong> Traditional brick/block walls carrying the load. Cheapest for small buildings (1–2 floors). Limited heights.</li>
-    <li><strong>Steel Structure:</strong> Faster than RCC, lighter, better for large spans. More expensive for small buildings. Common for warehouses and factories.</li>
-    <li><strong>PEB (Pre-Engineered Building):</strong> Fastest construction (weeks, not months). Ideal for warehouses, factories, cold storage. Lower cost for large clear spans.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">6. Foundation Types: The Hidden Cost</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Shallow / Isolated Footing:</strong> Most common. Suitable for normal soil conditions. Cheapest option.</li>
-    <li><strong>Strip Foundation:</strong> For load-bearing walls. Slightly more concrete required.</li>
-    <li><strong>Raft Foundation:</strong> For weak soils or heavy loads. Costlier but provides uniform support.</li>
-    <li><strong>Pile Foundation:</strong> For very weak soils or high-rise buildings. Most expensive, requires specialized equipment.</li>
-  </ul>
-  <p><strong>Pro tip:</strong> Soil testing before design saves money. Building on poor soil without proper foundation design leads to structural issues that cost 10x more to fix later.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">7. Real-World Example: 1,500 sq ft Standard Home in Lahore</h3>
-  <p>Using our calculator with standard quality, RCC structure, and typical finishes:</p>
-  <ul style="padding-left:20px;">
-    <li><strong>Base structure rate:</strong> PKR 3,200/sq ft</li>
-    <li><strong>Total covered area:</strong> 1,500 sq ft</li>
-    <li><strong>Estimated total cost:</strong> PKR 6.5–7.5 million</li>
-    <li><strong>Includes:</strong> Foundation, structure, finishing, MEP, fees, and 5% contingency</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">8. Common Cost Overrun Causes</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Design Changes Mid-Construction:</strong> Every change after work begins costs 2–3x the original price.</li>
-    <li><strong>Material Price Fluctuations:</strong> Steel, cement, and fuel prices change. Lock in rates with suppliers where possible.</li>
-    <li><strong>Site Conditions:</strong> Poor soil, water table issues, or hidden obstacles add unexpected costs.</li>
-    <li><strong>Weather Delays:</strong> Rain, extreme heat, or cold stops work and extends timelines.</li>
-    <li><strong>Labor Shortages:</strong> Skilled labor availability affects both cost and schedule.</li>
-    <li><strong>Scope Creep:</strong> "While we're building, let's also add..." — every addition increases cost.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">9. Extended FAQ – Construction Cost Deep Dive</h3>
-  <p><strong>Q: How accurate is this calculator?</strong><br>A: It provides preliminary estimates based on industry rule-of-thumb rates. For final budgets, always get 2–3 professional contractor quotes.</p>
-  <p><strong>Q: Does it include land cost?</strong><br>A: No. Land cost is separate and varies dramatically by location.</p>
-  <p><strong>Q: What's the best way to reduce construction cost?</strong><br>A: Value engineering — optimize design, use locally available materials, and avoid unnecessary features. Quality control prevents costly rework.</p>
-  <p><strong>Q: Should I hire a contractor or manage myself?</strong><br>A: For projects over $50,000, a professional contractor saves more through efficiency than their fees cost. Self-management works for small projects if you have construction experience.</p>
-  <p><strong>Q: How much contingency should I add?</strong><br>A: Standard: 5–10%. For renovation projects or uncertain sites: 15–20%.</p>
-  <p><strong>Q: Can I build in phases to reduce upfront cost?</strong><br>A: Yes. Many builders complete the structure first, then finish one floor at a time as funds allow.</p>
-  <p><strong>Q: What's the typical construction timeline?</strong><br>A: Small house (1–2 floors): 6–12 months. Commercial building: 12–24 months. PEB warehouse: 8–16 weeks.</p>
-
-  <p style="margin-top:15px; font-weight:700; color:#FFD700;">✅ This guide, combined with our free calculator, gives you a solid foundation for construction cost planning.</p>
-</div>
-  <!-- EXTENDED INDUSTRY CONTENT -->
-<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">📚 The Complete Construction Cost Guide</h2>
-  
-  <p>Construction is one of the largest investments most people will ever make. Whether building a family home, a commercial plaza, a factory, or a cold storage facility, the difference between a successful project and a financial disaster often comes down to accurate cost estimation. This calculator — and this guide — exist to help you understand where every rupee, dollar, or dirham goes when you build.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">The True Cost of Construction: Beyond Materials</h3>
-  <p>Many people think construction cost = bricks + cement + steel. The reality is far more complex. A proper construction budget includes:</p>
-  <ul style="padding-left:20px;">
-      <li><strong>Direct Costs:</strong> Materials, labor, equipment — the visible expenses.</li>
-      <li><strong>Indirect Costs:</strong> Permits, design fees, inspections, insurance — often 10-20% of total.</li>
-      <li><strong>Professional Fees:</strong> Architects, structural engineers, project managers.</li>
-      <li><strong>Contingency Reserve:</strong> 5-15% for unexpected issues, design changes, and market fluctuations.</li>
-      <li><strong>Government Fees:</strong> Approvals, NOCs, municipal taxes, and utility connections.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Global Construction Cost Benchmarks (2026)</h3>
-  <ul style="padding-left:20px;">
-      <li><strong>Pakistan:</strong> PKR 2,500-6,500 per sq ft (residential, depending on quality)</li>
-      <li><strong>India:</strong> INR 1,500-4,000 per sq ft</li>
-      <li><strong>USA:</strong> USD 150-300 per sq ft</li>
-      <li><strong>UK:</strong> GBP 120-250 per sq ft</li>
-      <li><strong>UAE:</strong> AED 200-450 per sq ft</li>
-      <li><strong>Saudi Arabia:</strong> SAR 150-350 per sq ft</li>
-  </ul>
-  <p><strong>Note:</strong> These are general ranges. Actual costs vary significantly by city, design complexity, material quality, and labor availability.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Cost Breakdown: Where the Money Goes</h3>
-  <ul style="padding-left:20px;">
-      <li><strong>Structure & Foundation (40-50%):</strong> The skeleton of your building — concrete, steel, bricks, formwork.</li>
-      <li><strong>Finishing (20-25%):</strong> Flooring, walls, paint, ceilings — what makes it look good.</li>
-      <li><strong>MEP Systems (15-20%):</strong> Electrical, plumbing, HVAC — what makes it functional.</li>
-      <li><strong>Doors & Windows (5-10%):</strong> Often underestimated but significant.</li>
-      <li><strong>Fees & Contingency (10-15%):</strong> Professional services and reserves.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Quality Grades Explained</h3>
-  <ul style="padding-left:20px;">
-      <li><strong>Economy:</strong> Basic materials, minimal finishing. Suitable for rental properties or budget constraints. Expect 10-15 year lifespan before renovations.</li>
-      <li><strong>Standard:</strong> Good quality materials, decent finishing. Most common choice for family homes. 20-25 year lifespan.</li>
-      <li><strong>Premium:</strong> High-end materials, superior finishing. Marble flooring, premium fixtures, better insulation. 30+ year lifespan.</li>
-      <li><strong>Luxury:</strong> Top-tier everything — imported materials, custom design, smart home systems. 40+ year lifespan.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Structure Types: RCC vs Steel vs PEB</h3>
-  <ul style="padding-left:20px;">
-      <li><strong>RCC (Reinforced Cement Concrete):</strong> Most common for residential and small commercial. Strong, durable, but slow to build. Good for 1-10 floors.</li>
-      <li><strong>Load Bearing:</strong> Traditional brick/block walls carrying the load. Cheapest for small buildings (1-2 floors). Limited heights.</li>
-      <li><strong>Steel Structure:</strong> Faster than RCC, lighter, better for large spans. More expensive for small buildings. Common for warehouses and factories.</li>
-      <li><strong>PEB (Pre-Engineered Building):</strong> Fastest construction (weeks, not months). Ideal for warehouses, factories, cold storage. Lower cost for large clear spans.</li>
-  </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Foundation Types: The Hidden Cost</h3>
-  <ul style="padding-left:20px;">
-      <li><strong>Shallow / Isolated Footing:</strong> Most common. Suitable for normal soil conditions. Cheapest option.</li>
-      <li><strong>Strip Foundation:</strong> For load-bearing walls. Slightly more concrete required.</li>
-      <li><strong>Raft Foundation:</strong> For weak soils or heavy loads. Costlier but provides uniform support.</li>
-      <li><strong>Pile Foundation:</strong> For very weak soils or high-rise buildings. Most expensive, requires specialized equipment.</li>
-  </ul>
-  <p><strong>Pro tip:</strong> Soil testing before design saves money. Building on poor soil without proper foundation design leads to structural issues that cost 10x more to fix later.</p>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Common Cost Overrun Causes</h3>
-  <ul style="padding-left:20px;">
-      <li><strong>Design Changes Mid-Construction:</strong> Every change after work begins costs 2-3x the original price.</li>
-      <li><strong>Material Price Fluctuations:</strong> Steel, cement, and fuel prices change. Lock in rates with suppliers where possible.</li>
-      <li><strong>Site Conditions:</strong> Poor soil, water table issues, or hidden obstacles add unexpected costs.</li>
-      <li><strong>Weather Delays:</strong> Rain, extreme heat, or cold stops work and extends timelines.</li>
-      <li><strong>Labor Shortages:</strong> Skilled labor availability affects both cost and schedule.</li>
-      <li><strong>Scope Creep:</strong> "While we're building, let's also add..." — every addition increases cost.</li>
-    </ul>
-
-  <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Extended FAQ</h3>
-  <p><strong>Q: How accurate is this calculator?</strong><br>A: It provides preliminary estimates based on industry rule-of-thumb rates. For final budgets, always get 2-3 professional contractor quotes.</p>
-  <p><strong>Q: Does it include land cost?</strong><br>A: No. Land cost is separate and varies dramatically by location.</p>
-  <p><strong>Q: What's the best way to reduce construction cost?</strong><br>A: Value engineering — optimize design, use locally available materials, and avoid unnecessary features. Quality control prevents costly rework.</p>
-  <p><strong>Q: Should I hire a contractor or manage myself?</strong><br>A: For projects over $50,000, a professional contractor saves more through efficiency than their fees cost. Self-management works for small projects if you have construction experience.</p>
-  <p><strong>Q: How much contingency should I add?</strong><br>A: Standard: 5-10%. For renovation projects or uncertain sites: 15-20%.</p>
-  <p><strong>Q: Can I build in phases to reduce upfront cost?</strong><br>A: Yes. Many builders complete the structure first, then finish one floor at a time as funds allow. This calculator works for phased construction too.</p>
-  <p><strong>Q: What's the typical construction timeline?</strong><br>A: Small house (1-2 floors): 6-12 months. Commercial building: 12-24 months. PEB warehouse: 8-16 weeks.</p>
-  <p><strong>Q: How do I prevent cost overruns?</strong><br>A: Finalize designs before starting. Get detailed written quotes. Add 10% contingency. Monitor progress weekly. Avoid mid-construction changes.</p>
-  <p><strong>Q: Does building quality affect resale value?</strong><br>A: Yes. Premium quality construction can increase property value by 20-30%. Cheap construction often costs more in repairs than the initial savings.</p>
-</div>
-
-
-  <!-- EDUCATIONAL CONTENT ADDED BELOW THE TOOL -->
-  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">What Is Construction Cost Estimation?</h2>
-    <p>Construction cost estimation is the process of predicting the total cost of a building project before construction begins. It includes materials, labor, equipment, professional fees, and contingency reserves. Accurate estimation helps owners plan budgets, secure financing, and avoid cost overruns.</p>
-
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Global Construction Cost Facts & Statistics</h2>
-    <ul style="padding-left:20px;">
-      <li>Construction costs vary widely by region. For example, an average residential building in the USA may cost $150–$300 per sq ft, while in Pakistan it ranges from PKR 2,500–6,500 per sq ft depending on quality.</li>
-      <li>Globally, steel and cement prices have increased by 30–50% in the last five years, making accurate estimation more important than ever.</li>
-      <li>According to industry studies, poor cost estimation is one of the top 5 reasons for construction project failure.</li>
-      <li>Typical cost breakdown: Structure & foundation 40–50%, Finishing 20–25%, MEP 15–20%, Fees & contingency 10–15%.</li>
-    </ul>
-
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">How the Calculator Works</h2>
-    <p>This tool uses industry-standard rule-of-thumb rates and material factors to give a preliminary estimate. You enter the building type, structure type, quality grade, covered area, and finishing choices. The calculator then applies local market rates and generates a detailed cost breakdown along with approximate material quantities.</p>
-
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Key Inputs Explained</h2>
-    <ul style="padding-left:20px;">
-      <li><strong>Building Type:</strong> Residential, commercial, industrial, or warehouse. Different types have different structural requirements.</li>
-      <li><strong>Structure Type:</strong> RCC, load bearing, steel, or PEB. Steel/PEB is faster but may cost more for small buildings.</li>
-      <li><strong>Covered Area & Floors:</strong> Determines total floor area, which is the main cost driver.</li>
-      <li><strong>Quality Grade:</strong> Economy, standard, premium, or luxury. This affects material and finishing costs significantly.</li>
-      <li><strong>Foundation, Wall, Roof Types:</strong> These adjust the base structure cost based on complexity.</li>
-      <li><strong>Finishing & MEP:</strong> Flooring, electrical, plumbing, HVAC, doors, and paint — each adds to the total.</li>
-    </ul>
-
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Real-World Example</h2>
-    <p>Suppose you plan a standard quality residential building with covered area of 1,500 sq ft on one floor. The base structure rate might be PKR 3,200/sq ft. The total structural cost would be 1,500 × 3,200 = PKR 4,800,000. Adding finishing, MEP, and fees could bring the total to around PKR 6,500,000–7,500,000 depending on selected options.</p>
-
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Common Mistakes to Avoid</h2>
-    <ul style="padding-left:20px;">
-      <li>Forgetting contingency — always add 5–10% for unforeseen issues.</li>
-      <li>Not adjusting rates to local market — always update suggested rates with actual local quotes.</li>
-      <li>Ignoring MEP costs — electrical, plumbing, and HVAC can be 20% or more of the total.</li>
-      <li>Using wrong area units — mixing feet and meters can cause large errors.</li>
-    </ul>
-
-    <h2 style="font-size:1.1rem;margin:16px 0 8px;color:#FFD700;">Frequently Asked Questions (FAQ)</h2>
-    <p><strong>Q: How accurate is this calculator?</strong><br>
-    A: It gives a preliminary estimate suitable for budgeting and early planning. Final costs require detailed design and local contractor quotes.</p>
-    <p><strong>Q: Can I use it for commercial projects?</strong><br>
-    A: Yes, select the commercial building type and adjust rates accordingly.</p>
-    <p><strong>Q: Does it include land cost?</strong><br>
-    A: No, it only estimates construction cost. Land cost is separate.</p>
-    <p><strong>Q: What currencies are supported?</strong><br>
-    A: USD, PKR, EUR, GBP, AED, SAR, INR, CNY, AUD, CAD.</p>
-  </div>
-  
-  <!-- Professional Disclaimer -->
-<div style="margin-top:20px; padding:16px 18px; background:rgba(212,175,55,0.06); border:1px solid rgba(212,175,55,0.35); border-radius:12px; font-size:0.85rem; color:#cfd6dd; line-height:1.7;">
-  <strong style="color:#FFD700;">⚠️ Disclaimer:</strong> This tool provides <strong>preliminary estimates</strong> based on standard industry formulas and typical material properties. Results may vary due to local conditions, material grades, environmental factors, and project-specific requirements. Always consult a <strong>licensed engineer or qualified professional</strong> for final design, verification, and execution.
-</div>
 
 <!-- Combined Footer + Floating WhatsApp -->
-<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" style="position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem;">
+<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
 </a>
 
 <footer style="background:rgba(10,15,20,0.9); border-top:2px solid #D4AF37; padding:30px 20px; margin-top:50px; text-align:center;">
-    <!-- Contact Info -->
     <div style="margin-bottom:15px;">
         <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
         <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
         <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
-            📞 <strong>Call / WhatsApp:</strong> 
+            📞 <strong>Call / WhatsApp:</strong>
             <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
             <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
                 <i class="fa-brands fa-whatsapp"></i>
@@ -845,15 +817,13 @@
         </p>
     </div>
 
-    <!-- Legal Links -->
     <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
     </div>
 
-    <!-- Copyright -->
     <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
 
@@ -863,7 +833,6 @@
       <button class="lead-modal-close" onclick="closeLeadModal()">×</button>
       <h3>📥 Download Your Certified Construction Estimate</h3>
       <p>Get a professional PDF report you can share with your team, contractors, or investors. We'll also send you a copy by email.</p>
-      
       <div class="lead-form">
         <input type="text" id="leadName" placeholder="Full Name *" required>
         <input type="email" id="leadEmail" placeholder="Business Email *" required>
@@ -915,7 +884,6 @@
 
   initLiveCurrencyRates();
 
-  // ---------- Reference data (all base values in PKR per sqft) ----------
   const CUR_SYMBOL = { PKR:'PKR', USD:'USD', EUR:'EUR', GBP:'GBP', AED:'AED', SAR:'SAR', INR:'INR', CNY:'CNY', AUD:'AUD', CAD:'CAD' };
 
   const BASE_RATES = {
@@ -1118,7 +1086,7 @@
     document.getElementById('siteDevField').style.display = 'none';
     document.getElementById('siteDevAmount').value = 0;
     document.getElementById('govFees').value = 0;
-    
+
     document.getElementById('buildingType').value = 'residential';
     document.getElementById('structureType').value = 'rcc';
     document.getElementById('qualityGrade').value = 'standard';
@@ -1134,12 +1102,11 @@
     document.getElementById('currency').value = 'PKR';
     document.getElementById('areaUnit').value = 'sqft';
     document.getElementById('weightUnit').value = 'kg';
-    
+
     document.getElementById('resultsWrap').style.display = 'none';
     document.getElementById('shareBarWrap').style.display = 'none';
-    
+
     updateSuggestedRates();
-    
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -1197,9 +1164,6 @@
     });
   }
 
-  // ============================================
-  // LEAD CAPTURE & DYNAMIC PDF GENERATION
-  // ============================================
   function openLeadModal() {
     const resultsWrap = document.getElementById('resultsWrap');
     if (!resultsWrap || resultsWrap.style.display === 'none' || resultsWrap.style.display === '') {
@@ -1237,7 +1201,6 @@
       summary: document.getElementById('resSummaryLine').textContent
     };
 
-    // Active lead delivery via FormSubmit.co
     try {
       await fetch('https://formsubmit.co/ajax/contact@coldmatrixtools.com', {
         method: 'POST',

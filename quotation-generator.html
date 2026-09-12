@@ -12,7 +12,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quotation & Invoice Maker — Instant Quote and GST Invoice Generator | ColdMatrix</title>
-  <meta name="description" content="Create professional quotations and GST invoices with automatic calculations, tax, discount, and multi-currency support. Download as PDF, JPG, PNG or share on WhatsApp.">
+  <meta name="description" content="Create professional quotations and GST invoices in 60 seconds with automatic calculations, tax, discount, and multi-currency support. Download as PDF, JPG, PNG or share on WhatsApp.">
   <meta name="keywords" content="quotation maker, invoice maker, quote generator, invoice generator, GST invoice, VAT invoice, tax invoice maker, professional quotation, free quote maker, instant invoice creator, business invoice generator">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
@@ -27,7 +27,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -36,10 +36,11 @@
   <style>
     :root {
       --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
-      --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7;
+      --text:#EAEDF0; --muted:#8B98A5; --accent:#D4AF37;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
       --silver-bg: #C8CDD4;
       --silver-bg-hover: #D5D9DE;
+      --silver-gradient: linear-gradient(145deg, #D5D9DE, #C8CDD4);
       --whatsapp-green:#25D366;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -48,31 +49,180 @@
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 900px; margin:0 auto; padding:0 24px; }
-    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.92); backdrop-filter: blur(14px); border-bottom:1px solid var(--border); }
+
+    .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter: blur(14px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
     .logo { font-size:1.3rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
-    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:10px; font-weight:600; cursor:pointer; }
-    h1 { font-size:1.8rem; font-weight:800; margin-bottom:10px; }
-    h1 span { color: var(--gold-bright); }
-    .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; margin-bottom:24px; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--gold); text-decoration:none; font-weight:600; font-size:0.85rem; }
 
-    .mode-tabs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
-    .mode-tab {
-      padding:16px; border-radius:12px; font-weight:800; font-size:1rem; cursor:pointer; text-align:center;
-      border:2px solid var(--gold); color:#EAEDF0; background:var(--surface2); transition:all 0.25s;
+    /* GOLDEN INSTALL BAR */
+    .install-bar {
+      display: block;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14; text-align: center;
+      padding: 10px 16px; border-radius: 10px; margin: 14px 0;
+      font-weight: 700; font-size: 0.85rem;
+      border: 1px solid #FFD700;
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35);
     }
-    .mode-tab.active { background:var(--silver-bg); color:#0A0F14; border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); }
+    .install-bar button {
+      background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+      padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+      font-weight: 800; cursor: pointer; font-size: 0.8rem;
+    }
+
+    h1 { font-size:1.7rem; font-weight:800; margin-bottom:8px; line-height:1.25; }
+    h1 span { color: var(--gold-bright); }
+    .subtitle { color:#EAEDF0; font-size:0.95rem; font-weight:500; margin-bottom:20px; }
+
+    /* TEMPLATE QUICK-START */
+    .template-section {
+      background: linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 18px 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .template-title {
+      font-family: 'Oswald', sans-serif;
+      color: var(--gold-bright);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      text-align: center;
+    }
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.template-btn {
+  background: var(--silver-bg);
+  color: #0A0F14;
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  padding: 12px 4px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 800;
+  font-size: 0.62rem;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  line-height: 1.25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  min-height: 78px;
+  justify-content: center;
+}
+
+.template-btn:hover {
+  background: var(--silver-bg-hover);
+  border-color: var(--gold-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+.template-btn .tpl-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.template-btn.active {
+  background: var(--gold);
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 15px var(--gold-glow);
+}
+
+@media (max-width: 600px) {
+  .template-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .template-btn {
+    font-size: 0.68rem;
+    padding: 14px 4px;
+    min-height: 82px;
+  }
+  .template-btn .tpl-icon {
+    font-size: 1.35rem;
+  }
+}
+    }
+    .template-btn {
+      background: var(--silver-bg);
+      color: #0A0F14;
+      border: 2px solid var(--gold);
+      border-radius: 10px;
+      padding: 14px 6px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.7rem;
+      cursor: pointer;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      transition: all 0.25s ease;
+      line-height: 1.3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .template-btn:hover {
+      background: var(--silver-bg-hover);
+      border-color: var(--gold-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 0 12px var(--gold-glow);
+    }
+    .template-btn .tpl-icon { font-size: 1.4rem; }
+    .template-btn.active {
+      background: var(--gold);
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+
+.mode-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+    .mode-tab {
+      padding:14px 16px;
+      border-radius: 10px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor:pointer; text-align:center;
+      border:2px solid var(--gold);
+      color:#EAEDF0;
+      background:var(--surface2);
+      transition:all 0.25s;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .mode-tab.active {
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border-color: var(--gold-bright);
+      box-shadow:0 0 22px var(--gold-glow);
+    }
 
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
       border:2px solid;
       border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
-      border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 10px 34px rgba(0,0,0,0.55);
+      border-radius:12px; padding:16px 18px; margin-bottom:20px; box-shadow:0 10px 34px rgba(0,0,0,0.55);
     }
     .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:12px; text-transform:uppercase; }
     .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
@@ -85,128 +235,296 @@
     .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
 
-    .card { background:var(--surface); border:1px solid var(--gold); border-radius:14px; padding:24px; margin-bottom:20px; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
-    .card h2 { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:600; margin-bottom:16px; color:var(--gold-bright); text-transform:uppercase; letter-spacing:0.5px; }
+    /* SILVER INPUT CARDS — Personal request */
+    .card {
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 22px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .card h2 {
+      font-family:'Oswald',sans-serif; font-size:1rem; font-weight:700;
+      margin-bottom:14px; color:#0A0F14; text-transform:uppercase;
+      letter-spacing:0.5px; border-bottom:2px solid var(--gold);
+      padding-bottom:10px;
+    }
 
     .field { margin-bottom:14px; }
-    .field label { display:block; font-size:0.85rem; color:#FFFFFF; margin-bottom:5px; font-weight:700; }
+    .field label { display:block; font-size:0.82rem; color:#0A0F14; margin-bottom:6px; font-weight:700; }
     .field input, .field select, .field textarea {
-      width:100%; background:var(--surface2); border:2px solid var(--gold); color:var(--text);
-      padding:12px 14px; border-radius:10px; font-size:0.95rem;
+      width:100%; background:#FFFFFF;
+      border:2px solid var(--gold); color:#0A0F14;
+      padding:12px 14px; border-radius:10px; font-size:0.95rem; font-weight:600;
+      font-family:'Inter',sans-serif;
     }
-    .field input:focus, .field select:focus, .field textarea:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
-    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow);
+    }
+    .field input::placeholder { color:#8B98A5; font-weight:500; }
+
+    /* BIG GOLDEN DROPDOWN ARROW */
+    .field select {
+      appearance:none; -webkit-appearance:none; -moz-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14' viewBox='0 0 22 14'%3E%3Cpath d='M2 3 L11 11 L20 3' fill='none' stroke='%23D4AF37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 14px center;
+      background-size:22px 14px; padding-right:48px;
+    }
+    .field select option { background:#FFFFFF; color:#0A0F14; font-weight:600; }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
 
     .instructions {
-      background: rgba(79,195,247,0.08); border: 1px solid rgba(79,195,247,0.3);
-      border-radius: 12px; padding: 16px 20px; margin-bottom: 18px;
-      font-size: 0.88rem; color: #D5DDE5; line-height: 1.7;
-    }
-    .instructions strong { color: var(--gold-bright); }
+  background: #C8CDD4;
+  background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 18px;
+  font-size: 0.88rem;
+  color: #0A0F14;
+  line-height: 1.7;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+.instructions strong { color: #0A0F14; font-weight: 800; }
 
+    /* ITEMS AREA */
     .items-area {
-      background: var(--silver-bg); border: 2px solid var(--gold); border-radius: 14px;
-      padding: 18px; margin-bottom: 16px; box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 20px 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
     }
-    .items-area h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1rem; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px; }
+    .items-area h3 {
+      font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1rem;
+      margin-bottom:14px; text-transform:uppercase; letter-spacing:0.5px;
+      border-bottom:2px solid var(--gold); padding-bottom:10px;
+    }
     .item-block {
-      background: #FFFFFF; border: 2px solid var(--gold); border-radius: 12px;
-      padding: 14px; margin-bottom: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      background: #FFFFFF;
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
     }
-    .item-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
-    .item-serial { font-family:'Oswald',sans-serif; font-weight:700; font-size:0.9rem; color:#0A0F14; background:var(--gold); padding:3px 12px; border-radius:16px; letter-spacing:0.5px; }
-    .item-delete { background:none; border:none; color:#999999; font-size:1.2rem; cursor:pointer; font-weight:700; transition: color 0.2s ease; }
+    .item-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+    .item-serial {
+      font-family:'Oswald',sans-serif; font-weight:800; font-size:0.85rem;
+      color:#0A0F14; background:var(--gold); padding:3px 12px;
+      border-radius:16px; letter-spacing:0.5px;
+    }
+    .item-delete {
+      background:none; border:none; color:#999; font-size:1.2rem;
+      cursor:pointer; font-weight:700; transition: color 0.2s ease;
+    }
     .item-delete:hover { color:#CC3333; }
-    .item-desc-row { margin-bottom:8px; }
+    .item-desc-row { margin-bottom:10px; }
     .item-desc-row input {
-      width:100%; padding:11px 12px; font-size:0.9rem; border:2px solid var(--gold); border-radius:8px;
-      background:#FFFFFF; color:#0A0F14; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      width:100%; padding:11px 12px; font-size:0.9rem;
+      border:2px solid var(--gold); border-radius:8px;
+      background:#FFFFFF; color:#0A0F14; font-weight:600;
     }
-    .item-desc-row input:focus { outline:none; border-color:var(--gold-bright); }
-    .item-qty-rate-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px; }
+    .item-desc-row input:focus { outline:none; border-color:var(--gold-bright); box-shadow: 0 0 12px var(--gold-glow); }
+    .item-qty-rate-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+    .item-qty-rate-row .field { margin-bottom:0; }
+    .item-qty-rate-row label {
+      display:block; font-size:0.7rem; font-weight:800; color:#0A0F14;
+      text-transform:uppercase; letter-spacing:0.3px; margin-bottom:4px; text-align:center;
+    }
     .item-qty-rate-row input {
-      width:100%; padding:10px 12px; font-size:0.9rem; border:2px solid var(--gold); border-radius:8px;
-      background:#FFFFFF; color:#0A0F14; text-align:center; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      width:100%; padding:10px 12px; font-size:0.9rem;
+      border:2px solid var(--gold); border-radius:8px;
+      background:#FFFFFF; color:#0A0F14; text-align:center; font-weight:700;
     }
-    .item-qty-rate-row input:focus { outline:none; border-color:var(--gold-bright); }
-    .item-qty-rate-row label { display:block; font-size:0.7rem; font-weight:800; color:#0A0F14; text-transform:uppercase; letter-spacing:0.3px; margin-bottom:3px; text-align:center; }
+    .item-qty-rate-row input:focus { outline:none; border-color:var(--gold-bright); box-shadow: 0 0 12px var(--gold-glow); }
     .item-amount-row {
-      width:100%; padding:10px 12px; font-size:0.95rem; border:2px solid var(--gold-bright); border-radius:8px;
-      background:#E8F5E9; color:#0A0F14; text-align:center; font-weight:800; font-family:'Oswald',sans-serif;
+      width:100%; padding:12px; font-size:1rem;
+      border:2px solid var(--gold-bright); border-radius:8px;
+      background: linear-gradient(145deg, #FFF9E0, #FFF3C4);
+      color:#0A0F14; text-align:center; font-weight:900;
+      font-family:'Oswald',sans-serif; letter-spacing:0.5px;
     }
-    .btn-add { background:#FFFFFF; border:2px dashed var(--gold); color:#0A0F14; padding:14px 16px; border-radius:10px; font-weight:800; cursor:pointer; width:100%; margin-top:8px; transition:all 0.25s; font-size:0.95rem; }
-    .btn-add:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); }
 
+    .btn-add {
+      background:#FFFFFF;
+      border: 2px dashed var(--gold);
+      color:#0A0F14;
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      cursor:pointer; width:100%; margin-top:10px;
+      transition:all 0.25s; font-size:0.9rem;
+      letter-spacing:0.5px; text-transform: uppercase;
+    }
+    .btn-add:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); border-style: solid; }
+
+    /* STACKED BUTTONS */
+    .btn-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
     .btn-calc {
-      width:100%; background:var(--silver-bg); color:#0A0F14; border:3px solid var(--gold);
-      padding:18px; border-radius:12px; font-weight:900; font-size:1.1rem; cursor:pointer; margin-top:8px;
-      letter-spacing:0.5px; box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
-      transition:all 0.25s ease; min-height:56px;
+      width:100%;
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border: 2px solid var(--gold);
+      min-height: 64px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-family:'Oswald',sans-serif;
+      font-weight: 900;
+      font-size: 1.15rem;
+      cursor:pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
+      transition:all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
-    .btn-calc:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 25px var(--gold-glow); transform:translateY(-2px); }
-    .btn-reset {
-      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
-      padding:14px 16px; border-radius:10px; font-weight:800; font-size:0.85rem; cursor:pointer;
-      white-space:nowrap; box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-      transition:all 0.25s ease; align-self: stretch; min-height:56px;
-    }
-    .btn-reset:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+    .btn-calc:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
 
-    #docPreview { background:#fff; color:#111; border-radius:10px; padding:36px; margin-top:24px; display:none; font-family:'Inter',sans-serif; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
-    #docPreview .q-head { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:3px solid #4FC3F7; padding-bottom:16px; margin-bottom:22px; flex-wrap:wrap; gap:12px; }
+    .btn-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .btn-reset {
+      width:100%;
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border: 2px solid var(--gold);
+      min-height: 46px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-family:'Oswald',sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor:pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      transition:all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-reset:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform:translateY(-2px); }
+
+    /* LIVE PREVIEW DOCUMENT */
+    #docPreview {
+      background:#fff; color:#111; border-radius:14px; padding:36px;
+      margin-top:24px; display:none; font-family:'Inter',sans-serif;
+      box-shadow:0 12px 40px rgba(0,0,0,0.6);
+      border: 2px solid var(--gold);
+    }
+    #docPreview .q-head { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:3px solid var(--gold); padding-bottom:16px; margin-bottom:22px; flex-wrap:wrap; gap:12px; }
     #docPreview .q-brand { font-size:1.5rem; font-weight:800; color:#0A0F14; }
     #docPreview .q-meta { text-align:right; font-size:0.85rem; color:#555; min-width:160px; }
-    #docPreview .q-title { font-size:1.3rem; font-weight:800; letter-spacing:2px; color:#2196F3; margin-bottom:6px; text-transform:uppercase; }
+    #docPreview .q-title { font-size:1.3rem; font-weight:800; letter-spacing:2px; color:#D4AF37; margin-bottom:6px; text-transform:uppercase; }
     #docPreview .q-parties { margin-bottom:20px; font-size:0.9rem; }
     #docPreview .q-parties strong { display:block; color:#888; font-size:0.75rem; text-transform:uppercase; margin-bottom:4px; }
     #docPreview table { width:100%; border-collapse:collapse; margin-bottom:20px; table-layout:fixed; }
-    #docPreview th { background:#0A0F14; color:#fff; text-align:left; padding:10px 8px; font-size:0.78rem; text-transform:uppercase; }
+    #docPreview th { background:#0A0F14; color:#fff; text-align:left; padding:10px 8px; font-size:0.78rem; text-transform:uppercase; letter-spacing: 0.3px; }
     #docPreview th:nth-child(1){width:42%} #docPreview th:nth-child(2){width:13%} #docPreview th:nth-child(3){width:19%} #docPreview th:nth-child(4){width:26%}
     #docPreview td { padding:10px 8px; border-bottom:1px solid #eee; font-size:0.88rem; word-break:break-word; }
     #docPreview .q-totals { margin-left:auto; width:300px; }
     #docPreview .q-totals div { display:flex; justify-content:space-between; padding:6px 0; font-size:0.9rem; }
-    #docPreview .q-totals .grand { font-weight:800; font-size:1.2rem; border-top:2px solid #0A0F14; margin-top:6px; padding-top:10px; color:#2196F3; }
+    #docPreview .q-totals .grand { font-weight:800; font-size:1.2rem; border-top:2px solid #0A0F14; margin-top:6px; padding-top:10px; color:#D4AF37; }
     #docPreview .q-notes { margin-top:20px; font-size:0.8rem; color:#666; border-top:1px solid #eee; padding-top:14px; }
     #docPreview .q-footer { text-align:center; margin-top:24px; font-size:0.75rem; color:#999; }
 
     .share-bar { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:20px auto; max-width:500px; }
-    .share-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:14px 12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; border:none; text-decoration:none; color:#fff; width:100%; box-sizing:border-box; }
-    .share-whatsapp { background:#25D366; }
-    .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:#545860; color:#fff; border:1px solid var(--gold); }
-
-    .detail-section {
-      margin-top: 40px; padding: 30px 24px;
-      background: var(--silver-bg); border: 2px solid var(--gold); border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4); line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+    .share-btn {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      padding:14px 12px; border-radius:10px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700; font-size: 0.85rem; cursor:pointer; text-decoration:none; color:#fff;
+      width:100%; box-sizing:border-box;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      transition: all 0.25s ease;
     }
-    .detail-section h2 { font-family: 'Oswald', sans-serif; color: #0A0F14; font-size: 1.5rem; margin-bottom: 16px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
-    .detail-section h3 { color: #0A0F14; font-size: 1.15rem; margin: 24px 0 10px; }
-    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom: 14px; }
-    .detail-section ul, .detail-section ol { padding-left: 24px; }
-    .detail-section li { margin-bottom: 6px; }
-    .detail-section strong { color: #0A0F14; }
+    .share-btn:hover { transform: translateY(-2px); }
+    .share-whatsapp { background:#25D366; border:none; }
+    .share-pdf { background:#E53935; border:none; }
+    .share-jpg, .share-png { background: var(--silver-bg); color:#0A0F14; border:2px solid var(--gold); }
 
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:50px; }
+    /* SILVER EDUCATIONAL CONTENT */
+    .edu-content {
+      margin: 30px 0; padding: 30px 24px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 16px; color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.85; font-size: 0.95rem;
+    }
+    .edu-content h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.35rem; margin-bottom: 16px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; font-weight: 800; }
+    .edu-content h3 { color: #0A0F14; font-size: 1.1rem; margin: 22px 0 10px; font-weight: 800; }
+    .edu-content p, .edu-content li, .edu-content ul, .edu-content ol { color: #0A0F14; font-weight: 500; }
+    .edu-content ul, .edu-content ol { padding-left: 24px; margin-bottom: 14px; }
+    .edu-content li { margin-bottom: 6px; }
+    .edu-content strong { color: #0A0F14; font-weight: 800; }
+    .edu-content p { margin-bottom: 14px; }
+
+    /* Pakistani block */
+    .pakistani-block {
+      margin: 30px 0; padding: 24px 20px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-radius: 16px; color: #0A0F14;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8; font-size: 0.95rem;
+    }
+    .pakistani-block h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.2rem; margin-bottom: 12px; font-weight: 800; }
+    .pakistani-block p { color: #0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color: #0A0F14; font-weight: 800; }
+
+    /* Related tools */
+    .related-tools-section {
+      margin: 20px 0 10px; padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid #D4AF37; border-radius: 12px;
+    }
+    .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; }
+    .related-tools-section a {
+      color:#4FC3F7; text-decoration:none;
+      background:rgba(79,195,247,0.1);
+      padding:8px 16px; border-radius:20px;
+      font-size:0.85rem; font-weight:600;
+      display: inline-block; margin: 4px 4px 4px 0;
+    }
+
+    /* Disclaimer box */
+    .disclaimer-box {
+      margin-top: 20px; padding: 16px 18px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37; border-radius: 12px;
+      font-size: 0.85rem; color: #0A0F14; line-height: 1.7; font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:2px solid var(--gold); margin-top:50px; }
     footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
-    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.4rem; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
-    @media (max-width:600px){ 
-      .grid2,.grid3{grid-template-columns:1fr;} 
-      .item-qty-rate-row{grid-template-columns:1fr 1fr; gap:6px;}
-      #docPreview{padding:18px;} 
-      #docPreview .q-head{flex-direction:column;gap:5px;} 
-      #docPreview .q-meta{text-align:left;} 
-      #docPreview .q-totals{width:100%;} 
-      .detail-section { padding: 10px 10px; } 
-      .btn-reset {
-    min-height: 80px !important;
-    height: 80px !important;
-    align-self: center !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-}
+    @media (max-width:600px){
+      .grid2, .grid3 { grid-template-columns:1fr; }
+      .template-grid { grid-template-columns: repeat(3, 1fr); }
+      .item-qty-rate-row { grid-template-columns:1fr 1fr; gap:6px; }
+      #docPreview { padding: 20px 16px; }
+      #docPreview .q-head { flex-direction:column; gap:5px; }
+      #docPreview .q-meta { text-align:left; }
+      #docPreview .q-totals { width:100%; }
+      .edu-content { padding: 20px 16px; font-size: 0.9rem; }
+      .edu-content h2 { font-size: 1.15rem; }
+      h1 { font-size: 1.4rem; }
     }
   </style>
   <script type="application/ld+json">
@@ -274,7 +592,7 @@
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1>📄 <span>ColdMatrix</span> Quotation & Invoice Maker</h1>
-    <p class="subtitle">Create professional quotations and GST invoices with automatic calculations. Type your items, see the totals update instantly, and download as PDF, JPG, PNG, or share on WhatsApp.</p>
+    <p class="subtitle">Create a professional quotation or invoice in 60 seconds. Pick a template, fill the fields, download, send. No signup, no watermark, no limit.</p>
 
     <div class="share-tool-card">
       <div class="share-tool-title">Share Quotation & Invoice Maker</div>
@@ -283,6 +601,18 @@
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
       </div>
     </div>
+
+    <!-- TEMPLATE QUICK-START -->
+    <div class="template-section">
+      <div class="template-title">⚡ 1. Pick a Template (or start blank)</div>
+      <div class="template-grid">
+  <button class="template-btn" onclick="loadTemplate('general')"><span class="tpl-icon">🧾</span>General</button>
+  <button class="template-btn" onclick="loadTemplate('cold-storage')"><span class="tpl-icon">❄️</span>Cold Storage</button>
+  <button class="template-btn" onclick="loadTemplate('peb')"><span class="tpl-icon">🏗️</span>PEB</button>
+  <button class="template-btn" onclick="loadTemplate('sandwich')"><span class="tpl-icon">🧱</span>Sandwich</button>
+  <button class="template-btn" onclick="loadTemplate('electrical')"><span class="tpl-icon">⚡</span>Electrical</button>
+  <button class="template-btn" onclick="loadTemplate('blank')"><span class="tpl-icon">✏️</span>Blank</button>
+</div>
 
     <div class="mode-tabs">
       <button class="mode-tab active" id="tabQuote" onclick="switchMode('quote')">📋 Quotation</button>
@@ -293,16 +623,20 @@
       <h2>🏢 Your Business Details</h2>
       <div class="grid2">
         <div class="field"><label>Business Name</label><input id="bizName" placeholder="Your Company Name" value="ColdMatrix Contracting" oninput="renderPreview()"></div>
-        <div class="field"><label>Business Contact</label><input id="bizContact" placeholder="+1 555 000 0000 / you@email.com" oninput="renderPreview()"></div>
+        <div class="field"><label>Business Contact</label><input id="bizContact" placeholder="+92 333 3228470 / you@email.com" value="+92 333 3228470" oninput="renderPreview()"></div>
       </div>
-      <div class="field"><label>Business Address (optional)</label><input id="bizAddress" placeholder="City, Country" oninput="renderPreview()"></div>
+      <div class="field"><label>Business Address (optional)</label><input id="bizAddress" placeholder="City, Country" value="Karachi, Pakistan" oninput="renderPreview()"></div>
     </div>
 
     <div class="card">
       <h2>👤 Client Details</h2>
       <div class="grid2">
         <div class="field"><label>Client Name</label><input id="clientName" placeholder="Client / Company Name" oninput="renderPreview()"></div>
-        <div class="field"><label id="docNoLabel">Quotation No.</label><input id="docNo" placeholder="Q-1001" value="Q-1001"></div>
+        <div class="field"><label id="docNoLabel">Quotation No.</label><input id="docNo" placeholder="Q-1001" oninput="renderPreview()"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Client WhatsApp / Phone (optional)</label><input id="clientPhone" placeholder="+92 3XX XXX XXXX" oninput="renderPreview()"></div>
+        <div class="field"><label>Client Email (optional)</label><input id="clientEmail" type="email" placeholder="client@email.com" oninput="renderPreview()"></div>
       </div>
       <div class="grid2">
         <div class="field"><label>Date</label><input id="docDate" type="date"></div>
@@ -311,7 +645,7 @@
     </div>
 
     <div class="instructions">
-      <strong>👋 How it works:</strong> Each item is a separate block. Type the <strong>description</strong> on top, then enter <strong>quantity</strong> and <strong>rate</strong> below. The <strong>total amount calculates automatically</strong> and updates the live preview instantly. Click "+ Add Item" for more items.
+      <strong>👋 How it works:</strong> Each item is a separate block. Type the <strong>description</strong>, then <strong>quantity</strong> and <strong>rate</strong>. The <strong>total amount updates automatically</strong> and the live preview below refreshes instantly. Click <strong>"+ Add Item"</strong> for more lines.
     </div>
 
     <div class="items-area" id="itemsArea">
@@ -338,13 +672,18 @@
         </select></div>
       </div>
       <div class="field"><label>Notes / Terms</label><textarea id="docNotes" rows="3" oninput="renderPreview()">Prices are valid for 15 days. 50% advance required to confirm order.</textarea></div>
-      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:stretch;">
-        <button class="btn-calc" style="flex:2;" onclick="renderPreview()">📄 Generate Document</button>
-        <button class="btn-reset" style="flex:1;" onclick="saveProject()">💾 Save</button>
-        <button class="btn-reset" style="flex:1;" onclick="resetQuotation()">↺ Reset</button>
-      </div>
     </div>
 
+    <div class="btn-stack">
+      <button class="btn-calc" onclick="generateDocument()">📄 Generate & Preview Document</button>
+      <div class="btn-row-2">
+        <button class="btn-reset" onclick="saveProject()">💾 Save</button>
+        <button class="btn-reset" onclick="loadProject()">📂 Load</button>
+      </div>
+      <button class="btn-reset" onclick="resetQuotation()">↺ Reset Everything</button>
+    </div>
+
+<!-- ⬇️⬇️⬇️ CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
     <div id="docPreview">
       <div class="q-head">
         <div>
@@ -379,9 +718,13 @@
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
 
-    <div class="detail-section">
-      <h2>📖 Quotation & Invoice Maker — Complete Business Guide</h2>
-      <p>This dual-function tool helps businesses create professional quotations (quotes) and GST invoices in minutes. A quotation is a pre-sale document showing proposed prices. An invoice is a post-sale document requesting payment. Both include line items, quantities, rates, taxes, discounts, and totals — all calculated automatically as you type.</p>
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — SILVER PREMIUM -->
+    <!-- ============================================ -->
+    <div class="edu-content">
+      <h2>📖 Quotation &amp; Invoice Maker — Complete Business Guide</h2>
+
+      <p>This dual-function tool helps businesses create professional quotations and GST invoices in under 60 seconds. A quotation is a pre-sale document showing proposed prices. An invoice is a post-sale document requesting payment. Both include line items, quantities, rates, taxes, discounts, and totals — all calculated automatically as you type.</p>
 
       <h3>What Is a Quotation?</h3>
       <p>A quotation (also called quote, estimate, or bid) is a formal document listing proposed prices for products or services. It includes your business details, client information, itemised products with quantities and rates, and the total amount. Quotations typically have a validity period (e.g., 15 days) and become binding once accepted by the customer.</p>
@@ -389,65 +732,184 @@
       <h3>What Is an Invoice?</h3>
       <p>An invoice is a commercial document requesting payment for goods or services already delivered. It includes invoice number, date, line items, subtotal, discount, tax/GST/VAT, and grand total. Invoices are essential for accounting, tax filing, and payment tracking.</p>
 
-      <h3>Key Features</h3>
+      <h3>Difference Between Quotation and Invoice</h3>
+      <ul>
+        <li><strong>Timing:</strong> Quotation = before sale. Invoice = after sale.</li>
+        <li><strong>Purpose:</strong> Quotation = propose price. Invoice = request payment.</li>
+        <li><strong>Binding:</strong> Quotation = not binding until accepted. Invoice = legally binding on both parties.</li>
+        <li><strong>Validity:</strong> Quotations expire. Invoices do not (but may have payment due dates).</li>
+      </ul>
+
+      <h3>Key Features of This Tool</h3>
       <ul>
         <li><strong>Dual Functionality:</strong> Switch between Quotation and Invoice modes instantly.</li>
+        <li><strong>Quick-Start Templates:</strong> Cold Storage, PEB, Sandwich Panel, Electrical — instant pre-filled items.</li>
         <li><strong>Automatic Calculations:</strong> Amounts update as you type quantity and rate.</li>
         <li><strong>Tax / GST / VAT:</strong> Add percentage tax for GST-compliant invoices.</li>
         <li><strong>Discount Support:</strong> Apply percentage discount before tax.</li>
         <li><strong>Multi-Currency:</strong> 9 currencies — PKR, USD, EUR, GBP, AED, SAR, INR, CNY, AUD.</li>
         <li><strong>Unlimited Items:</strong> Add as many items as needed.</li>
-        <li><strong>Save & Load:</strong> Store documents locally in your browser.</li>
+        <li><strong>Save &amp; Load:</strong> Store documents locally in your browser (survives page refresh).</li>
         <li><strong>Export:</strong> Download as PDF, JPG, or PNG.</li>
         <li><strong>WhatsApp Sharing:</strong> Send documents directly to clients.</li>
+        <li><strong>Client Contact Fields:</strong> Capture phone and email for easy follow-up.</li>
       </ul>
 
-      <h3>How to Use This Tool</h3>
+      <h3>How to Use This Tool — 4 Steps</h3>
       <ol>
-        <li>Select mode: Quotation or Invoice using the tabs.</li>
-        <li>Enter your business name, contact, and address.</li>
-        <li>Add client name and document number.</li>
-        <li>Each item is a separate block — type description, quantity, and rate.</li>
-        <li>The amount auto-calculates and updates the preview instantly.</li>
-        <li>Set tax %, discount %, and currency.</li>
-        <li>Add notes or payment terms.</li>
-        <li>Download or share using the buttons below.</li>
+        <li><strong>Pick a Template:</strong> Tap Cold Storage, PEB, Sandwich, Electrical, or Blank. Items pre-fill instantly.</li>
+        <li><strong>Enter Business &amp; Client Details:</strong> Name, contact, address, client name, phone, email.</li>
+        <li><strong>Adjust Line Items:</strong> Type quantity and rate — the amount recalculates live.</li>
+        <li><strong>Set Tax &amp; Discount:</strong> Add GST/VAT and any discount, then Generate &amp; Export.</li>
       </ol>
 
       <h3>Tips for Professional Documents</h3>
       <ul>
-        <li>Always use a unique document number for tracking.</li>
+        <li>Always use a unique document number for tracking (e.g., Q-250912-001).</li>
         <li>Add a validity period to encourage prompt decisions.</li>
-        <li>Itemise everything for transparency.</li>
-        <li>Mention payment terms clearly.</li>
+        <li>Itemise everything for transparency — avoid lump sums.</li>
+        <li>Mention payment terms clearly (advance %, due date).</li>
         <li>Double-check quantities and rates before sending.</li>
+        <li>Save a copy of every document you send — our Save button stores it locally.</li>
       </ul>
 
       <h3>Frequently Asked Questions</h3>
-      <p><strong>Is this tool free?</strong><br>Yes, 100% free with no registration, no watermarks, and no hidden fees.</p>
-      <p><strong>Can I create a GST invoice?</strong><br>Yes, switch to Invoice mode and use the Tax/GST field to add the required percentage.</p>
-      <p><strong>Does it auto-calculate?</strong><br>Yes, totals update automatically as you type quantities and rates.</p>
-      <p><strong>Can I add a discount?</strong><br>Yes, there's a dedicated Discount % field.</p>
+      <p><strong>Q: Is this tool free?</strong><br>A: Yes, 100% free with no registration, no watermarks, and no hidden fees.</p>
+      <p><strong>Q: Can I create a GST invoice?</strong><br>A: Yes, switch to Invoice mode and use the Tax/GST field to add the required percentage.</p>
+      <p><strong>Q: Does it auto-calculate?</strong><br>A: Yes, totals update automatically as you type quantities and rates.</p>
+      <p><strong>Q: Can I add a discount?</strong><br>A: Yes, there's a dedicated Discount % field applied before tax.</p>
+      <p><strong>Q: Can I save my work?</strong><br>A: Yes, click Save to store the document in your browser's local storage. Load retrieves it anytime.</p>
+      <p><strong>Q: What currencies are supported?</strong><br>A: PKR, USD, EUR, GBP, AED, SAR, INR, CNY, and AUD.</p>
+      <p><strong>Q: Can I send the document on WhatsApp?</strong><br>A: Yes, the WhatsApp share button creates an image and opens WhatsApp with your caption ready to send.</p>
 
-      <p><strong>Disclaimer:</strong> This tool provides document formatting assistance. Verify all figures and consult a professional accountant for legal or tax compliance.</p>
+      <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ This guide, combined with our free tool, gives you a complete professional quotation and invoice system — no MS Word, no Composer, no signup needed.</p>
     </div>
+
+    <!-- ============================================ -->
+    <!-- PAKISTANI SERVICES BLOCK — SILVER -->
+    <!-- ============================================ -->
+    <div class="pakistani-block">
+      <h2>🇵🇰 ColdMatrix Advanced Solutions — Serving Pakistan's Business &amp; Engineering Community</h2>
+      <p>Our Quotation &amp; Invoice Maker is used daily by contractors, traders, and small businesses across Pakistan. But we do more than digital tools — <strong>ColdMatrix Advanced Solutions</strong> is a full-service engineering and construction firm serving Pakistan from Karachi to Islamabad, Lahore to Balochistan.</p>
+      <p>Whether you are quoting a <strong>PEB warehouse project</strong>, invoicing a sandwich panel delivery, or billing for a cold storage installation — our team handles real-world execution. We deliver <strong>PEB structures, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong> across Pakistan with international engineering standards and honest local pricing.</p>
+      <p>Contact our <strong>Karachi engineering desk</strong> for project quotations, material verification, structural drawings, and factory-stamped documentation ready for submission to your consultant or bank.</p>
+      <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- RELATED TOOLS -->
+    <!-- ============================================ -->
+    <div class="related-tools-section">
+        <h3>🔗 Related Tools You Might Need</h3>
+        <div>
+            <a href="profit-margin-calculator.html">💰 Profit Margin Calculator</a>
+            <a href="roi-calculator.html">📈 ROI Calculator</a>
+            <a href="startup-cost-calculator.html">🚀 Startup Cost Planner</a>
+            <a href="build-vs-buy-calculator.html">🏗️ Build vs Buy Calculator</a>
+            <a href="construction-cost-calculator.html">🏛️ Construction Cost Calculator</a>
+            <a href="ecommerce-calculator.html">🛒 E-Commerce Calculator</a>
+            <a href="unit-converter.html">📏 Unit Converter</a>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- DISCLAIMER — SILVER -->
+    <!-- ============================================ -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> This tool provides document formatting assistance only. Verify all figures and consult a professional accountant for legal or tax compliance. ColdMatrix is not responsible for pricing, tax, or contractual decisions made based on documents generated by this tool.
+    </div>
+
   </div>
 
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+
 <footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank">💬</a>
 
   <script>
     let itemId = 0;
     let currentMode = 'quote';
 
+    // ============================================
+    // TEMPLATE PRESETS — the "60-second quote" magic
+    // ============================================
+    const TEMPLATES = {
+    'general': [
+  { desc: 'Professional Services — Consulting Fee', qty: 1, rate: 50000 },
+  { desc: 'Material / Product Supply', qty: 1, rate: 25000 },
+  { desc: 'Labour / Skilled Workforce Charges', qty: 1, rate: 15000 },
+  { desc: 'Transportation & Delivery', qty: 1, rate: 5000 },
+  { desc: 'Miscellaneous / Other Charges', qty: 1, rate: 3000 }
+],
+      'cold-storage': [
+        { desc: 'Cold Room PU Sandwich Panel (100mm)', qty: 200, rate: 3200 },
+        { desc: 'Cold Room Door with Heater (Heavy Duty)', qty: 2, rate: 185000 },
+        { desc: 'Split Refrigeration Unit — 5 TR', qty: 2, rate: 425000 },
+        { desc: 'PVC Strip Curtain — Cold Room', qty: 4, rate: 12500 },
+        { desc: 'Installation & Commissioning', qty: 1, rate: 150000 }
+      ],
+      'peb': [
+        { desc: 'PEB Structural Steel Supply (per ton)', qty: 15, rate: 285000 },
+        { desc: 'Roof Sheeting — 0.5mm PPGI (per sqm)', qty: 400, rate: 1650 },
+        { desc: 'Wall Sheeting — 0.5mm PPGI (per sqm)', qty: 320, rate: 1650 },
+        { desc: 'Hot-Dip Galvanized Purlins & Girts', qty: 1, rate: 380000 },
+        { desc: 'Erection & Bolt Torque Verification', qty: 1, rate: 450000 }
+      ],
+      'sandwich': [
+        { desc: 'PU Sandwich Panel (100mm) — per sqm', qty: 500, rate: 2800 },
+        { desc: 'PIR Sandwich Panel (150mm) — per sqm', qty: 200, rate: 3800 },
+        { desc: 'Cam-Lock Joints & Accessories', qty: 1, rate: 85000 },
+        { desc: 'Panel Cutting, Trimming & Edge Sealing', qty: 1, rate: 65000 }
+      ],
+      'electrical': [
+        { desc: 'Solar Panels — 550W Mono PERC', qty: 20, rate: 42000 },
+        { desc: 'Hybrid Inverter — 10 kW', qty: 1, rate: 385000 },
+        { desc: 'Lithium Battery — 48V 200Ah', qty: 2, rate: 620000 },
+        { desc: 'DC/AC Cabling & Mounting Structure', qty: 1, rate: 185000 },
+        { desc: 'Installation & Net-Metering Documentation', qty: 1, rate: 95000 }
+      ],
+      'blank': [
+        { desc: '', qty: 1, rate: 0 }
+      ]
+    };
+
+    function loadTemplate(key) {
+      document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
+      event.target.closest('.template-btn').classList.add('active');
+      const tpl = TEMPLATES[key];
+      if (!tpl) return;
+      document.getElementById('itemsContainer').innerHTML = '';
+      itemId = 0;
+      tpl.forEach(it => addItem(it.desc, it.qty, it.rate));
+      renderPreview();
+      // scroll to items area so user sees the magic
+      document.getElementById('itemsArea').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // ============================================
+    // MODE SWITCH
+    // ============================================
     function switchMode(mode) {
       currentMode = mode;
       document.getElementById('tabQuote').classList.toggle('active', mode === 'quote');
@@ -457,6 +919,9 @@
       renderPreview();
     }
 
+    // ============================================
+    // ITEM MANAGEMENT
+    // ============================================
     function addItem(desc, qty, rate) {
       itemId++;
       const container = document.getElementById('itemsContainer');
@@ -466,7 +931,7 @@
       block.innerHTML = `
         <div class="item-header">
           <span class="item-serial">ITEM ${itemId}</span>
-          <button class="item-delete" onclick="document.getElementById('item${itemId}').remove(); renumberItems(); renderPreview();" title="Delete item">✕</button>
+          <button class="item-delete" onclick="deleteItem('item${itemId}')" title="Delete item">✕</button>
         </div>
         <div class="item-desc-row">
           <input type="text" placeholder="Type product or service description..." value="${desc||''}" oninput="renderPreview()">
@@ -487,6 +952,13 @@
       renderPreview();
     }
 
+    function deleteItem(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+      renumberItems();
+      renderPreview();
+    }
+
     function renumberItems() {
       const blocks = document.querySelectorAll('.item-block');
       blocks.forEach((block, index) => {
@@ -495,6 +967,9 @@
       });
     }
 
+    // ============================================
+    // LIVE PREVIEW
+    // ============================================
     function renderPreview() {
       const symCode = document.getElementById('currencySym').value;
       const currencySymbols = { 'PKR':'Rs', 'USD':'$', 'EUR':'€', 'GBP':'£', 'AED':'د.إ', 'SAR':'ر.س', 'INR':'₹', 'CNY':'¥', 'AUD':'$' };
@@ -539,11 +1014,33 @@
         (taxPct ? `<div><span>Tax/GST (${taxPct}%)</span><span>${sym} ${tax.toLocaleString(undefined,{maximumFractionDigits:2})}</span></div>` : '') +
         `<div class="grand"><span>Total</span><span>${sym} ${grand.toLocaleString(undefined,{maximumFractionDigits:2})}</span></div>`;
       document.getElementById('pvNotes').textContent = document.getElementById('docNotes').value;
-
-      document.getElementById('docPreview').style.display = 'block';
-      document.getElementById('shareBarWrap').style.display = 'grid';
     }
 
+    function generateDocument() {
+      // scroll preview into view
+      const preview = document.getElementById('docPreview');
+      preview.style.display = 'block';
+      document.getElementById('shareBarWrap').style.display = 'grid';
+      preview.scrollIntoView({behavior:'smooth', block:'start'});
+      renderPreview();
+    }
+
+    // ============================================
+    // AUTO DOC NUMBER
+    // ============================================
+    function generateDocNumber() {
+      const now = new Date();
+      const y = String(now.getFullYear()).slice(2);
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      const rand = String(Math.floor(Math.random() * 999) + 1).padStart(3, '0');
+      const prefix = currentMode === 'quote' ? 'Q' : 'INV';
+      return `${prefix}-${y}${m}${d}-${rand}`;
+    }
+
+    // ============================================
+    // SAVE / LOAD
+    // ============================================
     function saveProject() {
       const data = {};
       document.querySelectorAll('input, select, textarea').forEach(el => { if (el.id) data[el.id] = el.value; });
@@ -555,15 +1052,45 @@
       data['items'] = JSON.stringify(items);
       data['mode'] = currentMode;
       localStorage.setItem('coldmatrix_quotation', JSON.stringify(data));
-      alert('✅ Document saved!');
+      alert('✅ Document saved! Click Load anytime to restore it.');
     }
 
+    function loadProject() {
+      const raw = localStorage.getItem('coldmatrix_quotation');
+      if (!raw) {
+        alert('No saved document found. Save one first!');
+        return;
+      }
+      const data = JSON.parse(raw);
+      Object.keys(data).forEach(k => {
+        if (k === 'items' || k === 'mode') return;
+        const el = document.getElementById(k);
+        if (el) el.value = data[k];
+      });
+      if (data.mode) switchMode(data.mode);
+      const items = JSON.parse(data.items || '[]');
+      document.getElementById('itemsContainer').innerHTML = '';
+      itemId = 0;
+      items.forEach(it => addItem(it.desc, it.qty, it.rate));
+      renderPreview();
+      document.getElementById('docPreview').style.display = 'block';
+      document.getElementById('shareBarWrap').style.display = 'grid';
+      window.scrollTo({top:0, behavior:'smooth'});
+      alert('✅ Document loaded!');
+    }
+
+    // ============================================
+    // RESET
+    // ============================================
     function resetQuotation() {
+      if (!confirm('Reset the entire form? Any unsaved changes will be lost.')) return;
       document.getElementById('bizName').value = 'ColdMatrix Contracting';
-      document.getElementById('bizContact').value = '';
-      document.getElementById('bizAddress').value = '';
+      document.getElementById('bizContact').value = '+92 333 3228470';
+      document.getElementById('bizAddress').value = 'Karachi, Pakistan';
       document.getElementById('clientName').value = '';
-      document.getElementById('docNo').value = 'Q-1001';
+      document.getElementById('clientPhone').value = '';
+      document.getElementById('clientEmail').value = '';
+      document.getElementById('docNo').value = generateDocNumber();
       document.getElementById('docDate').value = new Date().toISOString().split('T')[0];
       const validDate = new Date();
       validDate.setDate(validDate.getDate() + 15);
@@ -576,46 +1103,62 @@
       itemId = 0;
       addItem('PU Sandwich Panel Supply & Install', 100, 2500);
       addItem('Cold Room Door & Accessories', 1, 350000);
+      document.getElementById('docPreview').style.display = 'none';
+      document.getElementById('shareBarWrap').style.display = 'none';
+      document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
       renderPreview();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // ============================================
+    // EXPORT / SHARE
+    // ============================================
     async function captureCanvas(){
       const el = document.getElementById('docPreview');
+      el.style.display = 'block';
       return await html2canvas(el, {backgroundColor:'#ffffff', scale:2});
     }
+
     async function downloadResult(type){
       const canvas = await captureCanvas();
+      const docNo = document.getElementById('docNo').value || 'ColdMatrix-Document';
       if(type === 'pdf'){
         const { jsPDF } = window.jspdf;
         const imgData = canvas.toDataURL('image/jpeg', 0.95);
         const pdf = new jsPDF({ orientation: canvas.width > canvas.height ? 'l':'p', unit:'px', format:[canvas.width, canvas.height] });
         pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
-        pdf.save((document.getElementById('docNo').value || 'ColdMatrix-Document') + '.pdf');
+        pdf.save(docNo + '.pdf');
       } else {
         const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
         const link = document.createElement('a');
-        link.download = (document.getElementById('docNo').value || 'ColdMatrix-Document') + '.' + type;
+        link.download = docNo + '.' + type;
         link.href = canvas.toDataURL(mime, 0.95);
         link.click();
       }
     }
+
     async function shareWhatsApp(){
       const canvas = await captureCanvas();
+      const client = document.getElementById('clientName').value || 'Customer';
+      const docNo = document.getElementById('docNo').value || 'Document';
       canvas.toBlob(async (blob)=>{
-        const file = new File([blob], 'ColdMatrix-Document.png', {type:'image/png'});
+        const file = new File([blob], docNo + '.png', {type:'image/png'});
+        const caption = `Hi ${client},\n\nPlease find attached our ${currentMode === 'quote' ? 'Quotation' : 'Invoice'} (${docNo}).\n\nRegards,\nColdMatrix Team`;
         if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
-          try{ await navigator.share({ files:[file], title: currentMode === 'quote' ? 'Quotation' : 'Invoice', text:'Here is our document.' }); }catch(e){}
+          try{ await navigator.share({ files:[file], title: docNo, text: caption }); }catch(e){}
         } else {
           const link = document.createElement('a');
-          link.download = 'ColdMatrix-Document.png';
+          link.download = docNo + '.png';
           link.href = canvas.toDataURL('image/png');
           link.click();
-          window.open('https://wa.me/?text=' + encodeURIComponent('Thank you so much for using and trusting ColdMatrix Tools — your 24/7 business companion.\n📧 contact@coldmatrixtools.com  |  💬 +92 333 3228470'), '_blank');
+          window.open('https://wa.me/?text=' + encodeURIComponent(caption), '_blank');
         }
       });
     }
 
+    // ============================================
+    // INSTALL BAR
+    // ============================================
     let d; const bar = document.getElementById('installBarTool');
     window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
     window.installAppTool = function(){
@@ -632,13 +1175,20 @@
       navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
     }
 
+    // ============================================
+    // INIT
+    // ============================================
     document.getElementById('docDate').value = new Date().toISOString().split('T')[0];
     const validDate = new Date();
     validDate.setDate(validDate.getDate() + 15);
     document.getElementById('docValid').value = validDate.toISOString().split('T')[0];
+    document.getElementById('docNo').value = generateDocNumber();
 
-    addItem('PU Sandwich Panel Supply & Install', 100, 2500);
-    addItem('Cold Room Door & Accessories', 1, 350000);
+    // Pre-fill with Cold Storage template by default
+    addItem('PU Sandwich Panel Supply & Install (100mm)', 200, 3200);
+    addItem('Cold Room Door with Heater', 2, 185000);
+    addItem('Split Refrigeration Unit — 5 TR', 2, 425000);
+    addItem('Installation & Commissioning', 1, 150000);
   </script>
 </body>
 </html>

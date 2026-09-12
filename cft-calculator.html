@@ -32,373 +32,791 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #0B0F14; --foam: #F0F4F8; --frost: #4FC3F7;
             --line: rgba(79,195,247,0.35); --accent: #00b894;
-            --card-bg: rgba(15,22,30,0.92); --gold: #D4AF37;
-            --gold-bright: #FFD700; --silver: #a8acb5;
-            --dark-silver: #545860; --input-bg: #f5f5f5;
-            --input-text: #1a1a1a; --chrome: #c0c3c8;
-            --display-bg: #0a0d11; --green: #34D399;
-            --label-color: #1a1a1a; --desk: #111418;
-            --whatsapp-green: #25D366; --download-blue: #2196F3;
-            --silver-gradient: linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-            --silver-gradient-hover: linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
+            --gold: #D4AF37; --gold-bright: #FFD700;
+            --gold-deep: #B8952B;
+            --input-bg: #f5f5f5; --input-text: #1a1a1a;
+            --display-bg: #0a0d11; --desk: #111418;
+            --label-color: #1a1a1a;
+            --silver-bg: #C8CDD4;
+            --silver-bg-hover: #D5D9DE;
+            --silver-gradient: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            --whatsapp-green: #25D366;
+            --download-blue: #2196F3;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            background: var(--desk);
+            background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--desk);
             color: var(--foam); font-family: 'Inter', sans-serif;
             line-height: 1.6; min-height: 100vh;
         }
         .container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
-        .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+
+        .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold); }
         .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-        .logo { font-size:1.3rem; font-weight:700; color:var(--frost); text-decoration:none; display:flex; align-items:center; gap:8px; }
+        .logo { font-size:1.3rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
         .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
         .nav-links a { color:#8B98A5; text-decoration:none; font-weight:500; font-size:0.95rem; }
-        .nav-links a:hover { color:var(--frost); }
-        .tool-title { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:700; color:#FFFFFF; text-shadow:0 2px 10px rgba(0,0,0,0.6); margin-bottom:6px; display:flex; align-items:center; gap:10px; }
-        .subtitle { color:#ccc; font-size:1rem; font-weight:500; text-shadow:0 1px 4px rgba(0,0,0,0.6); margin-bottom:20px; }
-        .mode-cards { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
-        .mode-card { background: var(--silver-gradient); border: 2px solid var(--gold); border-radius: 20px; padding: 32px 24px; text-align: center; cursor: pointer; box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.6); position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
-        .mode-card::after { content:''; position:absolute; top:0;left:0;right:0;height:40%; background:linear-gradient(180deg,rgba(255,255,255,0.3) 0%,transparent 100%); border-radius:20px 20px 0 0; pointer-events:none; }
-        .mode-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(0,0,0,0.7), 0 0 25px var(--gold); border-color: var(--gold-bright); }
-        .mode-card .icon { font-size: 2.5rem; margin-bottom: 12px; }
-        .mode-card h3 { font-family:'Oswald',sans-serif; font-size:1.3rem; font-weight:700; color:#0A0F14; margin-bottom:6px; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
-        .mode-card p { color:#111; font-size:0.9rem; font-weight:600; text-shadow:0 1px 2px rgba(255,255,255,0.3); }
-        .laptop-body { background: var(--silver-gradient); border: 2px solid var(--gold); border-radius: 28px; padding: 32px 30px; margin-top: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.6); position: relative; display:none; }
-        .laptop-body::after { content:''; position:absolute; top:0;left:0;right:0;height:35%; background:linear-gradient(180deg,rgba(255,255,255,0.3) 0%,transparent 100%); border-radius:28px 28px 0 0; pointer-events:none; }
-        .laptop-body.active { display:block; }
-        .state-badge { position:absolute; top:-10px; right:20px; background:linear-gradient(135deg,#FFD700,#FFA500); color:#0A0F14; font-family:'Oswald',sans-serif; font-weight:700; font-size:0.7rem; padding:4px 14px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; z-index:2; }
-        .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:18px 20px; margin-bottom:24px; box-shadow:0 10px 34px rgba(0,0,0,0.55); }
-        .share-tool-title { font-family:'Inter',sans-serif; font-weight:800; font-size:1rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:14px; text-transform:uppercase; }
+        .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+
+        /* Golden install bar */
+        .install-bar {
+            display: block;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            color: #0A0F14;
+            text-align: center;
+            padding: 10px 16px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-radius: 10px;
+            margin: 14px 0;
+            border: 1px solid #FFD700;
+            box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+        }
+        .install-bar button {
+            background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+            padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+            font-weight: 800; cursor: pointer; font-size: 0.8rem;
+        }
+
+        .tool-title {
+            font-family:'Oswald',sans-serif;
+            font-size:2rem;
+            font-weight:700;
+            color:#FFFFFF;
+            margin-bottom:8px;
+            display:flex;
+            align-items:center;
+            gap:10px;
+            line-height:1.2;
+        }
+        .tool-title span { color: var(--gold-bright); }
+        .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; margin-bottom:20px; }
+
+        /* ============================================ */
+        /* MODE CARDS — Silver premium + golden accents */
+        /* ============================================ */
+        .mode-cards { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:30px; }
+        .mode-card {
+            position: relative;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid #D4AF37;
+            border-radius: 20px;
+            padding: 36px 22px 34px;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.7);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .mode-card::before {
+            content: ""; position: absolute; inset: -2px;
+            border-radius: 20px; padding: 2px;
+            background: linear-gradient(135deg, #D4AF37, #FFD700, #B8952B);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0; transition: opacity 0.35s ease; pointer-events: none;
+        }
+        .mode-card:hover::before { opacity: 1; }
+        .mode-card:hover {
+            transform: translateY(-6px);
+            border-color: #FFD700;
+            box-shadow: 0 18px 40px rgba(0,0,0,0.55), 0 0 30px rgba(212,175,55,0.55), inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+        .mode-card .icon {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 68px; height: 68px; margin: 0 auto 18px;
+            background: radial-gradient(circle at 30% 30%, #FFD700, #B8952B 75%);
+            border-radius: 50%; font-size: 2rem;
+            box-shadow: 0 6px 18px rgba(184,149,43,0.6), inset 0 -3px 6px rgba(0,0,0,0.2), inset 0 3px 6px rgba(255,255,255,0.45);
+            line-height: 1;
+        }
+        .mode-card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem; font-weight: 700;
+            color: #B8952B; margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+        }
+        .mode-card p {
+            color: #0A0F14; font-size: 0.88rem;
+            font-weight: 600; line-height: 1.5; margin-bottom: 14px;
+        }
+        .mode-card::after {
+            content: "TAP TO OPEN →";
+            position: absolute; bottom: 12px; left: 50%;
+            transform: translateX(-50%);
+            color: #B8952B; font-size: 0.68rem; font-weight: 800;
+            letter-spacing: 1.5px; opacity: 0.9;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+        .mode-card:hover::after { opacity: 1; color: #0A0F14; }
+
+        /* ============================================ */
+        /* CALCULATOR BODY — Silver premium */
+        /* ============================================ */
+        .laptop-body {
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold);
+            border-radius: 24px;
+            padding: 28px 26px;
+            margin-top: 24px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            position: relative;
+            display: none;
+        }
+        .laptop-body.active { display: block; }
+        .state-badge {
+            position:absolute; top:-10px; right:20px;
+            background:linear-gradient(135deg,#FFD700,#FFA500);
+            color:#0A0F14;
+            font-family:'Oswald',sans-serif; font-weight:700;
+            font-size:0.7rem; padding:4px 14px; border-radius:20px;
+            text-transform:uppercase; letter-spacing:1px; z-index:2;
+        }
+
+        .share-tool-card {
+            background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
+            border: 2px solid;
+            border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
+            border-radius: 12px; padding: 18px 20px; margin-bottom: 24px;
+            box-shadow: 0 10px 34px rgba(0,0,0,0.55);
+        }
+        .share-tool-title {
+            font-family:'Inter',sans-serif; font-weight:800;
+            font-size: 1rem; color: #E8B93A; text-align: center;
+            letter-spacing: 0.6px; margin-bottom: 14px; text-transform: uppercase;
+        }
         .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-        .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; border-radius:8px; font-weight:700; font-size:0.85rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); }
-        .share-tool-btn:hover { border-color:#E8B93A; }
-        .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
-        .back-btn { background: var(--silver-gradient); border: 2px solid var(--gold); color: #0A0F14; padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; cursor: pointer; margin-bottom: 16px; position: relative; z-index: 1; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px; text-shadow:0 1px 2px rgba(255,255,255,0.4); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3); }
-        .back-btn:hover { background: var(--silver-gradient-hover); border-color: var(--gold-bright); }
-        .section-heading { font-family:'Oswald',sans-serif; font-size:1rem; font-weight:700; color:var(--label-color); margin:18px 0 10px; text-transform:uppercase; position:relative; z-index:1; border-left:4px solid var(--gold); padding-left:10px; }
+        .share-tool-btn {
+            display:flex; align-items:center; justify-content:center; gap:8px;
+            padding: 12px; border-radius: 8px; font-weight: 700; font-size: 0.85rem;
+            cursor: pointer; background: rgba(15,20,30,0.75); color: #EAEDF0;
+            border: 1.5px solid rgba(200,168,78,0.45);
+            transition: all 0.2s;
+        }
+        .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 15px rgba(232,185,58,0.35); }
+        .share-tool-btn.wa { border-color: rgba(37,211,102,0.55); }
+        .share-tool-btn.wa:hover { border-color: #25D366; box-shadow:0 0 15px rgba(37,211,102,0.4); }
+
+        .back-btn {
+            background: var(--silver-bg);
+            border: 2px solid var(--gold);
+            color: #0A0F14;
+            padding: 10px 18px; border-radius: 10px;
+            font-weight: 800; font-size: 0.85rem;
+            cursor: pointer; margin-bottom: 16px;
+            display: inline-flex; align-items: center; gap: 6px;
+            transition: 0.2s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        .back-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); }
+
+        .section-heading {
+            font-family:'Oswald',sans-serif; font-size:1rem;
+            font-weight:700; color:var(--label-color);
+            margin:18px 0 10px; text-transform:uppercase;
+            border-left: 4px solid var(--gold);
+            padding-left: 10px;
+        }
         .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
         .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
-        .field { margin-bottom:14px; position:relative; z-index:1; }
-        .field label { display:block; font-size:0.82rem; color:var(--label-color); font-weight:700; margin-bottom:6px; }
-        .field input, .field select { width:100%; background:var(--input-bg); border:2px solid var(--gold); color:var(--input-text); padding:12px 14px; border-radius:8px; font-size:0.95rem; font-weight:500; outline:none; box-shadow: inset 0 1px 3px rgba(0,0,0,0.3); }
-        .field input:focus, .field select:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.5); }
-        .btn-gold { width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold); padding:18px; border-radius:14px; font-family:'Oswald',sans-serif; font-weight:700; font-size:1.1rem; cursor:pointer; text-transform:uppercase; letter-spacing:1px; text-shadow:0 1px 2px rgba(255,255,255,0.4); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 6px 20px rgba(212,175,55,0.5); transition:0.2s; margin-top:8px; position:relative; z-index:1; }
-        .btn-gold:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 10px 28px rgba(255,215,0,0.6); transform:translateY(-2px); }
-        .btn-reset { width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold); padding:14px; border-radius:10px; font-weight:700; font-size:0.95rem; cursor:pointer; text-transform:uppercase; margin-top:8px; position:relative; z-index:1; text-shadow:0 1px 2px rgba(255,255,255,0.4); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3); }
-        .display-screen { background:var(--display-bg); border-radius:14px; padding:24px; margin-top:20px; border:2px solid var(--gold); box-shadow:inset 0 0 20px rgba(0,0,0,0.6),0 4px 8px rgba(0,0,0,0.4); color:#e0e0e0; display:none; }
-        .result-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.1); font-size:0.9rem; }
-        .result-row .val { font-weight:700; color:var(--frost); }
-        .val.gold { color: var(--gold); font-size: 1.1rem; }
-        .courteous-message { font-family: 'Oswald', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--gold); margin: 16px 0 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .field { margin-bottom:14px; }
+        .field label {
+            display:block; font-size:0.82rem;
+            color:var(--label-color); font-weight:700; margin-bottom:6px;
+        }
+        .field input, .field select {
+            width:100%; background: #FFFFFF;
+            border:2px solid var(--gold); color: var(--input-text);
+            padding:12px 14px; border-radius:8px;
+            font-size:0.95rem; font-weight:600;
+            outline:none; transition: all 0.2s;
+        }
+        .field input:focus, .field select:focus {
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 12px rgba(212,175,55,0.5);
+        }
+
+        /* ============================================ */
+        /* STACKED BUTTONS — Calculate tall, Reset short */
+        /* ============================================ */
+        .btn-gold {
+            width: 100%;
+            background: #C8CDD4;
+            color: #0A0F14;
+            border: 2px solid var(--gold);
+            min-height: 64px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 900;
+            font-size: 1.15rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.3);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-gold:hover {
+            background: var(--silver-bg-hover);
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 22px rgba(212,175,55,0.6);
+            transform: translateY(-2px);
+        }
+        .btn-reset {
+            width: 100%;
+            background: #C8CDD4;
+            color: #0A0F14;
+            border: 2px solid var(--gold);
+            min-height: 46px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .btn-reset:hover {
+            background: var(--silver-bg-hover);
+            border-color: var(--gold-bright);
+            transform: translateY(-2px);
+        }
+
+        .display-screen {
+            background: var(--display-bg);
+            border-radius: 14px;
+            padding: 24px;
+            margin-top: 20px;
+            border: 2px solid var(--gold);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6), 0 4px 8px rgba(0,0,0,0.4);
+            color: #e0e0e0;
+            display: none;
+        }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+        .result-row:last-child { border-bottom: none; }
+        .result-row .val { font-weight: 700; color: var(--frost); }
+        .val.gold { color: var(--gold-bright); font-size: 1.1rem; font-weight: 800; }
+
+        .courteous-message {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95rem; font-weight: 600;
+            color: var(--gold); margin: 16px 0 10px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
         .action-buttons { display:flex; gap:10px; flex-wrap:wrap; }
-        .action-btn { padding:10px 16px; border:none; border-radius:8px; cursor:pointer; font-weight:700; font-size:0.78rem; display:flex; align-items:center; gap:6px; text-transform:uppercase; color:#fff; }
-        .whatsapp-action { background:var(--whatsapp-green); }
-        .download-action { background:var(--download-blue); }
-        .pdf-action { background:#0077B5; }
-        .png-action { background:#6C5CE7; }
-        .copy-action { background:#555; }
-        .save-action { background:var(--accent); }
-        .saved-records { background:rgba(0,0,0,0.2); border-radius:10px; padding:14px; margin-top:12px; display:none; }
-        .saved-records h4 { font-family:'Oswald',sans-serif; color:var(--gold); margin-bottom:8px; }
-        .saved-item { display:flex; justify-content:space-between; padding:8px; border-bottom:1px solid rgba(255,255,255,0.1); font-size:0.8rem; color:#EAEDF0; }
-        .saved-item button { background:none; border:1px solid #777; color:#9AA0B0; cursor:pointer; font-weight:700; border-radius:4px; padding:2px 6px; }
-        .tips-box { background:rgba(0,0,0,0.2); border-radius:10px; padding:16px; margin-top:16px; position:relative; z-index:1; }
-        .tips-box h4 { font-family:'Oswald',sans-serif; color:var(--gold); margin-bottom:8px; }
-        .tips-box p { color:#EAEDF0; font-size:0.85rem; margin-bottom:6px; }
-        .tips-box strong { color:#FFD700; }
+        .action-btn {
+            padding: 10px 16px; border: none; border-radius: 8px;
+            cursor: pointer; font-weight: 700; font-size: 0.78rem;
+            display: flex; align-items: center; gap: 6px;
+            text-transform: uppercase; color: #fff;
+            transition: 0.2s;
+        }
+        .whatsapp-action { background: var(--whatsapp-green); }
+        .download-action { background: var(--download-blue); }
+        .pdf-action { background: #0077B5; }
+        .png-action { background: #6C5CE7; }
+        .copy-action { background: #555; }
+        .save-action { background: var(--accent); }
+        .action-btn:hover { transform: translateY(-2px); opacity: 0.92; }
+
+        .saved-records { background: rgba(0,0,0,0.25); border-radius: 10px; padding: 14px; margin-top: 12px; display: none; }
+        .saved-records h4 { font-family:'Oswald',sans-serif; color: var(--gold-bright); margin-bottom: 8px; }
+        .saved-item { display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; color: #EAEDF0; }
+        .saved-item button { background: none; border: 1px solid #777; color: #9AA0B0; cursor: pointer; font-weight: 700; border-radius: 4px; padding: 2px 6px; }
+
+        .tips-box { background: rgba(0,0,0,0.25); border-radius: 10px; padding: 16px; margin-top: 16px; }
+        .tips-box h4 { font-family:'Oswald',sans-serif; color: var(--gold-bright); margin-bottom: 8px; }
+        .tips-box p { color: #EAEDF0; font-size: 0.85rem; margin-bottom: 6px; }
+        .tips-box strong { color: #FFD700; }
+
         .related-links { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px; margin-top:12px; }
-        .related-link { padding:10px 12px; border:2px solid var(--gold); border-radius:8px; color:#0A0F14; font-weight:700; font-size:0.78rem; text-decoration:none; background:var(--silver-gradient); transition:0.2s; text-align:center; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
-        .related-link:hover { border-color:var(--gold-bright); background:var(--silver-gradient-hover); }
-        .contact-note { margin-top:20px; padding:14px; background:rgba(0,0,0,0.4); border:1px dashed var(--gold); border-radius:12px; text-align:center; color:#fff; position:relative; z-index:1; }
-        footer { text-align:center; color:#ccc; font-size:0.8rem; margin-top:30px; padding:20px 0; border-top:1px solid #444; }
-        footer a { color:var(--frost); text-decoration:none; }
-        @media (max-width:768px) { .mode-cards { grid-template-columns:1fr; } .laptop-body { padding:24px 16px; } .grid-2, .grid-3 { grid-template-columns:1fr; } }
+        .related-link {
+            padding:10px 12px; border:2px solid var(--gold); border-radius:8px;
+            color:#0A0F14; font-weight:700; font-size:0.78rem;
+            text-decoration:none; background: var(--silver-bg); transition:0.2s;
+            text-align:center;
+        }
+        .related-link:hover { border-color: var(--gold-bright); background: var(--silver-bg-hover); }
+
+        .contact-note {
+            margin-top:20px; padding:14px;
+            background: rgba(0,0,0,0.4);
+            border: 1px dashed var(--gold);
+            border-radius:12px; text-align:center;
+            color: #fff;
+        }
+
+        /* ============================================ */
+        /* SILVER EDUCATIONAL CONTENT — Premium */
+        /* ============================================ */
+        .edu-content {
+            margin: 30px 0;
+            padding: 30px 24px;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid #D4AF37;
+            border-radius: 16px;
+            color: #0A0F14;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        .edu-content h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.35rem; margin-bottom: 16px; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; font-weight: 800; }
+        .edu-content h3 { color: #0A0F14; font-size: 1.1rem; margin: 22px 0 10px; font-weight: 800; }
+        .edu-content p, .edu-content li, .edu-content ul, .edu-content ol { color: #0A0F14; font-weight: 500; }
+        .edu-content ul, .edu-content ol { padding-left: 24px; margin-bottom: 14px; }
+        .edu-content li { margin-bottom: 6px; }
+        .edu-content strong { color: #0A0F14; font-weight: 800; }
+        .edu-content p { margin-bottom: 14px; }
+
+        /* Pakistani block */
+        .pakistani-block {
+            margin: 30px 0;
+            padding: 24px 20px;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid #D4AF37;
+            border-radius: 16px;
+            color: #0A0F14;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        .pakistani-block h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.2rem; margin-bottom: 12px; font-weight: 800; }
+        .pakistani-block p { color: #0A0F14; font-weight: 500; margin-top: 10px; }
+        .pakistani-block strong { color: #0A0F14; font-weight: 800; }
+
+        /* Related tools */
+        .related-tools-section {
+            margin: 20px 0 10px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 2px solid #D4AF37;
+            border-radius: 12px;
+        }
+        .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; }
+        .related-tools-section a {
+            color:#4FC3F7; text-decoration:none;
+            background:rgba(79,195,247,0.1);
+            padding:8px 16px; border-radius:20px;
+            font-size:0.85rem; font-weight:600;
+            display: inline-block;
+            margin: 4px 4px 4px 0;
+        }
+
+        /* Disclaimer */
+        .disclaimer-box {
+            margin-top: 20px;
+            padding: 16px 18px;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid #D4AF37;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #0A0F14;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+        .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+        footer { text-align:center; color:#8B98A5; font-size:0.8rem; margin-top:50px; padding:30px 0 20px; border-top:2px solid var(--gold); }
+        footer a { color: var(--gold-bright); text-decoration:none; font-weight: 600; }
+
+        .whatsapp-float {
+            position: fixed; bottom: 20px; right: 20px; z-index: 999;
+            width: 48px; height: 48px; background: #25D366;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            text-decoration: none; color: #fff; font-size: 1.3rem;
+        }
+
+        @media (max-width:768px) {
+            .mode-cards { grid-template-columns:1fr; gap:16px; }
+            .laptop-body { padding: 22px 16px; }
+            .grid-2, .grid-3 { grid-template-columns:1fr; }
+            .tool-title { font-size: 1.5rem; }
+            .edu-content { padding: 20px 16px; font-size: 0.9rem; }
+            .edu-content h2 { font-size: 1.15rem; }
+            .mode-card { padding: 32px 20px 34px; }
+            .mode-card .icon { width: 60px; height: 60px; font-size: 1.75rem; }
+        }
     </style>
 </head>
 <body>
-<nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
-<li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">❄️ ColdMatrix</a>
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="index.html#tools">🛠️ Tools</a></li>
+      <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+      <li><a href="blog.html">📝 Blog</a></li>
+      <li><a href="about.html">ℹ️ About</a></li>
+      <li><a href="contact.html">📞 Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
 <div class="container">
   <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
-  
-    <div id="cmInstallBar" style="display:block;background:#4FC3F7;color:#0A0F14;text-align:center;padding:10px;font-weight:600;font-size:0.85rem;border-radius:8px;margin:0 0 16px;">📱 Add to Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
-    <h1 class="tool-title"><span>📐</span> ColdMatrix CFT Calculator Pro — Dual Mode</h1>
-    <p class="subtitle">Quick volume & cost in seconds + Advanced Pro mode with client info, cost estimation, material, transport & export reports. A ColdMatrix original.</p>
-    <div class="share-tool-card"><div class="share-tool-title">Share CFT Calculator Pro</div><div class="share-tool-buttons"><button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button><button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button></div></div>
-    <div class="mode-cards" id="modeSelection">
-        <div class="mode-card" onclick="openMode('quick')"><div class="icon">🚀</div><h3>Quick / Instant CFT Calculator</h3><p>Fast volume and cost calculation in just a few seconds.</p></div>
-        <div class="mode-card" onclick="openMode('advanced')"><div class="icon">⭐</div><h3>Advanced / Pro CFT Calculator</h3><p>Complete professional workflow — client info, cost estimation, material, transport & export reports.</p></div>
+
+  <div class="install-bar" id="cmInstallBar">📱 Add to Home Screen <button onclick="cmInstallApp()">Install</button></div>
+
+  <h1 class="tool-title">📐 <span>ColdMatrix</span> CFT Calculator Pro</h1>
+  <p class="subtitle">Quick volume &amp; cost in seconds + Advanced Pro mode with client info, cost estimation, material, transport &amp; export reports.</p>
+
+  <div class="share-tool-card">
+    <div class="share-tool-title">Share CFT Calculator Pro</div>
+    <div class="share-tool-buttons">
+      <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
     </div>
+  </div>
 
-    <!-- QUICK MODE -->
-    <div class="laptop-body" id="quickMode">
-        <div class="state-badge">Quick Mode</div>
-        <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back to Modes</button>
-        <div style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;color:var(--label-color);margin-bottom:14px;position:relative;z-index:1;">🚀 Quick / Instant CFT Calculator</div>
-        <p style="color:#111;font-size:0.85rem;position:relative;z-index:1;margin-bottom:14px;">Fast volume and cost calculation in just a few seconds.</p>
-        <div class="section-heading">👤 Basic Information</div>
-        <div class="grid-2">
-            <div class="field"><label>Customer Name (Optional)</label><input type="text" id="qCustName" placeholder="Mr. AraIn" value="Mr. AraIn"></div>
-            <div class="field"><label>Date</label><input type="date" id="qDate"></div>
-        </div>
-        <div class="section-heading">📏 Measurement Unit</div>
-        <div class="field">
-            <select id="qUnitSelect" onchange="qUpdateUnitAndPrice()">
-                <option value="ft">Feet (ft)</option>
-                <option value="m">Meters (m)</option>
-                <option value="yd">Yards (yd)</option>
-                <option value="in">Inches (in)</option>
-                <option value="cm">Centimeters (cm)</option>
-                <option value="mm">Millimeters (mm)</option>
-            </select>
-        </div>
-        <div class="section-heading">📐 Dimensions</div>
-        <div class="grid-3">
-            <div class="field"><label id="qlblLength">Length</label><input type="number" id="qLength" value="20" step="any"></div>
-            <div class="field"><label id="qlblWidth">Width</label><input type="number" id="qWidth" value="10" step="any"></div>
-            <div class="field"><label id="qlblHeight">Height</label><input type="number" id="qHeight" value="10" step="any"></div>
-        </div>
-        <div class="section-heading">💰 Price</div>
-        <div class="grid-3">
-            <div class="field"><label id="qPriceLabel">Price per CFT</label><input type="number" id="qPrice" value="150" step="any"></div>
-            <div class="field"><label>Currency</label><select id="qCurrency"><option value="PKR">🇵🇰 PKR</option><option value="USD">🇺🇸 USD</option><option value="AED">🇦🇪 AED</option><option value="SAR">🇸🇦 SAR</option><option value="EUR">🇪🇺 EUR</option><option value="GBP">🇬🇧 GBP</option></select></div>
-            <div class="field"><label>Quantity (Optional)</label><input type="number" id="qQuantity" value="1" step="any"></div>
-        </div>
-        <button class="btn-gold" onclick="quickCalc()"><i class="fas fa-calculator"></i> Calculate</button>
-        <button class="btn-reset" onclick="resetQuick()"><i class="fas fa-undo"></i> Reset</button>
-        <div class="display-screen" id="quickResult">
-            <div class="result-row"><span>Volume (<span id="qVolUnitLabel">CFT</span>)</span><span class="val" id="qCft">—</span></div>
-            <div class="result-row"><span>Cubic Meter (m³)</span><span class="val" id="qCbm">—</span></div>
-            <div class="result-row"><span>Cubic Yard</span><span class="val" id="qCyd">—</span></div>
-            <div class="result-row"><span>Square Feet (approx.)</span><span class="val" id="qSqft">—</span></div>
-            <div class="result-row"><span>Price per Unit</span><span class="val" id="qPricePerUnit">—</span></div>
-            <div class="result-row"><span>Total Price</span><span class="val gold" id="qTotalPrice">—</span></div>
-            <div class="courteous-message">📋 Please take your calculation summary</div>
-            <div class="action-buttons">
-                <button class="action-btn whatsapp-action" onclick="shareQuickResult()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-                <button class="action-btn pdf-action" onclick="window.print()"><i class="fas fa-file-pdf"></i> PDF</button>
-                <button class="action-btn download-action" onclick="downloadQuickJPG()"><i class="fas fa-download"></i> JPG</button>
-                <button class="action-btn copy-action" onclick="copyQuickResult()"><i class="fas fa-copy"></i> Copy</button>
-                <button class="action-btn save-action" onclick="saveQuickRecord()"><i class="fas fa-save"></i> Save</button>
-            </div>
-            <div class="saved-records" id="savedRecords"><h4>📂 Saved Records</h4><div id="savedList"></div></div>
-        </div>
-    </div>
+  <div class="mode-cards" id="modeSelection">
+      <div class="mode-card" onclick="openMode('quick')">
+        <div class="icon">🚀</div>
+        <h3>Quick / Instant CFT</h3>
+        <p>Fast volume and cost calculation in just a few seconds.</p>
+      </div>
+      <div class="mode-card" onclick="openMode('advanced')">
+        <div class="icon">⭐</div>
+        <h3>Advanced / Pro CFT</h3>
+        <p>Complete professional workflow — client info, cost estimation, material, transport &amp; export reports.</p>
+      </div>
+  </div>
 
-    <!-- ADVANCED PRO MODE -->
-    <div class="laptop-body" id="advancedMode">
-        <div class="state-badge">Pro Mode</div>
-        <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back to Modes</button>
-        <div style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;color:var(--label-color);margin-bottom:14px;position:relative;z-index:1;">⭐ Advanced / Pro CFT Calculator</div>
-        <div class="section-heading">👤 Customer & Project Information</div>
-        <div class="grid-2">
-            <div class="field"><label>Customer Name</label><input type="text" id="custName" placeholder="e.g. Waseem Akhtar"></div>
-            <div class="field"><label>Company Name</label><input type="text" id="compName" placeholder="e.g. ColdMatrix Corp"></div>
-        </div>
-        <div class="grid-2">
-            <div class="field"><label>Project Name</label><input type="text" id="projName" placeholder="e.g. Warehouse 01"></div>
-            <div class="field"><label>Truck / Batch Number</label><input type="text" id="batchNo" placeholder="e.g. LHR-786"></div>
-        </div>
-        <div class="grid-2">
-            <div class="field"><label>Vehicle Type</label><input type="text" id="vehicleType" placeholder="e.g. 40ft Container"></div>
-            <div class="field"><label>Date</label><input type="date" id="projDate"></div>
-        </div>
-        <div class="section-heading">📏 Dimensions & Measurement Unit</div>
-        <div class="field">
-            <label>Measurement Unit System</label>
-            <select id="unitSelect" onchange="aUpdateUnitAndPrice()">
-                <option value="ft">Feet (ft)</option>
-                <option value="m">Meters (m)</option>
-                <option value="yd">Yards (yd)</option>
-                <option value="in">Inches (in)</option>
-                <option value="cm">Centimeters (cm)</option>
-                <option value="mm">Millimeters (mm)</option>
-            </select>
-        </div>
-        <div class="grid-3">
-            <div class="field"><label id="lblLength">Length</label><input type="number" id="lengthFt" value="20" step="any"></div>
-            <div class="field"><label id="lblWidth">Width</label><input type="number" id="widthFt" value="10" step="any"></div>
-            <div class="field"><label id="lblHeight">Height</label><input type="number" id="heightFt" value="10" step="any"></div>
-        </div>
-        <div class="field"><label>Quantity / Count (Optional)</label><input type="number" id="quantity" value="1" step="any" min="1"></div>
-        <div class="section-heading">💰 Pricing & Cost Estimation</div>
-        <div class="grid-2">
-            <div class="field"><label>Currency</label><select id="currency"><option value="PKR">🇵🇰 PKR (Rs)</option><option value="USD">🇺🇸 USD ($)</option><option value="AED">🇦🇪 AED (د.إ)</option><option value="SAR">🇸🇦 SAR (ر.س)</option></select></div>
-            <div class="field"><label id="pricePerLabel">Price per CFT</label><input type="number" id="rate" value="150" step="any"></div>
-        </div>
-        <div class="grid-2">
-            <div class="field"><label>Discount (%)</label><input type="number" id="discount" value="0" step="any"></div>
-            <div class="field"><label>GST / Tax (%) (Optional)</label><input type="number" id="gst" value="0" step="any"></div>
-        </div>
-        <button class="btn-gold" onclick="advancedCalculate()"><i class="fas fa-calculator"></i> Calculate</button>
-        <button class="btn-reset" onclick="resetAdvanced()"><i class="fas fa-undo"></i> Reset</button>
-        <div class="display-screen" id="advancedResult">
-            <div class="result-row"><span>Volume (<span id="aVolUnitLabel">CFT</span>)</span><span class="val" id="cft">—</span></div>
-            <div class="result-row"><span>Cubic Meter (CBM)</span><span class="val" id="cbm">—</span></div>
-            <div class="result-row"><span>Cubic Inches</span><span class="val" id="cin">—</span></div>
-            <div class="result-row"><span>Cubic Millimeters</span><span class="val" id="cmm">—</span></div>
-            <div class="result-row"><span>Container Volume</span><span class="val" id="containerVol">—</span></div>
-            <div class="result-row"><span>Material Requirement</span><span class="val" id="materialReq">—</span></div>
-            <div class="result-row"><span>Transportation Cost</span><span class="val" id="transportCost">—</span></div>
-            <div class="result-row"><span>Subtotal</span><span class="val" id="subtotal">—</span></div>
-            <div class="result-row"><span>Discount Applied</span><span class="val" id="discountAmt">—</span></div>
-            <div class="result-row"><span>Tax / GST</span><span class="val" id="gstAmt">—</span></div>
-            <div class="result-row"><span>Grand Total</span><span class="val gold" id="grandTotal">—</span></div>
-            <div class="courteous-message">📋 Please take your calculation summary</div>
-            <div class="action-buttons">
-                <button class="action-btn whatsapp-action" onclick="shareAdvancedResult()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-                <button class="action-btn pdf-action" onclick="window.print()"><i class="fas fa-file-pdf"></i> PDF</button>
-                <button class="action-btn download-action" onclick="downloadAdvancedJPG()"><i class="fas fa-download"></i> JPG</button>
-                <button class="action-btn png-action" onclick="downloadAdvancedPNG()"><i class="fas fa-image"></i> PNG</button>
-                <button class="action-btn copy-action" onclick="copyAdvancedResult()"><i class="fas fa-copy"></i> Copy</button>
-            </div>
-        </div>
-        <div class="tips-box"><h4>📚 Engineering Tips & Formula</h4><p><strong>Formula:</strong> Volume (CFT) = Length × Width × Height × Quantity</p><p><strong>Cubic Meter:</strong> 1 CFT = 0.0283168 m³</p><p><strong>Container:</strong> Standard 40ft container ≈ 2,380 CFT</p></div>
-        <div class="related-links">
-            <a href="sandwich-panel-calculator.html" class="related-link">🧱 Sandwich Panel</a>
-            <a href="cold-store-calculator.html" class="related-link">❄️ Cold Storage</a>
-            <a href="steel-weight-calculator.html" class="related-link">🛠️ Steel Weight</a>
-            <a href="cooling-requirement-calculator.html" class="related-link">🌡️ Cooling Req.</a>
-            <a href="unit-converter.html" class="related-link">📏 Unit Converter</a>
-            <a href="image-converter-tool.html" class="related-link">🖼️ Image Converter</a>
-            <a href="profit-margin-calculator.html" class="related-link">🧮 Profit Calculator</a>
-        </div>
-        <div class="contact-note">❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>For queries: <strong>+92 333 3228470</strong> | <strong>contact@coldmatrixtools.com</strong></div>
-    </div>
+  <!-- QUICK MODE -->
+  <div class="laptop-body" id="quickMode">
+      <div class="state-badge">Quick Mode</div>
+      <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back to Modes</button>
+      <div style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;color:var(--label-color);margin-bottom:14px;">🚀 Quick / Instant CFT Calculator</div>
+      <p style="color:#0A0F14;font-size:0.85rem;font-weight:600;margin-bottom:14px;">Fast volume and cost calculation in just a few seconds.</p>
+      <div class="section-heading">👤 Basic Information</div>
+      <div class="grid-2">
+          <div class="field"><label>Customer Name (Optional)</label><input type="text" id="qCustName" placeholder="Mr. AraIn" value="Mr. AraIn"></div>
+          <div class="field"><label>Date</label><input type="date" id="qDate"></div>
+      </div>
+      <div class="section-heading">📏 Measurement Unit</div>
+      <div class="field">
+          <select id="qUnitSelect" onchange="qUpdateUnitAndPrice()">
+              <option value="ft">Feet (ft)</option>
+              <option value="m">Meters (m)</option>
+              <option value="yd">Yards (yd)</option>
+              <option value="in">Inches (in)</option>
+              <option value="cm">Centimeters (cm)</option>
+              <option value="mm">Millimeters (mm)</option>
+          </select>
+      </div>
+      <div class="section-heading">📐 Dimensions</div>
+      <div class="grid-3">
+          <div class="field"><label id="qlblLength">Length</label><input type="number" id="qLength" value="20" step="any"></div>
+          <div class="field"><label id="qlblWidth">Width</label><input type="number" id="qWidth" value="10" step="any"></div>
+          <div class="field"><label id="qlblHeight">Height</label><input type="number" id="qHeight" value="10" step="any"></div>
+      </div>
+      <div class="section-heading">💰 Price</div>
+      <div class="grid-3">
+          <div class="field"><label id="qPriceLabel">Price per CFT</label><input type="number" id="qPrice" value="150" step="any"></div>
+          <div class="field"><label>Currency</label><select id="qCurrency"><option value="PKR">🇵🇰 PKR</option><option value="USD">🇺🇸 USD</option><option value="AED">🇦🇪 AED</option><option value="SAR">🇸🇦 SAR</option><option value="EUR">🇪🇺 EUR</option><option value="GBP">🇬🇧 GBP</option></select></div>
+          <div class="field"><label>Quantity (Optional)</label><input type="number" id="qQuantity" value="1" step="any"></div>
+      </div>
+      <button class="btn-gold" onclick="quickCalc()"><i class="fas fa-calculator"></i> Calculate</button>
+      <button class="btn-reset" onclick="resetQuick()"><i class="fas fa-undo"></i> Reset</button>
+      <div class="display-screen" id="quickResult">
+          <div class="result-row"><span>Volume (<span id="qVolUnitLabel">CFT</span>)</span><span class="val" id="qCft">—</span></div>
+          <div class="result-row"><span>Cubic Meter (m³)</span><span class="val" id="qCbm">—</span></div>
+          <div class="result-row"><span>Cubic Yard</span><span class="val" id="qCyd">—</span></div>
+          <div class="result-row"><span>Square Feet (approx.)</span><span class="val" id="qSqft">—</span></div>
+          <div class="result-row"><span>Price per Unit</span><span class="val" id="qPricePerUnit">—</span></div>
+          <div class="result-row"><span>Total Price</span><span class="val gold" id="qTotalPrice">—</span></div>
+          <div class="courteous-message">📋 Please take your calculation summary</div>
+          <div class="action-buttons">
+              <button class="action-btn whatsapp-action" onclick="shareQuickResult()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+              <button class="action-btn pdf-action" onclick="window.print()"><i class="fas fa-file-pdf"></i> PDF</button>
+              <button class="action-btn download-action" onclick="downloadQuickJPG()"><i class="fas fa-download"></i> JPG</button>
+              <button class="action-btn copy-action" onclick="copyQuickResult()"><i class="fas fa-copy"></i> Copy</button>
+              <button class="action-btn save-action" onclick="saveQuickRecord()"><i class="fas fa-save"></i> Save</button>
+          </div>
+          <div class="saved-records" id="savedRecords"><h4>📂 Saved Records</h4><div id="savedList"></div></div>
+      </div>
+  </div>
 
+  <!-- ADVANCED PRO MODE -->
+  <div class="laptop-body" id="advancedMode">
+      <div class="state-badge">Pro Mode</div>
+      <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back to Modes</button>
+      <div style="font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;color:var(--label-color);margin-bottom:14px;">⭐ Advanced / Pro CFT Calculator</div>
+      <div class="section-heading">👤 Customer &amp; Project Information</div>
+      <div class="grid-2">
+          <div class="field"><label>Customer Name</label><input type="text" id="custName" placeholder="e.g. Waseem Akhtar"></div>
+          <div class="field"><label>Company Name</label><input type="text" id="compName" placeholder="e.g. ColdMatrix Corp"></div>
+      </div>
+      <div class="grid-2">
+          <div class="field"><label>Project Name</label><input type="text" id="projName" placeholder="e.g. Warehouse 01"></div>
+          <div class="field"><label>Truck / Batch Number</label><input type="text" id="batchNo" placeholder="e.g. LHR-786"></div>
+      </div>
+      <div class="grid-2">
+          <div class="field"><label>Vehicle Type</label><input type="text" id="vehicleType" placeholder="e.g. 40ft Container"></div>
+          <div class="field"><label>Date</label><input type="date" id="projDate"></div>
+      </div>
+      <div class="section-heading">📏 Dimensions &amp; Measurement Unit</div>
+      <div class="field">
+          <label>Measurement Unit System</label>
+          <select id="unitSelect" onchange="aUpdateUnitAndPrice()">
+              <option value="ft">Feet (ft)</option>
+              <option value="m">Meters (m)</option>
+              <option value="yd">Yards (yd)</option>
+              <option value="in">Inches (in)</option>
+              <option value="cm">Centimeters (cm)</option>
+              <option value="mm">Millimeters (mm)</option>
+          </select>
+      </div>
+      <div class="grid-3">
+          <div class="field"><label id="lblLength">Length</label><input type="number" id="lengthFt" value="20" step="any"></div>
+          <div class="field"><label id="lblWidth">Width</label><input type="number" id="widthFt" value="10" step="any"></div>
+          <div class="field"><label id="lblHeight">Height</label><input type="number" id="heightFt" value="10" step="any"></div>
+      </div>
+      <div class="field"><label>Quantity / Count (Optional)</label><input type="number" id="quantity" value="1" step="any" min="1"></div>
+      <div class="section-heading">💰 Pricing &amp; Cost Estimation</div>
+      <div class="grid-2">
+          <div class="field"><label>Currency</label><select id="currency"><option value="PKR">🇵🇰 PKR (Rs)</option><option value="USD">🇺🇸 USD ($)</option><option value="AED">🇦🇪 AED (د.إ)</option><option value="SAR">🇸🇦 SAR (ر.س)</option></select></div>
+          <div class="field"><label id="pricePerLabel">Price per CFT</label><input type="number" id="rate" value="150" step="any"></div>
+      </div>
+      <div class="grid-2">
+          <div class="field"><label>Discount (%)</label><input type="number" id="discount" value="0" step="any"></div>
+          <div class="field"><label>GST / Tax (%) (Optional)</label><input type="number" id="gst" value="0" step="any"></div>
+      </div>
+      <button class="btn-gold" onclick="advancedCalculate()"><i class="fas fa-calculator"></i> Calculate</button>
+      <button class="btn-reset" onclick="resetAdvanced()"><i class="fas fa-undo"></i> Reset</button>
+      <div class="display-screen" id="advancedResult">
+          <div class="result-row"><span>Volume (<span id="aVolUnitLabel">CFT</span>)</span><span class="val" id="cft">—</span></div>
+          <div class="result-row"><span>Cubic Meter (CBM)</span><span class="val" id="cbm">—</span></div>
+          <div class="result-row"><span>Cubic Inches</span><span class="val" id="cin">—</span></div>
+          <div class="result-row"><span>Cubic Millimeters</span><span class="val" id="cmm">—</span></div>
+          <div class="result-row"><span>Container Volume</span><span class="val" id="containerVol">—</span></div>
+          <div class="result-row"><span>Material Requirement</span><span class="val" id="materialReq">—</span></div>
+          <div class="result-row"><span>Transportation Cost</span><span class="val" id="transportCost">—</span></div>
+          <div class="result-row"><span>Subtotal</span><span class="val" id="subtotal">—</span></div>
+          <div class="result-row"><span>Discount Applied</span><span class="val" id="discountAmt">—</span></div>
+          <div class="result-row"><span>Tax / GST</span><span class="val" id="gstAmt">—</span></div>
+          <div class="result-row"><span>Grand Total</span><span class="val gold" id="grandTotal">—</span></div>
+          <div class="courteous-message">📋 Please take your calculation summary</div>
+          <div class="action-buttons">
+              <button class="action-btn whatsapp-action" onclick="shareAdvancedResult()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+              <button class="action-btn pdf-action" onclick="window.print()"><i class="fas fa-file-pdf"></i> PDF</button>
+              <button class="action-btn download-action" onclick="downloadAdvancedJPG()"><i class="fas fa-download"></i> JPG</button>
+              <button class="action-btn png-action" onclick="downloadAdvancedPNG()"><i class="fas fa-image"></i> PNG</button>
+              <button class="action-btn copy-action" onclick="copyAdvancedResult()"><i class="fas fa-copy"></i> Copy</button>
+          </div>
+      </div>
+      <div class="tips-box">
+        <h4>📚 Engineering Tips &amp; Formula</h4>
+        <p><strong>Formula:</strong> Volume (CFT) = Length × Width × Height × Quantity</p>
+        <p><strong>Cubic Meter:</strong> 1 CFT = 0.0283168 m³</p>
+        <p><strong>Container:</strong> Standard 40ft container ≈ 2,380 CFT</p>
+      </div>
+      <div class="related-links">
+          <a href="sandwich-panel-calculator.html" class="related-link">🧱 Sandwich Panel</a>
+          <a href="cold-store-calculator.html" class="related-link">❄️ Cold Storage</a>
+          <a href="steel-weight-calculator.html" class="related-link">🛠️ Steel Weight</a>
+          <a href="cooling-requirement-calculator.html" class="related-link">🌡️ Cooling Req.</a>
+          <a href="unit-converter.html" class="related-link">📏 Unit Converter</a>
+          <a href="concrete-calculator.html" class="related-link">🏗️ Concrete</a>
+      </div>
+      <div class="contact-note">
+        ❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>
+        For queries: <strong>+92 333 3228470</strong> | <strong>contact@coldmatrixtools.com</strong>
+      </div>
+  </div>
 
-<!-- EXTENDED SEO CONTENT -->
-<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">📚 The Complete CFT Calculation Guide</h2>
-    
-    <p>Cubic Feet (CFT) is one of the most important measurements in construction, logistics, and material estimation. Understanding how to calculate CFT accurately saves money, prevents material waste, and ensures accurate pricing. This guide covers everything you need to know about CFT calculations, from basic formulas to professional applications.</p>
+<!-- ⬇️⬇️⬇️ CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
 
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">What Is CFT and Why Does It Matter?</h3>
-    <p>CFT stands for Cubic Feet — a measurement of volume. One cubic foot is the volume of a cube with sides of 1 foot each. In construction and logistics, CFT is used to measure:</p>
-    <ul style="padding-left:20px;">
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — MERGED, NO DUPLICATES, SILVER -->
+    <!-- ============================================ -->
+    <div class="edu-content">
+      <h2>📚 The Complete CFT Calculation Guide</h2>
+
+      <p>Cubic Feet (CFT) is one of the most important measurements in construction, logistics, and material estimation. Understanding how to calculate CFT accurately saves money, prevents material waste, and ensures accurate pricing. This guide covers everything you need to know about CFT calculations, from basic formulas to professional applications.</p>
+
+      <h3>What Is CFT and Why Does It Matter?</h3>
+      <p>CFT stands for <strong>Cubic Feet</strong> — a measurement of volume. One cubic foot is the volume of a cube with sides of 1 foot each. In construction and logistics, CFT is used to measure:</p>
+      <ul>
         <li><strong>Concrete volume:</strong> Slabs, footings, columns, and beams are priced by CFT.</li>
         <li><strong>Sand and aggregate:</strong> Material quantities are measured in CFT.</li>
         <li><strong>Timber volume:</strong> Wood is bought and sold by CFT.</li>
         <li><strong>Container capacity:</strong> Shipping containers are rated in CFT.</li>
         <li><strong>Cold storage capacity:</strong> Room volume determines cooling load.</li>
         <li><strong>Grain storage:</strong> Agricultural silos and warehouses use CFT.</li>
-    </ul>
+      </ul>
 
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">The Basic CFT Formula</h3>
-    <p>The formula for calculating CFT is simple:</p>
-    <p><strong>CFT = Length × Width × Height</strong></p>
-    <p>For example, a room 20 feet long, 10 feet wide, and 10 feet high has a volume of 20 × 10 × 10 = 2,000 CFT.</p>
-    <p>For multiple items, multiply by quantity: <strong>CFT = Length × Width × Height × Quantity</strong></p>
+      <h3>The Basic CFT Formula</h3>
+      <p>The formula for calculating CFT is simple:</p>
+      <p><strong>CFT = Length × Width × Height</strong></p>
+      <p>For example, a room 20 feet long, 10 feet wide, and 10 feet high has a volume of 20 × 10 × 10 = 2,000 CFT. For multiple items, multiply by quantity: <strong>CFT = Length × Width × Height × Quantity</strong>.</p>
 
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">CFT to Other Units Conversion</h3>
-    <ul style="padding-left:20px;">
+      <h3>CFT to Other Units Conversion</h3>
+      <ul>
         <li><strong>CFT to CBM (Cubic Meter):</strong> Multiply by 0.0283168</li>
         <li><strong>CFT to Cubic Yards:</strong> Divide by 27</li>
         <li><strong>CFT to Cubic Inches:</strong> Multiply by 1,728</li>
         <li><strong>CFT to Liters:</strong> Multiply by 28.3168</li>
         <li><strong>CFT to Gallons (US):</strong> Multiply by 7.48052</li>
-    </ul>
-    <p><strong>Example:</strong> 500 CFT = 500 × 0.0283168 = 14.16 CBM. This is essential for international shipping where CBM is the standard.</p>
+      </ul>
+      <p><strong>Example:</strong> 500 CFT = 500 × 0.0283168 = 14.16 CBM. This is essential for international shipping where CBM is the standard.</p>
 
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Standard Container Volumes</h3>
-    <ul style="padding-left:20px;">
+      <h3>Standard Container Volumes</h3>
+      <ul>
         <li><strong>20ft Container:</strong> Approximately 1,172 CFT (33.2 CBM)</li>
         <li><strong>40ft Container:</strong> Approximately 2,390 CFT (67.7 CBM)</li>
         <li><strong>40ft High Cube:</strong> Approximately 2,694 CFT (76.3 CBM)</li>
         <li><strong>45ft High Cube:</strong> Approximately 3,040 CFT (86.1 CBM)</li>
-    </ul>
+      </ul>
 
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Construction Material Requirements per CFT</h3>
-    <ul style="padding-left:20px;">
+      <h3>Construction Material Requirements per CFT</h3>
+      <ul>
         <li><strong>Concrete:</strong> Approximately 0.40 cement bags per sq ft of slab area (varies by thickness).</li>
-        <li><strong>Steel reinforcement:</strong> 4-8 kg per sq ft depending on structure type.</li>
+        <li><strong>Steel reinforcement:</strong> 4–8 kg per sq ft depending on structure type.</li>
         <li><strong>Sand:</strong> 1.5 CFT per sq ft of construction.</li>
         <li><strong>Aggregate:</strong> 1.3 CFT per sq ft of construction.</li>
         <li><strong>Bricks:</strong> 8 bricks per sq ft of wall area.</li>
-    </ul>
+      </ul>
 
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Real-World CFT Applications</h3>
-    <p><strong>Example 1 — Concrete Footing:</strong> A footing is 4 feet long, 3 feet wide, and 2 feet deep. Volume = 4 × 3 × 2 = 24 CFT. At Rs. 250/CFT, cost = Rs. 6,000.</p>
-    <p><strong>Example 2 — Sand Delivery:</strong> A truck carries 500 CFT of sand. At Rs. 4,000 per 100 CFT, total cost = Rs. 20,000.</p>
-    <p><strong>Example 3 — Cold Storage:</strong> A cold room measures 40ft × 30ft × 15ft = 18,000 CFT. This determines the refrigeration capacity needed.</p>
+      <h3>Real-World CFT Applications</h3>
+      <p><strong>Example 1 — Concrete Footing:</strong> A footing is 4 feet long, 3 feet wide, and 2 feet deep. Volume = 4 × 3 × 2 = 24 CFT. At Rs. 250/CFT, cost = Rs. 6,000.</p>
+      <p><strong>Example 2 — Sand Delivery:</strong> A truck carries 500 CFT of sand. At Rs. 4,000 per 100 CFT, total cost = Rs. 20,000.</p>
+      <p><strong>Example 3 — Cold Storage:</strong> A cold room measures 40ft × 30ft × 15ft = 18,000 CFT. This determines the refrigeration capacity needed.</p>
 
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Common CFT Calculation Mistakes</h3>
-    <ul style="padding-left:20px;">
+      <h3>Where CFT Calculations Are Used</h3>
+      <ul>
+        <li><strong>Construction:</strong> Concrete volume for slabs, footings, and columns.</li>
+        <li><strong>Logistics &amp; Shipping:</strong> Container volume for cargo and freight estimation.</li>
+        <li><strong>Timber &amp; Wood:</strong> Measuring lumber volume for furniture and construction.</li>
+        <li><strong>Sand &amp; Aggregate:</strong> Estimating material requirements for building projects.</li>
+        <li><strong>Cold Storage:</strong> Calculating internal volume for storage capacity.</li>
+        <li><strong>Agriculture:</strong> Measuring grain, silage, or produce storage volume.</li>
+      </ul>
+
+      <h3>Common CFT Calculation Mistakes</h3>
+      <ul>
         <li><strong>Mixing units:</strong> Don't use feet for length and meters for width. Convert everything to one unit first.</li>
         <li><strong>Forgetting quantity:</strong> When calculating for multiple items, multiply by quantity.</li>
         <li><strong>Confusing CFT with CBM:</strong> CFT uses feet, CBM uses meters. They are different measurements.</li>
-        <li><strong>Ignoring wastage:</strong> Always add 5-10% for material wastage in construction.</li>
+        <li><strong>Ignoring wastage:</strong> Always add 5–10% for material wastage in construction.</li>
         <li><strong>Using approximate conversions:</strong> Use exact conversion factors for accurate results.</li>
-    </ul>
+      </ul>
 
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Extended FAQ</h3>
-    <p><strong>Q: What's the difference between CFT and CBM?</strong><br>CFT measures in cubic feet (imperial). CBM measures in cubic meters (metric). 1 CFT = 0.0283168 CBM.</p>
-    <p><strong>Q: How many CFT in one truck?</strong><br>A standard dump truck carries 400-600 CFT of material. A 40ft container holds 2,390 CFT.</p>
-    <p><strong>Q: How do I calculate CFT of a cylinder?</strong><br>Use the formula: π × radius² × height, then convert to feet if needed.</p>
-    <p><strong>Q: Can I use this for irregular shapes?</strong><br>Break irregular shapes into regular components and calculate each separately, then add them together.</p>
-    <p><strong>Q: How much does 1 CFT of concrete weigh?</strong><br>Approximately 150 lbs (68 kg) for normal-weight concrete.</p>
-    <p><strong>Q: What's the CFT of a standard room?</strong><br>A 12ft × 12ft × 10ft room = 1,440 CFT.</p>
-    <p><strong>Q: How do I calculate CFT for flooring?</strong><br>Flooring area (sq ft) × thickness (in feet) = CFT. Example: 100 sq ft × 0.25 ft = 25 CFT.</p>
-    <p><strong>Q: Does this calculator work offline?</strong><br>Yes, after the first load it works offline for all features.</p>
-    <p><strong>Q: Can I save my calculations?</strong><br>Yes, the Quick mode saves your recent records locally in your browser.</p>
-    <p><strong>Q: Is CFT used internationally?</strong><br>CFT is primarily used in countries using imperial measurements (USA, Pakistan, India). Most of Europe uses CBM.</p>
+      <h3>Extended FAQ</h3>
+      <p><strong>Q: What's the difference between CFT and CBM?</strong><br>A: CFT measures in cubic feet (imperial). CBM measures in cubic meters (metric). 1 CFT = 0.0283168 CBM.</p>
+      <p><strong>Q: How many CFT in one truck?</strong><br>A: A standard dump truck carries 400–600 CFT of material. A 40ft container holds 2,390 CFT.</p>
+      <p><strong>Q: How do I calculate CFT of a cylinder?</strong><br>A: Use the formula π × radius² × height, then convert to feet if needed.</p>
+      <p><strong>Q: Can I use this for irregular shapes?</strong><br>A: Break irregular shapes into regular components, calculate each separately, then add them together.</p>
+      <p><strong>Q: How much does 1 CFT of concrete weigh?</strong><br>A: Approximately 150 lbs (68 kg) for normal-weight concrete.</p>
+      <p><strong>Q: What's the CFT of a standard room?</strong><br>A: A 12ft × 12ft × 10ft room = 1,440 CFT.</p>
+      <p><strong>Q: How do I calculate CFT for flooring?</strong><br>A: Flooring area (sq ft) × thickness (in feet) = CFT. Example: 100 sq ft × 0.25 ft = 25 CFT.</p>
+      <p><strong>Q: Is CFT used internationally?</strong><br>A: CFT is primarily used in countries using imperial measurements (USA, Pakistan, India). Most of Europe uses CBM.</p>
+
+      <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ This guide, combined with our free calculator, gives you a complete understanding of CFT estimation — from basic formulas to professional applications.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- PAKISTANI SERVICES BLOCK — SILVER -->
+    <!-- ============================================ -->
+    <div class="pakistani-block">
+      <h2>🏗️ ColdMatrix Advanced Solutions — Serving Pakistan's Construction &amp; Industrial Sector</h2>
+      <p>Whether you are estimating concrete for a Karachi high-rise, sand and aggregate for a Lahore residential project, or container volume for an export shipment from Port Qasim, <strong>ColdMatrix Advanced Solutions</strong> provides the engineering depth and on-ground execution to back it up. We deliver PEB warehouses, cold storage facilities, prefab structures, sandwich panels, and turnkey industrial construction across Pakistan — all priced transparently and fabricated locally.</p>
+      <p>Our team combines <strong>international engineering standards</strong> (ASTM, AISC, PSQCA) with <strong>local market pricing</strong> to give you honest, accurate estimates — not inflated quotes. Every CFT-based material requirement we recommend is verified against real supplier rates in Karachi, Lahore, and Islamabad.</p>
+      <p>Contact our <strong>Karachi engineering desk</strong> for CFT-based material quotes, site evaluations, structural verification, and factory-stamped technical drawings ready for submission to your consultant or bank.</p>
+      <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- RELATED TOOLS -->
+    <!-- ============================================ -->
+    <div class="related-tools-section">
+        <h3>🔗 Related Tools You Might Need</h3>
+        <div>
+            <a href="concrete-calculator.html">🏗️ Concrete Calculator</a>
+            <a href="construction-cost-calculator.html">💰 Construction Cost Calculator</a>
+            <a href="steel-weight-calculator.html">🛠️ Steel Weight Calculator</a>
+            <a href="peb-material-calculator.html">🏭 PEB Material Calculator</a>
+            <a href="cold-store-calculator.html">❄️ Cold Store Calculator</a>
+            <a href="sandwich-panel-calculator.html">🧱 Sandwich Panel Calculator</a>
+            <a href="build-vs-buy-calculator.html">🏗️ Build vs Buy Calculator</a>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- DISCLAIMER — SILVER -->
+    <!-- ============================================ -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> This tool provides <strong>preliminary volume and cost estimates</strong> based on standard industry formulas. Actual quantities and prices may vary due to material moisture, compaction, local market rates, and project-specific requirements. Always verify with a licensed engineer or qualified contractor for final procurement decisions.
+    </div>
+
 </div>
 
-
-    <!-- ENHANCED EDUCATIONAL CONTENT -->
-    <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the CFT Calculator Pro</h2>
-    <p>ColdMatrix CFT Calculator Pro is a true dual-mode tool designed for speed and serious project work. The Quick mode gives you instant cubic feet, cubic meters, and total cost from just a few inputs — perfect for fast quotes and on-site checks. The Advanced Pro mode adds customer details, project information, discount, tax, container volume, material requirement, and transport considerations, making it a complete professional estimation tool.</p>
-
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Complete Feature List</h3>
-    <ul style="padding-left:20px;">
-        <li><strong>Quick Mode:</strong> Instant CFT, CBM, cubic yard, square feet, price per unit, and total price.</li>
-        <li><strong>Advanced Pro Mode:</strong> Customer info, project details, vehicle/batch tracking, discount, tax/GST, container volume, material requirement, and transport cost.</li>
-        <li><strong>Multiple Units:</strong> Feet, meters, yards, inches, centimeters, and millimeters.</li>
-        <li><strong>Multi-Currency:</strong> PKR, USD, AED, SAR, EUR, and GBP.</li>
-        <li><strong>Export Options:</strong> WhatsApp share, PDF, JPG, PNG, and copy to clipboard.</li>
-        <li><strong>Save Records:</strong> Quick mode saves recent calculations for reference.</li>
-        <li><strong>100% Private:</strong> All calculations happen locally in your browser — nothing is uploaded.</li>
-    </ul>
-
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Where CFT Calculations Are Used</h3>
-    <ul style="padding-left:20px;">
-        <li><strong>Construction:</strong> Concrete volume for slabs, footings, and columns.</li>
-        <li><strong>Logistics & Shipping:</strong> Container volume for cargo and freight estimation.</li>
-        <li><strong>Timber & Wood:</strong> Measuring lumber volume for furniture and construction.</li>
-        <li><strong>Sand & Aggregate:</strong> Estimating material requirements for building projects.</li>
-        <li><strong>Cold Storage:</strong> Calculating internal volume for storage capacity.</li>
-        <li><strong>Agriculture:</strong> Measuring grain, silage, or produce storage volume.</li>
-    </ul>
-
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
-    <p><strong>Q: What is CFT?</strong><br>
-    A: CFT stands for Cubic Feet. It is a unit of volume equal to a cube with sides of 1 foot each.</p>
-    <p><strong>Q: How do I convert CFT to CBM?</strong><br>
-    A: Multiply CFT by 0.0283168 to get cubic meters (CBM).</p>
-    <p><strong>Q: Which mode should I use?</strong><br>
-    A: Use Quick mode for fast estimates. Use Pro mode when you need client details, discounts, taxes, and reports.</p>
-    <p><strong>Q: Does the calculator work offline?</strong><br>
-    A: Yes, after the first load it works offline for most features.</p>
-    </div>
+<!-- Combined Footer + Floating WhatsApp -->
+<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
 
 <footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <div class="container" style="padding: 0 20px;">
+        <div style="margin-bottom:15px;">
+            <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+            <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com">contact@coldmatrixtools.com</a></p>
+            <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+                📞 <strong>Call / WhatsApp:</strong>
+                <a href="tel:+923333228470">+92 333 3228470</a>
+                <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; font-size:1.1rem;" title="Chat on WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </p>
+        </div>
+
+        <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+            <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+            <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+            <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+            <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+        </div>
+
+        <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-</div>
 
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
@@ -480,8 +898,11 @@
     }
 
     function resetQuick() {
-        document.getElementById('qLength').value = 20; document.getElementById('qWidth').value = 10; document.getElementById('qHeight').value = 10;
-        document.getElementById('qQuantity').value = 1; document.getElementById('qPrice').value = 150;
+        document.getElementById('qLength').value = 20;
+        document.getElementById('qWidth').value = 10;
+        document.getElementById('qHeight').value = 10;
+        document.getElementById('qQuantity').value = 1;
+        document.getElementById('qPrice').value = 150;
         document.getElementById('quickResult').style.display = 'none';
     }
 
@@ -508,11 +929,27 @@
         list.innerHTML = quickRecords.map((r, i) => `<div class="saved-item"><span>${r.date} — ${r.customer} | CFT: ${r.cft} | ${r.total}</span><button onclick="deleteRecord(${i})">✕</button></div>`).join('');
     }
 
-    function deleteRecord(i) { quickRecords.splice(i, 1); localStorage.setItem('quickCFTRecords', JSON.stringify(quickRecords)); renderSavedRecords(); }
+    function deleteRecord(i) {
+        quickRecords.splice(i, 1);
+        localStorage.setItem('quickCFTRecords', JSON.stringify(quickRecords));
+        renderSavedRecords();
+    }
 
-    function shareQuickResult() { window.open('https://wa.me/?text=' + encodeURIComponent(`📐 CFT Quick\nCFT: ${document.getElementById('qCft').textContent}\nTotal: ${document.getElementById('qTotalPrice').textContent}\n\n🔗 coldmatrixtools.com/cft-calculator.html`)); }
-    function copyQuickResult() { const t = `CFT: ${document.getElementById('qCft').textContent}\nCBM: ${document.getElementById('qCbm').textContent}\nTotal: ${document.getElementById('qTotalPrice').textContent}`; navigator.clipboard.writeText(t).then(() => alert('Copied!')); }
-    function downloadQuickJPG() { html2canvas(document.getElementById('quickResult'), { scale: 2, backgroundColor: '#0a0d11' }).then(c => { const a = document.createElement('a'); a.download = 'CFT_Quick.jpg'; a.href = c.toDataURL('image/jpeg', 0.92); a.click(); }); }
+    function shareQuickResult() {
+        window.open('https://wa.me/?text=' + encodeURIComponent(`📐 CFT Quick\nCFT: ${document.getElementById('qCft').textContent}\nTotal: ${document.getElementById('qTotalPrice').textContent}\n\n🔗 coldmatrixtools.com/cft-calculator.html`));
+    }
+    function copyQuickResult() {
+        const t = `CFT: ${document.getElementById('qCft').textContent}\nCBM: ${document.getElementById('qCbm').textContent}\nTotal: ${document.getElementById('qTotalPrice').textContent}`;
+        navigator.clipboard.writeText(t).then(() => alert('Copied!'));
+    }
+    function downloadQuickJPG() {
+        html2canvas(document.getElementById('quickResult'), { scale: 2, backgroundColor: '#0a0d11' }).then(c => {
+            const a = document.createElement('a');
+            a.download = 'CFT_Quick.jpg';
+            a.href = c.toDataURL('image/jpeg', 0.92);
+            a.click();
+        });
+    }
 
     function aUpdateUnitAndPrice() {
         const unit = document.getElementById('unitSelect').value;
@@ -557,25 +994,65 @@
     }
 
     function resetAdvanced() {
-        document.getElementById('quantity').value = 1; document.getElementById('rate').value = 150;
-        document.getElementById('discount').value = 0; document.getElementById('gst').value = 0;
+        document.getElementById('quantity').value = 1;
+        document.getElementById('rate').value = 150;
+        document.getElementById('discount').value = 0;
+        document.getElementById('gst').value = 0;
         document.getElementById('advancedResult').style.display = 'none';
         document.getElementById('unitSelect').value = 'ft';
         aUpdateUnitAndPrice();
     }
 
-    function shareAdvancedResult() { window.open('https://wa.me/?text=' + encodeURIComponent(`📐 CFT Pro\nCFT: ${document.getElementById('cft').textContent}\nGrand Total: ${document.getElementById('grandTotal').textContent}\n\n🔗 coldmatrixtools.com/cft-calculator.html`)); }
-    function downloadAdvancedJPG() { html2canvas(document.getElementById('advancedResult'), { scale: 2, backgroundColor: '#0a0d11' }).then(c => { const a = document.createElement('a'); a.download = 'CFT_Pro.jpg'; a.href = c.toDataURL('image/jpeg', 0.92); a.click(); }); }
-    function downloadAdvancedPNG() { html2canvas(document.getElementById('advancedResult'), { scale: 2, backgroundColor: '#0a0d11' }).then(c => { const a = document.createElement('a'); a.download = 'CFT_Pro.png'; a.href = c.toDataURL('image/png'); a.click(); }); }
-    function copyAdvancedResult() { const t = `CFT: ${document.getElementById('cft').textContent}\nCBM: ${document.getElementById('cbm').textContent}\nGrand Total: ${document.getElementById('grandTotal').textContent}`; navigator.clipboard.writeText(t).then(() => alert('Copied!')); }
+    function shareAdvancedResult() {
+        window.open('https://wa.me/?text=' + encodeURIComponent(`📐 CFT Pro\nCFT: ${document.getElementById('cft').textContent}\nGrand Total: ${document.getElementById('grandTotal').textContent}\n\n🔗 coldmatrixtools.com/cft-calculator.html`));
+    }
+    function downloadAdvancedJPG() {
+        html2canvas(document.getElementById('advancedResult'), { scale: 2, backgroundColor: '#0a0d11' }).then(c => {
+            const a = document.createElement('a');
+            a.download = 'CFT_Pro.jpg';
+            a.href = c.toDataURL('image/jpeg', 0.92);
+            a.click();
+        });
+    }
+    function downloadAdvancedPNG() {
+        html2canvas(document.getElementById('advancedResult'), { scale: 2, backgroundColor: '#0a0d11' }).then(c => {
+            const a = document.createElement('a');
+            a.download = 'CFT_Pro.png';
+            a.href = c.toDataURL('image/png');
+            a.click();
+        });
+    }
+    function copyAdvancedResult() {
+        const t = `CFT: ${document.getElementById('cft').textContent}\nCBM: ${document.getElementById('cbm').textContent}\nGrand Total: ${document.getElementById('grandTotal').textContent}`;
+        navigator.clipboard.writeText(t).then(() => alert('Copied!'));
+    }
 
-    function shareToolWhatsApp() { window.open('https://wa.me/?text=' + encodeURIComponent("📐 ColdMatrix CFT Calculator Pro — Dual Mode.\n👉 https://coldmatrixtools.com/cft-calculator.html")); }
-    function copyToolLink() { navigator.clipboard.writeText("https://coldmatrixtools.com/cft-calculator.html").then(() => alert('Link copied!')); }
+    function shareToolWhatsApp() {
+        window.open('https://wa.me/?text=' + encodeURIComponent("📐 ColdMatrix CFT Calculator Pro — Dual Mode.\n👉 https://coldmatrixtools.com/cft-calculator.html"));
+    }
+    function copyToolLink() {
+        navigator.clipboard.writeText("https://coldmatrixtools.com/cft-calculator.html").then(() => alert('Link copied!'));
+    }
 
     let cmDeferredPrompt;
-    window.addEventListener('beforeinstallprompt', function(e) { e.preventDefault(); cmDeferredPrompt = e; document.getElementById('cmInstallBar').style.display = 'block'; });
-    function cmInstallApp() { if (cmDeferredPrompt) { cmDeferredPrompt.prompt(); cmDeferredPrompt.userChoice.then(() => { document.getElementById('cmInstallBar').style.display = 'none'; }); } else { alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.'); } }
+    window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        cmDeferredPrompt = e;
+        document.getElementById('cmInstallBar').style.display = 'block';
+    });
+    function cmInstallApp() {
+        if (cmDeferredPrompt) {
+            cmDeferredPrompt.prompt();
+            cmDeferredPrompt.userChoice.then(() => { document.getElementById('cmInstallBar').style.display = 'none'; });
+        } else {
+            alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');
+        }
+    }
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js').catch(function(){});
+    }
 </script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -608,6 +1085,7 @@
   ]
 }
 </script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -638,5 +1116,6 @@
   ]
 }
 </script>
+
 </body>
 </html>

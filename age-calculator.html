@@ -16,9 +16,9 @@
   <meta name="twitter:description" content="Discover your exact age with precision, elegance, and beautiful insights.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/age_calc.jpg">
   <meta name="theme-color" content="#0A0F14"><link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Montserrat:wght@700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -26,19 +26,21 @@
     :root{
       --bg:#080c14; --surface:rgba(18,24,35,0.6); --surface2:rgba(22,30,44,0.7);
       --border:rgba(255,255,255,0.08); --text:#EAEDF0; --muted:#9AA0B0;
-      --accent:#4FC3F7; --accent2:#D4AF37; --gold:#D4AF37; --gold-bright:#FFD700;
-      --gold-glow:rgba(212,175,55,0.4); --blue-glow:rgba(79,195,247,0.3);
-      --gradient:linear-gradient(135deg,#4FC3F7,#D4AF37);
+      --accent:#D4AF37; --accent2:#FFD700; --gold:#D4AF37; --gold-bright:#FFD700;
+      --gold-glow:rgba(212,175,55,0.4); --blue-glow:rgba(212,175,55,0.3);
+      --gradient:linear-gradient(135deg,#D4AF37,#FFD700);
       --card-bg:rgba(18,24,35,0.55); --card-border:rgba(255,255,255,0.1);
       --input-bg:rgba(15,20,30,0.7); --input-border:rgba(212,175,55,0.5);
+      --silver-bg: #C8CDD4;
+      --silver-bg-hover: #D5D9DE;
       --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
       --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
       --sparkle-color:#FFD700;
     }
     body.female-theme{
-      --accent:#B892C8; --accent2:#D4A8E0; --gold:#D4A8E0; --gold-bright:#E0B8E8;
+      --accent:#D4A8E0; --accent2:#E0B8E8; --gold:#D4A8E0; --gold-bright:#E0B8E8;
       --gold-glow:rgba(184,146,200,0.5); --blue-glow:rgba(184,146,200,0.4);
-      --gradient:linear-gradient(135deg,#9B72B5,#C8A0D8);
+      --gradient:linear-gradient(135deg,#B892C8,#E0B8E8);
       --input-border:rgba(180,140,200,0.5); --sparkle-color:#D4A8E0;
       background:radial-gradient(ellipse at 30% 20%,#1a1028 0%,#080c14 60%);
     }
@@ -50,42 +52,42 @@
       overflow-x:hidden;
     }
     .container{max-width:800px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
-    .navbar{position:sticky;top:0;z-index:100;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,0.06)}
+    .navbar{position:sticky;top:0;z-index:100;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:2px solid var(--gold)}
     .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 0;flex-wrap:wrap;max-width:800px;margin:0 auto}
-    .logo{font-size:1.2rem;font-weight:700;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:0.5px}
+    .logo{font-size:1.2rem;font-weight:700;color:var(--gold-bright);text-decoration:none;display:flex;align-items:center;gap:8px;letter-spacing:0.5px}
     .nav-links{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
     .nav-links a{color:var(--muted);text-decoration:none;font-weight:500;font-size:0.85rem;transition:color 0.2s}
     .nav-links a:hover{color:var(--gold-bright)}
-    .back-link{display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem}
+    .back-link{display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem}
 
     /* GOLDEN INSTALL BAR */
     .install-bar{
       background: linear-gradient(145deg, #D4AF37, #FFD700);
-      color:#0A0F14; text-align:center; padding:12px 16px; border-radius:12px;
+      color:#0A0F14; text-align:center; padding:10px 16px; border-radius:10px;
       margin:14px 0; font-weight:700; font-size:0.85rem; display:block;
       box-shadow:0 4px 16px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.6);
-      border:2px solid #FFD700;
+      border:1px solid #FFD700;
     }
     .install-bar button{
-      background:#0A0F14; color:#FFD700; border:none; padding:6px 18px; border-radius:6px;
-      margin-left:10px; font-weight:700; cursor:pointer;
+      background:#0A0F14; color:#FFD700; border:2px solid #FFD700;
+      padding:5px 16px; border-radius:6px;
+      margin-left:10px; font-weight:800; cursor:pointer; font-size:0.8rem;
     }
 
-    h1{font-size:2rem;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    h1 .icon{font-size:2.2rem}
-    h1 .coldmatrix{color:var(--accent);font-family:'Playfair Display',serif;letter-spacing:0.5px}
+    h1{font-size:1.8rem;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;line-height:1.2}
+    h1 .icon{font-size:2rem}
+    h1 .coldmatrix{color:var(--gold-bright);font-family:'Playfair Display',serif;letter-spacing:0.5px}
     h1 .title{color:var(--gold-bright);font-weight:600}
     .subtitle{
-      background:linear-gradient(135deg,var(--accent),var(--gold-bright));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-      font-weight:500; margin-bottom:24px; font-size:0.95rem; text-align:center;
+      color:#EAEDF0; font-weight:500; margin-bottom:24px; font-size:0.95rem;
+      text-align:center;
     }
 
     .card{
       background:var(--card-bg); backdrop-filter:blur(20px);
       border:2px solid var(--gold); border-radius:20px;
       padding:28px 24px; margin-bottom:20px; position:relative; overflow:hidden;
-      box-shadow:0 8px 40px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.08);
+      box-shadow:0 8px 40px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.15);
     }
     .card h2{
       font-family:'Playfair Display',serif; font-size:1rem; font-weight:700;
@@ -96,28 +98,63 @@
     .field input,.field select{
       width:100%; background:var(--input-bg);
       border:2px solid var(--input-border); color:var(--text);
-      padding:14px 18px; border-radius:12px; font-size:0.95rem;
-      transition:all 0.3s ease; box-shadow:0 0 12px var(--gold-glow);
+      padding:14px 18px; border-radius:10px; font-size:0.95rem;
+      transition:all 0.3s ease;
     }
-    .field input:focus,.field select:focus{outline:none;border-color:var(--gold-bright);box-shadow:0 0 24px var(--gold-glow)}
+    .field input:focus,.field select:focus{outline:none;border-color:var(--gold-bright);box-shadow:0 0 20px var(--gold-glow)}
     .field select option{background:#121820;color:var(--text)}
     .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+    /* ============================================ */
+    /* RECTANGULAR BUTTONS — No capsule shape */
+    /* ============================================ */
+    .btn-stack{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+
     .btn-calc{
-      width:100%; background:var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
-      padding:16px; border-radius:50px; font-weight:700; font-size:1rem; cursor:pointer;
-      letter-spacing:0.8px; text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 6px 24px var(--gold-glow);
+      width:100%;
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border:2px solid var(--gold);
+      min-height:64px;
+      padding:16px 20px;
+      border-radius:10px;
+      font-family:'Oswald',sans-serif;
+      font-weight:900;
+      font-size:1.1rem;
+      cursor:pointer;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
       transition:all 0.25s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
     }
-    .btn-calc:hover{background:var(--silver-gradient-hover);border-color:var(--gold-bright);transform:translateY(-2px)}
-    .btn-row{display:flex;gap:10px;margin-top:6px}
-    .btn-row .btn-calc{margin-top:0;flex:1}
+    .btn-calc:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);box-shadow:0 0 25px var(--gold-glow);transform:translateY(-2px)}
+
     .btn-reset{
-      background:transparent; border:2px solid var(--gold); color:var(--gold-bright);
-      padding:14px 18px; border-radius:50px; font-weight:700; font-size:0.9rem; cursor:pointer;
-      white-space:nowrap; transition:all 0.25s ease;
+      width:100%;
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border:2px solid var(--gold);
+      min-height:46px;
+      padding:10px 20px;
+      border-radius:10px;
+      font-family:'Oswald',sans-serif;
+      font-weight:800;
+      font-size:0.95rem;
+      cursor:pointer;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      transition:all 0.25s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
     }
-    .btn-reset:hover{background:rgba(212,175,55,0.1);border-color:var(--gold-bright)}
+    .btn-reset:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);transform:translateY(-2px)}
 
     .welcome-msg{text-align:center;margin:20px 0 6px;display:none;line-height:2}
     .welcome-msg .greet{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--text)}
@@ -127,19 +164,19 @@
 
     .age-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}
     .age-box{
-      background:var(--surface2); border:2px solid var(--gold); border-radius:16px;
+      background:var(--surface2); border:2px solid var(--gold); border-radius:12px;
       padding:18px 6px; text-align:center; box-shadow:0 4px 18px rgba(212,175,55,0.2);
     }
     .age-box .num{
       font-family:'Montserrat',sans-serif; font-size:clamp(1.2rem,4vw,1.6rem); font-weight:800;
-      background:linear-gradient(135deg,var(--gold-bright),var(--accent));
+      background:linear-gradient(135deg,var(--gold-bright),var(--gold));
       -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
     }
     .age-box .lbl{font-size:0.65rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
 
     .total-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
     .total-box{
-      background:var(--surface2); border:2px solid var(--gold); border-radius:16px;
+      background:var(--surface2); border:2px solid var(--gold); border-radius:12px;
       padding:16px 8px; text-align:center; box-shadow:0 4px 18px rgba(212,175,55,0.2);
     }
     .total-box.wide{grid-column:1/-1}
@@ -148,11 +185,11 @@
 
     .info-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
     .info-card{
-      background:var(--card-bg); border:2px solid var(--gold); border-radius:14px;
+      background:var(--card-bg); border:2px solid var(--gold); border-radius:12px;
       padding:14px 8px; text-align:center; box-shadow:0 4px 14px rgba(212,175,55,0.15);
     }
     .info-card .lbl{font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-    .info-card .val{font-size:0.85rem;font-weight:700;color:var(--accent);margin-top:3px}
+    .info-card .val{font-size:0.85rem;font-weight:700;color:var(--gold-bright);margin-top:3px}
 
     .compliment-box{
       text-align:center;margin-top:20px;padding:16px;border-radius:12px;
@@ -164,22 +201,26 @@
 
     .share-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:18px 0}
     .share-btn{
-      display:flex;align-items:center;gap:6px;padding:11px 20px;border-radius:50px;
-      font-weight:600;font-size:0.8rem;cursor:pointer;border:none;text-decoration:none;color:#fff;
+      display:flex;align-items:center;gap:6px;padding:12px 20px;border-radius:10px;
+      font-weight:700;font-size:0.85rem;cursor:pointer;text-decoration:none;color:#fff;
       transition:all 0.25s ease;
+      font-family:'Oswald',sans-serif;
+      letter-spacing:0.5px;
+      text-transform:uppercase;
     }
     .share-btn:hover{transform:translateY(-2px)}
-    .share-whatsapp{background:#25D366}
-    .share-image{background:var(--silver-gradient);color:#0A0F14;border:2px solid var(--gold)}
-    .share-pdf{background:#E53935}
+    .share-whatsapp{background:#25D366;border:none}
+    .share-image{background:var(--silver-bg);color:#0A0F14;border:2px solid var(--gold)}
+    .share-pdf{background:#E53935;border:none}
 
     #shareCapture{display:none}
     .appreciation{text-align:center;margin:24px 0 12px;font-size:0.9rem;color:#ccc;border-top:1px solid rgba(255,255,255,0.08);padding-top:18px;line-height:1.8}
     .appreciation strong{color:var(--gold-bright);font-size:1.05rem}
     .note{font-size:0.7rem;color:var(--muted);margin-top:12px;text-align:center}
-    footer{text-align:center;color:var(--muted);font-size:0.75rem;padding:30px 0 20px;border-top:1px solid rgba(255,255,255,0.06);margin-top:40px}
-    footer a{color:var(--gold-bright);text-decoration:none}
-    .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:999;width:44px;height:44px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.4);text-decoration:none;color:#fff;font-size:1.3rem}
+
+    footer{text-align:center;color:var(--muted);font-size:0.75rem;padding:30px 0 20px;border-top:2px solid var(--gold);margin-top:50px}
+    footer a{color:var(--gold-bright);text-decoration:none;font-weight:600}
+    .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:999;width:48px;height:48px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.4);text-decoration:none;color:#fff;font-size:1.3rem}
 
     /* Stars and crystals particles */
     #starsCrystals{
@@ -203,31 +244,89 @@
     .music-toggle{
       position:fixed; bottom:20px; left:20px; z-index:999;
       background:linear-gradient(145deg,#9B72B5,#C8A0D8);
-      border:2px solid #FFD700; color:#fff; width:44px; height:44px;
+      border:2px solid #FFD700; color:#fff; width:48px; height:48px;
       border-radius:50%; display:flex; align-items:center; justify-content:center;
       cursor:pointer; box-shadow:0 4px 15px rgba(0,0,0,0.4);
       font-size:1.2rem; opacity:0; transition:opacity 0.5s;
     }
     body.female-theme .music-toggle{opacity:1;}
 
+    /* ============================================ */
+    /* SILVER EDUCATIONAL CONTENT — Premium */
+    /* ============================================ */
+    .edu-content{
+      margin:30px 0; padding:30px 24px;
+      background:#C8CDD4; background-image:linear-gradient(145deg,#D5D9DE,#C8CDD4);
+      border:2px solid #D4AF37; border-radius:16px; color:#0A0F14;
+      box-shadow:0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height:1.85; font-size:0.95rem;
+    }
+    .edu-content h2{color:#0A0F14;font-family:'Oswald',sans-serif;font-size:1.35rem;margin-bottom:16px;border-bottom:2px solid #D4AF37;padding-bottom:10px;font-weight:800}
+    .edu-content h3{color:#0A0F14;font-size:1.1rem;margin:22px 0 10px;font-weight:800}
+    .edu-content p,.edu-content li,.edu-content ul,.edu-content ol{color:#0A0F14;font-weight:500}
+    .edu-content ul,.edu-content ol{padding-left:24px;margin-bottom:14px}
+    .edu-content li{margin-bottom:6px}
+    .edu-content strong{color:#0A0F14;font-weight:800}
+    .edu-content p{margin-bottom:14px}
+
+    /* Pakistani services block */
+    .pakistani-block{
+      margin:30px 0; padding:24px 20px;
+      background:#C8CDD4; background-image:linear-gradient(145deg,#D5D9DE,#C8CDD4);
+      border:2px solid #D4AF37; border-radius:16px; color:#0A0F14;
+      box-shadow:0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height:1.8; font-size:0.95rem;
+    }
+    .pakistani-block h2{color:#0A0F14;font-family:'Oswald',sans-serif;font-size:1.2rem;margin-bottom:12px;font-weight:800}
+    .pakistani-block p{color:#0A0F14;font-weight:500;margin-top:10px}
+    .pakistani-block strong{color:#0A0F14;font-weight:800}
+
+    /* Related tools */
+    .related-tools-section{
+      margin:20px 0 10px; padding:20px;
+      background:rgba(255,255,255,0.03);
+      border:2px solid #D4AF37; border-radius:12px;
+    }
+    .related-tools-section h3{color:#FFD700;font-size:1rem;margin-bottom:10px}
+    .related-tools-section a{
+      color:#4FC3F7; text-decoration:none;
+      background:rgba(79,195,247,0.1);
+      padding:8px 16px; border-radius:20px;
+      font-size:0.85rem; font-weight:600;
+      display:inline-block; margin:4px 4px 4px 0;
+    }
+
+    /* Disclaimer */
+    .disclaimer-box{
+      margin-top:20px; padding:16px 18px;
+      background:#C8CDD4; background-image:linear-gradient(145deg,#D5D9DE,#C8CDD4);
+      border:2px solid #D4AF37; border-radius:12px;
+      font-size:0.85rem; color:#0A0F14; line-height:1.7; font-weight:500;
+    }
+    .disclaimer-box strong{color:#0A0F14;font-weight:800}
+
     @media(max-width:500px){
       .age-row{grid-template-columns:repeat(3,1fr)}
       .total-row{grid-template-columns:repeat(2,1fr)}
       .info-row{grid-template-columns:repeat(2,1fr)}
       .row2{grid-template-columns:1fr}
+      h1{font-size:1.4rem}
+      .edu-content{padding:20px 16px;font-size:0.9rem}
+      .edu-content h2{font-size:1.15rem}
     }
 
+    /* Share tool card */
     .share-tool-card{
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
       border:2px solid;
       border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
-      border-radius:12px;padding:22px 20px;margin-bottom:26px;box-shadow:0 10px 34px rgba(0,0,0,0.55);
+      border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 10px 34px rgba(0,0,0,0.55);
     }
-    .share-tool-title{font-weight:800;font-size:1.05rem;color:#E8B93A;text-align:center;letter-spacing:0.6px;margin-bottom:16px;text-transform:uppercase}
-    .share-tool-buttons{display:flex;gap:12px}
+    .share-tool-title{font-weight:800;font-size:1rem;color:#E8B93A;text-align:center;letter-spacing:0.6px;margin-bottom:14px;text-transform:uppercase}
+    .share-tool-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .share-tool-btn{
-      flex:1;display:flex;align-items:center;justify-content:center;gap:9px;
-      padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;gap:9px;
+      padding:12px;border-radius:10px;font-weight:700;font-size:0.85rem;cursor:pointer;
       background:rgba(15,20,30,0.75);color:#EAEDF0;border:1.5px solid rgba(200,168,78,0.45);
       transition:all 0.25s ease;
     }
@@ -241,13 +340,23 @@
   <div id="starsCrystals"></div>
   <button class="music-toggle" id="musicToggle" onclick="toggleMusic()" title="Toggle soft music"><i class="fa-solid fa-music"></i></button>
 
-  <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li>
-  <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
-  <li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <div class="container">
   <a href="index.html#tools" class="back-link">← Back to Tools</a>
-  
+
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
     <h1><span class="icon">⏳</span><span class="coldmatrix">ColdMatrix</span><span class="title">Premium Age Calculator</span></h1>
     <p class="subtitle">Discover your age with precision, elegance, and beautiful insights.</p>
@@ -267,9 +376,10 @@
         <div class="field"><label>⚧ Gender</label><select id="inputGender" onchange="applyGenderTheme()"><option value="male">Male</option><option value="female">Female</option></select></div>
       </div>
       <div class="field"><label>🎂 Date of Birth</label><input type="date" id="inputDob"></div>
-      <div class="btn-row">
+
+      <div class="btn-stack">
         <button class="btn-calc" onclick="calculateAge()">✨ Calculate Age</button>
-        <button class="btn-reset" onclick="resetAgeForm()">🔄 Reset</button>
+        <button class="btn-reset" onclick="resetAgeForm()">↺ Reset</button>
       </div>
 
       <div class="welcome-msg" id="welcomeMsg">
@@ -287,7 +397,7 @@
 
     <div id="shareCapture">
       <div style="background:#fff;color:#111;border-radius:16px;padding:28px;font-family:'Inter',sans-serif;width:380px;text-align:center">
-        <div style="font-size:1.3rem;font-weight:800;color:#0A0F14;margin-bottom:12px">⏳ <span style="color:#2196F3">ColdMatrix</span> Premium Age Report</div>
+        <div style="font-size:1.3rem;font-weight:800;color:#0A0F14;margin-bottom:12px">⏳ <span style="color:#D4AF37">ColdMatrix</span> Premium Age Report</div>
         <div style="font-size:1rem;font-weight:700;color:#111;margin-bottom:4px" id="pvName"></div>
         <div style="font-size:0.85rem;color:#555;margin-bottom:10px" id="pvDob"></div>
         <div style="font-size:1.1rem;font-weight:800;color:#D4AF37;margin-bottom:6px" id="pvAge"></div>
@@ -303,27 +413,118 @@
       <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
     </div>
 
-    <div class="appreciation">✨ <strong>Thank you</strong> for using our Premium Age Calculator. We hope you enjoyed the experience!<br><span style="font-size:0.8rem">Explore more <a href="index.html" style="color:var(--gold-bright)">premium tools</a> designed for you. Come back anytime! 🙏</span></div>
-    <div class="note">ℹ️ Your data is processed entirely in your browser — nothing is ever uploaded or stored.</div>
+
+
+<!-- ⬇️⬇️⬇️ CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — SILVER PREMIUM -->
+    <!-- ============================================ -->
+    <div class="edu-content">
+      <h2>📅 Understanding Age Calculation & Its Real-World Applications</h2>
+
+      <p>ColdMatrix Premium Age Calculator gives you your exact age in years, months, days, hours, and minutes — plus insightful extras like your zodiac sign, Chinese zodiac, day of birth, and days remaining until your next birthday. The interface adapts elegantly to your selected gender, with a luxurious dark/gold theme for men and a beautiful soft pink/purple sparkle theme for women.</p>
+
+      <p>Age calculation is more than just subtracting a birth year from the current year. Accurate age is measured down to the day, hour, and minute — and this precision matters in legal, medical, financial, and personal contexts.</p>
+
+      <h3>Why Exact Age Matters</h3>
+      <ul>
+        <li><strong>Legal purposes:</strong> Passport applications, visa processing, marriage registration, and pension claims all require precise date-of-birth verification. Even a single day can affect eligibility.</li>
+        <li><strong>Medical context:</strong> Pediatric dosing, vaccination schedules, and growth chart percentiles depend on age calculated in months and days, not just years.</li>
+        <li><strong>Financial planning:</strong> Retirement eligibility, insurance premiums, and life expectancy projections all use exact age.</li>
+        <li><strong>Personal milestones:</strong> Milestone birthdays, anniversaries, and legal age thresholds (18, 21, 60) are celebrated and enforced based on exact dates.</li>
+      </ul>
+
+      <h3>How Our Calculator Works</h3>
+      <p>The calculator compares your date of birth with today's date (or any target date you choose) and returns the difference in the largest whole units. It accounts for leap years, month-length variations, and time zone differences to give you a scientifically accurate result. You can also view your age in total days, hours, or minutes — useful for curiosity, project timelines, or celebrating milestone day-counts.</p>
+
+      <h3>Bonus Insights We Provide</h3>
+      <ul>
+        <li><strong>Western Zodiac Sign:</strong> Based on your exact day and month of birth — with emoji and personality traits.</li>
+        <li><strong>Chinese Zodiac:</strong> Based on the year of your birth — with the traditional animal character.</li>
+        <li><strong>Day of Birth:</strong> The weekday you were born on (Monday, Tuesday, etc.) — useful for astrological and nostalgic curiosity.</li>
+        <li><strong>Days Until Next Birthday:</strong> A live countdown to your next celebration.</li>
+        <li><strong>Personalized Greeting:</strong> A warm welcome message with your name — with custom tone for male and female themes.</li>
+      </ul>
+
+      <h3>Privacy First — Always</h3>
+      <p>All calculations happen **entirely in your browser**. No date of birth, name, or any other information is uploaded, stored, or shared. There is no signup, no tracking, and no data collection of any kind. Your data never leaves your device.</p>
+
+      <h3>Frequently Asked Questions</h3>
+      <p><strong>Q: How accurate is this age calculator?</strong><br>A: It calculates age down to the minute, using precise date arithmetic. Leap years and month-length variations are fully accounted for.</p>
+      <p><strong>Q: Can I use this for legal documents?</strong><br>A: Yes — the calculated age is mathematically exact. For official use, always cross-check with your birth certificate.</p>
+      <p><strong>Q: Does the female theme change my calculation?</strong><br>A: No. The theme only changes the visual appearance (sparkles, colors, music). The age calculation is identical for both genders.</p>
+      <p><strong>Q: Why is soft music playing in female mode?</strong><br>A: It's a small luxury feature — soft, ambient music to enhance the premium experience. You can toggle it off with the music button in the bottom-left corner.</p>
+      <p><strong>Q: Does this tool store my date of birth?</strong><br>A: Never. Everything runs in your browser. Nothing is uploaded or stored.</p>
+      <p><strong>Q: Can I share my age report?</strong><br>A: Yes — you can share via WhatsApp, or download as a high-quality image (JPG) or PDF.</p>
+      <p><strong>Q: Does this work offline?</strong><br>A: Yes, after the first load it works offline for all calculations.</p>
+      <p><strong>Q: What about zodiac accuracy?</strong><br>A: Zodiac signs are calculated using the standard Western zodiac date ranges. For a few days at the start/end of a sign, the sun's actual position may vary — but the standard dates are universally accepted.</p>
+
+      <p><strong>Want a live countdown?</strong> Try our <a href="birthday-countdown.html" style="color:#B8952B;font-weight:800;">Birthday Countdown</a> tool.</p>
+
+      <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ Whether you need your exact age for legal documents, medical records, or simply curiosity, ColdMatrix Age Calculator delivers precise, reliable results in seconds.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- PAKISTANI SERVICES BLOCK — SILVER -->
+    <!-- ============================================ -->
+    <div class="pakistani-block">
+      <h2>🇵🇰 ColdMatrix Advanced Solutions — Serving Pakistan's Engineering & Business Community</h2>
+      <p>Since our tools are used daily by thousands of professionals across Pakistan, we understand the importance of precision and reliability. Whether you are a contractor in Karachi calculating steel weight, an engineer in Lahore sizing a cold storage system, or a business owner in Islamabad planning startup costs — <strong>ColdMatrix Advanced Solutions</strong> is here to help with the engineering and construction side too.</p>
+      <p>Our portfolio spans <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, industrial sheds, and turnkey civil construction</strong> across Karachi, Lahore, Islamabad, Faisalabad, and Balochistan. Every project is delivered with international engineering standards, local material sourcing, and honest pricing.</p>
+      <p>If you need real-world project execution behind the calculations, contact our <strong>Karachi engineering desk</strong> for site evaluations, material quotations, structural verification, and factory-stamped technical drawings ready for submission to your consultant or bank.</p>
+      <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- RELATED TOOLS -->
+    <!-- ============================================ -->
+    <div class="related-tools-section">
+        <h3>🔗 Related Tools You Might Need</h3>
+        <div>
+            <a href="birthday-countdown.html">🎂 Birthday Countdown</a>
+            <a href="unit-converter.html">📏 Unit Converter</a>
+            <a href="roi-calculator.html">📈 ROI Calculator</a>
+            <a href="startup-cost-calculator.html">🚀 Startup Cost Planner</a>
+            <a href="build-vs-buy-calculator.html">🏗️ Build vs Buy Calculator</a>
+            <a href="construction-cost-calculator.html">💰 Construction Cost Calculator</a>
+            <a href="cft-calculator.html">📐 CFT Calculator</a>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- DISCLAIMER — SILVER -->
+    <!-- ============================================ -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> This tool provides age calculation based on standard date arithmetic. All calculations happen locally in your browser. For legal, medical, or official use, always verify with your birth certificate or a licensed professional.
+    </div>
+
   </div>
 
-  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Age Calculator</h2>
-    <p>ColdMatrix Premium Age Calculator gives you your exact age in years, months, days, hours, and minutes — plus insightful extras like your zodiac sign, Chinese zodiac, day of birth, and days remaining until your next birthday. The interface adapts elegantly to your selected gender, with a luxurious dark/gold theme for men and a beautiful soft pink/purple sparkle theme for women.</p>
-    <p>Simply enter your name, gender, and date of birth, tap Calculate, and you'll receive a complete, beautifully presented age report that you can share on WhatsApp or download as an image or PDF. Everything runs privately in your browser — no sign‑up, no tracking, no storage.</p>
-    <p><strong>Want a live countdown?</strong> Try our <a href="birthday-countdown.html" style="color:#FFD700;">Birthday Countdown</a>.</p>
-  </div>
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
 <footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
   <script>
     // ========== FEMALE THEME STARS/CRYSTALS + MUSIC ==========
@@ -414,14 +615,21 @@
     function getZodiac(m,d){for(let z of zodiacSigns){if((m===z.start[0]&&d>=z.start[1])||(m===z.end[0]&&d<=z.end[1]))return z}return zodiacSigns[0]}
     function getDayName(d){return d.toLocaleDateString('en-US',{weekday:'long'})}
     function getFormattedDateTime(){const now=new Date();return now.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+' at '+now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true})}
+
     function resetAgeForm(){
-      document.getElementById('inputName').value='';document.getElementById('inputDob').value='';
+      document.getElementById('inputName').value='';
+      document.getElementById('inputDob').value='';
       document.getElementById('inputGender').value='male';
-      document.getElementById('welcomeMsg').style.display='none';document.getElementById('ageRow').style.display='none';
-      document.getElementById('complimentBox').style.display='none';document.getElementById('totalRow').style.display='none';
-      document.getElementById('infoRow').style.display='none';document.getElementById('shareBarWrap').style.display='none';
+      document.getElementById('welcomeMsg').style.display='none';
+      document.getElementById('ageRow').style.display='none';
+      document.getElementById('complimentBox').style.display='none';
+      document.getElementById('totalRow').style.display='none';
+      document.getElementById('infoRow').style.display='none';
+      document.getElementById('shareBarWrap').style.display='none';
       applyGenderTheme();
+      window.scrollTo({top:0, behavior:'smooth'});
     }
+
     function calculateAge(){
       const name=document.getElementById('inputName').value.trim()||'Friend';
       const dobStr=document.getElementById('inputDob').value;
@@ -429,48 +637,137 @@
       const gender=document.getElementById('inputGender').value;
       const dob=new Date(dobStr);const now=new Date();
       if(dob>=now){alert('Date of birth must be in the past.');return}
-      let years=now.getFullYear()-dob.getFullYear();let months=now.getMonth()-dob.getMonth();let days=now.getDate()-dob.getDate();
-      if(days<0){months--;days+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}if(months<0){years--;months+=12}
+      let years=now.getFullYear()-dob.getFullYear();
+      let months=now.getMonth()-dob.getMonth();
+      let days=now.getDate()-dob.getDate();
+      if(days<0){months--;days+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}
+      if(months<0){years--;months+=12}
       const diffMs=now-dob;
-      const totalDays=Math.floor(diffMs/(1000*60*60*24));const totalHours=Math.floor(diffMs/(1000*60*60));
-      const totalMinutes=Math.floor(diffMs/(1000*60));const totalSeconds=Math.floor(diffMs/1000);
-      const diffHrs=now.getHours()-dob.getHours();const diffMins=now.getMinutes()-dob.getMinutes();
-      let adjHrs=diffHrs,adjMins=diffMins;if(adjMins<0){adjHrs--;adjMins+=60}if(adjHrs<0)adjHrs+=24;
-      let nextBday=new Date(now.getFullYear(),dob.getMonth(),dob.getDate());if(nextBday<=now)nextBday.setFullYear(now.getFullYear()+1);
+      const totalDays=Math.floor(diffMs/(1000*60*60*24));
+      const totalHours=Math.floor(diffMs/(1000*60*60));
+      const totalMinutes=Math.floor(diffMs/(1000*60));
+      const totalSeconds=Math.floor(diffMs/1000);
+      const diffHrs=now.getHours()-dob.getHours();
+      const diffMins=now.getMinutes()-dob.getMinutes();
+      let adjHrs=diffHrs,adjMins=diffMins;
+      if(adjMins<0){adjHrs--;adjMins+=60}
+      if(adjHrs<0)adjHrs+=24;
+      let nextBday=new Date(now.getFullYear(),dob.getMonth(),dob.getDate());
+      if(nextBday<=now)nextBday.setFullYear(now.getFullYear()+1);
       const daysToBday=Math.ceil((nextBday-now)/(1000*60*60*24));
-      const zodiac=getZodiac(dob.getMonth()+1,dob.getDate());const chineseZ=chineseZodiac[dob.getFullYear()%12];const dayName=getDayName(dob);
+      const zodiac=getZodiac(dob.getMonth()+1,dob.getDate());
+      const chineseZ=chineseZodiac[dob.getFullYear()%12];
+      const dayName=getDayName(dob);
+
       document.getElementById('greetingName').textContent=name;
       document.getElementById('currentDateTime').textContent='Today is '+getFormattedDateTime()+'.';
-      document.getElementById('ageIntro').textContent= gender==='female' ? 'It\'s a pleasure to have you here. Your graceful age is...' : 'We\'re delighted to have you. Your exact age is...';
+      document.getElementById('ageIntro').textContent= gender==='female'
+        ? 'It\'s a pleasure to have you here. Your graceful age is...'
+        : 'We\'re delighted to have you. Your exact age is...';
       document.getElementById('welcomeMsg').style.display='block';
-      let ageHtml='';[{v:years,l:'Years'},{v:months,l:'Months'},{v:days,l:'Days'},{v:adjHrs,l:'Hours'},{v:adjMins,l:'Minutes'}].forEach(p=>{ageHtml+=`<div class="age-box"><div class="num">${p.v.toLocaleString()}</div><div class="lbl">${p.l}</div></div>`});
-      document.getElementById('ageRow').innerHTML=ageHtml;document.getElementById('ageRow').style.display='grid';
+
+      let ageHtml='';
+      [{v:years,l:'Years'},{v:months,l:'Months'},{v:days,l:'Days'},{v:adjHrs,l:'Hours'},{v:adjMins,l:'Minutes'}].forEach(p=>{
+        ageHtml+=`<div class="age-box"><div class="num">${p.v.toLocaleString()}</div><div class="lbl">${p.l}</div></div>`;
+      });
+      document.getElementById('ageRow').innerHTML=ageHtml;
+      document.getElementById('ageRow').style.display='grid';
+
       let compliment;
       if(gender==='female'){
         compliment = `${name}, you are ${years} years, ${months} months, and ${days} days young. May your life be adorned with sparkles, crystals, and endless joy! ✨💎💖`;
       } else {
         compliment = `${name}, you are ${years} years, ${months} months, and ${days} days old. Stay bold, stay brilliant, and may success follow every step you take! 💪🌟`;
       }
-      document.getElementById('complimentBox').textContent=compliment;document.getElementById('complimentBox').style.display='block';
-      let totalHtml='';[{v:totalDays,l:'Total Days'},{v:totalHours,l:'Total Hours'},{v:totalMinutes,l:'Total Minutes'}].forEach(p=>{totalHtml+=`<div class="total-box"><div class="num">${p.v.toLocaleString()}</div><div class="lbl">${p.l}</div></div>`});
+      document.getElementById('complimentBox').textContent=compliment;
+      document.getElementById('complimentBox').style.display='block';
+
+      let totalHtml='';
+      [{v:totalDays,l:'Total Days'},{v:totalHours,l:'Total Hours'},{v:totalMinutes,l:'Total Minutes'}].forEach(p=>{
+        totalHtml+=`<div class="total-box"><div class="num">${p.v.toLocaleString()}</div><div class="lbl">${p.l}</div></div>`;
+      });
       totalHtml+=`<div class="total-box wide"><div class="num">${totalSeconds.toLocaleString()}</div><div class="lbl">Total Seconds</div></div>`;
-      document.getElementById('totalRow').innerHTML=totalHtml;document.getElementById('totalRow').style.display='grid';
-      let infoHtml='';[{l:'Next Birthday',v:daysToBday+' days'},{l:'Zodiac Sign',v:zodiac.emoji+' '+zodiac.name},{l:'Chinese Zodiac',v:chineseZ},{l:'Day of Birth',v:dayName}].forEach(p=>{infoHtml+=`<div class="info-card"><div class="lbl">${p.l}</div><div class="val">${p.v}</div></div>`});
-      document.getElementById('infoRow').innerHTML=infoHtml;document.getElementById('infoRow').style.display='grid';
+      document.getElementById('totalRow').innerHTML=totalHtml;
+      document.getElementById('totalRow').style.display='grid';
+
+      let infoHtml='';
+      [{l:'Next Birthday',v:daysToBday+' days'},{l:'Zodiac Sign',v:zodiac.emoji+' '+zodiac.name},{l:'Chinese Zodiac',v:chineseZ},{l:'Day of Birth',v:dayName}].forEach(p=>{
+        infoHtml+=`<div class="info-card"><div class="lbl">${p.l}</div><div class="val">${p.v}</div></div>`;
+      });
+      document.getElementById('infoRow').innerHTML=infoHtml;
+      document.getElementById('infoRow').style.display='grid';
+
       document.getElementById('shareBarWrap').style.display='flex';
-      document.getElementById('pvName').textContent=name;document.getElementById('pvDob').textContent='Born: '+dobStr;
+
+      document.getElementById('pvName').textContent=name;
+      document.getElementById('pvDob').textContent='Born: '+dobStr;
       document.getElementById('pvAge').textContent=years+' years, '+months+' months, '+days+' days';
       document.getElementById('pvExtra').textContent='Zodiac: '+zodiac.name+' | Chinese: '+chineseZ+' | Next Bday: '+daysToBday+' days';
     }
-    async function captureCanvas(){const el=document.getElementById('shareCapture');el.style.display='block';const canvas=await html2canvas(el,{backgroundColor:'#ffffff',scale:2});el.style.display='none';return canvas}
-    function getShareText(){const name=document.getElementById('inputName').value||'Friend';const yrs=document.querySelector('#ageRow .age-box:first-child .num')?.textContent||'';return`⏳ My Age Report\n👤 ${name}\n📅 ${yrs} years old\n\n🔗 Calculated with ColdMatrix Premium Age Calculator\nhttps://coldmatrixtools.com/age-calculator.html`}
+
+    async function captureCanvas(){
+      const el=document.getElementById('shareCapture');
+      el.style.display='block';
+      const canvas=await html2canvas(el,{backgroundColor:'#ffffff',scale:2});
+      el.style.display='none';
+      return canvas;
+    }
+
+    function getShareText(){
+      const name=document.getElementById('inputName').value||'Friend';
+      const yrs=document.querySelector('#ageRow .age-box:first-child .num')?.textContent||'';
+      return `⏳ My Age Report\n👤 ${name}\n📅 ${yrs} years old\n\n🔗 Calculated with ColdMatrix Premium Age Calculator\nhttps://coldmatrixtools.com/age-calculator.html`;
+    }
+
     function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(getShareText()),'_blank')}
-    async function downloadResult(type){const canvas=await captureCanvas();if(type==='pdf'){const{jsPDF}=window.jspdf;const img=canvas.toDataURL('image/jpeg',0.95);const pdf=new jsPDF({orientation:canvas.width>canvas.height?'l':'p',unit:'px',format:[canvas.width,canvas.height]});pdf.addImage(img,'JPEG',0,0,canvas.width,canvas.height);pdf.save('ColdMatrix-Age-Report.pdf')}else{const mime=type==='jpg'?'image/jpeg':'image/png';const link=document.createElement('a');link.download='ColdMatrix-Age-Report.'+type;link.href=canvas.toDataURL(mime,0.95);link.click()}}
-    let deferredPrompt;const installBar=document.getElementById('installBarTool');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBar.style.display='block'});window.installAppTool=function(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{installBar.style.display='none'})}else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.')}};if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{})}
+
+    async function downloadResult(type){
+      const canvas=await captureCanvas();
+      if(type==='pdf'){
+        const{jsPDF}=window.jspdf;
+        const img=canvas.toDataURL('image/jpeg',0.95);
+        const pdf=new jsPDF({orientation:canvas.width>canvas.height?'l':'p',unit:'px',format:[canvas.width,canvas.height]});
+        pdf.addImage(img,'JPEG',0,0,canvas.width,canvas.height);
+        pdf.save('ColdMatrix-Age-Report.pdf');
+      }else{
+        const mime=type==='jpg'?'image/jpeg':'image/png';
+        const link=document.createElement('a');
+        link.download='ColdMatrix-Age-Report.'+type;
+        link.href=canvas.toDataURL(mime,0.95);
+        link.click();
+      }
+    }
+
+    let deferredPrompt;
+    const installBar=document.getElementById('installBarTool');
+    window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBar.style.display='block'});
+    window.installAppTool=function(){
+      if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{installBar.style.display='none'})}
+      else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.')}
+    };
+    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{})}
+
     function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Check out this Age Calculator from ColdMatrix Tools! '+window.location.href),'_blank')}
     function copyToolLink(){navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{alert(window.location.href)})}
   </script>
-  
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix Premium Age Calculator",
+    "url": "https://coldmatrixtools.com/age-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "description": "Premium age calculator with exact age in years, months, days, hours, minutes. Includes zodiac sign, Chinese zodiac, day of birth, and next birthday countdown.",
+    "author": {
+      "@type": "Organization",
+      "name": "Cold Matrix Advanced Solutions",
+      "url": "https://coldmatrixtools.com/solutions.html"
+    },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -478,30 +775,31 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Are ColdMatrix tools free to use?",
+        "name": "How accurate is this age calculator?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+          "text": "It calculates age down to the minute, using precise date arithmetic. Leap years and month-length variations are fully accounted for."
         }
       },
       {
         "@type": "Question",
-        "name": "How accurate are ColdMatrix calculators?",
+        "name": "Does the female theme change my calculation?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+          "text": "No. The theme only changes the visual appearance (sparkles, colors, music). The age calculation is identical for both genders."
         }
       },
       {
         "@type": "Question",
-        "name": "Does ColdMatrix store my data?",
+        "name": "Does this tool store my date of birth?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+          "text": "Never. Everything runs in your browser. Nothing is uploaded or stored."
         }
       }
     ]
   }
   </script>
+
 </body>
 </html>
