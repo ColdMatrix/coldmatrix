@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Business Calculator Suite – Profit, Margin, Tax & ROI | ColdMatrix</title>
-<meta name="description" content="All-in-one business calculator suite: profit, margin, markup, discount, tax, ROI, and break-even. Free premium tools for entrepreneurs and accountants.">
+    <title>Business Calculator Suite – Profit, Margin, Tax & ROI | ColdMatrix</title>
+    <meta name="description" content="All-in-one business calculator suite: profit, margin, markup, discount, tax, ROI, and break-even. Free premium tools for entrepreneurs and accountants.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="ColdMatrix Tools">
     <meta property="og:title" content="Business Pricing, Profit & Margin Calculator Suite">
@@ -16,132 +16,349 @@
     <meta name="twitter:description" content="Calculate profit, margin, markup, discounts, taxes, ROI, break-even, interest, cash flow instantly.">
     <meta name="twitter:image" content="https://coldmatrixtools.com/profit_margin_calc.jpg">
     <link rel="canonical" href="https://coldmatrixtools.com/business-calculator-suite.html">
+    <meta name="theme-color" content="#0A0F14">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
         :root {
-            --bg: #1a1e26; --desk: #111418;
-            --laptop-body: linear-gradient(160deg, #a8acb5 0%, #7e828b 40%, #545860 100%);
-            --chrome: #c0c3c8; --input-bg: #f5f5f5; --input-text: #1a1a1a;
-            --frost: #4FC3F7; --accent: #00b894; --gold: #D4AF37;
-            --red: #EF4444; --green: #34D399; --display-bg: #0a0d11; --display-text: #e0e0e0;
+            --bg: #0B0F14; --desk: #111418;
+            --gold: #D4AF37;
+            --gold-bright: #FFD700;
+            --gold-glow: rgba(212,175,55,0.45);
+            --silver-bg: #C8CDD4;
+            --silver-bg-hover: #D5D9DE;
+            --silver-gradient: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            --input-bg: #FFFFFF;
+            --input-text: #0A0F14;
+            --frost: #D4AF37;
+            --accent: #00b894;
+            --red: #EF4444;
+            --green: #34D399;
+            --display-bg: #0a0d11;
+            --display-text: #e0e0e0;
+            --whatsapp-green: #25D366;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            background: var(--desk);
-            color: #1a1a1a; font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
+            background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
+            color: #EAEDF0; font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
         }
         .container { width: 100%; max-width: 1000px; margin: 0 auto; padding: 15px 20px 30px; }
-        .navbar { position: sticky; top:0; z-index:100; background: rgba(17,20,26,0.94); backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,0.08); }
-        .nav-inner { max-width: 1000px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; }
-        .logo { font-size:1.2rem; font-weight:700; color:var(--frost); text-decoration:none; }
-        .nav-links { display:flex; gap:20px; list-style:none; }
-        .nav-links a { color:#bbb; text-decoration:none; font-weight:500; font-size:0.9rem; }
-        .nav-links a:hover, .nav-links a.active { color:var(--gold); }
+
+        /* GOLDEN NAVBAR */
+        .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold); }
+        .nav-inner { max-width: 1000px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:12px 20px; flex-wrap: wrap; gap: 8px; }
+        .logo { font-size:1.2rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display: flex; align-items: center; gap: 6px; }
+        .nav-links { display:flex; gap:20px; list-style:none; flex-wrap: wrap; }
+        .nav-links a { color:#8B98A5; text-decoration:none; font-weight:500; font-size:0.9rem; }
+        .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+        .back-link { display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem; }
 
         .title-section { text-align:center; padding:5px 0 5px; }
-        .tool-title { font-family:'Oswald',sans-serif; font-size:1.7rem; font-weight:700; color:#fff; margin-bottom:4px; text-shadow:0 2px 10px rgba(0,0,0,0.6); }
-        .subtitle { color:#ccc; font-size:0.9rem; font-weight:500; text-shadow:0 1px 4px rgba(0,0,0,0.6); }
+        .tool-title { font-family:'Oswald',sans-serif; font-size:1.7rem; font-weight:700; color:#fff; margin-bottom:6px; line-height: 1.25; }
+        .tool-title span { color: var(--gold-bright); }
+        .subtitle { color:#EAEDF0; font-size:0.95rem; font-weight:500; }
 
+        /* GOLDEN INSTALL BAR */
         .install-bar {
-            background: linear-gradient(145deg, #f8f8f8, #e2e2e2 30%, #c8c8c8 70%, #f0f0f0);
+            display: block;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
             color: #0A0F14;
-            padding: 8px 16px;
-            border-radius: 50px;
-            margin: 0 auto 16px;
+            text-align: center;
+            padding: 10px 16px;
+            border-radius: 10px;
+            margin: 14px 0;
             font-weight: 700;
-            display: flex;
-            width: fit-content;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.6);
-            border: 1.5px solid var(--gold);
-            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            border: 1px solid #FFD700;
+            box-shadow: 0 3px 10px rgba(212,175,55,0.35);
         }
         .install-bar button {
-            background: #0A0F14;
-            color: #f0f0f0;
-            border: none;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 0.75rem;
+            background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+            padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+            font-weight: 800; cursor: pointer; font-size: 0.8rem;
         }
 
+        /* GET QUOTE STRIP */
+        .get-quote-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .get-quote-strip .quote-btn {
+            flex: 1; min-width: 140px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 13px 16px;
+            background: var(--silver-bg);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            color: #0A0F14;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-decoration: none;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+            transition: all 0.25s ease;
+        }
+        .get-quote-strip .quote-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 22px var(--gold-glow); }
+        .get-quote-strip .quote-btn.whatsapp { background: #25D366; color: #fff; border-color: #1da851; }
+        .get-quote-strip .quote-btn.whatsapp:hover { background: #1da851; border-color: #25D366; }
+
+        /* SHARE CARD */
+        .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:16px 18px; margin-bottom:18px; box-shadow:0 10px 34px rgba(0,0,0,0.55); }
+        .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; margin-bottom:12px; text-transform:uppercase; letter-spacing: 0.5px; }
+        .share-tool-buttons { display:flex; gap:10px; justify-content:center; }
+        .share-tool-btn { flex: 1; max-width: 200px; display:flex; align-items:center; justify-content:center; gap:8px; padding:11px 14px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); transition: all 0.25s; }
+        .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); }
+
+        /* AD ZONE */
+        .ad-zone {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(212,175,55,0.05);
+            border: 2px dashed var(--gold);
+            border-radius: 12px;
+            text-align: center;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8B98A5;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* MAIN CARD */
         .laptop-body {
-            background: var(--laptop-body); border-radius:28px; padding:32px 30px; margin-top:16px;
-            box-shadow:0 25px 50px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.2),inset 0 1px 0 rgba(255,255,255,0.4);
-            position:relative;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border-radius: 16px;
+            padding: 24px 20px;
+            margin-top: 16px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            position: relative;
         }
         .state-badge { position:absolute; top:-10px; right:20px; background:linear-gradient(135deg,#FFD700,#FFA500); color:#0A0F14; font-family:'Oswald',sans-serif; font-weight:700; font-size:0.7rem; padding:4px 14px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; z-index:2; }
 
-        .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:14px 16px; margin-bottom:16px; box-shadow:0 8px 24px rgba(0,0,0,0.5); }
-        .share-tool-title { font-family:'Inter',sans-serif; font-weight:800; font-size:0.85rem; color:#E8B93A; text-align:center; margin-bottom:10px; text-transform:uppercase; }
-        .share-tool-buttons { display:flex; gap:8px; justify-content:center; }
-        .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:6px; padding:8px 14px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); }
-        .share-tool-btn:hover { border-color:#E8B93A; }
+        /* COLDMATRIX NOTE */
+        .cm-note { background: rgba(10,15,20,0.6); border: 1px solid var(--gold); padding: 10px 14px; border-radius: 8px; margin-bottom: 18px; font-size: 0.82rem; color: #EAEDF0; }
+        .cm-note strong { color: var(--gold-bright); }
 
-        .currency-row { display:flex; align-items:center; gap:16px; margin-bottom:18px; position:relative; z-index:1; flex-wrap:wrap; }
-        .currency-row select { background:var(--input-bg); border:2px solid var(--gold); color:var(--input-text); padding:10px 14px; border-radius:8px; font-weight:600; font-size:0.9rem; min-width:160px; }
-        .currency-symbol-display { font-weight:700; font-size:1.1rem; color:#111; }
-        .symbol-position-toggle { display:flex; align-items:center; gap:6px; font-size:0.8rem; color:#222; font-weight:600; }
+        /* CURRENCY ROW */
+        .currency-row { display:flex; align-items:center; gap:16px; margin-bottom:18px; flex-wrap:wrap; }
+        .currency-row select { background: #FFFFFF; border:2px solid var(--gold); color:#0A0F14; padding:11px 14px; border-radius:10px; font-weight:600; font-size:0.9rem; min-width:160px; appearance: none; -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14' viewBox='0 0 22 14'%3E%3Cpath d='M2 3 L11 11 L20 3' fill='none' stroke='%23D4AF37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 14px center; background-size: 22px 13px; padding-right: 48px;
+        }
+        .currency-symbol-display { font-weight:700; font-size:1.1rem; color:#0A0F14; background: #FFFFFF; padding: 8px 14px; border: 2px solid var(--gold); border-radius: 10px; min-width: 60px; text-align: center; }
+        .symbol-position-toggle { display:flex; align-items:center; gap:6px; font-size:0.82rem; color:#0A0F14; font-weight:700; }
         .symbol-position-toggle input { width:auto; }
 
-        .tabs { display:grid; grid-template-columns:repeat(auto-fill, minmax(100px, 1fr)); gap:6px; margin-bottom:16px; position:relative; z-index:1; }
+        /* TABS — Premium silver + gold active */
+        .tabs { display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 1fr)); gap:8px; margin-bottom:16px; }
         .tab-btn {
-            width:100%; padding:10px 4px; border:2px solid var(--gold);
-            background:linear-gradient(180deg,#d0d2d6,#9ea0a5); color:#111;
-            border-radius:10px; font-weight:700; font-size:0.7rem; cursor:pointer;
-            box-shadow:0 3px 6px rgba(0,0,0,0.3);
-            display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
-            transition:all 0.2s ease;
+            width:100%; padding:12px 6px; border:2px solid var(--gold);
+            background: #FFFFFF;
+            color:#0A0F14;
+            border-radius:10px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 800;
+            font-size:0.72rem;
+            cursor:pointer;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+            transition: all 0.25s ease;
+            min-height: 60px;
         }
-        .tab-btn.active { background:linear-gradient(180deg,#FFD700,#FFA500); color:#111; border-color:#FFA500; transform:translateY(-2px); box-shadow:0 6px 12px rgba(255,165,0,0.5); }
-        .tab-btn i { font-size:1rem; }
+        .tab-btn i, .tab-btn .emoji { font-size: 1.1rem; line-height: 1; }
+        .tab-btn.active {
+            background: var(--gold);
+            color:#0A0F14;
+            border-color: var(--gold-bright);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.6);
+        }
+        .tab-btn:hover:not(.active) { border-color: var(--gold-bright); transform: translateY(-2px); }
 
+        /* FORM */
         .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
         .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
-        .field { margin-bottom:14px; position:relative; z-index:1; }
-        .field label { display:block; font-size:0.8rem; color:#111; font-weight:700; margin-bottom:6px; }
-        .field input, .field select { width:100%; background:var(--input-bg); border:2px solid var(--gold); color:var(--input-text); padding:12px 14px; border-radius:8px; font-size:0.95rem; font-weight:500; outline:none; }
-        .field input:focus, .field select:focus { border-color:#FFA500; box-shadow:0 0 10px rgba(255,165,0,0.4); }
+        .field { margin-bottom:14px; }
+        .field label { display:block; font-size:0.85rem; color:#0A0F14; font-weight:700; margin-bottom:6px; }
+        .field input, .field select {
+            width:100%; background: #FFFFFF; border:2px solid var(--gold); color:#0A0F14;
+            padding:12px 14px; border-radius:10px; font-size:0.95rem; font-weight:600;
+            font-family: 'Inter', sans-serif;
+        }
+        .field input:focus, .field select:focus { outline:none; border-color: var(--gold-bright); box-shadow: 0 0 15px var(--gold-glow); }
+        .field input::placeholder { color: #8B98A5; font-weight: 500; }
+        .field select {
+            appearance: none; -webkit-appearance: none; -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14' viewBox='0 0 22 14'%3E%3Cpath d='M2 3 L11 11 L20 3' fill='none' stroke='%23D4AF37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 14px center; background-size: 22px 13px;
+            padding-right: 48px;
+        }
 
-        .btn-primary { width:100%; background:linear-gradient(180deg,#6b6e75,#4a4d55); color:#fff; border:2px solid var(--gold); padding:14px; border-radius:10px; font-weight:700; font-size:0.95rem; cursor:pointer; text-transform:uppercase; box-shadow:0 4px 10px rgba(0,0,0,0.4); margin-top:6px; position:relative; z-index:1; }
-        .btn-primary:hover { background:linear-gradient(180deg,#7e828b,#545860); border-color:#FFA500; }
+        /* BUTTONS */
+        .btn-primary {
+            width:100%; background: var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
+            padding:16px; border-radius:12px; font-family:'Oswald',sans-serif;
+            font-weight: 900; font-size: 1.05rem; cursor:pointer;
+            letter-spacing: 1px; text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
+            transition: all 0.25s ease; margin-top: 6px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-primary:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); box-shadow: 0 0 22px var(--gold-glow); transform: translateY(-2px); }
 
-        .display-screen { background:var(--display-bg); border-radius:14px; padding:20px; margin-top:20px; border:2px solid var(--gold); box-shadow:inset 0 0 20px rgba(0,0,0,0.6); color:var(--display-text); display:none; position:relative; z-index:1; }
+        .reset-tab-btn {
+            width: 100%;
+            background: var(--silver-bg); color:#0A0F14;
+            border: 2px solid var(--gold);
+            padding: 11px 20px; border-radius: 10px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 800; font-size: 0.9rem;
+            cursor: pointer; letter-spacing: 0.6px;
+            text-transform: uppercase;
+            transition: all 0.25s ease;
+            margin-top: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+        }
+        .reset-tab-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); }
+
+        /* DISPLAY SCREEN — Dark for contrast */
+        .display-screen {
+            background: var(--display-bg);
+            border-radius:14px; padding:20px; margin-top:20px;
+            border:2px solid var(--gold);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6), 0 0 15px var(--gold-glow);
+            color: var(--display-text); display:none;
+        }
         .display-screen.active { display:block; }
         .result-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.1); font-size:0.9rem; }
-        .result-row .val { font-weight:700; color:var(--frost); }
-        .val.green { color:var(--green); }
-        .val.red { color:var(--red); }
+        .result-row .val { font-weight:700; color: var(--gold-bright); }
+        .val.green { color: var(--green) !important; }
+        .val.red { color: var(--red) !important; }
 
         .gauge-container { display:flex; justify-content:center; margin:12px 0; }
         canvas { max-width:100%; }
 
         .action-buttons { display:flex; gap:10px; margin-top:18px; flex-wrap:wrap; }
-        .action-btn { padding:12px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:700; font-size:0.8rem; display:flex; align-items:center; gap:6px; text-transform:uppercase; color:#fff; }
+        .action-btn { padding:12px 20px; border:none; border-radius:10px; cursor:pointer; font-family: 'Oswald', sans-serif; font-weight:700; font-size:0.8rem; display:flex; align-items:center; gap:6px; text-transform:uppercase; letter-spacing: 0.4px; color:#fff; transition: all 0.25s; }
+        .action-btn:hover { transform: translateY(-2px); }
         .whatsapp-action { background:#25D366; }
-        .pdf-action { background:#0077B5; }
+        .pdf-action { background:#E53935; }
         .jpg-action { background:#6C5CE7; }
-        .copy-action { background:#555; }
+        .copy-action { background:#0A0F14; border: 1px solid var(--gold); }
 
-        .history-item { background:rgba(0,0,0,0.3); border:1px solid #777; border-radius:8px; padding:10px 14px; margin-bottom:8px; font-size:0.8rem; display:flex; justify-content:space-between; color:#ddd; }
+        .history-item { background: rgba(255,255,255,0.05); border:1px solid rgba(212,175,55,0.4); border-radius:8px; padding:10px 14px; margin-bottom:8px; font-size:0.8rem; display:flex; justify-content:space-between; color:#EAEDF0; }
 
-        .contact-note { margin-top:20px; padding:14px; background:rgba(0,0,0,0.4); border:1px dashed var(--gold); border-radius:12px; text-align:center; color:#fff; position:relative; z-index:1; }
-        footer { text-align:center; color:#ccc; font-size:0.8rem; margin-top:30px; padding:20px 0; border-top:1px solid #444; }
-        footer a { color:var(--frost); text-decoration:none; }
-        .toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#D4AF37; color:#000; font-weight:700; padding:10px 24px; border-radius:50px; box-shadow:0 8px 25px rgba(0,0,0,0.5); z-index:9999; opacity:0; pointer-events:none; }
+        .contact-note { margin-top:20px; padding:14px; background: #FFFFFF; border: 2px dashed var(--gold); border-radius:12px; text-align:center; color:#0A0F14; font-weight: 600; font-size: 0.85rem; }
+
+        /* SILVER EDUCATIONAL */
+        .detail-section {
+            margin: 30px auto;
+            padding: 30px 24px;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.85;
+            font-size: 0.95rem;
+            color: #0A0F14;
+        }
+        .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.35rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; font-weight: 800; }
+        .detail-section h3 { color:#0A0F14; font-size:1.1rem; margin:22px 0 10px; font-weight: 800; }
+        .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; color: #0A0F14; font-weight: 500; }
+        .detail-section ul, .detail-section ol { padding-left:24px; }
+        .detail-section li { margin-bottom:6px; }
+        .detail-section strong { color:#0A0F14; font-weight: 800; }
+
+        /* PAKISTANI BLOCK */
+        .pakistani-block {
+            margin: 30px auto;
+            padding: 24px 20px;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            color: #0A0F14;
+        }
+        .pakistani-block h2 { color:#0A0F14; font-family:'Oswald',sans-serif; font-size:1.15rem; margin-bottom:12px; font-weight: 800; }
+        .pakistani-block p { color:#0A0F14; font-weight: 500; margin-top: 10px; }
+        .pakistani-block strong { color:#0A0F14; font-weight: 800; }
+
+        /* RELATED TOOLS */
+        .related-tools-section {
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+        }
+        .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; }
+        .related-tools-section a { color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; display: inline-block; margin: 4px 4px 4px 0; }
+
+        /* DISCLAIMER */
+        .disclaimer-box {
+            margin: 20px auto;
+            padding: 16px 18px;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            font-size: 0.85rem; color: #0A0F14;
+            line-height: 1.7; font-weight: 500;
+        }
+        .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+        /* LEAD CAPTURE */
+        .lead-capture {
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin: 30px 0;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+        }
+        .lead-capture h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.2rem; margin-bottom:12px; letter-spacing:0.5px; font-weight: 800; }
+        .lead-capture p { color:#0A0F14; margin-bottom:18px; font-size:0.9rem; font-weight: 500; }
+        .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+        .lead-capture input[type="email"] { background:#FFFFFF; border:2px solid var(--gold); border-radius:10px; padding:12px 16px; color:#0A0F14; font-size:0.95rem; font-weight: 600; outline:none; }
+        .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+        .lead-capture button { background: var(--silver-bg); border:2px solid var(--gold); border-radius:10px; padding:14px 20px; font-family: 'Oswald', sans-serif; font-weight: 800; font-size: 0.95rem; color:#0A0F14; cursor:pointer; letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.25s; }
+        .lead-capture button:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow:0 0 20px var(--gold-glow); }
+
+        footer { text-align:center; color:#8B98A5; font-size:0.8rem; padding:30px 20px 20px; border-top:2px solid var(--gold); margin-top:50px; }
+        footer a { color: var(--gold-bright); text-decoration:none; font-weight: 600; }
+        .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+
+        .toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background: var(--gold-bright); color:#0A0F14; font-weight:700; padding:12px 26px; border-radius:50px; box-shadow:0 8px 25px rgba(0,0,0,0.5); z-index:9999; opacity:0; pointer-events:none; transition: opacity 0.3s; }
         .toast.show { opacity:1; }
 
         @media (max-width:768px) {
-            .laptop-body { padding:24px 16px; }
+            .laptop-body { padding:22px 16px; }
             .grid-2, .grid-3 { grid-template-columns:1fr; }
-            .tabs { grid-template-columns:repeat(auto-fill, minmax(80px, 1fr)); }
-            .tab-btn { padding:8px 2px; font-size:0.6rem; }
+            .tabs { grid-template-columns:repeat(auto-fill, minmax(85px, 1fr)); }
+            .tab-btn { padding:10px 4px; font-size:0.65rem; min-height: 55px; }
+            .tool-title { font-size: 1.4rem; }
+            .detail-section, .pakistani-block, .lead-capture {
+                margin-left: -6px !important;
+                margin-right: -6px !important;
+                padding: 20px 16px !important;
+            }
         }
     </style>
 </head>
@@ -161,29 +378,42 @@
 </nav>
 
 <div class="container">
-    <a href="index.html#tools" style="display:inline-block;margin:10px 0 4px;color:#FFD700;text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+    <a href="index.html#tools" class="back-link">← Back to Tools</a>
 
     <div class="title-section">
         <div class="install-bar" id="cmInstallBar">
             📱 Add to Home Screen <button onclick="cmInstallApp()">Install</button>
         </div>
-        <h1 class="tool-title">🧮 ColdMatrix Business Calculator Suite</h1>
-        <p class="subtitle">Profit, margin, markup, discounts, taxes, ROI, break-even, interest, cash flow — fast, accurate, global.</p>
+        <h1 class="tool-title">🧮 ColdMatrix <span>Business Calculator Suite</span></h1>
+        <p class="subtitle">17 essential calculators in one premium suite — profit, margin, markup, GST, ROI, break-even, interest, cash flow, and more.</p>
+    </div>
+
+    <div class="get-quote-strip">
+        <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20business%20calculations." class="quote-btn whatsapp" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> Quick Chat
+        </a>
+        <a href="contact.html" class="quote-btn">
+            <i class="fa-solid fa-envelope"></i> Get a Quote
+        </a>
     </div>
 
     <div class="share-tool-card">
         <div class="share-tool-title">Share Business Calculator Suite</div>
         <div class="share-tool-buttons">
-            <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <button class="share-tool-btn" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
             <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
         </div>
     </div>
 
-    <div class="laptop-body">
-        <div class="state-badge">State of the Art Tool</div>
+    <div class="ad-zone">
+        <span>📢 Ad Space Available</span>
+    </div>
 
-        <div style="background:rgba(0,0,0,0.2);padding:10px 14px;border-radius:8px;margin-bottom:18px;font-size:0.85rem;position:relative;z-index:1;">
-            ❄️ <strong style="color:#FFD700;">ColdMatrix Note:</strong> All calculations are instant. For critical business decisions, verify independently.
+    <div class="laptop-body">
+        <div class="state-badge">State of the Art</div>
+
+        <div class="cm-note">
+            ❄️ <strong>ColdMatrix Note:</strong> All calculations run instantly in your browser. For critical business decisions, verify independently with a licensed accountant.
         </div>
 
         <div class="currency-row">
@@ -205,39 +435,40 @@
         </div>
 
         <div class="tabs" id="tabBar">
-            <button class="tab-btn active" data-tab="profit">💰 Profit</button>
-            <button class="tab-btn" data-tab="sellprice">🏷️ Sell Price</button>
-            <button class="tab-btn" data-tab="margin">📊 Margin</button>
-            <button class="tab-btn" data-tab="markup">📈 Markup</button>
-            <button class="tab-btn" data-tab="discount">🏷️ Discount</button>
-            <button class="tab-btn" data-tab="revdiscount">🔄 Rev Discount</button>
-            <button class="tab-btn" data-tab="gst">🧾 GST/VAT</button>
-            <button class="tab-btn" data-tab="commission">💼 Commission</button>
-            <button class="tab-btn" data-tab="roi">📊 ROI</button>
-            <button class="tab-btn" data-tab="breakeven">🎯 Break-even</button>
-            <button class="tab-btn" data-tab="multiitem">📋 Multi-Item</button>
-            <button class="tab-btn" data-tab="simpleinterest">🏦 Simple Interest</button>
-            <button class="tab-btn" data-tab="compoundinterest">📈 Compound Interest</button>
-            <button class="tab-btn" data-tab="percentchange">📊 % Change</button>
-            <button class="tab-btn" data-tab="cashflow">💳 Cash Flow</button>
-            <button class="tab-btn" data-tab="invoicetotal">🧾 Invoice Total</button>
-            <button class="tab-btn" data-tab="currencyconv">💱 Currency Conv</button>
+            <button class="tab-btn active" data-tab="profit"><span class="emoji">💰</span> Profit</button>
+            <button class="tab-btn" data-tab="sellprice"><span class="emoji">🏷️</span> Sell Price</button>
+            <button class="tab-btn" data-tab="margin"><span class="emoji">📊</span> Margin</button>
+            <button class="tab-btn" data-tab="markup"><span class="emoji">📈</span> Markup</button>
+            <button class="tab-btn" data-tab="discount"><span class="emoji">🏷️</span> Discount</button>
+            <button class="tab-btn" data-tab="revdiscount"><span class="emoji">🔄</span> Rev Disc</button>
+            <button class="tab-btn" data-tab="gst"><span class="emoji">🧾</span> GST/VAT</button>
+            <button class="tab-btn" data-tab="commission"><span class="emoji">💼</span> Commission</button>
+            <button class="tab-btn" data-tab="roi"><span class="emoji">📊</span> ROI</button>
+            <button class="tab-btn" data-tab="breakeven"><span class="emoji">🎯</span> Break-even</button>
+            <button class="tab-btn" data-tab="multiitem"><span class="emoji">📋</span> Multi-Item</button>
+            <button class="tab-btn" data-tab="simpleinterest"><span class="emoji">🏦</span> Simple Int</button>
+            <button class="tab-btn" data-tab="compoundinterest"><span class="emoji">📈</span> Compound</button>
+            <button class="tab-btn" data-tab="percentchange"><span class="emoji">📊</span> % Change</button>
+            <button class="tab-btn" data-tab="cashflow"><span class="emoji">💳</span> Cash Flow</button>
+            <button class="tab-btn" data-tab="invoicetotal"><span class="emoji">🧾</span> Invoice</button>
+            <button class="tab-btn" data-tab="currencyconv"><span class="emoji">💱</span> Currency</button>
         </div>
 
         <div id="tabContent"></div>
-        <div style="text-align:right;margin:6px 0 4px;"><button onclick="resetCurrentTab()" style="background:transparent;border:1.5px solid #D4AF37;color:#D4AF37;padding:8px 16px;border-radius:50px;font-weight:700;font-size:0.8rem;cursor:pointer;">🔄 Reset</button></div>
+
+        <button class="reset-tab-btn" onclick="resetCurrentTab()"><i class="fa-solid fa-rotate"></i> Reset This Calculator</button>
 
         <div class="display-screen" id="displayScreen">
             <div style="display:flex;justify-content:space-between;align-items:center;">
                 <h3 style="font-family:'Oswald',sans-serif;color:#FFD700;margin:0;">🧮 Result</h3>
-                <button class="copy-action action-btn" onclick="quickCopy()" style="padding:6px 12px;font-size:0.7rem;">📋 Copy</button>
+                <button class="action-btn copy-action" onclick="quickCopy()" style="padding:6px 12px;font-size:0.7rem;">📋 Copy</button>
             </div>
             <div id="displayContent"></div>
             <div class="gauge-container">
                 <canvas id="gaugeCanvas" width="200" height="100" style="display:none;"></canvas>
             </div>
             <div style="margin-top:12px;display:flex;gap:8px;">
-                <input type="text" id="historyLabel" placeholder="Label (optional)" style="flex:1;background:#222;border:1px solid #666;color:#fff;padding:6px 10px;border-radius:4px;font-size:0.8rem;">
+                <input type="text" id="historyLabel" placeholder="Label (optional)" style="flex:1;background:#1B232C;border:1px solid #D4AF37;color:#fff;padding:8px 10px;border-radius:8px;font-size:0.85rem;">
             </div>
             <div class="action-buttons" style="margin-top:10px;">
                 <button class="action-btn whatsapp-action" onclick="shareResult()"><i class="fab fa-whatsapp"></i> Share</button>
@@ -247,9 +478,9 @@
         </div>
 
         <div id="historyCard" style="display:none;margin-top:20px;">
-            <h4 style="color:#ddd;font-family:'Oswald',sans-serif;">📜 History</h4>
+            <h4 style="color:#0A0F14;font-family:'Oswald',sans-serif;margin-bottom: 10px;">📜 History</h4>
             <div id="historyList"></div>
-            <button class="btn-primary" style="background:#444;margin-top:8px;" onclick="clearHistory()">Clear History</button>
+            <button class="btn-primary" style="background: var(--silver-bg); margin-top:8px;" onclick="clearHistory()">Clear History</button>
         </div>
 
         <div class="contact-note">
@@ -258,114 +489,142 @@
         </div>
     </div>
 
-<!-- EXPANDED COMPREHENSIVE GUIDE -->
-<div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">📚 The Complete Business Calculator Guide</h2>
-    
-    <p>Running a business requires making hundreds of small financial decisions every week. Each decision — how to price a product, whether to offer a discount, how much tax to charge, how to evaluate an investment — depends on accurate calculations. This suite puts every essential business calculation in one place, so you can make confident decisions without spreadsheet errors or guesswork.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Profit Calculator — The Foundation</h3>
-    <p>Profit is the difference between what you sell something for and what it costs you. But knowing the amount isn't enough — you need to understand it as a percentage too. A product that costs $100 and sells for $150 gives you $50 profit, which is a 50% markup but only a 33.33% margin. Many new business owners confuse markup and margin, leading to underpricing. This calculator shows both, so you always know exactly where you stand.</p>
-    <p><strong>Real example:</strong> A furniture maker buys raw wood for $200, spends $50 on labor and materials, and sells the finished table for $400. Total cost = $250. Profit = $150. Markup = 60%. Margin = 37.5%. Understanding that margin means the table is actually yielding 37.5% of the sale price as profit — not 60% — changes how you view your pricing strategy.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Selling Price Calculator — Price With Confidence</h3>
-    <p>Setting the right selling price is one of the hardest decisions in business. Price too high and customers go elsewhere. Price too low and you're leaving money on the table. This calculator helps you set a price based on your desired profit percentage or margin percentage — taking the emotion out of pricing.</p>
-    <p><strong>Hidden tip:</strong> When you set a profit percentage, you're adding to your cost. When you set a margin percentage, you're saying "I want this percentage of the final sale price as profit." Margin-based pricing protects your profitability better because it accounts for discounts and negotiations.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Margin vs Markup — Know the Difference</h3>
-    <p>Margin is profit divided by selling price. Markup is profit divided by cost. They sound similar but lead to very different pricing. A 50% markup only gives you a 33.33% margin. If you want a true 50% margin, you need to markup your products by 100%.</p>
-    <p><strong>Common mistake:</strong> Setting prices with markup when you actually need margin. If your business overhead consumes 40% of revenue and you price with a 40% markup, you're actually operating at a loss after overhead.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Discount Calculator — Protect Your Margins</h3>
-    <p>Discounts drive sales but erode profit quickly. A 10% discount doesn't reduce profit by 10% — it can reduce profit by 30% or more depending on your margin. This calculator shows exactly how much money a discount removes from your bottom line.</p>
-    <p><strong>Real example:</strong> A retailer sells electronics with a 25% margin. A product costs $300 and sells for $400, giving $100 profit. A 15% discount reduces the price to $340, dropping profit to just $40 — a 60% reduction in profit! Always calculate discount impact before running promotions.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Reverse Discount — Find Original Prices</h3>
-    <p>When you see a sale price and know the discount percentage, this calculator finds the original price. This is essential for comparing "deals" — is that "40% off" really a good price, or was the original price inflated? Smart shoppers and sharp buyers use this to verify genuine savings.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">GST/VAT Calculator — Stay Tax Compliant</h3>
-    <p>Tax errors are expensive. Charging too little tax means you pay the difference from your own pocket. Charging too much drives customers away. This calculator handles both adding tax to a base price and extracting tax from a total price — so you always know the right amount to charge or report.</p>
-    <p><strong>Hidden tip:</strong> Different countries have different tax rates. Pakistan GST is typically 17-18%, UAE VAT is 5%, UK VAT is 20%. Always verify your local rate before invoicing.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Commission Calculator — Motivate Your Team</h3>
-    <p>Commission structures drive sales teams. A 10% commission on a $10,000 sale is $1,000 — simple. But what about graduated commissions, tiered structures, or commission after returns? This calculator gives you the base number instantly, so you can structure more complex plans on top.</p>
-    <p><strong>Real example:</strong> A real estate agent sells a property for $500,000 at a 3% commission = $15,000. If their agency takes 50%, they earn $7,500. Understanding the split is essential before celebrating the headline number.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">ROI Calculator — Measure What Matters</h3>
-    <p>Return on Investment tells you if an investment is worth it. If you invest $10,000 and get back $12,000, your ROI is 20%. But a "20% ROI" means different things over 1 month vs 1 year vs 5 years. Always consider the timeframe when comparing ROIs.</p>
-    <p><strong>Hidden tip:</strong> Compare your ROI against the risk-free rate. If a government bond pays 5% and your business investment ROI is 7%, the additional 2% may not justify the extra risk. Use ROI to rank opportunities, not just measure them.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Break-Even Calculator — Know Your Minimum</h3>
-    <p>Break-even is the point where your revenue equals your costs. Below this point you lose money. Above it you profit. This is the first calculation every startup should do before launching.</p>
-    <p><strong>Real example:</strong> A bakery has fixed costs of $5,000 monthly (rent, salaries, utilities). Each cake costs $10 in ingredients and sells for $25. Contribution per cake = $15. Break-even = $5,000 ÷ $15 = 334 cakes monthly — about 11 cakes per day. Now you know exactly how many cakes you must sell just to survive.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Multi-Item Calculator — Batch Decisions Fast</h3>
-    <p>When you're pricing multiple products, doing each calculation separately wastes time. Enter all your costs and selling prices at once, and see total profit, average margin, and total revenue instantly. Perfect for preparing quotations, inventory pricing, or product launch planning.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Simple & Compound Interest — Understand Your Money</h3>
-    <p>Simple interest is calculated only on the principal. Compound interest is calculated on the principal plus accumulated interest. The difference becomes huge over time. A $10,000 loan at 10% simple interest for 10 years costs $10,000 in interest. The same loan with compound interest costs nearly $16,000. Understanding which applies to your loan or investment is critical.</p>
-    <p><strong>Hidden tip:</strong> Banks usually quote annual rates. If interest compounds quarterly or monthly, the effective rate is higher than the quoted rate. Always ask: "Is this rate compounding, and how often?"</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Percentage Change Calculator — Track Growth</h3>
-    <p>Is your business growing? Revenue went from $50,000 to $65,000 — that's a 30% increase. This calculator instantly shows percentage changes for revenue, expenses, profit, website traffic, or any metric you track. Essential for monthly reports and board presentations.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Cash Flow Calculator — Survive and Thrive</h3>
-    <p>Profit and cash flow are different. You can be profitable on paper but still run out of cash. This calculator shows your net cash position — money in minus money out. Positive cash flow means you're building reserves. Negative means you're burning through savings. Track this monthly to avoid nasty surprises.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Invoice Total Calculator — Bill Accurately</h3>
-    <p>Invoicing errors delay payments. This calculator applies discounts before tax (the correct order in most tax systems) and gives you the exact total to bill. Professional invoices should always show: subtotal, discount, tax, and grand total. This calculator ensures every line is correct.</p>
-
-    <h3 style="font-size:1rem;margin:18px 0 10px;color:#FFD700;">Frequently Asked Questions</h3>
-    <p><strong>Q: Which calculator should I use for pricing?</strong><br>Start with the Selling Price calculator. Enter your cost and target margin, and it gives you the right price.</p>
-    <p><strong>Q: What's the difference between margin and markup?</strong><br>Margin is profit divided by selling price. Markup is profit divided by cost. A 50% markup equals a 33.33% margin.</p>
-    <p><strong>Q: How do I know if my business is profitable?</strong><br>Use the Profit calculator regularly. If your margin stays consistent and positive, you're heading in the right direction.</p>
-    <p><strong>Q: Should I offer discounts?</strong><br>Only after calculating the impact. Use the Discount calculator to see exactly how much profit you're giving away.</p>
-    <p><strong>Q: How accurate are these calculations?</strong><br>These are standard business formulas used worldwide. For complex tax or legal matters, consult a qualified accountant.</p>
-    <p><strong>Q: Can I use this for multiple currencies?</strong><br>Yes! Select from PKR, USD, EUR, GBP, AED, SAR, or INR.</p>
-    <p><strong>Q: Is my data saved?</strong><br>Your calculation history is saved locally in your browser. Nothing is uploaded anywhere.</p>
-    <p><strong>Q: Does this work offline?</strong><br>Yes, once loaded, all calculations work offline.</p>
-    <p><strong>Q: Is this free?</strong><br>Yes, 100% free. No subscription, no ads, no registration.</p>
-    <p><strong>Q: Should I verify these results?</strong><br>For everyday calculations, these are reliable. For critical financial decisions, cross-check with a professional accountant.</p>
-</div>
-
-    <!-- COMPLETE EDUCATIONAL CONTENT -->
-    <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.3);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-        <h2 style="font-size:1rem;margin-bottom:12px;color:#FFD700;">About the Business Calculator Suite</h2>
-        <p>This all-in-one suite brings together the most essential financial calculators for entrepreneurs, accountants, and managers. It now includes 17 powerful calculators covering profit, margin, markup, selling price, discounts, GST/VAT, commission, ROI, break-even, multi-item analysis, simple interest, compound interest, percentage change, cash flow, invoice total, and currency conversion.</p>
-        
-        <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Where Each Calculator Is Useful</h3>
-        <ul style="padding-left:20px;">
-            <li><strong>Profit & Margin:</strong> Retailers, wholesalers, and manufacturers use these to set pricing and measure profitability.</li>
-            <li><strong>Sell Price & Markup:</strong> Essential for quotations and cost-plus pricing strategies.</li>
-            <li><strong>Discount & Reverse Discount:</strong> Useful for sales promotions, clearance, and understanding original prices.</li>
-            <li><strong>GST/VAT:</strong> Critical for tax invoices in countries with value-added tax systems.</li>
-            <li><strong>Commission:</strong> Helps sales teams and agents calculate earnings.</li>
-            <li><strong>ROI:</strong> Investors use this to evaluate returns on business or stock investments.</li>
-            <li><strong>Break-even:</strong> Essential for startups to know how many units they must sell to cover costs.</li>
-            <li><strong>Multi-Item:</strong> For businesses selling multiple products in one invoice.</li>
-            <li><strong>Simple & Compound Interest:</strong> Useful for loans, savings, and investment planning.</li>
-            <li><strong>Percentage Change:</strong> Tracks growth or decline in sales, revenue, or prices over time.</li>
-            <li><strong>Cash Flow:</strong> Monitors money in and out — critical for daily business survival.</li>
-            <li><strong>Invoice Total:</strong> Quickly totals line items with tax for billing.</li>
-            <li><strong>Currency Conversion:</strong> For import/export and international transactions.</li>
-        </ul>
-
-        <p>Every calculation runs instantly in your browser, supports multiple currencies, and gives visual summaries so you can quickly see the health of your business. Built for global use — fast, private, and remarkably easy to operate.</p>
-        <p><strong>Need one specific calculator?</strong> Try our dedicated <a href="profit-margin-calculator.html" style="color:#FFD700;">Profit Margin Calculator</a>.</p>
+<!-- ⬇️⬇️⬇️ CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
+    <div class="ad-zone">
+        <span>📢 Ad Space Available</span>
     </div>
 
-<!-- Combined Footer + Floating WhatsApp -->
-<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" style="position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem;">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — MERGED, SILVER -->
+    <!-- ============================================ -->
+    <div class="detail-section">
+        <h2>📚 The Complete Business Calculator Guide</h2>
 
-<footer style="background:rgba(10,15,20,0.9); border-top:2px solid #D4AF37; padding:30px 20px; margin-top:50px; text-align:center;">
-    <!-- Contact Info -->
+        <p>Running a business requires making hundreds of small financial decisions every week. Each decision — how to price a product, whether to offer a discount, how much tax to charge, how to evaluate an investment — depends on accurate calculations. This suite puts every essential business calculation in one place, so you can make confident decisions without spreadsheet errors or guesswork.</p>
+
+        <h3>Profit Calculator — The Foundation</h3>
+        <p>Profit is the difference between what you sell something for and what it costs you. A product that costs $100 and sells for $150 gives you $50 profit — a 50% markup but only a 33.33% margin. Many new business owners confuse markup and margin, leading to underpricing. This calculator shows both instantly.</p>
+        <p><strong>Real example:</strong> A furniture maker buys raw wood for $200, spends $50 on labor, and sells the table for $400. Total cost = $250. Profit = $150. Markup = 60%. Margin = 37.5%. Understanding that margin means the table yields 37.5% of the sale price as profit — not 60% — changes how you view pricing.</p>
+
+        <h3>Selling Price Calculator — Price With Confidence</h3>
+        <p>Setting the right selling price is one of the hardest decisions in business. Price too high and customers go elsewhere. Price too low and you're leaving money on the table. This calculator sets a price based on your desired profit percentage or margin percentage.</p>
+        <p><strong>Hidden tip:</strong> Margin-based pricing protects your profitability better because it accounts for discounts and negotiations.</p>
+
+        <h3>Margin vs Markup — Know the Difference</h3>
+        <p>Margin is profit divided by selling price. Markup is profit divided by cost. They sound similar but lead to very different pricing. A 50% markup only gives you a 33.33% margin. If you want a true 50% margin, you need to mark up your products by 100%.</p>
+        <p><strong>Common mistake:</strong> Setting prices with markup when you actually need margin. If overhead consumes 40% of revenue and you price with a 40% markup, you're operating at a loss after overhead.</p>
+
+        <h3>Discount Calculator — Protect Your Margins</h3>
+        <p>Discounts drive sales but erode profit quickly. A 10% discount doesn't reduce profit by 10% — it can reduce profit by 30% or more depending on your margin.</p>
+        <p><strong>Real example:</strong> A retailer sells electronics with a 25% margin. A product costs $300 and sells for $400, giving $100 profit. A 15% discount reduces the price to $340, dropping profit to just $40 — a 60% reduction in profit! Always calculate discount impact before promotions.</p>
+
+        <h3>Reverse Discount — Find Original Prices</h3>
+        <p>When you see a sale price and know the discount percentage, this calculator finds the original price. Essential for comparing deals and understanding if "40% off" is really a good price.</p>
+
+        <h3>GST / VAT Calculator — Stay Tax Compliant</h3>
+        <p>Tax errors are expensive. Charging too little means you pay the difference from your own pocket. Charging too much drives customers away. This calculator handles both adding tax to a base price and extracting tax from a total price.</p>
+        <p><strong>Hidden tip:</strong> Different countries have different tax rates. Pakistan GST is typically 17–18%, UAE VAT is 5%, UK VAT is 20%. Always verify your local rate before invoicing.</p>
+
+        <h3>Commission Calculator — Motivate Your Team</h3>
+        <p>Commission structures drive sales teams. A 10% commission on a $10,000 sale is $1,000 — simple. This calculator gives you the base number instantly so you can structure more complex plans on top.</p>
+
+        <h3>ROI Calculator — Measure What Matters</h3>
+        <p>Return on Investment tells you if an investment is worth it. If you invest $10,000 and get back $12,000, your ROI is 20%. But a "20% ROI" means different things over 1 month vs 1 year vs 5 years. Always consider the timeframe when comparing ROIs.</p>
+        <p><strong>Hidden tip:</strong> Compare your ROI against the risk-free rate. If a government bond pays 5% and your business investment ROI is 7%, the additional 2% may not justify the extra risk.</p>
+
+        <h3>Break-Even Calculator — Know Your Minimum</h3>
+        <p>Break-even is the point where revenue equals costs. Below this point you lose money. Above it you profit. This is the first calculation every startup should do before launching.</p>
+        <p><strong>Real example:</strong> A bakery has fixed costs of $5,000 monthly. Each cake costs $10 in ingredients and sells for $25. Contribution per cake = $15. Break-even = $5,000 ÷ $15 = 334 cakes monthly — about 11 cakes per day.</p>
+
+        <h3>Multi-Item Calculator — Batch Decisions Fast</h3>
+        <p>When you're pricing multiple products, doing each calculation separately wastes time. Enter all costs and selling prices at once, and see total profit, average margin, and total revenue instantly.</p>
+
+        <h3>Simple &amp; Compound Interest — Understand Your Money</h3>
+        <p>Simple interest is calculated only on the principal. Compound interest is calculated on the principal plus accumulated interest. A $10,000 loan at 10% simple interest for 10 years costs $10,000 in interest. The same loan with compound interest costs nearly $16,000. The difference is enormous over time.</p>
+        <p><strong>Hidden tip:</strong> Banks usually quote annual rates. If interest compounds quarterly or monthly, the effective rate is higher than the quoted rate. Always ask: "Is this rate compounding, and how often?"</p>
+
+        <h3>Percentage Change Calculator — Track Growth</h3>
+        <p>Is your business growing? Revenue went from $50,000 to $65,000 — that's a 30% increase. This calculator instantly shows percentage changes for revenue, expenses, profit, website traffic, or any metric you track.</p>
+
+        <h3>Cash Flow Calculator — Survive and Thrive</h3>
+        <p>Profit and cash flow are different. You can be profitable on paper but still run out of cash. This calculator shows your net cash position — money in minus money out. Track this monthly to avoid nasty surprises.</p>
+
+        <h3>Invoice Total Calculator — Bill Accurately</h3>
+        <p>Invoicing errors delay payments. This calculator applies discounts before tax (the correct order in most tax systems) and gives you the exact total to bill. Professional invoices should always show: subtotal, discount, tax, and grand total.</p>
+
+        <h3>Frequently Asked Questions</h3>
+        <p><strong>Q: Which calculator should I use for pricing?</strong><br>A: Start with the Selling Price calculator. Enter your cost and target margin, and it gives you the right price.</p>
+        <p><strong>Q: What's the difference between margin and markup?</strong><br>A: Margin is profit divided by selling price. Markup is profit divided by cost. A 50% markup equals a 33.33% margin.</p>
+        <p><strong>Q: How do I know if my business is profitable?</strong><br>A: Use the Profit calculator regularly. If your margin stays consistent and positive, you're heading in the right direction.</p>
+        <p><strong>Q: Should I offer discounts?</strong><br>A: Only after calculating the impact. Use the Discount calculator to see exactly how much profit you're giving away.</p>
+        <p><strong>Q: How accurate are these calculations?</strong><br>A: These are standard business formulas used worldwide. For complex tax or legal matters, consult a qualified accountant.</p>
+        <p><strong>Q: Can I use this for multiple currencies?</strong><br>A: Yes! Select from PKR, USD, EUR, GBP, AED, SAR, or INR.</p>
+        <p><strong>Q: Is my data saved?</strong><br>A: Your calculation history is saved locally in your browser. Nothing is uploaded anywhere.</p>
+        <p><strong>Q: Does this work offline?</strong><br>A: Yes, once loaded, all calculations work offline.</p>
+        <p><strong>Q: Is this free?</strong><br>A: Yes, 100% free. No subscription, no registration required.</p>
+
+        <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ Whether you're pricing products, filing taxes, or evaluating investments — this suite has every calculation you need in one premium tool.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- PAKISTANI / GLOBAL SERVICES BLOCK -->
+    <!-- ============================================ -->
+    <div class="pakistani-block">
+        <h2>🌐 ColdMatrix Advanced Solutions — Business Tools for a Global Market</h2>
+        <p>Our Business Calculator Suite is used daily by entrepreneurs, accountants, and managers across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, and Australia</strong>. From pricing products to computing taxes to tracking cash flow — this suite keeps businesses running smoothly worldwide.</p>
+        <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients globally with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
+        <p>Need a custom business tool, dedicated dashboard, or project quote? Our team responds within 24 hours.</p>
+        <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- RELATED TOOLS -->
+    <!-- ============================================ -->
+    <div class="related-tools-section">
+        <h3>🔗 Related Tools You Might Need</h3>
+        <div>
+            <a href="profit-margin-calculator.html">💰 Profit Margin Calculator</a>
+            <a href="roi-calculator.html">📈 ROI Calculator</a>
+            <a href="startup-cost-calculator.html">🚀 Startup Cost Planner</a>
+            <a href="build-vs-buy-calculator.html">🏗️ Build vs Buy Calculator</a>
+            <a href="quotation-generator.html">📄 Quotation &amp; Invoice Maker</a>
+            <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+            <a href="currency-converter.html">💱 Currency Converter</a>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- LEAD CAPTURE — SILVER -->
+    <!-- ============================================ -->
+    <div class="lead-capture">
+        <h3>🚀 Need a Custom Business Tool?</h3>
+        <p>Get tailored calculators, dashboards, or automation for your business — anywhere in the world. Leave your email and we'll reach out within 24 hours.</p>
+        <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="email" name="email" placeholder="Your work email" required>
+            <button type="submit">Request Custom Tool</button>
+        </form>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- DISCLAIMER — SILVER -->
+    <!-- ============================================ -->
+    <div class="disclaimer-box">
+        <strong>⚠️ Disclaimer:</strong> This calculator suite provides estimates for planning purposes. Results depend on the accuracy of your inputs and local market/tax conditions. Always verify critical financial, tax, and legal decisions with a qualified accountant or professional advisor.
+    </div>
+
+</div>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+
+<footer>
     <div style="margin-bottom:15px;">
         <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
         <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
         <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
-            📞 <strong>Call / WhatsApp:</strong> 
+            📞 <strong>Call / WhatsApp:</strong>
             <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
             <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
                 <i class="fa-brands fa-whatsapp"></i>
@@ -373,21 +632,18 @@
         </p>
     </div>
 
-    <!-- Legal Links -->
     <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
     </div>
 
-    <!-- Copyright -->
     <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
 
 <div class="toast" id="toast">Copied</div>
 
-<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
     const currencySymbols = { PKR: 'Rs', USD: '$', EUR: '€', GBP: '£', AED: 'د.إ', SAR: 'ر.س', INR: '₹' };
     let currentTab = 'profit', lastResult = null;
@@ -419,7 +675,7 @@
     function clearHistory() { calcHistory=[]; localStorage.removeItem('bizCalcHistory'); renderHistory(); }
     function renderHistory() {
         const list = document.getElementById('historyList');
-        if(calcHistory.length===0) { list.innerHTML='<p style="color:#999;">No records yet.</p>'; document.getElementById('historyCard').style.display='none'; return; }
+        if(calcHistory.length===0) { list.innerHTML='<p style="color:#8B98A5;font-size:0.85rem;">No records yet.</p>'; document.getElementById('historyCard').style.display='none'; return; }
         document.getElementById('historyCard').style.display='block';
         list.innerHTML = calcHistory.map(h=>`<div class="history-item"><span>${h.time} — ${h.label}</span></div>`).join('');
     }
@@ -456,7 +712,7 @@
             case 'commission': html = `<div class="grid-2"><div class="field"><label>Sale Amount</label><input type="number" id="comSale" value="10000" step="any"></div><div class="field"><label>Commission %</label><input type="number" id="comPct" value="10" step="any"></div></div><button class="btn-primary" onclick="calcCommission()">Calculate</button>`; break;
             case 'roi': html = `<div class="grid-2"><div class="field"><label>Investment</label><input type="number" id="roiInv" value="100000" step="any"></div><div class="field"><label>Return</label><input type="number" id="roiRet" value="150000" step="any"></div></div><button class="btn-primary" onclick="calcROI()">Calculate</button>`; break;
             case 'breakeven': html = `<div class="grid-3"><div class="field"><label>Fixed Cost</label><input type="number" id="beFixed" value="50000" step="any"></div><div class="field"><label>Variable Cost/Unit</label><input type="number" id="beVar" value="200" step="any"></div><div class="field"><label>Price/Unit</label><input type="number" id="bePrice" value="500" step="any"></div></div><button class="btn-primary" onclick="calcBreakEven()">Calculate</button>`; break;
-            case 'multiitem': html = `<div id="multiItemContainer"><div class="grid-3" style="margin-bottom:10px;"><div class="field"><label>Cost</label><input type="number" class="miCost" placeholder="0"></div><div class="field"><label>Selling Price</label><input type="number" class="miSp" placeholder="0"></div><div class="field"><label>Qty</label><input type="number" class="miQty" value="1" step="any"></div></div><button class="btn-primary" onclick="addMultiItemRow()">+ Add Row</button><button class="btn-primary" style="background:#555;" onclick="calcMultiItem()">Calculate Total</button></div>`; break;
+            case 'multiitem': html = `<div id="multiItemContainer"><div class="grid-3" style="margin-bottom:10px;"><div class="field"><label>Cost</label><input type="number" class="miCost" placeholder="0"></div><div class="field"><label>Selling Price</label><input type="number" class="miSp" placeholder="0"></div><div class="field"><label>Qty</label><input type="number" class="miQty" value="1" step="any"></div></div><button class="btn-primary" onclick="addMultiItemRow()">+ Add Row</button><button class="btn-primary" style="background:var(--silver-bg);" onclick="calcMultiItem()">Calculate Total</button></div>`; break;
             case 'simpleinterest': html = `<div class="grid-2"><div class="field"><label>Principal</label><input type="number" id="siP" value="100000" step="any"></div><div class="field"><label>Rate (% per year)</label><input type="number" id="siR" value="10" step="any"></div></div><div class="grid-2"><div class="field"><label>Time (years)</label><input type="number" id="siT" value="2" step="any"></div><div class="field"><label>Time (months)</label><input type="number" id="siM" value="0" step="any"></div></div><button class="btn-primary" onclick="calcSimpleInterest()">Calculate</button>`; break;
             case 'compoundinterest': html = `<div class="grid-2"><div class="field"><label>Principal</label><input type="number" id="ciP" value="100000" step="any"></div><div class="field"><label>Rate (% per year)</label><input type="number" id="ciR" value="10" step="any"></div></div><div class="grid-2"><div class="field"><label>Time (years)</label><input type="number" id="ciT" value="2" step="any"></div><div class="field"><label>Compounds per year</label><input type="number" id="ciN" value="4" step="any"></div></div><button class="btn-primary" onclick="calcCompoundInterest()">Calculate</button>`; break;
             case 'percentchange': html = `<div class="grid-2"><div class="field"><label>Old Value</label><input type="number" id="pcOld" value="100" step="any"></div><div class="field"><label>New Value</label><input type="number" id="pcNew" value="120" step="any"></div></div><button class="btn-primary" onclick="calcPercentChange()">Calculate</button>`; break;
@@ -468,7 +724,6 @@
         hideGauge();
     }
 
-    // Existing calculation functions
     function calcProfit() { const cp=parseFloat(document.getElementById('cp').value)||0, sp=parseFloat(document.getElementById('sp').value)||0; const profit=sp-cp, pct=cp?(profit/cp)*100:0, margin=sp?(profit/sp)*100:0; const html=`<div class="result-row"><span>Profit</span><span class="val ${profit>=0?'green':'red'}">${formatMoney(profit)}</span></div><div class="result-row"><span>Profit %</span><span class="val">${pct.toFixed(2)}%</span></div><div class="result-row"><span>Margin</span><span class="val">${margin.toFixed(2)}%</span></div>`; showResult(html,{profitAmt:profit},'profit', margin); }
     function calcSellPrice() { const cp=parseFloat(document.getElementById('spCost').value)||0, pp=parseFloat(document.getElementById('spProfitPct').value)||0, mp=parseFloat(document.getElementById('spMarginPct').value); let sp=!isNaN(mp)&&mp>0&&mp<100?cp/(1-mp/100):cp*(1+pp/100); const html=`<div class="result-row"><span>Selling Price</span><span class="val green">${formatMoney(sp)}</span></div>`; showResult(html,{},'sellprice'); }
     function calcMargin() { const cp=parseFloat(document.getElementById('mCost').value)||0, sp=parseFloat(document.getElementById('mSell').value)||0; const profit=sp-cp, margin=sp?(profit/sp)*100:0, markup=cp?(profit/cp)*100:0; const html=`<div class="result-row"><span>Margin</span><span class="val green">${margin.toFixed(2)}%</span></div><div class="result-row"><span>Markup</span><span class="val">${markup.toFixed(2)}%</span></div><div class="result-row"><span>Profit</span><span class="val">${formatMoney(profit)}</span></div>`; showResult(html,{},'margin', margin); }
@@ -481,8 +736,6 @@
     function calcBreakEven() { const fixed=parseFloat(document.getElementById('beFixed').value)||0, vc=parseFloat(document.getElementById('beVar').value)||0, price=parseFloat(document.getElementById('bePrice').value)||0; const contrib=price-vc, units=contrib>0?Math.ceil(fixed/contrib):0, revenue=units*price; const html=`<div class="result-row"><span>Units</span><span class="val green">${fmtInt(units)}</span></div><div class="result-row"><span>Revenue</span><span class="val">${formatMoney(revenue)}</span></div>`; showResult(html,{},'breakeven'); }
     function addMultiItemRow() { const container=document.getElementById('multiItemContainer'); const row=document.createElement('div'); row.className='grid-3'; row.style.marginBottom='8px'; row.innerHTML=`<div class="field"><input type="number" class="miCost" placeholder="Cost"></div><div class="field"><input type="number" class="miSp" placeholder="Selling Price"></div><div class="field"><input type="number" class="miQty" value="1" step="any"></div>`; container.insertBefore(row,container.children[container.children.length-2]); }
     function calcMultiItem() { const costs=document.querySelectorAll('.miCost'), sps=document.querySelectorAll('.miSp'), qtys=document.querySelectorAll('.miQty'); let totalProfit=0,totalCost=0,totalRevenue=0; for(let i=0;i<costs.length;i++){const c=parseFloat(costs[i].value)||0,s=parseFloat(sps[i].value)||0,q=parseFloat(qtys[i].value)||1;totalCost+=c*q;totalRevenue+=s*q;totalProfit+=(s-c)*q;} const avgMargin=totalRevenue?(totalProfit/totalRevenue)*100:0; const html=`<div class="result-row"><span>Total Profit</span><span class="val green">${formatMoney(totalProfit)}</span></div><div class="result-row"><span>Avg Margin</span><span class="val">${avgMargin.toFixed(2)}%</span></div><div class="result-row"><span>Total Revenue</span><span class="val">${formatMoney(totalRevenue)}</span></div>`; showResult(html,{},'multiitem', avgMargin); }
-
-    // New calculation functions
     function calcSimpleInterest() { const p=parseFloat(document.getElementById('siP').value)||0, r=parseFloat(document.getElementById('siR').value)||0, t=parseFloat(document.getElementById('siT').value)||0, m=parseFloat(document.getElementById('siM').value)||0; const years=t+m/12; const interest=p*r*years/100; const total=p+interest; const html=`<div class="result-row"><span>Interest</span><span class="val">${formatMoney(interest)}</span></div><div class="result-row"><span>Total Amount</span><span class="val green">${formatMoney(total)}</span></div>`; showResult(html,{},'simpleinterest'); }
     function calcCompoundInterest() { const p=parseFloat(document.getElementById('ciP').value)||0, r=parseFloat(document.getElementById('ciR').value)||0, t=parseFloat(document.getElementById('ciT').value)||0, n=parseFloat(document.getElementById('ciN').value)||1; const amount=p*Math.pow(1+r/(n*100),n*t); const interest=amount-p; const html=`<div class="result-row"><span>Interest</span><span class="val">${formatMoney(interest)}</span></div><div class="result-row"><span>Total Amount</span><span class="val green">${formatMoney(amount)}</span></div>`; showResult(html,{},'compoundinterest'); }
     function calcPercentChange() { const oldV=parseFloat(document.getElementById('pcOld').value)||0, newV=parseFloat(document.getElementById('pcNew').value)||0; const change=oldV?((newV-oldV)/oldV)*100:0; const html=`<div class="result-row"><span>Change</span><span class="val ${change>=0?'green':'red'}">${change.toFixed(2)}%</span></div>`; showResult(html,{},'percentchange'); }
@@ -503,8 +756,21 @@
     let cmDeferredPrompt;
     window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();cmDeferredPrompt=e;document.getElementById('cmInstallBar').style.display='block';});
     function cmInstallApp(){if(cmDeferredPrompt){cmDeferredPrompt.prompt();cmDeferredPrompt.userChoice.then(()=>{document.getElementById('cmInstallBar').style.display='none';});}else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');}}
-    if('serviceWorker'in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ColdMatrix Business Calculator Suite",
+  "url": "https://coldmatrixtools.com/business-calculator-suite.html",
+  "applicationCategory": "FinanceApplication",
+  "description": "All-in-one business calculator suite: profit, margin, markup, discount, tax, ROI, and break-even.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -512,26 +778,26 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
+      "name": "Which calculator should I use for pricing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+        "text": "Start with the Selling Price calculator. Enter your cost and target margin, and it gives you the right price."
       }
     },
     {
       "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
+      "name": "What's the difference between margin and markup?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+        "text": "Margin is profit divided by selling price. Markup is profit divided by cost. A 50% markup equals a 33.33% margin."
       }
     },
     {
       "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
+      "name": "How accurate are these calculations?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+        "text": "These are standard business formulas used worldwide. For complex tax or legal matters, consult a qualified accountant."
       }
     }
   ]

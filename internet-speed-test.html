@@ -23,9 +23,12 @@
   <meta name="twitter:title" content="ColdMatrix Internet Speed Test — Premium Bandwidth Meter">
   <meta name="twitter:description" content="Measure download, upload, ping & jitter with our luxury speed test.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/speed_test.jpg">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#0A0F14">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23000000'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -33,129 +36,293 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
-      --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --accent2:#2196F3;
+      --text:#EAEDF0; --muted:#8B98A5;
+      --accent:#D4AF37; --accent2:#FFD700;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
-      --silver-gradient:linear-gradient(145deg,#e6eaf0 0%,#a8b0bb 25%,#626a74 50%,#b8c0c9 78%,#8a929c 100%);
-      --silver-gradient-hover:linear-gradient(145deg,#f8fafc 0%,#c0c8d2 30%,#8a929c 55%,#d0d7df 80%,#a8b0bb 100%);
-      --dark-silver:#4a4d55; --whatsapp-green:#25D366;
-      --gauge-bg:#000000; --gauge-track:#151515; --gauge-glow-color:rgba(34,211,238,0.6);
+      --silver-bg:#C8CDD4;
+      --silver-bg-hover:#D5D9DE;
+      --silver-gradient:linear-gradient(145deg,#D5D9DE,#C8CDD4);
+      --dark-silver:#4a4d55;
+      --whatsapp-green:#25D366;
+      --gauge-bg: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
+      --gauge-track:#1a2030;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.08), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.08), transparent 55%), #0D1117;
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), #0B0F14;
       color: var(--text); font-family:'Inter',sans-serif; min-height:100vh;
     }
     .container { max-width:900px; margin:0 auto; padding:0 20px; }
+
+    /* GOLDEN NAVBAR */
     .navbar { position:sticky; top:0; z-index:100; background:rgba(13,17,23,0.94); backdrop-filter:blur(20px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:800; color:var(--accent); text-decoration:none; }
+    .logo { font-size:1.3rem; font-weight:800; color:var(--gold-bright); text-decoration:none; }
     .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.9rem; }
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
-    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
-    .install-bar { background:var(--accent); color:#000; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-    .install-bar button { background:#000; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:10px; font-weight:600; cursor:pointer; }
-    .brand-header { text-align:center; margin:24px 0 4px; }
-    .brand-title { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:700; color:#fff; }
-    .brand-title span { color:var(--accent); }
-    .brand-sub { font-size:1.1rem; color:var(--muted); }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--gold); text-decoration:none; font-weight:600; font-size:0.85rem; }
 
+    /* GOLDEN INSTALL BAR */
+    .install-bar {
+      display: block;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14; text-align:center;
+      padding: 10px 16px; border-radius: 10px; margin: 14px 0;
+      font-weight: 700; font-size: 0.85rem;
+      border: 1px solid #FFD700;
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+    }
+    .install-bar button {
+      background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+      padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+      font-weight: 800; cursor: pointer; font-size: 0.8rem;
+    }
+
+    /* BRAND HEADER */
+    .brand-header { text-align:center; margin:20px 0 6px; }
+    .brand-title { font-family:'Oswald',sans-serif; font-size:2rem; font-weight:700; color:#fff; line-height:1.2; }
+    .brand-title span { color:var(--gold-bright); }
+    .brand-sub { font-size:1rem; color:#EAEDF0; font-weight:500; }
+
+    /* GET QUOTE STRIP */
+    .get-quote-strip { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+    .get-quote-strip .quote-btn {
+      flex: 1; min-width: 140px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 16px;
+      background: var(--silver-bg);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      color: #0A0F14;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800; font-size: 0.85rem;
+      text-decoration: none; cursor: pointer;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition: all 0.25s ease;
+    }
+    .get-quote-strip .quote-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 22px var(--gold-glow); }
+    .get-quote-strip .quote-btn.whatsapp { background: #25D366; color: #fff; border-color: #1da851; }
+    .get-quote-strip .quote-btn.whatsapp:hover { background: #1da851; border-color: #25D366; }
+
+    /* SHARE CARD */
     .share-tool-card {
       background:#0a0d13; border:2px solid;
       border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
       border-radius:12px; padding:16px 18px; margin-bottom:20px;
       box-shadow:0 10px 34px rgba(0,0,0,0.55);
     }
-    .share-tool-title { font-weight:800; font-size:0.85rem; color:var(--gold-bright); text-align:center; margin-bottom:10px; text-transform:uppercase; }
+    .share-tool-title { font-weight:800; font-size:0.85rem; color:var(--gold-bright); text-align:center; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px; }
     .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-    .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:6px; padding:10px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); }
+    .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:6px; padding:10px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); transition: all 0.25s ease; }
+    .share-tool-btn:hover { border-color: var(--gold-bright); box-shadow: 0 0 15px rgba(232,185,58,0.35); }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.5); }
 
-    /* Black gauge section with premium glow */
+    /* AD ZONE */
+    .ad-zone {
+      margin: 20px 0; padding: 20px;
+      background: rgba(212,175,55,0.05);
+      border: 2px dashed var(--gold);
+      border-radius: 12px;
+      text-align: center;
+      min-height: 90px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    /* GAUGE SECTION — premium dark with golden border */
     .gauge-section {
       display:flex; flex-direction:column; align-items:center;
-      background: var(--gauge-bg); border:2px solid var(--gold-bright);
-      border-radius:18px; padding:16px 16px 20px; margin:16px auto;
-      box-shadow: 0 0 30px rgba(0,0,0,0.8), 0 0 40px rgba(79,195,247,0.1);
+      background: var(--gauge-bg);
+      border:2px solid var(--gold);
+      border-radius:20px; padding:20px 16px 24px; margin:16px auto;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 25px rgba(212,175,55,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
     }
     .gauge-svg-wrap { position:relative; width:100%; max-width:340px; aspect-ratio:1/1; margin:0 auto; }
-    .gauge-svg-wrap svg { width:100%; height:100%; filter: drop-shadow(0 0 20px rgba(34,211,238,0.3)); }
+    .gauge-svg-wrap svg { width:100%; height:100%; filter: drop-shadow(0 0 20px rgba(212,175,55,0.3)); }
     .gauge-track { fill:none; stroke:var(--gauge-track); stroke-width:24; }
-    .gauge-arc { fill:none; stroke-width:24; stroke-linecap:round; filter:drop-shadow(0 0 18px var(--gauge-glow-color)); }
+    .gauge-arc { fill:none; stroke-width:24; stroke-linecap:round; filter:drop-shadow(0 0 18px var(--gold-glow)); }
     .gauge-num {
       fill:#ffffff; font-size:12px; font-family:'Oswald',sans-serif; font-weight:700;
       text-anchor:middle; dominant-baseline:middle;
-      text-shadow: 0 0 8px rgba(34,211,238,0.8);
+      text-shadow: 0 0 8px rgba(212,175,55,0.8);
     }
     .gauge-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
-    .gauge-status { font-size:0.85rem; color:#fff; font-weight:700; letter-spacing:1px; text-transform:uppercase; text-shadow:0 0 8px rgba(34,211,238,0.6); }
-    .gauge-value { font-size:3rem; font-weight:800; color:#fff; line-height:1; text-shadow:0 0 20px rgba(34,211,238,0.9); }
+    .gauge-status { font-size:0.82rem; color:#fff; font-weight:700; letter-spacing:1px; text-transform:uppercase; text-shadow:0 0 8px rgba(212,175,55,0.6); }
+    .gauge-value { font-size:3rem; font-weight:800; color:#fff; line-height:1; text-shadow:0 0 20px rgba(212,175,55,0.9); }
     .gauge-unit { font-size:0.85rem; color:var(--gold-bright); font-weight:700; text-shadow:0 0 8px rgba(212,175,55,0.6); }
     .completion-text { text-align:center; font-size:1rem; font-weight:700; color:var(--gold-bright); letter-spacing:2px; display:none; }
     .completion-text.show { display:block; }
 
     .btn-premium {
-      background:var(--silver-gradient); color:#000; border:2px solid var(--gold);
-      padding:14px 40px; border-radius:50px; font-weight:800; font-size:1rem; cursor:pointer;
-      margin:12px auto 0; text-transform:uppercase; letter-spacing:0.5px;
-      text-shadow:0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 6px 24px var(--gold-glow);
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border:2px solid var(--gold);
+      padding:16px 44px; border-radius:50px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 900; font-size:1.05rem; cursor:pointer;
+      margin:14px auto 0; text-transform:uppercase; letter-spacing:1px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4), 0 0 20px var(--gold-glow);
       transition:all 0.25s ease;
+      display: block;
+      min-height: 60px;
+      min-width: 220px;
     }
-    .btn-premium:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+    .btn-premium:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); box-shadow: 0 0 30px var(--gold-glow); }
     .btn-premium.cancel { background:#E8A850; color:#1a1005; border-color:#C88430; box-shadow:0 6px 24px rgba(232,168,80,0.4); }
 
-    .results-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:16px 0; opacity:0; transition:opacity 0.5s; }
+    /* RESULT CARDS — silver premium */
+.results-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:16px 0; opacity:0; transition:opacity 0.5s; }
     .results-grid.show { opacity:1; }
     .result-card {
-      background:var(--silver-gradient); border:2px solid var(--gold-bright); border-radius:14px;
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius:14px;
       padding:16px 12px; text-align:center;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 15px rgba(0,0,0,0.3), 0 0 12px var(--gold-glow);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.7);
     }
-    .result-card .rc-value { font-size:1.5rem; font-weight:800; color:#000; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
+    .result-card .rc-value { font-size:1.5rem; font-weight:800; color:#0A0F14; font-family: 'Oswald', sans-serif; }
     .result-card .rc-unit { font-size:0.7rem; color:#333; font-weight:700; }
-    .result-card .rc-label { font-size:0.7rem; color:#111; margin-top:2px; font-weight:700; text-transform:uppercase; }
+    .result-card .rc-label { font-size:0.7rem; color:#0A0F14; margin-top:2px; font-weight:800; text-transform:uppercase; letter-spacing: 0.5px; }
     .prem-arrow { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; font-size:14px; color:#fff; }
     .prem-down { background:linear-gradient(135deg,#3B6CFF,#22D3EE); box-shadow:0 0 12px rgba(34,211,238,0.4); }
     .prem-up { background:linear-gradient(135deg,#A78BFA,#7C3AED); box-shadow:0 0 12px rgba(167,139,250,0.4); }
 
-    .share-bar { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0; }
-    .share-btn { padding:10px 16px; border-radius:8px; font-weight:700; font-size:0.75rem; cursor:pointer; border:none; color:#fff; text-transform:uppercase; }
-    .share-whatsapp { background:var(--whatsapp-green); }
-    .share-pdf { background:#E53935; }
-    .share-jpg,.share-png { background:var(--dark-silver); }
+/* ============================================ */
+/* SHARE BAR — ELEGANT LIGHT PREMIUM STYLE */
+/* ============================================ */
+.share-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 24px auto;
+  max-width: 720px;
+  padding: 0 8px;
+}
+.share-bar > span {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--gold-bright);
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.share-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border-radius: 14px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: #0A0F14;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  background: #FFFFFF;
+  background-image: linear-gradient(145deg, #FFFFFF, #F0F2F5);
+  border: 2px solid var(--gold);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.9);
+  min-height: 72px;
+  position: relative;
+  overflow: hidden;
+}
+.share-btn i {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+.share-btn:hover {
+  border-color: var(--gold-bright);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.2), 0 0 20px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.9);
+}
+.share-btn:hover i {
+  transform: scale(1.15);
+}
+.share-btn:active {
+  transform: translateY(-1px);
+}
 
+/* Soft, elegant icon colors — accent only */
+.share-whatsapp { color: #128C4A; }
+.share-whatsapp i { color: #25D366; }
+
+.share-pdf { color: #B71C1C; }
+.share-pdf i { color: #E53935; }
+
+.share-jpg { color: #4A2B9E; }
+.share-jpg i { color: #6C5CE7; }
+
+.share-png { color: #A15C00; }
+.share-png i { color: #F59E0B; }
+
+/* Mobile — 2x2 grid */
+@media (max-width: 640px) {
+  .share-bar {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0 4px;
+  }
+  .share-btn {
+    padding: 12px 6px;
+    font-size: 0.7rem;
+    min-height: 68px;
+    gap: 5px;
+  }
+  .share-btn i { font-size: 1.15rem; }
+}
+
+    /* HISTORY */
     .history-section { margin-top:20px; }
-    .history-title { font-size:0.85rem; font-weight:700; color:var(--muted); margin-bottom:8px; }
+    .history-title { font-size:0.85rem; font-weight:700; color:var(--gold-bright); margin-bottom:8px; font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; text-transform: uppercase; }
     .history-item { font-size:0.78rem; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05); color:var(--muted); display:flex; justify-content:space-between; }
-    footer { text-align:center; color:#ccc; font-size:0.78rem; padding:24px 0 16px; border-top:2px solid var(--gold); margin-top:30px; }
-    footer a { color:var(--gold-bright); text-decoration:none; }
-    .whatsapp-float { position:fixed; bottom:18px; right:18px; z-index:999; width:48px; height:48px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.3rem; text-decoration:none; }
-    #shareCapture { display:none; }
-    .note { font-size:0.72rem; color:var(--muted); margin-top:12px; text-align:center; padding-top:10px; border-top:1px solid rgba(255,255,255,0.05); }
 
-    /* 🔍 Learning Section Styles */
-    .learn-section { margin-top:40px; }
+    /* ============================================ */
+    /* EDUCATIONAL CONTENT — SILVER PREMIUM */
+    /* ============================================ */
+    .learn-section { margin-top: 30px; }
     .learn-card {
-      background: rgba(255,255,255,0.04);
-      border: 2px solid rgba(212,175,55,0.35);
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
       border-radius: 16px;
-      padding: 24px 20px;
+      padding: 28px 24px;
       margin-bottom: 20px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      color: #0A0F14;
+      line-height: 1.85;
+      font-size: 0.95rem;
     }
     .learn-card h2 {
       font-family: 'Oswald', sans-serif;
-      font-size: 1.2rem;
-      color: var(--gold-bright);
-      margin-bottom: 12px;
+      font-size: 1.35rem;
+      color: #0A0F14;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 10px;
+      font-weight: 800;
     }
     .learn-card h3 {
-      font-size: 0.95rem;
-      color: var(--gold-bright);
-      margin: 16px 0 8px;
+      font-size: 1.05rem;
+      color: #0A0F14;
+      margin: 18px 0 8px;
+      font-weight: 800;
     }
-    .accordion-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .learn-card p { color: #0A0F14; font-weight: 500; margin-bottom: 12px; }
+
+    /* Accordion on silver */
+    .accordion-item { border-bottom: 1px solid rgba(0,0,0,0.1); }
     .accordion-item:last-child { border-bottom: none; }
     .accordion-head {
       display: flex;
@@ -165,10 +332,10 @@
       cursor: pointer;
       font-weight: 700;
       font-size: 0.9rem;
-      color: #EAEDF0;
+      color: #0A0F14;
     }
     .accordion-head i {
-      color: var(--gold-bright);
+      color: var(--gold);
       transition: transform 0.3s ease;
       font-size: 0.8rem;
     }
@@ -177,50 +344,180 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.35s ease;
-      font-size: 0.85rem;
-      color: var(--muted);
+      font-size: 0.87rem;
+      color: #0A0F14;
       line-height: 1.7;
+      font-weight: 500;
     }
     .accordion-body div { padding: 0 0 16px; }
     .accordion-body table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.85rem;
-      color: var(--text);
-      margin: 8px 0;
+      color: #0A0F14;
+      margin: 10px 0;
+      background: #FFFFFF;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid var(--gold);
     }
-    .accordion-body th, .accordion-body td {
-      padding: 8px 6px;
+    .accordion-body th {
+      padding: 10px 8px;
       text-align: left;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: #0A0F14;
+      color: var(--gold-bright);
+      font-weight: 800;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
+    .accordion-body td {
+      padding: 9px 8px;
+      text-align: left;
+      border-bottom: 1px solid rgba(212,175,55,0.3);
+      color: #0A0F14;
+      font-weight: 600;
+    }
+    .accordion-body tr:last-child td { border-bottom: none; }
     .metric-highlight {
-      background: rgba(255,255,255,0.06);
-      border-left: 3px solid var(--gold-bright);
+      background: #FFFFFF;
+      border-left: 4px solid var(--gold);
       padding: 10px 14px;
       border-radius: 6px;
       margin: 10px 0;
+      color: #0A0F14;
+      font-weight: 600;
     }
+    .metric-highlight strong { color: #0A0F14; }
+
+    /* PAKISTANI BLOCK */
+    .pakistani-block {
+      margin: 30px 0;
+      padding: 24px 20px;
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      color: #0A0F14;
+    }
+    .pakistani-block h2 { color:#0A0F14; font-family:'Oswald',sans-serif; font-size:1.15rem; margin-bottom:12px; font-weight: 800; }
+    .pakistani-block p { color:#0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color:#0A0F14; font-weight: 800; }
+
+    /* RELATED TOOLS */
+    .related-tools-section {
+      margin: 20px 0; padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+    }
+    .related-tools-section h3 { color:var(--gold-bright); font-size:1rem; margin-bottom:10px; font-family:'Oswald',sans-serif; letter-spacing:0.5px; }
+    .related-tools-section a { color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; display: inline-block; margin: 4px 4px 4px 0; }
+
+    /* DISCLAIMER */
+    .disclaimer-box {
+      margin: 20px 0; padding: 16px 18px;
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      font-size: 0.85rem; color: #0A0F14; line-height: 1.7; font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    /* LEAD CAPTURE */
+    .lead-capture {
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 28px 24px;
+      margin: 30px 0;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .lead-capture h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.2rem; margin-bottom:12px; letter-spacing:0.5px; font-weight: 800; }
+    .lead-capture p { color:#0A0F14; margin-bottom:18px; font-size:0.9rem; font-weight: 500; }
+    .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+    .lead-capture input[type="email"] { background:#FFFFFF; border:2px solid var(--gold); border-radius:10px; padding:12px 16px; color:#0A0F14; font-size:0.95rem; font-weight:600; outline:none; }
+    .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .lead-capture button { background: var(--silver-bg); border:2px solid var(--gold); border-radius:10px; padding:14px 20px; font-family:'Oswald',sans-serif; font-weight: 800; font-size: 0.95rem; color:#0A0F14; cursor:pointer; letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.25s ease; }
+    .lead-capture button:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 20px var(--gold-glow); }
+
+    footer { text-align:center; color:#8B98A5; font-size:0.8rem; padding:40px 0 20px; border-top:2px solid var(--gold); margin-top:50px; }
+    footer a { color:var(--gold-bright); text-decoration:none; font-weight: 600; }
+    .whatsapp-float { position:fixed; bottom:18px; right:18px; z-index:999; width:48px; height:48px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.3rem; text-decoration:none; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+    #shareCapture { display:none; }
+    .note { font-size:0.72rem; color:var(--muted); margin-top:12px; text-align:center; padding-top:10px; border-top:1px solid rgba(255,255,255,0.05); }
 
     @media (max-width:600px){
-      .results-grid{grid-template-columns:1fr 1fr;}
-      .gauge-value{font-size:2.2rem;}
-      .brand-title{font-size:1.6rem;}
-      .learn-card { padding: 16px 14px; }
+      .results-grid { grid-template-columns:1fr 1fr; }
+      .results-grid .result-card:last-child { grid-column: span 2 !important; }
+      .gauge-value { font-size:2.2rem; }
+      .brand-title { font-size:1.5rem; }
+      .learn-card { padding: 20px 16px; }
+      .learn-card h2 { font-size: 1.15rem; }
+      .share-bar { grid-template-columns: 1fr 1fr; }
+      .btn-premium { padding: 14px 32px; font-size: 0.95rem; min-width: 200px; min-height: 54px; }
+      .pakistani-block, .lead-capture, .learn-card {
+        margin-left: -6px !important;
+        margin-right: -6px !important;
+        padding: 20px 16px !important;
+      }
     }
   </style>
 </head>
 <body>
-  <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <div class="container">
-  <a href="index.html#tools" class="back-link">← Back to Tools</a>
+    <a href="index.html#tools" class="back-link">← Back to Tools</a>
 
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
-    <div class="brand-header"><h1 class="brand-title">🌐 Cold<span>Matrix</span></h1><div class="brand-sub">Internet Speed Test</div></div>
-    <div class="share-tool-card"><div class="share-tool-title">Share Speed Test</div><div class="share-tool-buttons"><button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button><button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button></div></div>
 
+    <div class="brand-header">
+      <h1 class="brand-title">🌐 Cold<span>Matrix</span></h1>
+      <div class="brand-sub">Internet Speed Test</div>
+    </div>
+
+    <div class="get-quote-strip">
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20network%20or%20speed%20testing." class="quote-btn whatsapp" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Quick Chat
+      </a>
+      <a href="contact.html" class="quote-btn">
+        <i class="fa-solid fa-envelope"></i> Get a Quote
+      </a>
+    </div>
+
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share Speed Test</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
+
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+    <!-- ============================================ -->
+    <!-- GAUGE -->
+    <!-- ============================================ -->
     <div class="gauge-section">
-      <div class="completion-text" id="completionText"> 🧭 Complete</div>
+      <div class="completion-text" id="completionText">🧭 Complete</div>
       <div class="gauge-svg-wrap">
         <svg id="gaugeSvg" viewBox="0 0 400 400">
           <defs>
@@ -228,7 +525,7 @@
               <stop offset="0%" stop-color="#3B6CFF"/>
               <stop offset="35%" stop-color="#22D3EE"/>
               <stop offset="65%" stop-color="#34D399"/>
-              <stop offset="100%" stop-color="#FDE047"/>
+              <stop offset="100%" stop-color="#FFD700"/>
             </linearGradient>
             <filter id="glow">
               <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
@@ -248,27 +545,65 @@
       <button class="btn-premium" id="startBtn">Start Test</button>
     </div>
 
+    <!-- ============================================ -->
+    <!-- RESULTS -->
+    <!-- ============================================ -->
     <div class="results-grid" id="resultsGrid">
-      <div class="result-card"><div><span class="prem-arrow prem-down">▼</span></div><div><span class="rc-value" id="rDown">-</span><span class="rc-unit">Mbps</span></div><div class="rc-label">Download</div></div>
-      <div class="result-card"><div><span class="prem-arrow prem-up">▲</span></div><div><span class="rc-value" id="rUp">-</span><span class="rc-unit">Mbps</span></div><div class="rc-label">Upload</div></div>
-      <div class="result-card"><div>📶</div><div><span class="rc-value" id="rPing">-</span><span class="rc-unit">ms</span></div><div class="rc-label">Ping</div></div>
-      <div class="result-card" style="grid-column:span 2;"><div>〰️</div><div class="rc-label">Jitter: <span id="rJitter">-</span> ms</div></div>
-      <div class="result-card" style="grid-column:span 3;display:flex;align-items:center;gap:10px;"><div>🌐</div><div style="font-size:0.8rem;font-weight:700;color:#000;"><strong id="serverCity">Detecting server...</strong></div></div>
+  <div class="result-card">
+    <div><span class="prem-arrow prem-down">▼</span></div>
+    <div><span class="rc-value" id="rDown">-</span><span class="rc-unit"> Mbps</span></div>
+    <div class="rc-label">Download</div>
+  </div>
+  <div class="result-card">
+    <div><span class="prem-arrow prem-up">▲</span></div>
+    <div><span class="rc-value" id="rUp">-</span><span class="rc-unit"> Mbps</span></div>
+    <div class="rc-label">Upload</div>
+  </div>
+  <div class="result-card">
+    <div>📶</div>
+    <div><span class="rc-value" id="rPing">-</span><span class="rc-unit"> ms</span></div>
+    <div class="rc-label">Ping</div>
+  </div>
+  <div class="result-card">
+    <div>〰️</div>
+    <div><span class="rc-value" id="rJitter">-</span><span class="rc-unit"> ms</span></div>
+    <div class="rc-label">Jitter</div>
+  </div>
+  <div class="result-card" style="grid-column:span 4; display:flex; align-items:center; justify-content:center; gap:10px;">
+    <div>🌐</div>
+    <div style="font-size:0.85rem; font-weight:800; color:#0A0F14;">
+      <strong id="serverCity">Detecting server...</strong>
+    </div>
+  </div>
+</div>
+
+    <!-- ============================================ -->
+    <!-- SHARE BAR -->
+    <!-- ============================================ -->
+    <div class="share-bar" id="shareBarWrap" style="display:none;">
+      <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+      <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+      <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
 
-    <div class="share-bar" id="shareBarWrap" style="display:none;"><button class="share-btn share-whatsapp" onclick="shareWhatsApp()">📱 WhatsApp</button><button class="share-btn share-pdf" onclick="downloadResult('pdf')">📄 PDF</button><button class="share-btn share-jpg" onclick="downloadResult('jpg')">🖼 JPG</button><button class="share-btn share-png" onclick="downloadResult('png')">🖼 PNG</button></div>
-    <div class="history-section"><div class="history-title">Recent Tests</div><div id="historyList"></div></div>
+    <!-- ============================================ -->
+    <!-- HISTORY -->
+    <!-- ============================================ -->
+    <div class="history-section">
+      <div class="history-title">📜 Recent Tests</div>
+      <div id="historyList"></div>
+    </div>
     <div class="note">Results may vary by network conditions.</div>
 
-    <!-- 🔍 COMPREHENSIVE LEARNING SECTION -->
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — SILVER -->
+    <!-- ============================================ -->
     <div class="learn-section">
       <div class="learn-card">
         <h2>📡 Comprehensive Guide: Understanding Your Internet Speed</h2>
-        <p style="font-size:0.9rem; color:var(--muted); margin-bottom:12px;">
-          Internet speed is more than just a number. Here's everything you need to know about download, upload, ping, jitter, and how to get the most from your connection.
-        </p>
+        <p>Internet speed is more than just a number. Here's everything you need to know about download, upload, ping, jitter, and how to get the most from your connection.</p>
 
-        <!-- 1 -->
         <div class="accordion-item">
           <div class="accordion-head" onclick="toggleAccordion(this)">
             <span>1. What does an internet speed test measure?</span>
@@ -278,17 +613,16 @@
             <div>
               A speed test measures four key metrics:
               <div class="metric-highlight">
-                <strong>Download speed</strong> – how fast data comes to you.<br>
-                <strong>Upload speed</strong> – how fast you send data.<br>
-                <strong>Ping (latency)</strong> – the reaction time of your connection.<br>
-                <strong>Jitter</strong> – the consistency of that reaction time.
+                <strong>Download speed</strong> — how fast data comes to you.<br>
+                <strong>Upload speed</strong> — how fast you send data.<br>
+                <strong>Ping (latency)</strong> — the reaction time of your connection.<br>
+                <strong>Jitter</strong> — the consistency of that reaction time.
               </div>
               Together, they give you a complete picture of your internet quality.
             </div>
           </div>
         </div>
 
-        <!-- 2 -->
         <div class="accordion-item">
           <div class="accordion-head" onclick="toggleAccordion(this)">
             <span>2. What is download speed?</span>
@@ -311,7 +645,6 @@
           </div>
         </div>
 
-        <!-- 3 -->
         <div class="accordion-item">
           <div class="accordion-head" onclick="toggleAccordion(this)">
             <span>3. What is upload speed?</span>
@@ -326,7 +659,6 @@
           </div>
         </div>
 
-        <!-- 4 -->
         <div class="accordion-item">
           <div class="accordion-head" onclick="toggleAccordion(this)">
             <span>4. What is ping (latency)?</span>
@@ -347,7 +679,6 @@
           </div>
         </div>
 
-        <!-- 5 -->
         <div class="accordion-item">
           <div class="accordion-head" onclick="toggleAccordion(this)">
             <span>5. What is jitter?</span>
@@ -362,7 +693,6 @@
           </div>
         </div>
 
-        <!-- 6 -->
         <div class="accordion-item">
           <div class="accordion-head" onclick="toggleAccordion(this)">
             <span>6. What is Mbps? Is it the same as MB/s?</span>
@@ -381,7 +711,6 @@
           </div>
         </div>
 
-        <!-- 7 -->
         <div class="accordion-item">
           <div class="accordion-head" onclick="toggleAccordion(this)">
             <span>7. How does the speed test work?</span>
@@ -391,16 +720,15 @@
             <div>
               This speed test follows a standard process:
               <ol style="padding-left:20px; margin:10px 0;">
-                <li><strong>Ping test</strong> – sends tiny packets to a nearby server and measures response time.</li>
-                <li><strong>Download test</strong> – downloads a large random file and measures throughput.</li>
-                <li><strong>Upload test</strong> – uploads a large file and measures throughput.</li>
+                <li><strong>Ping test</strong> — sends tiny packets to a nearby server and measures response time.</li>
+                <li><strong>Download test</strong> — downloads a large random file and measures throughput.</li>
+                <li><strong>Upload test</strong> — uploads a large file and measures throughput.</li>
               </ol>
               All tests run in your browser using Cloudflare's global network. No data is stored on ColdMatrix servers.
             </div>
           </div>
         </div>
 
-        <!-- 8 -->
         <div class="accordion-item">
           <div class="accordion-head" onclick="toggleAccordion(this)">
             <span>8. What factors affect internet speed?</span>
@@ -410,18 +738,17 @@
             <div>
               Several factors can slow down your connection:
               <ul style="padding-left:20px; margin:10px 0;">
-                <li><strong>Wi-Fi interference</strong> – walls, distance, and other devices</li>
-                <li><strong>Network congestion</strong> – many users on the same network</li>
-                <li><strong>Background apps</strong> – cloud backups, streaming, downloads</li>
-                <li><strong>Router quality</strong> – old routers may limit speeds</li>
-                <li><strong>ISP throttling</strong> – some providers slow down during peak times</li>
-                <li><strong>Type of connection</strong> – fiber, cable, DSL, or satellite</li>
+                <li><strong>Wi-Fi interference</strong> — walls, distance, and other devices</li>
+                <li><strong>Network congestion</strong> — many users on the same network</li>
+                <li><strong>Background apps</strong> — cloud backups, streaming, downloads</li>
+                <li><strong>Router quality</strong> — old routers may limit speeds</li>
+                <li><strong>ISP throttling</strong> — some providers slow down during peak times</li>
+                <li><strong>Type of connection</strong> — fiber, cable, DSL, or satellite</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <!-- 9 -->
         <div class="accordion-item">
           <div class="accordion-head" onclick="toggleAccordion(this)">
             <span>9. What is a good internet speed for my household?</span>
@@ -441,7 +768,6 @@
           </div>
         </div>
 
-        <!-- 10 -->
         <div class="accordion-item">
           <div class="accordion-head" onclick="toggleAccordion(this)">
             <span>10. How can I improve my internet speed?</span>
@@ -461,7 +787,6 @@
           </div>
         </div>
 
-        <!-- 11 -->
         <div class="accordion-item">
           <div class="accordion-head" onclick="toggleAccordion(this)">
             <span>11. Why do speed test results vary?</span>
@@ -481,7 +806,6 @@
           </div>
         </div>
 
-        <!-- 12 -->
         <div class="accordion-item">
           <div class="accordion-head" onclick="toggleAccordion(this)">
             <span>12. Sources and disclaimer</span>
@@ -490,231 +814,507 @@
           <div class="accordion-body">
             <div>
               <strong>References:</strong><br>
-              • Federal Communications Commission (FCC) – Broadband Speed Guide<br>
+              • Federal Communications Commission (FCC) — Broadband Speed Guide<br>
               • Cloudflare Speed Test Documentation<br>
-              • Ookla Speedtest Knowledge Base<br>
-              <br>
+              • Ookla Speedtest Knowledge Base<br><br>
               <strong>Disclaimer:</strong> This speed test is for informational purposes only. Results may vary based on your network environment, server load, and device limitations. Always consult your internet service provider for official speed guarantees.
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+    <!-- ============================================ -->
+    <!-- PAKISTANI / GLOBAL BLOCK -->
+    <!-- ============================================ -->
+    <div class="pakistani-block">
+      <h2>🌐 ColdMatrix Advanced Solutions — Network Tools for a Global Community</h2>
+      <p>Our Internet Speed Test is used daily by users across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, Australia, and beyond</strong> — a genuinely global tool for anyone who needs to verify their connection quality.</p>
+      <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients worldwide with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
+      <p>Need a custom network tool, dashboard, or project quote? Our team responds within 24 hours.</p>
+      <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- RELATED TOOLS -->
+    <!-- ============================================ -->
+    <div class="related-tools-section">
+      <h3>🔗 Related Tools You Might Need</h3>
+      <div>
+        <a href="image-converter-tool.html">🖼️ Image Converter</a>
+        <a href="qr-code-generator.html">📱 QR &amp; Barcode Studio</a>
+        <a href="unit-converter.html">📏 Unit Converter</a>
+        <a href="currency-converter.html">💱 Currency Converter</a>
+        <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+        <a href="world-clock.html">🌍 World Clock</a>
+        <a href="age-calculator.html">🎂 Age Calculator</a>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- LEAD CAPTURE -->
+    <!-- ============================================ -->
+    <div class="lead-capture">
+      <h3>🚀 Need a Custom Network Tool?</h3>
+      <p>Get tailored speed tests, network monitors, or automation for your business — anywhere in the world. Leave your email and we'll reach out within 24 hours.</p>
+      <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="email" name="email" placeholder="Your work email" required>
+        <button type="submit">Request Custom Tool</button>
+      </form>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- DISCLAIMER -->
+    <!-- ============================================ -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> Speed test results are for informational purposes only and may vary based on your network environment, device performance, and server load. Results are not a guarantee of your internet service provider's actual speed. Always consult your ISP for official performance details.
+    </div>
+
   </div>
 
-  <div id="shareCapture"><div style="background:#fff;color:#111;border-radius:10px;padding:20px;font-family:'Inter',sans-serif;width:300px;"><div style="font-size:1.1rem;font-weight:800;">❄️ ColdMatrix Speed Test</div><table style="width:100%;margin-top:10px;font-size:0.85rem;"><tr><td>Ping</td><td style="text-align:right;font-weight:700;" id="pvPing"></td></tr><tr><td>Download</td><td style="text-align:right;font-weight:700;color:#2196F3;" id="pvDown"></td></tr><tr><td>Upload</td><td style="text-align:right;font-weight:700;color:#2196F3;" id="pvUp"></td></tr></table><div style="font-size:0.6rem;color:#888;margin-top:12px;border-top:1px solid #eee;padding-top:8px;">contact@coldmatrixtools.com | +92 333 3228470</div></div></div>
+  <!-- Hidden share capture -->
+  <div id="shareCapture">
+    <div style="background:#fff;color:#111;border-radius:10px;padding:20px;font-family:'Inter',sans-serif;width:300px;">
+      <div style="font-size:1.1rem;font-weight:800;">❄️ ColdMatrix Speed Test</div>
+      <table style="width:100%;margin-top:10px;font-size:0.85rem;">
+        <tr><td>Ping</td><td style="text-align:right;font-weight:700;" id="pvPing"></td></tr>
+        <tr><td>Download</td><td style="text-align:right;font-weight:700;color:#2196F3;" id="pvDown"></td></tr>
+        <tr><td>Upload</td><td style="text-align:right;font-weight:700;color:#2196F3;" id="pvUp"></td></tr>
+      </table>
+      <div style="font-size:0.6rem;color:#888;margin-top:12px;border-top:1px solid #eee;padding-top:8px;">contact@coldmatrixtools.com | +92 333 3228470</div>
+    </div>
+  </div>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
 
 <footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-  <a href="https://wa.me/923333228470" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
-  <!-- Enhanced gauge script -->
-  <script>
-    const CX=200,CY=200,R=160,START=135,SWEEP=270,NUMS=[0,1,5,10,20,50,100,200,500,1000];
-    const NUM_ANGLES = NUMS.map(v=>v2f(v));
-    function v2f(v){return Math.min(1,Math.max(0,Math.log10(Math.max(0,v)+1)/Math.log10(1001)));}
-    function ang(f){return START+f*SWEEP;}
-    function pt(a,r){const rad=a*Math.PI/180;return{x:CX+r*Math.cos(rad),y:CY+r*Math.sin(rad)};}
+<!-- ============================================ -->
+<!-- GAUGE + SPEED TEST SCRIPTS -->
+<!-- ============================================ -->
+<script>
+  const CX=200,CY=200,R=160,START=135,SWEEP=270,NUMS=[0,1,5,10,20,50,100,200,500,1000];
+  function v2f(v){return Math.min(1,Math.max(0,Math.log10(Math.max(0,v)+1)/Math.log10(1001)));}
+  function ang(f){return START+f*SWEEP;}
+  function pt(a,r){const rad=a*Math.PI/180;return{x:CX+r*Math.cos(rad),y:CY+r*Math.sin(rad)};}
 
-    function buildGauge(){
-      const svg=document.getElementById('gaugeSvg');
-      // Track
-      const tr=document.createElementNS('http://www.w3.org/2000/svg','path');
-      tr.setAttribute('class','gauge-track');
-      const s=pt(START,R),e=pt(START+SWEEP,R);
-      tr.setAttribute('d',`M ${s.x} ${s.y} A ${R} ${R} 0 1 1 ${e.x} ${e.y}`);
-      svg.appendChild(tr);
+  function buildGauge(){
+    const svg=document.getElementById('gaugeSvg');
 
-      // LED dots along track (subtle)
-      const dotsGroup=document.createElementNS('http://www.w3.org/2000/svg','g');
-      dotsGroup.setAttribute('id','ledDots');
-      for(let i=0;i<=40;i++){
-        const f=i/40;
-        const a=ang(f);
-        const p=pt(a,R+4);
-        const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
-        dot.setAttribute('cx',p.x); dot.setAttribute('cy',p.y);
-        dot.setAttribute('r',3);
-        dot.setAttribute('fill','#22D3EE');
-        dot.setAttribute('opacity','0');
-        dotsGroup.appendChild(dot);
-      }
-      svg.appendChild(dotsGroup);
+    // Track
+    const tr=document.createElementNS('http://www.w3.org/2000/svg','path');
+    tr.setAttribute('class','gauge-track');
+    const s=pt(START,R),e=pt(START+SWEEP,R);
+    tr.setAttribute('d',`M ${s.x} ${s.y} A ${R} ${R} 0 1 1 ${e.x} ${e.y}`);
+    svg.appendChild(tr);
 
-      // Numbers
-      NUMS.forEach((v,i)=>{
-        const a=ang(v2f(v)),lp=pt(a,R-30);
-        const tx=document.createElementNS('http://www.w3.org/2000/svg','text');
-        tx.setAttribute('x',lp.x);tx.setAttribute('y',lp.y);tx.setAttribute('class','gauge-num');
-        tx.textContent=v>=1000?'1K':v;
-        tx.setAttribute('filter','url(#glow)');
-        svg.appendChild(tx);
-      });
-
-      // Arc
-      const arc=document.createElementNS('http://www.w3.org/2000/svg','path');
-      arc.setAttribute('id','gaugeArc');arc.setAttribute('class','gauge-arc');arc.setAttribute('stroke','url(#arcGrad)');
-      arc.setAttribute('filter','url(#glow)');
-      svg.appendChild(arc);
-
-      // Needle
-      const nd=document.createElementNS('http://www.w3.org/2000/svg','g');
-      nd.setAttribute('id','gaugeNeedle');
-      nd.innerHTML=`<polygon points="${CX-4},${CY} ${CX+85},${CY-3} ${CX+75},${CY} ${CX+85},${CY+3}" fill="#4FC3F7" stroke="#22D3EE" stroke-width="1.5" filter="url(#glow)"/><circle cx="${CX}" cy="${CY}" r="9" fill="#4FC3F7" stroke="#22D3EE" stroke-width="2" filter="url(#glow)"/>`;
-      svg.appendChild(nd);
-      setArc(0);
+    // LED dots
+    const dotsGroup=document.createElementNS('http://www.w3.org/2000/svg','g');
+    dotsGroup.setAttribute('id','ledDots');
+    for(let i=0;i<=40;i++){
+      const f=i/40;
+      const a=ang(f);
+      const p=pt(a,R+4);
+      const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot.setAttribute('cx',p.x); dot.setAttribute('cy',p.y);
+      dot.setAttribute('r',3);
+      dot.setAttribute('fill','#FFD700');
+      dot.setAttribute('opacity','0');
+      dotsGroup.appendChild(dot);
     }
+    svg.appendChild(dotsGroup);
 
-    function arcPath(sD,eD,r){const a=pt(sD,r),b=pt(eD,r);return `M ${a.x} ${a.y} A ${r} ${r} 0 ${(eD-sD)>180?1:0} 1 ${b.x} ${b.y}`;}
-    function setArc(f){
-      f=Math.min(1,Math.max(0,f));
-      const eA=START+f*SWEEP;
-      const arc=document.getElementById('gaugeArc');
-      if(f>0.002){
-        arc.setAttribute('d',arcPath(START,eA,R));
-        arc.style.display='block';
-      } else {
-        arc.style.display='none';
-      }
-      document.getElementById('gaugeNeedle').setAttribute('transform',`rotate(${eA-START} ${CX} ${CY})`);
-      // Update LED dots
-      const dots=document.querySelectorAll('#ledDots circle');
-      dots.forEach((dot,index)=>{
-        const dotF=index/(dots.length-1);
-        dot.setAttribute('opacity', dotF <= f ? '1' : '0');
-      });
-    }
+    // Numbers
+    NUMS.forEach(v=>{
+      const a=ang(v2f(v));
+      const lp=pt(a,R-30);
+      const tx=document.createElementNS('http://www.w3.org/2000/svg','text');
+      tx.setAttribute('x',lp.x);
+      tx.setAttribute('y',lp.y);
+      tx.setAttribute('class','gauge-num');
+      tx.textContent=v>=1000?'1K':v;
+      tx.setAttribute('filter','url(#glow)');
+      svg.appendChild(tx);
+    });
 
-    function animNum(target,dur=500){
-      const el=document.getElementById('gaugeValueNum'),s=parseFloat(el.textContent)||0,st=performance.now();
-      function step(now){
-        const t=Math.min(1,(now-st)/dur),val=s+(target-s)*(1-Math.pow(1-t,3));
-        el.textContent=val.toFixed(1);
-        setArc(v2f(val));
-        if(t<1)requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
+    // Arc
+    const arc=document.createElementNS('http://www.w3.org/2000/svg','path');
+    arc.setAttribute('id','gaugeArc');
+    arc.setAttribute('class','gauge-arc');
+    arc.setAttribute('stroke','url(#arcGrad)');
+    arc.setAttribute('filter','url(#glow)');
+    svg.appendChild(arc);
 
-    // Original speed test functions (unchanged)
-    let abortCtrl=null,xhr=null,cancelled=false;
-    async function ping(s=6){const t=[];for(let i=0;i<s;i++){if(cancelled)break;const t0=performance.now();try{abortCtrl=new AbortController();await fetch('https://speed.cloudflare.com/__down?bytes=1000&'+Math.random(),{signal:abortCtrl.signal});t.push(performance.now()-t0);}catch(e){}await new Promise(r=>setTimeout(r,50));}if(!t.length)return null;const p=Math.min(...t),avg=t.reduce((a,b)=>a+b,0)/t.length;return{ping:p,jitter:Math.sqrt(t.reduce((a,b)=>a+Math.pow(b-avg,2),0)/t.length)};}
-    async function dl(onP){const sz=24e6,t0=performance.now();abortCtrl=new AbortController();const r=await fetch('https://speed.cloudflare.com/__down?bytes='+sz+'&'+Math.random(),{signal:abortCtrl.signal});const rd=r.body.getReader();let rc=0;while(true){if(cancelled)break;const{done,value}=await rd.read();if(done)break;rc+=value.length;const el=(performance.now()-t0)/1000;if(el>0.05)onP((rc*8)/el/1e6);}return(rc*8)/((performance.now()-t0)/1000)/1e6;}
-    async function ul(onP){return new Promise(res=>{const sz=8e6,d=new Blob([new Uint8Array(sz)]),x=new XMLHttpRequest();xhr=x;const t0=performance.now();x.open('POST','https://speed.cloudflare.com/__up',true);x.upload.onprogress=function(e){const el=(performance.now()-t0)/1000;if(el>0.05&&e.loaded)onP((e.loaded*8)/el/1e6);};x.onloadend=function(){if(!cancelled)res((sz*8)/((performance.now()-t0)/1000)/1e6);};x.onerror=function(){res(null);};x.onabort=function(){res(null);};x.send(d);});}
+    // Needle
+    const nd=document.createElementNS('http://www.w3.org/2000/svg','g');
+    nd.setAttribute('id','gaugeNeedle');
+    nd.innerHTML=`<polygon points="${CX-4},${CY} ${CX+85},${CY-3} ${CX+75},${CY} ${CX+85},${CY+3}" fill="#FFD700" stroke="#D4AF37" stroke-width="1.5" filter="url(#glow)"/><circle cx="${CX}" cy="${CY}" r="9" fill="#FFD700" stroke="#D4AF37" stroke-width="2" filter="url(#glow)"/>`;
+    svg.appendChild(nd);
 
-    function cancel(){
-      cancelled=true;if(abortCtrl)abortCtrl.abort();if(xhr)xhr.abort();
-      document.getElementById('startBtn').classList.remove('cancel');document.getElementById('startBtn').textContent='Test Again';
-      document.getElementById('gaugeStatus').textContent='Ready';document.getElementById('gaugeUnit').textContent='Mbps';
-      document.getElementById('completionText').classList.remove('show');animNum(0,300);
-    }
-
-    async function run(){
-      cancelled=false;const b=document.getElementById('startBtn');b.textContent='Cancel Test';b.classList.add('cancel');
-      document.getElementById('resultsGrid').classList.remove('show');document.getElementById('shareBarWrap').style.display='none';
-      document.getElementById('completionText').classList.remove('show');
-      document.getElementById('gaugeStatus').textContent='⚡ Ping...';animNum(0,150);
-      const pRes=await ping();if(cancelled)return;
-      document.getElementById('rPing').textContent=pRes&&pRes.ping?pRes.ping.toFixed(0):'—';
-      document.getElementById('rJitter').textContent=pRes&&pRes.jitter?pRes.jitter.toFixed(1):'—';
-      document.getElementById('gaugeStatus').textContent='⬇ Download...';document.getElementById('gaugeUnit').textContent='Mbps ↓';
-      let down=0;try{down=await dl(m=>animNum(m,100));}catch(e){}if(cancelled)return;
-      animNum(down,250);document.getElementById('rDown').textContent=down?down.toFixed(1):'—';
-      await new Promise(r=>setTimeout(r,400));if(cancelled)return;
-      document.getElementById('gaugeStatus').textContent='⬆ Upload...';document.getElementById('gaugeUnit').textContent='Mbps ↑';
-      animNum(0,200);await new Promise(r=>setTimeout(r,200));
-      let up=null;try{up=await ul(m=>animNum(m,100));}catch(e){}if(cancelled)return;
-      if(up){animNum(up,250);}document.getElementById('rUp').textContent=up?up.toFixed(1):'—';
-      document.getElementById('gaugeStatus').textContent='';document.getElementById('gaugeUnit').textContent='Mbps';
-      document.getElementById('completionText').classList.add('show');
-      document.getElementById('resultsGrid').classList.add('show');document.getElementById('shareBarWrap').style.display='flex';
-      b.classList.remove('cancel');b.textContent='Test Again';
-      fetch('https://speed.cloudflare.com/meta',{cache:'no-store'}).then(r=>r.json()).then(d=>{document.getElementById('serverCity').textContent=(d.city||'Global')+(d.country?', '+d.country:'');}).catch(()=>{document.getElementById('serverCity').textContent='Global Network';});
-      const hist=JSON.parse(localStorage.getItem('cm_speed')||'[]');
-      hist.unshift({down:down?down.toFixed(1):'—',up:up?up.toFixed(1):'—',ping:pRes&&pRes.ping?pRes.ping.toFixed(0):'—',time:new Date().toISOString()});
-      localStorage.setItem('cm_speed',JSON.stringify(hist.slice(0,5)));renderHist();
-      document.getElementById('pvPing').textContent=(pRes&&pRes.ping?pRes.ping.toFixed(0):'—')+' ms';
-      document.getElementById('pvDown').textContent=(down?down.toFixed(1):'—')+' Mbps';
-      document.getElementById('pvUp').textContent=(up?up.toFixed(1):'—')+' Mbps';
-    }
-
-    function renderHist(){const h=JSON.parse(localStorage.getItem('cm_speed')||'[]');const w=document.getElementById('historyList');if(!h.length){w.innerHTML='<div style="color:var(--muted);">No tests yet.</div>';return;}w.innerHTML=h.map(x=>`<div class="history-item"><span>${new Date(x.time).toLocaleDateString()}</span><span>↓${x.down} ↑${x.up} ${x.ping}ms</span></div>`).join('');}
-
-    async function cap(){const e=document.getElementById('shareCapture');e.style.display='block';const c=await html2canvas(e,{backgroundColor:'#fff',scale:2});e.style.display='none';return c;}
-    async function dlR(t){const c=await cap();if(t==='pdf'){const{jsPDF}=window.jspdf;const i=c.toDataURL('image/jpeg',0.9);const p=new jsPDF({orientation:c.width>c.height?'l':'p',unit:'px',format:[c.width,c.height]});p.addImage(i,'JPEG',0,0,c.width,c.height);p.save('Speed-Test.pdf');}else{const a=document.createElement('a');a.download='Speed-Test.'+t;a.href=c.toDataURL(t==='jpg'?'image/jpeg':'image/png',0.9);a.click();}}
-    async function shWA(){const c=await cap();c.toBlob(async(b)=>{const f=new File([b],'test.png',{type:'image/png'});const cap='ColdMatrix Speed Test\ncontact@coldmatrixtools.com | +92 333 3228470';if(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Speed Test',text:cap});}catch(e){}}else{const a=document.createElement('a');a.download='test.png';a.href=c.toDataURL('image/png');a.click();window.open('https://wa.me/?text='+encodeURIComponent(cap));}});}
-    function shareWhatsApp(){shWA();}
-    function downloadResult(t){dlR(t);}
-
-    function toggleAccordion(head){
-      const body = head.nextElementSibling;
-      const isOpen = head.classList.contains('open');
-      document.querySelectorAll('.accordion-head').forEach(h => {
-        h.classList.remove('open');
-        h.nextElementSibling.style.maxHeight = null;
-      });
-      if (!isOpen) {
-        head.classList.add('open');
-        body.style.maxHeight = body.scrollHeight + 'px';
-      }
-    }
-
-    let dp;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;document.getElementById('installBarTool').style.display='block';});
-    function installAppTool(){if(dp){dp.prompt();dp.userChoice.then(()=>{document.getElementById('installBarTool').style.display='none';});}else{alert('Add to Home Screen via browser menu.');}}
-    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
-    function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Internet Speed Test: '+location.href));}
-    function copyToolLink(){navigator.clipboard.writeText(location.href).then(()=>alert('Copied!'));}
-
-    window.addEventListener('DOMContentLoaded',()=>{buildGauge();renderHist();document.getElementById('startBtn').addEventListener('click',function(){if(this.classList.contains('cancel')){cancel();}else{run();}});});
-  </script>
-
-  <!-- FAQ Schema for Google Rich Results -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What does an internet speed test measure?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "It measures download speed, upload speed, ping (latency), and jitter."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is a good internet speed?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "For HD streaming, 5-10 Mbps is enough. For 4K streaming or multiple devices, 25 Mbps or higher is recommended. Ping under 50 ms is ideal for gaming."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Why do speed test results vary?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Results can vary due to server distance, network congestion, Wi-Fi interference, background apps, and time of day."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How can I improve my internet speed?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Use a wired connection, place your router centrally, close bandwidth-heavy apps, update router firmware, and switch to a less crowded Wi-Fi channel."
-        }
-      }
-    ]
+    setArc(0);
   }
-  </script>
+
+  function arcPath(sD,eD,r){
+    const a=pt(sD,r),b=pt(eD,r);
+    return `M ${a.x} ${a.y} A ${r} ${r} 0 ${(eD-sD)>180?1:0} 1 ${b.x} ${b.y}`;
+  }
+
+  function setArc(f){
+    f=Math.min(1,Math.max(0,f));
+    const eA=START+f*SWEEP;
+    const arc=document.getElementById('gaugeArc');
+    if(f>0.002){
+      arc.setAttribute('d',arcPath(START,eA,R));
+      arc.style.display='block';
+    } else {
+      arc.style.display='none';
+    }
+    document.getElementById('gaugeNeedle').setAttribute('transform',`rotate(${eA-START} ${CX} ${CY})`);
+    const dots=document.querySelectorAll('#ledDots circle');
+    dots.forEach((dot,index)=>{
+      const dotF=index/(dots.length-1);
+      dot.setAttribute('opacity', dotF <= f ? '1' : '0');
+    });
+  }
+
+  function animNum(target,dur=500){
+    const el=document.getElementById('gaugeValueNum');
+    const s=parseFloat(el.textContent)||0;
+    const st=performance.now();
+    function step(now){
+      const t=Math.min(1,(now-st)/dur);
+      const val=s+(target-s)*(1-Math.pow(1-t,3));
+      el.textContent=val.toFixed(1);
+      setArc(v2f(val));
+      if(t<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // ============================================
+  // SPEED TEST
+  // ============================================
+  let abortCtrl=null,xhr=null,cancelled=false;
+
+  async function ping(s=6){
+    const t=[];
+    for(let i=0;i<s;i++){
+      if(cancelled)break;
+      const t0=performance.now();
+      try{
+        abortCtrl=new AbortController();
+        await fetch('https://speed.cloudflare.com/__down?bytes=1000&'+Math.random(),{signal:abortCtrl.signal});
+        t.push(performance.now()-t0);
+      }catch(e){}
+      await new Promise(r=>setTimeout(r,50));
+    }
+    if(!t.length)return null;
+    const p=Math.min(...t);
+    const avg=t.reduce((a,b)=>a+b,0)/t.length;
+    return {ping:p,jitter:Math.sqrt(t.reduce((a,b)=>a+Math.pow(b-avg,2),0)/t.length)};
+  }
+
+  async function dl(onP){
+    const sz=24e6;
+    const t0=performance.now();
+    abortCtrl=new AbortController();
+    const r=await fetch('https://speed.cloudflare.com/__down?bytes='+sz+'&'+Math.random(),{signal:abortCtrl.signal});
+    const rd=r.body.getReader();
+    let rc=0;
+    while(true){
+      if(cancelled)break;
+      const{done,value}=await rd.read();
+      if(done)break;
+      rc+=value.length;
+      const el=(performance.now()-t0)/1000;
+      if(el>0.05)onP((rc*8)/el/1e6);
+    }
+    return (rc*8)/((performance.now()-t0)/1000)/1e6;
+  }
+
+  async function ul(onP){
+    return new Promise(res=>{
+      const sz=8e6;
+      const d=new Blob([new Uint8Array(sz)]);
+      const x=new XMLHttpRequest();
+      xhr=x;
+      const t0=performance.now();
+      x.open('POST','https://speed.cloudflare.com/__up',true);
+      x.upload.onprogress=function(e){
+        const el=(performance.now()-t0)/1000;
+        if(el>0.05&&e.loaded)onP((e.loaded*8)/el/1e6);
+      };
+      x.onloadend=function(){
+        if(!cancelled)res((sz*8)/((performance.now()-t0)/1000)/1e6);
+      };
+      x.onerror=function(){res(null);};
+      x.onabort=function(){res(null);};
+      x.send(d);
+    });
+  }
+
+  function cancel(){
+    cancelled=true;
+    if(abortCtrl)abortCtrl.abort();
+    if(xhr)xhr.abort();
+    document.getElementById('startBtn').classList.remove('cancel');
+    document.getElementById('startBtn').textContent='Test Again';
+    document.getElementById('gaugeStatus').textContent='Ready';
+    document.getElementById('gaugeUnit').textContent='Mbps';
+    document.getElementById('completionText').classList.remove('show');
+    animNum(0,300);
+  }
+
+  async function run(){
+    cancelled=false;
+    const b=document.getElementById('startBtn');
+    b.textContent='Cancel Test';
+    b.classList.add('cancel');
+    document.getElementById('resultsGrid').classList.remove('show');
+    document.getElementById('shareBarWrap').style.display='none';
+    document.getElementById('completionText').classList.remove('show');
+
+    // Ping
+    document.getElementById('gaugeStatus').textContent='⚡ Ping...';
+    animNum(0,150);
+    const pRes=await ping();
+    if(cancelled)return;
+    document.getElementById('rPing').textContent=pRes&&pRes.ping?pRes.ping.toFixed(0):'—';
+    document.getElementById('rJitter').textContent=pRes&&pRes.jitter?pRes.jitter.toFixed(1):'—';
+
+    // Download
+    document.getElementById('gaugeStatus').textContent='⬇ Download...';
+    document.getElementById('gaugeUnit').textContent='Mbps ↓';
+    let down=0;
+    try{down=await dl(m=>animNum(m,100));}catch(e){}
+    if(cancelled)return;
+    animNum(down,250);
+    document.getElementById('rDown').textContent=down?down.toFixed(1):'—';
+    await new Promise(r=>setTimeout(r,400));
+    if(cancelled)return;
+
+    // Upload
+    document.getElementById('gaugeStatus').textContent='⬆ Upload...';
+    document.getElementById('gaugeUnit').textContent='Mbps ↑';
+    animNum(0,200);
+    await new Promise(r=>setTimeout(r,200));
+    let up=null;
+    try{up=await ul(m=>animNum(m,100));}catch(e){}
+    if(cancelled)return;
+    if(up){animNum(up,250);}
+    document.getElementById('rUp').textContent=up?up.toFixed(1):'—';
+
+    // Final
+    document.getElementById('gaugeStatus').textContent='';
+    document.getElementById('gaugeUnit').textContent='Mbps';
+    document.getElementById('completionText').classList.add('show');
+    document.getElementById('resultsGrid').classList.add('show');
+    document.getElementById('shareBarWrap').style.display='grid';
+    b.classList.remove('cancel');
+    b.textContent='Test Again';
+
+    // Server info
+    fetch('https://speed.cloudflare.com/meta',{cache:'no-store'})
+      .then(r=>r.json())
+      .then(d=>{
+        document.getElementById('serverCity').textContent=(d.city||'Global')+(d.country?', '+d.country:'');
+      })
+      .catch(()=>{
+        document.getElementById('serverCity').textContent='Global Network';
+      });
+
+    // Save history
+    const hist=JSON.parse(localStorage.getItem('cm_speed')||'[]');
+    hist.unshift({
+      down:down?down.toFixed(1):'—',
+      up:up?up.toFixed(1):'—',
+      ping:pRes&&pRes.ping?pRes.ping.toFixed(0):'—',
+      time:new Date().toISOString()
+    });
+    localStorage.setItem('cm_speed',JSON.stringify(hist.slice(0,5)));
+    renderHist();
+
+    // Populate share capture
+    document.getElementById('pvPing').textContent=(pRes&&pRes.ping?pRes.ping.toFixed(0):'—')+' ms';
+    document.getElementById('pvDown').textContent=(down?down.toFixed(1):'—')+' Mbps';
+    document.getElementById('pvUp').textContent=(up?up.toFixed(1):'—')+' Mbps';
+  }
+
+  function renderHist(){
+    const h=JSON.parse(localStorage.getItem('cm_speed')||'[]');
+    const w=document.getElementById('historyList');
+    if(!h.length){
+      w.innerHTML='<div style="color:var(--muted); font-size:0.85rem;">No tests yet.</div>';
+      return;
+    }
+    w.innerHTML=h.map(x=>`<div class="history-item"><span>${new Date(x.time).toLocaleDateString()}</span><span>↓${x.down} ↑${x.up} ${x.ping}ms</span></div>`).join('');
+  }
+
+  // Share functions
+  async function cap(){
+    const e=document.getElementById('shareCapture');
+    e.style.display='block';
+    const c=await html2canvas(e,{backgroundColor:'#fff',scale:2});
+    e.style.display='none';
+    return c;
+  }
+
+  async function dlR(t){
+    const c=await cap();
+    if(t==='pdf'){
+      const{jsPDF}=window.jspdf;
+      const i=c.toDataURL('image/jpeg',0.9);
+      const p=new jsPDF({orientation:c.width>c.height?'l':'p',unit:'px',format:[c.width,c.height]});
+      p.addImage(i,'JPEG',0,0,c.width,c.height);
+      p.save('Speed-Test.pdf');
+    } else {
+      const a=document.createElement('a');
+      a.download='Speed-Test.'+t;
+      a.href=c.toDataURL(t==='jpg'?'image/jpeg':'image/png',0.9);
+      a.click();
+    }
+  }
+
+  async function shWA(){
+    const c=await cap();
+    c.toBlob(async(b)=>{
+      const f=new File([b],'test.png',{type:'image/png'});
+      const capText='ColdMatrix Speed Test\ncontact@coldmatrixtools.com | +92 333 3228470';
+      if(navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){
+        try{await navigator.share({files:[f],title:'Speed Test',text:capText});}catch(e){}
+      } else {
+        const a=document.createElement('a');
+        a.download='test.png';
+        a.href=c.toDataURL('image/png');
+        a.click();
+        window.open('https://wa.me/?text='+encodeURIComponent(capText));
+      }
+    });
+  }
+
+  function shareWhatsApp(){shWA();}
+  function downloadResult(t){dlR(t);}
+
+  function toggleAccordion(head){
+    const body = head.nextElementSibling;
+    const isOpen = head.classList.contains('open');
+    document.querySelectorAll('.accordion-head').forEach(h => {
+      h.classList.remove('open');
+      h.nextElementSibling.style.maxHeight = null;
+    });
+    if (!isOpen) {
+      head.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  }
+
+  let dp;
+  window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault();
+    dp=e;
+    document.getElementById('installBarTool').style.display='block';
+  });
+  function installAppTool(){
+    if(dp){
+      dp.prompt();
+      dp.userChoice.then(()=>{
+        document.getElementById('installBarTool').style.display='none';
+      });
+    } else {
+      alert('📱 Add to Home Screen via browser menu.');
+    }
+  }
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('/service-worker.js').catch(()=>{});
+  }
+  function shareToolWhatsApp(){
+    window.open('https://wa.me/?text='+encodeURIComponent('Internet Speed Test: '+location.href));
+  }
+  function copyToolLink(){
+    navigator.clipboard.writeText(location.href).then(()=>alert('Link copied!'));
+  }
+
+  window.addEventListener('DOMContentLoaded',()=>{
+    buildGauge();
+    renderHist();
+    document.getElementById('startBtn').addEventListener('click',function(){
+      if(this.classList.contains('cancel')){
+        cancel();
+      } else {
+        run();
+      }
+    });
+  });
+</script>
+
+<!-- FAQ Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does an internet speed test measure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It measures download speed, upload speed, ping (latency), and jitter."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a good internet speed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For HD streaming, 5-10 Mbps is enough. For 4K streaming or multiple devices, 25 Mbps or higher is recommended. Ping under 50 ms is ideal for gaming."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do speed test results vary?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Results can vary due to server distance, network congestion, Wi-Fi interference, background apps, and time of day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I improve my internet speed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use a wired connection, place your router centrally, close bandwidth-heavy apps, update router firmware, and switch to a less crowded Wi-Fi channel."
+      }
+    }
+  ]
+}
+</script>
 </body>
 </html>

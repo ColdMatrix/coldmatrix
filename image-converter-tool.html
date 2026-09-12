@@ -22,7 +22,7 @@
     <meta http-equiv="Expires" content="0">
     <link rel="canonical" href="https://coldmatrixtools.com/image-converter-tool.html">
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>❄️</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -30,14 +30,11 @@
             --bg: #0B0F14; --foam: #F0F4F8; --frost: #4FC3F7;
             --line: rgba(79,195,247,0.35); --accent: #00b894;
             --card-bg: rgba(15,22,30,0.92); --gold: #D4AF37;
-            --gold-bright: #FFD700; --silver: #a8acb5;
-            --dark-silver: #545860; --input-bg: #f5f5f5;
-            --input-text: #111111; --chrome: #c0c3c8;
+            --gold-bright: #FFD700; --gold-glow: rgba(212,175,55,0.45);
+            --silver-bg: #C8CDD4; --silver-bg-hover: #D5D9DE;
+            --input-bg: #FFFFFF; --input-text: #111111;
             --display-bg: #0a0d11; --green: #34D399; --red: #EF4444;
             --whatsapp-green: #25D366; --download-blue: #2196F3;
-            --label-color: #1a1a1a;
-            --silver-bg: #C8CDD4;
-            --silver-bg-hover: #D5D9DE;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
@@ -45,97 +42,339 @@
             color: var(--foam); font-family: 'Inter', sans-serif;
             line-height: 1.6; min-height: 100vh;
         }
-        .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 20px 30px; }
+
+        /* GOLDEN NAVBAR */
         .navbar { position: sticky; top:0; z-index:100; background: rgba(10,15,20,0.94); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold); }
         .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
         .logo { font-size:1.3rem; font-weight:700; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
         .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
         .nav-links a { color:#8B98A5; text-decoration:none; font-weight:500; font-size:0.95rem; }
         .nav-links a:hover { color:var(--gold-bright); }
-        .tool-title { font-family:'Oswald',sans-serif; font-size:1.7rem; font-weight:700; color:#FFFFFF; text-shadow:0 2px 10px rgba(0,0,0,0.6); margin-bottom:6px; display:flex; align-items:center; gap:10px; }
-        .tool-title span { color: var(--gold-bright); }
-        .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; text-shadow:0 1px 4px rgba(0,0,0,0.6); margin-bottom:20px; }
-        .laptop-body {
+        .back-link { display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem; }
+
+        /* GOLDEN INSTALL BAR */
+        .install-bar {
+            display: block;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            color: #0A0F14; text-align: center;
+            padding: 10px 16px; border-radius: 10px; margin: 14px 0;
+            font-weight: 700; font-size: 0.85rem;
+            border: 1px solid #FFD700;
+            box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+        }
+        .install-bar button {
+            background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+            padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+            font-weight: 800; cursor: pointer; font-size: 0.8rem;
+        }
+
+        h1 { font-family:'Oswald',sans-serif; font-size:1.7rem; font-weight:700; color:#FFFFFF; margin-bottom:8px; line-height:1.25; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+        h1 span { color: var(--gold-bright); }
+        .subtitle { color:#EAEDF0; font-size:0.98rem; font-weight:500; margin-bottom:20px; }
+
+        /* GET QUOTE STRIP */
+        .get-quote-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .get-quote-strip .quote-btn {
+            flex: 1; min-width: 140px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 13px 16px;
             background: var(--silver-bg);
             border: 2px solid var(--gold);
-            border-radius: 28px; padding: 32px 30px; margin-top: 24px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.7), 0 0 30px rgba(212,175,55,0.4);
-            position: relative;
+            border-radius: 12px;
+            color: #0A0F14;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 800; font-size: 0.85rem;
+            text-decoration: none; cursor: pointer;
+            letter-spacing: 0.5px; text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+            transition: all 0.25s ease;
         }
-        .state-badge { position:absolute; top:-10px; right:20px; background:linear-gradient(135deg,#FFD700,#FFA500); color:#0A0F14; font-family:'Oswald',sans-serif; font-weight:700; font-size:0.7rem; padding:4px 14px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; z-index:2; }
-        .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:18px 20px; margin-bottom:24px; box-shadow:0 10px 34px rgba(0,0,0,0.55); }
-        .share-tool-title { font-weight:800; font-size:1rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:14px; text-transform:uppercase; }
+        .get-quote-strip .quote-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 22px var(--gold-glow); }
+        .get-quote-strip .quote-btn.whatsapp { background: #25D366; color: #fff; border-color: #1da851; }
+        .get-quote-strip .quote-btn.whatsapp:hover { background: #1da851; border-color: #25D366; box-shadow: 0 0 22px rgba(37,211,102,0.5); }
+
+        /* SHARE CARD */
+        .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:18px 20px; margin-bottom:22px; box-shadow:0 10px 34px rgba(0,0,0,0.55); }
+        .share-tool-title { font-weight:800; font-size:0.95rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:14px; text-transform:uppercase; }
         .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
         .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); transition:all 0.25s; }
         .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); }
         .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
-        .format-tabs { display:flex; gap:10px; margin-bottom:20px; position:relative; z-index:1; }
-        .format-tab { flex:1; padding:16px 10px; border:2px solid var(--gold); background:var(--silver-bg); color:#111111; border-radius:12px; font-weight:800; font-size:0.85rem; cursor:pointer; text-align:center; box-shadow: 0 3px 8px rgba(0,0,0,0.3); transition:0.2s; display:flex; flex-direction:column; align-items:center; gap:4px; }
+        .share-tool-btn.wa:hover { border-color:#25D366; }
+
+        /* AD ZONE */
+        .ad-zone {
+            margin: 20px 0; padding: 20px;
+            background: rgba(212,175,55,0.05);
+            border: 2px dashed var(--gold);
+            border-radius: 12px;
+            text-align: center;
+            min-height: 90px;
+            display: flex; align-items: center; justify-content: center;
+            color: #8B98A5; font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        /* MAIN CARD */
+        .laptop-body {
+            background: var(--silver-bg);
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 26px 22px;
+            margin-top: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            position: relative;
+        }
+        .state-badge { position:absolute; top:-10px; right:20px; background:linear-gradient(135deg,#FFD700,#FFA500); color:#0A0F14; font-family:'Oswald',sans-serif; font-weight:700; font-size:0.7rem; padding:4px 14px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; z-index:2; }
+
+        /* FORMAT TABS */
+        .format-tabs { display:flex; gap:10px; margin-bottom:20px; }
+        .format-tab {
+            flex:1; padding:16px 10px; border:2px solid var(--gold);
+            background: #FFFFFF; color:#111111;
+            border-radius:12px; font-family: 'Oswald', sans-serif;
+            font-weight: 800; font-size:0.85rem; cursor:pointer; text-align:center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            transition:0.25s;
+            display:flex; flex-direction:column; align-items:center; gap:4px;
+            letter-spacing: 0.4px; text-transform: uppercase;
+        }
         .format-tab i { font-size:1.2rem; color:#0A0F14; }
-        .format-tab small { font-size:0.62rem; color:#333; font-weight:600; }
+        .format-tab small { font-size:0.62rem; color:#333; font-weight:600; text-transform: none; letter-spacing: 0; }
+        .format-tab:hover:not(.active) { border-color: var(--gold-bright); transform: translateY(-2px); }
         .format-tab.active { background: var(--gold); color:#0A0F14; border-color:var(--gold-bright); box-shadow: 0 5px 15px rgba(212,175,55,0.5); transform:translateY(-3px); }
         .format-tab.active i, .format-tab.active small { color:#0A0F14; }
-        .upload-area { border:2px dashed var(--gold); border-radius:16px; padding:30px 20px; text-align:center; cursor:pointer; transition:0.3s; background:rgba(255,255,255,0.6); position:relative; z-index:1; margin-bottom:14px; }
-        .upload-area:hover { border-color:var(--gold-bright); background:rgba(255,255,255,0.8); }
+
+        /* UPLOAD AREA */
+        .upload-area {
+            border:2px dashed var(--gold);
+            border-radius:16px; padding:30px 20px; text-align:center;
+            cursor:pointer; transition:0.3s;
+            background:#FFFFFF;
+            margin-bottom:14px;
+        }
+        .upload-area:hover { border-color:var(--gold-bright); background:#F5F5F5; transform: translateY(-2px); }
         .upload-area i { font-size:2.2rem; color:var(--gold); margin-bottom:8px; }
         .upload-area p { color:#111111; font-weight:800; font-size:0.9rem; }
         .upload-area small { color:#333; }
-        .original-preview { display:none; margin-bottom:16px; position:relative; z-index:1; }
+
+        /* ORIGINAL PREVIEW */
+        .original-preview { display:none; margin-bottom:16px; }
         .original-preview .label { font-family:'Oswald',sans-serif; font-size:0.85rem; font-weight:700; color:#0A0F14; text-transform:uppercase; margin-bottom:8px; }
         .original-preview img { width:100%; max-height:220px; object-fit:contain; border-radius:10px; background:rgba(0,0,0,0.3); border:2px solid var(--gold); }
         .original-preview .img-size { margin-top:8px; font-weight:700; font-size:0.9rem; color:#0A0F14; }
+
+        /* FORM */
         .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-        .field { margin-bottom:14px; position:relative; z-index:1; }
+        .field { margin-bottom:14px; }
         .field label { display:block; font-size:0.85rem; color:#0A0F14; font-weight:800; margin-bottom:6px; }
-        .field input, .field select { width:100%; background:var(--input-bg); border:2px solid var(--gold); color:var(--input-text); padding:12px 14px; border-radius:8px; font-size:0.95rem; font-weight:600; outline:none; }
+        .field input, .field select {
+            width:100%; background: var(--input-bg); border:2px solid var(--gold);
+            color:var(--input-text); padding:12px 14px; border-radius:10px;
+            font-size:0.95rem; font-weight:600; outline:none;
+        }
         .field input:focus, .field select:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.4); }
-        .field small { color:#333; font-weight:600; }
-        .btn-gold { width:100%; background:var(--silver-bg); color:#0A0F14; border:3px solid var(--gold); padding:18px; border-radius:14px; font-family:'Oswald',sans-serif; font-weight:800; font-size:1.1rem; cursor:pointer; text-transform:uppercase; letter-spacing:1px; box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px rgba(212,175,55,0.5); transition:0.2s; margin-top:8px; position:relative; z-index:1; min-height:56px; }
-        .btn-gold:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 10px 28px rgba(255,215,0,0.6); transform:translateY(-2px); }
+        .field small { color:#4a4d55; font-weight:600; }
+
+        /* BIG GOLDEN ARROW */
+        .field select {
+            appearance:none; -webkit-appearance:none; -moz-appearance:none;
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14' viewBox='0 0 22 14'%3E%3Cpath d='M2 3 L11 11 L20 3' fill='none' stroke='%23D4AF37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat:no-repeat; background-position:right 14px center; background-size:22px 13px;
+            padding-right:48px;
+        }
+
+        /* BUTTONS — stacked */
+        .btn-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+
+        .btn-gold {
+            width:100%;
+            background: var(--silver-bg);
+            color:#0A0F14;
+            border:2px solid var(--gold);
+            min-height: 64px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-family:'Oswald',sans-serif;
+            font-weight: 900;
+            font-size: 1.15rem;
+            cursor:pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
+            transition:all 0.25s ease;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-gold:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
         .btn-gold:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
-        .btn-reset { background:var(--silver-bg); border:2px solid var(--gold); color:#0A0F14; padding:12px 18px; border-radius:10px; font-weight:800; font-size:0.9rem; cursor:pointer; margin-top:8px; width:100%; box-shadow: 0 3px 8px rgba(0,0,0,0.3); }
-        .btn-reset:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); }
+
+        .btn-reset {
+            width:100%;
+            background: var(--silver-bg);
+            color:#0A0F14;
+            border:2px solid var(--gold);
+            min-height: 46px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-family:'Oswald',sans-serif;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor:pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+            transition:all 0.25s ease;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .btn-reset:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform:translateY(-2px); }
+
+        /* ACTION BUTTONS — premium 3-button grid */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .action-btn {
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            padding: 14px 8px;
+            border-radius: 12px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 800;
+            font-size: 0.78rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #fff;
+            border: 2px solid var(--gold);
+            transition: all 0.25s ease;
+            min-height: 54px;
+        }
+        .action-btn:hover { transform: translateY(-2px); border-color: var(--gold-bright); box-shadow: 0 0 15px var(--gold-glow); }
+        .action-btn.download { background: linear-gradient(145deg, #4FC3F7, #1e88e5); }
+        .action-btn.wa { background: linear-gradient(145deg, #2ee06f, #1da851); }
+        .action-btn.copy { background: linear-gradient(145deg, #8B7CF6, #5B21B6); }
+
+        .result-section { margin-top: 20px; }
+        .result-box {
+            background: var(--display-bg);
+            border-radius: 14px;
+            padding: 20px;
+            border: 2px solid var(--gold);
+            color: #fff;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+        }
+        .result-box img { display: none; width:100%; max-height:200px; object-fit:contain; border-radius:8px; }
+        .result-box .placeholder { color: #ccc; font-size: 0.8rem; margin: 20px 0; }
+        .result-box .size { color: var(--green); font-weight: 700; }
+
+        .size-compare {
+            display: none; text-align: center; padding: 14px; margin: 12px 0;
+            background: #FFFFFF; border: 2px solid var(--gold); border-radius: 10px;
+            font-weight: 700; font-size: 0.95rem; color: #0A0F14;
+        }
+        .size-compare .arrow { color: var(--gold); margin: 0 8px; }
+        .size-compare .saved { color: #0a7a3a; font-size: 0.8rem; margin-top: 4px; }
+
+        /* SILVER EDUCATIONAL */
         .detail-section {
-            margin-top: 40px; padding: 30px 24px;
-            background: var(--silver-bg); border: 2px solid var(--gold); border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4); line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+            margin: 30px 0; padding: 30px 24px;
+            background: var(--silver-bg);
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.85; font-size: 0.95rem; color: #0A0F14;
         }
-        .detail-section h2 { font-family: 'Oswald', sans-serif; color: #0A0F14; font-size: 1.5rem; margin-bottom: 16px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
-        .detail-section h3 { color: #0A0F14; font-size: 1.15rem; margin: 24px 0 10px; }
-        .detail-section p, .detail-section ul, .detail-section ol { margin-bottom: 14px; }
-        .detail-section ul, .detail-section ol { padding-left: 24px; }
-        .detail-section li { margin-bottom: 6px; }
-        .detail-section strong { color: #0A0F14; }
-        footer { text-align:center; color:#ccc; font-size:0.8rem; margin-top:30px; padding:20px 0; border-top:2px solid var(--gold); }
-        footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
-        @media (max-width:768px) { .laptop-body { padding:24px 16px; } .grid-2 { grid-template-columns:1fr; } .format-tabs { flex-wrap:wrap; } .format-tab { flex:1 1 45%; } }
-            /* ... your existing CSS rules are here ... */
+        .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.35rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; font-weight: 800; }
+        .detail-section h3 { color:#0A0F14; font-size:1.1rem; margin:22px 0 10px; font-weight: 800; }
+        .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; color: #0A0F14; font-weight: 500; }
+        .detail-section ul, .detail-section ol { padding-left:24px; }
+        .detail-section li { margin-bottom:6px; }
+        .detail-section strong { color:#0A0F14; font-weight: 800; }
 
-    @media (max-width:768px) { .laptop-body { padding:24px 16px; } .grid-2 { grid-template-columns:1fr; } .format-tabs { flex-wrap:wrap; } .format-tab { flex:1 1 45%; } }
-
-    /* ⬇️⬇️⬇️ PASTE YOUR NEW CODE HERE ⬇️⬇️⬇️ */
-    .tool-title {
-        font-family:'Oswald',sans-serif;
-        font-size:1.5rem;
-        font-weight:700;
-        color:#FFFFFF;
-        text-shadow:0 2px 10px rgba(0,0,0,0.6);
-        margin-bottom:6px;
-        display:flex;
-        align-items:center;
-        gap:10px;
-        flex-wrap:wrap;
-        line-height:1.3;
-    }
-    @media (max-width:600px) {
-        .tool-title {
-            font-size:1.2rem;
-            gap:6px;
+        /* PAKISTANI BLOCK */
+        .pakistani-block {
+            margin: 30px 0; padding: 24px 20px;
+            background: var(--silver-bg);
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
         }
-    }
-    /* ⬆️⬆️⬆️ PASTE YOUR NEW CODE ABOVE THIS ⬆️⬆️⬆️ */
+        .pakistani-block h2 { color:#0A0F14; font-family:'Oswald',sans-serif; font-size:1.15rem; margin-bottom:12px; font-weight: 800; }
+        .pakistani-block p { color:#0A0F14; font-weight: 500; margin-top: 10px; }
+        .pakistani-block strong { color:#0A0F14; font-weight: 800; }
 
-</style>
+        /* RELATED TOOLS */
+        .related-tools-section {
+            margin: 20px 0; padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+        }
+        .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; font-family:'Oswald',sans-serif; letter-spacing:0.5px; }
+        .related-tools-section a { color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; display: inline-block; margin: 4px 4px 4px 0; }
+
+        /* DISCLAIMER */
+        .disclaimer-box {
+            margin: 20px 0; padding: 16px 18px;
+            background: var(--silver-bg);
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            font-size: 0.85rem; color: #0A0F14; line-height: 1.7; font-weight: 500;
+        }
+        .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+        /* LEAD CAPTURE */
+        .lead-capture {
+            background: var(--silver-bg);
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin: 30px 0;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+        }
+        .lead-capture h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.2rem; margin-bottom:12px; letter-spacing:0.5px; font-weight: 800; }
+        .lead-capture p { color:#0A0F14; margin-bottom:18px; font-size:0.9rem; font-weight: 500; }
+        .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+        .lead-capture input[type="email"] {
+            background:#FFFFFF; border:2px solid var(--gold); border-radius:10px;
+            padding:12px 16px; color:#0A0F14; font-size:0.95rem; font-weight: 600; outline:none;
+        }
+        .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+        .lead-capture button {
+            background: var(--silver-bg); border:2px solid var(--gold); border-radius:10px;
+            padding:14px 20px; font-family:'Oswald',sans-serif; font-weight: 800;
+            font-size: 0.95rem; color:#0A0F14; cursor:pointer;
+            letter-spacing: 0.5px; text-transform: uppercase;
+            transition: all 0.25s ease;
+        }
+        .lead-capture button:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 20px var(--gold-glow); }
+
+        footer { text-align:center; color:#8B98A5; font-size:0.8rem; padding:40px 0 20px; border-top:2px solid var(--gold); margin-top:50px; }
+        footer a { color: var(--gold-bright); text-decoration:none; font-weight: 600; }
+        .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+
+        @media (max-width:768px) {
+            .laptop-body { padding:22px 16px; }
+            .grid-2 { grid-template-columns:1fr; }
+            .format-tabs { flex-wrap:wrap; }
+            .format-tab { flex:1 1 45%; }
+            h1 { font-size:1.35rem; }
+            .detail-section, .pakistani-block, .lead-capture {
+                margin-left: -6px !important;
+                margin-right: -6px !important;
+                padding: 20px 16px !important;
+            }
+            .action-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+            .action-btn { padding: 12px 4px; font-size: 0.7rem; min-height: 50px; }
+        }
     </style>
     <script type="application/ld+json">
     {
@@ -151,164 +390,292 @@
 </head>
 <body>
 
-<nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="solutions.html">❄️ Cold Matrix</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">❄️ ColdMatrix</a>
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="index.html#tools">🛠️ Tools</a></li>
+      <li><a href="solutions.html">❄️ Cold Matrix</a></li>
+      <li><a href="blog.html">📝 Blog</a></li>
+      <li><a href="about.html">ℹ️ About</a></li>
+      <li><a href="contact.html">📞 Contact</a></li>
+    </ul>
+  </div>
+</nav>
 
 <div class="container">
-  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
-  
-    <div id="cmInstallBar" style="display:block;background:linear-gradient(135deg,#D4AF37,#FFD700);color:#0A0F14;text-align:center;padding:12px;font-weight:700;font-size:0.85rem;border-radius:10px;margin:0 0 16px;box-shadow:0 4px 15px rgba(212,175,55,0.4);">📱 Add to Home Screen <button onclick="cmInstallApp()" style="background:#0A0F14;color:var(--gold-bright);border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:700;cursor:pointer;">Install</button></div>
-    <h1 class="tool-title">🖼️ <span>ColdMatrix</span> Image Converter & Resizer</h1>
-    <p class="subtitle">Convert images to JPG, PNG, WebP, or PDF — resize without cropping, compress for web and email. Instant, free, and professional-grade.</p>
-    <div class="share-tool-card"><div class="share-tool-title">Share Image Converter</div><div class="share-tool-buttons"><button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button><button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button></div></div>
+  <a href="index.html#tools" class="back-link">← Back to Tools</a>
 
-    <div class="laptop-body">
-        <div class="state-badge">State of the Art Tool</div>
-        <div style="font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:#0A0F14;margin-bottom:8px;position:relative;z-index:1;">SELECT OUTPUT FORMAT</div>
-        <div class="format-tabs" id="formatTabs">
-            <button class="format-tab active" data-format="image/jpeg"><i class="far fa-file-image"></i> JPG<small>Best for photos</small></button>
-            <button class="format-tab" data-format="image/png"><i class="far fa-file-image"></i> PNG<small>Transparency</small></button>
-            <button class="format-tab" data-format="image/webp"><i class="far fa-file-image"></i> WebP<small>Smaller size</small></button>
-            <button class="format-tab" data-format="application/pdf"><i class="far fa-file-pdf"></i> PDF<small>Document</small></button>
-        </div>
-        <div style="font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:#0A0F14;margin-bottom:8px;position:relative;z-index:1;">📤 UPLOAD IMAGE</div>
-        <div class="upload-area" id="dropArea">
-            <input type="file" id="fileInput" accept="image/*" style="display:none;">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <p>Tap here to upload an image<br><small>JPG, PNG, BMP, WebP, GIF — one at a time</small></p>
-        </div>
-        <div class="original-preview" id="originalPreview">
-            <div class="label">📤 Original Image</div>
-            <img id="previewOriginal" alt="Original image">
-            <div class="img-size" id="previewOriginalSize">—</div>
-        </div>
-        <div id="optionsSection" style="display:none;">
-            <div style="font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;color:#0A0F14;margin-bottom:8px;">⚙️ RESIZE IMAGE (OPTIONAL)</div>
-            <div class="grid-2">
-                <div class="field"><label>New Width (px) — Optional</label><input type="number" id="resizeW" placeholder="Leave empty for original width"></div>
-                <div class="field"><label>New Height (px) — Optional</label><input type="number" id="resizeH" placeholder="Leave empty for original height"></div>
-            </div>
-            <small style="color:#333;font-size:0.75rem;display:block;margin-bottom:12px;font-weight:600;">Enter only one dimension to maintain aspect ratio automatically.</small>
-            <div class="field" id="qualityField">
-                <label>Compression / Size (%)</label>
-                <input type="number" id="quality" value="85" min="10" max="100">
-                <small style="color:#333;font-size:0.75rem;display:block;margin-top:4px;font-weight:600;">Lower % = smaller file size. Higher % = better quality.</small>
-            </div>
-            <button class="btn-gold" id="convertBtn" onclick="convertImage()"><i class="fas fa-magic"></i> Convert & Download</button>
-            <button class="btn-reset" onclick="window.location.reload()">↺ Reset / Choose Another Image</button>
-        </div>
-        <div class="result-section" id="resultSection" style="display:none;margin-top:20px;">
-            <div class="result-box" style="background:var(--display-bg);border-radius:14px;padding:20px;border:2px solid var(--gold);color:#fff;">
-                <div style="font-family:'Oswald',sans-serif;font-size:0.85rem;font-weight:700;color:var(--gold);text-transform:uppercase;margin-bottom:10px;">✅ Converted Result</div>
-                <img id="previewConverted" alt="Converted image" style="display:none;width:100%;max-height:200px;object-fit:contain;border-radius:8px;">
-                <p id="convertedPlaceholder" style="color:#ccc;font-size:0.8rem;margin:20px 0;">📄 Processing result...</p>
-                <div id="previewConvertedSize" style="color:var(--green);font-weight:700;">—</div>
-            </div>
-            <div id="sizeCompare" style="display:none;text-align:center;padding:14px;margin:12px 0;background:rgba(212,175,55,0.08);border:1px solid var(--gold);border-radius:10px;font-weight:700;font-size:0.95rem;color:#fff;">
-                <span id="origSizeDisplay">—</span><span style="color:var(--gold);margin:0 8px;">→</span><span id="convSizeDisplay" style="color:var(--green);">—</span>
-                <div id="savedDisplay" style="color:var(--green);font-size:0.8rem;margin-top:4px;"></div>
-            </div>
-            <div id="actionButtons" style="display:none;flex-wrap:wrap;gap:10px;margin-top:14px;">
-                <button onclick="downloadImage()" style="padding:12px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.8rem;background:var(--download-blue);color:#fff;"><i class="fas fa-download"></i> Download</button>
-                <button onclick="shareResult()" style="padding:12px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.8rem;background:var(--whatsapp-green);color:#fff;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-                <button onclick="copyToClipboard()" style="padding:12px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:0.8rem;background:#6C5CE7;color:#fff;"><i class="fas fa-copy"></i> Copy</button>
-            </div>
-        </div>
-        <div style="margin-top:20px;padding:14px;background:rgba(0,0,0,0.4);border:1px dashed var(--gold);border-radius:12px;text-align:center;color:#fff;">❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>For queries: <strong>+92 333 3228470</strong> | <strong>contact@coldmatrixtools.com</strong></div>
+  <div class="install-bar" id="cmInstallBar">📱 Add to Home Screen <button onclick="cmInstallApp()">Install</button></div>
+
+  <h1>🖼️ <span>ColdMatrix</span> Image Converter &amp; Resizer</h1>
+<p class="subtitle">JPG · PNG · WebP · PDF — convert, resize, compress instantly.</p>
+
+  <div class="get-quote-strip">
+    <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20image%20conversion%20or%20a%20custom%20tool." class="quote-btn whatsapp" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> Quick Chat
+    </a>
+    <a href="contact.html" class="quote-btn">
+      <i class="fa-solid fa-envelope"></i> Get a Quote
+    </a>
+  </div>
+
+  <div class="share-tool-card">
+    <div class="share-tool-title">Share Image Converter</div>
+    <div class="share-tool-buttons">
+      <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+    </div>
+  </div>
+
+  <div class="ad-zone">
+    <span>📢 Ad Space Available</span>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- MAIN CONVERTER CARD -->
+  <!-- ============================================ -->
+  <div class="laptop-body">
+    <div class="state-badge">State of the Art</div>
+
+    <div style="font-family:'Oswald',sans-serif;font-size:0.95rem;font-weight:700;color:#0A0F14;margin-bottom:10px;">SELECT OUTPUT FORMAT</div>
+    <div class="format-tabs" id="formatTabs">
+      <button class="format-tab active" data-format="image/jpeg"><i class="fa-solid fa-image"></i> JPG<small>Best for photos</small></button>
+      <button class="format-tab" data-format="image/png"><i class="fa-solid fa-image"></i> PNG<small>Transparency</small></button>
+      <button class="format-tab" data-format="image/webp"><i class="fa-solid fa-image"></i> WebP<small>Smaller size</small></button>
+      <button class="format-tab" data-format="application/pdf"><i class="fa-solid fa-file-pdf"></i> PDF<small>Document</small></button>
     </div>
 
-    <div class="detail-section">
-        <h2>📖 Complete Guide to Image Converter & Resizer</h2>
-        <p>The ColdMatrix Image Converter & Resizer is a professional browser-based tool that lets you convert images between multiple formats, resize them without cropping, and compress them for faster sharing — all without uploading a single file to any server. It's built for speed, privacy, and simplicity.</p>
+    <div style="font-family:'Oswald',sans-serif;font-size:0.95rem;font-weight:700;color:#0A0F14;margin-bottom:10px;">📤 UPLOAD IMAGE</div>
 
-        <h3>What Is Image Conversion?</h3>
-        <p>Image conversion is the process of changing a file from one image format to another. Each format has different strengths — some are better for photographs, others for graphics with transparency, and others for documents. Choosing the right format ensures your image looks great while keeping the file size manageable.</p>
-
-        <h3>What Is Image Resizing?</h3>
-        <p>Resizing changes the pixel dimensions of an image. It's useful when you need a specific size for a website, social media profile, document, or email. This tool maintains the aspect ratio automatically, so your image never looks stretched or squashed.</p>
-
-        <h3>What Is Image Compression?</h3>
-        <p>Compression reduces file size without changing dimensions, making images easier to share and faster to load on websites. This is especially important for email attachments, online forms, and web pages where large images slow everything down.</p>
-
-        <h3>Supported Formats & Their Best Uses</h3>
-        <ul>
-            <li><strong>JPG (JPEG):</strong> Best for photographs and complex images. Small file size, no transparency.</li>
-            <li><strong>PNG:</strong> Best for logos, graphics, and images with transparent backgrounds. Larger file size but lossless quality.</li>
-            <li><strong>WebP:</strong> Modern format with superior compression. Smaller than JPG and PNG with excellent quality.</li>
-            <li><strong>BMP:</strong> Uncompressed format, large file size. Rarely used for web.</li>
-            <li><strong>PDF:</strong> Document format for sharing images as a single file or combined with text.</li>
-        </ul>
-
-        <h3>Key Benefits of Using This Tool</h3>
-        <ul>
-            <li><strong>100% Private:</strong> Files are processed locally in your browser. Nothing is uploaded, stored, or shared.</li>
-            <li><strong>No Sign-Up:</strong> Start converting immediately — no account or registration required.</li>
-            <li><strong>Fast Processing:</strong> No waiting for uploads or server queues. Results appear instantly.</li>
-            <li><strong>Multi-Format Support:</strong> Convert between JPG, PNG, WebP, and PDF in one tool.</li>
-            <li><strong>Smart Resizing:</strong> Enter width or height, and the aspect ratio is maintained automatically.</li>
-            <li><strong>Compression Control:</strong> Adjust quality from 10% to 100% to balance file size and clarity.</li>
-            <li><strong>Size Comparison:</strong> See the original and converted sizes to measure savings.</li>
-            <li><strong>Download & Share:</strong> Export as JPG, PNG, or PDF, and share via WhatsApp.</li>
-        </ul>
-
-        <h3>How to Use the Image Converter</h3>
-        <ol>
-            <li><strong>Select output format:</strong> Choose JPG, PNG, WebP, or PDF.</li>
-            <li><strong>Upload your image:</strong> Tap the upload area and select an image from your device.</li>
-            <li><strong>Optional resize:</strong> Enter a new width or height in pixels. Leave empty to keep original size.</li>
-            <li><strong>Set compression quality:</strong> Adjust the percentage for smaller size or better quality.</li>
-            <li><strong>Convert & Download:</strong> Click the button, preview the result, and download or share.</li>
-        </ol>
-
-        <h3>When to Use Each Format</h3>
-        <ul>
-            <li><strong>Photos for web or social media:</strong> JPG or WebP</li>
-            <li><strong>Logos and icons:</strong> PNG with transparency</li>
-            <li><strong>Documents and reports:</strong> PDF</li>
-            <li><strong>Images with text:</strong> PNG for crisp text</li>
-            <li><strong>Smallest file size:</strong> WebP</li>
-        </ul>
-
-        <h3>Common Use Cases</h3>
-        <ul>
-            <li><strong>Web Design:</strong> Optimize images for faster page loading.</li>
-            <li><strong>Social Media:</strong> Resize for profile pictures, covers, and posts.</li>
-            <li><strong>E-Commerce:</strong> Convert product photos to a consistent format.</li>
-            <li><strong>Email:</strong> Compress large images for easy sending.</li>
-            <li><strong>Documentation:</strong> Combine images into PDF for reports and proposals.</li>
-            <li><strong>Presentations:</strong> Reduce image size for smoother slides.</li>
-        </ul>
-
-        <h3>Pro Tips for Best Results</h3>
-        <ul>
-            <li><strong>Keep quality above 80%</strong> for most images to avoid visible quality loss.</li>
-            <li><strong>Use JPG for photos</strong> — it gives the best quality-to-size ratio.</li>
-            <li><strong>Use PNG for transparent backgrounds</strong> — essential for logos.</li>
-            <li><strong>Use WebP for modern websites</strong> — it loads faster and saves bandwidth.</li>
-            <li><strong>Always preview after resizing</strong> to ensure nothing important is cropped.</li>
-        </ul>
-
-        <h3>Frequently Asked Questions</h3>
-        <p><strong>Q: Is my image uploaded to a server?</strong><br>A: No. All processing happens locally in your browser. Your files never leave your device.</p>
-        <p><strong>Q: Can I convert multiple images at once?</strong><br>A: Currently, this tool processes one image at a time for maximum privacy and speed.</p>
-        <p><strong>Q: What is the best format for website images?</strong><br>A: WebP is the best for modern websites. JPG is a safe fallback for older browsers.</p>
-        <p><strong>Q: Does resizing reduce quality?</strong><br>A: Minimal quality loss if you keep compression quality high (85% or above).</p>
-        <p><strong>Q: Can I convert a PDF back to an image?</strong><br>A: This tool focuses on image to PDF conversion. For PDF to image, you may need a dedicated PDF tool.</p>
-        <p><strong>Q: Is the tool free?</strong><br>A: Yes, it's 100% free with no watermarks, no sign-up, and no limitations.</p>
-
-        <h3>Why Choose ColdMatrix Image Converter?</h3>
-        <p>Unlike many online converters that upload your images to their servers, ColdMatrix keeps everything on your device. This means maximum privacy, instant processing, and no risk of data leaks. Combined with a beautiful, executive-grade interface, it's the perfect tool for professionals who need fast, reliable image handling.</p>
+    <div class="upload-area" id="dropArea">
+      <input type="file" id="fileInput" accept="image/*" style="display:none;">
+      <i class="fas fa-cloud-upload-alt"></i>
+      <p>Tap here to upload an image<br><small>JPG, PNG, BMP, WebP, GIF — one at a time</small></p>
     </div>
+
+    <div class="original-preview" id="originalPreview">
+      <div class="label">📤 Original Image</div>
+      <img id="previewOriginal" alt="Original image">
+      <div class="img-size" id="previewOriginalSize">—</div>
+    </div>
+
+    <div id="optionsSection" style="display:none;">
+      <div style="font-family:'Oswald',sans-serif;font-size:0.95rem;font-weight:700;color:#0A0F14;margin-bottom:10px;">⚙️ RESIZE IMAGE (OPTIONAL)</div>
+
+      <div class="grid-2">
+        <div class="field"><label>New Width (px) — Optional</label><input type="number" id="resizeW" placeholder="Leave empty for original width"></div>
+        <div class="field"><label>New Height (px) — Optional</label><input type="number" id="resizeH" placeholder="Leave empty for original height"></div>
+      </div>
+      <small style="color:#4a4d55;font-size:0.75rem;display:block;margin-bottom:14px;font-weight:600;">Enter only one dimension to maintain aspect ratio automatically.</small>
+
+      <div class="field" id="qualityField">
+        <label>Compression / Size (%)</label>
+        <input type="number" id="quality" value="85" min="10" max="100">
+        <small style="color:#4a4d55;font-size:0.75rem;display:block;margin-top:4px;font-weight:600;">Lower % = smaller file size. Higher % = better quality.</small>
+      </div>
+
+      <div class="btn-stack">
+        <button class="btn-gold" id="convertBtn" onclick="convertImage()"><i class="fas fa-magic"></i> Convert &amp; Download</button>
+        <button class="btn-reset" onclick="window.location.reload()">↺ Reset / Choose Another Image</button>
+      </div>
+    </div>
+
+    <div class="result-section" id="resultSection" style="display:none;">
+      <div class="result-box">
+        <div style="font-family:'Oswald',sans-serif;font-size:0.85rem;font-weight:700;color:var(--gold-bright);text-transform:uppercase;margin-bottom:10px;letter-spacing:0.5px;">✅ Converted Result</div>
+        <img id="previewConverted" alt="Converted image">
+        <p id="convertedPlaceholder" class="placeholder">📄 Processing result...</p>
+        <div id="previewConvertedSize" class="size">—</div>
+      </div>
+
+      <div class="size-compare" id="sizeCompare">
+        <span id="origSizeDisplay">—</span>
+        <span class="arrow">→</span>
+        <span id="convSizeDisplay" style="color:#0a7a3a;">—</span>
+        <div class="saved" id="savedDisplay"></div>
+      </div>
+
+      <div class="action-grid" id="actionButtons">
+        <button class="action-btn download" onclick="downloadImage()"><i class="fas fa-download"></i> Download</button>
+        <button class="action-btn wa" onclick="shareResult()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="action-btn copy" onclick="copyToClipboard()"><i class="fas fa-copy"></i> Copy</button>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;padding:14px;background:#FFFFFF;border:2px dashed var(--gold);border-radius:12px;text-align:center;color:#0A0F14;font-weight:600;font-size:0.85rem;">
+      ❄️ <strong>Thank you for using ColdMatrix – Your 24/7 Business Companion.</strong><br>
+      For queries: <strong>+92 333 3228470</strong> | <strong>contact@coldmatrixtools.com</strong>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- EDUCATIONAL CONTENT — SILVER -->
+  <!-- ============================================ -->
+  <div class="detail-section">
+    <h2>📖 Complete Guide to Image Converter &amp; Resizer</h2>
+
+    <p>The ColdMatrix Image Converter &amp; Resizer is a professional browser-based tool that lets you convert images between multiple formats, resize them without cropping, and compress them for faster sharing — all without uploading a single file to any server. It's built for speed, privacy, and simplicity.</p>
+
+    <h3>What Is Image Conversion?</h3>
+    <p>Image conversion is the process of changing a file from one image format to another. Each format has different strengths — some are better for photographs, others for graphics with transparency, and others for documents. Choosing the right format ensures your image looks great while keeping the file size manageable.</p>
+
+    <h3>What Is Image Resizing?</h3>
+    <p>Resizing changes the pixel dimensions of an image. It's useful when you need a specific size for a website, social media profile, document, or email. This tool maintains the aspect ratio automatically, so your image never looks stretched or squashed.</p>
+
+    <h3>What Is Image Compression?</h3>
+    <p>Compression reduces file size without changing dimensions, making images easier to share and faster to load on websites. This is especially important for email attachments, online forms, and web pages where large images slow everything down.</p>
+
+    <h3>Supported Formats &amp; Their Best Uses</h3>
+    <ul>
+      <li><strong>JPG (JPEG):</strong> Best for photographs and complex images. Small file size, no transparency.</li>
+      <li><strong>PNG:</strong> Best for logos, graphics, and images with transparent backgrounds. Larger file size but lossless quality.</li>
+      <li><strong>WebP:</strong> Modern format with superior compression. Smaller than JPG and PNG with excellent quality.</li>
+      <li><strong>BMP:</strong> Uncompressed format, large file size. Rarely used for web.</li>
+      <li><strong>PDF:</strong> Document format for sharing images as a single file or combined with text.</li>
+    </ul>
+
+    <h3>Key Benefits of Using This Tool</h3>
+    <ul>
+      <li><strong>100% Private:</strong> Files are processed locally in your browser. Nothing is uploaded, stored, or shared.</li>
+      <li><strong>No Sign-Up:</strong> Start converting immediately — no account or registration required.</li>
+      <li><strong>Fast Processing:</strong> No waiting for uploads or server queues. Results appear instantly.</li>
+      <li><strong>Multi-Format Support:</strong> Convert between JPG, PNG, WebP, and PDF in one tool.</li>
+      <li><strong>Smart Resizing:</strong> Enter width or height, and the aspect ratio is maintained automatically.</li>
+      <li><strong>Compression Control:</strong> Adjust quality from 10% to 100% to balance file size and clarity.</li>
+      <li><strong>Size Comparison:</strong> See the original and converted sizes to measure savings.</li>
+      <li><strong>Download &amp; Share:</strong> Export as JPG, PNG, or PDF, and share via WhatsApp.</li>
+    </ul>
+
+    <h3>How to Use the Image Converter</h3>
+    <ol>
+      <li><strong>Select output format:</strong> Choose JPG, PNG, WebP, or PDF.</li>
+      <li><strong>Upload your image:</strong> Tap the upload area and select an image from your device.</li>
+      <li><strong>Optional resize:</strong> Enter a new width or height in pixels. Leave empty to keep original size.</li>
+      <li><strong>Set compression quality:</strong> Adjust the percentage for smaller size or better quality.</li>
+      <li><strong>Convert &amp; Download:</strong> Click the button, preview the result, and download or share.</li>
+    </ol>
+
+    <h3>When to Use Each Format</h3>
+    <ul>
+      <li><strong>Photos for web or social media:</strong> JPG or WebP</li>
+      <li><strong>Logos and icons:</strong> PNG with transparency</li>
+      <li><strong>Documents and reports:</strong> PDF</li>
+      <li><strong>Images with text:</strong> PNG for crisp text</li>
+      <li><strong>Smallest file size:</strong> WebP</li>
+    </ul>
+
+    <h3>Common Use Cases</h3>
+    <ul>
+      <li><strong>Web Design:</strong> Optimize images for faster page loading.</li>
+      <li><strong>Social Media:</strong> Resize for profile pictures, covers, and posts.</li>
+      <li><strong>E-Commerce:</strong> Convert product photos to a consistent format.</li>
+      <li><strong>Email:</strong> Compress large images for easy sending.</li>
+      <li><strong>Documentation:</strong> Combine images into PDF for reports and proposals.</li>
+      <li><strong>Presentations:</strong> Reduce image size for smoother slides.</li>
+    </ul>
+
+    <h3>Pro Tips for Best Results</h3>
+    <ul>
+      <li><strong>Keep quality above 80%</strong> for most images to avoid visible quality loss.</li>
+      <li><strong>Use JPG for photos</strong> — it gives the best quality-to-size ratio.</li>
+      <li><strong>Use PNG for transparent backgrounds</strong> — essential for logos.</li>
+      <li><strong>Use WebP for modern websites</strong> — it loads faster and saves bandwidth.</li>
+      <li><strong>Always preview after resizing</strong> to ensure nothing important is cropped.</li>
+    </ul>
+
+    <h3>Frequently Asked Questions</h3>
+    <p><strong>Q: Is my image uploaded to a server?</strong><br>A: No. All processing happens locally in your browser. Your files never leave your device.</p>
+    <p><strong>Q: Can I convert multiple images at once?</strong><br>A: Currently, this tool processes one image at a time for maximum privacy and speed.</p>
+    <p><strong>Q: What is the best format for website images?</strong><br>A: WebP is the best for modern websites. JPG is a safe fallback for older browsers.</p>
+    <p><strong>Q: Does resizing reduce quality?</strong><br>A: Minimal quality loss if you keep compression quality high (85% or above).</p>
+    <p><strong>Q: Can I convert a PDF back to an image?</strong><br>A: This tool focuses on image-to-PDF conversion. For PDF-to-image, you may need a dedicated PDF tool.</p>
+    <p><strong>Q: Is the tool free?</strong><br>A: Yes, it's 100% free with no watermarks, no sign-up, and no limitations.</p>
+
+    <h3>Why Choose ColdMatrix Image Converter?</h3>
+    <p>Unlike many online converters that upload your images to their servers, ColdMatrix keeps everything on your device. This means maximum privacy, instant processing, and no risk of data leaks. Combined with a beautiful, executive-grade interface, it's the perfect tool for professionals who need fast, reliable image handling.</p>
+  </div>
+
+  <div class="ad-zone">
+    <span>📢 Ad Space Available</span>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- PAKISTANI / GLOBAL BLOCK -->
+  <!-- ============================================ -->
+  <div class="pakistani-block">
+    <h2>🌐 ColdMatrix Advanced Solutions — Image Tools for a Global Community</h2>
+    <p>Our Image Converter is used daily by photographers, web designers, e-commerce sellers, and everyday users across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, Australia, and beyond</strong> — a genuinely global, private tool for anyone who needs fast image handling.</p>
+    <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients worldwide with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
+    <p>Need a custom image tool, bulk processing pipeline, or project quote? Our team responds within 24 hours.</p>
+    <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- RELATED TOOLS -->
+  <!-- ============================================ -->
+  <div class="related-tools-section">
+    <h3>🔗 Related Tools You Might Need</h3>
+    <div>
+      <a href="qr-code-generator.html">📱 QR &amp; Barcode Studio</a>
+      <a href="quotation-generator.html">📄 Quotation &amp; Invoice Maker</a>
+      <a href="unit-converter.html">📏 Unit Converter</a>
+      <a href="currency-converter.html">💱 Currency Converter</a>
+      <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+      <a href="world-clock.html">🌍 World Clock</a>
+      <a href="age-calculator.html">🎂 Age Calculator</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- LEAD CAPTURE -->
+  <!-- ============================================ -->
+  <div class="lead-capture">
+    <h3>🚀 Need a Custom Image Tool?</h3>
+    <p>Get tailored image converters, batch processing pipelines, or automation for your business — anywhere in the world. Leave your email and we'll reach out within 24 hours.</p>
+    <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="email" name="email" placeholder="Your work email" required>
+      <button type="submit">Request Custom Tool</button>
+    </form>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- DISCLAIMER -->
+  <!-- ============================================ -->
+  <div class="disclaimer-box">
+    <strong>⚠️ Disclaimer:</strong> This tool processes images locally in your browser. While we make every effort to preserve quality and accuracy, image conversion and compression may alter pixel data. Always keep a backup of your original files before converting. ColdMatrix is not liable for image quality loss or unexpected results.
+  </div>
+
+</div>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
 <footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-</div>
 
 <script>
     let currentFile = null, currentBlob = null, currentUrl = null, selectedFormat = 'image/jpeg';
@@ -330,8 +697,10 @@
 
     function handleFile(file) {
         if (!file || !file.type.startsWith('image/')) return;
-        currentFile = file; originalFile = file;
-        currentBlob = null; currentUrl = null;
+        currentFile = file;
+        originalFile = file;
+        currentBlob = null;
+        currentUrl = null;
         const reader = new FileReader();
         reader.onload = function(e) {
             document.getElementById('previewOriginal').src = e.target.result;
@@ -346,7 +715,8 @@
     async function convertImage() {
         if (!originalFile) return;
         const btn = document.getElementById('convertBtn');
-        btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Converting...';
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Converting...';
 
         const format = selectedFormat;
         const quality = parseInt(document.getElementById('quality').value) / 100;
@@ -355,35 +725,56 @@
 
         const img = new Image();
         const reader = new FileReader();
-        await new Promise((resolve) => { reader.onload = (e) => { img.src = e.target.result; }; reader.readAsDataURL(originalFile); img.onload = resolve; });
+        await new Promise((resolve) => {
+            reader.onload = (e) => { img.src = e.target.result; };
+            reader.readAsDataURL(originalFile);
+            img.onload = resolve;
+        });
 
-        let canvasW = targetW || img.naturalWidth, canvasH = targetH || img.naturalHeight;
+        let canvasW = targetW || img.naturalWidth;
+        let canvasH = targetH || img.naturalHeight;
         if (targetW && !targetH) canvasH = Math.round(targetW / img.naturalWidth * img.naturalHeight);
         else if (targetH && !targetW) canvasW = Math.round(targetH / img.naturalHeight * img.naturalWidth);
 
-        const canvas = document.createElement('canvas'); canvas.width = canvasW; canvas.height = canvasH;
+        const canvas = document.createElement('canvas');
+        canvas.width = canvasW;
+        canvas.height = canvasH;
         const ctx = canvas.getContext('2d');
         if (format !== 'image/png') { ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, canvas.width, canvas.height); }
         const scale = Math.min(canvasW / img.naturalWidth, canvasH / img.naturalHeight);
-        const dw = Math.round(img.naturalWidth * scale), dh = Math.round(img.naturalHeight * scale);
-        const dx = Math.round((canvasW - dw) / 2), dy = Math.round((canvasH - dh) / 2);
+        const dw = Math.round(img.naturalWidth * scale);
+        const dh = Math.round(img.naturalHeight * scale);
+        const dx = Math.round((canvasW - dw) / 2);
+        const dy = Math.round((canvasH - dh) / 2);
         ctx.drawImage(img, dx, dy, dw, dh);
 
         let blob;
         if (format === 'application/pdf') {
-            const pdfCanvas = document.createElement('canvas'); pdfCanvas.width = canvasW; pdfCanvas.height = canvasH;
-            const pdfCtx = pdfCanvas.getContext('2d'); pdfCtx.fillStyle = '#FFFFFF'; pdfCtx.fillRect(0, 0, pdfCanvas.width, pdfCanvas.height);
+            const pdfCanvas = document.createElement('canvas');
+            pdfCanvas.width = canvasW;
+            pdfCanvas.height = canvasH;
+            const pdfCtx = pdfCanvas.getContext('2d');
+            pdfCtx.fillStyle = '#FFFFFF';
+            pdfCtx.fillRect(0, 0, pdfCanvas.width, pdfCanvas.height);
             pdfCtx.drawImage(canvas, 0, 0);
             blob = await new Promise(resolve => pdfCanvas.toBlob(resolve, 'image/jpeg', 0.92));
         } else {
             blob = await new Promise(resolve => canvas.toBlob(resolve, format, quality));
         }
-        currentBlob = blob; currentUrl = URL.createObjectURL(blob);
+        currentBlob = blob;
+        currentUrl = URL.createObjectURL(blob);
 
         document.getElementById('resultSection').style.display = 'block';
         const convImg = document.getElementById('previewConverted');
-        if (format !== 'application/pdf') { convImg.src = currentUrl; convImg.style.display = 'block'; document.getElementById('convertedPlaceholder').style.display = 'none'; }
-        else { convImg.style.display = 'none'; document.getElementById('convertedPlaceholder').style.display = 'block'; document.getElementById('convertedPlaceholder').textContent = '📄 PDF ready for download'; }
+        if (format !== 'application/pdf') {
+            convImg.src = currentUrl;
+            convImg.style.display = 'block';
+            document.getElementById('convertedPlaceholder').style.display = 'none';
+        } else {
+            convImg.style.display = 'none';
+            document.getElementById('convertedPlaceholder').style.display = 'block';
+            document.getElementById('convertedPlaceholder').textContent = '📄 PDF ready for download';
+        }
         document.getElementById('previewConvertedSize').textContent = formatBytes(blob.size);
 
         document.getElementById('origSizeDisplay').textContent = formatBytes(originalFile.size);
@@ -391,22 +782,61 @@
         const saved = ((1 - blob.size / originalFile.size) * 100).toFixed(1);
         document.getElementById('savedDisplay').textContent = saved > 0 ? `Saved ${saved}%` : 'No additional compression possible';
         document.getElementById('sizeCompare').style.display = 'block';
-        document.getElementById('actionButtons').style.display = 'flex';
+        document.getElementById('actionButtons').style.display = 'grid';
 
-        btn.disabled = false; btn.innerHTML = '<i class="fas fa-magic"></i> Convert & Download';
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-magic"></i> Convert & Download';
         document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function downloadImage() { if (!currentUrl) return; const ext = selectedFormat === 'application/pdf' ? 'pdf' : selectedFormat.split('/')[1]; const a = document.createElement('a'); a.href = currentUrl; a.download = (originalFile.name.replace(/\.[^/.]+$/, '')) + '_converted.' + ext; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
-    function shareResult() { window.open('https://wa.me/?text=' + encodeURIComponent("🖼️ Image converted with ColdMatrix Tools!\n\n🔗 https://coldmatrixtools.com/image-converter-tool.html")); }
-    async function copyToClipboard() { if (!currentBlob) return; try { await navigator.clipboard.write([new ClipboardItem({ [currentBlob.type]: currentBlob })]); alert('Image copied!'); } catch { alert('Copy failed. Please download.'); } }
-    function formatBytes(bytes) { if (bytes === 0) return '0 Bytes'; const k = 1024, sizes = ['Bytes', 'KB', 'MB', 'GB']; const i = Math.floor(Math.log(bytes) / Math.log(k)); return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]; }
-    function shareToolWhatsApp() { window.open('https://wa.me/?text=' + encodeURIComponent("🖼️ Image Converter & Resizer — free, instant, private.\n👉 https://coldmatrixtools.com/image-converter-tool.html")); }
-    function copyToolLink() { navigator.clipboard.writeText("https://coldmatrixtools.com/image-converter-tool.html").then(() => alert('Link copied!')); }
+    function downloadImage() {
+        if (!currentUrl) return;
+        const ext = selectedFormat === 'application/pdf' ? 'pdf' : selectedFormat.split('/')[1];
+        const a = document.createElement('a');
+        a.href = currentUrl;
+        a.download = (originalFile.name.replace(/\.[^/.]+$/, '')) + '_converted.' + ext;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+    function shareResult() {
+        window.open('https://wa.me/?text=' + encodeURIComponent("🖼️ Image converted with ColdMatrix Tools!\n\n🔗 https://coldmatrixtools.com/image-converter-tool.html"));
+    }
+    async function copyToClipboard() {
+        if (!currentBlob) return;
+        try {
+            await navigator.clipboard.write([new ClipboardItem({ [currentBlob.type]: currentBlob })]);
+            alert('Image copied!');
+        } catch {
+            alert('Copy failed. Please download.');
+        }
+    }
+    function formatBytes(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024, sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+    function shareToolWhatsApp() {
+        window.open('https://wa.me/?text=' + encodeURIComponent("🖼️ Image Converter & Resizer — free, instant, private.\n👉 https://coldmatrixtools.com/image-converter-tool.html"));
+    }
+    function copyToolLink() {
+        navigator.clipboard.writeText("https://coldmatrixtools.com/image-converter-tool.html").then(() => alert('Link copied!'));
+    }
 
     let cmDeferredPrompt;
-    window.addEventListener('beforeinstallprompt', function(e) { e.preventDefault(); cmDeferredPrompt = e; document.getElementById('cmInstallBar').style.display = 'block'; });
-    function cmInstallApp() { if (cmDeferredPrompt) { cmDeferredPrompt.prompt(); cmDeferredPrompt.userChoice.then(() => { document.getElementById('cmInstallBar').style.display = 'none'; }); } else { alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.'); } }
+    window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        cmDeferredPrompt = e;
+    });
+    function cmInstallApp() {
+        if (cmDeferredPrompt) {
+            cmDeferredPrompt.prompt();
+            cmDeferredPrompt.userChoice.then(() => { document.getElementById('cmInstallBar').style.display = 'none'; });
+        } else {
+            alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');
+        }
+    }
     if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js').catch(() => {}); }
 </script>
 

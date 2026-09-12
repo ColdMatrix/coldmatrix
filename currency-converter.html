@@ -29,279 +29,500 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
       --bg:#0B0F14;
-      --surface:#0F1620;
       --text:#EAEDF0;
       --muted:#8B98A5;
       --accent:#4FC3F7;
       --gold:#D4AF37;
       --gold-bright:#FFD700;
+      --gold-glow:rgba(212,175,55,0.45);
       --gold-border: linear-gradient(145deg, #C8993A, #E8C96A 30%, #A07828 70%, #D4A843);
-      --grey-light:#d0d2d6;
-      --grey-mid:#9ea0a5;
+      --silver-bg:#C8CDD4;
+      --silver-bg-hover:#D5D9DE;
+      --silver-gradient: linear-gradient(145deg, #D5D9DE, #C8CDD4);
       --grey-dark:#545860;
-      --silver-gradient: linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%);
-      --silver-gradient-hover: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
       --whatsapp-green:#25D366;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background: #111418;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" fill="none"/><path d="M0 0 L20 0 L20 20 L0 20 Z" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/></svg>');
-      background-size: 40px 40px;
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
-    .container { max-width: 850px; margin:0 auto; padding:30px 20px; }
+    .container { max-width: 850px; margin:0 auto; padding:0 20px; }
 
-    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image: var(--gold-border) 1; }
+    /* GOLDEN NAVBAR */
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; }
     .logo { font-size:1.35rem; font-weight:800; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:26px; list-style:none; flex-wrap:wrap; align-items:center; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.92rem; transition:color 0.2s; }
     .nav-links a:hover { color:var(--gold-bright); }
+    .back-link { display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem; }
 
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:12px 20px; border-radius:10px; margin:20px 0; font-weight:600; display:block; font-size:0.85rem; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
+    /* GOLDEN INSTALL BAR */
+    .install-bar {
+      display: block;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14; text-align: center;
+      padding: 10px 16px; border-radius: 10px; margin: 14px 0;
+      font-weight: 700; font-size: 0.85rem;
+      border: 1px solid #FFD700;
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+    }
+    .install-bar button {
+      background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+      padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+      font-weight: 800; cursor: pointer; font-size: 0.8rem;
+    }
 
-    h1 { font-family:'Oswald',sans-serif; font-size:2rem; font-weight:700; letter-spacing:-0.3px; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,0.6); }
+    h1 { font-family:'Oswald',sans-serif; font-size:1.9rem; font-weight:700; letter-spacing:-0.3px; color:#fff; line-height:1.25; margin-bottom:6px; }
     h1 span { color: var(--gold-bright); }
-    .subtitle { color:var(--gold-bright); font-size:1rem; font-weight:500; margin-bottom:22px; text-shadow:0 1px 4px rgba(0,0,0,0.6); }
+    .subtitle { color:#EAEDF0; font-size:0.98rem; font-weight:500; margin-bottom:22px; }
 
+    /* GET QUOTE STRIP */
+    .get-quote-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    .get-quote-strip .quote-btn {
+      flex: 1; min-width: 140px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 16px;
+      background: var(--silver-bg);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      color: #0A0F14;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800; font-size: 0.85rem;
+      text-decoration: none; cursor: pointer;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition: all 0.25s ease;
+    }
+    .get-quote-strip .quote-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 22px var(--gold-glow); }
+    .get-quote-strip .quote-btn.whatsapp { background: #25D366; color: #fff; border-color: #1da851; }
+    .get-quote-strip .quote-btn.whatsapp:hover { background: #1da851; border-color: #25D366; box-shadow: 0 0 22px rgba(37,211,102,0.5); }
+
+    /* SHARE CARD */
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
       border:2px solid;
       border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
       border-radius:12px;
-      padding:22px 20px;
-      margin-bottom:26px;
+      padding:18px 20px;
+      margin-bottom:22px;
       box-shadow:0 10px 34px rgba(0,0,0,0.55);
     }
-    .share-tool-title { font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase; }
+    .share-tool-title { font-weight:800; font-size:0.95rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:14px; text-transform:uppercase; }
     .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
     .share-tool-btn {
       display:flex; align-items:center; justify-content:center; gap:9px;
-      padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
+      padding:13px; border-radius:10px; font-weight:700; font-size:0.88rem; cursor:pointer;
       background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
       transition:all 0.25s ease;
     }
     .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
     .share-tool-btn.wa:hover { border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-    .share-tool-btn i{font-size:1rem;}
 
+    /* AD ZONE */
+    .ad-zone {
+      margin: 20px 0;
+      padding: 20px;
+      background: rgba(212,175,55,0.05);
+      border: 2px dashed var(--gold);
+      border-radius: 12px;
+      text-align: center;
+      min-height: 90px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    /* SILVER CONVERSION CARD */
     .card {
-      background: linear-gradient(160deg, #a8acb5 0%, #7e828b 40%, #545860 100%);
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
       border:2px solid var(--gold);
       border-radius:16px;
-      padding:28px 26px;
+      padding:26px 22px;
       margin-bottom:22px;
-      box-shadow:0 8px 32px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.2), inset 0 1px 0 rgba(255,255,255,0.35);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.7);
     }
     .card h2 {
       font-family:'Oswald',sans-serif;
-      font-size:1.15rem;
-      font-weight:700;
+      font-size:1.1rem; font-weight:800;
       margin-bottom:18px;
-      color:var(--gold-bright);
+      color:#0A0F14;
       text-transform:uppercase;
       letter-spacing:0.8px;
-      text-shadow:0 1px 2px rgba(0,0,0,0.4);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 10px;
     }
     .card label {
       display:block;
-      font-size:0.9rem;
-      color:#ffffff;
+      font-size:0.85rem;
+      color:#0A0F14;
       margin-bottom:6px;
       font-weight:700;
-      text-shadow:0 1px 2px rgba(0,0,0,0.4);
     }
     .card input, .card select {
       width:100%;
-      background:#e8eaef;
+      background:#FFFFFF;
       border:2px solid var(--gold);
-      color:#1a1a1a;
+      color:#0A0F14;
       padding:14px 16px;
-      border-radius:8px;
+      border-radius:10px;
       font-size:1rem;
-      font-weight:500;
+      font-weight:600;
+      font-family:'Inter',sans-serif;
       outline:none;
       transition:all 0.25s;
     }
-    .card input:focus, .card select:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.4); }
+    .card input:focus, .card select:focus { border-color: var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .card input::placeholder { color:#8B98A5; font-weight:500; }
 
+    /* BIG GOLDEN DROPDOWN ARROW */
     .card select {
-      appearance:none;
-      -webkit-appearance:none;
-      -moz-appearance:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M2 2 L10 10 L18 2' fill='none' stroke='%23111' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat:no-repeat;
-      background-position:right 16px center;
-      background-size:20px 12px;
-      padding-right:48px;
+      appearance:none; -webkit-appearance:none; -moz-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14' viewBox='0 0 22 14'%3E%3Cpath d='M2 3 L11 11 L20 3' fill='none' stroke='%23D4AF37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 16px center; background-size:22px 13px;
+      padding-right:52px;
     }
-    .card select option { background:#2a303a; color:#EAEDF0; }
+    .card select option { background:#FFFFFF; color:#0A0F14; font-weight:600; }
 
-    .conv-row { display:grid; grid-template-columns:1fr auto 1fr; gap:16px; align-items:end; margin-bottom:12px; }
+    /* QUICK AMOUNT CHIPS */
+    .quick-chips { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 18px; }
+    .quick-chip {
+      background:#FFFFFF;
+      border:1.5px solid var(--gold);
+      color:#0A0F14;
+      padding:8px 14px;
+      border-radius:20px;
+      font-weight:800;
+      font-size:0.82rem;
+      cursor:pointer;
+      transition:all 0.2s ease;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.3px;
+    }
+    .quick-chip:hover { background: var(--gold); border-color: var(--gold-bright); transform:translateY(-2px); box-shadow: 0 4px 12px rgba(212,175,55,0.35); }
 
+    /* CONVERSION ROW */
+    .conv-row {
+      display:grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 14px;
+      align-items: end;
+      margin-bottom: 12px;
+    }
     .swap-btn {
-      background:var(--silver-gradient);
+      background: var(--silver-bg);
       border:2px solid var(--gold);
       color:#0A0F14;
-      width:48px; height:48px;
+      width:52px; height:52px;
       border-radius:50%;
       cursor:pointer;
-      font-size:1.2rem;
+      font-size:1.3rem;
       margin-bottom:2px;
       transition:all 0.3s;
       display:flex; align-items:center; justify-content:center;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 3px 8px rgba(0,0,0,0.3);
-      font-weight:700;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.6);
+      font-weight:800;
     }
-    .swap-btn:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); box-shadow:0 0 20px rgba(212,175,55,0.4); transform:rotate(180deg); }
+    .swap-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); box-shadow:0 0 20px var(--gold-glow); transform: rotate(180deg); }
 
+    /* RESULT */
     .result-box {
       text-align:center;
-      margin-top:24px;
+      margin-top:20px;
       display:none;
-      padding:22px;
-      background: var(--silver-gradient);
+      padding:22px 20px;
+      background: #FFFFFF;
       border-radius:12px;
-      border:2px solid var(--gold-bright);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 0 20px rgba(212,175,55,0.3);
+      border: 2px solid var(--gold);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35), 0 0 20px rgba(212,175,55,0.2);
     }
-    .result-number { font-family:'Oswald',sans-serif; font-size:2.4rem; font-weight:700; color:#0A0F14; text-shadow:0 1px 2px rgba(255,255,255,0.4); }
-    .result-sub { color:#111; font-size:0.9rem; margin-top:8px; font-weight:600; }
+    .result-number { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:800; color:#0A0F14; line-height:1.2; word-break:break-word; }
+    .result-sub { color:#4a4d55; font-size:0.9rem; margin-top:10px; font-weight:600; }
 
     .rate-updated {
       text-align:center;
-      font-size:0.8rem;
-      color: var(--gold-bright);
-      margin-top:12px;
-      font-weight:600;
-      text-shadow:0 1px 2px rgba(0,0,0,0.5);
-    }
-    .branding-line {
       font-size:0.82rem;
       color: var(--gold-bright);
-      text-align:center;
-      margin-top:18px;
-      border-top:1px solid rgba(255,255,255,0.2);
-      padding-top:14px;
-      font-weight:600;
-      text-shadow:0 1px 2px rgba(0,0,0,0.5);
+      margin-top:14px;
+      font-weight:700;
     }
+
+    /* STACKED BUTTONS */
+    .btn-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+
+    .btn-convert {
+      width:100%;
+      background: var(--silver-bg);
+      color:#0A0F14;
+      border:2px solid var(--gold);
+      min-height: 64px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 900;
+      font-size: 1.15rem;
+      cursor:pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
+      transition:all 0.25s ease;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-convert:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
 
     .btn-reset {
-      background: var(--silver-gradient);
+      width:100%;
+      background: var(--silver-bg);
+      color:#0A0F14;
       border: 2px solid var(--gold);
-      color: #0A0F14;
-      padding: 10px 22px;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      cursor: pointer;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.4);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
-      transition: all 0.25s ease;
+      min-height: 46px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor:pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition:all 0.25s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      display: flex; align-items: center; justify-content: center; gap: 6px;
     }
-    .btn-reset:hover {
-      background: var(--silver-gradient-hover);
-      border-color: var(--gold-bright);
-      box-shadow: 0 0 18px rgba(212,175,55,0.5);
-      transform: translateY(-2px);
-    }
+    .btn-reset:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform:translateY(-2px); }
 
-    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
-    .share-btn { display:flex; align-items:center; gap:7px; padding:11px 18px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer; border:none; text-decoration:none; color:#fff; text-transform:uppercase; transition:all 0.25s; }
-    .share-whatsapp { background:var(--whatsapp-green); }
+/* ============================================ */
+/* SHARE BAR — Elite 4-button premium grid */
+/* ============================================ */
+.share-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 24px 0;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 12px;
+}
+.share-bar > span {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--gold-bright);
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 12px;
+  border-radius: 14px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 800;
+  font-size: 0.82rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  transition: all 0.3s ease;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+  min-height: 58px;
+}
+.share-btn i {
+  font-size: 1.15rem;
+}
+.share-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transition: left 0.5s ease;
+}
+.share-btn:hover::before { left: 100%; }
+.share-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+.share-btn:active { transform: translateY(-1px); }
+
+/* WhatsApp — brand green with gold border */
+.share-whatsapp {
+  background: linear-gradient(145deg, #2ee06f, #1da851);
+  border: 2px solid var(--gold);
+}
+.share-whatsapp:hover { border-color: var(--gold-bright); }
+
+/* PDF — rich red */
+.share-pdf {
+  background: linear-gradient(145deg, #F35B5B, #C62828);
+  border: 2px solid var(--gold);
+}
+.share-pdf:hover { border-color: var(--gold-bright); }
+
+/* JPG — royal purple */
+.share-jpg {
+  background: linear-gradient(145deg, #8B7CF6, #5B21B6);
+  border: 2px solid var(--gold);
+}
+.share-jpg:hover { border-color: var(--gold-bright); }
+
+/* PNG — premium amber */
+.share-png {
+  background: linear-gradient(145deg, #FBBF24, #D97706);
+  border: 2px solid var(--gold);
+  color: #0A0F14;
+}
+.share-png:hover { border-color: var(--gold-bright); }
+.share-png i { color: #0A0F14; }
+
+/* Mobile — 2×2 grid (perfectly even) */
+@media (max-width: 640px) {
+  .share-bar {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0 8px;
+  }
+  .share-btn {
+    padding: 14px 8px;
+    font-size: 0.75rem;
+    min-height: 54px;
+    gap: 6px;
+  }
+  .share-btn i { font-size: 1rem; }
+}
+    }
+    .share-whatsapp { background: var(--whatsapp-green); }
     .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background:var(--grey-dark); color:#fff; border:1.5px solid var(--gold); }
+    .share-jpg, .share-png { background: var(--silver-bg); color:#0A0F14; border: 2px solid var(--gold); }
     .share-btn:hover { transform:translateY(-2px); }
 
-    footer { text-align:center; color:#ccc; font-size:0.8rem; padding:30px 0 20px; border-top:2px solid; border-image:var(--gold-border) 1; margin-top:40px; }
-    footer a { color: var(--gold-bright); text-decoration:none; font-weight:600; }
-
-    /* Lead capture */
-    .lead-capture {
-      background: rgba(15,22,32,0.9);
+    /* SILVER EDUCATIONAL CONTENT */
+    .detail-section {
+      margin: 30px 0;
+      padding: 30px 24px;
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
       border: 2px solid var(--gold);
-      border-radius: 14px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.85; font-size: 0.95rem; color: #0A0F14;
+    }
+    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.35rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; font-weight: 800; }
+    .detail-section h3 { color:#0A0F14; font-size:1.1rem; margin:22px 0 10px; font-weight: 800; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; color: #0A0F14; font-weight: 500; }
+    .detail-section ul, .detail-section ol { padding-left:24px; }
+    .detail-section li { margin-bottom:6px; }
+    .detail-section strong { color:#0A0F14; font-weight: 800; }
+
+    /* PAKISTANI BLOCK */
+    .pakistani-block {
+      margin: 30px 0;
+      padding: 24px 20px;
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+    }
+    .pakistani-block h2 { color:#0A0F14; font-family:'Oswald',sans-serif; font-size:1.15rem; margin-bottom:12px; font-weight: 800; }
+    .pakistani-block p { color:#0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color:#0A0F14; font-weight: 800; }
+
+    /* RELATED TOOLS */
+    .related-tools-section {
+      margin: 20px 0; padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+    }
+    .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; font-family:'Oswald',sans-serif; letter-spacing:0.5px; }
+    .related-tools-section a { color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; display: inline-block; margin: 4px 4px 4px 0; }
+
+    /* DISCLAIMER */
+    .disclaimer-box {
+      margin: 20px 0; padding: 16px 18px;
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      font-size: 0.85rem; color: #0A0F14; line-height: 1.7; font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    /* LEAD CAPTURE */
+    .lead-capture {
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
       padding: 28px 24px;
       margin: 30px 0;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
     }
-    .lead-capture h3 {
-      font-family: 'Oswald', sans-serif;
-      color: var(--gold-bright);
-      font-size: 1.25rem;
-      margin-bottom: 14px;
-      letter-spacing: 0.5px;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    }
-    .lead-capture p {
-      color: #c5cdd6;
-      margin-bottom: 18px;
-      font-size: 0.9rem;
-    }
-    .lead-capture form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .lead-capture h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.2rem; margin-bottom:12px; letter-spacing:0.5px; font-weight: 800; }
+    .lead-capture p { color:#0A0F14; margin-bottom:18px; font-size:0.9rem; font-weight: 500; }
+    .lead-capture form { display:flex; flex-direction:column; gap:12px; }
     .lead-capture input[type="email"] {
-      background: #0e1520;
-      border: 1.5px solid rgba(212,175,55,0.6);
-      border-radius: 8px;
-      padding: 12px 16px;
-      color: #fff;
-      font-size: 0.95rem;
-      outline: none;
+      background:#FFFFFF; border:2px solid var(--gold); border-radius:10px;
+      padding:12px 16px; color:#0A0F14; font-size:0.95rem; font-weight:600; outline:none;
     }
-    .lead-capture input[type="email"]:focus {
-      border-color: var(--gold-bright);
-      box-shadow: 0 0 12px rgba(212,175,55,0.3);
-    }
+    .lead-capture input[type="email"]:focus { border-color: var(--gold-bright); box-shadow: 0 0 15px var(--gold-glow); }
     .lead-capture button {
-      background: linear-gradient(145deg, #d4af37, #b8962e);
-      border: none;
-      border-radius: 8px;
-      padding: 12px 20px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: #0A0F14;
-      cursor: pointer;
-      transition: all 0.25s;
-      letter-spacing: 0.5px;
+      background: var(--silver-bg); border:2px solid var(--gold); border-radius:10px;
+      padding:14px 20px; font-family:'Oswald',sans-serif; font-weight: 800;
+      font-size: 0.95rem; color:#0A0F14; cursor:pointer;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      transition: all 0.25s ease;
     }
-    .lead-capture button:hover {
-      background: linear-gradient(145deg, #e0bb44, #c9a631);
-      box-shadow: 0 0 20px rgba(212,175,55,0.5);
-    }
+    .lead-capture button:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 20px var(--gold-glow); }
 
+    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:2px solid var(--gold); margin-top:50px; }
+    footer a { color: var(--gold-bright); text-decoration:none; font-weight: 600; }
     .whatsapp-float { position:fixed; bottom:22px; right:22px; z-index:999; width:52px; height:52px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(37,211,102,0.45); text-decoration:none; color:#fff; font-size:1.5rem; border:2px solid rgba(255,255,255,0.15); transition:all 0.25s; }
     .whatsapp-float:hover { transform:scale(1.08); }
 
     @media (max-width:600px){
       .conv-row{grid-template-columns:1fr;}
-      .swap-btn{justify-self:center; transform:rotate(90deg);}
+      .swap-btn{justify-self:center; transform:rotate(90deg); margin: 6px auto; }
       .swap-btn:hover{transform:rotate(270deg);}
       h1{font-size:1.5rem;}
       .result-number{font-size:1.8rem;}
+      .detail-section, .pakistani-block, .lead-capture {
+        margin-left: -6px !important;
+        margin-right: -6px !important;
+        padding: 20px 16px !important;
+      }
+      .card { padding: 22px 16px; }
     }
   </style>
 </head>
 <body>
   <nav class="navbar">
     <div class="container nav-inner">
-      <a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a>
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
@@ -314,12 +535,21 @@
   </nav>
 
   <div class="container">
-  <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
-  
+  <a href="index.html#tools" class="back-link">← Back to Tools</a>
+
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1><span>ColdMatrix</span> Global Currency Converter</h1>
     <p class="subtitle">Real-time live exchange rates for 150+ world currencies — updated continuously, not static estimates.</p>
+
+    <div class="get-quote-strip">
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20currency%20or%20finance%20tools." class="quote-btn whatsapp" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Quick Chat
+      </a>
+      <a href="contact.html" class="quote-btn">
+        <i class="fa-solid fa-envelope"></i> Get a Quote
+      </a>
+    </div>
 
     <div class="share-tool-card">
       <div class="share-tool-title">Share Currency Converter</div>
@@ -329,21 +559,54 @@
       </div>
     </div>
 
+    <div class="ad-zone">
+      <span>📢 Ad Space Available</span>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- CONVERTER CARD — SILVER PREMIUM -->
+    <!-- ============================================ -->
     <div class="card" id="shareCapture">
       <h2>💱 Convert Currency</h2>
-      <div style="margin-bottom:18px;"><label>Amount</label><input id="amount" type="number" value="100" oninput="convert()"></div>
-      <div class="conv-row">
-        <div><label>From Currency</label><select id="fromCur" onchange="convert()"></select></div>
-        <button class="swap-btn" onclick="swapCur()" title="Swap Currencies">⇄</button>
-        <div><label>To Currency</label><select id="toCur" onchange="convert()"></select></div>
+
+      <div style="margin-bottom:14px;">
+        <label>Amount</label>
+        <input id="amount" type="number" value="100" oninput="convert()" placeholder="Enter amount">
       </div>
-      <div style="text-align:right;margin:8px 0 0;"><button class="btn-reset" onclick="resetConverter()">🔄 Reset</button></div>
+
+      <!-- QUICK AMOUNT CHIPS -->
+      <div class="quick-chips">
+        <button class="quick-chip" onclick="setAmount(1)">$1</button>
+        <button class="quick-chip" onclick="setAmount(10)">$10</button>
+        <button class="quick-chip" onclick="setAmount(100)">$100</button>
+        <button class="quick-chip" onclick="setAmount(500)">$500</button>
+        <button class="quick-chip" onclick="setAmount(1000)">$1,000</button>
+        <button class="quick-chip" onclick="setAmount(5000)">$5,000</button>
+      </div>
+
+      <div class="conv-row">
+        <div>
+          <label>From Currency</label>
+          <select id="fromCur" onchange="convert()"></select>
+        </div>
+        <button class="swap-btn" onclick="swapCur()" title="Swap Currencies">⇄</button>
+        <div>
+          <label>To Currency</label>
+          <select id="toCur" onchange="convert()"></select>
+        </div>
+      </div>
+
+      <div class="btn-stack">
+        <button class="btn-convert" onclick="convert()">💱 Convert Now</button>
+        <button class="btn-reset" onclick="resetConverter()">↺ Reset</button>
+      </div>
+
       <div class="result-box" id="resultBox">
         <div class="result-number" id="resultNumber">—</div>
         <div class="result-sub" id="resultSub"></div>
       </div>
-      <div class="rate-updated" id="rateUpdated">Loading live rates…</div>
-      <div class="branding-line">🙏 Thank you so much for using and trusting ColdMatrix Tools — your 24/7 business companion.<br>📧 contact@coldmatrixtools.com &nbsp;|&nbsp; 💬 +92 333 3228470</div>
+
+      <div class="rate-updated" id="rateUpdated">⏳ Loading live rates…</div>
     </div>
 
     <div class="share-bar" id="shareBarWrap" style="display:none;">
@@ -352,52 +615,106 @@
       <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
-  </div>
 
-  <!-- ENHANCED EDUCATIONAL CONTENT -->
-  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Global Currency Converter</h2>
-    <p>ColdMatrix Global Currency Converter helps you convert between <strong>150+ world currencies</strong> using live, up-to-date exchange rates. It's the perfect tool for travelers, freelancers, import/export businesses, and anyone dealing with international payments.</p>
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — SILVER, MOBILE-FRIENDLY -->
+    <!-- ============================================ -->
+    <div class="detail-section">
+      <h2>💱 The Complete Currency Conversion Guide</h2>
 
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Why Live Rates Matter</h3>
-    <p>Currency values change every second due to global market activity. Our converter pulls real-time data from public APIs, so you always see the latest exchange rates — not stale or fixed numbers. If rates rise or fall, the tool reflects that instantly.</p>
-    <p><strong>Example:</strong> If USD/PKR moves from 278 to 282, you'll see the updated value immediately when you convert. This ensures accurate budgeting and financial decisions.</p>
+      <p>Currency conversion is one of the most common financial tasks in our globalized world. Whether you're a traveler, a freelancer receiving international payments, an importer/exporter, or someone sending money to family abroad — knowing how exchange rates work and how to convert accurately can save you time and money.</p>
 
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Complete Feature List</h3>
-    <ul style="padding-left:20px;">
-      <li><strong>150+ Currencies:</strong> USD, EUR, GBP, PKR, AED, SAR, INR, CNY, JPY, and many more.</li>
-      <li><strong>Live Rates:</strong> Automatically updates from reliable public APIs.</li>
-      <li><strong>Swap Function:</strong> One-click swap between From and To currencies.</li>
-      <li><strong>Real-Time Conversion:</strong> Results update instantly as you type.</li>
-      <li><strong>Export & Share:</strong> Download as PDF, JPG, or PNG, and share on WhatsApp.</li>
-      <li><strong>100% Free:</strong> No registration, no hidden fees.</li>
-    </ul>
+      <h3>What Is an Exchange Rate?</h3>
+      <p>An exchange rate is the price of one currency expressed in another. For example, if USD/PKR = 278, it means 1 US Dollar equals 278 Pakistani Rupees. Rates change constantly based on global supply and demand — some currencies fluctuate every second during market hours.</p>
 
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Where Currency Conversion Is Used</h3>
-    <ul style="padding-left:20px;">
-      <li><strong>Travel & Tourism:</strong> Convert spending money before and during trips.</li>
-      <li><strong>International Business:</strong> Calculate costs, invoices, and payments in different currencies.</li>
-      <li><strong>Freelancing:</strong> Convert earnings from platforms like Upwork or Fiverr.</li>
-      <li><strong>Online Shopping:</strong> Check prices in your local currency.</li>
-      <li><strong>Investment:</strong> Track foreign investments and exchange rate movements.</li>
-    </ul>
+      <h3>Why Live Rates Matter</h3>
+      <p>Static or outdated rates can cost you real money. If you're calculating an invoice, planning a trip, or sending a remittance, using a rate that's even 1% off on a $10,000 transaction means a $100 difference. Our converter pulls real-time data from public APIs, so you always see the latest rate.</p>
 
-    <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
-    <p><strong>Q: Are the exchange rates live?</strong><br>
-    A: Yes, rates are fetched from public APIs and updated regularly.</p>
-    <p><strong>Q: Is this free to use?</strong><br>
-    A: Yes, 100% free with no registration required.</p>
-    <p><strong>Q: Does it work offline?</strong><br>
-    A: You need an internet connection to fetch the latest rates. If offline, fallback rates are used.</p>
-    <p><strong>Q: Are the rates accurate?</strong><br>
-    A: Rates are indicative and may differ slightly from bank or money-transfer service rates.</p>
-  </div>
+      <h3>What Affects Exchange Rates?</h3>
+      <ul>
+        <li><strong>Interest Rates:</strong> Central bank decisions move currencies fast. Higher rates typically strengthen a currency.</li>
+        <li><strong>Inflation:</strong> Countries with lower inflation usually see their currency strengthen over time.</li>
+        <li><strong>Trade Balance:</strong> Export-heavy countries tend to have stronger currencies.</li>
+        <li><strong>Political Stability:</strong> Uncertainty weakens a currency; stability strengthens it.</li>
+        <li><strong>Market Sentiment:</strong> Global news, geopolitical events, and speculation cause short-term swings.</li>
+        <li><strong>Economic Data:</strong> GDP, employment, and manufacturing reports all move currencies.</li>
+      </ul>
 
-  <!-- LEAD CAPTURE (natural fit) -->
-  <div class="container">
+      <h3>Key Currency Terms You Should Know</h3>
+      <ul>
+        <li><strong>Base Currency:</strong> The first currency in a pair (e.g., USD in USD/PKR).</li>
+        <li><strong>Quote Currency:</strong> The second currency in a pair (e.g., PKR in USD/PKR).</li>
+        <li><strong>Bid/Ask Spread:</strong> The difference between buy and sell prices — how banks and exchanges make money.</li>
+        <li><strong>Mid-Market Rate:</strong> The middle rate between bid and ask — what you see on Google. Actual transactions cost more.</li>
+        <li><strong>Pip:</strong> The smallest price move in a currency pair, usually 0.0001.</li>
+      </ul>
+
+      <h3>Best Practices for Currency Conversion</h3>
+      <ul>
+        <li><strong>Always compare rates:</strong> Banks, exchanges, and money transfer services have different rates and fees.</li>
+        <li><strong>Check the total cost:</strong> A "0% fee" often means a worse exchange rate built in.</li>
+        <li><strong>Time your transfers:</strong> Rates fluctuate. If not urgent, watch for favorable moves.</li>
+        <li><strong>Use limit orders:</strong> Many services let you set a target rate and auto-convert.</li>
+        <li><strong>Consider forward contracts:</strong> For large future payments, lock in today's rate.</li>
+      </ul>
+
+      <h3>Common Use Cases</h3>
+      <ul>
+        <li><strong>Travel:</strong> Budget your trip in local currency before you go.</li>
+        <li><strong>E-commerce:</strong> Show prices in customers' local currencies.</li>
+        <li><strong>Freelancing:</strong> Convert platform earnings to your home currency.</li>
+        <li><strong>Remittances:</strong> Send money to family abroad and calculate the exact amount received.</li>
+        <li><strong>Business Invoicing:</strong> Bill international clients in their preferred currency.</li>
+        <li><strong>Investment:</strong> Evaluate foreign stocks and bonds in your own currency.</li>
+      </ul>
+
+      <h3>Frequently Asked Questions</h3>
+      <p><strong>Q: Are the rates live or cached?</strong><br>A: Live — pulled from public exchange-rate APIs on every page load.</p>
+      <p><strong>Q: How many currencies are supported?</strong><br>A: 150+ — including USD, EUR, GBP, PKR, AED, SAR, INR, CNY, JPY, and many more.</p>
+      <p><strong>Q: Are these rates what I'll get from my bank?</strong><br>A: No — banks add a spread (usually 1-4%). Our rates are mid-market, the fairest benchmark.</p>
+      <p><strong>Q: Can I use this offline?</strong><br>A: Yes, fallback rates are used when offline. Live rates resume on next connection.</p>
+      <p><strong>Q: Is my data private?</strong><br>A: Yes — everything runs in your browser. Nothing is uploaded.</p>
+
+      <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ Accurate, live, free — the currency converter you can rely on for every international transaction.</p>
+    </div>
+
+    <div class="ad-zone">
+      <span>📢 Ad Space Available</span>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- PAKISTANI / GLOBAL BLOCK -->
+    <!-- ============================================ -->
+    <div class="pakistani-block">
+      <h2>🌐 ColdMatrix Advanced Solutions — Finance Tools for a Global Economy</h2>
+      <p>Our Global Currency Converter is used daily by freelancers, travelers, importers, and business owners across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, Australia, and beyond</strong>. It's a genuinely global tool built for a genuinely global economy.</p>
+      <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients worldwide with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
+      <p>Need a custom currency dashboard, a finance tool, or a project quote? Our team responds within 24 hours.</p>
+      <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- RELATED TOOLS -->
+    <!-- ============================================ -->
+    <div class="related-tools-section">
+      <h3>🔗 Related Tools You Might Need</h3>
+      <div>
+        <a href="business-calculator-suite.html">🧮 Business Calculator Suite</a>
+        <a href="roi-calculator.html">📈 ROI Calculator</a>
+        <a href="profit-margin-calculator.html">💰 Profit Margin Calculator</a>
+        <a href="startup-cost-calculator.html">🚀 Startup Cost Planner</a>
+        <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+        <a href="unit-converter.html">📏 Unit Converter</a>
+        <a href="world-clock.html">🌍 World Clock</a>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- LEAD CAPTURE -->
+    <!-- ============================================ -->
     <div class="lead-capture">
-      <h3>🚀 Need a Custom Business Tool?</h3>
-      <p>Get tailored calculators, dashboards, or automation for your business. Leave your email and we'll reach out with a free consultation.</p>
+      <h3>🚀 Need a Custom Financial Tool?</h3>
+      <p>Get tailored currency dashboards, rate alerts, or automation for your business — anywhere in the world. Leave your email and we'll reach out within 24 hours.</p>
       <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
@@ -405,192 +722,254 @@
         <button type="submit">Request Custom Tool</button>
       </form>
     </div>
+
+    <!-- ============================================ -->
+    <!-- DISCLAIMER -->
+    <!-- ============================================ -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> Exchange rates shown are mid-market rates sourced from public APIs and are provided for informational purposes only. They may differ from the rates offered by your bank, money transfer service, or payment processor. Always confirm the final rate before executing any transaction. ColdMatrix is not liable for decisions made based on the rates shown.
+    </div>
+
   </div>
 
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+
 <footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
-  <script>
-    let rates = null;
-    const FALLBACK_RATES = {
-      USD:1, EUR:0.92, GBP:0.79, PKR:278.5, AED:3.6725, SAR:3.75,
-      INR:83.2, CNY:7.24, JPY:149.5, AUD:1.52, CAD:1.36, CHF:0.88,
-      SGD:1.34, MYR:4.72, TRY:32.5, ZAR:18.9, NGN:1250, BDT:110,
-      EGP:47.8, QAR:3.64, NZD:1.64, HKD:7.82, KRW:1350, SEK:10.8,
-      NOK:10.9, DKK:6.87, BRL:5.12, MXN:17.3, IDR:16200, THB:36.5
-    };
-    const popular = ["USD","EUR","GBP","PKR","AED","SAR","INR","CNY","JPY","AUD","CAD","CHF","SGD","MYR","TRY","ZAR","NGN","BDT","EGP","QAR"];
+<script>
+  let rates = null;
+  const FALLBACK_RATES = {
+    USD:1, EUR:0.92, GBP:0.79, PKR:278.5, AED:3.6725, SAR:3.75,
+    INR:83.2, CNY:7.24, JPY:149.5, AUD:1.52, CAD:1.36, CHF:0.88,
+    SGD:1.34, MYR:4.72, TRY:32.5, ZAR:18.9, NGN:1250, BDT:110,
+    EGP:47.8, QAR:3.64, NZD:1.64, HKD:7.82, KRW:1350, SEK:10.8,
+    NOK:10.9, DKK:6.87, BRL:5.12, MXN:17.3, IDR:16200, THB:36.5,
+    RUB:92.5, PLN:4.02, ILS:3.72, CZK:23.1, HUF:358, PHP:56.8,
+    VND:24500, LKR:305, NPR:133, KWD:0.308, BHD:0.377, OMR:0.385,
+    JOD:0.709, MAD:9.85, TND:3.12, KES:145, GHS:12.5, UGX:3800,
+    TZS:2600, ZMW:25.5, MZN:63.5, ETB:57, ARS:950, CLP:920,
+    COP:3900, PEN:3.72, UYU:42.5, BOB:6.91, PYG:7300, VES:36.5
+  };
 
-    async function loadRates(){
-      try{
-        const res = await fetch('https://open.er-api.com/v6/latest/USD');
-        const data = await res.json();
-        if(data && data.rates){
-          rates = data.rates;
-          document.getElementById('rateUpdated').textContent = '✅ Live rates updated: ' + (data.time_last_update_utc || new Date().toUTCString());
-        } else {
-          useFallbackRates();
-        }
-      }catch(e){
+  const popular = ["USD","EUR","GBP","PKR","AED","SAR","INR","CNY","JPY","AUD","CAD","CHF","SGD","MYR","TRY","ZAR","NGN","BDT","EGP","QAR"];
+
+  // Currency names via Intl API
+  let currencyNames = {};
+  try {
+    const displayNames = new Intl.DisplayNames(['en'], {type: 'currency'});
+    // Build names lazily when we know the rate codes
+  } catch(e) {}
+
+  function getName(code) {
+    try {
+      const dn = new Intl.DisplayNames(['en'], {type: 'currency'});
+      return dn.of(code) || code;
+    } catch(e) {
+      return code;
+    }
+  }
+
+  function setAmount(v) {
+    document.getElementById('amount').value = v;
+    convert();
+  }
+
+  async function loadRates(){
+    try{
+      const res = await fetch('https://open.er-api.com/v6/latest/USD');
+      const data = await res.json();
+      if(data && data.rates){
+        rates = data.rates;
+        document.getElementById('rateUpdated').textContent = '✅ Live rates updated: ' + (data.time_last_update_utc || new Date().toUTCString());
+      } else {
         useFallbackRates();
       }
-      populateSelects();
-      convert();
+    }catch(e){
+      useFallbackRates();
     }
+    populateSelects();
+    convert();
+  }
 
-    function useFallbackRates(){
-      rates = FALLBACK_RATES;
-      document.getElementById('rateUpdated').textContent = '⚠️ Using fallback rates (offline mode). Last known rates applied.';
+  function useFallbackRates(){
+    rates = FALLBACK_RATES;
+    document.getElementById('rateUpdated').textContent = '⚠️ Using fallback rates (offline mode). Live rates resume on next connection.';
+  }
+
+  function populateSelects(){
+    const allCodes = Object.keys(rates).sort();
+    const ordered = [...popular.filter(c=>rates[c]), ...allCodes.filter(c=>!popular.includes(c))];
+
+    const fromSel = document.getElementById('fromCur');
+    const toSel = document.getElementById('toCur');
+
+    const buildOptions = (codes) => codes.map(c => {
+      const name = getName(c);
+      return `<option value="${c}">${c} — ${name}</option>`;
+    }).join('');
+
+    fromSel.innerHTML = buildOptions(ordered);
+    toSel.innerHTML = buildOptions(ordered);
+
+    fromSel.value = 'USD';
+    toSel.value = rates['PKR'] ? 'PKR' : (ordered[1] || ordered[0]);
+  }
+
+  function resetConverter(){
+    document.getElementById('amount').value = 100;
+    document.getElementById('fromCur').value = 'USD';
+    document.getElementById('toCur').value = rates && rates['PKR'] ? 'PKR' : document.getElementById('toCur').options[0].value;
+    document.getElementById('resultBox').style.display = 'none';
+    document.getElementById('shareBarWrap').style.display = 'none';
+    convert();
+  }
+
+  function convert(){
+    if(!rates) return;
+    const amount = parseFloat(document.getElementById('amount').value) || 0;
+    const from = document.getElementById('fromCur').value;
+    const to = document.getElementById('toCur').value;
+
+    const result = (amount / rates[from]) * rates[to];
+    const rate = rates[to] / rates[from];
+
+    document.getElementById('resultNumber').textContent = result.toLocaleString(undefined, {maximumFractionDigits: 2}) + ' ' + to;
+    document.getElementById('resultSub').textContent = `1 ${from} = ${rate.toLocaleString(undefined, {maximumFractionDigits: 4})} ${to}`;
+    document.getElementById('resultBox').style.display = 'block';
+    document.getElementById('shareBarWrap').style.display = 'flex';
+  }
+
+  function swapCur(){
+    const f = document.getElementById('fromCur');
+    const t = document.getElementById('toCur');
+    const tmp = f.value;
+    f.value = t.value;
+    t.value = tmp;
+    convert();
+  }
+
+  loadRates();
+
+  async function captureCanvas(){
+    return await html2canvas(document.getElementById('shareCapture'), {backgroundColor:'#C8CDD4', scale:2});
+  }
+
+  async function downloadResult(type){
+    const canvas = await captureCanvas();
+    if(type === 'pdf'){
+      const { jsPDF } = window.jspdf;
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      const pdf = new jsPDF({ orientation: canvas.width > canvas.height ? 'l':'p', unit:'px', format:[canvas.width, canvas.height] });
+      pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+      pdf.save('ColdMatrix-Currency-Conversion.pdf');
+    } else {
+      const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
+      const link = document.createElement('a');
+      link.download = 'ColdMatrix-Currency-Conversion.' + type;
+      link.href = canvas.toDataURL(mime, 0.95);
+      link.click();
     }
+  }
 
-    function populateSelects(){
-      const allCodes = Object.keys(rates).sort();
-      const ordered = [...popular.filter(c=>rates[c]), ...allCodes.filter(c=>!popular.includes(c))];
-      const fromSel = document.getElementById('fromCur');
-      const toSel = document.getElementById('toCur');
-      fromSel.innerHTML = ordered.map(c=>`<option value="${c}">${c}</option>`).join('');
-      toSel.innerHTML = ordered.map(c=>`<option value="${c}">${c}</option>`).join('');
-      fromSel.value = 'USD';
-      toSel.value = rates['PKR'] ? 'PKR' : (ordered[1] || ordered[0]);
-    }
-
-    function resetConverter(){
-      document.getElementById('amount').value = 100;
-      document.getElementById('fromCur').value = 'USD';
-      document.getElementById('toCur').value = rates['PKR'] ? 'PKR' : document.getElementById('toCur').options[0].value;
-      convert();
-    }
-    function convert(){
-      if(!rates) return;
-      const amount = parseFloat(document.getElementById('amount').value) || 0;
-      const from = document.getElementById('fromCur').value;
-      const to = document.getElementById('toCur').value;
-      const result = (amount / rates[from]) * rates[to];
-      document.getElementById('resultNumber').textContent = result.toLocaleString(undefined,{maximumFractionDigits:2}) + ' ' + to;
-      document.getElementById('resultSub').textContent = `1 ${from} = ${(rates[to]/rates[from]).toLocaleString(undefined,{maximumFractionDigits:4})} ${to}`;
-      document.getElementById('resultBox').style.display = 'block';
-      document.getElementById('shareBarWrap').style.display = 'flex';
-    }
-
-    function swapCur(){
-      const f = document.getElementById('fromCur');
-      const t = document.getElementById('toCur');
-      [f.value, t.value] = [t.value, f.value];
-      convert();
-    }
-
-    loadRates();
-
-    async function captureCanvas(){ return await html2canvas(document.getElementById('shareCapture'), {backgroundColor:'#7e828b', scale:2}); }
-    async function downloadResult(type){
-      const canvas = await captureCanvas();
-      if(type === 'pdf'){
-        const { jsPDF } = window.jspdf;
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
-        const pdf = new jsPDF({ orientation: canvas.width > canvas.height ? 'l':'p', unit:'px', format:[canvas.width, canvas.height] });
-        pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
-        pdf.save('ColdMatrix-Currency-Conversion.pdf');
+  async function shareWhatsApp(){
+    const canvas = await captureCanvas();
+    canvas.toBlob(async (blob)=>{
+      const file = new File([blob], 'ColdMatrix-Currency.png', {type:'image/png'});
+      const caption = 'Thank you for using ColdMatrix Tools — your 24/7 business companion.\n📧 contact@coldmatrixtools.com  |  💬 +92 333 3228470';
+      if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+        try{ await navigator.share({ files:[file], title:'Currency Conversion', text:caption }); }catch(e){}
       } else {
-        const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
         const link = document.createElement('a');
-        link.download = 'ColdMatrix-Currency-Conversion.' + type;
-        link.href = canvas.toDataURL(mime, 0.95);
+        link.download='ColdMatrix-Currency.png';
+        link.href = canvas.toDataURL('image/png');
         link.click();
+        window.open('https://wa.me/?text=' + encodeURIComponent(caption), '_blank');
       }
-    }
-    async function shareWhatsApp(){
-      const canvas = await captureCanvas();
-      canvas.toBlob(async (blob)=>{
-        const file = new File([blob], 'ColdMatrix-Currency.png', {type:'image/png'});
-        if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
-          try{ await navigator.share({ files:[file], title:'Currency Conversion', text:'Check this currency conversion from ColdMatrix Tools!' }); }catch(e){}
-        } else {
-          const link = document.createElement('a'); link.download='ColdMatrix-Currency.png'; link.href = canvas.toDataURL('image/png'); link.click();
-          window.open('https://wa.me/?text=' + encodeURIComponent('Thank you for using ColdMatrix Tools!\n📧 contact@coldmatrixtools.com | 💬 +92 333 3228470'), '_blank');
-        }
-      });
-    }
-
-    let deferredPrompt;
-    const installBar = document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt = e; installBar.style.display='block'; });
-    window.installAppTool = function(){
-      if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(()=>{ installBar.style.display='none'; }); }
-      else { alert('📱 Add to Home Screen via browser menu.'); }
-    };
-    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
-
-    function shareToolWhatsApp(){
-      window.open('https://wa.me/?text=' + encodeURIComponent('Check out ColdMatrix Currency Converter! ' + window.location.href));
-    }
-    function copyToolLink(){
-      navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
-    }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Are ColdMatrix tools free to use?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How accurate are ColdMatrix calculators?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does ColdMatrix store my data?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
-        }
-      }
-    ]
+    });
   }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "How to Use the ColdMatrix Currency Converter",
-    "description": "Convert between 150+ world currencies using live exchange rates.",
-    "step": [
-      {
-        "@type": "HowToStep",
-        "name": "Enter amount",
-        "text": "Type the amount you want to convert in the 'Amount' field."
-      },
-      {
-        "@type": "HowToStep",
-        "name": "Select currencies",
-        "text": "Choose the 'From' and 'To' currencies from the dropdown lists."
-      },
-      {
-        "@type": "HowToStep",
-        "name": "View result",
-        "text": "The converted amount appears instantly along with the exchange rate."
-      }
-    ]
+
+  let deferredPrompt;
+  const installBar = document.getElementById('installBarTool');
+  window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt = e; installBar.style.display='block'; });
+  window.installAppTool = function(){
+    if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(()=>{ installBar.style.display='none'; }); }
+    else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
+  };
+  if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+
+  function shareToolWhatsApp(){
+    window.open('https://wa.me/?text=' + encodeURIComponent('Check out ColdMatrix Currency Converter! ' + window.location.href));
   }
-  </script>
+  function copyToolLink(){
+    navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{ alert(window.location.href); });
+  }
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ColdMatrix Global Currency Converter",
+  "url": "https://coldmatrixtools.com/currency-converter.html",
+  "applicationCategory": "FinanceApplication",
+  "description": "Convert between 150+ world currencies with live exchange rates. Free, fast, and accurate.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Are the exchange rates live?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — rates are pulled from public exchange-rate APIs on every page load."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many currencies are supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "150+ currencies including USD, EUR, GBP, PKR, AED, SAR, INR, CNY, JPY, and many more."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are these rates what I'll get from my bank?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No — banks add a spread (usually 1-4%). Our rates are mid-market rates, the fairest benchmark."
+      }
+    }
+  ]
+}
+</script>
 </body>
 </html>
