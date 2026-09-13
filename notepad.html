@@ -12,7 +12,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ColdMatrix Notepad — Free Online Notes, Auto-Saved</title>
-  <meta name="description" content="A free, private online notepad. Write, edit, and organize notes that auto-save instantly, search across all your notes, and download any note as a text file or image. No sign-up needed.">
+  <meta name="description" content="A free, private online notepad. Write, edit, and organize notes that auto-save instantly, search across all your notes, and download any note as a text file, PDF, or image. No sign-up needed.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
   <meta property="og:title" content="ColdMatrix Notepad — Free Online Notes, Auto-Saved">
@@ -24,8 +24,11 @@
   <meta name="twitter:description" content="A free, private online notepad. Write, edit, and organize notes that auto-save instantly.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/notepad.jpg">
   <meta name="theme-color" content="#0A0F14">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -34,44 +37,69 @@
   <style>
     :root {
       --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --text:#EAEDF0; --muted:#8B98A5;
-      --accent:#4FC3F7; --accent2:#2196F3; --gold:#D4AF37; --gold-bright:#FFD700;
-      --gold-glow:rgba(212,175,55,0.45);
-      --silver-medium-bg: linear-gradient(145deg, #e0e4e8 0%, #c4cad0 30%, #a9b0b8 60%, #d5d9de 100%);
-      --silver-gradient:linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%);
-      --silver-gradient-hover:linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
+      --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
+      --silver-bg:#C8CDD4;
+      --silver-bg-hover:#D5D9DE;
+      --silver-gradient:linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      --silver-medium-bg: linear-gradient(145deg, #D5D9DE, #C8CDD4);
       --whatsapp-green:#25D366;
       --ruled-line-color:#c9ced4;
-      --line-height:32px;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.08), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.08), transparent 55%), #0B0F14;
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
       color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; min-height:100vh;
     }
-    .container { max-width:900px; margin:0 auto; padding:20px; }
-    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:linear-gradient(145deg,#C8993A,#E8C96A 30%,#A07828 70%,#D4A843) 1; }
+    .container { max-width:900px; margin:0 auto; padding:0 20px; }
+
+    /* GOLDEN NAVBAR */
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; max-width:900px; margin:0 auto; }
-    .logo { font-size:1.3rem; font-weight:800; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .logo { font-size:1.3rem; font-weight:800; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; }
     .nav-links a:hover { color:var(--gold-bright); }
-    .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
-    .install-bar { background:var(--accent); color:#0A0F14; text-align:center; padding:10px 16px; border-radius:8px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; }
-    .install-bar button { background:#0A0F14; color:#fff; border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:600; cursor:pointer; }
-    h1 { font-family:'Oswald',sans-serif; font-size:1.9rem; font-weight:700; margin-bottom:6px; color:#fff; }
-    h1 span { color:var(--gold-bright); }
-    .subtitle { color:#ccc; font-size:0.95rem; margin-bottom:22px; }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--gold); text-decoration:none; font-weight:600; font-size:0.85rem; }
 
-    /* Premium silver card */
-    .premium-card {
-      background: var(--silver-medium-bg);
-      border: 2px solid var(--gold);
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.8);
-      color: #0A0F14;
+    /* GOLDEN INSTALL BAR */
+    .install-bar {
+      display: block;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14; text-align: center;
+      padding: 10px 16px; border-radius: 10px; margin: 14px 0;
+      font-weight: 700; font-size: 0.85rem;
+      border: 1px solid #FFD700;
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+    }
+    .install-bar button {
+      background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+      padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+      font-weight: 800; cursor: pointer; font-size: 0.8rem;
     }
 
-    /* Share tool card */
+    h1 { font-family:'Oswald',sans-serif; font-size:1.7rem; font-weight:700; margin-bottom:6px; color:#fff; line-height:1.25; }
+    h1 span { color:var(--gold-bright); }
+    .subtitle { color:#EAEDF0; font-size:0.95rem; font-weight: 500; margin-bottom:20px; }
+
+    /* GET QUOTE STRIP */
+    .get-quote-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    .get-quote-strip .quote-btn {
+      flex: 1; min-width: 140px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 16px;
+      background: var(--silver-bg); border: 2px solid var(--gold);
+      border-radius: 12px; color: #0A0F14;
+      font-family: 'Oswald', sans-serif; font-weight: 800;
+      font-size: 0.85rem; text-decoration: none; cursor: pointer;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition: all 0.25s ease;
+    }
+    .get-quote-strip .quote-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 22px var(--gold-glow); }
+    .get-quote-strip .quote-btn.whatsapp { background: #25D366; color: #fff; border-color: #1da851; }
+    .get-quote-strip .quote-btn.whatsapp:hover { background: #1da851; border-color: #25D366; }
+
+    /* SHARE CARD */
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
       border:2px solid;
@@ -89,49 +117,76 @@
     }
     .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover { border-color:#25D366; }
 
-    /* List view */
+    /* AD ZONE */
+    .ad-zone {
+      margin: 20px 0; padding: 20px;
+      background: rgba(212,175,55,0.05);
+      border: 2px dashed var(--gold);
+      border-radius: 12px;
+      text-align: center;
+      min-height: 90px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    /* SILVER PREMIUM CARD */
+    .premium-card {
+      background: #C8CDD4;
+      background-image: var(--silver-medium-bg);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      color: #0A0F14;
+    }
+
+    /* Toolbar */
     .notepad-toolbar { display:flex; gap:10px; margin-bottom:16px; align-items:center; }
-    .search-box { flex:1; padding:12px 16px; border-radius:10px; border:2px solid var(--gold); background:#ffffff; color:#0A0F14; font-size:0.9rem; }
+    .search-box { flex:1; padding:12px 16px; border-radius:10px; border:2px solid var(--gold); background:#FFFFFF; color:#0A0F14; font-size:0.9rem; font-weight: 600; }
     .search-box:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
     .btn-new {
-      background: var(--silver-gradient); color:#0A0F14; border:2px solid var(--gold);
-      padding:12px 20px; border-radius:10px; font-weight:800; font-size:0.9rem; cursor:pointer;
+      background: var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
+      padding:12px 20px; border-radius:10px;
+      font-family: 'Oswald', sans-serif; font-weight: 800; font-size: 0.9rem; cursor:pointer;
       white-space:nowrap; transition:all .25s ease;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.3);
+      text-transform: uppercase; letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.3);
     }
-    .btn-new:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+    .btn-new:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
+    /* Note list */
     .notes-grid { display:flex; flex-direction:column; gap:12px; }
     .note-card {
-      background: var(--silver-medium-bg);
+      background: #C8CDD4;
+      background-image: var(--silver-medium-bg);
       border:2px solid var(--gold);
       border-radius:14px; padding:16px 18px; cursor:pointer; transition:all 0.2s;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.6);
       color:#0A0F14;
     }
     .note-card:hover { border-color:var(--gold-bright); transform:translateY(-2px); box-shadow:0 0 20px rgba(212,175,55,0.4); }
-    .note-card-title { font-weight:700; font-size:1rem; color:#0A0F14; margin-bottom:4px; }
+    .note-card-title { font-weight:800; font-size:1rem; color:#0A0F14; margin-bottom:4px; }
     .note-card-snippet { font-size:0.85rem; color:#333; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-bottom:6px; }
-    .note-card-date { font-size:0.72rem; color:#555; }
+    .note-card-date { font-size:0.72rem; color:#4a4d55; font-weight: 600; }
     .empty-state { text-align:center; padding:50px 20px; color:var(--muted); }
     .empty-state .icon { font-size:3rem; margin-bottom:14px; opacity:0.6; }
 
-    /* Editor view */
+    /* Editor */
     #editorView { display:none; }
     .editor-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
     .editor-back { background:transparent; border:none; color:var(--gold-bright); font-size:1.3rem; cursor:pointer; padding:4px; }
     #noteTitleInput {
-      flex:1; background:#ffffff; border:2px solid var(--gold); color:#0A0F14;
-      font-size:1.2rem; font-weight:700; font-family:'Oswald',sans-serif;
+      flex:1; background:#FFFFFF; border:2px solid var(--gold); color:#0A0F14;
+      font-size:1.2rem; font-weight: 700; font-family:'Oswald',sans-serif;
       padding:10px 12px; border-radius:10px;
     }
     #noteTitleInput:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
 
-    /* Textarea with ruled lines */
     #noteContentInput {
       width:100%; min-height:340px;
-      background: #ffffff;
+      background: #FFFFFF;
       background-image: repeating-linear-gradient(
         to bottom,
         transparent,
@@ -149,50 +204,73 @@
       line-height:32px;
       resize:vertical;
     }
-    #noteContentInput:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    #noteContentInput:focus { outline:none; border-color:var(--gold-bright); box-shadow: 0 0 15px var(--gold-glow); }
     .save-status { font-size:0.75rem; color:var(--muted); margin-top:8px; min-height:18px; }
-    .save-status.saved { color:#0A0F14; }
+    .save-status.saved { color:var(--gold-bright); font-weight: 700; }
 
-    /* Editor actions and share section below textarea */
-    .editor-actions { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+    /* Stacked actions */
+    .btn-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+    .editor-actions-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
     .btn-action {
-      flex:1; min-width:140px; padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem;
-      cursor:pointer; border:2px solid var(--gold); background:var(--silver-gradient); color:#0A0F14;
+      padding:14px; border-radius:12px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800; font-size: 0.92rem;
+      cursor:pointer; border:2px solid var(--gold);
+      background:var(--silver-bg); color:#0A0F14;
       transition:all .25s ease;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
     }
-    .btn-action:hover { background:var(--silver-gradient-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
-    .btn-download-txt { border-color:var(--accent); }
-    .btn-delete { border-color:#FF6B6B; background:linear-gradient(145deg,#f8d7da,#f5c6cb); }
-    .btn-delete:hover { background:linear-gradient(145deg,#f5c6cb,#f1b0b7); border-color:#FF6B6B; }
+    .btn-action:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
+    .btn-download-txt { min-height: 60px; font-size: 1rem; }
+    .btn-delete { min-height: 60px; font-size: 1rem; background: linear-gradient(145deg, #ffd4d4, #ffb8b8); border-color: #CC0000; color: #8B0000; }
+    .btn-delete:hover { background: linear-gradient(145deg, #ffb8b8, #ffa0a0); border-color: #CC0000; }
 
-    /* Share note section below actions */
+    /* Share note buttons — 4-button grid */
     .share-note-section {
-      display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
-      margin-top:16px; padding:12px 14px;
-      background: var(--silver-medium-bg); border:2px solid var(--gold); border-radius:12px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+      padding: 14px;
+      background: #C8CDD4;
+      background-image: var(--silver-medium-bg);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+    }
+    .share-note-section .label {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #0A0F14;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
     }
     .share-note-btn {
-      display:flex; align-items:center; gap:6px; padding:8px 12px; border-radius:6px;
-      font-weight:600; font-size:0.8rem; cursor:pointer; border:2px solid transparent;
-      transition:all 0.2s; text-transform:none;
+      display:flex; align-items:center; justify-content:center; gap:6px;
+      padding:14px 8px; border-radius:12px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800; font-size:0.75rem;
+      cursor:pointer; color:#fff;
+      border: 2px solid var(--gold);
+      transition:all 0.25s;
+      min-height: 54px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
-    .share-note-btn i { font-size:0.9rem; }
-    .share-note-wa { background:var(--whatsapp-green); color:#fff; border-color:rgba(37,211,102,0.6); }
-    .share-note-pdf { background:#E53935; color:#fff; border-color:#E53935; }
-    .share-note-jpg, .share-note-png { background:var(--silver-gradient); color:#0A0F14; border-color:var(--gold); }
-    .share-note-btn:hover { transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,0.25); }
+    .share-note-btn i { font-size: 0.95rem; }
+    .share-note-btn:hover { transform:translateY(-2px); border-color: var(--gold-bright); box-shadow: 0 0 15px var(--gold-glow); }
+    .share-note-wa { background: linear-gradient(145deg, #2ee06f, #1da851); }
+    .share-note-pdf { background: linear-gradient(145deg, #F35B5B, #C62828); }
+    .share-note-jpg { background: linear-gradient(145deg, #8B7CF6, #5B21B6); }
+    .share-note-png { background: linear-gradient(145deg, #FBBF24, #D97706); color: #0A0F14; }
 
-    /* Smart line / label above share buttons */
-    .take-note-label {
-      display:flex; align-items:center; gap:10px; margin-top:16px; margin-bottom:8px;
-      font-weight:700; color:var(--gold-bright); font-size:0.9rem; text-transform:uppercase; letter-spacing:0.5px;
-    }
-    .take-note-label::before, .take-note-label::after {
-      content:""; flex:1; height:1px; background:var(--gold);
-    }
-
-    /* Hidden capture area for sharing */
+    /* Hidden capture */
     #noteCapture {
       display: none;
       background: #ffffff;
@@ -211,62 +289,122 @@
       font-size: 1rem; line-height: 1.7; white-space: pre-wrap;
       background-image: repeating-linear-gradient(
         to bottom,
-        transparent,
-        transparent 30px,
-        #c9ced4 30px,
-        #c9ced4 31px
+        transparent, transparent 30px, #c9ced4 30px, #c9ced4 31px
       );
       background-attachment: local;
       padding: 10px;
     }
 
-    /* Detail section */
+    /* SILVER EDUCATIONAL */
     .detail-section {
-      margin-top:40px; padding:30px 24px;
-      background: var(--silver-medium-bg);
-      border:2px solid var(--gold);
-      border-radius:16px;
-      box-shadow:0 8px 30px rgba(0,0,0,0.4);
-      line-height:1.8; font-size:0.95rem; color:#0A0F14;
+      margin: 30px auto;
+      padding: 30px 24px;
+      background: #C8CDD4;
+      background-image: var(--silver-medium-bg);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height:1.85; font-size:0.95rem; color:#0A0F14;
     }
-    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
-    .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
-    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
+    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.35rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; font-weight: 800; }
+    .detail-section h3 { color:#0A0F14; font-size:1.1rem; margin:22px 0 10px; font-weight: 800; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; color: #0A0F14; font-weight: 500; }
     .detail-section ul, .detail-section ol { padding-left:24px; }
     .detail-section li { margin-bottom:6px; }
-    .detail-section strong { color:#0A0F14; }
+    .detail-section strong { color:#0A0F14; font-weight: 800; }
+
+    /* PAKISTANI BLOCK */
+    .pakistani-block {
+      margin: 30px auto; padding: 24px 20px;
+      background: #C8CDD4;
+      background-image: var(--silver-medium-bg);
+      border: 2px solid var(--gold); border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height:1.8; font-size:0.95rem; color:#0A0F14;
+    }
+    .pakistani-block h2 { color:#0A0F14; font-family:'Oswald',sans-serif; font-size:1.15rem; margin-bottom:12px; font-weight: 800; }
+    .pakistani-block p { color:#0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color:#0A0F14; font-weight: 800; }
+
+    /* RELATED TOOLS */
+    .related-tools-section {
+      margin: 20px auto; padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid var(--gold); border-radius: 12px;
+    }
+    .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; font-family:'Oswald',sans-serif; letter-spacing:0.5px; }
+    .related-tools-section a { color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; display: inline-block; margin: 4px 4px 4px 0; }
+
+    /* DISCLAIMER */
+    .disclaimer-box {
+      margin: 20px auto; padding: 16px 18px;
+      background: #C8CDD4;
+      background-image: var(--silver-medium-bg);
+      border: 2px solid var(--gold); border-radius: 12px;
+      font-size:0.85rem; color:#0A0F14; line-height:1.7; font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    /* LEAD CAPTURE */
+    .lead-capture {
+      background: #C8CDD4;
+      background-image: var(--silver-medium-bg);
+      border: 2px solid var(--gold); border-radius: 16px;
+      padding: 28px 24px; margin: 30px 0;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .lead-capture h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.2rem; margin-bottom:12px; letter-spacing:0.5px; font-weight: 800; }
+    .lead-capture p { color:#0A0F14; margin-bottom:18px; font-size:0.9rem; font-weight: 500; }
+    .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+    .lead-capture input[type="email"] {
+      background:#FFFFFF; border:2px solid var(--gold); border-radius:10px;
+      padding:12px 16px; color:#0A0F14; font-size:0.95rem; font-weight: 600; outline:none;
+    }
+    .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .lead-capture button {
+      background: var(--silver-bg); border:2px solid var(--gold); border-radius:10px;
+      padding:14px 20px; font-family:'Oswald',sans-serif; font-weight: 800;
+      font-size: 0.95rem; color:#0A0F14; cursor:pointer;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      transition: all 0.25s ease;
+    }
+    .lead-capture button:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 20px var(--gold-glow); }
 
     .appreciation { text-align:center; margin:20px 0 10px; font-size:0.85rem; color:#ccc; border-top:1px solid rgba(255,255,255,0.08); padding-top:16px; line-height:1.8; }
     .appreciation .gold { color:var(--gold-bright); }
-    footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:25px 0 20px; border-top:1px solid rgba(255,255,255,0.06); margin-top:20px; }
-    footer a { color:var(--accent); text-decoration:none; }
-    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:44px; height:44px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
+    footer { text-align:center; color:#8B98A5; font-size:0.8rem; padding:40px 0 20px; border-top:2px solid var(--gold); margin-top:50px; }
+    footer a { color: var(--gold-bright); text-decoration:none; font-weight: 600; }
+    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem; }
 
     @media (max-width:600px) {
       .notepad-toolbar { flex-direction:column; }
       .btn-new { width:100%; }
-      .editor-actions .btn-action { flex:1 1 100%; }
-      .share-note-section { flex-direction: column; align-items: stretch; }
-      .share-note-btn { justify-content: center; }
+      .editor-actions-row { grid-template-columns: 1fr; }
+      .share-note-section { grid-template-columns: 1fr 1fr; }
       .note-card { padding:14px; }
-      .detail-section { padding:20px 16px; }
+      .detail-section, .pakistani-block, .lead-capture {
+        margin-left: -6px !important; margin-right: -6px !important; padding: 20px 16px !important;
+      }
+      .detail-section h2 { font-size: 1.15rem; }
       #noteCapture { width: 100%; }
     }
   </style>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "ColdMatrix Notepad",
-    "url": "https://coldmatrixtools.com/notepad.html",
-    "applicationCategory": "Utility",
-    "description": "A free, private online notepad with auto-save, search, and text file export.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-  }
-  </script>
 </head>
 <body>
-<nav class="navbar"><div class="nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">❄️ ColdMatrix</a>
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="index.html#tools">🛠️ Tools</a></li>
+      <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+      <li><a href="blog.html">📝 Blog</a></li>
+      <li><a href="about.html">ℹ️ About</a></li>
+      <li><a href="contact.html">📞 Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
 <div class="container">
   <a href="index.html#tools" class="back-link">← Back to Tools</a>
   <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
@@ -274,7 +412,16 @@
   <!-- LIST VIEW -->
   <div id="listView">
     <h1>📝 ColdMatrix <span>Notepad</span></h1>
-    <p class="subtitle">Free online notes with auto‑save and sharing.</p>
+    <p class="subtitle">Free online notes with auto-save, search, and instant sharing — for everyone, everywhere.</p>
+
+    <div class="get-quote-strip">
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20a%20custom%20productivity%20tool." class="quote-btn whatsapp" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Quick Chat
+      </a>
+      <a href="contact.html" class="quote-btn">
+        <i class="fa-solid fa-envelope"></i> Get a Quote
+      </a>
+    </div>
 
     <div class="share-tool-card">
       <div class="share-tool-title">Share Notepad Tool</div>
@@ -283,6 +430,8 @@
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
       </div>
     </div>
+
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
 
     <div class="notepad-toolbar">
       <input type="text" class="search-box" id="searchNotes" placeholder="🔍 Search your notes..." oninput="renderNoteList()">
@@ -306,17 +455,15 @@
     <textarea id="noteContentInput" placeholder="Start writing..." oninput="onNoteEdit()"></textarea>
     <div class="save-status" id="saveStatus"></div>
 
-    <!-- Main actions: download txt, delete -->
-    <div class="editor-actions">
-      <button class="btn-action btn-download-txt" onclick="downloadCurrentNote()"><i class="fa-solid fa-download"></i> Download .txt</button>
-      <button class="btn-action btn-delete" onclick="deleteCurrentNote()"><i class="fa-solid fa-trash"></i> Delete</button>
+    <div class="btn-stack">
+      <div class="editor-actions-row">
+        <button class="btn-action btn-download-txt" onclick="downloadCurrentNote()"><i class="fa-solid fa-download"></i> Download .txt</button>
+        <button class="btn-action btn-delete" onclick="deleteCurrentNote()"><i class="fa-solid fa-trash"></i> Delete Note</button>
+      </div>
     </div>
 
-    <!-- Smart line / label -->
-    <div class="take-note-label">📤 Take your notes</div>
-
-    <!-- Share note buttons below, small and decent -->
     <div class="share-note-section" id="shareNoteSection" style="display:none;">
+      <div class="label">📤 Take your note</div>
       <button class="share-note-btn share-note-wa" onclick="shareNoteWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
       <button class="share-note-btn share-note-pdf" onclick="downloadNoteResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
       <button class="share-note-btn share-note-jpg" onclick="downloadNoteResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
@@ -324,79 +471,159 @@
     </div>
   </div>
 
-  <!-- Hidden capture for note sharing -->
+  <!-- HIDDEN CAPTURE -->
   <div id="noteCapture">
     <div class="capture-title" id="captureTitle"></div>
     <div class="capture-content" id="captureContent"></div>
-    <div style="text-align:center; margin-top:16px; font-size:0.7rem; color:#888;">Generated with ColdMatrix Notepad</div>
+    <div style="text-align:center; margin-top:16px; font-size:0.7rem; color:#888;">Generated with ColdMatrix Notepad — coldmatrixtools.com</div>
   </div>
 
-  <!-- Comprehensive educational static section -->
+  <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+  <!-- ============================================ -->
+  <!-- EDUCATIONAL CONTENT — SILVER -->
+  <!-- ============================================ -->
   <div class="detail-section">
-    <h2>📖 Complete Guide to Notepad</h2>
+    <h2>📖 The Complete Guide to Using an Online Notepad</h2>
+
     <p>The ColdMatrix Notepad is a free, private online notepad that lives in your browser. It lets you create, edit, search, and download notes without ever creating an account. Everything you write is automatically saved to your device's local storage, meaning your data never leaves your computer or phone.</p>
+
     <h3>What Is a Notepad?</h3>
     <p>A notepad is a simple text editor used for quick notes, ideas, lists, or reminders. Unlike complex word processors, a notepad focuses on plain text — no formatting distractions. It's ideal for capturing thoughts, meeting notes, to-do lists, or any temporary information you need to write down quickly.</p>
+
     <h3>Key Features of ColdMatrix Notepad</h3>
     <ul>
       <li><strong>Auto-Save:</strong> Your notes are saved automatically as you type, so you never lose your work.</li>
       <li><strong>Search:</strong> Instantly search across all your notes by title or content.</li>
       <li><strong>Download as .txt:</strong> Export any note to a plain text file for use elsewhere.</li>
-      <li><strong>Share as Image/PDF:</strong> Generate a beautiful image or PDF of your note to share on WhatsApp or save.</li>
+      <li><strong>Share as Image or PDF:</strong> Generate a beautiful image or PDF of your note to share on WhatsApp or save.</li>
       <li><strong>Organized List View:</strong> See all your notes sorted by last edited with a snippet preview.</li>
-      <li><strong>Privacy First:</strong> All data is stored locally in your browser; nothing is uploaded to any server.</li>
-      <li><strong>Free & Offline:</strong> Works after the first load without an internet connection.</li>
+      <li><strong>Privacy First:</strong> All data is stored locally in your browser. Nothing is uploaded to any server.</li>
+      <li><strong>Free &amp; Offline:</strong> Works after the first load without an internet connection.</li>
       <li><strong>Premium Design:</strong> Silver and gold themed interface with ruled lines for a real notebook feel.</li>
     </ul>
+
     <h3>How to Use the Notepad</h3>
     <ol>
-      <li><strong>Create a new note:</strong> Click the <strong>+ New Note</strong> button. A blank editor will open.</li>
-      <li><strong>Write your note:</strong> Type a title in the title field and your content in the large text area. The ruled lines help you keep straight.</li>
-      <li><strong>Auto-Save:</strong> As you type, the note will save automatically — you'll see a "Saved" status appear.</li>
-      <li><strong>Go back to list:</strong> Click the arrow icon to return to your notes list.</li>
-      <li><strong>Search:</strong> Use the search box at the top to filter your notes.</li>
-      <li><strong>Download text:</strong> Open a note and click <strong>Download .txt</strong> to save it as a file.</li>
-      <li><strong>Share as image/PDF:</strong> Use the toolbar below the note to generate an image or PDF, or share on WhatsApp.</li>
-      <li><strong>Delete:</strong> Click <strong>Delete</strong> to remove a note permanently.</li>
+      <li><strong>Create a new note:</strong> Click the <strong>+ New Note</strong> button. A blank editor opens.</li>
+      <li><strong>Write your note:</strong> Type a title in the title field and your content in the large text area. Ruled lines help you write neatly.</li>
+      <li><strong>Auto-Save:</strong> As you type, the note saves automatically — you'll see a "✓ Saved" status appear.</li>
+      <li><strong>Go back to list:</strong> Tap the arrow icon to return to your notes list.</li>
+      <li><strong>Search:</strong> Use the search box at the top to filter notes.</li>
+      <li><strong>Download .txt:</strong> Open a note and click <strong>Download .txt</strong> to save it as a file.</li>
+      <li><strong>Share as image/PDF:</strong> Use the toolbar below to share on WhatsApp or export as PDF/JPG/PNG.</li>
+      <li><strong>Delete:</strong> Click <strong>Delete Note</strong> to remove a note permanently.</li>
     </ol>
+
     <h3>Tips for Effective Note-Taking</h3>
     <ul>
       <li><strong>Use clear titles:</strong> A short, descriptive title helps you find the note later.</li>
       <li><strong>Keep notes focused:</strong> One main idea per note works best.</li>
       <li><strong>Use the search:</strong> If you have many notes, type a keyword to locate the right one quickly.</li>
-      <li><strong>Download important notes:</strong> Export critical information as a .txt or image for backup.</li>
+      <li><strong>Download important notes:</strong> Export critical information as .txt or image for backup.</li>
+      <li><strong>Add to home screen:</strong> Install the notepad as an app for one-tap access on your phone.</li>
     </ul>
+
     <h3>Frequently Asked Questions</h3>
-    <p><strong>Are my notes uploaded anywhere?</strong><br>No. Everything is stored locally in your browser using localStorage. Nothing is sent to a server, so your notes remain completely private to your device.</p>
-    <p><strong>Will I lose my notes if I close the tab?</strong><br>No — your notes are saved automatically and will still be there next time you visit, as long as you use the same browser and device and don't clear your browser data.</p>
-    <p><strong>Can I access my notes from another device?</strong><br>No, because notes are stored locally, they are not synced across devices. For cross-device access, consider downloading notes and moving them manually.</p>
-    <p><strong>Is there a limit to how many notes I can create?</strong><br>No, there is no limit. The only constraint is your browser's local storage capacity.</p>
-    <p><strong>Does the notepad work on mobile?</strong><br>Yes, the tool is fully responsive and works great on smartphones and tablets.</p>
-    <h3>Use Cases</h3>
+    <p><strong>Q: Are my notes uploaded anywhere?</strong><br>A: No. Everything is stored locally in your browser using localStorage. Nothing is sent to a server, so your notes remain completely private to your device.</p>
+    <p><strong>Q: Will I lose my notes if I close the tab?</strong><br>A: No. Your notes are saved automatically and will still be there next time you visit — as long as you use the same browser and device, and don't clear your browser data.</p>
+    <p><strong>Q: Can I access my notes from another device?</strong><br>A: No. Notes are stored locally, so they are not synced across devices. For cross-device access, download notes and move them manually.</p>
+    <p><strong>Q: Is there a limit to how many notes I can create?</strong><br>A: No. There is no limit — only your browser's local storage capacity.</p>
+    <p><strong>Q: Does the notepad work on mobile?</strong><br>A: Yes. The tool is fully responsive and works great on smartphones and tablets.</p>
+    <p><strong>Q: Can I share a note as an image?</strong><br>A: Yes. Open any note and use the JPG or PNG buttons to generate a clean image you can send anywhere.</p>
+
+    <h3>Popular Use Cases</h3>
     <ul>
       <li><strong>Quick Ideas:</strong> Jot down ideas before they slip away.</li>
       <li><strong>Shopping Lists:</strong> Keep a running list of items you need.</li>
       <li><strong>Meeting Notes:</strong> Capture action items and decisions.</li>
       <li><strong>Study Notes:</strong> Summarize key points from lectures or articles.</li>
       <li><strong>Temporary Storage:</strong> Store snippets of text you need later.</li>
+      <li><strong>Travel Planning:</strong> Keep itinerary details and addresses handy.</li>
     </ul>
+
     <h3>Why Choose ColdMatrix Notepad?</h3>
     <p>It's fast, private, and beautifully designed. Unlike cloud-based note apps, your data stays on your device, giving you complete control. The premium silver and gold interface, ruled lines, and auto-save feature make note-taking a pleasure. Whether you're on desktop or mobile, this notepad is always ready when inspiration strikes.</p>
-    <p><strong>Disclaimer:</strong> All notes are stored only in your browser's local storage. Clearing your browser data will delete your notes. Always download important notes if you need to keep them long-term.</p>
+
+    <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ This guide, combined with our free notepad, gives you a complete tool for capturing and organizing ideas — anywhere in the world.</p>
   </div>
 
-  <div class="appreciation">✨ <strong class="gold">Thank you</strong> for using our Notepad. Happy writing!<br><span style="font-size:0.75rem">Explore more <a href="index.html" style="color:var(--accent)">premium tools</a> designed for you.</span></div>
-</div>
-<footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+  <!-- ============================================ -->
+  <!-- PAKISTANI / GLOBAL BLOCK -->
+  <!-- ============================================ -->
+  <div class="pakistani-block">
+    <h2>🌐 ColdMatrix Advanced Solutions — Productivity Tools for a Global Community</h2>
+    <p>Our Notepad is used daily by students, writers, professionals, and business owners across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, and Australia</strong>. It's a genuinely global tool — lightweight, private, and ready whenever you need it.</p>
+    <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients worldwide with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
+    <p>Need a custom productivity tool, company dashboard, or project quote? Our team responds within 24 hours.</p>
+    <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- RELATED TOOLS -->
+  <!-- ============================================ -->
+  <div class="related-tools-section">
+    <h3>🔗 Related Tools You Might Need</h3>
+    <div>
+      <a href="quotation-generator.html">📄 Quotation &amp; Invoice Maker</a>
+      <a href="image-converter-tool.html">🖼️ Image Converter</a>
+      <a href="qr-code-generator.html">📱 QR &amp; Barcode Studio</a>
+      <a href="age-calculator.html">🎂 Age Calculator</a>
+      <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+      <a href="unit-converter.html">📏 Unit Converter</a>
+      <a href="world-clock.html">🌍 World Clock</a>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- LEAD CAPTURE -->
+  <!-- ============================================ -->
+  <div class="lead-capture">
+    <h3>🚀 Need a Custom Productivity Tool?</h3>
+    <p>Get tailored note apps, task managers, or automation for your team — anywhere in the world. Leave your email and we'll respond within 24 hours.</p>
+    <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="email" name="email" placeholder="Your work email" required>
+      <button type="submit">Request Custom Tool</button>
+    </form>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- DISCLAIMER -->
+  <!-- ============================================ -->
+  <div class="disclaimer-box">
+    <strong>⚠️ Disclaimer:</strong> All notes are stored only in your browser's local storage. Clearing your browser data will delete your notes permanently. Always download important notes if you need long-term storage. ColdMatrix does not store, transmit, or have access to any of your notes.
+  </div>
+
+  <div class="appreciation">✨ <strong class="gold">Thank you</strong> for using our Notepad. Happy writing!<br><span style="font-size:0.75rem">Explore more <a href="index.html" style="color:var(--gold-bright)">premium tools</a> designed for you.</span></div>
+</div>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+
+<footer>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
+    </div>
+
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
 <script>
   const STORAGE_KEY = 'cm_notepad_notes';
@@ -423,7 +650,9 @@
 
     if (notes.length === 0) {
       empty.style.display = 'block';
-      empty.querySelector('p').textContent = query ? '😕 No notes match your search.' : 'No notes yet. Tap "+ New Note" to write your first one.';
+      empty.querySelector('p').textContent = query
+        ? '😕 No notes match your search.'
+        : 'No notes yet. Tap "+ New Note" to write your first one.';
       return;
     }
     empty.style.display = 'none';
@@ -467,7 +696,7 @@
     document.getElementById('listView').style.display = 'none';
     document.getElementById('editorView').style.display = 'block';
     document.getElementById('noteTitleInput').focus();
-    document.getElementById('shareNoteSection').style.display = 'flex';
+    document.getElementById('shareNoteSection').style.display = 'grid';
   }
 
   function closeEditor() {
@@ -514,7 +743,6 @@
     link.click();
   }
 
-  // --- Note sharing: capture and share/download ---
   function prepareNoteCapture() {
     const title = document.getElementById('noteTitleInput').value || 'Untitled Note';
     const content = document.getElementById('noteContentInput').value || '';
@@ -572,23 +800,41 @@
     });
   }
 
-  // Initial load
   window.addEventListener('DOMContentLoaded', renderNoteList);
 
   let deferredPrompt;
   const installBar = document.getElementById('installBarTool');
   window.addEventListener('beforeinstallprompt', e => {
-    e.preventDefault(); deferredPrompt = e; installBar.style.display = 'block';
+    e.preventDefault();
+    deferredPrompt = e;
+    installBar.style.display = 'block';
   });
   window.installAppTool = function(){
-    if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(() => { installBar.style.display = 'none'; }); }
-    else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => { installBar.style.display = 'none'; });
+    } else {
+      alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');
+    }
   };
   if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
 
   function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this free Notepad from ColdMatrix Tools! ' + window.location.href), '_blank'); }
   function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(() => alert('Link copied!')).catch(() => alert(window.location.href)); }
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ColdMatrix Notepad",
+  "url": "https://coldmatrixtools.com/notepad.html",
+  "applicationCategory": "UtilityApplication",
+  "description": "A free, private online notepad with auto-save, search, and text file export.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -596,31 +842,30 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
+      "name": "Are my notes uploaded anywhere?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+        "text": "No. Everything is stored locally in your browser using localStorage. Nothing is sent to a server."
       }
     },
     {
       "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
+      "name": "Will I lose my notes if I close the tab?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+        "text": "No. Your notes are saved automatically and will still be there next time you visit, as long as you use the same browser and don't clear your data."
       }
     },
     {
       "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
+      "name": "Does the notepad work on mobile?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+        "text": "Yes. The tool is fully responsive and works great on smartphones and tablets."
       }
     }
   ]
 }
 </script>
-
 </body>
 </html>

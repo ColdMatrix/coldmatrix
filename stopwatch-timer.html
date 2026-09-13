@@ -15,7 +15,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -32,8 +32,8 @@
             --gold-text-gradient: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #B8860B 100%);
             --whatsapp-green:#25D366;
             --neon-glow: 0 0 20px rgba(212,175,55,0.5), 0 0 40px rgba(212,175,55,0.3);
-            /* Solid silver for educational content */
             --solid-silver: #C8CDD4;
+            --gold-glow: rgba(212,175,55,0.5);
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         html, body { overflow-x: hidden; }
@@ -44,32 +44,46 @@
         }
         .container { width:100%; max-width:650px; margin:0 auto; padding:20px; }
 
-        .navbar { position:sticky; top:0; z-index:100; background:rgba(11,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:var(--gold-gradient) 1; }
+        /* GOLDEN NAVBAR */
+        .navbar { position:sticky; top:0; z-index:100; background:rgba(11,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid var(--gold); }
         .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; max-width:650px; margin:0 auto; }
-        .logo { font-size:1.3rem; font-weight:800; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+        .logo { font-size:1.3rem; font-weight:800; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
         .nav-links { display:flex; gap:18px; list-style:none; flex-wrap:wrap; }
         .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; }
         .nav-links a:hover { color:var(--gold-bright); }
 
+        /* GOLDEN INSTALL BAR */
         .install-bar {
-            background:var(--accent); color:#0A0F14;
-            text-align:center; padding:12px 20px; border-radius:10px; margin:18px 0;
-            font-weight:600; display:block; font-size:0.85rem;
-            box-shadow:0 4px 12px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            color: #0A0F14;
+            text-align: center;
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin: 18px 0;
+            font-weight: 700;
+            display: block;
+            font-size: 0.85rem;
+            border: 1px solid #FFD700;
+            box-shadow: 0 3px 10px rgba(212,175,55,0.35);
         }
         .install-bar button {
-            background:#0A0F14; color:#fff; border:none;
-            padding:6px 18px; border-radius:6px; margin-left:12px;
-            font-weight:600; cursor:pointer; font-size:0.85rem;
+            background: #0A0F14;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            padding: 6px 18px;
+            border-radius: 6px;
+            margin-left: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 0.8rem;
         }
-        .install-bar button:hover { background:#1a1f2a; }
+        .install-bar button:hover { background: #1a1f2a; }
 
         .brand-header { text-align:center; padding:24px 0 6px; }
         .title-row { display:flex; align-items:center; justify-content:center; gap:12px; }
         .timer-icon { display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; background:var(--silver-dark-bg); border:2px solid var(--gold); border-radius:50%; font-size:1.5rem; color:var(--gold-bright); box-shadow:0 4px 16px rgba(212,175,55,0.35); }
         .brand-title { font-family:'Oswald',sans-serif; font-size:2rem; color:#fff; }
-        .brand-title span { color:var(--accent); }
-        /* Improved subtitle: full sentence, larger, white */
+        .brand-title span { color:var(--gold-bright); }
         .subtitle {
             color:#EAEDF0;
             font-size:1rem;
@@ -79,7 +93,24 @@
             text-shadow:0 1px 2px rgba(0,0,0,0.6);
         }
 
-        /* Premium silver card for non-display elements */
+        /* GET QUOTE STRIP */
+        .get-quote-strip { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+        .get-quote-strip .quote-btn {
+            flex: 1; min-width: 140px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 13px 16px;
+            background: var(--silver-medium-bg); border: 2px solid var(--gold);
+            border-radius: 12px; color: #0A0F14;
+            font-family: 'Oswald', sans-serif; font-weight: 800;
+            font-size: 0.85rem; text-decoration: none; cursor: pointer;
+            letter-spacing: 0.5px; text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+            transition: all 0.25s ease;
+        }
+        .get-quote-strip .quote-btn:hover { border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 22px var(--gold-glow); }
+        .get-quote-strip .quote-btn.whatsapp { background: #25D366; color: #fff; border-color: #1da851; }
+        .get-quote-strip .quote-btn.whatsapp:hover { background: #1da851; border-color: #25D366; }
+
         .premium-card {
             background: var(--silver-medium-bg);
             border: 2px solid var(--gold);
@@ -88,7 +119,6 @@
             color: #0A0F14;
         }
 
-        /* Share tool card stays dark for readability */
         .share-tool-card {
             background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
             border: 2px solid;
@@ -124,7 +154,7 @@
             font-weight:800; box-shadow:0 4px 16px rgba(212,175,55,0.3);
         }
 
-        /* EXCLUSIVE DISPLAY CARD — dark background, silver/gold text */
+        /* PREMIUM DISPLAY CARD */
         .display-card, .timer-progress-card {
             background: var(--silver-dark-bg);
             border: 3px solid var(--gold);
@@ -137,7 +167,6 @@
             overflow: hidden;
             color: #fff;
         }
-        /* Stable time display with separate boxes */
         .time-display-boxes {
             display: flex;
             align-items: center;
@@ -215,8 +244,8 @@
             padding:16px 10px; border-radius:12px; font-size:1.3rem; text-align:center;
             font-weight:700; font-family:'Oswald',sans-serif; transition:all 0.3s;
         }
-        .timer-inputs input:focus { border-color:var(--gold-bright); outline:none; box-shadow:0 0 16px rgba(212,175,55,0.3); }
-        .timer-inputs label { display:block; text-align:center; font-size:0.75rem; color:#333; margin-top:6px; text-transform:uppercase; font-weight:700; letter-spacing:1px; }
+        .timer-inputs input:focus { border-color:var(--gold-bright); outline:none; box-shadow:0 0 16px rgba(212,175,55,0.5); }
+        .timer-inputs label { display:block; text-align:center; font-size:0.75rem; color:var(--gold-bright); margin-top:6px; text-transform:uppercase; font-weight:700; letter-spacing:1px; }
 
         /* PRESET BUTTONS */
         .preset-row {
@@ -239,42 +268,69 @@
             transition: all 0.2s;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            font-family: 'Oswald', sans-serif;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
         }
         .preset-btn:hover {
-            background: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 30%, #8a929c 55%, #d0d7df 80%, #a8b0bb 100%);
             border-color: var(--gold-bright);
             box-shadow: 0 0 20px rgba(212,175,55,0.6);
             transform: translateY(-2px);
         }
 
-        /* MAIN CONTROL BUTTONS */
-        .btn-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px; }
-        .btn {
-            padding: 16px 10px;
-            border-radius: 14px;
-            font-weight: 700;
-            font-size: 1rem;
+        /* ============================================ */
+        /* NEW PREMIUM BUTTON LAYOUT — 1 big + 2 small  */
+        /* ============================================ */
+        .btn-stack { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+
+        .btn-primary {
+            width: 100%;
+            background: var(--silver-medium-bg);
+            color: #0A0F14;
+            border: 2px solid var(--gold);
+            min-height: 64px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 900;
+            font-size: 1.15rem;
             cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.2s;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
+            transition: all 0.25s ease;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-        .btn-start { background:linear-gradient(135deg, #22C55E, #16A34A); color:#fff; box-shadow:0 4px 14px rgba(34,197,94,0.3); }
-        .btn-start:hover { transform:translateY(-1px); box-shadow:0 8px 20px rgba(34,197,94,0.4); }
-        .btn-pause { background:linear-gradient(135deg, #F59E0B, #D97706); color:#fff; box-shadow:0 4px 14px rgba(245,158,11,0.3); }
-        .btn-pause:hover { transform:translateY(-1px); box-shadow:0 8px 20px rgba(245,158,11,0.4); }
-        .btn-lap { background:linear-gradient(135deg, #6366F1, #4F46E5); color:#fff; box-shadow:0 4px 14px rgba(99,102,241,0.3); }
-        .btn-lap:hover { transform:translateY(-1px); box-shadow:0 8px 20px rgba(99,102,241,0.4); }
-        .btn-reset {
-            background:var(--silver-medium-bg); color:#0A0F14;
-            border:2px solid var(--gold); box-shadow:0 4px 14px rgba(0,0,0,0.3);
+        .btn-primary:hover { border-color: var(--gold-bright); box-shadow: 0 0 22px var(--gold-glow); transform: translateY(-2px); }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .btn-secondary-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
         }
-        .btn-reset:hover { border-color:var(--gold-bright); transform:translateY(-1px); }
-        .btn:active { transform:scale(0.96); }
-        .btn:disabled { opacity:0.4; cursor:not-allowed; transform:none; box-shadow:none; }
+
+        .btn-secondary {
+            width: 100%;
+            background: var(--silver-medium-bg);
+            color: #0A0F14;
+            border: 2px solid var(--gold);
+            min-height: 46px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+            transition: all 0.25s ease;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .btn-secondary:hover { border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 15px var(--gold-glow); }
+        .btn-secondary:active { transform: translateY(0); }
+        .btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
 
         .laps-card {
             background: var(--silver-medium-bg);
@@ -292,7 +348,7 @@
         .lap-item .lap-time { color:#0A0F14; font-family:'Oswald',monospace; }
         .no-laps { color:#333; font-size:0.8rem; text-align:center; padding:10px; }
 
-        /* Detail section — solid single colour background, no gradient */
+        /* Educational — solid silver */
         .detail-section {
             margin-top: 40px;
             padding: 30px 24px;
@@ -323,7 +379,7 @@
         .detail-section strong { color: #0A0F14; }
 
         .lead-capture {
-            background: rgba(15,22,32,0.9);
+            background: var(--solid-silver);
             border: 2px solid var(--gold);
             border-radius: 14px;
             padding: 28px 24px;
@@ -332,28 +388,30 @@
         }
         .lead-capture h3 {
             font-family: 'Oswald', sans-serif;
-            color: var(--gold-bright);
+            color: #0A0F14;
             font-size: 1.25rem;
             margin-bottom: 14px;
             letter-spacing: 0.5px;
         }
-        .lead-capture p { color:#c5cdd6; margin-bottom:18px; font-size:0.9rem; }
+        .lead-capture p { color:#0A0F14; margin-bottom:18px; font-size:0.9rem; font-weight:500; }
         .lead-capture form { display:flex; flex-direction:column; gap:12px; }
         .lead-capture input[type="email"] {
-            background:#0e1520; border:1.5px solid rgba(212,175,55,0.6); border-radius:8px;
-            padding:12px 16px; color:#fff; font-size:0.95rem; outline:none;
+            background:#FFFFFF; border:2px solid var(--gold); border-radius:8px;
+            padding:12px 16px; color:#0A0F14; font-size:0.95rem; font-weight:600; outline:none;
         }
-        .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.3); }
+        .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.5); }
         .lead-capture button {
-            background: var(--solid-silver);
-            border:none; border-radius:8px; padding:12px 20px;
-            font-weight:700; font-size:0.95rem; color:#0A0F14; cursor:pointer;
-            transition: background 0.25s; letter-spacing:0.5px;
+            background: var(--silver-medium-bg);
+            border:2px solid var(--gold); border-radius:8px; padding:12px 20px;
+            font-family:'Oswald',sans-serif; font-weight:800; font-size:0.95rem; color:#0A0F14; cursor:pointer;
+            transition: all 0.25s; letter-spacing:0.5px; text-transform:uppercase;
         }
-        .lead-capture button:hover { background:#D5D9DE; box-shadow:0 0 20px rgba(212,175,55,0.5); }
+        .lead-capture button:hover { border-color:var(--gold-bright); box-shadow:0 0 20px rgba(212,175,55,0.5); transform: translateY(-2px); }
 
-        footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:20px 0; margin-top:20px; }
-        footer a { color:var(--accent); }
+        footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:20px 0; margin-top:20px; border-top: 2px solid var(--gold); }
+        footer a { color:#FFD700; text-decoration: none; }
+
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; z-index: 999; width: 48px; height: 48px; background: var(--whatsapp-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); text-decoration: none; color: #fff; font-size: 1.3rem; }
 
         @media (max-width:500px) {
             .time-display-boxes { font-size:2.5rem; gap:4px; }
@@ -364,11 +422,12 @@
             .timer-progress-card .time-display-boxes { font-size:2rem; }
             .timer-progress-card .time-box { min-width:45px; }
             .timer-progress-card .time-box span:first-child { font-size:1.8rem; }
-            .btn-row { grid-template-columns:1fr 1fr; }
             .preset-row { flex-wrap: wrap; }
             .preset-btn { flex:1 1 auto; }
             .container { padding:15px; }
             .detail-section { padding:20px 16px; }
+            .btn-primary { min-height: 60px; font-size: 1.05rem; }
+            .btn-secondary { min-height: 44px; font-size: 0.88rem; }
         }
     </style>
 </head>
@@ -376,7 +435,7 @@
     <nav class="navbar"><div class="nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
 
     <div class="container">
-        <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+        <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
 
         <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
@@ -385,7 +444,16 @@
                 <span class="timer-icon">⏱️</span>
                 <h1 class="brand-title">Cold<span>Matrix</span></h1>
             </div>
-            <p class="subtitle">Precision online stopwatch and countdown timer with lap tracking, millisecond accuracy, and one‑tap presets — perfect for sports, cooking, workouts, presentations, and classroom activities. Free, private, and works offline.</p>
+            <p class="subtitle">Millisecond-accurate stopwatch with lap tracking, plus a countdown timer with instant presets — built for athletes, chefs, coaches, teachers, and anyone who values every second.</p>
+        </div>
+
+        <div class="get-quote-strip">
+            <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20a%20utility%20tool." class="quote-btn whatsapp" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> Quick Chat
+            </a>
+            <a href="contact.html" class="quote-btn">
+                <i class="fa-solid fa-envelope"></i> Get a Quote
+            </a>
         </div>
 
         <div class="share-tool-card">
@@ -414,11 +482,16 @@
                 </div>
                 <div class="time-label">HOURS : MINUTES : SECONDS : CENTISECONDS</div>
             </div>
-            <div class="btn-row">
-                <button class="btn btn-start" id="swStart" onclick="swStart()">▶ Start</button>
-                <button class="btn btn-lap" id="swLap" onclick="swLap()" disabled>🏁 Lap</button>
-                <button class="btn btn-reset" id="swReset" onclick="swReset()">↺ Reset</button>
+
+            <!-- NEW BUTTON LAYOUT: Big Start + 2 side-by-side below -->
+            <div class="btn-stack">
+                <button class="btn-primary" id="swStart" onclick="swStart()">▶ Start</button>
+                <div class="btn-secondary-row">
+                    <button class="btn-secondary" id="swLap" onclick="swLap()" disabled>🏁 Lap</button>
+                    <button class="btn-secondary" id="swReset" onclick="swReset()">↺ Reset</button>
+                </div>
             </div>
+
             <div class="laps-card premium-card"><h3>📋 Laps</h3><div id="lapsList"><div class="no-laps">No laps recorded yet</div></div></div>
         </div>
 
@@ -453,10 +526,10 @@
                 </div>
             </div>
 
-            <div class="btn-row">
-                <button class="btn btn-start" id="tmStart" onclick="tmStart()">▶ Start</button>
-                <button class="btn btn-pause" id="tmPause" onclick="tmPause()" disabled>⏸ Pause</button>
-                <button class="btn btn-reset" id="tmReset" onclick="tmReset()">↺ Reset</button>
+            <!-- NEW BUTTON LAYOUT: Big Start + Reset below -->
+            <div class="btn-stack">
+                <button class="btn-primary" id="tmStart" onclick="tmStart()">▶ Start</button>
+                <button class="btn-secondary" id="tmReset" onclick="tmReset()">↺ Reset</button>
             </div>
         </div>
 
@@ -478,7 +551,7 @@
                 <li><strong>Preset Buttons:</strong> Quickly set common timers like 1, 5, 10, 15, or 30 minutes.</li>
                 <li><strong>Background Operation:</strong> Timer continues accurately even if you switch tabs or lock your phone.</li>
                 <li><strong>Visual Feedback:</strong> Animated time pulse and flashing progress bar when the timer ends.</li>
-                <li><strong>Privacy First:</strong> All operations are local; no data is sent anywhere.</li>
+                <li><strong>No sign-up needed:</strong> Open the page and start timing — zero accounts, zero downloads.</li>
                 <li><strong>Free & Offline:</strong> Works after initial load without internet connection.</li>
                 <li><strong>Premium Design:</strong> Silver and gold themed interface for a professional look.</li>
             </ul>
@@ -488,7 +561,7 @@
                 <li>Click the <strong>Stopwatch</strong> tab if not already active.</li>
                 <li>Press <strong>▶ Start</strong> to begin timing. The display will start updating every 10 milliseconds.</li>
                 <li>To record a lap, click <strong>🏁 Lap</strong>. The current elapsed time will be added to the laps list.</li>
-                <li>To pause, click <strong>⏸ Pause</strong> (the Start button changes to Pause). Press it again to resume.</li>
+                <li>To pause, press the same <strong>big button</strong> again (it becomes ⏸ Pause). Press it once more to resume.</li>
                 <li>To reset all laps and the time, click <strong>↺ Reset</strong>.</li>
             </ol>
 
@@ -497,7 +570,7 @@
                 <li>Click the <strong>Countdown Timer</strong> tab.</li>
                 <li>Set the desired hours, minutes, and seconds using the input fields, or use a preset button.</li>
                 <li>Press <strong>▶ Start</strong> to begin the countdown. The progress bar will shrink as time passes.</li>
-                <li>You can pause and resume using <strong>⏸ Pause</strong> / <strong>▶ Resume</strong>.</li>
+                <li>The same button toggles between <strong>Start / Pause / Resume</strong> — no need to hunt for a separate pause button.</li>
                 <li>When the timer reaches zero, the bar will flash, and the status will show “Time’s Up!”.</li>
                 <li>To reset to the original duration, click <strong>↺ Reset</strong>.</li>
             </ol>
@@ -507,13 +580,13 @@
                 <li><strong>Use laps strategically:</strong> In interval training, record each split to analyse performance.</li>
                 <li><strong>Keep it visible:</strong> For presentations, place the timer on a secondary screen or projector.</li>
                 <li><strong>Combine with presets:</strong> Set common cooking times (e.g., 5 min for tea, 10 min for pasta) for convenience.</li>
-                <li><strong>Test audio:</strong> If you want an audible alert, some browsers may not play sound automatically; keep the tab open for best results.</li>
+                <li><strong>Background accuracy:</strong> The timer reads your device’s real clock, so it stays accurate even when the tab is hidden.</li>
             </ul>
 
             <h3>Frequently Asked Questions</h3>
-            <p><strong>Does the timer keep running if I switch tabs or minimize the browser?</strong><br>Yes, the timer uses your device’s real clock, so it remains accurate even in the background.</p>
+            <p><strong>Does the timer keep running if I switch tabs or minimize the browser?</strong><br>Yes — it uses your device’s real clock, so it remains accurate even in the background.</p>
             <p><strong>Can I record multiple laps?</strong><br>Absolutely. The stopwatch supports unlimited lap recording, displayed in a scrollable list.</p>
-            <p><strong>Is my data stored anywhere?</strong><br>No. All calculations and timing happen locally in your browser. Nothing is uploaded or saved on a server.</p>
+            <p><strong>Do I need an account or install anything?</strong><br>No. Just open the page and start timing. Nothing to download, nothing to sign up for.</p>
             <p><strong>Does this work on mobile?</strong><br>Yes, the tool is fully responsive and works on smartphones, tablets, and desktops.</p>
             <p><strong>Can I change the display format?</strong><br>The display shows hours, minutes, seconds, and centiseconds (1/100 sec). This is ideal for most timing needs.</p>
 
@@ -527,7 +600,7 @@
             </ul>
 
             <h3>Why Choose ColdMatrix Stopwatch & Timer?</h3>
-            <p>It’s fast, accurate, privacy-friendly, and completely free. The premium silver and gold design makes it a pleasure to use, while the background timing ensures you never miss a beat. No account, no ads, and no distractions — just precise timing.</p>
+            <p>It’s fast, accurate, easy to use, and completely free. The premium silver and gold design makes it a pleasure to use, while the background timing ensures you never miss a beat. No account, no ads, and no distractions — just precise timing.</p>
 
             <p><strong>Disclaimer:</strong> This tool is provided for general time measurement purposes. Always double-check critical timings with a dedicated physical timer if extreme accuracy is required.</p>
         </div>
@@ -545,22 +618,38 @@
         </div>
     </div>
 
-<footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <footer>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#FFD700; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#FFD700; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
 
     <script>
-        // ---------------- STOPWATCH ----------------
+        // ============================================
+        // STOPWATCH
+        // ============================================
         let swInterval = null;
         let swRunning = false;
-        let swStartTime = 0;    // timestamp when started (or resumed)
-        let swAccumulated = 0;  // accumulated time before last start
+        let swStartTime = 0;
+        let swAccumulated = 0;
         let lapCount = 0;
 
         function swUpdateDisplay(ms) {
@@ -582,7 +671,6 @@
                 clearInterval(swInterval);
                 swAccumulated += Date.now() - swStartTime;
                 btn.textContent = '▶ Resume';
-                btn.className = 'btn btn-start';
                 document.getElementById('swLap').disabled = true;
                 document.getElementById('stopwatchDisplay').classList.remove('running');
             } else {
@@ -594,7 +682,6 @@
                     swUpdateDisplay(total);
                 }, 10);
                 btn.textContent = '⏸ Pause';
-                btn.className = 'btn btn-pause';
                 document.getElementById('swLap').disabled = false;
                 document.getElementById('stopwatchDisplay').classList.add('running');
             }
@@ -626,15 +713,16 @@
             swUpdateDisplay(0);
             document.getElementById('stopwatchDisplay').classList.remove('running');
             document.getElementById('swStart').textContent = '▶ Start';
-            document.getElementById('swStart').className = 'btn btn-start';
             document.getElementById('swLap').disabled = true;
             document.getElementById('lapsList').innerHTML = '<div class="no-laps">No laps recorded yet</div>';
         }
 
-        // ---------------- TIMER ----------------
+        // ============================================
+        // TIMER — single-button toggle (Start / Pause / Resume)
+        // ============================================
         let tmInterval = null;
         let tmRunning = false;
-        let tmRemaining = 0;   // in ms
+        let tmRemaining = 0;
         let tmTotal = 0;
 
         function tmUpdateDisplay(ms) {
@@ -688,11 +776,10 @@
                 tmRunning = false;
                 clearInterval(tmInterval);
                 btn.textContent = '▶ Resume';
-                btn.className = 'btn btn-start';
-                document.getElementById('tmPause').disabled = true;
                 document.getElementById('timerStatus').textContent = 'Paused';
                 document.getElementById('timerDisplay').classList.remove('running');
             } else {
+                // Start / Resume
                 if (tmRemaining <= 0) tmRemaining = getTimerInput();
                 if (tmRemaining <= 0) return;
                 tmTotal = tmRemaining;
@@ -708,8 +795,6 @@
                         tmRunning = false;
                         document.getElementById('timerDisplay').classList.remove('running');
                         btn.textContent = '▶ Start';
-                        btn.className = 'btn btn-start';
-                        document.getElementById('tmPause').disabled = true;
                         document.getElementById('timerStatus').textContent = '⏰ Time\'s Up!';
                         updateTimerProgress(0);
                         document.getElementById('timerProgressBar').style.boxShadow = '0 0 20px rgba(255,215,0,0.8)';
@@ -717,22 +802,9 @@
                     }
                 }, 10);
                 btn.textContent = '⏸ Pause';
-                btn.className = 'btn btn-pause';
-                document.getElementById('tmPause').disabled = false;
                 document.getElementById('timerStatus').textContent = 'Counting down...';
                 document.getElementById('timerDisplay').classList.add('running');
             }
-        }
-
-        function tmPause() {
-            if (!tmRunning) return;
-            tmRunning = false;
-            clearInterval(tmInterval);
-            document.getElementById('tmStart').textContent = '▶ Resume';
-            document.getElementById('tmStart').className = 'btn btn-start';
-            document.getElementById('tmPause').disabled = true;
-            document.getElementById('timerStatus').textContent = 'Paused';
-            document.getElementById('timerDisplay').classList.remove('running');
         }
 
         function tmReset() {
@@ -742,13 +814,14 @@
             tmTotal = tmRemaining;
             tmUpdateDisplay(tmRemaining);
             document.getElementById('tmStart').textContent = '▶ Start';
-            document.getElementById('tmStart').className = 'btn btn-start';
-            document.getElementById('tmPause').disabled = true;
             document.getElementById('timerStatus').textContent = 'Ready';
             document.getElementById('timerDisplay').classList.remove('running');
             updateTimerProgress(100);
         }
 
+        // ============================================
+        // MODE SWITCHING
+        // ============================================
         function switchMode(mode) {
             document.getElementById('tabStopwatch').classList.toggle('active', mode === 'stopwatch');
             document.getElementById('tabTimer').classList.toggle('active', mode === 'timer');
@@ -758,6 +831,9 @@
             if (mode === 'stopwatch') tmReset();
         }
 
+        // ============================================
+        // PWA INSTALL
+        // ============================================
         let deferredPrompt;
         const installBar = document.getElementById('installBarTool');
         window.addEventListener('beforeinstallprompt', e => {
@@ -777,6 +853,9 @@
             navigator.serviceWorker.register('/service-worker.js').catch(() => {});
         }
 
+        // ============================================
+        // SHARE
+        // ============================================
         function shareToolWhatsApp() {
             const text = encodeURIComponent('Check out this Stopwatch & Timer from ColdMatrix Tools! ' + window.location.href);
             window.open('https://wa.me/?text=' + text, '_blank');
@@ -785,6 +864,7 @@
             navigator.clipboard.writeText(window.location.href).then(() => alert('Link copied!')).catch(() => { alert(window.location.href); });
         }
     </script>
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -800,10 +880,10 @@
         },
         {
           "@type": "Question",
-          "name": "How accurate are ColdMatrix calculators?",
+          "name": "How accurate is the ColdMatrix Stopwatch & Timer?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+            "text": "The stopwatch and timer use your device's real-time clock for millisecond-level accuracy, and continue running accurately even in the background."
           }
         },
         {
@@ -811,7 +891,7 @@
           "name": "Does ColdMatrix store my data?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+            "text": "No. All timing runs locally in your browser. Nothing is uploaded, logged, or stored on any server."
           }
         }
       ]

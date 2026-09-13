@@ -1,95 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="canonical" href="https://coldmatrixtools.com/pdf-reader.html">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DCJ7K7LSCF')</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ColdMatrix PDF Reader & Converter — View & Create PDFs Free</title>
     <meta name="description" content="Free online PDF reader and converter. Open, view, and read any PDF instantly. Convert Word documents, text files, and images into professional PDF format.">
+    <meta name="keywords" content="PDF reader, PDF converter, word to pdf, image to pdf, view pdf online, free pdf tool">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ColdMatrix Tools">
     <meta property="og:title" content="ColdMatrix PDF Reader & Converter — View & Create PDFs Free">
     <meta property="og:description" content="Open and read PDFs instantly. Convert Word, text, and image files into professional PDF format.">
     <meta property="og:url" content="https://coldmatrixtools.com/pdf-reader.html">
+    <meta property="og:image" content="https://coldmatrixtools.com/pdf_reader.jpg">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ColdMatrix PDF Reader & Converter">
+    <meta name="twitter:description" content="Open and read PDFs instantly. Convert Word, text, and image files into professional PDF format.">
+    <meta name="twitter:image" content="https://coldmatrixtools.com/pdf_reader.jpg">
     <meta name="theme-color" content="#0A0F14">
-    <link rel="canonical" href="https://coldmatrixtools.com/pdf-reader.html">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        :root { 
-            --bg:#0B0F14; --surface:#111820; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7; --gold:#D4AF37; --gold-bright:#FFD700; --gold-border:linear-gradient(145deg,#C8993A,#E8C96A 30%,#A07828 70%,#D4A843); 
-            --silver-bg: #C8CDD4;
-            --silver-bg-hover: #D5D9DE;
-            --whatsapp-green:#25D366; --pdf-red:#E53935; 
+        :root {
+            --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
+            --text:#EAEDF0; --muted:#8B98A5;
+            --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
+            --silver-bg:#C8CDD4;
+            --silver-bg-hover:#D5D9DE;
+            --silver-gradient:linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            --whatsapp-green:#25D366;
+            --pdf-red:#E53935;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { background:#0B0F14; color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; }
-        .container { max-width:1000px; width:100%; margin:0 auto; padding:0 20px; }
+        body {
+            background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
+            color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
+        }
+        .container { max-width: 1000px; margin:0 auto; padding:0 20px; }
 
-        .navbar { position:sticky; top:0; z-index:100; width:100%; background:rgba(11,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:var(--gold-border) 1; }
-        .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; max-width:1000px; margin:0 auto; }
-        .logo { font-size:1.3rem; font-weight:800; color:var(--gold-bright); text-decoration:none; }
-        .nav-links { display:flex; gap:18px; list-style:none; flex-wrap:wrap; }
-        .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; }
-        .nav-links a:hover { color:var(--gold-bright); }
+        /* GOLDEN NAVBAR */
+        .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid var(--gold); }
+        .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; }
+        .logo { font-size:1.3rem; font-weight:800; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
+        .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
+        .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.9rem; }
+        .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+        .back-link { display:inline-block; margin:14px 0 4px; color:var(--gold); text-decoration:none; font-weight:600; font-size:0.85rem; }
 
+        /* GOLDEN INSTALL BAR */
         .install-bar {
-            background:var(--accent); color:#0A0F14; text-align:center;
-            padding:12px 20px; border-radius:10px; margin:18px 0;
-            font-weight:600; display:block; font-size:0.85rem;
-            box-shadow:0 4px 12px rgba(0,0,0,0.3);
+            display: block;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            color: #0A0F14; text-align: center;
+            padding: 12px 16px; border-radius: 10px; margin: 14px 0;
+            font-weight: 700; font-size: 0.85rem;
+            border: 1px solid #FFD700;
+            box-shadow: 0 3px 10px rgba(212,175,55,0.35);
         }
         .install-bar button {
-            background:#0A0F14; color:#fff; border:none;
-            padding:6px 18px; border-radius:6px; margin-left:12px;
-            font-weight:600; cursor:pointer; font-size:0.85rem;
+            background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+            padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+            font-weight: 800; cursor: pointer; font-size: 0.8rem;
         }
-        .install-bar button:hover { background:#1a1f2a; }
 
-        .brand-header { text-align:center; padding:28px 0 6px; }
-        .title-row { display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; }
-        .pdf-icon { display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; background:var(--pdf-red); border:2px solid var(--gold); border-radius:10px; font-size:1.3rem; color:#fff; font-weight:900; font-family:'Oswald',sans-serif; box-shadow:0 4px 14px rgba(229,57,53,0.35); }
-        .brand-title { font-family:'Oswald',sans-serif; font-size:2rem; color:#fff; }
+        h1 { font-size:1.7rem; font-weight:800; margin-bottom:6px; line-height:1.25; }
+        h1 span { color: var(--gold-bright); }
+        .subtitle { color:#EAEDF0; font-size:0.95rem; font-weight:500; margin-bottom:20px; }
+
+        .brand-header { text-align:center; padding:24px 0 6px; }
+        .title-row { display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:10px; }
+        .pdf-icon { display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; background:var(--pdf-red); border:2px solid var(--gold); border-radius:10px; font-size:1.2rem; color:#fff; font-weight:900; font-family:'Oswald',sans-serif; box-shadow:0 4px 14px rgba(229,57,53,0.35); }
+        .brand-title { font-family:'Oswald',sans-serif; font-size:1.9rem; color:#fff; }
         .brand-title span { color:var(--gold-bright); }
-        .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; text-shadow:0 1px 2px rgba(0,0,0,0.6); max-width:700px; margin:0 auto; }
 
+        /* GET QUOTE STRIP */
+        .get-quote-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .get-quote-strip .quote-btn {
+            flex: 1; min-width: 140px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 13px 16px;
+            background: var(--silver-bg); border: 2px solid var(--gold);
+            border-radius: 12px; color: #0A0F14;
+            font-family: 'Oswald', sans-serif; font-weight: 800;
+            font-size: 0.85rem; text-decoration: none; cursor: pointer;
+            letter-spacing: 0.5px; text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+            transition: all 0.25s ease;
+        }
+        .get-quote-strip .quote-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 22px var(--gold-glow); }
+        .get-quote-strip .quote-btn.whatsapp { background: #25D366; color: #fff; border-color: #1da851; }
+        .get-quote-strip .quote-btn.whatsapp:hover { background: #1da851; border-color: #25D366; }
+
+        /* SHARE TOOL CARD */
+        .share-tool-card {
+            background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+            border:2px solid;
+            border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+            border-radius:12px; padding:16px 18px; margin-bottom:20px;
+            box-shadow:0 10px 34px rgba(0,0,0,0.55);
+        }
+        .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:12px; text-transform:uppercase; }
+        .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+        .share-tool-btn {
+            display:flex; align-items:center; justify-content:center; gap:8px;
+            padding:11px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
+            background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+            transition:all 0.25s ease; font-family:'Inter',sans-serif;
+        }
+        .share-tool-btn:hover { border-color: var(--gold-bright); box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+        .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+        .share-tool-btn.wa:hover { border-color:#25D366; }
+
+        /* AD ZONE */
+        .ad-zone {
+            margin: 20px 0; padding: 20px;
+            background: rgba(212,175,55,0.05);
+            border: 2px dashed var(--gold);
+            border-radius: 12px;
+            text-align: center;
+            min-height: 90px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--muted); font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        /* MODE TABS */
         .mode-tabs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px; }
         .mode-tab {
             padding:16px; border-radius:14px; font-weight:700; font-size:1rem; cursor:pointer; text-align:center;
             border:2px solid var(--gold); color:var(--gold-bright);
             background:rgba(212,175,55,0.05); transition:all 0.2s;
+            font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px;
         }
         .mode-tab.active {
             background: var(--silver-bg); color:#0A0F14; border-color:var(--gold-bright);
             font-weight:800; box-shadow:0 4px 16px rgba(212,175,55,0.3);
         }
 
-        .share-tool-card {
-            background: linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
-            border: 2px solid;
-            border-image: linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
-            border-radius:12px;
-            padding:22px 20px;
-            margin-bottom:26px;
-            box-shadow: 0 10px 34px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
-        }
-        .share-tool-title { font-weight:800; font-size:1.05rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:16px; text-transform:uppercase; }
-        .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-        .share-tool-btn {
-            display:flex; align-items:center; justify-content:center; gap:9px;
-            padding:14px; border-radius:10px; font-weight:700; font-size:0.9rem; cursor:pointer;
-            background: rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
-            transition:all 0.25s ease; font-family:'Inter',sans-serif;
-        }
-        .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
-        .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
-        .share-tool-btn.wa:hover { border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
-        .share-tool-btn i{font-size:1rem;}
-
+        /* UPLOAD CARD */
         .upload-card {
             background: var(--silver-bg); border:3px solid var(--gold);
             border-radius:20px; padding:44px 20px; text-align:center; cursor:pointer;
@@ -102,10 +160,10 @@
         .upload-card p { color:#333; font-size:0.9rem; font-weight:600; }
         .upload-card input { display:none; }
 
+        /* TOOLBAR */
         .toolbar {
             display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; padding:14px 16px;
-            background:var(--surface); border:2px solid; border-image:var(--gold-border) 1;
-            border-radius:14px; align-items:center;
+            background:var(--surface); border:2px solid var(--gold); border-radius:14px; align-items:center;
         }
         .toolbar button {
             padding:10px 16px; border-radius:8px; font-weight:700; font-size:0.8rem;
@@ -113,13 +171,14 @@
             text-transform:uppercase; letter-spacing:0.5px;
             background:var(--silver-bg);
             box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+            font-family: 'Oswald', sans-serif;
         }
         .toolbar button:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
         .btn-dl { background:var(--pdf-red) !important; border-color:#fff !important; color:#fff !important; }
-        .page-info { color:#fff; font-weight:700; font-size:0.9rem; margin:0 auto; text-align:center; }
+        .page-info { color:#fff; font-weight:700; font-size:0.9rem; margin:0 auto; text-align:center; font-family: 'Oswald', sans-serif; }
 
         .pdf-container {
-            background:#525659; border:2px solid; border-image:var(--gold-border) 1;
+            background:#525659; border:2px solid var(--gold);
             border-radius:16px; overflow:auto; min-height:500px;
             display:flex; align-items:center; justify-content:center;
         }
@@ -127,7 +186,7 @@
         .pdf-placeholder { text-align:center; color:#fff; padding:60px 20px; }
         .pdf-placeholder i { font-size:4rem; color:var(--pdf-red); margin-bottom:16px; opacity:0.7; }
 
-        /* Convert to PDF section */
+        /* CONVERT CARD */
         .convert-card {
             background: var(--silver-bg);
             border: 3px solid var(--gold);
@@ -180,6 +239,8 @@
             letter-spacing: 0.5px;
             transition: all 0.25s;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
         }
         .convert-btn:hover {
             background: #fff;
@@ -195,64 +256,189 @@
             font-size: 0.9rem;
         }
 
+        /* SILVER EDUCATIONAL — PROPERLY INSET */
         .detail-section {
-            margin-top: 40px;
+            margin: 30px auto;
             padding: 30px 24px;
             background: var(--silver-bg);
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
             border: 2px solid var(--gold);
             border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-            line-height: 1.8;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.85;
             font-size: 0.95rem;
             color: #0A0F14;
         }
-        .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
-        .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
-        .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
+        .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.35rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; font-weight: 800; }
+        .detail-section h3 { color:#0A0F14; font-size:1.1rem; margin:22px 0 10px; font-weight: 800; }
+        .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; color: #0A0F14; font-weight: 500; }
         .detail-section ul, .detail-section ol { padding-left:24px; }
         .detail-section li { margin-bottom:6px; }
-        .detail-section strong { color:#0A0F14; }
+        .detail-section strong { color:#0A0F14; font-weight: 800; }
 
-        .lead-capture {
-            background: rgba(15,22,32,0.9);
+        /* PAKISTANI BLOCK */
+        .pakistani-block {
+            margin: 30px auto;
+            padding: 24px 20px;
+            background: var(--silver-bg);
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
             border: 2px solid var(--gold);
-            border-radius: 14px;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+        }
+        .pakistani-block h2 { color:#0A0F14; font-family:'Oswald',sans-serif; font-size:1.15rem; margin-bottom:12px; font-weight: 800; }
+        .pakistani-block p { color:#0A0F14; font-weight: 500; margin-top: 10px; }
+        .pakistani-block strong { color:#0A0F14; font-weight: 800; }
+
+        /* RELATED TOOLS */
+        .related-tools-section {
+            margin: 20px auto; padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+        }
+        .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; font-family:'Oswald',sans-serif; letter-spacing:0.5px; }
+        .related-tools-section a { color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; display: inline-block; margin: 4px 4px 4px 0; }
+
+        /* DISCLAIMER */
+        .disclaimer-box {
+            margin: 20px auto; padding: 16px 18px;
+            background: var(--silver-bg);
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            font-size: 0.85rem; color: #0A0F14; line-height: 1.7; font-weight: 500;
+        }
+        .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+        /* LEAD CAPTURE */
+        .lead-capture {
+            background: var(--silver-bg);
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold);
+            border-radius: 16px;
             padding: 28px 24px;
             margin: 30px 0;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
         }
-        .lead-capture h3 { font-family:'Oswald',sans-serif; color:var(--gold-bright); font-size:1.25rem; margin-bottom:14px; letter-spacing:0.5px; }
-        .lead-capture p { color:#c5cdd6; margin-bottom:18px; font-size:0.9rem; }
+        .lead-capture h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.2rem; margin-bottom:12px; letter-spacing:0.5px; font-weight: 800; }
+        .lead-capture p { color:#0A0F14; margin-bottom:18px; font-size:0.9rem; font-weight: 500; }
         .lead-capture form { display:flex; flex-direction:column; gap:12px; }
-        .lead-capture input[type="email"] { background:#0e1520; border:1.5px solid rgba(212,175,55,0.6); border-radius:8px; padding:12px 16px; color:#fff; font-size:0.95rem; outline:none; }
-        .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.3); }
-        .lead-capture button { background:var(--silver-bg); border:none; border-radius:8px; padding:12px 20px; font-weight:700; font-size:0.95rem; color:#0A0F14; cursor:pointer; transition:background 0.25s; letter-spacing:0.5px; }
-        .lead-capture button:hover { background:var(--silver-bg-hover); box-shadow:0 0 20px rgba(212,175,55,0.5); }
+        .lead-capture input[type="email"] {
+            background:#FFFFFF; border:2px solid var(--gold); border-radius:10px;
+            padding:12px 16px; color:#0A0F14; font-size:0.95rem; font-weight: 600; outline:none;
+        }
+        .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+        .lead-capture button {
+            background: var(--silver-bg); border:2px solid var(--gold); border-radius:10px;
+            padding:14px 20px; font-family:'Oswald',sans-serif; font-weight: 800;
+            font-size: 0.95rem; color:#0A0F14; cursor:pointer;
+            letter-spacing: 0.5px; text-transform: uppercase;
+            transition: all 0.25s ease;
+        }
+        .lead-capture button:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 20px var(--gold-glow); }
 
-        footer { text-align:center; color:var(--muted); font-size:0.75rem; padding:20px 0; margin-top:20px; }
-        footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
+        /* FOOTER */
+        footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding: 40px 0 20px; border-top: 2px solid var(--gold); margin-top: 50px; }
+        footer a { color: var(--gold-bright); text-decoration: none; font-weight: 600; }
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; z-index: 999; width: 48px; height: 48px; background: var(--whatsapp-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); text-decoration: none; color: #fff; font-size: 1.3rem; }
 
-        @media (max-width:600px) { 
-            .toolbar { justify-content:center; } 
-            .brand-title { font-size:1.5rem; } 
-            .mode-tabs { grid-template-columns:1fr; }
+        @media (max-width: 600px) {
+            .mode-tabs { grid-template-columns: 1fr; }
+            .toolbar { justify-content:center; }
+            .brand-title { font-size:1.4rem; }
+            h1 { font-size: 1.35rem; }
+            .detail-section, .pakistani-block, .lead-capture {
+                margin-left: 8px !important;
+                margin-right: 8px !important;
+                padding: 22px 18px !important;
+            }
+            .detail-section h2 { font-size: 1.15rem; }
+            .container { padding: 0 14px; }
         }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ColdMatrix PDF Reader & Converter",
+      "url": "https://coldmatrixtools.com/pdf-reader.html",
+      "applicationCategory": "UtilityApplication",
+      "description": "Free online PDF reader and converter. Open, view, and read any PDF instantly. Convert Word documents, text files, and images into professional PDF format.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I convert a Word document to PDF?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, simply switch to the Convert to PDF tab and select your .doc or .docx file."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I convert an image to PDF?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, the converter supports JPG, PNG, GIF, BMP, and WebP formats."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work on mobile?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, fully responsive and works on all devices including smartphones and tablets."
+          }
+        }
+      ]
+    }
+    </script>
 </head>
+
 <body>
-    <nav class="navbar"><div class="nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+    <!-- GOLDEN NAVBAR -->
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="logo">❄️ ColdMatrix</a>
+            <ul class="nav-links">
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="index.html#tools">🛠️ Tools</a></li>
+                <li><a href="solutions.html">❄️ Cold Matrix</a></li>
+                <li><a href="blog.html">📝 Blog</a></li>
+                <li><a href="about.html">ℹ️ About</a></li>
+                <li><a href="contact.html">📞 Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <div class="container">
-    <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
-    
+        <a href="index.html#tools" class="back-link">← Back to Tools</a>
+
         <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
         <div class="brand-header">
             <div class="title-row">
                 <span class="pdf-icon">PDF</span>
-                <h1 class="brand-title">Cold<span>Matrix</span> PDF Reader & Converter</h1>
+                <h1 class="brand-title">Cold<span>Matrix</span> PDF Reader &amp; Converter</h1>
             </div>
-            <p class="subtitle">Open, view, and read any PDF with ease — or convert Word documents, text files, and images into professional PDF format instantly. One powerful tool for all your document needs.</p>
+            <p class="subtitle">Open any PDF instantly — or turn Word, text, and images into a clean PDF in seconds. All processed on your device. 🚀</p>
+        </div>
+
+        <div class="get-quote-strip">
+            <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20a%20PDF%20tool." class="quote-btn whatsapp" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> Quick Chat
+            </a>
+            <a href="contact.html" class="quote-btn">
+                <i class="fa-solid fa-envelope"></i> Get a Quote
+            </a>
         </div>
 
         <div class="share-tool-card">
@@ -263,6 +449,9 @@
             </div>
         </div>
 
+        <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+        <!-- MODE TABS -->
         <div class="mode-tabs">
             <div class="mode-tab active" id="tabRead" onclick="switchMode('read')">📖 PDF Reader</div>
             <div class="mode-tab" id="tabConvert" onclick="switchMode('convert')">📄 Convert to PDF</div>
@@ -274,7 +463,7 @@
                 <input type="file" id="fileInput" accept=".pdf,application/pdf" onchange="loadPDF(event)">
                 <i class="fa-solid fa-file-pdf"></i>
                 <h3>📂 Tap to Open a PDF File</h3>
-                <p>or drag & drop anywhere — processed entirely on your device</p>
+                <p>or drag &amp; drop anywhere — processed entirely on your device</p>
             </div>
 
             <div id="readerSection" style="display:none;">
@@ -307,86 +496,135 @@
                 <div class="convert-status" id="convertStatus"></div>
             </div>
         </div>
+
+        <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+        <!-- EDUCATIONAL — SILVER INSET -->
+        <div class="detail-section">
+            <h2>📖 Complete Guide to PDF Reader &amp; Converter</h2>
+            <p>ColdMatrix PDF Reader &amp; Converter is a powerful dual-purpose tool that lets you view any PDF file and convert common document formats into professional PDF files. Whether you're reviewing contracts, creating reports, or sharing documents, this tool handles everything with speed and precision — and every file is processed right on your device.</p>
+
+            <h3>PDF Reader Features</h3>
+            <ul>
+                <li><strong>Open &amp; View:</strong> Load any PDF file instantly from your device.</li>
+                <li><strong>Page Navigation:</strong> Move between pages with Previous/Next buttons.</li>
+                <li><strong>Zoom Controls:</strong> Zoom in and out for comfortable reading.</li>
+                <li><strong>Fullscreen Mode:</strong> Read without distractions.</li>
+                <li><strong>Download Original:</strong> Save the original PDF back to your device anytime.</li>
+                <li><strong>Drag &amp; Drop:</strong> Simply drag a PDF file onto the page to open it.</li>
+            </ul>
+
+            <h3>PDF Converter Features</h3>
+            <ul>
+                <li><strong>Word to PDF:</strong> Convert .doc and .docx files into PDF format.</li>
+                <li><strong>Text to PDF:</strong> Convert .txt and .rtf files into clean PDF documents.</li>
+                <li><strong>Image to PDF:</strong> Convert JPG, PNG, GIF, BMP, and WebP images into PDF.</li>
+                <li><strong>Instant Conversion:</strong> Files are processed immediately in your browser.</li>
+                <li><strong>No Quality Loss:</strong> Images and text retain their original quality.</li>
+            </ul>
+
+            <h3>Where PDF Tools Are Used</h3>
+            <ul>
+                <li><strong>Business:</strong> Reviewing contracts, invoices, and creating reports.</li>
+                <li><strong>Education:</strong> Reading textbooks, research papers, and submitting assignments.</li>
+                <li><strong>Legal:</strong> Checking agreements and court documents.</li>
+                <li><strong>Personal:</strong> Viewing e-books, manuals, and converting photos to PDF.</li>
+                <li><strong>Remote Work:</strong> Sharing documents across teams and devices.</li>
+            </ul>
+
+            <h3>Why PDF Format Matters</h3>
+            <p>PDF (Portable Document Format) is the universal standard for document sharing because it preserves formatting, fonts, images, and layout across all devices and operating systems. A PDF created on Windows looks identical on Mac, Android, iPhone, or any other platform. This makes PDF the preferred format for contracts, resumes, invoices, and official documents.</p>
+
+            <h3>Common Questions</h3>
+            <p><strong>Can I convert a Word document to PDF?</strong><br>Yes, simply switch to the "Convert to PDF" tab and select your .doc or .docx file.</p>
+            <p><strong>Can I convert an image to PDF?</strong><br>Yes, the converter supports JPG, PNG, GIF, BMP, and WebP formats.</p>
+            <p><strong>Does it work on mobile?</strong><br>Yes, fully responsive and works on all devices including smartphones and tablets.</p>
+            <p><strong>Can I read password-protected PDFs?</strong><br>Basic password protection may work if the password is entered. Complex encryption may require desktop software.</p>
+            <p><strong>Is there a file size limit?</strong><br>Large files may take longer to process. For very large PDFs, we recommend compressing them first.</p>
+
+            <h3>Tips for Best Results</h3>
+            <ul>
+                <li><strong>Use high-quality images:</strong> When converting images to PDF, ensure the source image is clear and high resolution.</li>
+                <li><strong>Check page orientation:</strong> For documents, make sure the content fits properly in portrait or landscape mode.</li>
+                <li><strong>Keep original files:</strong> Always maintain backups of your original documents before conversion.</li>
+                <li><strong>Use zoom for small text:</strong> The zoom controls help you read fine print comfortably.</li>
+            </ul>
+        </div>
+
+        <!-- PAKISTANI / GLOBAL BLOCK -->
+        <div class="pakistani-block">
+            <h2>🌐 ColdMatrix Document Tools — For Every Business, Everywhere</h2>
+            <p>Our PDF Reader &amp; Converter is used daily by students, freelancers, business owners, lawyers, and professionals across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, and Australia</strong>. It's a genuinely global tool — fast, private, and free for everyone.</p>
+            <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients worldwide with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
+            <p>Need a custom document tool, branded PDF solution, or project quote? Our team responds within 24 hours.</p>
+            <p style="margin-top:14px;font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+        </div>
+
+        <!-- RELATED TOOLS -->
+        <div class="related-tools-section">
+            <h3>🔗 Related Tools You Might Need</h3>
+            <div>
+                <a href="qr-business-card.html">📱 QR Business Card</a>
+                <a href="image-converter-tool.html">🖼️ Image Converter</a>
+                <a href="notepad.html">📝 Notepad</a>
+                <a href="business-planner.html">?? Business Planner</a>
+                <a href="smart-scanner.html">📷 Smart Scanner</a>
+                <a href="qr-code-generator.html">🔲 QR &amp; Barcode Studio</a>
+                <a href="contact.html">📞 Contact Us</a>
+            </div>
+        </div>
+
+        <!-- LEAD CAPTURE -->
+        <div class="lead-capture">
+            <h3>🚀 Need a Custom Document Tool?</h3>
+            <p>Get tailored PDF solutions, document automation, or business tools. Leave your email and we'll reach out with a free consultation.</p>
+            <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="email" name="email" placeholder="Your work email" required>
+                <button type="submit">Request Custom Tool</button>
+            </form>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="disclaimer-box">
+            <strong>⚠️ Disclaimer:</strong> This tool provides general document viewing and conversion features. All files are processed locally in your browser and never uploaded. For critical legal or business documents, always verify the converted output meets your requirements.
+        </div>
     </div>
 
-    <!-- ENHANCED EDUCATIONAL CONTENT -->
-    <div class="detail-section">
-        <h2>📖 Complete Guide to PDF Reader & Converter</h2>
-        <p>ColdMatrix PDF Reader & Converter is a powerful dual-purpose tool that lets you view any PDF file and convert common document formats into professional PDF files. Whether you're reviewing contracts, creating reports, or sharing documents, this tool handles everything with speed and precision.</p>
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
-        <h3>PDF Reader Features</h3>
-        <ul>
-            <li><strong>Open & View:</strong> Load any PDF file instantly from your device.</li>
-            <li><strong>Page Navigation:</strong> Move between pages with Previous/Next buttons.</li>
-            <li><strong>Zoom Controls:</strong> Zoom in and out for comfortable reading.</li>
-            <li><strong>Fullscreen Mode:</strong> Read without distractions.</li>
-            <li><strong>Download Original:</strong> Save the original PDF back to your device anytime.</li>
-            <li><strong>Drag & Drop:</strong> Simply drag a PDF file onto the page to open it.</li>
-        </ul>
+    <!-- FOOTER -->
+    <footer>
+        <div style="margin-bottom:15px;">
+            <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+            <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#FFD700; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+            <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+                📞 <strong>Call / WhatsApp:</strong>
+                <a href="tel:+923333228470" style="color:#FFD700; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+                <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </p>
+        </div>
 
-        <h3>PDF Converter Features</h3>
-        <ul>
-            <li><strong>Word to PDF:</strong> Convert .doc and .docx files into PDF format.</li>
-            <li><strong>Text to PDF:</strong> Convert .txt and .rtf files into clean PDF documents.</li>
-            <li><strong>Image to PDF:</strong> Convert JPG, PNG, GIF, BMP, and WebP images into PDF.</li>
-            <li><strong>Instant Conversion:</strong> Files are processed immediately in your browser.</li>
-            <li><strong>No Quality Loss:</strong> Images and text retain their original quality.</li>
-        </ul>
+        <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+            <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+            <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+            <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+            <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+        </div>
 
-        <h3>Where PDF Tools Are Used</h3>
-        <ul>
-            <li><strong>Business:</strong> Reviewing contracts, invoices, and creating reports.</li>
-            <li><strong>Education:</strong> Reading textbooks, research papers, and submitting assignments.</li>
-            <li><strong>Legal:</strong> Checking agreements and court documents.</li>
-            <li><strong>Personal:</strong> Viewing e-books, manuals, and converting photos to PDF.</li>
-            <li><strong>Remote Work:</strong> Sharing documents across teams and devices.</li>
-        </ul>
-
-        <h3>Why PDF Format Matters</h3>
-        <p>PDF (Portable Document Format) is the universal standard for document sharing because it preserves formatting, fonts, images, and layout across all devices and operating systems. A PDF created on Windows looks identical on Mac, Android, iPhone, or any other platform. This makes PDF the preferred format for contracts, resumes, invoices, and official documents.</p>
-
-        <h3>Common Questions</h3>
-        <p><strong>Can I convert a Word document to PDF?</strong><br>Yes, simply switch to the "Convert to PDF" tab and select your .doc or .docx file.</p>
-        <p><strong>Can I convert an image to PDF?</strong><br>Yes, the converter supports JPG, PNG, GIF, BMP, and WebP formats.</p>
-        <p><strong>Does it work on mobile?</strong><br>Yes, fully responsive and works on all devices including smartphones and tablets.</p>
-        <p><strong>Can I read password-protected PDFs?</strong><br>Basic password protection may work if the password is entered. Complex encryption may require desktop software.</p>
-        <p><strong>Is there a file size limit?</strong><br>Large files may take longer to process. For very large PDFs, we recommend using the PDF Toolkit for compression.</p>
-
-        <h3>Tips for Best Results</h3>
-        <ul>
-            <li><strong>Use high-quality images:</strong> When converting images to PDF, ensure the source image is clear and high resolution.</li>
-            <li><strong>Check page orientation:</strong> For documents, make sure the content fits properly in portrait or landscape mode.</li>
-            <li><strong>Keep original files:</strong> Always maintain backups of your original documents before conversion.</li>
-            <li><strong>Use zoom for small text:</strong> The zoom controls help you read fine print comfortably.</li>
-        </ul>
-
-        <p><strong>Disclaimer:</strong> This tool provides general document viewing and conversion features. For critical legal or business documents, always verify the converted output meets your requirements.</p>
-    </div>
-
-    <div class="lead-capture">
-        <h3>🚀 Need a Custom Document Tool?</h3>
-        <p>Get tailored PDF solutions, document automation, or business tools. Leave your email and we'll reach out with a free consultation.</p>
-        <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-            <input type="email" name="email" placeholder="Your work email" required>
-            <button type="submit">Request Custom Tool</button>
-        </form>
-    </div>
-
-<footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
-    </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
-</footer>
+        <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</p>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
+        // ============================================
+        // PDF READER
+        // ============================================
         pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
         let pdfDoc=null,currentPage=1,scale=1.5,totalPages=0,originalFile=null;
         let convertFile=null;
@@ -435,6 +673,9 @@
         function downloadOriginal(){if(originalFile){const url=URL.createObjectURL(originalFile);const a=document.createElement('a');a.href=url;a.download=originalFile.name;a.click();URL.revokeObjectURL(url);}}
         function toggleFullscreen(){const el=document.getElementById('pdfContainer');if(!document.fullscreenElement){el.requestFullscreen();}else{document.exitFullscreen();}}
 
+        // ============================================
+        // PDF CONVERTER
+        // ============================================
         function handleConvertFile(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -524,62 +765,26 @@
             });
         }
 
+        // Drag & drop for upload
         const uploadCard=document.getElementById('uploadCard');
         uploadCard.addEventListener('dragover',e=>{e.preventDefault();uploadCard.style.borderColor='#FFD700';});
         uploadCard.addEventListener('dragleave',()=>{uploadCard.style.borderColor='';});
         uploadCard.addEventListener('drop',e=>{e.preventDefault();uploadCard.style.borderColor='';const file=e.dataTransfer.files[0];if(file&&file.type==='application/pdf'){document.getElementById('fileInput').files=e.dataTransfer.files;loadPDF({target:{files:[file]}});}});
 
+        // ============================================
+        // PWA INSTALL
+        // ============================================
         let deferredPrompt;
         const installBar=document.getElementById('installBarTool');
         window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBar.style.display='block';});
-        function installAppTool(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{installBar.style.display='none';});}else{alert('📱 Add to Home Screen via browser menu.');}}
+        function installAppTool(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{installBar.style.display='none';});}else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');}}
         if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
 
+        // ============================================
+        // TOOL SHARE
+        // ============================================
         function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Check out this PDF Reader & Converter from ColdMatrix Tools! '+location.href));}
         function copyToolLink(){navigator.clipboard.writeText(location.href).then(()=>alert('Link copied!')).catch(()=>alert(location.href));}
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "ColdMatrix PDF Reader & Converter",
-      "url": "https://coldmatrixtools.com/pdf-reader.html",
-      "applicationCategory": "UtilityApplication",
-      "description": "Free online PDF reader and converter. Open, view, and read any PDF instantly. Convert Word documents, text files, and images into professional PDF format.",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Can I convert a Word document to PDF?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, simply switch to the Convert to PDF tab and select your .doc or .docx file."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I convert an image to PDF?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, the converter supports JPG, PNG, GIF, BMP, and WebP formats."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Does it work on mobile?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, fully responsive and works on all devices including smartphones and tablets."
-          }
-        }
-      ]
-    }
     </script>
 </body>
 </html>

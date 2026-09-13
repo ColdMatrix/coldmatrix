@@ -2,334 +2,345 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ColdMatrix Step Counter and Wellness Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step Counter & Wellness Studio — Free Online Pedometer | ColdMatrix</title>
+  <meta name="description" content="Free online step counter, pedometer, heart rate monitor, blood pressure log, and water tracker. Premium wellness studio that works on any phone.">
+  <meta name="theme-color" content="#0A0F14">
+  <link rel="canonical" href="https://coldmatrixtools.com/step-counter.html">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    /* ==========================================================================
-       1. GLOBAL SYSTEM & PREMIUM DARK GILDED PALETTE
-       ========================================================================== */
     :root {
-      --bg-dark: #0A0D12;
-      --card-bg: #131722;
-      --card-inner: #1A202C;
-
-      --border-gold: rgba(212, 175, 55, 0.28);
-      --border-gold-bright: #D4AF37;
+      --bg-dark: #0A0D12; --card-bg: #131722; --card-inner: #1A202C;
+      --border-gold: rgba(212, 175, 55, 0.28); --border-gold-bright: #D4AF37;
       --gold-glow: rgba(212, 175, 55, 0.15);
-
-      --text-main: #FFFFFF;
-      --text-sub: #94A3B8;
-      --text-muted: #64748B;
-
-      --accent-steps: #E8B93A;
-      --accent-exercise: #D4AF37;
-      --accent-heart: #EF4444;
-      --accent-bp: #06B6D4;
-      --accent-water: #3B82F6;
-      --accent-success: #10B981;
-
-      --radius-card: 18px;
-      --radius-sm: 10px;
+      --text-main: #FFFFFF; --text-sub: #94A3B8; --text-muted: #64748B;
+      --accent-steps: #E8B93A; --accent-exercise: #D4AF37; --accent-heart: #EF4444;
+      --accent-bp: #06B6D4; --accent-water: #3B82F6; --accent-success: #10B981;
+      --radius-card: 18px; --radius-sm: 10px;
+      --solid-silver: #C8CDD4;
+      --silver-medium-bg: linear-gradient(145deg, #e0e4e8 0%, #c4cad0 30%, #a9b0b8 60%, #d5d9de 100%);
+      --whatsapp-green:#25D366;
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
+    /* GOLDEN NAVBAR */
+    .navbar { position: sticky; top: 0; z-index: 200; background: rgba(11,15,20,0.95); backdrop-filter: blur(18px); border-bottom: 2px solid var(--border-gold-bright); }
+    .nav-inner { max-width: 640px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; flex-wrap: wrap; }
+    .logo { font-size: 1.2rem; font-weight: 800; color: var(--border-gold-bright); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .nav-links { display: flex; gap: 16px; list-style: none; flex-wrap: wrap; }
+    .nav-links a { color: var(--text-sub); text-decoration: none; font-weight: 600; font-size: 0.85rem; }
+    .nav-links a:hover { color: var(--border-gold-bright); }
 
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+    #app-viewport { width: 100%; max-width: 640px; margin: 0 auto; padding: 12px 16px 100px 16px; display: flex; flex-direction: column; gap: 14px; }
 
-    #app-viewport {
-      width: 100%;
-      max-width: 440px;
-      padding: 12px 14px 90px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
+    .back-link { display: inline-block; margin: 6px 0 4px; color: var(--border-gold-bright); text-decoration: none; font-weight: 600; font-size: 0.85rem; }
 
-    /* Add to Home Screen bar */
+    /* GOLDEN INSTALL BAR */
     .install-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: linear-gradient(135deg, #E8B93A 0%, #D4AF37 100%);
-      color: #000;
-      font-weight: 800;
-      font-size: 13px;
-      padding: 12px 14px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      margin-bottom: 2px;
-      border: none;
-      width: 100%;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: linear-gradient(135deg, #D4AF37, #FFD700); color: #0A0F14;
+      font-weight: 800; font-size: 13px; padding: 12px 14px;
+      border-radius: var(--radius-sm); cursor: pointer; border: 1px solid #FFD700;
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35); width: 100%;
     }
-    .install-bar:active { opacity: 0.85; }
+    .install-bar button { background: #0A0F14; color: #FFD700; border: 2px solid #FFD700; padding: 5px 14px; border-radius: 6px; font-weight: 800; cursor: pointer; font-size: 0.75rem; margin-left: 6px; }
+    .install-bar:active { opacity: 0.9; }
 
-    /* ==========================================================================
-       2. HEADER
-       ========================================================================== */
-    .app-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 4px;
-      border-bottom: 1px solid var(--border-gold);
-      margin-bottom: 2px;
+    /* GET QUOTE STRIP */
+    .get-quote-strip { display: flex; flex-wrap: wrap; gap: 10px; }
+    .get-quote-strip .quote-btn {
+      flex: 1; min-width: 140px; display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 16px; background: var(--silver-medium-bg); border: 2px solid var(--border-gold-bright);
+      border-radius: 12px; color: #0A0F14; font-family: 'Oswald', sans-serif; font-weight: 800;
+      font-size: 0.85rem; text-decoration: none; cursor: pointer; letter-spacing: 0.5px; text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow); transition: all 0.25s ease;
+    }
+    .get-quote-strip .quote-btn:hover { border-color: #FFD700; transform: translateY(-2px); box-shadow: 0 0 22px var(--gold-glow); }
+    .get-quote-strip .quote-btn.whatsapp { background: #25D366; color: #fff; border-color: #1da851; }
+    .get-quote-strip .quote-btn.whatsapp:hover { background: #1da851; border-color: #25D366; }
+
+    /* SHARE TOOL CARD */
+    .share-tool-card {
+      background: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
+      border: 2px solid; border-image: linear-gradient(135deg, #E8B93A, #16294a 45%, #4d8cff 55%, #E8B93A) 1;
+      border-radius: 12px; padding: 14px 16px; box-shadow: 0 10px 34px rgba(0,0,0,0.55);
+    }
+    .share-tool-title { font-weight: 800; font-size: 0.85rem; color: #E8B93A; text-align: center; letter-spacing: 0.6px; margin-bottom: 10px; text-transform: uppercase; }
+    .share-tool-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .share-tool-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; cursor: pointer;
+      background: rgba(15,20,30,0.75); color: #EAEDF0; border: 1.5px solid rgba(200,168,78,0.45);
+      transition: all 0.25s ease; font-family: 'Inter', sans-serif;
+    }
+    .share-tool-btn:hover { border-color: #FFD700; box-shadow: 0 0 20px rgba(200,168,78,0.35); transform: translateY(-2px); }
+    .share-tool-btn.wa { border-color: rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover { border-color: #25D366; }
+
+    /* AD ZONE */
+    .ad-zone {
+      margin: 8px 0; padding: 20px; background: rgba(212,175,55,0.05);
+      border: 2px dashed var(--border-gold-bright); border-radius: 12px; text-align: center;
+      min-height: 90px; display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
     }
 
-    .brand-title {
-      font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+    /* HEADER */
+    .app-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 4px; border-bottom: 1px solid var(--border-gold); margin-bottom: 2px; }
+    .brand-title { font-size: 15px; font-weight: 800; letter-spacing: 1px; color: var(--text-main); display: flex; flex-direction: column; align-items: flex-start; gap: 1px; }
+    .brand-title .sub { font-size: 10px; font-weight: 600; color: var(--text-sub); letter-spacing: 0.3px; }
+    .header-date { font-size: 12px; color: var(--text-sub); }
 
-    .brand-badge {
-      font-size: 10px;
-      background: rgba(212, 175, 55, 0.12);
-      border: 1px solid var(--border-gold-bright);
-      color: var(--border-gold-bright);
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-weight: 700;
-    }
-
-    /* ==========================================================================
-       3. CARDS
-       ========================================================================== */
+    /* CARDS */
     .wellness-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-card);
-      padding: 18px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      position: relative;
+      background-color: var(--card-bg); border: 1px solid var(--border-gold);
+      border-radius: var(--radius-card); padding: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4); display: flex; flex-direction: column; gap: 12px; position: relative;
     }
+    .card-head { display: flex; justify-content: space-between; align-items: center; }
+    .card-title-group { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-action-btn { font-size: 12px; color: var(--border-gold-bright); font-weight: 600; cursor: pointer; background: none; border: none; }
 
-    .card-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .card-title-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 15px;
-      font-weight: 700;
-    }
-
-    .card-action-btn {
-      font-size: 12px;
-      color: var(--border-gold-bright);
-      font-weight: 600;
-      cursor: pointer;
-      background: none;
-      border: none;
-    }
-
-    /* Hero Step Counter Section */
     .hero-card { align-items: center; text-align: center; padding-top: 16px; }
-
-    .ring-container {
-      position: relative; width: 200px; height: 200px; margin: 10px 0;
-      display: flex; justify-content: center; align-items: center;
-    }
+    .ring-container { position: relative; width: 200px; height: 200px; margin: 10px 0; display: flex; justify-content: center; align-items: center; }
     .ring-svg { transform: rotate(-90deg); width: 100%; height: 100%; }
     .ring-bg { fill: none; stroke: var(--card-inner); stroke-width: 14; }
-    .ring-bar {
-      fill: none; stroke: url(#stepGradient); stroke-width: 14; stroke-linecap: round;
-      stroke-dasharray: 565.48; stroke-dashoffset: 565.48;
-      transition: stroke-dashoffset 0.6s ease-out;
-    }
+    .ring-bar { fill: none; stroke: url(#stepGradient); stroke-width: 14; stroke-linecap: round; stroke-dasharray: 565.48; stroke-dashoffset: 565.48; transition: stroke-dashoffset 0.6s ease-out; }
     .ring-text { position: absolute; display: flex; flex-direction: column; align-items: center; }
-    .step-big { font-size: 54px; font-weight: 800; line-height: 1; color: #FFFFFF; }
+    .step-big { font-size: 52px; font-weight: 800; line-height: 1; color: #FFFFFF; }
     .step-target-lbl { font-size: 14px; color: #C3CCD6; margin-top: 4px; font-weight: 600; }
     .step-pct-lbl { font-size: 13px; color: var(--accent-steps); font-weight: 700; margin-top: 2px; }
 
     .action-row { display: flex; gap: 10px; width: 100%; }
-    .btn-main {
-      flex: 1; height: 44px; border-radius: var(--radius-sm); border: none; font-weight: 700;
-      font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      gap: 6px; transition: opacity 0.2s;
-    }
+    .btn-main { flex: 1; min-height: 48px; border-radius: var(--radius-sm); border: none; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; }
     .btn-primary { background: linear-gradient(135deg, #E8B93A 0%, #D4AF37 100%); color: #000; }
+    .btn-primary:active { opacity: 0.85; }
     .btn-secondary { background: var(--card-inner); border: 1.5px solid var(--border-gold-bright); color: var(--text-main); }
-    .btn-main:active { opacity: 0.8; }
+    .btn-secondary:active { opacity: 0.85; }
 
-    .metric-grid-3 {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
-      background: var(--card-inner); padding: 12px; border-radius: var(--radius-sm); text-align: center;
-    }
+    .metric-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: var(--card-inner); padding: 12px; border-radius: var(--radius-sm); text-align: center; }
     .metric-val { font-size: 16px; font-weight: 800; color: var(--text-main); }
     .metric-lbl { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
 
-    .data-row {
-      display: flex; justify-content: space-between; align-items: center;
-      background: var(--card-inner); padding: 12px 14px; border-radius: var(--radius-sm); gap: 12px;
-    }
-    .data-val { font-size: 24px; font-weight: 800; }
+    .data-row { display: flex; justify-content: space-between; align-items: center; background: var(--card-inner); padding: 12px 14px; border-radius: var(--radius-sm); gap: 12px; }
+    .data-val { font-size: 22px; font-weight: 800; }
     .wave-strip { width: 100%; height: 30px; margin: -4px 0 2px; }
     .wave-svg { width: 100%; height: 100%; display: block; }
     .wave-path { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 8 5; animation: wave-move 2.4s linear infinite; }
     @keyframes wave-move { to { stroke-dashoffset: -130; } }
     @media (prefers-reduced-motion: reduce) { .wave-path { animation: none; } }
 
-    /* ==========================================================================
-       GAUGES (Heart Rate / Blood Pressure)
-       ========================================================================== */
     .gauge-block { display: flex; align-items: center; gap: 14px; }
     .gauge-svg-wrap { width: 96px; height: 56px; flex-shrink: 0; }
     .gauge-info { flex: 1; min-width: 0; }
     .gauge-status { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
 
-    /* Water Meter */
-    .water-meter-bg {
-      width: 100%; height: 10px; background: var(--card-inner); border-radius: 5px;
-      overflow: hidden; margin-top: 4px;
-    }
+    .water-meter-bg { width: 100%; height: 10px; background: var(--card-inner); border-radius: 5px; overflow: hidden; margin-top: 4px; }
     .water-meter-fill { height: 100%; width: 0%; background: var(--accent-water); border-radius: 5px; transition: width 0.4s ease; }
 
-    /* ==========================================================================
-       4. BOTTOM NAVIGATION
-       ========================================================================== */
+    /* SENSOR STATUS NOTE */
+    .sensor-note {
+      font-size: 12px; color: var(--text-sub); margin-top: 4px; line-height: 1.5;
+      display: flex; align-items: flex-start; gap: 8px; text-align: left;
+      background: var(--card-inner); padding: 10px 12px; border-radius: var(--radius-sm);
+      border: 1px solid var(--border-gold);
+    }
+    .sensor-dot { flex-shrink: 0; margin-top: 5px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-success); opacity: 0.25; transition: opacity 0.15s; }
+    .sensor-dot.active { opacity: 1; }
+
+    /* KEEP AWAKE WARNING */
+    .keep-awake-warning {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.5);
+      color: #FCD34D; padding: 10px 12px; border-radius: var(--radius-sm);
+      font-size: 12px; font-weight: 600; line-height: 1.5; display: none;
+    }
+    .keep-awake-warning.show { display: block; }
+
+    /* BOTTOM NAV */
     .bottom-nav {
-      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 440px;
-      background: #0D111A; border-top: 1px solid var(--border-gold);
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 640px; background: #0D111A;
+      border-top: 1px solid var(--border-gold-bright);
       display: flex; justify-content: space-around; padding: 10px 0; z-index: 99;
     }
-    .nav-item {
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      color: var(--text-muted); font-size: 11px; font-weight: 600; cursor: pointer; text-decoration: none;
-      background: none; border: none;
-    }
+    .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 11px; font-weight: 600; cursor: pointer; background: none; border: none; }
     .nav-item.active { color: var(--border-gold-bright); }
 
-    /* ==========================================================================
-       5. MODALS
-       ========================================================================== */
-    .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.82); backdrop-filter: blur(4px);
-      display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px;
-    }
-    .modal-card {
-      background: var(--card-bg); border: 1px solid var(--border-gold-bright); border-radius: var(--radius-card);
-      padding: 22px; width: 100%; max-width: 360px; box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
-      display: flex; flex-direction: column; gap: 16px; max-height: 86vh; overflow-y: auto;
-    }
+    /* MODALS */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.82); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
+    .modal-overlay.show { display: flex; }
+    .modal-card { background: var(--card-bg); border: 1px solid var(--border-gold-bright); border-radius: var(--radius-card); padding: 22px; width: 100%; max-width: 360px; box-shadow: 0 0 30px rgba(212,175,55,0.2); display: flex; flex-direction: column; gap: 16px; max-height: 86vh; overflow-y: auto; }
     .modal-header { font-size: 18px; font-weight: 800; color: var(--text-main); }
     .goal-preset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .preset-btn {
-      background: var(--card-inner); border: 1px solid var(--border-gold); color: var(--text-main);
-      padding: 10px; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer;
-    }
+    .preset-btn { background: var(--card-inner); border: 1px solid var(--border-gold); color: var(--text-main); padding: 10px; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer; }
     .preset-btn:active { background: var(--border-gold-bright); color: #000; }
-    .custom-input {
-      width: 100%; background: var(--card-inner); border: 1px solid var(--border-gold); color: var(--text-main);
-      padding: 12px; border-radius: var(--radius-sm); font-weight: 700; font-size: 16px; text-align: center;
-    }
+    .custom-input { width: 100%; background: var(--card-inner); border: 1px solid var(--border-gold); color: var(--text-main); padding: 12px; border-radius: var(--radius-sm); font-weight: 700; font-size: 16px; text-align: center; }
+    .custom-input:focus { outline: none; border-color: var(--border-gold-bright); }
     .field-label { font-size: 12px; color: var(--text-sub); font-weight: 600; margin-bottom: -6px; }
 
-    /* Weekly Report Grid */
     .weekly-report-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin: 6px 0; }
     .report-day-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .day-ring-outer {
-      width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      transition: background 0.4s ease;
-    }
+    .day-ring-outer { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.4s ease; }
     .day-ring-outer.is-today { box-shadow: 0 0 0 2px var(--border-gold-bright); }
-    .day-ring-inner {
-      width: 27px; height: 27px; border-radius: 50%; background: var(--card-bg);
-      display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 800; color: var(--text-main);
-    }
+    .day-ring-inner { width: 27px; height: 27px; border-radius: 50%; background: var(--card-bg); display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 800; color: var(--text-main); }
 
     .stat-list { display: flex; flex-direction: column; gap: 8px; background: var(--card-inner); padding: 12px; border-radius: 10px; font-size: 12px; }
     .stat-row { display: flex; justify-content: space-between; }
 
-    /* Achievement modal + confetti */
     #modal-achieve .modal-card { position: relative; overflow: hidden; }
     .confetti-layer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-    .confetti-piece {
-      position: absolute; top: -10px; width: 8px; height: 8px; border-radius: 2px;
-      animation: confetti-fall 1.8s ease-in forwards;
-    }
-    @keyframes confetti-fall {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(320px) rotate(540deg); opacity: 0; }
-    }
-    .achieve-glow {
-      font-size: 54px; text-shadow: 0 0 24px var(--gold-glow), 0 0 48px var(--gold-glow);
-      animation: achieve-pulse 1.6s ease-in-out infinite;
-    }
-    @keyframes achieve-pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
+    .confetti-piece { position: absolute; top: -10px; width: 8px; height: 8px; border-radius: 2px; animation: confetti-fall 1.8s ease-in forwards; }
+    @keyframes confetti-fall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(320px) rotate(540deg); opacity: 0; } }
+    .achieve-glow { font-size: 54px; text-shadow: 0 0 24px var(--gold-glow), 0 0 48px var(--gold-glow); animation: achieve-pulse 1.6s ease-in-out infinite; }
+    @keyframes achieve-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
-    /* ==========================================================================
-       6. EDUCATIONAL GUIDE SECTION
-       ========================================================================== */
-    .guide-section {
-      margin-top: 20px; padding-top: 20px; border-top: 1px dashed var(--border-gold);
-      color: var(--text-sub); font-size: 13px; line-height: 1.6;
+    /* SILVER EDUCATIONAL */
+    .detail-section {
+      margin-top: 20px; padding: 30px 24px; background: var(--solid-silver);
+      border: 2px solid var(--border-gold-bright); border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
     }
+    .detail-section h2 { font-family: 'Oswald', sans-serif; color: #0A0F14; font-size: 1.35rem; margin-bottom: 16px; border-bottom: 2px solid var(--border-gold-bright); padding-bottom: 10px; font-weight: 800; }
+    .detail-section h3 { color: #0A0F14; font-size: 1.08rem; margin: 22px 0 10px; font-weight: 800; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom: 14px; color: #0A0F14; font-weight: 500; }
+    .detail-section ul, .detail-section ol { padding-left: 24px; }
+    .detail-section li { margin-bottom: 6px; }
+    .detail-section strong { color: #0A0F14; font-weight: 800; }
+    .detail-section table { width: 100%; border-collapse: collapse; margin: 16px 0; background: #FFFFFF; border-radius: 8px; overflow: hidden; border: 2px solid var(--border-gold-bright); table-layout: fixed; }
+    .detail-section th { background: #0A0F14; color: #FFD700; font-weight: 800; padding: 12px 10px; text-align: left; font-size: 0.82rem; text-transform: uppercase; }
+    .detail-section td { padding: 10px; text-align: left; font-size: 0.85rem; color: #0A0F14; font-weight: 600; border-bottom: 1px solid rgba(212,175,55,0.3); }
+    .detail-section tr:last-child td { border-bottom: none; }
+    .detail-section tr:nth-child(even) { background: rgba(255,255,255,0.5); }
+
+    /* GUIDE SECTION (kept from original) */
+    .guide-section { margin-top: 20px; padding: 20px; background: var(--card-bg); border: 1px solid var(--border-gold); border-radius: var(--radius-card); color: var(--text-sub); font-size: 13px; line-height: 1.7; }
     .guide-section h3 { color: var(--text-main); font-size: 16px; margin-bottom: 8px; }
     .guide-section p { margin-bottom: 12px; }
 
-    @media (prefers-reduced-motion: reduce) {
-      .confetti-piece, .achieve-glow { animation: none; }
+    /* PAKISTANI BLOCK */
+    .pakistani-block {
+      margin-top: 20px; padding: 24px 20px; background: var(--solid-silver);
+      border: 2px solid var(--border-gold-bright); border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+    }
+    .pakistani-block h2 { color: #0A0F14; font-family: 'Oswald', sans-serif; font-size: 1.1rem; margin-bottom: 12px; font-weight: 800; }
+    .pakistani-block p { color: #0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color: #0A0F14; font-weight: 800; }
+
+    /* RELATED TOOLS */
+    .related-tools-section {
+      margin-top: 20px; padding: 20px; background: rgba(255,255,255,0.03);
+      border: 2px solid var(--border-gold-bright); border-radius: 12px;
+    }
+    .related-tools-section h3 { color: #FFD700; font-size: 1rem; margin-bottom: 10px; font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; }
+    .related-tools-section a { color: #4FC3F7; text-decoration: none; background: rgba(79,195,247,0.1); padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-block; margin: 4px 4px 4px 0; }
+
+    /* DISCLAIMER */
+    .disclaimer-box {
+      margin-top: 20px; padding: 16px 18px; background: var(--solid-silver);
+      border: 2px solid var(--border-gold-bright); border-radius: 12px;
+      font-size: 0.85rem; color: #0A0F14; line-height: 1.7; font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    /* LEAD CAPTURE */
+    .lead-capture {
+      margin-top: 20px; padding: 28px 24px; background: var(--solid-silver);
+      border: 2px solid var(--border-gold-bright); border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .lead-capture h3 { font-family: 'Oswald', sans-serif; color: #0A0F14; font-size: 1.2rem; margin-bottom: 12px; letter-spacing: 0.5px; font-weight: 800; }
+    .lead-capture p { color: #0A0F14; margin-bottom: 18px; font-size: 0.9rem; font-weight: 500; }
+    .lead-capture form { display: flex; flex-direction: column; gap: 12px; }
+    .lead-capture input[type="email"] { background: #FFFFFF; border: 2px solid var(--border-gold-bright); border-radius: 10px; padding: 12px 16px; color: #0A0F14; font-size: 0.95rem; font-weight: 600; outline: none; }
+    .lead-capture input[type="email"]:focus { box-shadow: 0 0 15px var(--gold-glow); }
+    .lead-capture button { background: var(--silver-medium-bg); border: 2px solid var(--border-gold-bright); border-radius: 10px; padding: 14px 20px; font-family: 'Oswald', sans-serif; font-weight: 800; font-size: 0.95rem; color: #0A0F14; cursor: pointer; letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.25s ease; }
+    .lead-capture button:hover { transform: translateY(-2px); box-shadow: 0 0 20px var(--gold-glow); }
+
+    /* FOOTER */
+    footer { text-align: center; color: var(--text-sub); font-size: 0.8rem; padding: 40px 16px 20px; border-top: 2px solid var(--border-gold-bright); margin-top: 30px; }
+    footer a { color: #FFD700; text-decoration: none; font-weight: 600; }
+    footer .legal-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+    footer .legal-links a { text-decoration: underline; font-weight: 700; font-size: 0.85rem; }
+
+    /* WHATSAPP FLOAT */
+    .whatsapp-float { position: fixed; bottom: 90px; right: 20px; z-index: 999; width: 48px; height: 48px; background: var(--whatsapp-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); text-decoration: none; color: #fff; font-size: 1.3rem; }
+
+    @media (prefers-reduced-motion: reduce) { .confetti-piece, .achieve-glow { animation: none; } }
+    @media (max-width: 500px) {
+      #app-viewport { padding: 10px 12px 100px 12px; }
+      .ring-container { width: 180px; height: 180px; }
+      .step-big { font-size: 46px; }
+      .detail-section, .pakistani-block, .lead-capture { padding: 20px 16px !important; }
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: 0.78rem; }
     }
   </style>
 </head>
-<footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
-    </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
-</footer>
 <body>
 
+  <!-- GOLDEN NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <div id="app-viewport">
-    <header class="app-header">
-      <div class="brand-title" style="flex-direction:column; align-items:flex-start; gap:1px;">
-        <span>❄️ COLDMATRIX</span>
-        <span style="font-size:10px; font-weight:600; color:var(--text-sub); letter-spacing:0.3px;">Step Counter and Wellness Studio</span>
-      </div>
-      <div style="font-size: 12px; color: var(--text-sub);" id="header-date">--</div>
-    </header>
+    <a href="index.html#tools" class="back-link">← Back to Tools</a>
 
     <button id="install-bar" class="install-bar" onclick="installApp()">📲 Add to Home Screen</button>
+
+    <div class="get-quote-strip">
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20a%20wellness%20tool." class="quote-btn whatsapp" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Quick Chat
+      </a>
+      <a href="contact.html" class="quote-btn">
+        <i class="fa-solid fa-envelope"></i> Get a Quote
+      </a>
+    </div>
+
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share This Tool</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
+
+    <header class="app-header">
+      <div class="brand-title">
+        <span>❄️ COLDMATRIX</span>
+        <span class="sub">Step Counter and Wellness Studio</span>
+      </div>
+      <div class="header-date" id="header-date">--</div>
+    </header>
+
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
 
     <!-- TODAY'S STEPS HERO -->
     <section class="wellness-card hero-card">
       <div class="card-head" style="width: 100%;">
         <div class="card-title-group" style="color: var(--accent-steps);">
           <span>🏆</span>
-          <span>TODAY'S STEPS</span>
+          <span>Today's Steps</span>
         </div>
         <button class="card-action-btn" onclick="openGoalModal()">GOAL: <span id="lbl-goal">4,000</span></button>
       </div>
@@ -359,9 +370,13 @@
         <button class="btn-main btn-secondary" onclick="resetTodaySteps()">Reset</button>
       </div>
 
-      <p id="sensor-note" style="font-size:12px; color:var(--text-sub); margin-top:4px; line-height:1.5; display:flex; align-items:flex-start; gap:6px;">
-        <span id="sensor-live-dot" style="flex-shrink:0; margin-top:4px; width:8px; height:8px; border-radius:50%; background:var(--accent-success); opacity:0.25; transition:opacity 0.15s;"></span>
-        <span id="sensor-note-text">Pedometer engine idle. Tap Start to listen to hardware motion. If your device/browser doesn't support motion sensors, steps won't auto-increase — this is a real hardware limitation, not a bug.</span>
+      <div class="keep-awake-warning" id="keep-awake-warning">
+        ⚠️ Keep this screen ON while walking — the browser pauses step counting when the screen locks or you switch apps. Don't lock your phone during tracking.
+      </div>
+
+      <p class="sensor-note">
+        <span id="sensor-live-dot" class="sensor-dot"></span>
+        <span id="sensor-note-text">Pedometer engine idle. Tap Start to listen to hardware motion. If your device or browser doesn't expose motion sensors, steps won't auto-increase — this is a real hardware limit of the browser, not a bug in the tool.</span>
       </p>
     </section>
 
@@ -389,7 +404,7 @@
       </div>
     </section>
 
-    <!-- WEEKLY DAYS STRIP (inline, always visible) -->
+    <!-- WEEKLY STRIP -->
     <section class="wellness-card">
       <div class="card-head">
         <div class="card-title-group" style="color: var(--border-gold-bright);">
@@ -417,11 +432,11 @@
       <div class="gauge-block">
         <div class="gauge-svg-wrap"><svg id="gauge-hr" viewBox="0 0 100 56" width="100%" height="100%"></svg></div>
         <div class="gauge-info">
-          <div class="data-val hr-bpm-val" id="disp-hr">-- <span style="font-size:13px; color:var(--text-sub);">BPM</span></div>
+          <div class="data-val" id="disp-hr">-- <span style="font-size:13px; color:var(--text-sub);">BPM</span></div>
           <div class="gauge-status" id="lbl-hr-status">No data today</div>
         </div>
       </div>
-      <button class="btn-main btn-secondary" style="height:56px; width:100%;" onclick="openModal('modal-hr')">Measure Heart Rate</button>
+      <button class="btn-main btn-secondary" style="min-height:56px; width:100%;" onclick="openModal('modal-hr')">Measure Heart Rate</button>
     </section>
 
     <!-- BLOOD PRESSURE -->
@@ -444,7 +459,7 @@
           <div class="gauge-status" id="lbl-bp-status">No data today</div>
         </div>
       </div>
-      <button class="btn-main btn-secondary" style="height:56px; width:100%;" onclick="openModal('modal-bp')">Log Blood Pressure</button>
+      <button class="btn-main btn-secondary" style="min-height:56px; width:100%;" onclick="openModal('modal-bp')">Log Blood Pressure</button>
     </section>
 
     <!-- WATER -->
@@ -467,7 +482,7 @@
       </div>
     </section>
 
-    <!-- WEEKLY REPORT SUMMARY -->
+    <!-- WEEKLY STREAK SUMMARY -->
     <section class="wellness-card">
       <div class="card-head">
         <div class="card-title-group" style="color: var(--border-gold-bright);">
@@ -484,6 +499,9 @@
       </div>
     </section>
 
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+    <!-- ORIGINAL GUIDE SECTION -->
     <article class="guide-section">
       <h3>Step Counter & Motion Sensor Telemetry Guide</h3>
       <p>
@@ -493,18 +511,105 @@
         <strong>Browser & permission notes:</strong> Motion sensor access requires a secure HTTPS connection, and some browsers ask you to grant motion permission the first time you tap Start. If your browser or device doesn't expose motion data, step counting will stay at zero rather than fake a number — you can still log your day using the Reset/manual approach.
       </p>
       <p>
-        <strong>Heart rate:</strong> Tap Measure and cover your rear camera and flash with your fingertip — the app reads the color pulse in your blood flow over 15–30 seconds to calculate BPM, the same principle used by camera-based pulse apps. Hold still for the best reading. If your device has no flash or camera access is blocked, you can enter a reading manually instead.
+        <strong>Heart rate:</strong> Tap Measure and cover your rear camera and flash with your fingertip — the app reads the color pulse in your blood flow over 15–30 seconds to calculate BPM, the same principle used by camera-based pulse apps. Hold still for the best reading.
       </p>
       <p>
         <strong>Blood pressure:</strong> A phone camera cannot measure blood pressure. Use the Log button to record a reading you've taken with a proper BP monitor — the app stores and tracks it for you.
       </p>
     </article>
 
-    <div style="text-align:center; padding:18px 0 4px; font-size:12px; color:var(--text-sub);">
-      Powered by <span style="color:var(--border-gold-bright); font-weight:800;">ColdMatrix</span>
+    <!-- SILVER EDUCATIONAL -->
+    <div class="detail-section">
+      <h2>📖 Complete Guide to the Wellness Studio</h2>
+      <p>The ColdMatrix Wellness Studio is a free, all-in-one health companion that runs in your browser. It combines a step counter, heart rate monitor, blood pressure log, water tracker, and weekly performance report — so you can keep an eye on the basics of daily wellness without installing anything.</p>
+
+      <h3>What Can This Tool Do?</h3>
+      <ul>
+        <li><strong>Step Counter:</strong> Uses your phone's motion sensor to count real footsteps while you walk.</li>
+        <li><strong>Exercise Metrics:</strong> Automatically converts steps into estimated kilometres and calories burned.</li>
+        <li><strong>Heart Rate Measurement:</strong> Uses your rear camera and flash to detect your pulse from fingertip blood flow.</li>
+        <li><strong>Blood Pressure Log:</strong> Stores manual readings from a proper BP monitor for tracking over time.</li>
+        <li><strong>Water Tracker:</strong> Quick-add buttons for a 250 ml glass or 500 ml bottle, with a live meter toward 2.5 L.</li>
+        <li><strong>Weekly Report:</strong> See your last 7 days, streaks, averages, and completed goals at a glance.</li>
+        <li><strong>Daily Auto-Reset:</strong> A new day starts fresh — yesterday's data is safely stored in your history.</li>
+      </ul>
+
+      <h3>How Accurate Is the Step Counter?</h3>
+      <p>Browser-based step counting is <strong>approximate</strong>. It reads your phone's accelerometer and detects motion patterns that look like walking. It works best when:</p>
+      <ul>
+        <li>The phone is in a pocket, in your hand, or on an armband (not in a bag).</li>
+        <li>You walk at a normal pace — running, shuffling, or stomping may under-count or over-count.</li>
+        <li>The phone is held relatively still — excessive shaking can trigger false steps.</li>
+      </ul>
+      <p>For medical or training-grade accuracy, a dedicated fitness tracker or smartwatch is still the best option. This tool is designed for general daily awareness, not clinical measurement.</p>
+
+      <h3>Why Does the Screen Need to Stay On?</h3>
+      <p>Browsers deliberately block background access to motion sensors for privacy reasons. That means if your screen locks or you switch apps, step counting pauses. This is a universal browser limitation — every web-based pedometer works this way. The tool includes a Wake Lock helper to keep the screen on while you're actively tracking.</p>
+
+      <h3>Recommended Daily Water Intake</h3>
+      <table>
+        <tr><th>Group</th><th>Recommended</th></tr>
+        <tr><td>Adult men</td><td>~3.7 L total fluids/day</td></tr>
+        <tr><td>Adult women</td><td>~2.7 L total fluids/day</td></tr>
+        <tr><td>Active / hot climate</td><td>Add 500–1000 ml extra</td></tr>
+        <tr><td>Pregnant / breastfeeding</td><td>Consult your doctor</td></tr>
+      </table>
+      <p>The 2.5 L default target in this tool is a practical baseline for most healthy adults. Adjust based on your climate, activity level, and medical advice.</p>
+
+      <h3>Frequently Asked Questions</h3>
+      <p><strong>Q: Does this tool work without an internet connection?</strong><br>A: Yes — after the first load, everything runs offline.</p>
+      <p><strong>Q: Is my health data sent anywhere?</strong><br>A: No. All data stays on your device using local browser storage. Nothing is uploaded.</p>
+      <p><strong>Q: What happens if I close the tab?</strong><br>A: Your steps and daily data are saved. Reopen and continue where you left off — but steps taken while the tab was closed won't be counted.</p>
+      <p><strong>Q: Can I trust the camera heart rate reading?</strong><br>A: It's a good general estimate, like most phone camera pulse apps. For medical decisions, always use a proper pulse oximeter or consult a doctor.</p>
+      <p><strong>Q: Can this app measure blood pressure?</strong><br>A: No — no phone camera can measure blood pressure. Use the manual log to store readings from a real BP monitor.</p>
+      <p><strong>Q: Is this tool really free?</strong><br>A: Yes — 100% free, no signup, no ads that track you, works offline.</p>
+
+      <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ A simple, private, and free way to stay aware of your daily movement, hydration, and health basics — from anywhere in the world.</p>
     </div>
+
+    <!-- PAKISTANI / GLOBAL BLOCK -->
+    <div class="pakistani-block">
+      <h2>🌐 ColdMatrix Wellness — A Global Health Companion</h2>
+      <p>Our Wellness Studio is used daily by walkers, runners, office workers, students, and health-conscious individuals across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, and Australia</strong>. It's a genuinely global tool — fast, private, and built with modern web standards.</p>
+      <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients worldwide with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
+      <p>Need a custom wellness app, health dashboard, or branded tool for your organisation? Our team responds within 24 hours.</p>
+      <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- RELATED TOOLS -->
+    <div class="related-tools-section">
+      <h3>🔗 Related Tools You Might Need</h3>
+      <div>
+        <a href="bmi-calculator.html">⚖️ BMI Calculator</a>
+        <a href="stopwatch-timer.html">⏱️ Stopwatch & Timer</a>
+        <a href="age-calculator.html">🎂 Age Calculator</a>
+        <a href="unit-converter.html">📏 Unit Converter</a>
+        <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+        <a href="password-generator.html">🔐 Password Generator</a>
+        <a href="notepad.html">📝 Notepad</a>
+      </div>
+    </div>
+
+    <!-- LEAD CAPTURE -->
+    <div class="lead-capture">
+      <h3>🚀 Need a Custom Wellness or Fitness Tool?</h3>
+      <p>Get tailored health trackers, fitness dashboards, or branded wellness apps for your team or gym. Leave your email and we'll respond within 24 hours.</p>
+      <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="email" name="email" placeholder="Your work email" required>
+        <button type="submit">Request Custom Tool</button>
+      </form>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> This tool is for general wellness awareness only and is not a medical device. Step counts, heart rate readings, and calorie estimates are approximate and should not be used for diagnosis or treatment. Always consult a qualified healthcare professional for medical advice.
+    </div>
+
   </div>
 
+  <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
     <button class="nav-item active" onclick="scrollToTop()">
       <span style="font-size:16px;">🏠</span>
@@ -542,7 +647,7 @@
     </div>
   </div>
 
-  <!-- HEART RATE MODAL: camera pulse detector + manual fallback -->
+  <!-- HEART RATE MODAL -->
   <div id="modal-hr" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">Measure Heart Rate</div>
@@ -572,7 +677,7 @@
     </div>
   </div>
 
-  <!-- BLOOD PRESSURE MANUAL LOG MODAL -->
+  <!-- BP MODAL -->
   <div id="modal-bp" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">Log Blood Pressure</div>
@@ -588,7 +693,7 @@
     </div>
   </div>
 
-  <!-- WEEKLY REPORT MODAL -->
+  <!-- REPORT MODAL -->
   <div id="modal-report" class="modal-overlay">
     <div class="modal-card" style="max-width:380px;">
       <div class="modal-header">Weekly Performance</div>
@@ -620,8 +725,34 @@
     </div>
   </div>
 
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <footer>
+    <div style="margin-bottom:15px;">
+      <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+      <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#FFD700; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+      <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+        📞 <strong>Call / WhatsApp:</strong>
+        <a href="tel:+923333228470" style="color:#FFD700; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+        <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </p>
+    </div>
+
+    <div class="legal-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-use.html">Terms of Use</a>
+      <a href="cookie-policy.html">Cookie Policy</a>
+      <a href="security.html">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</p>
+  </footer>
+
   <script>
-    const STORAGE_KEY = "coldmatrix_wellness_v4";
+    const STORAGE_KEY = "coldmatrix_wellness_v5";
 
     let appState = {
       lastDate: getTodayDateString(),
@@ -634,10 +765,11 @@
       isTracking: false,
       celebratedToday: false,
       bestStreak: 0,
-      history: {} // "YYYY-MM-DD": { steps, goal, completed }
+      history: {}
     };
 
-    let lastAccelMag = 0;
+    // Wake Lock state
+    let wakeLock = null;
 
     function getTodayDateString() {
       const d = new Date();
@@ -653,13 +785,10 @@
       const d = new Date();
       document.getElementById('header-date').innerText = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
 
-      // Auto-resume tracking on reopen. iOS requires a fresh user tap for
-      // motion permission each time, so it still needs the Start button;
-      // most Android browsers don't require that prompt, so we can safely
-      // resume automatically instead of silently going idle on every reload.
       const needsExplicitPermission = typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function';
       if (typeof DeviceMotionEvent !== 'undefined' && !needsExplicitPermission) {
-        startMotionSensor();
+        // Auto-resume on Android-like browsers
+        if (appState.isTracking) startMotionSensor();
       } else if (needsExplicitPermission && appState.isTracking) {
         document.getElementById('sensor-note-text').innerText = "Tracking was on last time — tap Start Tracking to resume (your browser requires this each session).";
       }
@@ -668,13 +797,10 @@
     function loadSavedData() {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
-        try {
-          const parsed = JSON.parse(raw);
-          appState = { ...appState, ...parsed };
-        } catch (e) { console.error("Failed to parse stored state", e); }
+        try { const parsed = JSON.parse(raw); appState = { ...appState, ...parsed }; }
+        catch (e) { console.error("Failed to parse stored state", e); }
       }
     }
-
     function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(appState)); }
 
     function checkMidnightRollover() {
@@ -724,18 +850,18 @@
       document.getElementById('ex-time').innerText = `${hrs}h ${String(mins).padStart(2, '0')}m`;
 
       if (appState.heartRate) {
-        document.getElementById('disp-hr').innerHTML = `${appState.heartRate} <span style="font-size:12px; color:var(--text-sub);">BPM</span>`;
+        document.getElementById('disp-hr').innerHTML = `${appState.heartRate} <span style="font-size:13px; color:var(--text-sub);">BPM</span>`;
         document.getElementById('lbl-hr-status').innerText = "Logged today";
       } else {
-        document.getElementById('disp-hr').innerHTML = `-- <span style="font-size:12px; color:var(--text-sub);">BPM</span>`;
+        document.getElementById('disp-hr').innerHTML = `-- <span style="font-size:13px; color:var(--text-sub);">BPM</span>`;
         document.getElementById('lbl-hr-status').innerText = "No data today";
       }
 
       if (appState.bpSys && appState.bpDia) {
-        document.getElementById('disp-bp').innerHTML = `${appState.bpSys}/${appState.bpDia} <span style="font-size:12px; color:var(--text-sub);">mmHg</span>`;
+        document.getElementById('disp-bp').innerHTML = `${appState.bpSys}/${appState.bpDia} <span style="font-size:13px; color:var(--text-sub);">mmHg</span>`;
         document.getElementById('lbl-bp-status').innerText = "Logged today";
       } else {
-        document.getElementById('disp-bp').innerHTML = `--/-- <span style="font-size:12px; color:var(--text-sub);">mmHg</span>`;
+        document.getElementById('disp-bp').innerHTML = `--/-- <span style="font-size:13px; color:var(--text-sub);">mmHg</span>`;
         document.getElementById('lbl-bp-status').innerText = "No data today";
       }
 
@@ -751,7 +877,7 @@
       renderWeekStrip();
     }
 
-    /* ===================== GAUGES ===================== */
+    /* GAUGES */
     function polar(cx, cy, r, angleDeg) {
       const rad = angleDeg * Math.PI / 180;
       return { x: cx + r * Math.cos(rad), y: cy - r * Math.sin(rad) };
@@ -772,10 +898,9 @@
         stops += `<stop offset="${(z.to * 100).toFixed(0)}%" stop-color="${z.color}"/>`;
       });
       let html = `<defs><linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="0%">${stops}</linearGradient></defs>`;
-      // single smooth arc using the gradient, rounded ends, soft glow
       html += `<path d="${arcPath(cx, cy, r, 180, 0)}" stroke="url(#${gradId})" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.95"/>`;
 
-      let angle = 90; // resting middle position when no data
+      let angle = 90;
       if (value !== null && value !== undefined) {
         const frac = Math.max(0, Math.min(1, (value - min) / (max - min)));
         angle = 180 - frac * 180;
@@ -804,23 +929,22 @@
       ], appState.bpSys, 80, 200);
     }
 
-    /* ===================== STEPS ===================== */
+    /* STEPS */
     function addSteps(count) {
       checkMidnightRollover();
       appState.todaySteps += count;
-
       if (appState.todaySteps >= appState.stepGoal && !appState.celebratedToday) {
         appState.celebratedToday = true;
         document.getElementById('achieve-goal-text').innerText = appState.stepGoal.toLocaleString();
         openModal('modal-achieve');
         spawnConfetti();
       }
-
       saveData();
       renderUI();
     }
 
     function resetTodaySteps() {
+      if (!confirm('Reset today\'s steps to zero?')) return;
       appState.todaySteps = 0;
       appState.celebratedToday = false;
       saveData();
@@ -846,12 +970,38 @@
       }
     }
 
+    async function requestWakeLock() {
+      try {
+        if ('wakeLock' in navigator) {
+          wakeLock = await navigator.wakeLock.request('screen');
+          document.getElementById('keep-awake-warning').classList.add('show');
+          wakeLock.addEventListener('release', () => {
+            wakeLock = null;
+          });
+        } else {
+          document.getElementById('keep-awake-warning').classList.add('show');
+        }
+      } catch (err) {
+        document.getElementById('keep-awake-warning').classList.add('show');
+      }
+    }
+
+    function releaseWakeLock() {
+      if (wakeLock) {
+        try { wakeLock.release(); } catch (e) {}
+        wakeLock = null;
+      }
+      document.getElementById('keep-awake-warning').classList.remove('show');
+    }
+
     function startMotionSensor() {
       appState.isTracking = true;
       window.addEventListener('devicemotion', handleMotion);
       document.getElementById('lbl-track-btn').innerText = "Pause Tracking";
       document.getElementById('btn-toggle-track').classList.replace('btn-primary', 'btn-secondary');
-      document.getElementById('sensor-note-text').innerText = "Sensor active — tracking physical footsteps while this tab stays open.";
+      document.getElementById('sensor-note-text').innerText = "Sensor active — tracking physical footsteps while this tab stays open. Keep the screen on!";
+      requestWakeLock();
+      saveData();
     }
 
     function stopMotionSensor() {
@@ -860,41 +1010,77 @@
       document.getElementById('lbl-track-btn').innerText = "Start Tracking";
       document.getElementById('btn-toggle-track').classList.replace('btn-secondary', 'btn-primary');
       document.getElementById('sensor-note-text').innerText = "Pedometer engine paused.";
+      releaseWakeLock();
+      saveData();
     }
 
+    /* ============================================================
+       IMPROVED STEP DETECTION
+       - Adaptive baseline (slow-moving average) removes gravity+drift
+       - Adaptive threshold that learns from recent signal amplitude
+       - Debounce interval prevents double-counting
+       - Requires a full rise-and-fall, not just a spike
+       ============================================================ */
     let filteredMag = null;
     let lastStepTime = 0;
-    const STEP_DELTA_THRESHOLD = 2.6;
-    const STEP_MIN_INTERVAL_MS = 300;
+    const STEP_MIN_INTERVAL_MS = 280;
     let lastMotionEventTime = 0;
+
+    // Adaptive threshold memory
+    let recentPeaks = [];
+    let lastCrossedUp = false;
 
     function handleMotion(e) {
       const acc = e.accelerationIncludingGravity;
       if (!acc || acc.x === null) return;
       const mag = Math.sqrt(acc.x * acc.x + acc.y * acc.y + acc.z * acc.z);
-      if (filteredMag === null) filteredMag = mag;
-      filteredMag = filteredMag * 0.9 + mag * 0.1; // slow-moving baseline (gravity + device tilt)
+
+      if (filteredMag === null) {
+        filteredMag = mag;
+        return;
+      }
+
+      // Very slow baseline — captures gravity + orientation, ignores steps
+      filteredMag = filteredMag * 0.92 + mag * 0.08;
       const delta = mag - filteredMag;
 
       lastMotionEventTime = Date.now();
       pulseSensorDot();
 
+      // Adaptive threshold: start at 1.8, tighten based on observed peaks
+      let adaptiveThreshold = 1.8;
+      if (recentPeaks.length >= 5) {
+        const avg = recentPeaks.reduce((a, b) => a + b, 0) / recentPeaks.length;
+        adaptiveThreshold = Math.max(1.2, Math.min(avg * 0.55, 3.0));
+      }
+
       const now = Date.now();
-      if (delta > STEP_DELTA_THRESHOLD && (now - lastStepTime) > STEP_MIN_INTERVAL_MS) {
-        lastStepTime = now;
-        addSteps(1);
+
+      // Detect rising edge above threshold
+      if (delta > adaptiveThreshold && !lastCrossedUp) {
+        lastCrossedUp = true;
+      }
+      // Detect falling edge (step completes)
+      else if (delta < adaptiveThreshold * 0.4 && lastCrossedUp) {
+        lastCrossedUp = false;
+        if (now - lastStepTime > STEP_MIN_INTERVAL_MS) {
+          lastStepTime = now;
+          recentPeaks.push(delta);
+          if (recentPeaks.length > 8) recentPeaks.shift();
+          addSteps(1);
+        }
       }
     }
 
     function pulseSensorDot() {
       const dot = document.getElementById('sensor-live-dot');
       if (!dot) return;
-      dot.style.opacity = '1';
+      dot.classList.add('active');
       clearTimeout(pulseSensorDot._t);
-      pulseSensorDot._t = setTimeout(() => { dot.style.opacity = '0.25'; }, 220);
+      pulseSensorDot._t = setTimeout(() => { dot.classList.remove('active'); }, 220);
     }
 
-    /* ===================== STREAK ===================== */
+    /* STREAK */
     function calculateStreak() {
       let streak = 0;
       let d = new Date();
@@ -909,15 +1095,14 @@
       }
       return streak;
     }
-
     function updateBestStreak() {
       const s = calculateStreak();
       if (s > (appState.bestStreak || 0)) { appState.bestStreak = s; }
     }
 
-    /* ===================== MODALS ===================== */
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    /* MODALS */
+    function openModal(id) { document.getElementById(id).classList.add('show'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('show'); }
     function openGoalModal() { openModal('modal-goal'); }
     function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
@@ -934,7 +1119,7 @@
 
     function saveHeartRate() {
       const v = parseInt(document.getElementById('input-hr').value);
-      if (!v || v < 30 || v > 220) return;
+      if (!v || v < 30 || v > 220) { alert('Please enter a valid BPM between 30 and 220.'); return; }
       appState.heartRate = v;
       saveData();
       renderUI();
@@ -942,7 +1127,7 @@
       document.getElementById('input-hr').value = '';
     }
 
-    /* ===================== CAMERA PULSE (PPG) HEART RATE ===================== */
+    /* CAMERA PULSE (PPG) */
     let hrCameraTrack = null;
 
     async function startCameraHRMeasurement(durationSec) {
@@ -953,7 +1138,7 @@
       statusEl.innerText = 'Requesting camera access…';
 
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        statusEl.innerText = "This browser doesn't support camera access, so live pulse measurement isn't available here. Enter a reading manually below.";
+        statusEl.innerText = "This browser doesn't support camera access. Enter a reading manually below.";
         btnRow.style.display = 'grid';
         return;
       }
@@ -968,7 +1153,7 @@
         try {
           const caps = hrCameraTrack.getCapabilities ? hrCameraTrack.getCapabilities() : {};
           if (caps.torch) await hrCameraTrack.applyConstraints({ advanced: [{ torch: true }] });
-        } catch (torchErr) { /* torch not supported on this device — measurement still works, just dimmer signal */ }
+        } catch (torchErr) {}
 
         const canvas = document.getElementById('hr-camera-canvas');
         const ctx = canvas.getContext('2d');
@@ -1009,7 +1194,7 @@
         if (hrCameraTrack && hrCameraTrack.getCapabilities && hrCameraTrack.getCapabilities().torch) {
           hrCameraTrack.applyConstraints({ advanced: [{ torch: false }] }).catch(() => {});
         }
-      } catch (e) { /* ignore */ }
+      } catch (e) {}
       stream.getTracks().forEach(t => t.stop());
       hrCameraTrack = null;
     }
@@ -1021,7 +1206,6 @@
         return;
       }
 
-      // Smooth (small moving average) to reduce frame noise
       const smoothed = [];
       const sWin = 3;
       for (let i = 0; i < samples.length; i++) {
@@ -1030,7 +1214,6 @@
         smoothed.push({ t: samples[i].t, red: sum / n });
       }
 
-      // Detrend against a slower-moving baseline (removes finger-pressure drift, keeps the pulse wave)
       const baseline = [];
       const bWin = 15;
       for (let i = 0; i < smoothed.length; i++) {
@@ -1040,7 +1223,6 @@
       }
       const detrended = smoothed.map((s, i) => s.red - baseline[i]);
 
-      // Peak detection with a minimum 300ms spacing (caps at 200bpm, avoids double-counting noise)
       const peaks = [];
       const minGapMs = 300;
       let lastPeakT = -Infinity;
@@ -1052,7 +1234,7 @@
       }
 
       if (peaks.length < 4) {
-        statusEl.innerText = "Signal too weak or noisy to detect a clear pulse. Try again, holding your finger completely still and covering the camera and flash fully.";
+        statusEl.innerText = "Signal too weak or noisy to detect a clear pulse. Try again, holding your finger completely still.";
         btnRow.style.display = 'grid';
         return;
       }
@@ -1083,7 +1265,7 @@
     function saveBloodPressure() {
       const sys = parseInt(document.getElementById('input-bp-sys').value);
       const dia = parseInt(document.getElementById('input-bp-dia').value);
-      if (!sys || !dia) return;
+      if (!sys || !dia) { alert('Please enter both systolic and diastolic values.'); return; }
       appState.bpSys = sys;
       appState.bpDia = dia;
       saveData();
@@ -1099,7 +1281,7 @@
       renderUI();
     }
 
-    /* ===================== CONFETTI ===================== */
+    /* CONFETTI */
     function spawnConfetti() {
       const layer = document.getElementById('confetti-layer');
       layer.innerHTML = '';
@@ -1116,7 +1298,7 @@
       setTimeout(() => { layer.innerHTML = ''; }, 2600);
     }
 
-    /* ===================== WEEKLY REPORT (shared logic) ===================== */
+    /* WEEKLY REPORT */
     function computeWeekData() {
       const dayLetters = ["S", "M", "T", "W", "T", "F", "S"];
       let totalSteps = 0, dayCount = 0, goalsHit = 0;
@@ -1190,6 +1372,7 @@
       openModal('modal-report');
     }
 
+    /* PWA INSTALL */
     let deferredInstallPrompt = null;
     window.addEventListener('beforeinstallprompt', function (e) {
       e.preventDefault();
@@ -1204,11 +1387,73 @@
           if (bar) bar.style.display = 'none';
         });
       } else {
-        alert('📱 Add to Home Screen via your browser menu.');
+        alert('📱 Android: "Add to Home Screen" in Chrome menu.\n📱 iPhone: Share → Add to Home Screen.');
       }
     }
 
+    /* SHARE */
+    function shareToolWhatsApp() {
+      const text = encodeURIComponent('Check out this free Step Counter & Wellness Studio from ColdMatrix Tools! ' + window.location.href);
+      window.open('https://wa.me/?text=' + text, '_blank');
+    }
+    function copyToolLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => alert('Link copied!')).catch(() => alert(window.location.href));
+    }
+
+    /* SERVICE WORKER */
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    }
+
+    /* Re-acquire wake lock if page returns to foreground while tracking */
+    document.addEventListener('visibilitychange', async () => {
+      if (document.visibilityState === 'visible' && appState.isTracking) {
+        await requestWakeLock();
+      }
+    });
+
     window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix Step Counter & Wellness Studio",
+    "url": "https://coldmatrixtools.com/step-counter.html",
+    "applicationCategory": "HealthApplication",
+    "description": "Free online step counter, pedometer, heart rate monitor, blood pressure log, and water tracker with weekly report.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does this step counter work without internet?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, after the first load everything runs offline in your browser." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does it count steps when my screen is locked?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Browsers block motion sensor access in the background, so step counting pauses when the screen locks or you switch apps. This is a limitation of all web-based pedometers." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can this app measure blood pressure?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. A phone camera cannot measure blood pressure. You can store manual readings from a real BP monitor for tracking." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my health data private?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. All data stays on your device using local browser storage. Nothing is uploaded or sent to any server." }
+      }
+    ]
+  }
   </script>
 </body>
 </html>

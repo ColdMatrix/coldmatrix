@@ -4,17 +4,24 @@
 <link rel="canonical" href="https://coldmatrixtools.com/loan-emi-calculator.html">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DCJ7K7LSCF')</script>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>ColdMatrix Loan & EMI Calculator — By Amount, Budget, or Salary Ratio</title>
   <meta name="description" content="Free loan & EMI calculator. Find your EMI, max loan from budget, or affordability from salary. Includes amortization schedule & prepayment savings.">
-  <meta property="og:type" content="website"><meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
   <meta property="og:title" content="ColdMatrix Loan & EMI Calculator — By Amount, Budget, or Salary Ratio">
   <meta property="og:description" content="Calculate EMI, max affordable loan, or salary-based affordability with prepayment savings & full amortization schedule.">
   <meta property="og:url" content="https://coldmatrixtools.com/loan-emi-calculator.html">
-  <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="ColdMatrix Loan & EMI Calculator">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ColdMatrix Loan & EMI Calculator">
   <meta name="twitter:description" content="Calculate EMI, max affordable loan, or salary-based affordability with prepayment savings & full amortization schedule.">
-  <meta name="theme-color" content="#0A0F14"><link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <meta name="theme-color" content="#0A0F14">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -22,13 +29,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root{
-      --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540; --text:#EAEDF0; --muted:#8B98A5;
-      --accent:#4FC3F7; --accent2:#2196F3; --gold:#D4AF37; --gold-bright:#FFD700;
-      --gold-border: linear-gradient(145deg, #C8993A, #E8C96A 30%, #A07828 70%, #D4A843);
-      --silver-gradient: linear-gradient(145deg, #f8fafc 0%, #c0c8d2 25%, #8a929c 55%, #d0d7df 78%, #a8b0bb 100%);
-      --silver-gradient-hover: linear-gradient(145deg, #ffffff 0%, #d0d7df 30%, #a8b0bb 55%, #e6eaf0 80%, #b8c0c9 100%);
-      --silver-dark-bg: linear-gradient(145deg, #3A3F46 0%, #282D33 40%, #1C2025 100%);
-      --good:#34D399; --warn:#F59E0B; --bad:#EF4444; --whatsapp-green:#25D366;
+      --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
+      --text:#EAEDF0; --muted:#8B98A5;
+      --accent:#D4AF37; --accent2:#FFD700;
+      --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
+      --silver-bg:#C8CDD4;
+      --silver-bg-hover:#D5D9DE;
+      --silver-gradient:linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      --dark-silver:#4a4d55;
+      --good:#34D399; --warn:#F59E0B; --bad:#EF4444;
+      --whatsapp-green:#25D366;
     }
     *{margin:0;padding:0;box-sizing:border-box}
     body{
@@ -38,175 +48,389 @@
                   var(--bg);
       color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;
     }
-    .container{max-width:880px;margin:0 auto;padding:0 24px}
-    .navbar{position:sticky;top:0;z-index:100;background:rgba(10,15,20,0.94);backdrop-filter:blur(14px);border-bottom:2px solid;border-image:var(--gold-border) 1}
+    .container{max-width:880px;margin:0 auto;padding:0 20px}
+
+    /* GOLDEN NAVBAR */
+    .navbar{position:sticky;top:0;z-index:100;background:rgba(10,15,20,0.94);backdrop-filter:blur(14px);border-bottom:2px solid var(--gold)}
     .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:14px 0;flex-wrap:wrap;max-width:880px;margin:0 auto}
-    .logo{font-size:1.2rem;font-weight:800;color:var(--accent);text-decoration:none;display:flex;align-items:center;gap:8px}
+    .logo{font-size:1.2rem;font-weight:800;color:var(--gold-bright);text-decoration:none;display:flex;align-items:center;gap:8px}
     .nav-links{display:flex;gap:16px;list-style:none;flex-wrap:wrap}
     .nav-links a{color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem}
     .nav-links a:hover, .nav-links a.active{color:var(--gold-bright)}
-    .back-link{display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem}
-    .install-bar{background:var(--accent);color:#0A0F14;text-align:center;padding:12px 16px;border-radius:10px;margin:14px 0;font-weight:600;font-size:0.85rem;display:block;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
-    .install-bar button{background:#0A0F14;color:#fff;border:none;padding:6px 18px;border-radius:6px;margin-left:10px;font-weight:600;cursor:pointer}
-    h1{font-size:1.8rem;font-weight:800;margin-bottom:6px;font-family:'Oswald',sans-serif}h1 span{color:var(--gold-bright)}
-.subtitle {
-  color: #DCE3E8;
-  font-size: 1rem;
-  font-weight: 500;
-}
+    .back-link{display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem}
 
+    /* GOLDEN INSTALL BAR */
+    .install-bar{
+      display:block;
+      background:linear-gradient(135deg, #D4AF37, #FFD700);
+      color:#0A0F14;text-align:center;
+      padding:10px 16px;border-radius:10px;margin:14px 0;
+      font-weight:700;font-size:0.85rem;
+      border:1px solid #FFD700;
+      box-shadow:0 3px 10px rgba(212,175,55,0.35);
+    }
+    .install-bar button{
+      background:#0A0F14;color:#FFD700;border:2px solid #FFD700;
+      padding:5px 16px;border-radius:6px;margin-left:10px;
+      font-weight:800;cursor:pointer;font-size:0.8rem;
+    }
+
+    h1{font-size:1.7rem;font-weight:800;margin-bottom:6px;font-family:'Oswald',sans-serif;line-height:1.25}
+    h1 span{color:var(--gold-bright)}
+    .subtitle{color:#EAEDF0;font-size:0.95rem;font-weight:500;margin-bottom:20px}
+
+    /* GET QUOTE STRIP */
+    .get-quote-strip{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+    .get-quote-strip .quote-btn{
+      flex:1;min-width:140px;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      padding:13px 16px;
+      background:var(--silver-bg);border:2px solid var(--gold);
+      border-radius:12px;color:#0A0F14;
+      font-family:'Oswald',sans-serif;font-weight:800;
+      font-size:0.85rem;text-decoration:none;cursor:pointer;
+      letter-spacing:0.5px;text-transform:uppercase;
+      box-shadow:0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition:all 0.25s ease;
+    }
+    .get-quote-strip .quote-btn:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);transform:translateY(-2px);box-shadow:0 0 22px var(--gold-glow)}
+    .get-quote-strip .quote-btn.whatsapp{background:#25D366;color:#fff;border-color:#1da851}
+    .get-quote-strip .quote-btn.whatsapp:hover{background:#1da851;border-color:#25D366}
+
+    /* SHARE CARD */
     .share-tool-card{
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
       border:2px solid;
-      border-image:var(--gold-border) 1;
-      border-radius:12px;padding:22px 20px;margin-bottom:26px;box-shadow:0 10px 34px rgba(0,0,0,0.55);
+      border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:12px;padding:16px 18px;margin-bottom:20px;
+      box-shadow:0 10px 34px rgba(0,0,0,0.55);
     }
-    .share-tool-title{font-weight:800;font-size:1.05rem;color:var(--gold-bright);text-align:center;letter-spacing:0.6px;margin-bottom:16px;text-transform:uppercase}
-    .share-tool-buttons{display:flex;gap:12px;width:100%}
+    .share-tool-title{font-weight:800;font-size:0.9rem;color:#E8B93A;text-align:center;letter-spacing:0.6px;margin-bottom:12px;text-transform:uppercase}
+    .share-tool-buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .share-tool-btn{
-      flex:1;display:flex;align-items:center;justify-content:center;gap:9px;
-      padding:16px 10px;border-radius:12px;font-weight:700;font-size:0.95rem;cursor:pointer;
-      background:rgba(15,20,30,0.85);color:#EAEDF0;border:1.5px solid rgba(200,168,78,0.6);
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      padding:11px 12px;border-radius:10px;font-weight:700;font-size:0.85rem;cursor:pointer;
+      background:rgba(15,20,30,0.75);color:#EAEDF0;border:1.5px solid rgba(200,168,78,0.45);
       transition:all 0.25s ease;
     }
-    .share-tool-btn:hover{border-color:var(--gold-bright);box-shadow:0 0 20px rgba(200,168,78,0.4);transform:translateY(-2px)}
-    .share-tool-btn.wa{border-color:rgba(37,211,102,0.7)}
-    .share-tool-btn.wa:hover{border-color:#25D366;box-shadow:0 0 20px rgba(37,211,102,0.35)}
-    .share-tool-btn i{font-size:1rem}
+    .share-tool-btn:hover{border-color:var(--gold-bright);box-shadow:0 0 20px rgba(200,168,78,0.35)}
+    .share-tool-btn.wa{border-color:rgba(37,211,102,0.55)}
+    .share-tool-btn.wa:hover{border-color:#25D366}
 
-    .card{
-      background: var(--silver-dark-bg) padding-box, var(--gold-border) border-box;
-      border: 2px solid transparent;
-      border-radius:16px;
-      padding:20px;margin-bottom:16px;position:relative;overflow:hidden;
-      box-shadow:0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03);
+    /* AD ZONE */
+    .ad-zone{
+      margin:20px 0;padding:20px;
+      background:rgba(212,175,55,0.05);
+      border:2px dashed var(--gold);
+      border-radius:12px;
+      text-align:center;
+      min-height:90px;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--muted);font-size:0.75rem;font-weight:600;
+      letter-spacing:1px;text-transform:uppercase;
     }
-    .card h2{font-family:'Oswald',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:4px;color:var(--gold-bright);text-transform:uppercase;letter-spacing:0.5px}
-    .card .card-sub{font-size:0.75rem;color:var(--muted);margin-bottom:14px}
 
+    /* SILVER PREMIUM CARD */
+    .card{
+      background:#C8CDD4;
+      background-image:linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border:2px solid var(--gold);
+      border-radius:14px;
+      padding:22px 20px;
+      margin-bottom:18px;
+      position:relative;
+      box-shadow:0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .card h2{
+      font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;
+      margin-bottom:6px;color:#0A0F14;text-transform:uppercase;
+      letter-spacing:0.5px;border-bottom:2px solid var(--gold);
+      padding-bottom:10px;
+    }
+    .card .card-sub{font-size:0.78rem;color:#4a4d55;margin-bottom:14px;font-weight:600}
+
+    /* MODE TABS */
     .mode-tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:6px}
     .mode-tab{
-      background:linear-gradient(145deg, #3A3F46 0%, #282D33 40%, #1C2025 100%);
-      border:2px solid var(--gold);color:#EAEDF0;
-      border-radius:12px;padding:14px 6px;text-align:center;font-size:0.78rem;font-weight:700;cursor:pointer;
-      transition:all 0.2s ease;box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-      letter-spacing:0.4px;
+      background:#FFFFFF;
+      border:2px solid var(--gold);
+      color:#0A0F14;
+      border-radius:12px;padding:14px 6px;text-align:center;
+      font-family:'Oswald',sans-serif;font-weight:800;
+      font-size:0.75rem;cursor:pointer;
+      transition:all 0.2s ease;
+      box-shadow:0 3px 8px rgba(0,0,0,0.15);
+      letter-spacing:0.3px;
+      text-transform:uppercase;
     }
-    .mode-tab i{display:block;font-size:1.4rem;margin-bottom:6px;color:var(--gold-bright)}
-    .mode-tab:hover{border-color:var(--gold-bright);color:#fff;transform:translateY(-2px);box-shadow:0 6px 18px rgba(212,175,55,0.2)}
+    .mode-tab i{display:block;font-size:1.3rem;margin-bottom:6px;color:var(--gold)}
+    .mode-tab:hover:not(.active){border-color:var(--gold-bright);transform:translateY(-2px)}
     .mode-tab.active{
-      background:var(--gold-border);color:#0A0F14;border-color:var(--gold-bright);
-      box-shadow:0 6px 18px rgba(212,175,55,0.35);
+      background:var(--gold);
+      color:#0A0F14;
+      border-color:var(--gold-bright);
+      box-shadow:0 6px 18px rgba(212,175,55,0.4);
     }
     .mode-tab.active i{color:#0A0F14}
 
+    /* FIELDS */
     .field{margin-bottom:12px}
-    .field label{display:block;font-size:0.8rem;color:var(--gold-bright);margin-bottom:4px;font-weight:600;letter-spacing:0.3px}
+    .field label{display:block;font-size:0.85rem;color:#0A0F14;margin-bottom:5px;font-weight:700}
     .field input,.field select{
-      width:100%;background:#0F1620;border:2px solid var(--gold);color:var(--text);
-      padding:12px 40px 12px 14px;border-radius:10px;font-size:0.95rem;transition:all 0.25s;
+      width:100%;
+      background:#FFFFFF;
+      border:2px solid var(--gold);
+      color:#0A0F14;
+      padding:12px 40px 12px 14px;
+      border-radius:10px;
+      font-size:0.95rem;
+      font-weight:600;
+      transition:all 0.25s;
       appearance:none;-webkit-appearance:none;-moz-appearance:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='14' viewBox='0 0 24 14'%3E%3Cpath d='M2 2 L12 12 L22 2' fill='none' stroke='%23FFD700' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat:no-repeat;background-position:right 12px center;background-size:20px 12px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14' viewBox='0 0 22 14'%3E%3Cpath d='M2 3 L11 11 L20 3' fill='none' stroke='%23D4AF37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;background-position:right 14px center;background-size:22px 13px;
     }
-    .field input:focus,.field select:focus{outline:none;border-color:var(--gold-bright);box-shadow:0 0 12px rgba(212,175,55,0.35)}
-    .field select option{background:var(--surface2);color:var(--text)}
-    .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .field input:focus,.field select:focus{outline:none;border-color:var(--gold-bright);box-shadow:0 0 15px var(--gold-glow)}
+    .field select option{background:#FFFFFF;color:#0A0F14;font-weight:600}
+    .field input[type="range"]{
+      padding:8px 0;background-image:none;
+    }
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 
-    .btn-calc,.btn-reset{
-      height:54px;
-      display:flex;align-items:center;justify-content:center;
-      padding:0 20px;
-      border-radius:12px;
-      cursor:pointer;
-      transition:all 0.25s ease;
-    }
+    /* STACKED BUTTONS */
+    .btn-stack{display:flex;flex-direction:column;gap:12px;margin-top:12px}
     .btn-calc{
       width:100%;
-      background:var(--silver-gradient);color:#0A0F14;border:2px solid var(--gold);
-      font-weight:800;font-size:1.05rem;letter-spacing:0.5px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.3);
+      background:var(--silver-bg);
+      color:#0A0F14;
+      border:2px solid var(--gold);
+      min-height:64px;
+      padding:16px 20px;
+      border-radius:12px;
+      font-family:'Oswald',sans-serif;
+      font-weight:900;
+      font-size:1.15rem;
+      cursor:pointer;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      box-shadow:0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
+      transition:all 0.25s ease;
+      display:flex;align-items:center;justify-content:center;gap:8px;
     }
-    .btn-calc:hover{background:var(--silver-gradient-hover);border-color:var(--gold-bright);transform:translateY(-2px);box-shadow:0 0 22px rgba(212,175,55,0.6)}
+    .btn-calc:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);box-shadow:0 0 22px var(--gold-glow);transform:translateY(-2px)}
     .btn-reset{
-      background:var(--silver-gradient);color:#0A0F14;border:2px solid var(--gold);
-      font-weight:700;font-size:0.9rem;white-space:nowrap;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.3);
+      width:100%;
+      background:var(--silver-bg);
+      color:#0A0F14;
+      border:2px solid var(--gold);
+      min-height:46px;
+      padding:10px 20px;
+      border-radius:12px;
+      font-family:'Oswald',sans-serif;
+      font-weight:800;
+      font-size:0.95rem;
+      cursor:pointer;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      box-shadow:0 3px 8px rgba(0,0,0,0.3);
+      transition:all 0.25s ease;
+      display:flex;align-items:center;justify-content:center;gap:6px;
     }
-    .btn-reset:hover{background:var(--silver-gradient-hover);border-color:var(--gold-bright);transform:translateY(-2px)}
+    .btn-reset:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);transform:translateY(-2px)}
 
+    /* RESULTS */
+    #resultsWrap{margin-top:20px}
     .result-hero{
-      background:linear-gradient(135deg,rgba(52,211,153,0.10),rgba(79,195,247,0.08)),var(--silver-dark-bg);
-      border:2px solid var(--gold);border-radius:16px;padding:26px;text-align:center;margin-bottom:16px;
-      box-shadow:0 0 30px rgba(212,175,55,0.15), 0 0 40px rgba(52,211,153,0.1);
-      animation:fadeInUp 0.5s ease;
+      background:linear-gradient(145deg, #FFFFFF, #F0F2F5);
+      border:2px solid var(--gold);
+      border-radius:16px;padding:26px;text-align:center;margin-bottom:16px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.5), 0 0 25px rgba(212,175,55,0.2);
     }
     .result-hero .val{
       font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:800;
-      background:linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #FFA500 100%);
-      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+      color:#B8952B;
+      line-height:1.1;
+      word-break:break-word;
     }
-    .result-hero .lbl{font-size:0.8rem;color:var(--gold-bright);text-transform:uppercase;margin-top:4px;letter-spacing:1px}
-    .result-hero .sub{font-size:0.9rem;color:var(--text);margin-top:6px}
+    .result-hero .lbl{font-size:0.8rem;color:#0A0F14;text-transform:uppercase;margin-top:4px;letter-spacing:1px;font-weight:700}
+    .result-hero .sub{font-size:0.9rem;color:#4a4d55;margin-top:6px;font-weight:600}
 
     .result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
     .result-item{
-      background:var(--silver-dark-bg);border:2px solid var(--gold);border-radius:12px;
-      padding:16px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.3);
+      background:#FFFFFF;border:2px solid var(--gold);border-radius:12px;
+      padding:16px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.2);
       transition:transform 0.2s;
     }
     .result-item:hover{transform:translateY(-3px)}
-    .result-item .val{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:800;color:var(--gold-bright)}
-    .result-item .lbl{font-size:0.68rem;color:var(--muted);text-transform:uppercase;margin-top:3px}
+    .result-item .val{font-family:'Oswald',sans-serif;font-size:1.2rem;font-weight:800;color:#0A0F14;word-break:break-word}
+    .result-item .lbl{font-size:0.68rem;color:#4a4d55;text-transform:uppercase;margin-top:3px;font-weight:700}
 
     .stackbar{display:flex;height:30px;border-radius:10px;overflow:hidden;margin:14px 0 8px;border:2px solid var(--gold)}
-    .stackbar .principal{background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;color:#0A0F14}
-    .stackbar .interest{background:var(--gold-bright);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;color:#0A0F14}
+    .stackbar .principal{background:linear-gradient(180deg, #4FC3F7, #2196F3);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;color:#fff}
+    .stackbar .interest{background:linear-gradient(180deg, #FFD700, #D4AF37);display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;color:#0A0F14}
 
-    .breakdown-table{width:100%;border-collapse:collapse;font-size:0.82rem;margin-top:6px}
-    .breakdown-table th,.breakdown-table td{padding:8px 4px;border-bottom:1px solid var(--border);text-align:right}
+    .breakdown-table{width:100%;border-collapse:collapse;font-size:0.82rem;margin-top:6px;background:#FFFFFF;border-radius:8px;overflow:hidden;border:2px solid var(--gold)}
+    .breakdown-table th,.breakdown-table td{padding:10px 8px;border-bottom:1px solid rgba(212,175,55,0.3);text-align:right;color:#0A0F14;font-weight:600}
     .breakdown-table th:first-child,.breakdown-table td:first-child{text-align:left}
-    .breakdown-table th{color:var(--gold-bright);text-transform:uppercase;font-size:0.7rem}
-    .table-scroll{max-height:340px;overflow-y:auto}
+    .breakdown-table th{background:#0A0F14;color:var(--gold-bright);text-transform:uppercase;font-size:0.7rem;font-weight:800;letter-spacing:0.3px}
+    .breakdown-table tr:last-child td{border-bottom:none}
+    .table-scroll{max-height:340px;overflow-y:auto;border-radius:8px}
 
-    .share-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:16px 0}
-    .share-btn{display:flex;align-items:center;gap:6px;padding:12px 18px;border-radius:50px;font-weight:700;font-size:0.8rem;cursor:pointer;border:none;color:#fff;transition:all 0.2s}
-    .share-btn:hover{transform:translateY(-2px)}
-    .share-whatsapp{background:#25D366}.share-pdf{background:#E53935}.share-jpg,.share-png{background:var(--silver-dark-bg);color:var(--text);border:1.5px solid var(--gold)}
-    .note{font-size:0.72rem;color:var(--muted);margin-top:12px;border-top:1px solid var(--border);padding-top:10px}
-    #shareCapture{display:none}
-    footer{text-align:center;color:var(--muted);font-size:0.75rem;padding:30px 0 20px;border-top:1px solid var(--border);margin-top:40px}
-    footer a{color:var(--gold-bright);text-decoration:none}
-    .whatsapp-float{position:fixed;bottom:18px;right:18px;z-index:999;width:48px;height:48px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.4);text-decoration:none;color:#fff;font-size:1.3rem}
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    @media(max-width:460px){
-      .row2,.row3{grid-template-columns:1fr 1fr}
+    /* SHARE BAR — premium 4-button grid */
+    .share-bar{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin:20px auto;
+      max-width:720px;
+      padding:0 8px;
+    }
+    .share-bar > span{grid-column:1/-1;text-align:center;font-size:0.78rem;color:var(--gold-bright);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+    .share-btn{
+      display:flex;align-items:center;justify-content:center;gap:6px;
+      padding:14px 8px;border-radius:12px;
+      font-family:'Oswald',sans-serif;font-weight:800;
+      font-size:0.75rem;cursor:pointer;
+      color:#fff;
+      border:2px solid var(--gold);
+      transition:all 0.25s ease;
+      min-height:54px;
+      text-transform:uppercase;letter-spacing:0.5px;
+      box-shadow:0 4px 14px rgba(0,0,0,0.3);
+    }
+    .share-btn:hover{transform:translateY(-2px);border-color:var(--gold-bright);box-shadow:0 8px 24px rgba(0,0,0,0.4), 0 0 15px var(--gold-glow)}
+    .share-whatsapp{background:linear-gradient(145deg, #2ee06f, #1da851)}
+    .share-pdf{background:linear-gradient(145deg, #F35B5B, #C62828)}
+    .share-jpg{background:linear-gradient(145deg, #8B7CF6, #5B21B6)}
+    .share-png{background:linear-gradient(145deg, #FBBF24, #D97706);color:#0A0F14}
+
+    .note{font-size:0.72rem;color:var(--muted);margin-top:12px;border-top:1px solid rgba(255,255,255,0.05);padding-top:10px}
+    #shareCapture{display:none !important;position:absolute !important;left:-9999px !important}
+
+    /* SILVER EDUCATIONAL */
+    .detail-section{
+      margin:30px auto;
+      padding:30px 24px;
+      background:#C8CDD4;
+      background-image:linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border:2px solid var(--gold);
+      border-radius:16px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height:1.85;font-size:0.95rem;color:#0A0F14;
+    }
+    .detail-section h2{font-family:'Oswald',sans-serif;color:#0A0F14;font-size:1.35rem;margin-bottom:16px;border-bottom:2px solid var(--gold);padding-bottom:10px;font-weight:800}
+    .detail-section h3{color:#0A0F14;font-size:1.1rem;margin:22px 0 10px;font-weight:800}
+    .detail-section p, .detail-section ul, .detail-section ol{margin-bottom:14px;color:#0A0F14;font-weight:500}
+    .detail-section ul, .detail-section ol{padding-left:24px}
+    .detail-section li{margin-bottom:6px}
+    .detail-section strong{color:#0A0F14;font-weight:800}
+    .detail-section table{width:100%;border-collapse:collapse;margin:16px 0;background:#FFFFFF;border-radius:8px;overflow:hidden;border:2px solid var(--gold);table-layout:fixed}
+    .detail-section th{background:#0A0F14;color:var(--gold-bright);font-weight:800;padding:12px 10px;text-align:left;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.3px;word-wrap:break-word}
+    .detail-section td{padding:10px;text-align:left;font-size:0.85rem;color:#0A0F14;font-weight:600;border-bottom:1px solid rgba(212,175,55,0.3);word-wrap:break-word;overflow-wrap:break-word}
+    .detail-section tr:last-child td{border-bottom:none}
+    .detail-section tr:nth-child(even){background:rgba(255,255,255,0.5)}
+
+    /* PAKISTANI BLOCK */
+    .pakistani-block{
+      margin:30px auto;padding:24px 20px;
+      background:#C8CDD4;
+      background-image:linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border:2px solid var(--gold);border-radius:16px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height:1.8;font-size:0.95rem;color:#0A0F14;
+    }
+    .pakistani-block h2{color:#0A0F14;font-family:'Oswald',sans-serif;font-size:1.15rem;margin-bottom:12px;font-weight:800}
+    .pakistani-block p{color:#0A0F14;font-weight:500;margin-top:10px}
+    .pakistani-block strong{color:#0A0F14;font-weight:800}
+
+    /* RELATED TOOLS */
+    .related-tools-section{margin:20px auto;padding:20px;background:rgba(255,255,255,0.03);border:2px solid var(--gold);border-radius:12px}
+    .related-tools-section h3{color:#FFD700;font-size:1rem;margin-bottom:10px;font-family:'Oswald',sans-serif;letter-spacing:0.5px}
+    .related-tools-section a{color:#4FC3F7;text-decoration:none;background:rgba(79,195,247,0.1);padding:8px 16px;border-radius:20px;font-size:0.85rem;font-weight:600;display:inline-block;margin:4px 4px 4px 0}
+
+    /* DISCLAIMER */
+    .disclaimer-box{
+      margin:20px auto;padding:16px 18px;
+      background:#C8CDD4;background-image:linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border:2px solid var(--gold);border-radius:12px;
+      font-size:0.85rem;color:#0A0F14;line-height:1.7;font-weight:500;
+    }
+    .disclaimer-box strong{color:#0A0F14;font-weight:800}
+
+    /* LEAD CAPTURE */
+    .lead-capture{
+      background:#C8CDD4;background-image:linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border:2px solid var(--gold);border-radius:16px;
+      padding:28px 24px;margin:30px 0;
+      box-shadow:0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .lead-capture h3{font-family:'Oswald',sans-serif;color:#0A0F14;font-size:1.2rem;margin-bottom:12px;letter-spacing:0.5px;font-weight:800}
+    .lead-capture p{color:#0A0F14;margin-bottom:18px;font-size:0.9rem;font-weight:500}
+    .lead-capture form{display:flex;flex-direction:column;gap:12px}
+    .lead-capture input[type="email"]{background:#FFFFFF;border:2px solid var(--gold);border-radius:10px;padding:12px 16px;color:#0A0F14;font-size:0.95rem;font-weight:600;outline:none}
+    .lead-capture input[type="email"]:focus{border-color:var(--gold-bright);box-shadow:0 0 15px var(--gold-glow)}
+    .lead-capture button{background:var(--silver-bg);border:2px solid var(--gold);border-radius:10px;padding:14px 20px;font-family:'Oswald',sans-serif;font-weight:800;font-size:0.95rem;color:#0A0F14;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;transition:all 0.25s ease}
+    .lead-capture button:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);transform:translateY(-2px);box-shadow:0 0 20px var(--gold-glow)}
+
+    footer{text-align:center;color:var(--muted);font-size:0.8rem;padding:40px 0 20px;border-top:2px solid var(--gold);margin-top:50px}
+    footer a{color:var(--gold-bright);text-decoration:none;font-weight:600}
+    .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:999;width:48px;height:48px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.4);text-decoration:none;color:#fff;font-size:1.3rem}
+
+    @media(max-width:600px){
+      .row2,.row3{grid-template-columns:1fr}
       .result-grid{grid-template-columns:1fr 1fr}
       .mode-tabs{grid-template-columns:1fr 1fr 1fr}
-      .share-tool-buttons{flex-direction:row}
-      .share-tool-btn{padding:14px 6px;font-size:0.85rem}
+      .share-bar{grid-template-columns:1fr 1fr}
+      h1{font-size:1.4rem}
+      .detail-section, .pakistani-block, .lead-capture{
+        margin-left:-6px !important;margin-right:-6px !important;padding:20px 16px !important;
+      }
+      .detail-section h2{font-size:1.15rem}
     }
   </style>
 </head>
 <body>
-  <nav class="navbar"><div class="nav-inner"><a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li>
-  <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
-  <li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <div class="container">
-  <a href="index.html#tools" class="back-link">← Back to Tools</a>
-  
+    <a href="index.html#tools" class="back-link">← Back to Tools</a>
+
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
-    <h1><span>ColdMatrix</span> Loan & EMI Calculator</h1>
-    <p class="subtitle">Calculate EMI three ways: from a loan amount, from your monthly budget, or from your salary & income ratio.</p>
+
+    <h1><span>ColdMatrix</span> Loan &amp; EMI Calculator</h1>
+    <p class="subtitle">Calculate EMI three ways: from a loan amount, from your monthly budget, or from your salary &amp; income ratio.</p>
+
+    <div class="get-quote-strip">
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20loan%20or%20financial%20planning." class="quote-btn whatsapp" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Quick Chat
+      </a>
+      <a href="contact.html" class="quote-btn">
+        <i class="fa-solid fa-envelope"></i> Get a Quote
+      </a>
+    </div>
 
     <div class="share-tool-card">
-      <div class="share-tool-title">Share Loan & EMI Calculator</div>
+      <div class="share-tool-title">Share Loan &amp; EMI Calculator</div>
       <div class="share-tool-buttons">
         <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
       </div>
     </div>
+
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
 
     <div class="card">
       <h2>How Do You Want To Calculate?</h2>
@@ -216,43 +440,104 @@
         <div class="mode-tab" id="tabSalary" onclick="setMode('salary')"><i class="fa-solid fa-scale-balanced"></i>By Salary Ratio</div>
       </div>
       <div class="row2" style="margin-top:14px">
-        <div class="field"><label>Currency</label><select id="currency">
-          <option value="PKR" selected>🇵🇰 PKR</option>
-          <option value="USD">🇺🇸 USD</option>
-          <option value="EUR">🇪🇺 EUR</option>
-          <option value="GBP">🇬🇧 GBP</option>
-          <option value="AED">🇦🇪 AED</option>
-          <option value="SAR">🇸🇦 SAR</option>
-          <option value="INR">🇮🇳 INR</option>
-          <option value="BDT">🇧🇩 BDT</option>
-          <option value="CNY">🇨🇳 CNY</option>
-          <option value="AUD">🇦🇺 AUD</option>
-          <option value="CAD">🇨🇦 CAD</option>
-          <option value="CHF">🇨🇭 CHF</option>
-          <option value="SGD">🇸🇬 SGD</option>
-          <option value="MYR">🇲🇾 MYR</option>
-          <option value="TRY">🇹🇷 TRY</option>
-          <option value="ZAR">🇿🇦 ZAR</option>
-          <option value="NGN">🇳🇬 NGN</option>
-          <option value="EGP">🇪🇬 EGP</option>
-          <option value="QAR">🇶🇦 QAR</option>
-          <option value="KWD">🇰🇼 KWD</option>
-        </select></div>
-        <div class="field"><label>Interest Method</label><select id="interestType"><option value="reducing" selected>Reducing Balance</option><option value="flat">Flat Rate</option></select></div>
+        <div class="field">
+          <label>Currency</label>
+          <select id="currency">
+            <option value="PKR" selected>🇵🇰 PKR</option>
+            <option value="USD">🇺🇸 USD</option>
+            <option value="EUR">🇪🇺 EUR</option>
+            <option value="GBP">🇬🇧 GBP</option>
+            <option value="AED">🇦🇪 AED</option>
+            <option value="SAR">🇸🇦 SAR</option>
+            <option value="INR">🇮🇳 INR</option>
+            <option value="BDT">🇧🇩 BDT</option>
+            <option value="CNY">🇨🇳 CNY</option>
+            <option value="AUD">🇦🇺 AUD</option>
+            <option value="CAD">🇨🇦 CAD</option>
+            <option value="CHF">🇨🇭 CHF</option>
+            <option value="SGD">🇸🇬 SGD</option>
+            <option value="MYR">🇲🇾 MYR</option>
+            <option value="TRY">🇹🇷 TRY</option>
+            <option value="ZAR">🇿🇦 ZAR</option>
+            <option value="NGN">🇳🇬 NGN</option>
+            <option value="EGP">🇪🇬 EGP</option>
+            <option value="QAR">🇶🇦 QAR</option>
+            <option value="KWD">🇰🇼 KWD</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Interest Method</label>
+          <select id="interestType">
+            <option value="reducing" selected>Reducing Balance</option>
+            <option value="flat">Flat Rate</option>
+          </select>
+        </div>
       </div>
     </div>
 
-    <div class="card" id="cardLoanMode"><h2>Loan Details</h2><div class="field"><label>Loan Amount</label><input type="number" id="loanAmount" value="3000000" step="any"></div></div>
-    <div class="card" id="cardBudgetMode" style="display:none"><h2>Your Monthly Budget</h2><div class="field"><label>Maximum EMI You Can Pay</label><input type="number" id="emiBudget" value="50000" step="any"></div></div>
-    <div class="card" id="cardSalaryMode" style="display:none"><h2>Salary & Affordability</h2><div class="row2"><div class="field"><label>Monthly Salary</label><input type="number" id="monthlySalary" value="150000" step="any"></div><div class="field"><label>Existing Debt</label><input type="number" id="existingDebt" value="0" step="any"></div></div><div class="field"><label>DTI Ratio: <span id="ratioDisplay">35</span>%</label><input type="range" id="dtiRatio" min="10" max="60" value="35" oninput="document.getElementById('ratioDisplay').textContent=this.value"></div></div>
+    <div class="card" id="cardLoanMode">
+      <h2>Loan Details</h2>
+      <div class="field">
+        <label>Loan Amount</label>
+        <input type="number" id="loanAmount" value="3000000" step="any">
+      </div>
+    </div>
 
-    <div class="card"><h2>Interest Rate & Tenure</h2><div class="row3"><div class="field"><label>Annual Rate (%)</label><input type="number" id="interestRate" value="14" step="any"></div><div class="field"><label>Years</label><input type="number" id="tenureYears" value="5" step="1"></div><div class="field"><label>Extra Months</label><input type="number" id="tenureMonths" value="0" step="1" max="11"></div></div></div>
+    <div class="card" id="cardBudgetMode" style="display:none">
+      <h2>Your Monthly Budget</h2>
+      <div class="field">
+        <label>Maximum EMI You Can Pay</label>
+        <input type="number" id="emiBudget" value="50000" step="any">
+      </div>
+    </div>
 
-    <div class="card"><h2>Prepayment</h2><div class="field"><label>Extra Monthly Payment</label><input type="number" id="extraPayment" value="0" step="any"></div></div>
+    <div class="card" id="cardSalaryMode" style="display:none">
+      <h2>Salary &amp; Affordability</h2>
+      <div class="row2">
+        <div class="field">
+          <label>Monthly Salary</label>
+          <input type="number" id="monthlySalary" value="150000" step="any">
+        </div>
+        <div class="field">
+          <label>Existing Debt</label>
+          <input type="number" id="existingDebt" value="0" step="any">
+        </div>
+      </div>
+      <div class="field">
+        <label>DTI Ratio: <span id="ratioDisplay">35</span>%</label>
+        <input type="range" id="dtiRatio" min="10" max="60" value="35" oninput="document.getElementById('ratioDisplay').textContent=this.value">
+      </div>
+    </div>
 
-    <div style="display:flex;gap:10px;">
-      <button class="btn-calc" style="flex:1" onclick="calculateLoan()">Calculate</button>
-      <button class="btn-reset" onclick="resetAll()">🔄 Reset All</button>
+    <div class="card">
+      <h2>Interest Rate &amp; Tenure</h2>
+      <div class="row3">
+        <div class="field">
+          <label>Annual Rate (%)</label>
+          <input type="number" id="interestRate" value="14" step="any">
+        </div>
+        <div class="field">
+          <label>Years</label>
+          <input type="number" id="tenureYears" value="5" step="1">
+        </div>
+        <div class="field">
+          <label>Extra Months</label>
+          <input type="number" id="tenureMonths" value="0" step="1" max="11">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Prepayment (Optional)</h2>
+      <div class="field">
+        <label>Extra Monthly Payment</label>
+        <input type="number" id="extraPayment" value="0" step="any">
+      </div>
+    </div>
+
+    <div class="btn-stack">
+      <button class="btn-calc" onclick="calculateLoan()">📊 Calculate EMI</button>
+      <button class="btn-reset" onclick="resetAll()">↺ Reset All</button>
     </div>
 
     <div id="resultsWrap" style="display:none">
@@ -261,6 +546,7 @@
         <div class="val" id="heroVal1">—</div>
         <div class="sub" id="heroSub">—</div>
       </div>
+
       <div class="card">
         <h2>Loan Summary</h2>
         <div class="stackbar" id="stackbar"></div>
@@ -271,215 +557,404 @@
           <div class="result-item"><div class="val" id="resTenure">—</div><div class="lbl">Tenure</div></div>
         </div>
       </div>
-      <div class="card"><h2>Amortization</h2><div class="table-scroll"><table class="breakdown-table" id="amortTable"></table></div></div>
+
+      <div class="card">
+        <h2>Amortization Schedule</h2>
+        <div class="table-scroll">
+          <table class="breakdown-table" id="amortTable"></table>
+        </div>
+      </div>
     </div>
 
     <div class="share-bar" id="shareBarWrap" style="display:none">
+      <span>📋 Share your loan report:</span>
       <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
       <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
       <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+      <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+    </div>
+
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — SILVER -->
+    <!-- ============================================ -->
+    <div class="detail-section">
+      <h2>📚 The Complete Loan &amp; EMI Guide</h2>
+
+      <p>Understanding how EMI works is crucial before taking any loan. This guide explains the formulas, the difference between reducing balance and flat rate interest, how DTI ratio affects affordability, and how prepayment can save you money.</p>
+
+      <h3>1. What Is EMI and How Is It Calculated?</h3>
+      <p>EMI stands for Equated Monthly Installment. It is the fixed amount you pay each month to repay a loan over a specific period. The formula for reducing balance EMI is:</p>
+      <p style="text-align:center;font-weight:800;background:rgba(0,0,0,0.05);padding:12px;border-radius:8px;">
+        EMI = P × r × (1 + r)<sup>n</sup> ÷ [(1 + r)<sup>n</sup> − 1]
+      </p>
+      <p>Where <strong>P</strong> = Loan principal, <strong>r</strong> = monthly interest rate (annual ÷ 12 ÷ 100), and <strong>n</strong> = total number of months.</p>
+      <p><strong>Example:</strong> PKR 3,000,000 loan at 14% annual interest for 5 years (60 months) results in an EMI of approximately PKR 70,800.</p>
+
+      <h3>2. Reducing Balance vs Flat Rate Interest</h3>
+      <p><strong>Reducing Balance Method:</strong> Interest is calculated only on the outstanding principal. As you repay, the principal reduces, so the interest portion decreases each month. This is the standard method for home, car, and personal loans.</p>
+      <p><strong>Flat Rate Method:</strong> Interest is calculated on the full original principal for the entire tenure, regardless of repayments. This results in higher total interest compared to reducing balance for the same stated rate. Flat rate is often used for vehicle loans and some personal loans, but the effective interest rate is higher.</p>
+
+      <h3>3. Understanding DTI (Debt-to-Income) Ratio</h3>
+      <p>DTI ratio measures the percentage of your monthly income that goes toward debt payments. Lenders use it to assess whether you can afford a new loan. A common guideline is to keep total debt payments below 35–40% of gross monthly income.</p>
+      <p><strong>Formula:</strong> DTI = (Total Monthly Debt Payments ÷ Gross Monthly Income) × 100</p>
+      <p><strong>Example:</strong> If your salary is PKR 150,000 and you have existing debt of PKR 20,000, a 35% DTI allows maximum new EMI of 150,000 × 0.35 − 20,000 = PKR 32,500.</p>
+
+      <h3>4. How Prepayment Saves Money</h3>
+      <p>Making extra payments or a lump-sum prepayment reduces the outstanding principal faster. This lowers the interest you pay over the remaining tenure. Even small monthly extra payments can shorten your loan by several months and save significant interest.</p>
+      <p><strong>Example:</strong> On a PKR 3,000,000 loan at 14% for 5 years, an extra PKR 5,000 per month can reduce tenure by about 6 months and save around PKR 150,000 in interest.</p>
+
+      <h3>5. Common Loan Types Worldwide</h3>
+      <table>
+        <tr><th>Loan Type</th><th>Typical Tenure</th><th>Typical Rate Range</th></tr>
+        <tr><td>Home / Mortgage</td><td>15–30 years</td><td>4–15%</td></tr>
+        <tr><td>Car / Auto</td><td>3–7 years</td><td>6–18%</td></tr>
+        <tr><td>Personal</td><td>1–5 years</td><td>10–25%</td></tr>
+        <tr><td>Business</td><td>3–10 years</td><td>8–20%</td></tr>
+        <tr><td>Student</td><td>5–15 years</td><td>4–12%</td></tr>
+      </table>
+
+      <h3>6. Frequently Asked Questions</h3>
+      <p><strong>Q: What is the difference between EMI and principal?</strong><br>A: EMI includes both principal and interest. Principal is the amount you borrowed; interest is the cost of borrowing.</p>
+      <p><strong>Q: Can I change my EMI amount?</strong><br>A: Usually, you can make prepayments or refinance. Some lenders allow you to increase EMI to shorten tenure.</p>
+      <p><strong>Q: Is a lower EMI always better?</strong><br>A: A lower EMI means a longer tenure, which increases total interest. Choose the shortest tenure you can comfortably afford.</p>
+      <p><strong>Q: Does this calculator work for any currency?</strong><br>A: Yes — 20+ currencies supported including PKR, USD, EUR, GBP, AED, SAR, INR, and more.</p>
+      <p><strong>Q: Are the results accurate?</strong><br>A: Yes — they use the standard EMI formulas used by banks worldwide.</p>
+      <p><strong>Q: Is my data private?</strong><br>A: Yes — all calculations run in your browser. Nothing is uploaded.</p>
+
+      <p style="margin-top:18px;font-weight:800;color:#0A0F14;">✅ This guide, combined with our free calculator, gives you a complete understanding of loan EMIs and financial planning — anywhere in the world.</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- PAKISTANI / GLOBAL BLOCK -->
+    <!-- ============================================ -->
+    <div class="pakistani-block">
+      <h2>🌐 ColdMatrix Advanced Solutions — Financial Tools for a Global Community</h2>
+      <p>Our Loan &amp; EMI Calculator is used daily by home buyers, car buyers, students, and business owners across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, and Australia</strong>. The universal EMI formula works with any currency and any loan type.</p>
+      <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients worldwide with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>. If you're financing a construction project, we can help with the engineering side.</p>
+      <p>Need a custom finance tool, business plan calculator, or project quote? Our team responds within 24 hours.</p>
+      <p style="margin-top:14px;font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- RELATED TOOLS -->
+    <!-- ============================================ -->
+    <div class="related-tools-section">
+      <h3>🔗 Related Tools You Might Need</h3>
+      <div>
+        <a href="roi-calculator.html">📈 ROI Calculator</a>
+        <a href="profit-margin-calculator.html">💰 Profit Margin Calculator</a>
+        <a href="startup-cost-calculator.html">🚀 Startup Cost Planner</a>
+        <a href="business-calculator-suite.html">🧮 Business Calculator Suite</a>
+        <a href="ecommerce-profit-calculator.html">🛒 E-Commerce Profit Calculator</a>
+        <a href="currency-converter.html">💱 Currency Converter</a>
+        <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- LEAD CAPTURE -->
+    <!-- ============================================ -->
+    <div class="lead-capture">
+      <h3>🚀 Need a Custom Financial Tool?</h3>
+      <p>Get tailored loan calculators, mortgage comparison dashboards, or financial planning tools for your business. Leave your email and we'll respond within 24 hours.</p>
+      <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="email" name="email" placeholder="Your work email" required>
+        <button type="submit">Request Custom Tool</button>
+      </form>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- DISCLAIMER -->
+    <!-- ============================================ -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> This calculator provides estimates based on the values you enter. Actual loan terms, interest rates, and monthly payments depend on your lender's policies, credit profile, and local regulations. Always confirm final numbers with your bank or financial advisor before signing any loan agreement.
+    </div>
+
+  </div>
+
+  <!-- HIDDEN CAPTURE FOR EXPORTS -->
+  <div id="shareCapture" style="display:none !important;position:absolute !important;left:-9999px !important;">
+    <div style="background:#fff;color:#111;border-radius:12px;padding:28px;font-family:'Inter',sans-serif;width:400px;">
+      <div style="font-size:1.3rem;font-weight:800;color:#0A0F14;margin-bottom:12px;">🏦 <span style="color:#D4AF37;">ColdMatrix</span> Loan Report</div>
+      <div style="font-size:0.9rem;color:#555;margin-bottom:14px;" id="pvHeader"></div>
+      <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+        <tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Loan Amount</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvPrincipal"></td></tr>
+        <tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Interest Rate</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvRate"></td></tr>
+        <tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Tenure</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;" id="pvTenure"></td></tr>
+        <tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Monthly EMI</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-weight:800;color:#D4AF37;font-size:1.1rem;" id="pvEMI"></td></tr>
+        <tr><td style="padding:8px 0;border-bottom:1px solid #eee;">Total Interest</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;font-weight:700;color:#C62828;" id="pvInterest"></td></tr>
+        <tr><td style="padding:8px 0;">Total Payment</td><td style="padding:8px 0;text-align:right;font-weight:800;" id="pvTotal"></td></tr>
+      </table>
+      <div style="font-size:0.7rem;color:#888;margin-top:14px;border-top:1px solid #eee;padding-top:10px;">🙏 Thank you for using ColdMatrix Tools<br>📧 contact@coldmatrixtools.com &nbsp;|&nbsp; 💬 +92 333 3228470</div>
     </div>
   </div>
 
-  <!-- ENHANCED EDUCATIONAL CONTENT -->
-  <div style="margin:10px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-  <h2 style="font-size:1.1rem;margin-bottom:12px;color:#FFD700;">About the Loan & EMI Calculator</h2>
-  <p>ColdMatrix Loan & EMI Calculator helps you understand your monthly payment, total interest, and total repayment for personal, car, or home loans. Choose from three methods: calculate EMI from the loan amount, find the maximum loan you can afford from your budget, or determine affordability from your salary using a DTI ratio.</p>
-
-  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Complete Feature List</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>3 Calculation Modes:</strong> By Loan Amount, By EMI Budget, or By Salary Ratio (DTI).</li>
-    <li><strong>20+ Currencies:</strong> PKR, USD, EUR, GBP, AED, SAR, INR, BDT, CNY, AUD, CAD, CHF, SGD, MYR, TRY, ZAR, NGN, EGP, QAR, KWD.</li>
-    <li><strong>Interest Methods:</strong> Reducing Balance and Flat Rate.</li>
-    <li><strong>Amortization Table:</strong> Year-by-year breakdown of principal and interest.</li>
-    <li><strong>Visual Summary:</strong> Stack bar showing principal vs interest split.</li>
-    <li><strong>Export & Share:</strong> Download as PDF or JPG, and share on WhatsApp.</li>
-    <li><strong>100% Free:</strong> No registration, no hidden fees.</li>
-  </ul>
-
-  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Where EMI Calculations Are Used</h3>
-  <ul style="padding-left:20px;">
-    <li><strong>Home Loans:</strong> Calculate monthly mortgage payments.</li>
-    <li><strong>Car Loans:</strong> Determine affordable car loan EMIs.</li>
-    <li><strong>Personal Loans:</strong> Plan monthly budgets for personal expenses.</li>
-    <li><strong>Business Loans:</strong> Assess loan affordability for business expansion.</li>
-    <li><strong>Salary-Based Loans:</strong> Check loan eligibility based on income.</li>
-  </ul>
-
-  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#FFD700;">Common Questions</h3>
-  <p><strong>What is EMI?</strong> EMI (Equated Monthly Installment) is the fixed monthly payment you make to repay a loan.</p>
-  <p><strong>What is DTI ratio?</strong> Debt-to-Income ratio is the percentage of your monthly income that goes toward debt payments.</p>
-  <p><strong>What happens if I make a prepayment?</strong> Prepayments reduce the outstanding principal, lowering future EMIs or shortening tenure.</p>
-  <p><strong>Can I use this for a car loan?</strong> Yes, the same EMI formula applies.</p>
-  <p><strong>Is there any registration required?</strong> No. All calculations happen instantly and privately in your browser.</p>
-  </div>
-
-  <!-- DEEP DIVE GUIDE -->
-  <div style="margin:30px 0;padding:24px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.35);border-radius:14px;line-height:1.8;font-size:0.92rem;color:#cfd6dd;">
-    <h2 style="font-size:1.2rem;margin-bottom:12px;color:#FFD700;">📚 The Complete Loan & EMI Guide</h2>
-    <p>Understanding how EMI works is crucial before taking any loan. This guide explains the formulas, the difference between reducing balance and flat rate interest, how DTI ratio affects affordability, and how prepayment can save you money.</p>
-
-    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">1. What is EMI and How Is It Calculated?</h3>
-    <p>EMI stands for Equated Monthly Installment. It is the fixed amount you pay each month to repay a loan over a specific period. The formula for reducing balance EMI is:</p>
-    <p style="text-align:center; font-weight:800; background:rgba(0,0,0,0.05); padding:10px; border-radius:8px;">
-      EMI = P × r × (1 + r)^n / [(1 + r)^n – 1]
-    </p>
-    <p>Where <strong>P</strong> = Loan principal, <strong>r</strong> = monthly interest rate (annual rate / 12 / 100), and <strong>n</strong> = total number of months.</p>
-    <p>Example: PKR 3,000,000 loan at 14% annual interest for 5 years (60 months) results in an EMI of approximately PKR 70,800.</p>
-
-    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">2. Reducing Balance vs Flat Rate Interest</h3>
-    <p><strong>Reducing Balance Method:</strong> Interest is calculated only on the outstanding principal. As you repay, the principal reduces, so the interest portion decreases each month. This is the standard method for most home, car, and personal loans.</p>
-    <p><strong>Flat Rate Method:</strong> Interest is calculated on the full original principal for the entire tenure, regardless of repayments. This results in higher total interest compared to reducing balance for the same stated rate. Flat rate is often used for vehicle loans and some personal loans, but the effective interest rate is higher.</p>
-
-    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">3. Understanding DTI (Debt-to-Income) Ratio</h3>
-    <p>DTI ratio measures the percentage of your monthly income that goes toward debt payments. Lenders use it to assess whether you can afford a new loan. A common guideline is to keep total debt payments below 35–40% of gross monthly income.</p>
-    <p>Formula: DTI = (Total Monthly Debt Payments / Gross Monthly Income) × 100</p>
-    <p>Example: If your salary is PKR 150,000 and you have existing debt of PKR 20,000, a 35% DTI allows maximum new EMI of 150,000 × 0.35 – 20,000 = PKR 32,500.</p>
-
-    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">4. How Prepayment Saves Money</h3>
-    <p>Making extra payments or a lump-sum prepayment reduces the outstanding principal faster. This lowers the interest you pay over the remaining tenure. Even small monthly extra payments can shorten your loan by several months and save significant interest.</p>
-    <p>Example: On a PKR 3,000,000 loan at 14% for 5 years, an extra PKR 5,000 per month can reduce tenure by about 6 months and save around PKR 150,000 in interest.</p>
-
-    <h3 style="font-size:1rem;margin:16px 0 8px;color:#FFD700;">5. Frequently Asked Questions</h3>
-    <p><strong>Q: What is the difference between EMI and principal?</strong><br>A: EMI includes both principal and interest. Principal is the amount you borrowed; interest is the cost of borrowing.</p>
-    <p><strong>Q: Can I change my EMI amount?</strong><br>A: Usually, you can make prepayments or refinance. Some lenders allow you to increase EMI to shorten tenure.</p>
-    <p><strong>Q: Is a lower EMI always better?</strong><br>A: A lower EMI means a longer tenure, which increases total interest. Choose the shortest tenure you can afford.</p>
-    <p><strong>Q: Does this calculator work for any currency?</strong><br>A: Yes, you can select from multiple currencies.</p>
-    <p><strong>Q: Are the results accurate?</strong><br>A: They are estimates based on standard formulas. Actual lender terms may vary.</p>
-
-    <p style="margin-top:15px; font-weight:700; color:#FFD700;">✅ This guide, combined with our free calculator, gives you a complete understanding of loan EMIs and financial planning.</p>
-  </div>
-
-<div style="margin-top:20px; padding:16px 18px; background:rgba(79,195,247,0.06); border:1px solid rgba(79,195,247,0.3); border-radius:12px; font-size:0.85rem; color:#cfd6dd; line-height:1.7;">
-  <strong style="color:#4FC3F7;">ℹ️ Note:</strong> This tool provides general estimates for informational purposes. For financial, health, or engineering decisions, always consult a qualified professional.
-</div>
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
 <footer>
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:10px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0;font-size:0.9rem;font-weight:600;margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4;font-size:0.85rem;margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7;text-decoration:none;font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4;font-size:0.85rem;margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#4FC3F7;text-decoration:none;font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px;color:#25D366;text-decoration:none;font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
     </div>
-    <p style="color:#ccc; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+
+    <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:15px;border-top:1px solid rgba(255,255,255,0.1);padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700;text-decoration:underline;font-weight:700;font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700;text-decoration:underline;font-weight:700;font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700;text-decoration:underline;font-weight:700;font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700;text-decoration:underline;font-weight:700;font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5;font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700;text-decoration:none;font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
 <script>
-const CUR_SYMBOL={PKR:'PKR',USD:'USD',EUR:'EUR',GBP:'GBP',AED:'AED',SAR:'SAR',INR:'INR',BDT:'BDT',CNY:'CNY',AUD:'AUD',CAD:'CAD',CHF:'CHF',SGD:'SGD',MYR:'MYR',TRY:'TRY',ZAR:'ZAR',NGN:'NGN',EGP:'EGP',QAR:'QAR',KWD:'KWD'};
-let currentMode='loan';
-function fmt(n){return Math.round(n).toLocaleString()}
-function money(n){return CUR_SYMBOL[document.getElementById('currency').value]+' '+fmt(n)}
-function setMode(m){
-  currentMode=m;
-  document.getElementById('tabLoan').classList.toggle('active',m==='loan');
-  document.getElementById('tabBudget').classList.toggle('active',m==='budget');
-  document.getElementById('tabSalary').classList.toggle('active',m==='salary');
-  document.getElementById('cardLoanMode').style.display=m==='loan'?'block':'none';
-  document.getElementById('cardBudgetMode').style.display=m==='budget'?'block':'none';
-  document.getElementById('cardSalaryMode').style.display=m==='salary'?'block':'none';
-}
-function emiReducing(P,r,n){if(r===0)return P/n;return P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1)}
-function emiFlat(P,ap,y,n){return(P+P*ap/100*y)/n}
-function loanFromEmiReducing(EMI,r,n){if(r===0)return EMI*n;return EMI*(Math.pow(1+r,n)-1)/(r*Math.pow(1+r,n))}
-function loanFromEmiFlat(EMI,ap,y,n){return EMI*n/(1+ap/100*y)}
+  const CUR_SYMBOL = {PKR:'PKR',USD:'USD',EUR:'EUR',GBP:'GBP',AED:'AED',SAR:'SAR',INR:'INR',BDT:'BDT',CNY:'CNY',AUD:'AUD',CAD:'CAD',CHF:'CHF',SGD:'SGD',MYR:'MYR',TRY:'TRY',ZAR:'ZAR',NGN:'NGN',EGP:'EGP',QAR:'QAR',KWD:'KWD'};
+  let currentMode = 'loan';
+  let lastCalc = null;
 
-function calculateLoan(){
-  const ap=parseFloat(document.getElementById('interestRate').value)||0,
-        y=parseFloat(document.getElementById('tenureYears').value)||0,
-        m=parseFloat(document.getElementById('tenureMonths').value)||0,
-        n=Math.round(y*12+m),
-        r=ap/12/100,
-        it=document.getElementById('interestType').value;
-  if(n<=0){alert('Enter valid tenure.');return}
-  let P=0, EMI=0;
-  if(currentMode==='loan'){
-    P=parseFloat(document.getElementById('loanAmount').value)||0;
-    if(P<=0){alert('Enter loan amount.');return}
-    EMI=it==='reducing'?emiReducing(P,r,n):emiFlat(P,ap,y,n);
-  } else if(currentMode==='budget'){
-    EMI=parseFloat(document.getElementById('emiBudget').value)||0;
-    if(EMI<=0){alert('Enter EMI budget.');return}
-    P=it==='reducing'?loanFromEmiReducing(EMI,r,n):loanFromEmiFlat(EMI,ap,y,n);
-  } else {
-    const s=parseFloat(document.getElementById('monthlySalary').value)||0,
-          ed=parseFloat(document.getElementById('existingDebt').value)||0,
-          rt=parseFloat(document.getElementById('dtiRatio').value)||0;
-    if(s<=0){alert('Enter salary.');return}
-    EMI=Math.max(s*rt/100-ed,0);
-    P=it==='reducing'?loanFromEmiReducing(EMI,r,n):loanFromEmiFlat(EMI,ap,y,n);
+  function fmt(n){ return Math.round(n).toLocaleString(); }
+  function money(n){ return CUR_SYMBOL[document.getElementById('currency').value] + ' ' + fmt(n); }
+
+  function setMode(m){
+    currentMode = m;
+    document.getElementById('tabLoan').classList.toggle('active', m==='loan');
+    document.getElementById('tabBudget').classList.toggle('active', m==='budget');
+    document.getElementById('tabSalary').classList.toggle('active', m==='salary');
+    document.getElementById('cardLoanMode').style.display = m==='loan' ? 'block' : 'none';
+    document.getElementById('cardBudgetMode').style.display = m==='budget' ? 'block' : 'none';
+    document.getElementById('cardSalaryMode').style.display = m==='salary' ? 'block' : 'none';
   }
-  const tp=EMI*n, ti=tp-P;
-  document.getElementById('heroVal1').textContent=money(EMI);
-  document.getElementById('heroSub').textContent=y+'y '+m+'m at '+ap+'%';
-  document.getElementById('stackbar').innerHTML='<div class="principal" style="width:'+(P/tp*100).toFixed(1)+'%">Principal</div><div class="interest" style="width:'+(ti/tp*100).toFixed(1)+'%">Interest</div>';
-  document.getElementById('resPrincipal').textContent=money(P);
-  document.getElementById('resTotalInterest').textContent=money(ti);
-  document.getElementById('resTotalPayment').textContent=money(tp);
-  document.getElementById('resTenure').textContent=y+'y '+m+'m';
-  let bal=P, rows='<tr><th>Year</th><th>Principal</th><th>Interest</th><th>Balance</th></tr>';
-  for(let yr=1;yr<=y;yr++){
-    let yp=0,yi=0;
-    for(let mo=0;mo<12;mo++){
-      const ip=bal*r;
-      let pp=EMI-ip;
-      if(pp>bal) pp=bal;
-      bal-=pp;
-      yp+=pp; yi+=ip;
+
+  function emiReducing(P, r, n){ if(r===0) return P/n; return P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1); }
+  function emiFlat(P, ap, y, n){ return (P + P*ap/100*y)/n; }
+  function loanFromEmiReducing(EMI, r, n){ if(r===0) return EMI*n; return EMI*(Math.pow(1+r,n)-1)/(r*Math.pow(1+r,n)); }
+  function loanFromEmiFlat(EMI, ap, y, n){ return EMI*n/(1+ap/100*y); }
+
+  function calculateLoan(){
+    const ap = parseFloat(document.getElementById('interestRate').value) || 0;
+    const y = parseFloat(document.getElementById('tenureYears').value) || 0;
+    const m = parseFloat(document.getElementById('tenureMonths').value) || 0;
+    const n = Math.round(y*12 + m);
+    const r = ap/12/100;
+    const it = document.getElementById('interestType').value;
+    const extra = parseFloat(document.getElementById('extraPayment').value) || 0;
+
+    if(n <= 0){ alert('Please enter a valid tenure.'); return; }
+
+    let P = 0, EMI = 0;
+    if(currentMode === 'loan'){
+      P = parseFloat(document.getElementById('loanAmount').value) || 0;
+      if(P <= 0){ alert('Please enter a valid loan amount.'); return; }
+      EMI = it === 'reducing' ? emiReducing(P, r, n) : emiFlat(P, ap, y, n);
+    } else if(currentMode === 'budget'){
+      EMI = parseFloat(document.getElementById('emiBudget').value) || 0;
+      if(EMI <= 0){ alert('Please enter your monthly EMI budget.'); return; }
+      P = it === 'reducing' ? loanFromEmiReducing(EMI, r, n) : loanFromEmiFlat(EMI, ap, y, n);
+    } else {
+      const s = parseFloat(document.getElementById('monthlySalary').value) || 0;
+      const ed = parseFloat(document.getElementById('existingDebt').value) || 0;
+      const rt = parseFloat(document.getElementById('dtiRatio').value) || 0;
+      if(s <= 0){ alert('Please enter your monthly salary.'); return; }
+      EMI = Math.max(s*rt/100 - ed, 0);
+      P = it === 'reducing' ? loanFromEmiReducing(EMI, r, n) : loanFromEmiFlat(EMI, ap, y, n);
     }
-    rows+=`<tr><td>Year ${yr}</td><td>${money(yp)}</td><td>${money(yi)}</td><td>${money(bal)}</td></tr>`;
-  }
-  document.getElementById('amortTable').innerHTML=rows;
-  document.getElementById('resultsWrap').style.display='block';
-  document.getElementById('shareBarWrap').style.display='flex';
-  document.getElementById('resultsWrap').scrollIntoView({behavior:'smooth'});
-}
 
-function resetAll(){
-  document.getElementById('loanAmount').value=3000000;
-  document.getElementById('emiBudget').value=50000;
-  document.getElementById('monthlySalary').value=150000;
-  document.getElementById('existingDebt').value=0;
-  document.getElementById('dtiRatio').value=35;
-  document.getElementById('ratioDisplay').textContent='35';
-  document.getElementById('interestRate').value=14;
-  document.getElementById('tenureYears').value=5;
-  document.getElementById('tenureMonths').value=0;
-  document.getElementById('extraPayment').value=0;
-  document.getElementById('resultsWrap').style.display='none';
-  document.getElementById('shareBarWrap').style.display='none';
-  setMode('loan');
-}
+    const tp = EMI * n;
+    const ti = tp - P;
 
-async function downloadResult(t){
-  const c=await html2canvas(document.getElementById('resultsWrap'),{backgroundColor:'#0A0F14',scale:2});
-  if(t==='pdf'){
-    const {jsPDF}=window.jspdf;
-    const i=c.toDataURL('image/jpeg',0.95);
-    const p=new jsPDF({orientation:c.width>c.height?'l':'p',unit:'px',format:[c.width,c.height]});
-    p.addImage(i,'JPEG',0,0,c.width,c.height);
-    p.save('ColdMatrix-Loan.pdf');
-  } else {
-    const m=t==='jpg'?'image/jpeg':'image/png';
-    const a=document.createElement('a');
-    a.download='ColdMatrix-Loan.'+t;
-    a.href=c.toDataURL(m,0.95);
-    a.click();
+    // Extra payment calculation
+    let tenureWithExtra = n;
+    let savedInterest = 0;
+    if(extra > 0){
+      let bal = P;
+      let months = 0;
+      let totalPaid = 0;
+      while(bal > 0 && months < 600){
+        const ip = bal * r;
+        let pp = (EMI + extra) - ip;
+        if(pp > bal) pp = bal;
+        bal -= pp;
+        totalPaid += EMI + extra;
+        months++;
+      }
+      tenureWithExtra = months;
+      savedInterest = tp - totalPaid;
+    }
+
+    lastCalc = { P, EMI, ap, y, m, n, tp, ti, it, tenureWithExtra, savedInterest, extra };
+
+    document.getElementById('heroVal1').textContent = money(EMI);
+    document.getElementById('heroSub').textContent = y + 'y ' + m + 'm at ' + ap + '% (' + (it === 'reducing' ? 'Reducing' : 'Flat') + ')';
+
+    const pPct = (P/tp*100).toFixed(1);
+    const iPct = (ti/tp*100).toFixed(1);
+    document.getElementById('stackbar').innerHTML =
+      '<div class="principal" style="width:'+pPct+'%">Principal '+pPct+'%</div>' +
+      '<div class="interest" style="width:'+iPct+'%">Interest '+iPct+'%</div>';
+
+    document.getElementById('resPrincipal').textContent = money(P);
+    document.getElementById('resTotalInterest').textContent = money(ti);
+    document.getElementById('resTotalPayment').textContent = money(tp);
+    document.getElementById('resTenure').textContent = y + 'y ' + m + 'm';
+
+    // Amortization
+    let bal = P;
+    let rows = '<tr><th>Year</th><th>Principal</th><th>Interest</th><th>Balance</th></tr>';
+    const fullYears = Math.floor(n/12);
+    const remMonths = n % 12;
+    for(let yr = 1; yr <= fullYears; yr++){
+      let yp = 0, yi = 0;
+      for(let mo = 0; mo < 12; mo++){
+        const ip = bal * r;
+        let pp = EMI - ip;
+        if(pp > bal) pp = bal;
+        bal -= pp;
+        yp += pp; yi += ip;
+      }
+      rows += '<tr><td>Year ' + yr + '</td><td>' + money(yp) + '</td><td>' + money(yi) + '</td><td>' + money(bal) + '</td></tr>';
+    }
+    if(remMonths > 0){
+      let yp = 0, yi = 0;
+      for(let mo = 0; mo < remMonths; mo++){
+        const ip = bal * r;
+        let pp = EMI - ip;
+        if(pp > bal) pp = bal;
+        bal -= pp;
+        yp += pp; yi += ip;
+      }
+      rows += '<tr><td>Year ' + (fullYears+1) + '</td><td>' + money(yp) + '</td><td>' + money(yi) + '</td><td>' + money(bal) + '</td></tr>';
+    }
+    if(extra > 0){
+      const saved = Math.max(0, n - tenureWithExtra);
+      rows += '<tr style="background:rgba(212,175,55,0.15);font-weight:800;"><td colspan="4" style="text-align:center;color:#B8952B;">💡 With extra ' + money(extra) + '/month: loan closes ' + saved + ' months earlier, saving ' + money(Math.max(0, savedInterest)) + ' in interest.</td></tr>';
+    }
+    document.getElementById('amortTable').innerHTML = rows;
+
+    document.getElementById('resultsWrap').style.display = 'block';
+    document.getElementById('shareBarWrap').style.display = 'grid';
+    document.getElementById('resultsWrap').scrollIntoView({behavior: 'smooth'});
   }
-}
-function shareWhatsApp(){
-  window.open('https://wa.me/?text='+encodeURIComponent('Loan EMI calculated with ColdMatrix Tools!\n🔗 coldmatrixtools.com/loan-emi-calculator.html'),'_blank');
-}
-let d;const bar=document.getElementById('installBarTool');
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();d=e;bar.style.display='block'});
-window.installAppTool=function(){
-  if(d){d.prompt();d.userChoice.then(()=>{bar.style.display='none'})}
-  else{alert('📱 Add to Home Screen.')}
-};
-if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{})}
-function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Check out this Loan & EMI Calculator! '+window.location.href),'_blank')}
-function copyToolLink(){navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{alert(window.location.href)})}
+
+  function resetAll(){
+    if(!confirm('Reset all fields to defaults?')) return;
+    document.getElementById('loanAmount').value = 3000000;
+    document.getElementById('emiBudget').value = 50000;
+    document.getElementById('monthlySalary').value = 150000;
+    document.getElementById('existingDebt').value = 0;
+    document.getElementById('dtiRatio').value = 35;
+    document.getElementById('ratioDisplay').textContent = '35';
+    document.getElementById('interestRate').value = 14;
+    document.getElementById('tenureYears').value = 5;
+    document.getElementById('tenureMonths').value = 0;
+    document.getElementById('extraPayment').value = 0;
+    document.getElementById('currency').value = 'PKR';
+    document.getElementById('interestType').value = 'reducing';
+    document.getElementById('resultsWrap').style.display = 'none';
+    document.getElementById('shareBarWrap').style.display = 'none';
+    lastCalc = null;
+    setMode('loan');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  // ============================================
+  // EXPORT — REAL WORKING
+  // ============================================
+  async function captureCanvas(){
+    if(!lastCalc) return null;
+    const c = lastCalc;
+    document.getElementById('pvHeader').textContent = c.it === 'reducing' ? 'Reducing Balance Loan' : 'Flat Rate Loan';
+    document.getElementById('pvPrincipal').textContent = money(c.P);
+    document.getElementById('pvRate').textContent = c.ap + '%';
+    document.getElementById('pvTenure').textContent = c.y + 'y ' + c.m + 'm';
+    document.getElementById('pvEMI').textContent = money(c.EMI);
+    document.getElementById('pvInterest').textContent = money(c.ti);
+    document.getElementById('pvTotal').textContent = money(c.tp);
+
+    const el = document.getElementById('shareCapture');
+    el.style.display = 'block';
+    const canvas = await html2canvas(el, { backgroundColor: '#ffffff', scale: 2 });
+    el.style.display = 'none';
+    return canvas;
+  }
+
+  async function downloadResult(type){
+    if(!lastCalc){ alert('Please calculate first.'); return; }
+    const canvas = await captureCanvas();
+    if(!canvas) return;
+    if(type === 'pdf'){
+      const { jsPDF } = window.jspdf;
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      const pdf = new jsPDF({ orientation: canvas.width > canvas.height ? 'l' : 'p', unit: 'px', format: [canvas.width, canvas.height] });
+      pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+      pdf.save('ColdMatrix-Loan-EMI.pdf');
+    } else {
+      const mime = type === 'jpg' ? 'image/jpeg' : 'image/png';
+      const link = document.createElement('a');
+      link.download = 'ColdMatrix-Loan-EMI.' + type;
+      link.href = canvas.toDataURL(mime, 0.95);
+      link.click();
+    }
+  }
+
+  async function shareWhatsApp(){
+    if(!lastCalc){ alert('Please calculate first.'); return; }
+    const canvas = await captureCanvas();
+    if(!canvas) return;
+    const c = lastCalc;
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], 'ColdMatrix-Loan-EMI.png', { type: 'image/png' });
+      const caption = `🏦 Loan & EMI Summary\n\nLoan Amount: ${money(c.P)}\nInterest: ${c.ap}% (${c.it})\nTenure: ${c.y}y ${c.m}m\n\nMonthly EMI: ${money(c.EMI)}\nTotal Interest: ${money(c.ti)}\nTotal Payment: ${money(c.tp)}\n\n🔗 coldmatrixtools.com/loan-emi-calculator.html`;
+      if(navigator.share && navigator.canShare && navigator.canShare({files: [file]})){
+        try { await navigator.share({ files: [file], title: 'Loan EMI', text: caption }); } catch(e){}
+      } else {
+        const link = document.createElement('a');
+        link.download = 'ColdMatrix-Loan-EMI.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        window.open('https://wa.me/?text=' + encodeURIComponent(caption), '_blank');
+      }
+    });
+  }
+
+  function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this Loan & EMI Calculator from ColdMatrix Tools! ' + window.location.href), '_blank'); }
+  function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>alert(window.location.href)); }
+
+  // ============================================
+  // PWA INSTALL
+  // ============================================
+  let d; const bar = document.getElementById('installBarTool');
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); d = e; bar.style.display = 'block'; });
+  window.installAppTool = function(){
+    if(d){ d.prompt(); d.userChoice.then(() => { bar.style.display = 'none'; }); }
+    else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
+  };
+  if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ColdMatrix Loan & EMI Calculator",
+  "url": "https://coldmatrixtools.com/loan-emi-calculator.html",
+  "applicationCategory": "FinanceApplication",
+  "description": "Free loan & EMI calculator with three modes, multi-currency support, amortization schedule, and prepayment savings.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -487,30 +962,31 @@ function copyToolLink(){navigator.clipboard.writeText(window.location.href).then
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Are ColdMatrix tools free to use?",
+      "name": "What is the difference between EMI and principal?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, all ColdMatrix tools are 100% free, ad-free, and require no registration. All calculations happen instantly in your browser."
+        "text": "EMI includes both principal and interest. Principal is the amount you borrowed; interest is the cost of borrowing."
       }
     },
     {
       "@type": "Question",
-      "name": "How accurate are ColdMatrix calculators?",
+      "name": "What is the difference between reducing balance and flat rate interest?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "ColdMatrix calculators use standard engineering formulas and over 10 years of hands-on field experience. For critical projects, we recommend consulting a licensed engineer."
+        "text": "Reducing balance calculates interest on outstanding principal, so total interest is lower. Flat rate calculates interest on the original principal for the entire tenure, resulting in higher total interest."
       }
     },
     {
       "@type": "Question",
-      "name": "Does ColdMatrix store my data?",
+      "name": "How does prepayment save money on a loan?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. All calculations are performed locally in your browser. Your data never leaves your device, ensuring maximum privacy."
+        "text": "Extra monthly payments or lump-sum prepayments reduce the outstanding principal faster, lowering total interest and shortening the loan tenure."
       }
     }
   ]
 }
 </script>
+
 </body>
 </html>

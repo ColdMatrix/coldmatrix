@@ -6,7 +6,7 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DCJ7K7LSCF')</script>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Birthday Countdown — Premium Party Timer with Music & Celebration | ColdMatrix</title>
-  <meta name="description" content="Count down to any birthday with live party timer, music, balloons, and full-screen celebration. Free premium birthday countdown tool. Share countdown on WhatsApp, download as JPG, PNG, or PDF.">
+  <meta name="description" content="Count down to any birthday with live party timer, music, balloons, and full-screen celebration. Free premium birthday countdown tool. Share on WhatsApp, download as JPG, PNG, or PDF.">
   <meta name="keywords" content="birthday countdown, party timer, birthday timer, birthday celebration, live countdown, birthday countdown clock, share birthday countdown">
   <meta property="og:type" content="website"><meta property="og:site_name" content="ColdMatrix Tools">
   <meta property="og:title" content="Birthday Countdown — Premium Party Timer with Music & Celebration">
@@ -21,25 +21,28 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&family=Montserrat:wght@700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root{
-      --bg:#080c14; --surface:rgba(18,24,35,0.6); --surface2:rgba(22,30,44,0.7);
-      --text:#EAEDF0; --muted:#9AA0B0; --accent:#C8A84E; --accent2:#E2C87A;
-      --accent-glow:rgba(200,168,78,0.5); --gradient:linear-gradient(135deg,#C8A84E,#E2C87A);
-      --card-bg:rgba(18,24,35,0.55); --input-bg:rgba(15,20,30,0.7); --input-border:rgba(200,168,78,0.4);
+      --bg:#080c14; --surface:#12181F; --surface2:#1B232C;
+      --text:#EAEDF0; --muted:#9AA0B0;
+      --accent:#C8A84E; --accent2:#E2C87A; --accent-glow:rgba(200,168,78,0.5);
+      --gradient:linear-gradient(135deg,#C8A84E,#E2C87A);
+      --card-bg:#131722; --input-bg:#1B232C; --input-border:rgba(212,175,55,0.55);
       --sparkle-color:#FFD700; --gold:#D4AF37; --gold-bright:#FFD700;
       --party-glow:rgba(255,215,0,0.3); --petal-color:#FFB7C5;
       --silver-bg:#C8CDD4; --silver-bg-hover:#D5D9DE;
+      --silver-gradient:linear-gradient(145deg,#D5D9DE,#C8CDD4);
+      --whatsapp-green:#25D366;
     }
     body.female-theme{
       --accent:#D4A0E0; --accent2:#E8C0F0; --accent-glow:rgba(212,160,224,0.5);
-      --gradient:linear-gradient(135deg,#C08AD8,#E0B8F0); --input-border:rgba(200,160,220,0.5);
+      --gradient:linear-gradient(135deg,#C08AD8,#E0B8F0); --input-border:rgba(200,160,220,0.55);
       --sparkle-color:#E8C0F0; --petal-color:#FFD0E0;
       background:radial-gradient(ellipse at 30% 20%,#1a1028 0%,#080c14 60%);
     }
@@ -62,211 +65,510 @@
       transition:background 0.8s ease; overflow-x:hidden;
     }
     .container{max-width:750px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
-    .navbar{position:sticky;top:0;z-index:99;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:2px solid;border-image:var(--gradient) 1}
-    .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:10px 0;flex-wrap:wrap;max-width:750px;margin:0 auto}
-    .logo{font-size:1.1rem;font-weight:700;color:#FFD700;text-decoration:none;display:flex;align-items:center;gap:6px}
-    .nav-links{display:flex;gap:16px;list-style:none;flex-wrap:wrap}.nav-links a{color:var(--muted);text-decoration:none;font-weight:500;font-size:0.82rem}
+
+    /* GOLDEN NAVBAR */
+    .navbar{position:sticky;top:0;z-index:99;background:rgba(8,12,20,0.94);backdrop-filter:blur(18px);border-bottom:2px solid var(--gold)}
+    .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 0;flex-wrap:wrap;max-width:750px;margin:0 auto;padding-left:20px;padding-right:20px}
+    .logo{font-size:1.2rem;font-weight:800;color:var(--gold-bright);text-decoration:none;display:flex;align-items:center;gap:6px}
+    .nav-links{display:flex;gap:16px;list-style:none;flex-wrap:wrap}.nav-links a{color:var(--muted);text-decoration:none;font-weight:600;font-size:0.85rem}
     .nav-links a:hover{color:var(--gold-bright)}
+
+    .back-link{display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem}
+
+    /* GOLDEN INSTALL BAR */
     .install-bar{
-      background: linear-gradient(145deg, #D4AF37, #FFD700);
-      color:#0A0F14;text-align:center;padding:4px 12px;border-radius:6px;margin:8px 0;
-      font-weight:700;font-size:0.75rem;display:block;line-height:1.2;
-      box-shadow:0 2px 8px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.6);
-      border:2px solid #FFD700;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color:#0A0F14;text-align:center;padding:11px 14px;border-radius:10px;margin:14px 0;
+      font-weight:700;font-size:0.85rem;display:block;
+      box-shadow:0 3px 10px rgba(212,175,55,0.35);
+      border:1px solid #FFD700;
     }
     .install-bar button{
-      background:#0A0F14;color:#FFD700;border:none;padding:2px 8px;border-radius:4px;margin-left:6px;font-weight:700;cursor:pointer;font-size:0.7rem;line-height:1.2;
+      background:#0A0F14;color:#FFD700;border:2px solid #FFD700;padding:5px 14px;border-radius:6px;margin-left:10px;font-weight:800;cursor:pointer;font-size:0.78rem;
     }
-    h1{font-size:1.8rem;font-weight:800;margin-bottom:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:0}
-    h1 .icon{font-size:2rem}
-    h1 .coldmatrix{color:var(--accent);font-family:'Playfair Display',serif}
-    h1 .title{color:var(--gold-bright);font-weight:600}
-    .subtitle{color:#EAEDF0;font-weight:500;margin-bottom:20px;font-size:0.95rem;text-align:center;}
-    .card{background:var(--card-bg);backdrop-filter:blur(20px);border:2px solid var(--gold);border-radius:20px;padding:24px 20px;margin-bottom:18px;position:relative;overflow:hidden;box-shadow:0 8px 35px rgba(0,0,0,0.5), 0 0 15px rgba(212,175,55,0.08);}
-    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient);opacity:0.9;}
-    .card h2{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;margin-bottom:16px;color:var(--gold-bright);text-transform:uppercase;letter-spacing:0.5px;}
+
+    h1{font-size:1.7rem;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;line-height:1.25;margin-top:0}
+    h1 .icon{font-size:1.9rem}
+    h1 .coldmatrix{color:var(--gold-bright);font-family:'Playfair Display',serif}
+    h1 .title{color:var(--gold-bright);font-weight:700}
+    .subtitle{color:#EAEDF0;font-weight:500;margin-bottom:20px;font-size:0.95rem;text-align:left}
+
+    /* GET QUOTE STRIP */
+    .get-quote-strip{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+    .get-quote-strip .quote-btn{
+      flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;
+      padding:13px 16px;background:var(--silver-bg);border:2px solid var(--gold);border-radius:12px;
+      color:#0A0F14;font-family:'Oswald',sans-serif;font-weight:800;font-size:0.85rem;text-decoration:none;
+      cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;
+      box-shadow:0 4px 12px rgba(0,0,0,0.35),0 0 10px var(--accent-glow);transition:all 0.25s ease;
+    }
+    .get-quote-strip .quote-btn:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);transform:translateY(-2px);box-shadow:0 0 22px var(--accent-glow)}
+    .get-quote-strip .quote-btn.whatsapp{background:#25D366;color:#fff;border-color:#1da851}
+    .get-quote-strip .quote-btn.whatsapp:hover{background:#1da851;border-color:#25D366}
+
+    /* SHARE TOOL CARD */
+    .share-tool-card{
+      background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+      border:2px solid;border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:12px;padding:16px 18px;margin-bottom:20px;box-shadow:0 10px 34px rgba(0,0,0,0.55);
+    }
+    .share-tool-title{font-weight:800;font-size:0.9rem;color:#E8B93A;text-align:center;letter-spacing:0.6px;margin-bottom:12px;text-transform:uppercase}
+    .share-tool-buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .share-tool-btn{
+      display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;border-radius:10px;
+      font-weight:700;font-size:0.85rem;cursor:pointer;background:rgba(15,20,30,0.75);color:#EAEDF0;
+      border:1.5px solid rgba(200,168,78,0.45);transition:all 0.25s ease;
+    }
+    .share-tool-btn:hover{border-color:var(--gold-bright);box-shadow:0 0 20px rgba(200,168,78,0.35);transform:translateY(-2px)}
+    .share-tool-btn.wa{border-color:rgba(37,211,102,0.55)}
+    .share-tool-btn.wa:hover{border-color:#25D366}
+
+    /* AD ZONE */
+    .ad-zone{
+      margin:20px 0;padding:20px;background:rgba(212,175,55,0.05);border:2px dashed var(--gold);border-radius:12px;
+      text-align:center;min-height:90px;display:flex;align-items:center;justify-content:center;
+      color:var(--muted);font-size:0.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+    }
+
+    /* FORM CARD — SOLID DARK PREMIUM */
+    .card{
+      background:var(--card-bg);border:2px solid var(--gold);border-radius:20px;
+      padding:24px 20px;margin-bottom:18px;position:relative;overflow:hidden;
+      box-shadow:0 8px 35px rgba(0,0,0,0.5),0 0 15px rgba(212,175,55,0.08);
+    }
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient);opacity:0.9}
+    .card h2{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;margin-bottom:16px;color:var(--gold-bright);text-transform:uppercase;letter-spacing:0.5px}
+
     .field{margin-bottom:16px}
     .field label{display:block;font-size:0.85rem;color:#E0E4EB;margin-bottom:6px;font-weight:600}
-    .field input,.field select{width:100%;background:var(--input-bg);border:2px solid var(--input-border);color:var(--text);padding:14px 18px;border-radius:10px;font-size:0.95rem;box-shadow:0 0 10px var(--accent-glow);transition:all 0.25s;}
+    .field input,.field select{
+      width:100%;background:var(--input-bg);border:2px solid var(--input-border);color:var(--text);
+      padding:14px 18px;border-radius:10px;font-size:0.95rem;font-family:'Inter',sans-serif;font-weight:500;
+      transition:all 0.25s;
+    }
     .field input:focus,.field select:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 20px var(--accent-glow)}
     .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .btn-row{display:flex;gap:10px;margin-top:6px}
-    .btn-calc{flex:1;background:var(--silver-bg);color:#0A0F14;border:2px solid var(--gold);padding:15px;border-radius:50px;font-weight:800;font-size:0.95rem;cursor:pointer;letter-spacing:0.6px;box-shadow:0 4px 12px rgba(0,0,0,0.35),0 0 10px var(--accent-glow);transition:all 0.25s;}
-    .btn-calc:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);transform:translateY(-2px)}
-    .btn-reset{background:transparent;border:2px solid var(--gold);color:var(--gold-bright);padding:15px 20px;border-radius:50px;font-weight:800;font-size:0.9rem;cursor:pointer;white-space:nowrap;transition:all 0.25s;}
-    .btn-reset:hover{background:rgba(212,175,55,0.1);border-color:var(--gold-bright)}
+
+    /* STACKED BUTTONS — premium silver + gold */
+    .btn-stack{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+    .btn-primary{
+      width:100%;background:var(--silver-bg);color:#0A0F14;border:2px solid var(--gold);
+      min-height:64px;padding:16px 20px;border-radius:12px;font-family:'Oswald',sans-serif;
+      font-weight:900;font-size:1.1rem;cursor:pointer;letter-spacing:1px;text-transform:uppercase;
+      box-shadow:0 4px 12px rgba(0,0,0,0.35),0 0 15px var(--accent-glow);transition:all 0.25s ease;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+    }
+    .btn-primary:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);box-shadow:0 0 22px var(--accent-glow);transform:translateY(-2px)}
+    .btn-secondary{
+      width:100%;background:var(--silver-bg);color:#0A0F14;border:2px solid var(--gold);
+      min-height:46px;padding:10px 20px;border-radius:12px;font-family:'Oswald',sans-serif;
+      font-weight:800;font-size:0.95rem;cursor:pointer;letter-spacing:1px;text-transform:uppercase;
+      box-shadow:0 3px 8px rgba(0,0,0,0.3);transition:all 0.25s ease;
+      display:flex;align-items:center;justify-content:center;gap:6px;
+    }
+    .btn-secondary:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);transform:translateY(-2px)}
+
     .countdown-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:18px}
-    .countdown-pill{background:var(--surface2);border:2px solid var(--gold);border-radius:16px;padding:16px 6px;text-align:center;box-shadow:0 4px 18px var(--party-glow);animation:partyPulse 2s infinite ease-in-out;}
+    .countdown-pill{
+      background:var(--surface2);border:2px solid var(--gold);border-radius:16px;padding:16px 6px;text-align:center;
+      box-shadow:0 4px 18px var(--party-glow);animation:partyPulse 2s infinite ease-in-out;
+    }
     @keyframes partyPulse{0%,100%{box-shadow:0 4px 18px var(--party-glow)}50%{box-shadow:0 8px 30px var(--accent-glow)}}
-    .countdown-pill .value{font-family:'Montserrat',sans-serif;font-size:clamp(1.1rem,3.5vw,1.4rem);font-weight:800;background:linear-gradient(135deg,var(--gold-bright),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .countdown-pill .value{
+      font-family:'Montserrat',sans-serif;font-size:clamp(1.1rem,3.5vw,1.4rem);font-weight:800;
+      background:linear-gradient(135deg,var(--gold-bright),var(--accent));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
     .countdown-pill .unit{font-size:0.6rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:3px}
     .greeting-box{text-align:center;margin:18px 0 4px;display:none;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--text)}
-    .greeting-box .highlight{color:var(--accent);font-size:1.5rem}
-    .compliment-box{text-align:center;margin-top:18px;padding:16px;border-radius:14px;font-size:1rem;font-weight:500;color:var(--gold-bright);font-style:italic;line-height:1.7;background:rgba(212,175,55,0.08);border:1px dashed var(--gold);display:none;}
+    .greeting-box .highlight{color:var(--gold-bright);font-size:1.5rem}
+    .compliment-box{
+      text-align:center;margin-top:18px;padding:16px;border-radius:14px;font-size:1rem;font-weight:500;
+      color:var(--gold-bright);font-style:italic;line-height:1.7;
+      background:rgba(212,175,55,0.08);border:1px dashed var(--gold);display:none;
+    }
     .info-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-    .info-card{background:var(--card-bg);border:2px solid var(--gold);border-radius:14px;padding:14px 8px;text-align:center;box-shadow:0 4px 14px rgba(212,175,55,0.2);}
+    .info-card{
+      background:rgba(18,24,35,0.55);border:2px solid var(--gold);border-radius:14px;padding:14px 8px;text-align:center;
+      box-shadow:0 4px 14px rgba(212,175,55,0.2);
+    }
     .info-card .lbl{font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-    .info-card .val{font-size:0.85rem;font-weight:700;color:var(--accent);margin-top:3px}
-    .share-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:16px 0}
-    .share-btn{display:flex;align-items:center;gap:6px;padding:10px 18px;border-radius:50px;font-weight:600;font-size:0.78rem;cursor:pointer;border:none;text-decoration:none;color:#fff;transition:all 0.25s;}
-    .share-btn:hover{transform:translateY(-2px)}
-    .share-whatsapp{background:#25D366}
-    .share-jpg{background:#545860;color:#fff;border:1px solid var(--gold)}
-    .share-png{background:#545860;color:#fff;border:1px solid var(--gold)}
-    .share-pdf{background:#E53935}
-    #shareCapture{display:none}
+    .info-card .val{font-size:0.85rem;font-weight:700;color:var(--gold-bright);margin-top:3px}
+
+    .share-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px auto;padding:0 4px}
+    .share-bar > span{
+      grid-column:1/-1;text-align:center;font-size:0.78rem;color:var(--gold-bright);
+      font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;
+    }
+    .share-btn{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+      padding:14px 8px;border-radius:14px;font-family:'Oswald',sans-serif;font-weight:800;font-size:0.72rem;
+      cursor:pointer;text-decoration:none;color:#0A0F14;text-transform:uppercase;letter-spacing:0.5px;
+      transition:all 0.3s ease;background:#FFFFFF;background-image:linear-gradient(145deg,#FFFFFF,#F0F2F5);
+      border:2px solid var(--gold);box-shadow:0 3px 10px rgba(0,0,0,0.15),inset 0 1px 0 rgba(255,255,255,0.9);
+      min-height:72px;
+    }
+    .share-btn i{font-size:1.3rem}
+    .share-btn:hover{border-color:var(--gold-bright);transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,0.2),0 0 20px rgba(212,175,55,0.4)}
+    .share-whatsapp{color:#128C4A}.share-whatsapp i{color:#25D366}
+    .share-pdf{color:#B71C1C}.share-pdf i{color:#E53935}
+    .share-jpg{color:#4A2B9E}.share-jpg i{color:#6C5CE7}
+    .share-png{color:#A15C00}.share-png i{color:#F59E0B}
+
+    /* SPARKLES */
+    .sparkles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+    .sparkle{
+      position:absolute;background:var(--sparkle-color);border-radius:50%;opacity:0.7;
+      animation:sparkleFloat linear infinite;
+    }
+    @keyframes sparkleFloat{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:0.9;transform:scale(1.2)}}
+
+/* CELEBRATION OVERLAY — BEAUTIFUL CARD */
+.celebration-overlay{
+  position:fixed;inset:0;z-index:1000;display:none;
+  align-items:center;justify-content:center;
+  padding:20px;overflow-y:auto;
+  animation:fadeIn 0.6s ease;
+}
+.celebration-overlay.active{display:flex}
+.celebration-overlay.default-bg{background:radial-gradient(ellipse at center,#1a0a2e 0%,#0a0a0a 100%)}
+.celebration-overlay.baby-bg{background:radial-gradient(ellipse at center,#2a0a1e 0%,#0a0a0a 100%)}
+.celebration-overlay.baby-boy-bg{background:radial-gradient(ellipse at center,#0a1a2e 0%,#0a0a0a 100%)}
+.celebration-overlay.female-bg{background:radial-gradient(ellipse at center,#1a0a28 0%,#0a0a0a 100%)}
+@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+
+/* The beautiful card wrapper */
+.celeb-card{
+  position:relative;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  gap:10px;
+  max-width:520px;width:100%;
+  padding:32px 24px 24px;
+  border-radius:24px;
+  background:linear-gradient(160deg, rgba(20,16,32,0.92), rgba(10,10,18,0.95));
+  border:3px solid transparent;
+  background-clip:padding-box;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(212,175,55,0.25);
+  z-index:2;
+}
+.celeb-card::before{
+  content:'';
+  position:absolute;inset:-3px;
+  border-radius:24px;padding:3px;
+  background:linear-gradient(135deg,#FFD700 0%,#FF6B6B 25%,#4FC3F7 50%,#A78BFA 75%,#FFD700 100%);
+  background-size:300% 300%;
+  animation:borderShift 6s ease infinite;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+  z-index:-1;
+  pointer-events:none;
+}
+@keyframes borderShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+.celeb-emoji{font-size:3.4rem;animation:bounce 1s infinite;line-height:1;flex-shrink:0}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+.celeb-title{
+  font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:800;
+  color:#FFD700;text-shadow:0 0 30px rgba(255,215,0,0.5);
+  line-height:1.3;margin:0;
+}
+
+.celeb-name{
+  font-size:2.4rem;font-weight:900;line-height:1.15;
+  background:linear-gradient(135deg,#FFD700,#FF6B6B,#4FC3F7,#FFD700);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:300% 300%;animation:rainbow 4s infinite;
+  margin:0;
+}
+@keyframes rainbow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+.celeb-wish{
+  color:#EAEDF0;font-size:0.9rem;font-style:italic;
+  line-height:1.6;margin:4px 0;max-width:440px;
+  padding:0 8px;
+}
+
+.celeb-countdown-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+  margin:8px 0 4px;width:100%;max-width:420px;
+}
+.celeb-countdown-pill{
+  background:rgba(255,255,255,0.08);
+  border:2px solid #D4AF37;border-radius:12px;
+  padding:10px 4px;text-align:center;
+}
+.celeb-countdown-pill .value{
+  font-family:'Montserrat',sans-serif;font-size:1.05rem;
+  font-weight:800;color:#FFD700;line-height:1.1;
+}
+.celeb-countdown-pill .unit{
+  font-size:0.55rem;color:#ccc;text-transform:uppercase;
+  letter-spacing:0.6px;margin-top:2px;
+}
+
+/* UNIFORM BUTTONS — all same shape, same height */
+.celeb-actions{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:8px;margin-top:14px;width:100%;max-width:460px;
+}
+.celeb-btn{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  background:transparent;
+  color:#FFD700;
+  border:2px solid #D4AF37;
+  min-height:42px;padding:8px 10px;
+  border-radius:12px;
+  font-family:'Inter',sans-serif;font-weight:700;
+  font-size:0.78rem;letter-spacing:0.3px;
+  cursor:pointer;transition:all 0.2s;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.celeb-btn:hover{background:rgba(212,175,55,0.15);transform:translateY(-1px)}
+.celeb-btn i{font-size:0.9rem}
+
+.celeb-btn.full{grid-column:1/-1}
+.celeb-btn.whatsapp{color:#25D366;border-color:#25D366}
+.celeb-btn.whatsapp:hover{background:rgba(37,211,102,0.15)}
+.celeb-btn.back{background:linear-gradient(135deg,#C8A84E,#E2C87A);color:#0A0F14;border-color:#FFD700;font-weight:800}
+.celeb-btn.back:hover{filter:brightness(1.1)}
+
+.celeb-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:24px;z-index:1}
+.celeb-confetti div{position:absolute;width:10px;height:10px;border-radius:50%;animation:confettiFall 4s infinite ease-in}
+@keyframes confettiFall{0%{transform:translateY(-100vh) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+
+@media(max-width:600px){
+  .celebration-overlay{padding:14px}
+  .celeb-card{padding:22px 16px 18px;gap:8px;border-radius:20px;max-width:100%}
+  .celeb-card::before{border-radius:20px}
+  .celeb-emoji{font-size:2.6rem}
+  .celeb-title{font-size:1.05rem}
+  .celeb-name{font-size:1.85rem}
+  .celeb-wish{font-size:0.78rem;line-height:1.55;padding:0 4px}
+  .celeb-countdown-grid{grid-template-columns:repeat(3,1fr);gap:6px;margin:6px 0 2px;max-width:100%}
+  .celeb-countdown-pill{padding:8px 3px;border-radius:10px}
+  .celeb-countdown-pill .value{font-size:0.9rem}
+  .celeb-countdown-pill .unit{font-size:0.45rem}
+  .celeb-actions{grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;max-width:100%}
+  .celeb-btn{min-height:38px;padding:6px 4px;font-size:0.68rem;border-radius:10px;gap:4px}
+  .celeb-btn i{font-size:0.8rem}
+}
+    /* SILVER EDUCATIONAL */
+    .detail-section{
+      margin-top:30px;padding:30px 24px;background:var(--silver-bg);
+      border:2px solid var(--gold);border-radius:16px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height:1.8;font-size:0.95rem;color:#0A0F14;
+    }
+    .detail-section h2{font-family:'Oswald',sans-serif;color:#0A0F14;font-size:1.4rem;margin-bottom:16px;border-bottom:2px solid var(--gold);padding-bottom:10px;font-weight:800}
+    .detail-section h3{color:#0A0F14;font-size:1.1rem;margin:22px 0 10px;font-weight:800}
+    .detail-section p,.detail-section ul,.detail-section ol{margin-bottom:14px;color:#0A0F14;font-weight:500}
+    .detail-section ul,.detail-section ol{padding-left:24px}
+    .detail-section li{margin-bottom:6px}
+    .detail-section strong{color:#0A0F14;font-weight:800}
+    .detail-section a{color:#0A0F14;font-weight:800;text-decoration:underline}
+
+    /* PAKISTANI BLOCK */
+    .pakistani-block{
+      margin:30px auto;padding:24px 20px;background:var(--silver-bg);
+      border:2px solid var(--gold);border-radius:16px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height:1.8;font-size:0.95rem;color:#0A0F14;
+    }
+    .pakistani-block h2{color:#0A0F14;font-family:'Oswald',sans-serif;font-size:1.15rem;margin-bottom:12px;font-weight:800}
+    .pakistani-block p{color:#0A0F14;font-weight:500;margin-top:10px}
+    .pakistani-block strong{color:#0A0F14;font-weight:800}
+
+    /* RELATED TOOLS */
+    .related-tools-section{
+      margin:20px auto;padding:20px;background:rgba(255,255,255,0.03);
+      border:2px solid var(--gold);border-radius:12px;
+    }
+    .related-tools-section h3{color:#FFD700;font-size:1rem;margin-bottom:10px;font-family:'Oswald',sans-serif;letter-spacing:0.5px}
+    .related-tools-section a{
+      color:#4FC3F7;text-decoration:none;background:rgba(79,195,247,0.1);padding:8px 16px;
+      border-radius:20px;font-size:0.85rem;font-weight:600;display:inline-block;margin:4px 4px 4px 0;
+    }
+
+    /* DISCLAIMER */
+    .disclaimer-box{
+      margin:20px auto;padding:16px 18px;background:var(--silver-bg);
+      border:2px solid var(--gold);border-radius:12px;
+      font-size:0.85rem;color:#0A0F14;line-height:1.7;font-weight:500;
+    }
+    .disclaimer-box strong{color:#0A0F14;font-weight:800}
+
+    /* LEAD CAPTURE */
+    .lead-capture{
+      background:var(--silver-bg);border:2px solid var(--gold);border-radius:16px;
+      padding:28px 24px;margin:30px 0;
+      box-shadow:0 12px 30px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .lead-capture h3{font-family:'Oswald',sans-serif;color:#0A0F14;font-size:1.2rem;margin-bottom:12px;letter-spacing:0.5px;font-weight:800}
+    .lead-capture p{color:#0A0F14;margin-bottom:18px;font-size:0.9rem;font-weight:500}
+    .lead-capture form{display:flex;flex-direction:column;gap:12px}
+    .lead-capture input[type="email"]{
+      background:#FFFFFF;border:2px solid var(--gold);border-radius:10px;
+      padding:12px 16px;color:#0A0F14;font-size:0.95rem;font-weight:600;outline:none;
+    }
+    .lead-capture input[type="email"]:focus{border-color:var(--gold-bright);box-shadow:0 0 15px var(--accent-glow)}
+    .lead-capture button{
+      background:var(--silver-bg);border:2px solid var(--gold);border-radius:10px;
+      padding:14px 20px;font-family:'Oswald',sans-serif;font-weight:800;
+      font-size:0.95rem;color:#0A0F14;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;transition:all 0.25s ease;
+    }
+    .lead-capture button:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);transform:translateY(-2px);box-shadow:0 0 20px var(--accent-glow)}
+
     .note{font-size:0.7rem;color:var(--muted);margin-top:10px;text-align:center}
-    footer{text-align:center;color:var(--muted);font-size:0.72rem;padding:25px 0 20px;border-top:1px solid rgba(255,255,255,0.06);margin-top:35px}
-    footer a{color:var(--accent);text-decoration:none}
-    .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:999;width:44px;height:44px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.4);text-decoration:none;color:#fff;font-size:1.2rem}
 
-    .celebration-overlay{position:fixed;inset:0;z-index:1000;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;animation:fadeIn 0.6s ease}
-    .celebration-overlay.active{display:flex}
-    .celebration-overlay.default-bg{background:radial-gradient(ellipse at center,#1a0a2e 0%,#0a0a0a 100%)}
-    .celebration-overlay.baby-bg{background:radial-gradient(ellipse at center,#2a0a1e 0%,#0a0a0a 100%)}
-    .celebration-overlay.baby-boy-bg{background:radial-gradient(ellipse at center,#0a1a2e 0%,#0a0a0a 100%)}
-    .celebration-overlay.female-bg{background:radial-gradient(ellipse at center,#1a0a28 0%,#0a0a0a 100%)}
-    @keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
-    .celeb-emoji{font-size:4rem;animation:bounce 1s infinite}
-    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
-    .celeb-title{font-family:'Playfair Display',serif;font-size:2rem;font-weight:800;color:#FFD700;margin:16px 0 8px;text-shadow:0 0 30px rgba(255,215,0,0.5)}
-    .celeb-name{font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#FFD700,#FF6B6B,#4FC3F7,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:300% 300%;animation:rainbow 4s infinite;margin-bottom:4px;}
-    @keyframes rainbow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    .celeb-wish{color:#EAEDF0;font-size:1rem;font-style:italic;margin:10px 0 4px;max-width:480px}
-    .celeb-countdown-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:16px 0;max-width:500px;width:100%}
-    .celeb-countdown-pill{background:rgba(255,255,255,0.08);border:2px solid var(--gold);border-radius:14px;padding:12px 4px;text-align:center}
-    .celeb-countdown-pill .value{font-family:'Montserrat',sans-serif;font-size:1.2rem;font-weight:800;color:#FFD700}
-    .celeb-countdown-pill .unit{font-size:0.55rem;color:#ccc;text-transform:uppercase;letter-spacing:1px}
-    .celeb-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;justify-content:center}
-    .celeb-back{background:var(--gradient);color:#0A0F14;border:none;padding:12px 28px;border-radius:50px;font-weight:700;font-size:0.95rem;cursor:pointer}
-    .celeb-whatsapp{background:#25D366;color:#fff;border:none;padding:12px 22px;border-radius:50px;font-weight:700;font-size:0.9rem;cursor:pointer;display:flex;align-items:center;gap:8px}
-    .celeb-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-    .celeb-confetti div{position:absolute;width:10px;height:10px;border-radius:50%;animation:confettiFall 4s infinite ease-in}
-    @keyframes confettiFall{0%{transform:translateY(-100vh) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+    /* FOOTER */
+    footer{
+      text-align:center;color:var(--muted);font-size:0.8rem;
+      padding:40px 20px 20px;border-top:2px solid var(--gold);margin-top:50px;
+    }
+    footer a{color:var(--gold-bright);text-decoration:none;font-weight:600}
+    footer .legal-links{
+      display:flex;justify-content:center;gap:20px;flex-wrap:wrap;
+      margin-bottom:15px;border-top:1px solid rgba(255,255,255,0.1);padding-top:15px;
+    }
+    footer .legal-links a{text-decoration:underline;font-weight:700;font-size:0.85rem}
 
-    .detail-section{margin-top:40px;padding:30px 24px;background:var(--silver-bg);border:2px solid var(--gold);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.4);line-height:1.8;font-size:0.95rem;color:#0A0F14;}
-    .detail-section h2{font-family:'Oswald',sans-serif;color:#0A0F14;font-size:1.5rem;margin-bottom:16px;border-bottom:2px solid var(--gold);padding-bottom:10px;}
-    .detail-section h3{color:#0A0F14;font-size:1.15rem;margin:24px 0 10px;}
-    .detail-section p,.detail-section ul,.detail-section ol{margin-bottom:14px;}
-    .detail-section ul,.detail-section ol{padding-left:24px;}
-    .detail-section li{margin-bottom:6px;}
-    .detail-section strong{color:#0A0F14;}
+    .whatsapp-float{
+      position:fixed;bottom:20px;right:20px;z-index:999;width:48px;height:48px;
+      background:var(--whatsapp-green);border-radius:50%;display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 12px rgba(0,0,0,0.4);text-decoration:none;color:#fff;font-size:1.3rem;
+    }
 
+    /* Hidden capture for downloads */
+    #shareCapture{display:none !important;position:absolute !important;left:-9999px !important}
+
+    /* ============ MOBILE ============ */
     @media(max-width:600px){
-      body{padding-top:0!important;margin-top:0!important;}
-      .container{padding-top:0!important;margin-top:0!important;}
-      .navbar{top:0!important;margin:0!important;}
-      .install-bar{margin:4px 0 8px!important;padding:6px 10px!important;}
-      h1{margin-top:0!important;padding-top:0!important;}
+      .container{padding:0 14px}
+      .nav-inner{padding-left:14px;padding-right:14px}
+      h1{font-size:1.35rem}
+      h1 .icon{font-size:1.6rem}
       .countdown-grid{grid-template-columns:repeat(3,1fr)}
       .row2{grid-template-columns:1fr}
       .info-row{grid-template-columns:repeat(2,1fr)}
       .celeb-title{font-size:1.5rem}
-      .celeb-name{font-size:1.8rem}
+      .celeb-name{font-size:1.9rem}
       .celeb-countdown-grid{grid-template-columns:repeat(3,1fr)}
-      @media (max-width: 600px) {
-  html, body {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  body {
-    padding-top: 0 !important;
-  }
-  .container {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-  }
-  .navbar {
-    top: 0 !important;
-    margin: 0 !important;
-  }
-  .nav-inner {
-    padding-top: 4px !important;
-    padding-bottom: 4px !important;
-  }
-  .back-link {
-    display: block;
-    margin: 2px 0 0 !important;
-    padding: 0 !important;
-    line-height: 1.2 !important;
-  }
-  .install-bar {
-    margin: 4px 0 !important;
-    padding: 4px 10px !important;
-  }
-  h1 {
-    margin-top: 2px !important;
-    padding-top: 0 !important;
-  }
-  .subtitle {
-    margin-top: 0 !important;
-    margin-bottom: 10px !important;
-  }
-  .card {
-    margin-top: 0 !important;
-  }
-/* ===== FIX SHINY GLASS / EMPTY SPACE ===== */
-.card, .card-bg, .detail-section {
-    background: #12181F !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border: 2px solid #D4AF37 !important;
-}
-.detail-section {
-    background: #C8CDD4 !important;
-    color: #0A0F14 !important;
-}
-.card h2, .field label, .field input, .field select, .subtitle, .greeting-box, .compliment-box, .info-card .val, .countdown-pill .value {
-    color: #EAEDF0 !important;
-    text-shadow: none !important;
-}
-.field input, .field select {
-    background: #1B232C !important;
-    border: 2px solid #D4AF37 !important;
-    color: #FFFFFF !important;
-}
-.card {
-    padding: 20px 18px !important;
-    margin-bottom: 14px !important;
-}
-body {
-    background: #0B0F14 !important;
-}
-.sparkles, .celebration-overlay {
-    display: none !important;
-}
+      .share-bar{grid-template-columns:1fr 1fr}
+      .detail-section,.pakistani-block,.lead-capture{padding:20px 16px !important}
+      .detail-section h2{font-size:1.2rem}
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Birthday Countdown — Premium Party Timer",
+    "url": "https://coldmatrixtools.com/birthday-countdown.html",
+    "applicationCategory": "LifestyleApplication",
+    "description": "Count down to any birthday with live party timer, music, balloons, and full-screen celebration. Free premium birthday countdown tool.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does the birthday countdown update automatically?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, the countdown updates live every second, so it's always accurate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I share the countdown with others?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, click WhatsApp to share a link that anyone can open to see the same countdown."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens when the countdown reaches zero?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A full-screen celebration begins with confetti, balloons, music, and a personalized birthday message."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div class="sparkles" id="sparklesContainer"></div>
-  <div class="celebration-overlay default-bg" id="celebrationOverlay">
+
+<!-- CELEBRATION OVERLAY -->
+<div class="celebration-overlay default-bg" id="celebrationOverlay">
+  <div class="celeb-card">
     <div class="celeb-confetti" id="celebConfetti"></div>
     <div class="celeb-emoji" id="celebEmoji">🎉</div>
     <div class="celeb-title" id="celebTitle">🎂 Birthday Countdown for</div>
     <div class="celeb-name" id="celebNameDisplay"></div>
     <div class="celeb-wish" id="celebWish"></div>
     <div class="celeb-countdown-grid" id="celebCountdownGrid"></div>
-    <div class="celeb-detail" id="celebDetail"></div>
     <div class="celeb-actions">
-      <button class="celeb-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Share This Countdown</button>
-      <button class="celeb-back" onclick="downloadResult('jpg')" style="background:transparent;border:2px solid var(--gold);color:var(--gold)">📷 JPG</button>
-      <button class="celeb-back" onclick="downloadResult('png')" style="background:transparent;border:2px solid var(--gold);color:var(--gold)">🖼️ PNG</button>
-      <button class="celeb-back" id="celebMuteBtn" onclick="toggleMute()" style="background:transparent;border:2px solid var(--gold);color:var(--gold)">🔊 Mute</button>
-      <button class="celeb-back" onclick="closeCelebration()">✨ Back</button>
+      <button class="celeb-btn whatsapp full" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Share This Countdown</button>
+      <button class="celeb-btn" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+      <button class="celeb-btn" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+      <button class="celeb-btn" id="celebMuteBtn" onclick="toggleMute()"><i class="fa-solid fa-volume-high"></i> Mute</button>
+      <button class="celeb-btn back" onclick="closeCelebration()">✨ Back</button>
     </div>
   </div>
+</div>
 
-  <nav class="navbar"><div class="container nav-inner"><a href="index.html" class="logo">❄️ ColdMatrix</a><ul class="nav-links"><li><a href="index.html">🏠 Home</a></li><li><a href="index.html#tools">🛠️ Tools</a></li><li><a href="blog.html">📝 Blog</a></li><li><a href="about.html">ℹ️ About</a></li><li><a href="contact.html">📞 Contact</a></li></ul></div></nav>
+  <!-- GOLDEN NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
+      <ul class="nav-links">
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="index.html#tools">🛠️ Tools</a></li>
+        <li><a href="blog.html">📝 Blog</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="contact.html">📞 Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <div class="container">
-    <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
+    <a href="index.html#tools" class="back-link">← Back to Tools</a>
 
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1><span class="icon">🎂</span><span class="coldmatrix">ColdMatrix</span><span class="title">Birthday Countdown</span></h1>
-    <p class="subtitle">Count every magical moment — live, elegant, and full of heart. Create a personalized birthday countdown with music, balloons, and a beautiful full-screen celebration.</p>
+    <p class="subtitle">A live, joyful countdown to every birthday that matters — with music, balloons, and a beautiful full-screen celebration. 💖</p>
 
+    <div class="get-quote-strip">
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20a%20celebration%20tool." class="quote-btn whatsapp" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Quick Chat
+      </a>
+      <a href="contact.html" class="quote-btn">
+        <i class="fa-solid fa-envelope"></i> Get a Quote
+      </a>
+    </div>
+
+    <div class="share-tool-card">
+      <div class="share-tool-title">Share This Tool</div>
+      <div class="share-tool-buttons">
+        <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+        <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+      </div>
+    </div>
+
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+    <!-- FORM CARD -->
     <div class="card">
       <h2>🎂 Whose Birthday?</h2>
       <div class="field"><label>Enter Name</label><input type="text" id="inputCelebrantName" placeholder="e.g. Sara"></div>
@@ -280,10 +582,12 @@ body {
         <div class="field"><label>🎈 Age Group</label><select id="inputAgeGroup" onchange="applyGenderTheme()"><option value="adult">Adult / Teen</option><option value="child">Child (under 10)</option></select></div>
         <div class="field"><label>📅 Birthday Date</label><input type="date" id="inputDob"></div>
       </div>
-      <div class="btn-row">
-        <button class="btn-calc" onclick="startCountdown()">🎉 Start the Party Countdown!</button>
-        <button class="btn-reset" onclick="resetAll()">↺ Reset</button>
+
+      <div class="btn-stack">
+        <button class="btn-primary" onclick="startCountdown()">🎉 Start the Party Countdown!</button>
+        <button class="btn-secondary" onclick="resetAll()">↺ Reset</button>
       </div>
+
       <div class="greeting-box" id="greetingBox"><span>🎈 Counting down for <span class="highlight" id="greetingCelebrant"></span>! 🎈</span></div>
       <div class="countdown-grid" id="countdownGrid" style="display:none"></div>
       <div class="compliment-box" id="complimentBox"></div>
@@ -291,14 +595,16 @@ body {
     </div>
 
     <div class="share-bar" id="shareBarWrap" style="display:none">
-      <span style="width:100%;text-align:center;font-size:0.8rem;color:var(--muted);margin-bottom:2px">📋 Share the party:</span>
+      <span>📋 Share the party</span>
       <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
       <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
       <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
     </div>
 
-    <!-- COMPREHENSIVE EDUCATIONAL CONTENT -->
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+    <!-- EDUCATIONAL -->
     <div class="detail-section">
       <h2>📖 The Complete Birthday Countdown Guide</h2>
       <p>A birthday countdown is more than just a timer — it's a way to build excitement, share love, and celebrate the people who matter most. Whether you're counting down days to a child's birthday, planning a surprise party for a friend, or eagerly awaiting your own special day, this premium countdown tool transforms the wait into a joyful experience.</p>
@@ -351,138 +657,377 @@ body {
       <p><strong>Q: Can I download the countdown as an image?</strong><br>A: Yes, download as JPG, PNG, or PDF using the buttons below.</p>
       <p><strong>Q: Is my data private?</strong><br>A: Yes, all information stays in your browser. Nothing is uploaded or stored.</p>
       <p><strong>Q: Can I count down to a birthday that's more than a year away?</strong><br>A: Yes, the tool calculates to the next upcoming birthday and shows years, months, days, hours, minutes, and seconds.</p>
-      <p><strong>Q: What's the difference between this and an age calculator?</strong><br>A: An age calculator tells you how old someone is now. This countdown tells you exactly how long until their NEXT birthday. Both are useful! Check our <a href="age-calculator.html" style="color:#0A0F14;font-weight:700;">Age Calculator</a> for exact age.</p>
+      <p><strong>Q: What's the difference between this and an age calculator?</strong><br>A: An age calculator tells you how old someone is now. This countdown tells you exactly how long until their NEXT birthday. Both are useful! Check our <a href="age-calculator.html">Age Calculator</a> for exact age.</p>
+    </div>
 
-      <p><strong>Disclaimer:</strong> This tool is designed for entertainment and personal celebration purposes. All data is processed locally in your browser.</p>
+    <!-- PAKISTANI / GLOBAL BLOCK -->
+    <div class="pakistani-block">
+      <h2>🌐 ColdMatrix — Celebration Tools for a Global Community</h2>
+      <p>Our Birthday Countdown is used daily by families, friends, teachers, event planners, and celebration lovers across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, and Australia</strong>. It's a genuinely global tool — beautiful, private, and free for everyone.</p>
+      <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients worldwide with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
+      <p>Need a custom celebration tool, event dashboard, or project quote? Our team responds within 24 hours.</p>
+      <p style="margin-top:14px;font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- RELATED TOOLS -->
+    <div class="related-tools-section">
+      <h3>🔗 Related Tools You Might Need</h3>
+      <div>
+        <a href="age-calculator.html">🎂 Age Calculator</a>
+        <a href="qr-business-card.html">📱 QR Business Card</a>
+        <a href="qr-code-generator.html">🔲 QR &amp; Barcode Studio</a>
+        <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+        <a href="unit-converter.html">📏 Unit Converter</a>
+        <a href="stopwatch-timer.html">⏱️ Stopwatch &amp; Timer</a>
+        <a href="contact.html">📞 Contact Us</a>
+      </div>
+    </div>
+
+    <!-- LEAD CAPTURE -->
+    <div class="lead-capture">
+      <h3>🚀 Need a Custom Celebration or Event Tool?</h3>
+      <p>Get tailored countdown pages, event dashboards, or branded celebration tools for your business, school, or event. Leave your email and we'll respond within 24 hours.</p>
+      <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="email" name="email" placeholder="Your work email" required>
+        <button type="submit">Request Custom Tool</button>
+      </form>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> This tool is designed for entertainment and personal celebration purposes. All data is processed locally in your browser and is never uploaded to any server.
+    </div>
+
+  </div>
+
+  <!-- HIDDEN CAPTURE FOR DOWNLOADS -->
+  <div id="shareCapture" style="display:none !important;position:absolute !important;left:-9999px !important;">
+    <div id="shareCaptureInner" style="width:520px;padding:36px 32px;border-radius:22px;font-family:'Inter',sans-serif;text-align:center;border:3px solid #D4AF37;">
+      <div id="pvBrand" style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:800;letter-spacing:1px;margin-bottom:14px;">❄️ COLDMATRIX TOOLS</div>
+      <div style="font-size:2rem;margin-bottom:4px;">🎂</div>
+      <div id="pvCelebrant" style="font-size:2rem;font-weight:900;margin-bottom:6px;"></div>
+      <div id="pvDob" style="font-size:0.95rem;opacity:0.9;margin-bottom:16px;"></div>
+      <div id="pvCountdownGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0;"></div>
+      <div id="pvWish" style="font-size:0.9rem;font-style:italic;line-height:1.6;opacity:0.95;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.2);"></div>
+      <div style="font-size:0.7rem;opacity:0.7;margin-top:14px;">coldmatrixtools.com</div>
     </div>
   </div>
 
-<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" style="position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem;">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
-<footer style="background:rgba(10,15,20,0.9); border-top:2px solid #D4AF37; padding:30px 20px; margin-top:50px; text-align:center;">
-    <!-- Contact Info -->
+  <!-- FOOTER -->
+  <footer>
     <div style="margin-bottom:15px;">
-        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
-        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
-        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
-            📞 <strong>Call / WhatsApp:</strong> 
-            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
-            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
-                <i class="fa-brands fa-whatsapp"></i>
-            </a>
-        </p>
+      <p style="color:#EAEDF0;font-size:0.9rem;font-weight:600;margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+      <p style="color:#C3CBD4;font-size:0.85rem;margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#FFD700;text-decoration:none;font-weight:600;">contact@coldmatrixtools.com</a></p>
+      <p style="color:#C3CBD4;font-size:0.85rem;margin-bottom:0;">
+        📞 <strong>Call / WhatsApp:</strong>
+        <a href="tel:+923333228470" style="color:#FFD700;text-decoration:none;font-weight:600;">+92 333 3228470</a>
+        <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px;color:#25D366;text-decoration:none;font-size:1.1rem;" title="Chat on WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </p>
     </div>
 
-    <!-- Legal Links -->
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+    <div class="legal-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-use.html">Terms of Use</a>
+      <a href="cookie-policy.html">Cookie Policy</a>
+      <a href="security.html">Security</a>
     </div>
 
-    <!-- Copyright -->
-    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
-</footer>
+    <p style="color:#8B98A5;font-size:0.8rem;">Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</p>
+  </footer>
+
   <script>
     let countdownInterval=null,celebrationInterval=null,nextBirthday=null,celebrantName='',currentRelation='myself',currentGender='male',lastCelebrationName='';
     let melodyLoopActive=false,melodyMuted=false,melodyTimeouts=[];
+
     function playTone(f,d,t='sine'){try{const c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.type=t;o.frequency.value=f;g.gain.value=0.14;g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+d);o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+d)}catch(e){}}
+
     const HAPPY_BIRTHDAY_NOTES=[[392.00,0.30],[392.00,0.20],[440.00,0.50],[392.00,0.50],[523.25,0.50],[493.88,1.00],[392.00,0.30],[392.00,0.20],[440.00,0.50],[392.00,0.50],[587.33,0.50],[523.25,1.00],[392.00,0.30],[392.00,0.20],[783.99,0.50],[659.25,0.50],[523.25,0.50],[493.88,0.50],[440.00,1.00],[698.46,0.30],[698.46,0.20],[659.25,0.50],[523.25,0.50],[587.33,0.50],[523.25,1.00]];
+
     function clearMelodyTimeouts(){melodyTimeouts.forEach(id=>clearTimeout(id));melodyTimeouts=[]}
     function scheduleMelody(){if(!melodyLoopActive)return;let t=0;HAPPY_BIRTHDAY_NOTES.forEach(([freq,dur])=>{const id=setTimeout(()=>{if(!melodyMuted&&melodyLoopActive)playTone(freq,dur*0.9,'triangle')},t*1000);melodyTimeouts.push(id);t+=dur});const id2=setTimeout(()=>{if(melodyLoopActive)scheduleMelody()},(t+1)*1000);melodyTimeouts.push(id2)}
     function startMelodyLoop(){melodyLoopActive=true;melodyMuted=false;const btn=document.getElementById('celebMuteBtn');if(btn)btn.textContent='🔊 Mute';clearMelodyTimeouts();scheduleMelody()}
     function stopMelodyLoop(){melodyLoopActive=false;clearMelodyTimeouts()}
     function toggleMute(){melodyMuted=!melodyMuted;const btn=document.getElementById('celebMuteBtn');if(btn)btn.textContent=melodyMuted?'🔇 Unmute':'🔊 Mute'}
 
-    function createSparkles(){const c=document.getElementById('sparklesContainer');c.innerHTML='';for(let i=0;i<40;i++){const s=document.createElement('div');s.className='sparkle';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';s.style.animationDuration=(2+Math.random()*3)+'s';s.style.width=(4+Math.random()*5)+'px';s.style.height=s.style.width;c.appendChild(s)}}
+    function createSparkles(){
+      const c=document.getElementById('sparklesContainer');
+      c.innerHTML='';
+      for(let i=0;i<40;i++){
+        const s=document.createElement('div');
+        s.className='sparkle';
+        s.style.left=Math.random()*100+'%';
+        s.style.top=Math.random()*100+'%';
+        s.style.animationDelay=Math.random()*3+'s';
+        s.style.animationDuration=(2+Math.random()*3)+'s';
+        s.style.width=(4+Math.random()*5)+'px';
+        s.style.height=s.style.width;
+        c.appendChild(s);
+      }
+    }
     createSparkles();
 
     function isChildTheme(){return document.getElementById('inputAgeGroup').value==='child'}
-    function applyGenderTheme(){currentGender=document.getElementById('inputGender').value;const isChild=isChildTheme();document.body.classList.remove('female-theme','baby-girl-theme','baby-boy-theme');if(currentGender==='female'&&isChild)document.body.classList.add('baby-girl-theme');else if(currentGender==='male'&&isChild)document.body.classList.add('baby-boy-theme');else if(currentGender==='female')document.body.classList.add('female-theme')}
-    function updateGenderByRelation(){const rel=document.getElementById('inputRelation').value;currentRelation=rel;const g=document.getElementById('inputGender');if(rel==='mother'||rel==='sister'||rel==='aunt'||rel==='niece')g.value='female';else if(rel==='father'||rel==='brother'||rel==='uncle'||rel==='nephew')g.value='male';applyGenderTheme()}
 
-    function resetAll(){if(countdownInterval)clearInterval(countdownInterval);if(celebrationInterval)clearInterval(celebrationInterval);document.getElementById('inputCelebrantName').value='';document.getElementById('inputDob').value='';document.getElementById('inputRelation').value='myself';document.getElementById('inputGender').value='male';document.getElementById('inputAgeGroup').value='adult';document.getElementById('greetingBox').style.display='none';document.getElementById('countdownGrid').style.display='none';document.getElementById('complimentBox').style.display='none';document.getElementById('infoRow').style.display='none';document.getElementById('shareBarWrap').style.display='none';document.body.classList.remove('party-active','female-theme','baby-girl-theme','baby-boy-theme');closeCelebration();applyGenderTheme();lastCelebrationName=''}
+    function applyGenderTheme(){
+      currentGender=document.getElementById('inputGender').value;
+      const isChild=isChildTheme();
+      document.body.classList.remove('female-theme','baby-girl-theme','baby-boy-theme');
+      if(currentGender==='female'&&isChild)document.body.classList.add('baby-girl-theme');
+      else if(currentGender==='male'&&isChild)document.body.classList.add('baby-boy-theme');
+      else if(currentGender==='female')document.body.classList.add('female-theme');
+    }
+
+    function updateGenderByRelation(){
+      const rel=document.getElementById('inputRelation').value;
+      currentRelation=rel;
+      const g=document.getElementById('inputGender');
+      if(rel==='mother'||rel==='sister'||rel==='aunt'||rel==='niece')g.value='female';
+      else if(rel==='father'||rel==='brother'||rel==='uncle'||rel==='nephew')g.value='male';
+      applyGenderTheme();
+    }
+
+    function resetAll(){
+      if(countdownInterval)clearInterval(countdownInterval);
+      if(celebrationInterval)clearInterval(celebrationInterval);
+      document.getElementById('inputCelebrantName').value='';
+      document.getElementById('inputDob').value='';
+      document.getElementById('inputRelation').value='myself';
+      document.getElementById('inputGender').value='male';
+      document.getElementById('inputAgeGroup').value='adult';
+      document.getElementById('greetingBox').style.display='none';
+      document.getElementById('countdownGrid').style.display='none';
+      document.getElementById('complimentBox').style.display='none';
+      document.getElementById('infoRow').style.display='none';
+      document.getElementById('shareBarWrap').style.display='none';
+      document.body.classList.remove('female-theme','baby-girl-theme','baby-boy-theme');
+      closeCelebration();
+      applyGenderTheme();
+      lastCelebrationName='';
+    }
 
     const zodiacSigns=[{name:'Capricorn',emoji:'♑',start:[1,1],end:[1,19]},{name:'Aquarius',emoji:'♒',start:[1,20],end:[2,18]},{name:'Pisces',emoji:'♓',start:[2,19],end:[3,20]},{name:'Aries',emoji:'♈',start:[3,21],end:[4,19]},{name:'Taurus',emoji:'♉',start:[4,20],end:[5,20]},{name:'Gemini',emoji:'♊',start:[5,21],end:[6,20]},{name:'Cancer',emoji:'♋',start:[6,21],end:[7,22]},{name:'Leo',emoji:'♌',start:[7,23],end:[8,22]},{name:'Virgo',emoji:'♍',start:[8,23],end:[9,22]},{name:'Libra',emoji:'♎',start:[9,23],end:[10,22]},{name:'Scorpio',emoji:'♏',start:[10,23],end:[11,21]},{name:'Sagittarius',emoji:'♐',start:[11,22],end:[12,21]},{name:'Capricorn',emoji:'♑',start:[12,22],end:[12,31]}];
+
     function getZodiac(m,d){for(let z of zodiacSigns)if((m===z.start[0]&&d>=z.start[1])||(m===z.end[0]&&d<=z.end[1]))return z;return zodiacSigns[0]}
     function getDayName(d){return d.toLocaleDateString('en-US',{weekday:'long'})}
-    function createConfetti(id){const c=document.getElementById(id);c.innerHTML='';const cols=['#FFD700','#FF6B6B','#4FC3F7','#34D399','#AB47BC','#FFA726','#E2C87A','#FF9EC0'];for(let i=0;i<50;i++){const d=document.createElement('div');d.style.left=Math.random()*100+'%';d.style.background=cols[Math.floor(Math.random()*cols.length)];d.style.animationDelay=Math.random()*4+'s';d.style.animationDuration=(3+Math.random()*3)+'s';d.style.width=(5+Math.random()*8)+'px';d.style.height=d.style.width;c.appendChild(d)}}
 
-    function getWishLine(){const rel=currentRelation,isChild=isChildTheme(),name=celebrantName;if(currentGender==='female'&&isChild)return `Wishing our little princess ${name} a magical day full of sparkles, cuddles, and all the love in the world! 🌸🎀💖`;if(currentGender==='male'&&isChild)return `Happy Birthday to our little superhero ${name}! May your day be filled with fun, balloons, and the biggest smiles! 🚀🎈✨`;if(rel==='myself')return currentGender==='female'?`May your day be as beautiful and radiant as you are, ${name}! Wishing you endless joy, love, and success in the year ahead. 💖✨`:`Wishing you a year ahead full of joy, health, and every success you deserve, ${name}! ✨`;if(rel==='mother')return `To the most wonderful mother, ${name} — thank you for your endless love and care. Wishing you a day as beautiful as your heart. 💖🌹`;if(rel==='father')return `To an amazing father, ${name} — wishing you strength, health, and joy in the year ahead! 🎉`;if(rel==='sister')return `To my dearest sister ${name}, you make life brighter just by being in it. Wishing you a day filled with love, laughter, and everything your heart desires. 🌸💕`;if(rel==='brother')return `Happy Birthday to an amazing brother, ${name}! Wishing you an incredible year ahead! 🎉`;if(rel==='niece')return `Happy Birthday to our lovely niece, ${name}! May your day be filled with sweetness, sparkle, and all the happiness you bring to others. 🌸🎀`;if(rel==='nephew')return `Happy Birthday to our amazing nephew, ${name}! Wishing you a fantastic day full of adventure and fun! 🎂`;if(rel==='aunt')return `Happy Birthday to a wonderful aunt, ${name}! Wishing you love, health, and every happiness your heart can hold. 💐`;if(rel==='uncle')return `Happy Birthday to a wonderful uncle, ${name}! Wishing you a great year ahead! 🎉`;if(rel==='friend')return currentGender==='female'?`Happy Birthday to a truly beautiful friend, ${name}! May your day be as lovely and kind as you are. 💖`:`Happy Birthday to a great friend, ${name}! Wishing you an awesome year ahead! 🎉`;if(rel==='lovedone')return currentGender==='female'?`To my dearest ${name}, you are the light of my life. Wishing you a day filled with love, joy, and every beautiful thing. 💖✨`:`To my dearest ${name}, wishing you a day filled with love and all your favorite things. ❤️`;if(rel==='colleague')return `Happy Birthday, ${name}! Wishing you continued success and happiness in everything you do. 🎉`;return `Wishing ${name} a day full of joy, laughter, and everything wonderful! 🎉`;}
+    function createConfetti(id){
+      const c=document.getElementById(id);
+      c.innerHTML='';
+      const cols=['#FFD700','#FF6B6B','#4FC3F7','#34D399','#AB47BC','#FFA726','#E2C87A','#FF9EC0'];
+      for(let i=0;i<50;i++){
+        const d=document.createElement('div');
+        d.style.left=Math.random()*100+'%';
+        d.style.background=cols[Math.floor(Math.random()*cols.length)];
+        d.style.animationDelay=Math.random()*4+'s';
+        d.style.animationDuration=(3+Math.random()*3)+'s';
+        d.style.width=(5+Math.random()*8)+'px';
+        d.style.height=d.style.width;
+        c.appendChild(d);
+      }
+    }
 
-    function showCelebration(name,isBday){if(lastCelebrationName===name&&document.getElementById('celebrationOverlay').classList.contains('active'))return;lastCelebrationName=name;createConfetti('celebConfetti');const overlay=document.getElementById('celebrationOverlay');overlay.className='celebration-overlay active';if(document.body.classList.contains('baby-girl-theme'))overlay.classList.add('baby-bg');else if(document.body.classList.contains('baby-boy-theme'))overlay.classList.add('baby-boy-bg');else if(document.body.classList.contains('female-theme'))overlay.classList.add('female-bg');else overlay.classList.add('default-bg');document.getElementById('celebNameDisplay').textContent=name;document.getElementById('celebWish').textContent=getWishLine();if(isBday){document.getElementById('celebEmoji').textContent='🎉';document.getElementById('celebTitle').textContent='🎂 Happy Birthday!';}else{const e=document.body.classList.contains('baby-girl-theme')?'🌸':document.body.classList.contains('baby-boy-theme')?'🚀':document.body.classList.contains('female-theme')?'💖':'💎';document.getElementById('celebEmoji').textContent=e;document.getElementById('celebTitle').textContent='Hi ' + name + ', your birthday countdown has begun!';}updateCelebrationCountdown();if(celebrationInterval)clearInterval(celebrationInterval);celebrationInterval=setInterval(updateCelebrationCountdown,1000);startMelodyLoop()}
+    function getWishLine(){
+      const rel=currentRelation,isChild=isChildTheme(),name=celebrantName;
+      if(currentGender==='female'&&isChild)return `Wishing our little princess ${name} a magical day full of sparkles, cuddles, and all the love in the world! 🌸🎀💖`;
+      if(currentGender==='male'&&isChild)return `Happy Birthday to our little superhero ${name}! May your day be filled with fun, balloons, and the biggest smiles! 🚀🎈✨`;
+      if(rel==='myself')return currentGender==='female'?`May your day be as beautiful and radiant as you are, ${name}! Wishing you endless joy, love, and success in the year ahead. 💖✨`:`Wishing you a year ahead full of joy, health, and every success you deserve, ${name}! ✨`;
+      if(rel==='mother')return `To the most wonderful mother, ${name} — thank you for your endless love and care. Wishing you a day as beautiful as your heart. 💖🌹`;
+      if(rel==='father')return `To an amazing father, ${name} — wishing you strength, health, and joy in the year ahead! 🎉`;
+      if(rel==='sister')return `To my dearest sister ${name}, you make life brighter just by being in it. Wishing you a day filled with love, laughter, and everything your heart desires. 🌸💕`;
+      if(rel==='brother')return `Happy Birthday to an amazing brother, ${name}! Wishing you an incredible year ahead! 🎉`;
+      if(rel==='niece')return `Happy Birthday to our lovely niece, ${name}! May your day be filled with sweetness, sparkle, and all the happiness you bring to others. 🌸🎀`;
+      if(rel==='nephew')return `Happy Birthday to our amazing nephew, ${name}! Wishing you a fantastic day full of adventure and fun! 🎂`;
+      if(rel==='aunt')return `Happy Birthday to a wonderful aunt, ${name}! Wishing you love, health, and every happiness your heart can hold. 💐`;
+      if(rel==='uncle')return `Happy Birthday to a wonderful uncle, ${name}! Wishing you a great year ahead! 🎉`;
+      if(rel==='friend')return currentGender==='female'?`Happy Birthday to a truly beautiful friend, ${name}! May your day be as lovely and kind as you are. 💖`:`Happy Birthday to a great friend, ${name}! Wishing you an awesome year ahead! 🎉`;
+      if(rel==='lovedone')return currentGender==='female'?`To my dearest ${name}, you are the light of my life. Wishing you a day filled with love, joy, and every beautiful thing. 💖✨`:`To my dearest ${name}, wishing you a day filled with love and all your favorite things. ❤️`;
+      if(rel==='colleague')return `Happy Birthday, ${name}! Wishing you continued success and happiness in everything you do. 🎉`;
+      return `Wishing ${name} a day full of joy, laughter, and everything wonderful! 🎉`;
+    }
 
-    function updateCelebrationCountdown(){if(!nextBirthday)return;const n=new Date();let d=nextBirthday-n;if(d<=0){document.getElementById('celebCountdownGrid').innerHTML='<div class="celeb-countdown-pill" style="grid-column:1/-1"><div class="value" style="font-size:1.5rem">🎉 TODAY! 🎂</div></div>';if(celebrationInterval)clearInterval(celebrationInterval);return;}const ts=Math.floor(d/1000),tm=Math.floor(ts/60),th=Math.floor(tm/60),td=Math.floor(th/24),y=Math.floor(td/365.25),rd=td-Math.floor(y*365.25),mo=Math.floor(rd/30.44),da=Math.floor(rd-mo*30.44),h=th%24,mi=tm%60,s=ts%60;let html='';[{v:y,u:'Yrs'},{v:mo,u:'Mos'},{v:da,u:'Days'},{v:h,u:'Hrs'},{v:mi,u:'Min'},{v:s,u:'Sec'}].forEach(p=>{html+=`<div class="celeb-countdown-pill"><div class="value">${p.v}</div><div class="unit">${p.u}</div></div>`});document.getElementById('celebCountdownGrid').innerHTML=html;}
+    function showCelebration(name,isBday){
+      if(lastCelebrationName===name&&document.getElementById('celebrationOverlay').classList.contains('active'))return;
+      lastCelebrationName=name;
+      createConfetti('celebConfetti');
+      const overlay=document.getElementById('celebrationOverlay');
+      overlay.className='celebration-overlay active';
+      if(document.body.classList.contains('baby-girl-theme'))overlay.classList.add('baby-bg');
+      else if(document.body.classList.contains('baby-boy-theme'))overlay.classList.add('baby-boy-bg');
+      else if(document.body.classList.contains('female-theme'))overlay.classList.add('female-bg');
+      else overlay.classList.add('default-bg');
+      document.getElementById('celebNameDisplay').textContent=name;
+      document.getElementById('celebWish').textContent=getWishLine();
+      if(isBday){
+        document.getElementById('celebEmoji').textContent='🎉';
+        document.getElementById('celebTitle').textContent='🎂 Happy Birthday!';
+      }else{
+        const e=document.body.classList.contains('baby-girl-theme')?'🌸':document.body.classList.contains('baby-boy-theme')?'🚀':document.body.classList.contains('female-theme')?'💖':'💎';
+        document.getElementById('celebEmoji').textContent=e;
+        document.getElementById('celebTitle').textContent='Hi '+name+', your birthday countdown has begun!';
+      }
+      updateCelebrationCountdown();
+      if(celebrationInterval)clearInterval(celebrationInterval);
+      celebrationInterval=setInterval(updateCelebrationCountdown,1000);
+      startMelodyLoop();
+    }
 
-    function closeCelebration(){document.getElementById('celebrationOverlay').classList.remove('active');if(celebrationInterval)clearInterval(celebrationInterval);stopMelodyLoop();lastCelebrationName='';}
+    function updateCelebrationCountdown(){
+      if(!nextBirthday)return;
+      const n=new Date();
+      let d=nextBirthday-n;
+      if(d<=0){
+        document.getElementById('celebCountdownGrid').innerHTML='<div class="celeb-countdown-pill" style="grid-column:1/-1"><div class="value" style="font-size:1.5rem">🎉 TODAY! 🎂</div></div>';
+        if(celebrationInterval)clearInterval(celebrationInterval);
+        return;
+      }
+      const ts=Math.floor(d/1000),tm=Math.floor(ts/60),th=Math.floor(tm/60),td=Math.floor(th/24);
+      const y=Math.floor(td/365.25),rd=td-Math.floor(y*365.25),mo=Math.floor(rd/30.44),da=Math.floor(rd-mo*30.44);
+      const h=th%24,mi=tm%60,s=ts%60;
+      let html='';
+      [{v:y,u:'Yrs'},{v:mo,u:'Mos'},{v:da,u:'Days'},{v:h,u:'Hrs'},{v:mi,u:'Min'},{v:s,u:'Sec'}].forEach(p=>{
+        html+=`<div class="celeb-countdown-pill"><div class="value">${p.v}</div><div class="unit">${p.u}</div></div>`;
+      });
+      document.getElementById('celebCountdownGrid').innerHTML=html;
+    }
 
-    function startCountdown(){celebrantName=document.getElementById('inputCelebrantName').value.trim();if(!celebrantName){alert('Please enter a name.');return}const dobStr=document.getElementById('inputDob').value;if(!dobStr){alert('Please select the date of birth.');return}const dob=new Date(dobStr),now=new Date();nextBirthday=new Date(now.getFullYear(),dob.getMonth(),dob.getDate());if(nextBirthday<=now)nextBirthday.setFullYear(now.getFullYear()+1);const zodiac=getZodiac(dob.getMonth()+1,dob.getDate()),dayName=getDayName(dob),age=estimateAge();applyGenderTheme();document.getElementById('greetingCelebrant').textContent=celebrantName;document.getElementById('greetingBox').style.display='block';document.getElementById('infoRow').style.display='grid';document.getElementById('infoRow').innerHTML=`<div class="info-card"><div class="lbl">Next Birthday</div><div class="val">${nextBirthday.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</div></div><div class="info-card"><div class="lbl">Zodiac Sign</div><div class="val">${zodiac.emoji} ${zodiac.name}</div></div><div class="info-card"><div class="lbl">Day of Birth</div><div class="val">${dayName}</div></div>`;document.getElementById('shareBarWrap').style.display='flex';document.body.classList.add('party-active');if(countdownInterval)clearInterval(countdownInterval);tickCountdown();countdownInterval=setInterval(tickCountdown,1000);showCelebration(celebrantName,false);}
+    function closeCelebration(){
+      document.getElementById('celebrationOverlay').classList.remove('active');
+      if(celebrationInterval)clearInterval(celebrationInterval);
+      stopMelodyLoop();
+      lastCelebrationName='';
+    }
 
-    function tickCountdown(){const now=new Date();let diff=nextBirthday-now;if(diff<=0){document.getElementById('countdownGrid').innerHTML='<div class="countdown-pill" style="grid-column:1/-1;animation:none"><div class="value" style="font-size:1.3rem">🎉 Today is the day! 🎂</div></div>';document.getElementById('countdownGrid').style.display='grid';document.getElementById('complimentBox').textContent=getWishLine();document.getElementById('complimentBox').style.display='block';showCelebration(celebrantName,true);if(countdownInterval)clearInterval(countdownInterval);return;}const ts=Math.floor(diff/1000),tm=Math.floor(ts/60),th=Math.floor(tm/60),td=Math.floor(th/24),y=Math.floor(td/365.25),rd=td-Math.floor(y*365.25),mo=Math.floor(rd/30.44),da=Math.floor(rd-mo*30.44),h=th%24,mi=tm%60,s=ts%60;let html='';[{v:y,u:'Years'},{v:mo,u:'Months'},{v:da,u:'Days'},{v:h,u:'Hours'},{v:mi,u:'Minutes'},{v:s,u:'Seconds'}].forEach(p=>{html+=`<div class="countdown-pill"><div class="value">${p.v}</div><div class="unit">${p.u}</div></div>`});document.getElementById('countdownGrid').innerHTML=html;document.getElementById('countdownGrid').style.display='grid';document.getElementById('complimentBox').textContent=getWishLine();document.getElementById('complimentBox').style.display='block';}
+    function startCountdown(){
+      celebrantName=document.getElementById('inputCelebrantName').value.trim();
+      if(!celebrantName){alert('Please enter a name.');return}
+      const dobStr=document.getElementById('inputDob').value;
+      if(!dobStr){alert('Please select the date of birth.');return}
+      const dob=new Date(dobStr),now=new Date();
+      nextBirthday=new Date(now.getFullYear(),dob.getMonth(),dob.getDate());
+      if(nextBirthday<=now)nextBirthday.setFullYear(now.getFullYear()+1);
+      const zodiac=getZodiac(dob.getMonth()+1,dob.getDate()),dayName=getDayName(dob);
+      applyGenderTheme();
+      document.getElementById('greetingCelebrant').textContent=celebrantName;
+      document.getElementById('greetingBox').style.display='block';
+      document.getElementById('infoRow').style.display='grid';
+      document.getElementById('infoRow').innerHTML=`
+        <div class="info-card"><div class="lbl">Next Birthday</div><div class="val">${nextBirthday.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</div></div>
+        <div class="info-card"><div class="lbl">Zodiac Sign</div><div class="val">${zodiac.emoji} ${zodiac.name}</div></div>
+        <div class="info-card"><div class="lbl">Day of Birth</div><div class="val">${dayName}</div></div>`;
+      document.getElementById('shareBarWrap').style.display='grid';
+      if(countdownInterval)clearInterval(countdownInterval);
+      tickCountdown();
+      countdownInterval=setInterval(tickCountdown,1000);
+      showCelebration(celebrantName,false);
+    }
 
-    function estimateAge(){const d=document.getElementById('inputDob').value;if(!d)return 99;const b=new Date(d),n=new Date();let a=n.getFullYear()-b.getFullYear();const m=n.getMonth()-b.getMonth();if(m<0||(m===0&&n.getDate()<b.getDate()))a--;return a}
+    function tickCountdown(){
+      const now=new Date();
+      let diff=nextBirthday-now;
+      if(diff<=0){
+        document.getElementById('countdownGrid').innerHTML='<div class="countdown-pill" style="grid-column:1/-1;animation:none"><div class="value" style="font-size:1.3rem">🎉 Today is the day! 🎂</div></div>';
+        document.getElementById('countdownGrid').style.display='grid';
+        document.getElementById('complimentBox').textContent=getWishLine();
+        document.getElementById('complimentBox').style.display='block';
+        showCelebration(celebrantName,true);
+        if(countdownInterval)clearInterval(countdownInterval);
+        return;
+      }
+      const ts=Math.floor(diff/1000),tm=Math.floor(ts/60),th=Math.floor(tm/60),td=Math.floor(th/24);
+      const y=Math.floor(td/365.25),rd=td-Math.floor(y*365.25),mo=Math.floor(rd/30.44),da=Math.floor(rd-mo*30.44);
+      const h=th%24,mi=tm%60,s=ts%60;
+      let html='';
+      [{v:y,u:'Years'},{v:mo,u:'Months'},{v:da,u:'Days'},{v:h,u:'Hours'},{v:mi,u:'Minutes'},{v:s,u:'Seconds'}].forEach(p=>{
+        html+=`<div class="countdown-pill"><div class="value">${p.v}</div><div class="unit">${p.u}</div></div>`;
+      });
+      document.getElementById('countdownGrid').innerHTML=html;
+      document.getElementById('countdownGrid').style.display='grid';
+      document.getElementById('complimentBox').textContent=getWishLine();
+      document.getElementById('complimentBox').style.display='block';
+    }
 
-    function buildShareUrl(){return `https://coldmatrixtools.com/birthday-countdown.html?name=${encodeURIComponent(celebrantName)}&dob=${document.getElementById('inputDob').value}&gender=${currentGender}&rel=${encodeURIComponent(currentRelation)}&age=${document.getElementById('inputAgeGroup').value}`;}
-    function getShareText(){return `🎂 ${celebrantName}'s Birthday Countdown is LIVE!\n⏳ Watch the seconds tick away…\n\n🔗 ${buildShareUrl()}\n\n✨ Created with ColdMatrix Tools`;}
-    function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(getShareText()),'_blank');}
+    function buildShareUrl(){
+      return `https://coldmatrixtools.com/birthday-countdown.html?name=${encodeURIComponent(celebrantName)}&dob=${document.getElementById('inputDob').value}&gender=${currentGender}&rel=${encodeURIComponent(currentRelation)}&age=${document.getElementById('inputAgeGroup').value}`;
+    }
+    function getShareText(){
+      return `🎂 ${celebrantName}'s Birthday Countdown is LIVE!\n⏳ Watch the seconds tick away…\n\n🔗 ${buildShareUrl()}\n\n✨ Created with ColdMatrix Tools`;
+    }
+    function shareWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent(getShareText()),'_blank')}
 
-    async function downloadResult(type){const inner=document.getElementById('shareCaptureInner');const isChild=isChildTheme();let gradient,textColor,pillBg,pillBorder;if(currentGender==='female'&&isChild){gradient='linear-gradient(145deg,#FF8AB5,#FFD0E8 60%,#FFF0F6)';textColor='#7A1F45';pillBg='rgba(255,255,255,0.55)';pillBorder='#FF9EC0';}else if(currentGender==='male'&&isChild){gradient='linear-gradient(145deg,#5FB8FF,#D0EFFF 60%,#F0FAFF)';textColor='#0D3A5C';pillBg='rgba(255,255,255,0.55)';pillBorder='#7EC8FF';}else if(currentGender==='female'){gradient='linear-gradient(145deg,#2A1440,#C08AD8 65%,#E8C0F0)';textColor='#FFFFFF';pillBg='rgba(255,255,255,0.15)';pillBorder='#E8C0F0';}else{gradient='linear-gradient(145deg,#1a1408,#C8A84E 65%,#E2C87A)';textColor='#FFFFFF';pillBg='rgba(255,255,255,0.15)';pillBorder='#FFD700';}inner.style.background=gradient;inner.style.color=textColor;document.getElementById('pvBrand').style.color=textColor;document.getElementById('pvCelebrant').textContent=celebrantName;document.getElementById('pvDob').textContent='🎉 '+(nextBirthday?nextBirthday.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}):'');document.getElementById('pvWish').textContent=getWishLine();const pills=document.querySelectorAll('#countdownGrid .countdown-pill');let gridHtml='';pills.forEach(p=>{gridHtml+=`<div style="background:${pillBg};border:1.5px solid ${pillBorder};border-radius:12px;padding:10px 4px;"><div style="font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:800;">${p.querySelector('.value').textContent}</div><div style="font-size:0.55rem;text-transform:uppercase;letter-spacing:0.5px;opacity:0.85;">${p.querySelector('.unit').textContent}</div></div>`;});document.getElementById('pvCountdownGrid').innerHTML=gridHtml;const el=document.getElementById('shareCapture');el.style.display='block';const canvas=await html2canvas(inner,{backgroundColor:null,scale:2});el.style.display='none';if(type==='pdf'){const{jsPDF}=window.jspdf;const img=canvas.toDataURL('image/jpeg',0.95);const pdf=new jsPDF({orientation:canvas.width>canvas.height?'l':'p',unit:'px',format:[canvas.width,canvas.height]});pdf.addImage(img,'JPEG',0,0,canvas.width,canvas.height);pdf.save('ColdMatrix-Birthday-Countdown.pdf');}else{const mime=type==='jpg'?'image/jpeg':'image/png';const link=document.createElement('a');link.download='ColdMatrix-Birthday-Countdown.'+type;link.href=canvas.toDataURL(mime,0.95);link.click();}}
+    async function downloadResult(type){
+      const inner=document.getElementById('shareCaptureInner');
+      const isChild=isChildTheme();
+      let gradient,textColor,pillBg,pillBorder;
+      if(currentGender==='female'&&isChild){gradient='linear-gradient(145deg,#FF8AB5,#FFD0E8 60%,#FFF0F6)';textColor='#7A1F45';pillBg='rgba(255,255,255,0.55)';pillBorder='#FF9EC0';}
+      else if(currentGender==='male'&&isChild){gradient='linear-gradient(145deg,#5FB8FF,#D0EFFF 60%,#F0FAFF)';textColor='#0D3A5C';pillBg='rgba(255,255,255,0.55)';pillBorder='#7EC8FF';}
+      else if(currentGender==='female'){gradient='linear-gradient(145deg,#2A1440,#C08AD8 65%,#E8C0F0)';textColor='#FFFFFF';pillBg='rgba(255,255,255,0.15)';pillBorder='#E8C0F0';}
+      else{gradient='linear-gradient(145deg,#1a1408,#C8A84E 65%,#E2C87A)';textColor='#FFFFFF';pillBg='rgba(255,255,255,0.15)';pillBorder='#FFD700';}
 
-    function checkUrlParams(){const p=new URLSearchParams(window.location.search);if(p.has('name')&&p.has('dob')){document.getElementById('inputCelebrantName').value=decodeURIComponent(p.get('name'));document.getElementById('inputDob').value=p.get('dob');if(p.has('age')){document.getElementById('inputAgeGroup').value=p.get('age')}if(p.has('gender')){document.getElementById('inputGender').value=p.get('gender');applyGenderTheme()}if(p.has('rel')){document.getElementById('inputRelation').value=decodeURIComponent(p.get('rel'));updateGenderByRelation()}startCountdown();}}
+      inner.style.background=gradient;
+      inner.style.color=textColor;
+      document.getElementById('pvBrand').style.color=textColor;
+      document.getElementById('pvCelebrant').textContent=celebrantName;
+      document.getElementById('pvDob').textContent='🎉 '+(nextBirthday?nextBirthday.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}):'');
+      document.getElementById('pvWish').textContent=getWishLine();
 
-    let deferredPrompt;const installBar=document.getElementById('installBarTool');
+      const pills=document.querySelectorAll('#countdownGrid .countdown-pill');
+      let gridHtml='';
+      pills.forEach(p=>{
+        gridHtml+=`<div style="background:${pillBg};border:1.5px solid ${pillBorder};border-radius:12px;padding:10px 4px;"><div style="font-family:'Montserrat',sans-serif;font-size:1.1rem;font-weight:800;">${p.querySelector('.value').textContent}</div><div style="font-size:0.55rem;text-transform:uppercase;letter-spacing:0.5px;opacity:0.85;">${p.querySelector('.unit').textContent}</div></div>`;
+      });
+      document.getElementById('pvCountdownGrid').innerHTML=gridHtml;
+
+      const el=document.getElementById('shareCapture');
+      el.style.display='block';
+      const canvas=await html2canvas(inner,{backgroundColor:null,scale:2});
+      el.style.display='none';
+
+      if(type==='pdf'){
+        const{jsPDF}=window.jspdf;
+        const img=canvas.toDataURL('image/jpeg',0.95);
+        const pdf=new jsPDF({orientation:canvas.width>canvas.height?'l':'p',unit:'px',format:[canvas.width,canvas.height]});
+        pdf.addImage(img,'JPEG',0,0,canvas.width,canvas.height);
+        pdf.save('ColdMatrix-Birthday-Countdown.pdf');
+      }else{
+        const mime=type==='jpg'?'image/jpeg':'image/png';
+        const link=document.createElement('a');
+        link.download='ColdMatrix-Birthday-Countdown.'+type;
+        link.href=canvas.toDataURL(mime,0.95);
+        link.click();
+      }
+    }
+
+    function checkUrlParams(){
+      const p=new URLSearchParams(window.location.search);
+      if(p.has('name')&&p.has('dob')){
+        document.getElementById('inputCelebrantName').value=decodeURIComponent(p.get('name'));
+        document.getElementById('inputDob').value=p.get('dob');
+        if(p.has('age'))document.getElementById('inputAgeGroup').value=p.get('age');
+        if(p.has('gender')){document.getElementById('inputGender').value=p.get('gender');applyGenderTheme();}
+        if(p.has('rel')){document.getElementById('inputRelation').value=decodeURIComponent(p.get('rel'));updateGenderByRelation();}
+        startCountdown();
+      }
+    }
+
+    let deferredPrompt;
+    const installBar=document.getElementById('installBarTool');
     window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBar.style.display='block'});
-    window.installAppTool=function(){if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{installBar.style.display='none'})}else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.')}};
+    window.installAppTool=function(){
+      if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{installBar.style.display='none'});}
+      else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');}
+    };
     if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{})}
     window.addEventListener('DOMContentLoaded',checkUrlParams);
+
     function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('Check out this Birthday Countdown from ColdMatrix Tools! '+window.location.href),'_blank')}
     function copyToolLink(){navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{alert(window.location.href)})}
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Birthday Countdown — Premium Party Timer",
-    "url": "https://coldmatrixtools.com/birthday-countdown.html",
-    "applicationCategory": "LifestyleApplication",
-    "description": "Count down to any birthday with live party timer, music, balloons, and full-screen celebration. Free premium birthday countdown tool.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Does the birthday countdown update automatically?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, the countdown updates live every second, so it's always accurate."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I share the countdown with others?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, click WhatsApp to share a link that anyone can open to see the same countdown."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What happens when the countdown reaches zero?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "A full-screen celebration begins with confetti, balloons, music, and a personalized birthday message."
-        }
-      }
-    ]
-  }
   </script>
 </body>
 </html>

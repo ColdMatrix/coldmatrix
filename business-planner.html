@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="canonical" href="https://coldmatrixtools.com/business-planner.html">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DCJ7K7LSCF')</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ColdMatrix Business Planner — Executive Digital Diary & Goal Tracker</title>
     <meta name="description" content="A premium executive business planner — set goals, plan meetings, manage tasks, organize trips, track expenses, manage contacts, and write notes. Free, private, and beautiful.">
+    <meta name="keywords" content="business planner, executive planner, CEO planner, entrepreneur planner, digital diary, goal tracker, meeting planner, task manager, expense tracker">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="ColdMatrix Tools">
     <meta property="og:title" content="ColdMatrix Business Planner — Executive Digital Diary">
     <meta property="og:description" content="Set goals, plan meetings, manage tasks, organize trips, track expenses — your complete digital business companion.">
     <meta property="og:url" content="https://coldmatrixtools.com/business-planner.html">
-    <meta name="theme-color" content="#F8F5F0">
+    <meta property="og:image" content="https://coldmatrixtools.com/business_planner.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ColdMatrix Business Planner — Executive Digital Diary">
+    <meta name="twitter:description" content="Set goals, plan meetings, manage tasks, organize trips, track expenses — your complete digital business companion.">
+    <meta name="twitter:image" content="https://coldmatrixtools.com/business_planner.jpg">
+    <meta name="theme-color" content="#0A0F14">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -27,10 +39,13 @@
             --muted: #6B7280;
             --gold: #C8993A;
             --gold-bright: #D4AF37;
+            --gold-deep: #A07828;
             --gold-light: #F5E6C8;
             --gold-border: linear-gradient(145deg, #C8993A, #E8C96A 30%, #A07828 70%, #D4A843);
+            --gold-glow: rgba(200,153,58,0.35);
             --red: #C0392B;
             --line: #E5E0D5;
+            --whatsapp-green: #25D366;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
@@ -40,100 +55,321 @@
         }
         .container { max-width: 1000px; margin:0 auto; padding:20px; }
 
-        .navbar { position:sticky; top:0; z-index:100; background:rgba(248,245,240,0.95); backdrop-filter:blur(14px); border-bottom:2px solid; border-image: var(--gold-border) 1; }
-        .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; max-width:1000px; margin:0 auto; }
-        .logo { font-size:1.3rem; font-weight:700; color:var(--gold); text-decoration:none; display:flex; align-items:center; gap:8px; }
-        .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
-        .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.9rem; }
-        .nav-links a:hover, .nav-links a.active { color:var(--gold); }
+        /* GOLDEN NAVBAR */
+        .navbar { position:sticky; top:0; z-index:100; background:rgba(248,245,240,0.95); backdrop-filter:blur(14px); border-bottom:2px solid var(--gold-bright); }
+        .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; max-width:1000px; margin:0 auto; padding-left:20px; padding-right:20px; }
+        .logo { font-size:1.25rem; font-weight:800; color:var(--gold-deep); text-decoration:none; display:flex; align-items:center; gap:8px; }
+        .nav-links { display:flex; gap:18px; list-style:none; flex-wrap:wrap; }
+        .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.85rem; }
+        .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
 
-        .planner-header { text-align:center; padding:40px 0 20px; }
-        .planner-header h1 { font-family:'Playfair Display',serif; font-size:2.2rem; color:var(--ink); }
-        .planner-header h1 span { color:var(--gold); }
-        .planner-header p { color:var(--muted); font-size:1rem; margin-top:8px; font-style:italic; }
+        .back-link { display:inline-block; margin:14px 0 4px; color:var(--gold); text-decoration:none; font-weight:700; font-size:0.85rem; }
+
+        /* GOLDEN INSTALL BAR */
+        .install-bar {
+            display:block;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            color: #0A0F14; text-align: center;
+            padding: 12px 16px; border-radius: 10px; margin: 14px 0;
+            font-weight: 700; font-size: 0.85rem;
+            border: 1px solid #FFD700;
+            box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+        }
+        .install-bar button {
+            background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+            padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+            font-weight: 800; cursor: pointer; font-size: 0.8rem;
+        }
+
+        /* GET QUOTE STRIP */
+        .get-quote-strip { display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 20px; }
+        .get-quote-strip .quote-btn {
+            flex:1; min-width:140px;
+            display:flex; align-items:center; justify-content:center; gap:8px;
+            padding:13px 16px; background:var(--paper); border:2px solid var(--gold-bright);
+            border-radius:12px; color:var(--gold-deep);
+            font-family:'Oswald',sans-serif; font-weight:800;
+            font-size:0.85rem; text-decoration:none; cursor:pointer;
+            letter-spacing:0.5px; text-transform:uppercase;
+            box-shadow:0 4px 12px rgba(0,0,0,0.08), 0 0 10px var(--gold-glow);
+            transition:all 0.25s ease;
+        }
+        .get-quote-strip .quote-btn:hover { background:var(--gold-light); border-color:var(--gold-deep); transform:translateY(-2px); box-shadow:0 0 22px var(--gold-glow); }
+        .get-quote-strip .quote-btn.whatsapp { background:#25D366; color:#fff; border-color:#1da851; }
+        .get-quote-strip .quote-btn.whatsapp:hover { background:#1da851; border-color:#25D366; }
+
+        /* SHARE TOOL CARD */
+        .share-tool-card {
+            background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+            border:2px solid;
+            border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+            border-radius:12px; padding:16px 18px; margin-bottom:22px;
+            box-shadow:0 10px 34px rgba(0,0,0,0.35);
+        }
+        .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:12px; text-transform:uppercase; }
+        .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+        .share-tool-btn {
+            display:flex; align-items:center; justify-content:center; gap:8px;
+            padding:11px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
+            background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
+            transition:all 0.25s ease;
+        }
+        .share-tool-btn:hover { border-color:#FFD700; box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+        .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+        .share-tool-btn.wa:hover { border-color:#25D366; }
+
+        /* AD ZONE */
+        .ad-zone {
+            margin: 20px 0; padding: 20px;
+            background: rgba(200,153,58,0.06);
+            border: 2px dashed var(--gold-bright);
+            border-radius: 12px;
+            text-align: center;
+            min-height: 90px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--muted); font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        .planner-header { text-align:center; padding:24px 0 16px; }
+        .planner-header h1 { font-family:'Playfair Display',serif; font-size:2rem; color:var(--ink); line-height:1.2; }
+        .planner-header h1 span { color:var(--gold-bright); }
+        .planner-header p { color:var(--muted); font-size:0.95rem; margin-top:8px; font-style:italic; }
         .planner-divider { width:80px; height:3px; background:var(--gold-border); margin:16px auto; border-radius:2px; }
 
-        /* CAPSULE TABS - all equal height, rounded pill shape */
+        /* CAPSULE TABS */
         .section-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin: 20px 0 30px;
-            align-items: center;
+            display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+            margin: 20px 0 30px; align-items: center;
         }
         .section-tab {
             padding: 12px 18px;
-            border: 2px solid var(--gold);
+            border: 2px solid var(--gold-bright);
             background: var(--paper);
-            color: var(--ink);
+            color: var(--gold-deep);
             border-radius: 50px;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.2s;
             white-space: nowrap;
             display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            align-items: center; justify-content: center;
             min-height: 44px;
             box-sizing: border-box;
         }
         .section-tab:hover { background: var(--gold-light); }
-        .section-tab.active { background: var(--gold); color: #fff; }
+        .section-tab.active { background: var(--gold-bright); color: #fff; border-color: var(--gold-deep); }
 
         .planner-page { background:var(--paper); border:2px solid; border-image: var(--gold-border) 1; border-radius:16px; padding:30px; margin-bottom:30px; box-shadow:0 8px 30px rgba(0,0,0,0.08); }
         .page-title { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--ink); margin-bottom:6px; }
-        .page-subtitle { font-family:'Caveat',cursive; font-size:1.1rem; color:var(--muted); margin-bottom:20px; }
+        .page-subtitle { font-family:'Caveat',cursive; font-size:1.15rem; color:var(--muted); margin-bottom:20px; }
 
-        .summary-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:20px; }
-        .summary-card { background:var(--paper-cream); border:2px solid var(--gold); border-radius:12px; padding:16px; text-align:center; }
+        .summary-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:14px; margin-bottom:20px; }
+        .summary-card { background:var(--paper-cream); border:2px solid var(--gold-bright); border-radius:12px; padding:16px; text-align:center; }
         .summary-card .count { font-family:'Playfair Display',serif; font-size:2rem; font-weight:800; color:var(--gold); }
-        .summary-card .label { font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+        .summary-card .label { font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; font-weight:700; }
 
-        .entry-card { background:var(--paper-cream); border:1.5px solid var(--line); border-left:4px solid var(--gold); border-radius:10px; padding:16px; margin-bottom:12px; }
-        .entry-card h4 { font-size:0.95rem; color:var(--ink); margin-bottom:4px; }
+        .entry-card { background:var(--paper-cream); border:1.5px solid var(--line); border-left:4px solid var(--gold-bright); border-radius:10px; padding:16px; margin-bottom:12px; position:relative; }
+        .entry-card h4 { font-size:0.95rem; color:var(--ink); margin-bottom:4px; padding-right:30px; }
         .entry-card p { font-size:0.85rem; color:var(--muted); }
-        .entry-card .entry-date { font-size:0.75rem; color:var(--gold); font-weight:600; }
+        .entry-card .entry-date { font-size:0.75rem; color:var(--gold); font-weight:700; }
+        .entry-card.done { opacity: 0.6; }
+        .entry-card.done h4 { text-decoration: line-through; }
 
         .add-btn {
             display:inline-flex; align-items:center; gap:6px;
-            background:var(--gold); color:#fff; border:none;
-            padding:10px 20px; border-radius:50px; font-weight:600; cursor:pointer; font-size:0.85rem;
-            margin-top:10px;
+            background:var(--gold-bright); color:#fff; border:2px solid var(--gold-deep);
+            padding:11px 22px; border-radius:50px; font-weight:800; cursor:pointer; font-size:0.85rem;
+            margin-top:10px; letter-spacing:0.3px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
         }
-        .add-btn:hover { background:var(--gold-bright); }
+        .add-btn:hover { background: var(--gold); transform: translateY(-1px); }
 
-        .form-card { background:var(--paper-cream); border:2px solid var(--gold); border-radius:12px; padding:20px; margin:14px 0; display:none; }
+        .form-card { background:var(--paper-cream); border:2px solid var(--gold-bright); border-radius:12px; padding:20px; margin:14px 0; display:none; }
         .form-card.active { display:block; }
-        .form-card label { display:block; font-size:0.8rem; font-weight:600; margin-bottom:4px; color:var(--ink); }
+        .form-card label { display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px; color:var(--ink); }
         .form-card input, .form-card textarea, .form-card select {
-            width:100%; background:#fff; border:1.5px solid var(--line); color:var(--ink);
+            width:100%; background:#fff; border:1.5px solid var(--gold); color:var(--ink);
             padding:10px 12px; border-radius:8px; font-size:0.9rem; margin-bottom:12px; font-family:'Inter',sans-serif;
         }
+        .form-card input:focus, .form-card textarea:focus, .form-card select:focus { outline:none; border-color: var(--gold-bright); box-shadow: 0 0 10px var(--gold-glow); }
         .form-actions { display:flex; gap:8px; }
-        .form-save { background:var(--gold); color:#fff; border:none; padding:10px 20px; border-radius:8px; font-weight:600; cursor:pointer; }
-        .form-cancel { background:#e5e0d5; color:var(--ink); border:none; padding:10px 20px; border-radius:8px; font-weight:600; cursor:pointer; }
+        .form-save { background:var(--gold-bright); color:#fff; border:2px solid var(--gold-deep); padding:10px 22px; border-radius:8px; font-weight:700; cursor:pointer; }
+        .form-save:hover { background: var(--gold); }
+        .form-cancel { background:#e5e0d5; color:var(--ink); border:2px solid #d4cec0; padding:10px 22px; border-radius:8px; font-weight:700; cursor:pointer; }
 
         .empty-state { text-align:center; padding:30px; color:var(--muted); font-style:italic; }
-        .delete-btn { background:none; border:none; color:var(--red); cursor:pointer; font-size:0.9rem; float:right; }
+        .delete-btn { position:absolute; top:12px; right:12px; background:none; border:none; color:var(--red); cursor:pointer; font-size:1rem; font-weight:700; }
+        .delete-btn:hover { background: rgba(192,57,43,0.1); border-radius: 50%; }
+        .task-check {
+            display:inline-flex; align-items:center; justify-content:center;
+            width:22px; height:22px; border:2px solid var(--gold-bright); border-radius:6px;
+            background:#fff; cursor:pointer; margin-right:8px; vertical-align:middle; font-size:0.7rem; color:transparent;
+        }
+        .task-check.checked { background: var(--gold-bright); color:#fff; }
 
-        footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:30px 0 20px; border-top:2px solid; border-image: var(--gold-border) 1; margin-top:40px; }
-        footer a { color:var(--gold); text-decoration:none; }
+        /* SNAPSHOT BUTTON */
+        .snapshot-row { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+        .snapshot-btn {
+            background:var(--paper-cream); color:var(--gold-deep); border:2px solid var(--gold-bright);
+            padding:10px 18px; border-radius:50px; font-weight:700; cursor:pointer; font-size:0.8rem;
+            display:inline-flex; align-items:center; gap:6px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+        }
+        .snapshot-btn:hover { background: var(--gold-light); }
+
+        /* EDUCATIONAL SECTION — SILVER */
+        .edu-section {
+            margin:30px auto; padding:30px 24px;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold-bright);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.85; font-size: 0.95rem; color: #0A0F14;
+        }
+        .edu-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.35rem; margin-bottom:16px; border-bottom:2px solid var(--gold-bright); padding-bottom:10px; font-weight: 800; }
+        .edu-section h3 { color:#0A0F14; font-size:1.1rem; margin:22px 0 10px; font-weight: 800; }
+        .edu-section p, .edu-section ul, .edu-section ol { margin-bottom:14px; color: #0A0F14; font-weight: 500; }
+        .edu-section ul, .edu-section ol { padding-left:24px; }
+        .edu-section li { margin-bottom:6px; }
+        .edu-section strong { color:#0A0F14; font-weight: 800; }
+
+        /* PAKISTANI BLOCK */
+        .pakistani-block {
+            margin: 30px auto; padding: 24px 20px;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold-bright);
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.7);
+            line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+        }
+        .pakistani-block h2 { color:#0A0F14; font-family:'Oswald',sans-serif; font-size:1.15rem; margin-bottom:12px; font-weight: 800; }
+        .pakistani-block p { color:#0A0F14; font-weight: 500; margin-top: 10px; }
+        .pakistani-block strong { color:#0A0F14; font-weight: 800; }
+
+        /* RELATED TOOLS */
+        .related-tools-section {
+            margin: 20px auto; padding: 20px;
+            background: var(--paper);
+            border: 2px solid var(--gold-bright);
+            border-radius: 12px;
+        }
+        .related-tools-section h3 { color: var(--gold-deep); font-size:1rem; margin-bottom:10px; font-family:'Oswald',sans-serif; letter-spacing:0.5px; }
+        .related-tools-section a { color:#0A0F14; background: var(--gold-light); text-decoration:none; padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:700; display: inline-block; margin: 4px 4px 4px 0; border:1.5px solid var(--gold-bright); }
+
+        /* LEAD CAPTURE */
+        .lead-capture {
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold-bright);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin: 30px 0;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+        .lead-capture h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.2rem; margin-bottom:12px; letter-spacing:0.5px; font-weight: 800; }
+        .lead-capture p { color:#0A0F14; margin-bottom:18px; font-size:0.9rem; font-weight: 500; }
+        .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+        .lead-capture input[type="email"] {
+            background:#FFFFFF; border:2px solid var(--gold-bright); border-radius:10px;
+            padding:12px 16px; color:#0A0F14; font-size:0.95rem; font-weight: 600; outline:none;
+        }
+        .lead-capture input[type="email"]:focus { box-shadow:0 0 15px var(--gold-glow); }
+        .lead-capture button {
+            background: var(--gold-bright); border:2px solid var(--gold-deep); border-radius:10px;
+            padding:14px 20px; font-family:'Oswald',sans-serif; font-weight: 800;
+            font-size: 0.95rem; color:#fff; cursor:pointer;
+            letter-spacing: 0.5px; text-transform: uppercase;
+            transition: all 0.25s ease;
+        }
+        .lead-capture button:hover { background: var(--gold); transform: translateY(-2px); box-shadow: 0 0 20px var(--gold-glow); }
+
+        /* DISCLAIMER */
+        .disclaimer-box {
+            margin: 20px auto; padding: 16px 18px;
+            background: #C8CDD4;
+            background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+            border: 2px solid var(--gold-bright);
+            border-radius: 12px;
+            font-size: 0.85rem; color: #0A0F14; line-height: 1.7; font-weight: 500;
+        }
+        .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+        /* FOOTER */
+        footer { text-align:center; color: #C3CBD4; font-size:0.85rem; padding:30px 20px 20px; border-top:2px solid var(--gold-bright); margin-top:50px; background: rgba(10,15,20,0.95); }
+        footer a { color:#FFD700; text-decoration: none; font-weight: 600; }
+        footer .legal-links {
+            display:flex; justify-content:center; gap:20px; flex-wrap:wrap;
+            margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;
+        }
+        footer .legal-links a { text-decoration:underline; font-weight:700; font-size:0.85rem; }
+
+        .whatsapp-float {
+            position:fixed; bottom:20px; right:20px; z-index:999;
+            width:48px; height:48px; background:var(--whatsapp-green); border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem;
+        }
 
         @media (max-width:600px) {
             .planner-page { padding:20px 16px; }
-            .planner-header h1 { font-size:1.5rem; }
+            .planner-header h1 { font-size:1.4rem; }
             .section-tabs { gap:6px; }
-            .section-tab { padding:10px 14px; font-size:0.7rem; min-height:38px; }
+            .section-tab { padding:10px 14px; font-size:0.72rem; min-height:38px; }
             .summary-grid { grid-template-columns:1fr 1fr; }
+            .edu-section, .pakistani-block, .lead-capture { padding: 20px 16px !important; }
+            .edu-section h2 { font-size: 1.15rem; }
+            .nav-inner { padding-left:14px; padding-right:14px; }
         }
     </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ColdMatrix Business Planner",
+      "url": "https://coldmatrixtools.com/business-planner.html",
+      "applicationCategory": "BusinessApplication",
+      "description": "Premium executive business planner — goals, meetings, tasks, trips, marketing, expenses, contacts, and notes. Free, private, works offline.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is my data safe in the ColdMatrix Business Planner?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, 100% safe. All data is stored locally in your browser using localStorage. Nothing is ever uploaded to a server." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this planner offline?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. After the first load, the planner works completely offline." }
+        },
+        {
+          "@type": "Question",
+          "name": "Will my data be lost if I close the browser?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Your data persists automatically using local browser storage. Just reopen the planner and everything is there." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this planner really free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, it's 100% free with no registration, no subscription, and no hidden fees." }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
+    <!-- GOLDEN NAVBAR -->
     <nav class="navbar">
-        <div class="container nav-inner">
-            <a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a>
+        <div class="nav-inner">
+            <a href="index.html" class="logo">❄️ ColdMatrix</a>
             <ul class="nav-links">
                 <li><a href="index.html">🏠 Home</a></li>
                 <li><a href="index.html#tools">🛠️ Tools</a></li>
@@ -146,12 +382,36 @@
     </nav>
 
     <div class="container">
+        <a href="index.html#tools" class="back-link">← Back to Tools</a>
+
+        <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
         <div class="planner-header">
             <h1>📖 <span>ColdMatrix</span> Business Planner</h1>
-            <p>Your executive digital diary for goals, meetings, tasks, trips, expenses, and contacts</p>
+            <p>Your executive digital diary — goals, meetings, tasks, trips, expenses, contacts & notes in one beautiful place</p>
             <div class="planner-divider"></div>
         </div>
 
+        <div class="get-quote-strip">
+            <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20a%20business%20tool." class="quote-btn whatsapp" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i> Quick Chat
+            </a>
+            <a href="contact.html" class="quote-btn">
+                <i class="fa-solid fa-envelope"></i> Get a Quote
+            </a>
+        </div>
+
+        <div class="share-tool-card">
+            <div class="share-tool-title">Share This Tool</div>
+            <div class="share-tool-buttons">
+                <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+                <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+            </div>
+        </div>
+
+        <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+        <!-- SECTION TABS -->
         <div class="section-tabs" id="sectionTabs">
             <button class="section-tab active" data-section="summary">📊 Summary</button>
             <button class="section-tab" data-section="goals">🎯 Goals</button>
@@ -169,13 +429,18 @@
             <div class="page-title">📊 Weekly Summary Dashboard</div>
             <div class="page-subtitle">Everything at a glance — your complete business overview</div>
             <div class="summary-grid" id="summaryGrid"></div>
-            <h3 style="margin:20px 0 10px; color:var(--gold); font-family:'Playfair Display',serif;">Upcoming This Week</h3>
+            <h3 style="margin:20px 0 10px; color:var(--gold-bright); font-family:'Playfair Display',serif;">Upcoming This Week</h3>
             <div id="summaryUpcoming"></div>
+            <div class="snapshot-row">
+                <button class="snapshot-btn" onclick="downloadSnapshot('pdf')"><i class="fa-solid fa-file-pdf"></i> Export as PDF</button>
+                <button class="snapshot-btn" onclick="downloadSnapshot('jpg')"><i class="fa-solid fa-image"></i> Export as JPG</button>
+                <button class="snapshot-btn" onclick="backupAll()"><i class="fa-solid fa-download"></i> Backup All Data</button>
+            </div>
         </div>
 
         <!-- GOALS -->
         <div class="planner-page" id="section-goals" style="display:none;">
-            <div class="page-title">🎯 Business Goals & Targets</div>
+            <div class="page-title">🎯 Business Goals &amp; Targets</div>
             <div class="page-subtitle">Set your quarterly, half-yearly, and yearly targets</div>
             <div id="goalsList"></div>
             <button class="add-btn" onclick="showForm('goals')"><i class="fa-solid fa-plus"></i> Add Goal</button>
@@ -208,7 +473,7 @@
             <div class="form-card" id="form-meetings">
                 <label>Meeting Title</label>
                 <input type="text" id="meetingTitle" placeholder="e.g. Client Presentation">
-                <label>Date & Time</label>
+                <label>Date &amp; Time</label>
                 <input type="datetime-local" id="meetingDateTime">
                 <label>With Whom</label>
                 <input type="text" id="meetingWith" placeholder="e.g. Mr. Ahmed">
@@ -359,97 +624,169 @@
                 </div>
             </div>
         </div>
+
+        <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+        <!-- EDUCATIONAL -->
+        <div class="edu-section">
+            <h2>📖 The Complete Executive Business Planner Guide</h2>
+            <p>The <strong>ColdMatrix Business Planner</strong> is a premium executive digital diary — proudly invented and created by the <strong>ColdMatrix Business Team</strong> for business owners, entrepreneurs, CEOs, managers, and professionals worldwide. It brings together all essential business planning tools in one beautiful, paper-style interface that works on phone, tablet, and desktop.</p>
+
+            <h3>🎯 Complete Section Guide</h3>
+
+            <p><strong>📊 Summary Dashboard:</strong> Your weekly overview at a glance. See total counts for every category — goals, meetings, tasks, trips, marketing plans, expenses, contacts, and notes. The "Upcoming This Week" section automatically shows meetings, task deadlines, and trips scheduled within the next 7 days, so you never miss anything important.</p>
+
+            <p><strong>🎯 Goals &amp; Targets:</strong> Set clear business objectives with three time horizons — <em>Quarterly (3 months), Half-Yearly (6 months), and Yearly (12 months)</em>. Each goal includes a target date and notes field, helping you stay focused on what truly matters for business growth.</p>
+
+            <p><strong>📅 Important Meetings:</strong> Schedule all your business meetings with complete details — meeting title, date &amp; time, attendee name, and agenda. Never forget a client presentation or team discussion again. Perfect for busy professionals managing multiple stakeholders.</p>
+
+            <p><strong>✅ Business To-Do Tasks:</strong> Manage daily business tasks with priority levels — <em>High (🔴), Medium (🟡), or Low (🟢)</em>. Set due dates to ensure critical tasks are completed on time. Mark tasks as done with a single tap and watch them get struck through.</p>
+
+            <p><strong>✈️ Business Trips:</strong> Plan all your business travel in advance. Record destination, departure date, return date, and trip purpose. Whether it's a client visit, trade show, or regional meeting — your travel plans are organized in one place.</p>
+
+            <p><strong>📈 Marketing Plans:</strong> Track your marketing campaigns with budget allocation, start dates, and detailed notes. Monitor which campaigns are active, planned, or completed. Essential for small business owners managing their own marketing.</p>
+
+            <p><strong>💰 Business Expenses:</strong> Record every business expense with amount, category (Office, Travel, Marketing, Utilities, Salaries, Other), and date. Maintain financial control and understand where your money goes. Perfect for budgeting and tax preparation.</p>
+
+            <p><strong>👥 Business Contacts:</strong> Build your private business contact directory. Store names, companies, phone numbers, email addresses, and notes. Your own personal CRM — no external service needed.</p>
+
+            <p><strong>📝 Business Notes:</strong> A free-form writing area for ideas, meeting notes, supplier information, or any important business information. Your digital notebook within the planner.</p>
+
+            <h3>💎 Why Use the ColdMatrix Business Planner?</h3>
+            <ul>
+                <li><strong>100% Free:</strong> No registration, no subscription, no hidden fees.</li>
+                <li><strong>Complete Privacy:</strong> All data is stored locally on your device — nothing is uploaded to any server.</li>
+                <li><strong>Works Offline:</strong> After first load, access your planner anytime without internet.</li>
+                <li><strong>Beautiful Design:</strong> Premium paper-style interface that feels like a real executive diary.</li>
+                <li><strong>Mobile Responsive:</strong> Use it on phone, tablet, or desktop — seamless experience everywhere.</li>
+                <li><strong>Export Options:</strong> Export your summary as PDF or JPG, and back up all your data anytime.</li>
+                <li><strong>Auto-Save:</strong> Everything is saved automatically as you type. No save button needed.</li>
+            </ul>
+
+            <h3>🌟 Who Is It For?</h3>
+            <ul>
+                <li><strong>Shopkeepers &amp; Small Business Owners:</strong> Track daily tasks, expenses, and supplier contacts.</li>
+                <li><strong>Entrepreneurs &amp; Startups:</strong> Set quarterly goals, manage marketing campaigns, plan trips.</li>
+                <li><strong>Managers &amp; Team Leads:</strong> Schedule meetings, track tasks, manage team contacts.</li>
+                <li><strong>Executives &amp; Directors:</strong> Strategic goals, half-yearly targets, high-level planning.</li>
+                <li><strong>CEOs &amp; Presidents:</strong> Yearly vision, board meetings, executive-level planning.</li>
+                <li><strong>Freelancers &amp; Consultants:</strong> Client contacts, project tasks, invoice expenses.</li>
+            </ul>
+
+            <h3>❓ Frequently Asked Questions</h3>
+            <p><strong>Q: Is my data safe?</strong><br>A: Yes, 100% safe. All data is stored locally in your browser using localStorage. Nothing is ever uploaded to a server.</p>
+            <p><strong>Q: Can I use this offline?</strong><br>A: Yes! After first load, the planner works completely offline.</p>
+            <p><strong>Q: Will my data be lost if I close the browser?</strong><br>A: No. Your data persists automatically. Just open the planner again and everything is there.</p>
+            <p><strong>Q: Can I export my planner?</strong><br>A: Yes, you can export the summary as PDF or JPG, and back up all your data with the Backup button.</p>
+            <p><strong>Q: Is this really free forever?</strong><br>A: Yes, it's 100% free. Made by ColdMatrix for business users worldwide.</p>
+
+            <p style="margin-top:20px;font-style:italic;"><em>This tool is a proud creation of the ColdMatrix Business Team — designed for our own business use and shared with entrepreneurs everywhere. We hope it brings organization and success to your journey.</em></p>
+            <p style="margin-top:12px;"><strong>— From the CEO of ColdMatrix</strong> 🙏</p>
+        </div>
+
+        <!-- PAKISTANI / GLOBAL BLOCK -->
+        <div class="pakistani-block">
+            <h2>🌐 ColdMatrix Business Tools — For Every Business, Everywhere</h2>
+            <p>Our Business Planner is used daily by entrepreneurs, executives, managers, shopkeepers, and business owners across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, and Australia</strong>. Whether you run a corner shop in Karachi or a corporation in New York, this tool is built for you.</p>
+            <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients worldwide with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
+            <p>Need a custom business tool, dashboard, or project quote? Our team responds within 24 hours.</p>
+            <p style="margin-top:14px;font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+        </div>
+
+        <!-- RELATED TOOLS -->
+        <div class="related-tools-section">
+            <h3>🔗 Related Tools You Might Need</h3>
+            <div>
+                <a href="notepad.html">📝 Notepad</a>
+                <a href="roi-calculator.html">💰 ROI Calculator</a>
+                <a href="business-calculator.html">📊 Business Suite</a>
+                <a href="loan-emi-calculator.html">🏦 Loan EMI Calculator</a>
+                <a href="profit-margin-calculator.html">📈 Profit Margin</a>
+                <a href="quotation-maker.html">🧾 Quotation Maker</a>
+                <a href="qr-business-card.html">📱 QR Business Card</a>
+            </div>
+        </div>
+
+        <!-- LEAD CAPTURE -->
+        <div class="lead-capture">
+            <h3>🚀 Need a Custom Business Tool?</h3>
+            <p>Get tailored planners, dashboards, or automation for your business. Leave your email and we'll reach out with a free consultation.</p>
+            <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="email" name="email" placeholder="Your work email" required>
+                <button type="submit">Request Custom Tool</button>
+            </form>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="disclaimer-box">
+            <strong>⚠️ Disclaimer:</strong> This planner stores all data locally in your browser. Clearing your browser data or using private/incognito mode will remove your entries. Use the Backup button regularly to save a copy of your data.
+        </div>
     </div>
 
-    <!-- COMPREHENSIVE EDUCATIONAL CONTENT -->
-    <div style="margin:20px auto;max-width:1000px;padding:30px 24px;background:var(--paper-cream);border:2px solid;border-image:var(--gold-border) 1;border-radius:14px;line-height:1.9;font-size:0.95rem;color:#333;">
-        <h2 style="font-size:1.3rem;margin-bottom:16px;color:var(--gold);font-family:'Playfair Display',serif;">📖 About the ColdMatrix Business Planner</h2>
-        <p>The <strong>ColdMatrix Business Planner</strong> is a premium executive digital diary — proudly invented and created by the <strong>ColdMatrix Business Team</strong> for business owners, entrepreneurs, CEOs, managers, and professionals worldwide. It brings together all essential business planning tools in one beautiful, paper-style interface.</p>
-
-        <h3 style="font-size:1.05rem;margin:20px 0 10px;color:var(--gold);font-family:'Playfair Display',serif;">🎯 Complete Section Guide</h3>
-        
-        <p><strong>📊 Summary Dashboard:</strong> Your weekly overview at a glance. See total counts for every category — goals, meetings, tasks, trips, marketing plans, expenses, contacts, and notes. The "Upcoming This Week" section automatically shows meetings, task deadlines, and trips scheduled within the next 7 days, so you never miss anything important.</p>
-        
-        <p><strong>🎯 Goals & Targets:</strong> Set clear business objectives with three time horizons — <em>Quarterly (3 months), Half-Yearly (6 months), and Yearly (12 months)</em>. Each goal includes a target date and notes field, helping you stay focused on what truly matters for business growth.</p>
-        
-        <p><strong>📅 Important Meetings:</strong> Schedule all your business meetings with complete details — meeting title, date & time, attendee name, and agenda. Never forget a client presentation or team discussion again. Perfect for busy professionals managing multiple stakeholders.</p>
-        
-        <p><strong>✅ Business To-Do Tasks:</strong> Manage daily business tasks with priority levels — <em>High (🔴), Medium (🟡), or Low (🟢)</em>. Set due dates to ensure critical tasks are completed on time. Ideal for daily workflow management.</p>
-        
-        <p><strong>✈️ Business Trips:</strong> Plan all your business travel in advance. Record destination, departure date, return date, and trip purpose. Whether it's a client visit, trade show, or regional meeting — your travel plans are organized in one place.</p>
-        
-        <p><strong>📈 Marketing Plans:</strong> Track your marketing campaigns with budget allocation, start dates, and detailed notes. Monitor which campaigns are active, planned, or completed. Essential for small business owners managing their own marketing.</p>
-        
-        <p><strong>💰 Business Expenses:</strong> Record every business expense with amount, category (Office, Travel, Marketing, Utilities, Salaries, Other), and date. Maintain financial control and understand where your money goes. Perfect for budgeting and tax preparation.</p>
-        
-        <p><strong>👥 Business Contacts:</strong> Build your private business contact directory. Store names, companies, phone numbers, email addresses, and notes. Your own personal CRM — no external service needed.</p>
-        
-        <p><strong>📝 Business Notes:</strong> A free-form writing area for ideas, meeting notes, supplier information, or any important business information. Your digital notebook within the planner.</p>
-
-        <h3 style="font-size:1.05rem;margin:20px 0 10px;color:var(--gold);font-family:'Playfair Display',serif;">💎 Why Use the ColdMatrix Business Planner?</h3>
-        <ul style="padding-left:20px;">
-            <li><strong>100% Free:</strong> No registration, no subscription, no hidden fees.</li>
-            <li><strong>Complete Privacy:</strong> All data is stored locally on your device — nothing is uploaded to any server.</li>
-            <li><strong>Works Offline:</strong> After first load, access your planner anytime without internet.</li>
-            <li><strong>Beautiful Design:</strong> Premium paper-style interface that feels like a real executive diary.</li>
-            <li><strong>Mobile Responsive:</strong> Use it on phone, tablet, or desktop — seamless experience everywhere.</li>
-            <li><strong>Export Options:</strong> Print or share your planner pages as PDF or JPG.</li>
-            <li><strong>Auto-Save:</strong> Everything is saved automatically as you type. No save button needed.</li>
-        </ul>
-
-        <h3 style="font-size:1.05rem;margin:20px 0 10px;color:var(--gold);font-family:'Playfair Display',serif;">❓ Frequently Asked Questions</h3>
-        <p><strong>Q: Is my data safe?</strong><br>
-        A: Yes, 100% safe. All data is stored locally in your browser using localStorage. Nothing is ever uploaded to a server.</p>
-        <p><strong>Q: Can I use this offline?</strong><br>
-        A: Yes! After first load, the planner works completely offline.</p>
-        <p><strong>Q: Will my data be lost if I close the browser?</strong><br>
-        A: No. Your data persists automatically. Just open the planner again and everything is there.</p>
-        <p><strong>Q: Can I export my planner?</strong><br>
-        A: Yes, you can export individual sections as PDF or JPG for printing or sharing.</p>
-        <p><strong>Q: Is this really free forever?</strong><br>
-        A: Yes, it's 100% free. Made by ColdMatrix for business users worldwide.</p>
-
-        <p style="margin-top:20px;font-style:italic;"><em>This tool is a proud creation of the ColdMatrix Business Team — designed for our own business use and shared with entrepreneurs everywhere. We hope it brings organization and success to your journey.</em></p>
-        <p style="margin-top:12px;"><strong>— From the CEO of ColdMatrix</strong> 🙏</p>
+    <!-- Hidden capture for export -->
+    <div id="snapshotCapture" style="display:none !important;position:absolute !important;left:-9999px !important;">
+        <div id="snapshotInner" style="width:800px;padding:40px;background:#FFFCF7;font-family:'Inter',sans-serif;color:#1a1a1a;border:3px solid #D4AF37;border-radius:16px;">
+            <div style="text-align:center;margin-bottom:24px;">
+                <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;color:#1a1a1a;">❄️ ColdMatrix <span style="color:#D4AF37;">Business Planner</span></div>
+                <div style="font-family:'Caveat',cursive;font-size:1.2rem;color:#6B7280;margin-top:4px;">Weekly Summary Report</div>
+                <div style="font-size:0.8rem;color:#6B7280;margin-top:6px;" id="snapshotDate"></div>
+            </div>
+            <div id="snapshotGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;"></div>
+            <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#C8993A;margin:16px 0 10px;border-bottom:2px solid #D4AF37;padding-bottom:6px;">Upcoming This Week</div>
+            <div id="snapshotUpcoming" style="font-size:0.9rem;color:#1a1a1a;"></div>
+            <div style="text-align:center;font-size:0.75rem;color:#6B7280;margin-top:24px;padding-top:14px;border-top:1px solid #E5E0D5;">coldmatrixtools.com &nbsp;|&nbsp; Made with ColdMatrix Tools</div>
+        </div>
     </div>
 
-<!-- Combined Footer + Floating WhatsApp -->
-<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" style="position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem;">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
-<footer style="background:rgba(10,15,20,0.9); border-top:2px solid #D4AF37; padding:30px 20px; margin-top:50px; text-align:center;">
-    <!-- Contact Info -->
-    <div style="margin-bottom:15px;">
-        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
-        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
-        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
-            📞 <strong>Call / WhatsApp:</strong> 
-            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
-            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
-                <i class="fa-brands fa-whatsapp"></i>
-            </a>
-        </p>
-    </div>
+    <!-- FOOTER -->
+    <footer>
+        <div style="margin-bottom:15px;">
+            <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+            <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#FFD700; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+            <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+                📞 <strong>Call / WhatsApp:</strong>
+                <a href="tel:+923333228470" style="color:#FFD700; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+                <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </p>
+        </div>
 
-    <!-- Legal Links -->
-    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
-    </div>
+        <div class="legal-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-use.html">Terms of Use</a>
+            <a href="cookie-policy.html">Cookie Policy</a>
+            <a href="security.html">Security</a>
+        </div>
 
-    <!-- Copyright -->
-    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
-</footer>
+        <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</p>
+    </footer>
 
     <script>
-        let plannerData = JSON.parse(localStorage.getItem('coldmatrix_planner') || '{"goals":[],"meetings":[],"tasks":[],"trips":[],"marketing":[],"expenses":[],"contacts":[],"notes":[]}');
-        function saveData() { localStorage.setItem('coldmatrix_planner', JSON.stringify(plannerData)); }
-        function showForm(section) { document.getElementById('form-' + section).classList.add('active'); }
+        // ============================================
+        // DATA
+        // ============================================
+        let plannerData = JSON.parse(localStorage.getItem('coldmatrix_planner_v2') || '{"goals":[],"meetings":[],"tasks":[],"trips":[],"marketing":[],"expenses":[],"contacts":[],"notes":[]}');
+        function saveData() { localStorage.setItem('coldmatrix_planner_v2', JSON.stringify(plannerData)); }
+
+        // ============================================
+        // FORM TOGGLE
+        // ============================================
+        function showForm(section) {
+            // Close all other open forms first
+            document.querySelectorAll('.form-card').forEach(f => f.classList.remove('active'));
+            document.getElementById('form-' + section).classList.add('active');
+        }
         function hideForm(section) { document.getElementById('form-' + section).classList.remove('active'); }
 
+        // ============================================
+        // SECTION TABS
+        // ============================================
         document.getElementById('sectionTabs').addEventListener('click', function(e) {
             const tab = e.target.closest('.section-tab');
             if (!tab) return;
@@ -460,6 +797,9 @@
             if (tab.dataset.section === 'summary') renderSummary();
         });
 
+        // ============================================
+        // SUMMARY
+        // ============================================
         function renderSummary() {
             document.getElementById('summaryGrid').innerHTML = `
                 <div class="summary-card"><div class="count">${plannerData.goals.length}</div><div class="label">Goals</div></div>
@@ -471,41 +811,421 @@
                 <div class="summary-card"><div class="count">${plannerData.contacts.length}</div><div class="label">Contacts</div></div>
                 <div class="summary-card"><div class="count">${plannerData.notes.length}</div><div class="label">Notes</div></div>
             `;
-            const today = new Date();
+            const today = new Date(); today.setHours(0,0,0,0);
             const weekEnd = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
             let upcomingItems = [];
-            plannerData.meetings.forEach(m => { if (m.datetime && new Date(m.datetime) <= weekEnd && new Date(m.datetime) >= today) upcomingItems.push(`📅 ${m.title} — ${m.datetime}`); });
-            plannerData.tasks.forEach(t => { if (t.due && new Date(t.due) <= weekEnd && new Date(t.due) >= today) upcomingItems.push(`✅ ${t.desc} — Due: ${t.due}`); });
-            plannerData.trips.forEach(t => { if (t.start && new Date(t.start) <= weekEnd && new Date(t.start) >= today) upcomingItems.push(`✈️ ${t.dest} — Departure: ${t.start}`); });
-            document.getElementById('summaryUpcoming').innerHTML = upcomingItems.length === 0 ? '<div class="empty-state">No upcoming items this week. 😊</div>' : upcomingItems.map(item => `<div class="entry-card"><p>${item}</p></div>`).join('');
+            plannerData.meetings.forEach(m => {
+                if (m.datetime) {
+                    const d = new Date(m.datetime);
+                    if (d >= today && d <= weekEnd) upcomingItems.push(`📅 ${escapeHtml(m.title)} — ${d.toLocaleString()}`);
+                }
+            });
+            plannerData.tasks.forEach(t => {
+                if (t.due && !t.done) {
+                    const d = new Date(t.due);
+                    if (d >= today && d <= weekEnd) upcomingItems.push(`✅ ${escapeHtml(t.desc)} — Due: ${t.due}`);
+                }
+            });
+            plannerData.trips.forEach(t => {
+                if (t.start) {
+                    const d = new Date(t.start);
+                    if (d >= today && d <= weekEnd) upcomingItems.push(`✈️ ${escapeHtml(t.dest)} — Departure: ${t.start}`);
+                }
+            });
+            document.getElementById('summaryUpcoming').innerHTML = upcomingItems.length === 0
+                ? '<div class="empty-state">No upcoming items this week. 😊</div>'
+                : upcomingItems.map(item => `<div class="entry-card"><p>${item}</p></div>`).join('');
         }
 
-        function saveGoal() { const title=document.getElementById('goalTitle').value.trim(); if(!title){alert('Enter a goal title.');return;} plannerData.goals.push({title,period:document.getElementById('goalPeriod').value,date:document.getElementById('goalDate').value,notes:document.getElementById('goalNotes').value.trim(),created:new Date().toLocaleDateString()}); saveData(); renderGoals(); hideForm('goals'); document.getElementById('goalTitle').value=''; document.getElementById('goalNotes').value=''; }
-        function renderGoals() { const l=document.getElementById('goalsList'); l.innerHTML = plannerData.goals.length===0 ? '<div class="empty-state">📝 No goals yet.</div>' : plannerData.goals.map((g,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('goals',${i})">✕</button><h4>🎯 ${g.title}</h4><p><strong>Period:</strong> ${g.period} | <strong>Target:</strong> ${g.date||'Not set'}</p>${g.notes?`<p>📝 ${g.notes}</p>`:''}</div>`).join(''); }
+        // ============================================
+        // GOALS
+        // ============================================
+        function saveGoal() {
+            const title = document.getElementById('goalTitle').value.trim();
+            if (!title) { alert('Enter a goal title.'); return; }
+            plannerData.goals.push({
+                title,
+                period: document.getElementById('goalPeriod').value,
+                date: document.getElementById('goalDate').value,
+                notes: document.getElementById('goalNotes').value.trim(),
+                created: new Date().toLocaleDateString()
+            });
+            saveData(); renderGoals(); hideForm('goals');
+            document.getElementById('goalTitle').value = '';
+            document.getElementById('goalNotes').value = '';
+            document.getElementById('goalDate').value = '';
+        }
+        function renderGoals() {
+            const l = document.getElementById('goalsList');
+            l.innerHTML = plannerData.goals.length === 0
+                ? '<div class="empty-state">📝 No goals yet. Click "Add Goal" to begin.</div>'
+                : plannerData.goals.map((g, i) => `
+                    <div class="entry-card">
+                        <button class="delete-btn" onclick="deleteEntry('goals',${i})" title="Delete">✕</button>
+                        <h4>🎯 ${escapeHtml(g.title)}</h4>
+                        <p><strong>Period:</strong> ${escapeHtml(g.period)} | <strong>Target:</strong> ${g.date || 'Not set'}</p>
+                        ${g.notes ? `<p>📝 ${escapeHtml(g.notes)}</p>` : ''}
+                    </div>`).join('');
+        }
 
-        function saveMeeting() { const title=document.getElementById('meetingTitle').value.trim(); if(!title){alert('Enter a meeting title.');return;} plannerData.meetings.push({title,datetime:document.getElementById('meetingDateTime').value,with:document.getElementById('meetingWith').value.trim(),agenda:document.getElementById('meetingAgenda').value.trim(),created:new Date().toLocaleDateString()}); saveData(); renderMeetings(); hideForm('meetings'); document.getElementById('meetingTitle').value=''; document.getElementById('meetingWith').value=''; document.getElementById('meetingAgenda').value=''; }
-        function renderMeetings() { const l=document.getElementById('meetingsList'); l.innerHTML = plannerData.meetings.length===0 ? '<div class="empty-state">📅 No meetings yet.</div>' : plannerData.meetings.map((m,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('meetings',${i})">✕</button><h4>📅 ${m.title}</h4><p><strong>When:</strong> ${m.datetime||'Not set'} | <strong>With:</strong> ${m.with||'N/A'}</p>${m.agenda?`<p>📋 ${m.agenda}</p>`:''}</div>`).join(''); }
+        // ============================================
+        // MEETINGS
+        // ============================================
+        function saveMeeting() {
+            const title = document.getElementById('meetingTitle').value.trim();
+            if (!title) { alert('Enter a meeting title.'); return; }
+            plannerData.meetings.push({
+                title,
+                datetime: document.getElementById('meetingDateTime').value,
+                with: document.getElementById('meetingWith').value.trim(),
+                agenda: document.getElementById('meetingAgenda').value.trim(),
+                created: new Date().toLocaleDateString()
+            });
+            saveData(); renderMeetings(); hideForm('meetings');
+            document.getElementById('meetingTitle').value = '';
+            document.getElementById('meetingWith').value = '';
+            document.getElementById('meetingAgenda').value = '';
+            document.getElementById('meetingDateTime').value = '';
+        }
+        function renderMeetings() {
+            const l = document.getElementById('meetingsList');
+            l.innerHTML = plannerData.meetings.length === 0
+                ? '<div class="empty-state">📅 No meetings yet.</div>'
+                : plannerData.meetings.map((m, i) => `
+                    <div class="entry-card">
+                        <button class="delete-btn" onclick="deleteEntry('meetings',${i})">✕</button>
+                        <h4>📅 ${escapeHtml(m.title)}</h4>
+                        <p><strong>When:</strong> ${m.datetime ? new Date(m.datetime).toLocaleString() : 'Not set'} | <strong>With:</strong> ${escapeHtml(m.with) || 'N/A'}</p>
+                        ${m.agenda ? `<p>📋 ${escapeHtml(m.agenda)}</p>` : ''}
+                    </div>`).join('');
+        }
 
-        function saveTask() { const desc=document.getElementById('taskDesc').value.trim(); if(!desc){alert('Enter a task.');return;} plannerData.tasks.push({desc,priority:document.getElementById('taskPriority').value,due:document.getElementById('taskDueDate').value,created:new Date().toLocaleDateString()}); saveData(); renderTasks(); hideForm('tasks'); document.getElementById('taskDesc').value=''; }
-        function renderTasks() { const l=document.getElementById('tasksList'); l.innerHTML = plannerData.tasks.length===0 ? '<div class="empty-state">✅ No tasks yet.</div>' : plannerData.tasks.map((t,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('tasks',${i})">✕</button><h4>⬜ ${t.desc}</h4><p><strong>Priority:</strong> ${t.priority} | <strong>Due:</strong> ${t.due||'No deadline'}</p></div>`).join(''); }
+        // ============================================
+        // TASKS (with complete toggle)
+        // ============================================
+        function saveTask() {
+            const desc = document.getElementById('taskDesc').value.trim();
+            if (!desc) { alert('Enter a task.'); return; }
+            plannerData.tasks.push({
+                desc,
+                priority: document.getElementById('taskPriority').value,
+                due: document.getElementById('taskDueDate').value,
+                done: false,
+                created: new Date().toLocaleDateString()
+            });
+            saveData(); renderTasks(); hideForm('tasks');
+            document.getElementById('taskDesc').value = '';
+            document.getElementById('taskDueDate').value = '';
+        }
+        function toggleTaskDone(i) {
+            plannerData.tasks[i].done = !plannerData.tasks[i].done;
+            saveData(); renderTasks();
+        }
+        function renderTasks() {
+            const l = document.getElementById('tasksList');
+            l.innerHTML = plannerData.tasks.length === 0
+                ? '<div class="empty-state">✅ No tasks yet.</div>'
+                : plannerData.tasks.map((t, i) => `
+                    <div class="entry-card ${t.done ? 'done' : ''}">
+                        <button class="delete-btn" onclick="deleteEntry('tasks',${i})">✕</button>
+                        <h4>
+                            <span class="task-check ${t.done ? 'checked' : ''}" onclick="toggleTaskDone(${i})">${t.done ? '✓' : ''}</span>
+                            ${escapeHtml(t.desc)}
+                        </h4>
+                        <p><strong>Priority:</strong> ${escapeHtml(t.priority)} | <strong>Due:</strong> ${t.due || 'No deadline'}</p>
+                    </div>`).join('');
+        }
 
-        function saveTrip() { const dest=document.getElementById('tripDest').value.trim(); if(!dest){alert('Enter a destination.');return;} plannerData.trips.push({dest,start:document.getElementById('tripStart').value,end:document.getElementById('tripEnd').value,purpose:document.getElementById('tripPurpose').value.trim(),created:new Date().toLocaleDateString()}); saveData(); renderTrips(); hideForm('trips'); document.getElementById('tripDest').value=''; document.getElementById('tripPurpose').value=''; }
-        function renderTrips() { const l=document.getElementById('tripsList'); l.innerHTML = plannerData.trips.length===0 ? '<div class="empty-state">✈️ No trips yet.</div>' : plannerData.trips.map((t,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('trips',${i})">✕</button><h4>✈️ ${t.dest}</h4><p><strong>From:</strong> ${t.start||'N/A'} <strong>To:</strong> ${t.end||'N/A'}</p></div>`).join(''); }
+        // ============================================
+        // TRIPS
+        // ============================================
+        function saveTrip() {
+            const dest = document.getElementById('tripDest').value.trim();
+            if (!dest) { alert('Enter a destination.'); return; }
+            plannerData.trips.push({
+                dest,
+                start: document.getElementById('tripStart').value,
+                end: document.getElementById('tripEnd').value,
+                purpose: document.getElementById('tripPurpose').value.trim(),
+                created: new Date().toLocaleDateString()
+            });
+            saveData(); renderTrips(); hideForm('trips');
+            document.getElementById('tripDest').value = '';
+            document.getElementById('tripPurpose').value = '';
+            document.getElementById('tripStart').value = '';
+            document.getElementById('tripEnd').value = '';
+        }
+        function renderTrips() {
+            const l = document.getElementById('tripsList');
+            l.innerHTML = plannerData.trips.length === 0
+                ? '<div class="empty-state">✈️ No trips yet.</div>'
+                : plannerData.trips.map((t, i) => `
+                    <div class="entry-card">
+                        <button class="delete-btn" onclick="deleteEntry('trips',${i})">✕</button>
+                        <h4>✈️ ${escapeHtml(t.dest)}</h4>
+                        <p><strong>From:</strong> ${t.start || 'N/A'} <strong>To:</strong> ${t.end || 'N/A'}</p>
+                        ${t.purpose ? `<p>📋 ${escapeHtml(t.purpose)}</p>` : ''}
+                    </div>`).join('');
+        }
 
-        function saveMarketing() { const name=document.getElementById('mktName').value.trim(); if(!name){alert('Enter a campaign name.');return;} plannerData.marketing.push({name,budget:document.getElementById('mktBudget').value.trim(),start:document.getElementById('mktStart').value,notes:document.getElementById('mktNotes').value.trim(),created:new Date().toLocaleDateString()}); saveData(); renderMarketing(); hideForm('marketing'); document.getElementById('mktName').value=''; document.getElementById('mktBudget').value=''; document.getElementById('mktNotes').value=''; }
-        function renderMarketing() { const l=document.getElementById('marketingList'); l.innerHTML = plannerData.marketing.length===0 ? '<div class="empty-state">📈 No marketing plans yet.</div>' : plannerData.marketing.map((m,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('marketing',${i})">✕</button><h4>📈 ${m.name}</h4><p><strong>Budget:</strong> ${m.budget||'N/A'} | <strong>Start:</strong> ${m.start||'N/A'}</p></div>`).join(''); }
+        // ============================================
+        // MARKETING
+        // ============================================
+        function saveMarketing() {
+            const name = document.getElementById('mktName').value.trim();
+            if (!name) { alert('Enter a campaign name.'); return; }
+            plannerData.marketing.push({
+                name,
+                budget: document.getElementById('mktBudget').value.trim(),
+                start: document.getElementById('mktStart').value,
+                notes: document.getElementById('mktNotes').value.trim(),
+                created: new Date().toLocaleDateString()
+            });
+            saveData(); renderMarketing(); hideForm('marketing');
+            document.getElementById('mktName').value = '';
+            document.getElementById('mktBudget').value = '';
+            document.getElementById('mktNotes').value = '';
+            document.getElementById('mktStart').value = '';
+        }
+        function renderMarketing() {
+            const l = document.getElementById('marketingList');
+            l.innerHTML = plannerData.marketing.length === 0
+                ? '<div class="empty-state">📈 No marketing plans yet.</div>'
+                : plannerData.marketing.map((m, i) => `
+                    <div class="entry-card">
+                        <button class="delete-btn" onclick="deleteEntry('marketing',${i})">✕</button>
+                        <h4>📈 ${escapeHtml(m.name)}</h4>
+                        <p><strong>Budget:</strong> ${escapeHtml(m.budget) || 'N/A'} | <strong>Start:</strong> ${m.start || 'N/A'}</p>
+                        ${m.notes ? `<p>📝 ${escapeHtml(m.notes)}</p>` : ''}
+                    </div>`).join('');
+        }
 
-        function saveExpense() { const desc=document.getElementById('expDesc').value.trim(), amount=document.getElementById('expAmount').value; if(!desc||!amount){alert('Enter description and amount.');return;} plannerData.expenses.push({desc,amount,category:document.getElementById('expCategory').value,date:document.getElementById('expDate').value,created:new Date().toLocaleDateString()}); saveData(); renderExpenses(); hideForm('expenses'); document.getElementById('expDesc').value=''; document.getElementById('expAmount').value=''; }
-        function renderExpenses() { const l=document.getElementById('expensesList'); l.innerHTML = plannerData.expenses.length===0 ? '<div class="empty-state">💰 No expenses yet.</div>' : plannerData.expenses.map((e,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('expenses',${i})">✕</button><h4>💰 ${e.desc}</h4><p><strong>Amount:</strong> ${e.amount} | <strong>Category:</strong> ${e.category} | <strong>Date:</strong> ${e.date||'N/A'}</p></div>`).join(''); }
+        // ============================================
+        // EXPENSES
+        // ============================================
+        function saveExpense() {
+            const desc = document.getElementById('expDesc').value.trim();
+            const amount = document.getElementById('expAmount').value;
+            if (!desc || !amount) { alert('Enter description and amount.'); return; }
+            plannerData.expenses.push({
+                desc, amount,
+                category: document.getElementById('expCategory').value,
+                date: document.getElementById('expDate').value,
+                created: new Date().toLocaleDateString()
+            });
+            saveData(); renderExpenses(); hideForm('expenses');
+            document.getElementById('expDesc').value = '';
+            document.getElementById('expAmount').value = '';
+            document.getElementById('expDate').value = '';
+        }
+        function renderExpenses() {
+            const l = document.getElementById('expensesList');
+            l.innerHTML = plannerData.expenses.length === 0
+                ? '<div class="empty-state">💰 No expenses yet.</div>'
+                : plannerData.expenses.map((e, i) => `
+                    <div class="entry-card">
+                        <button class="delete-btn" onclick="deleteEntry('expenses',${i})">✕</button>
+                        <h4>💰 ${escapeHtml(e.desc)}</h4>
+                        <p><strong>Amount:</strong> ${escapeHtml(e.amount)} | <strong>Category:</strong> ${escapeHtml(e.category)} | <strong>Date:</strong> ${e.date || 'N/A'}</p>
+                    </div>`).join('');
+        }
 
-        function saveContact() { const name=document.getElementById('contactName').value.trim(); if(!name){alert('Enter a contact name.');return;} plannerData.contacts.push({name,company:document.getElementById('contactCompany').value.trim(),phone:document.getElementById('contactPhone').value.trim(),email:document.getElementById('contactEmail').value.trim(),notes:document.getElementById('contactNotes').value.trim(),created:new Date().toLocaleDateString()}); saveData(); renderContacts(); hideForm('contacts'); document.getElementById('contactName').value=''; document.getElementById('contactCompany').value=''; document.getElementById('contactPhone').value=''; document.getElementById('contactEmail').value=''; document.getElementById('contactNotes').value=''; }
-        function renderContacts() { const l=document.getElementById('contactsList'); l.innerHTML = plannerData.contacts.length===0 ? '<div class="empty-state">👥 No contacts yet.</div>' : plannerData.contacts.map((c,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('contacts',${i})">✕</button><h4>👥 ${c.name}</h4><p><strong>Company:</strong> ${c.company||'N/A'}</p><p>📞 ${c.phone||'N/A'} | ✉️ ${c.email||'N/A'}</p></div>`).join(''); }
+        // ============================================
+        // CONTACTS
+        // ============================================
+        function saveContact() {
+            const name = document.getElementById('contactName').value.trim();
+            if (!name) { alert('Enter a contact name.'); return; }
+            plannerData.contacts.push({
+                name,
+                company: document.getElementById('contactCompany').value.trim(),
+                phone: document.getElementById('contactPhone').value.trim(),
+                email: document.getElementById('contactEmail').value.trim(),
+                notes: document.getElementById('contactNotes').value.trim(),
+                created: new Date().toLocaleDateString()
+            });
+            saveData(); renderContacts(); hideForm('contacts');
+            ['contactName','contactCompany','contactPhone','contactEmail','contactNotes'].forEach(id => document.getElementById(id).value = '');
+        }
+        function renderContacts() {
+            const l = document.getElementById('contactsList');
+            l.innerHTML = plannerData.contacts.length === 0
+                ? '<div class="empty-state">👥 No contacts yet.</div>'
+                : plannerData.contacts.map((c, i) => `
+                    <div class="entry-card">
+                        <button class="delete-btn" onclick="deleteEntry('contacts',${i})">✕</button>
+                        <h4>👥 ${escapeHtml(c.name)}</h4>
+                        ${c.company ? `<p><strong>Company:</strong> ${escapeHtml(c.company)}</p>` : ''}
+                        <p>${c.phone ? `📞 ${escapeHtml(c.phone)}` : ''}${c.phone && c.email ? ' | ' : ''}${c.email ? `✉️ ${escapeHtml(c.email)}` : ''}</p>
+                        ${c.notes ? `<p>📝 ${escapeHtml(c.notes)}</p>` : ''}
+                    </div>`).join('');
+        }
 
-        function saveNote() { const title=document.getElementById('noteTitle').value.trim(), content=document.getElementById('noteContent').value.trim(); if(!title||!content){alert('Fill in both title and content.');return;} plannerData.notes.push({title,content,created:new Date().toLocaleDateString()}); saveData(); renderNotes(); hideForm('notes'); document.getElementById('noteTitle').value=''; document.getElementById('noteContent').value=''; }
-        function renderNotes() { const l=document.getElementById('notesList'); l.innerHTML = plannerData.notes.length===0 ? '<div class="empty-state">📝 No notes yet.</div>' : plannerData.notes.map((n,i)=>`<div class="entry-card"><button class="delete-btn" onclick="deleteEntry('notes',${i})">✕</button><h4>📝 ${n.title}</h4><p>${n.content}</p></div>`).join(''); }
+        // ============================================
+        // NOTES
+        // ============================================
+        function saveNote() {
+            const title = document.getElementById('noteTitle').value.trim();
+            const content = document.getElementById('noteContent').value.trim();
+            if (!title || !content) { alert('Fill in both title and content.'); return; }
+            plannerData.notes.push({ title, content, created: new Date().toLocaleDateString() });
+            saveData(); renderNotes(); hideForm('notes');
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteContent').value = '';
+        }
+        function renderNotes() {
+            const l = document.getElementById('notesList');
+            l.innerHTML = plannerData.notes.length === 0
+                ? '<div class="empty-state">📝 No notes yet.</div>'
+                : plannerData.notes.map((n, i) => `
+                    <div class="entry-card">
+                        <button class="delete-btn" onclick="deleteEntry('notes',${i})">✕</button>
+                        <h4>📝 ${escapeHtml(n.title)}</h4>
+                        <p>${escapeHtml(n.content).replace(/\n/g, '<br>')}</p>
+                    </div>`).join('');
+        }
 
-        function deleteEntry(section, index) { plannerData[section].splice(index, 1); saveData(); renderAll(); }
-        function renderAll() { renderGoals(); renderMeetings(); renderTasks(); renderTrips(); renderMarketing(); renderExpenses(); renderContacts(); renderNotes(); }
+        // ============================================
+        // DELETE + RENDER ALL
+        // ============================================
+        function deleteEntry(section, index) {
+            if (!confirm('Delete this entry?')) return;
+            plannerData[section].splice(index, 1);
+            saveData();
+            renderAll();
+        }
+        function renderAll() {
+            renderGoals(); renderMeetings(); renderTasks(); renderTrips();
+            renderMarketing(); renderExpenses(); renderContacts(); renderNotes();
+            renderSummary();
+        }
+
+        // ============================================
+        // SNAPSHOT EXPORT (PDF / JPG)
+        // ============================================
+        async function downloadSnapshot(type) {
+            // Prepare snapshot content
+            document.getElementById('snapshotDate').textContent = new Date().toLocaleString();
+            document.getElementById('snapshotGrid').innerHTML = `
+                <div style="background:#FFF;border:2px solid #D4AF37;border-radius:10px;padding:14px;text-align:center;">
+                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#C8993A;">${plannerData.goals.length}</div>
+                    <div style="font-size:0.7rem;color:#6B7280;text-transform:uppercase;font-weight:700;">Goals</div>
+                </div>
+                <div style="background:#FFF;border:2px solid #D4AF37;border-radius:10px;padding:14px;text-align:center;">
+                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#C8993A;">${plannerData.meetings.length}</div>
+                    <div style="font-size:0.7rem;color:#6B7280;text-transform:uppercase;font-weight:700;">Meetings</div>
+                </div>
+                <div style="background:#FFF;border:2px solid #D4AF37;border-radius:10px;padding:14px;text-align:center;">
+                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#C8993A;">${plannerData.tasks.length}</div>
+                    <div style="font-size:0.7rem;color:#6B7280;text-transform:uppercase;font-weight:700;">Tasks</div>
+                </div>
+                <div style="background:#FFF;border:2px solid #D4AF37;border-radius:10px;padding:14px;text-align:center;">
+                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#C8993A;">${plannerData.trips.length}</div>
+                    <div style="font-size:0.7rem;color:#6B7280;text-transform:uppercase;font-weight:700;">Trips</div>
+                </div>
+                <div style="background:#FFF;border:2px solid #D4AF37;border-radius:10px;padding:14px;text-align:center;">
+                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#C8993A;">${plannerData.marketing.length}</div>
+                    <div style="font-size:0.7rem;color:#6B7280;text-transform:uppercase;font-weight:700;">Marketing</div>
+                </div>
+                <div style="background:#FFF;border:2px solid #D4AF37;border-radius:10px;padding:14px;text-align:center;">
+                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#C8993A;">${plannerData.expenses.length}</div>
+                    <div style="font-size:0.7rem;color:#6B7280;text-transform:uppercase;font-weight:700;">Expenses</div>
+                </div>
+                <div style="background:#FFF;border:2px solid #D4AF37;border-radius:10px;padding:14px;text-align:center;">
+                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#C8993A;">${plannerData.contacts.length}</div>
+                    <div style="font-size:0.7rem;color:#6B7280;text-transform:uppercase;font-weight:700;">Contacts</div>
+                </div>
+                <div style="background:#FFF;border:2px solid #D4AF37;border-radius:10px;padding:14px;text-align:center;">
+                    <div style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:#C8993A;">${plannerData.notes.length}</div>
+                    <div style="font-size:0.7rem;color:#6B7280;text-transform:uppercase;font-weight:700;">Notes</div>
+                </div>
+            `;
+            const today = new Date(); today.setHours(0,0,0,0);
+            const weekEnd = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+            let upcoming = [];
+            plannerData.meetings.forEach(m => { if (m.datetime) { const d = new Date(m.datetime); if (d >= today && d <= weekEnd) upcoming.push(`📅 ${m.title} — ${d.toLocaleString()}`); } });
+            plannerData.tasks.forEach(t => { if (t.due && !t.done) { const d = new Date(t.due); if (d >= today && d <= weekEnd) upcoming.push(`✅ ${t.desc} — Due: ${t.due}`); } });
+            plannerData.trips.forEach(t => { if (t.start) { const d = new Date(t.start); if (d >= today && d <= weekEnd) upcoming.push(`✈️ ${t.dest} — Departure: ${t.start}`); } });
+            document.getElementById('snapshotUpcoming').innerHTML = upcoming.length === 0
+                ? '<div style="font-style:italic;color:#6B7280;">No upcoming items this week.</div>'
+                : upcoming.map(item => `<div style="padding:8px 0;border-bottom:1px solid #E5E0D5;">${escapeHtml(item)}</div>`).join('');
+
+            const el = document.getElementById('snapshotCapture');
+            el.style.display = 'block';
+            const canvas = await html2canvas(document.getElementById('snapshotInner'), { backgroundColor: '#FFFCF7', scale: 2 });
+            el.style.display = 'none';
+
+            if (type === 'pdf') {
+                const { jsPDF } = window.jspdf;
+                const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                const pdf = new jsPDF({ orientation: 'p', unit: 'px', format: [canvas.width, canvas.height] });
+                pdf.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
+                pdf.save('ColdMatrix-Planner-Summary.pdf');
+            } else {
+                const link = document.createElement('a');
+                link.download = 'ColdMatrix-Planner-Summary.jpg';
+                link.href = canvas.toDataURL('image/jpeg', 0.95);
+                link.click();
+            }
+        }
+
+        // ============================================
+        // BACKUP ALL DATA
+        // ============================================
+        function backupAll() {
+            const dataStr = JSON.stringify(plannerData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const link = document.createElement('a');
+            link.download = 'ColdMatrix-Planner-Backup-' + new Date().toISOString().slice(0,10) + '.json';
+            link.href = URL.createObjectURL(blob);
+            link.click();
+        }
+
+        // ============================================
+        // HELPERS
+        // ============================================
+        function escapeHtml(str) {
+            if (!str) return '';
+            const d = document.createElement('div');
+            d.textContent = str;
+            return d.innerHTML;
+        }
+
+        // ============================================
+        // PWA INSTALL
+        // ============================================
+        let deferredPrompt;
+        const installBar = document.getElementById('installBarTool');
+        window.addEventListener('beforeinstallprompt', e => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBar.style.display = 'block';
+        });
+        window.installAppTool = function() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(() => { installBar.style.display = 'none'; });
+            } else {
+                alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');
+            }
+        };
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+        }
+
+        // ============================================
+        // SHARE
+        // ============================================
+        function shareToolWhatsApp() {
+            window.open('https://wa.me/?text=' + encodeURIComponent('Check out this Business Planner from ColdMatrix Tools! ' + window.location.href), '_blank');
+        }
+        function copyToolLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => alert('Link copied!')).catch(() => alert(window.location.href));
+        }
+
+        // ============================================
+        // INIT
+        // ============================================
         renderAll();
     </script>
 </body>

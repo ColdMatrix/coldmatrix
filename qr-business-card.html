@@ -17,9 +17,11 @@
   <meta property="og:title" content="ColdMatrix QR Business Card Generator — Free Digital Business Card">
   <meta property="og:description" content="Create a scannable digital business card with a QR code that saves your contact straight to any phone. Free, shareable, downloadable.">
   <meta property="og:url" content="https://coldmatrixtools.com/qr-business-card.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/qr_business_card.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="ColdMatrix QR Business Card Generator — Free Digital Business Card">
   <meta name="twitter:description" content="Create a scannable digital business card with a QR code that saves your contact straight to any phone. Free, shareable, downloadable.">
+  <meta name="twitter:image" content="https://coldmatrixtools.com/qr_business_card.jpg">
   <meta name="description" content="Create a scannable digital business card with a QR code that saves your contact straight to any phone. Free, shareable, downloadable.">
   <meta name="keywords" content="QR business card, digital business card generator, vCard QR code, contact QR code maker">
   <meta name="theme-color" content="#0A0F14">
@@ -27,125 +29,349 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%234FC3F7'>CM</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
-      --bg:#0B0F14; --surface:#12181F; --text:#EAEDF0; --muted:#8B98A5; --accent:#4FC3F7;
+      --bg:#0B0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
+      --text:#EAEDF0; --muted:#8B98A5;
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
-      --gold-border:linear-gradient(145deg,#C8993A,#E8C96A 30%,#A07828 70%,#D4A843);
-      --silver-bg: #C8CDD4;
-      --silver-bg-hover: #D5D9DE;
+      --silver-bg:#C8CDD4;
+      --silver-bg-hover:#D5D9DE;
+      --silver-gradient:linear-gradient(145deg, #D5D9DE, #C8CDD4);
       --whatsapp-green:#25D366;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { background:#0B0F14; color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; min-height:100vh; }
-    .container { max-width:900px; margin:0 auto; padding:0 24px; }
+    body {
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
+      color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
+    }
+    .container { max-width: 900px; margin:0 auto; padding:0 20px; }
 
-    .navbar { position:sticky; top:0; z-index:100; background:rgba(11,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid; border-image:var(--gold-border) 1; }
+    /* GOLDEN NAVBAR */
+    .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; }
-    .logo { font-size:1.35rem; font-weight:800; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
-    .nav-links { display:flex; gap:22px; list-style:none; flex-wrap:wrap; }
+    .logo { font-size:1.3rem; font-weight:800; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .nav-links { display:flex; gap:20px; list-style:none; flex-wrap:wrap; }
     .nav-links a { color:var(--muted); text-decoration:none; font-weight:600; font-size:0.9rem; }
-    .nav-links a:hover { color:var(--gold-bright); }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
+    .back-link { display:inline-block; margin:14px 0 4px; color:var(--gold); text-decoration:none; font-weight:600; font-size:0.85rem; }
 
-    .ad-card { border-radius:14px; background:rgba(18,24,31,0.8); border:2px solid; border-image:var(--gold-border) 1; padding:18px 22px; margin:20px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
-    .ad-card ul { list-style:none; } .ad-card li { font-size:0.9rem; font-weight:600; color:#fff; margin-bottom:4px; }
-    .ad-card li::before { content:"✦"; color:var(--gold-bright); font-weight:700; margin-right:6px; }
-    .whatsapp-btn { background:var(--whatsapp-green); color:white; border-radius:50px; padding:11px 24px; text-decoration:none; font-weight:700; }
+    /* GOLDEN INSTALL BAR */
+    .install-bar {
+      display: block;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14; text-align: center;
+      padding: 12px 16px; border-radius: 10px; margin: 14px 0;
+      font-weight: 700; font-size: 0.85rem;
+      border: 1px solid #FFD700;
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+    }
+    .install-bar button {
+      background: #0A0F14; color: #FFD700; border: 2px solid #FFD700;
+      padding: 5px 16px; border-radius: 6px; margin-left: 10px;
+      font-weight: 800; cursor: pointer; font-size: 0.8rem;
+    }
 
-    .install-bar { background:var(--gold); color:#0A0F14; text-align:center; padding:13px; border-radius:12px; margin:18px 0; font-weight:700; display:block; }
-    .install-bar button { background:#0A0F14; color:var(--gold-bright); border:none; padding:7px 20px; border-radius:6px; margin-left:12px; font-weight:700; cursor:pointer; }
-
-    h1 { font-size:1.9rem; font-weight:800; margin-bottom:6px; }
+    h1 { font-size:1.7rem; font-weight:800; margin-bottom:6px; line-height:1.25; }
     h1 span { color: var(--gold-bright); }
-    .subtitle { color:#EAEDF0; font-size:1rem; font-weight:500; margin-bottom:24px; text-shadow:0 1px 2px rgba(0,0,0,0.6); }
+    .subtitle { color:#EAEDF0; font-size:0.95rem; font-weight:500; margin-bottom:20px; }
 
-    .share-tool-card { background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13); border:2px solid; border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1; border-radius:12px; padding:16px 18px; margin-bottom:22px; }
-    .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; margin-bottom:12px; text-transform:uppercase; }
-    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    .share-tool-btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:11px; border-radius:8px; font-weight:700; font-size:0.82rem; cursor:pointer; background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45); transition:all 0.25s; }
-    .share-tool-btn:hover { border-color:#E8B93A; box-shadow:0 0 20px rgba(200,168,78,0.35); }
-    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
-
-    .card { background:var(--surface); border:2px solid; border-image:var(--gold-border) 1; border-radius:14px; padding:24px; margin-bottom:22px; }
-    .card h2 { font-size:1rem; font-weight:700; margin-bottom:16px; color:var(--gold-bright); font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:0.5px; }
-    label { display:block; font-size:0.88rem; color:#FFFFFF; margin-bottom:6px; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,0.5); }
-    input, select, textarea {
-      width:100%; background:#1B232C;
-      border:2px solid var(--gold); color:var(--text); padding:13px; border-radius:10px; font-size:0.95rem;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
-    }
-    input:focus, select:focus, textarea:focus { outline:none; border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
-    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
-    .btn-row { display:grid; grid-template-columns:1fr auto; gap:10px; margin-top:8px; align-items:stretch; }
-    .btn-calc {
-      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
-      padding:15px 24px; border-radius:12px; font-weight:800; font-size:1rem; cursor:pointer;
-      letter-spacing:0.5px;
+    /* GET QUOTE STRIP */
+    .get-quote-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    .get-quote-strip .quote-btn {
+      flex: 1; min-width: 140px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 16px;
+      background: var(--silver-bg); border: 2px solid var(--gold);
+      border-radius: 12px; color: #0A0F14;
+      font-family: 'Oswald', sans-serif; font-weight: 800;
+      font-size: 0.85rem; text-decoration: none; cursor: pointer;
+      letter-spacing: 0.5px; text-transform: uppercase;
       box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+      transition: all 0.25s ease;
+    }
+    .get-quote-strip .quote-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 22px var(--gold-glow); }
+    .get-quote-strip .quote-btn.whatsapp { background: #25D366; color: #fff; border-color: #1da851; }
+    .get-quote-strip .quote-btn.whatsapp:hover { background: #1da851; border-color: #25D366; }
+
+    /* SHARE TOOL CARD */
+    .share-tool-card {
+      background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
+      border:2px solid;
+      border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;
+      border-radius:12px; padding:16px 18px; margin-bottom:20px;
+      box-shadow:0 10px 34px rgba(0,0,0,0.55);
+    }
+    .share-tool-title { font-weight:800; font-size:0.9rem; color:#E8B93A; text-align:center; letter-spacing:0.6px; margin-bottom:12px; text-transform:uppercase; }
+    .share-tool-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .share-tool-btn {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      padding:11px; border-radius:10px; font-weight:700; font-size:0.85rem; cursor:pointer;
+      background:rgba(15,20,30,0.75); color:#EAEDF0; border:1.5px solid rgba(200,168,78,0.45);
       transition:all 0.25s ease;
     }
-    .btn-calc:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 22px var(--gold-glow); transform:translateY(-2px); }
-    .btn-reset {
-      background:var(--silver-bg); color:#0A0F14; border:2px solid var(--gold);
-      padding:15px 20px; border-radius:12px; font-weight:800; cursor:pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      transition:all 0.25s ease;
+    .share-tool-btn:hover { border-color: var(--gold-bright); box-shadow:0 0 20px rgba(200,168,78,0.35); transform:translateY(-2px); }
+    .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
+    .share-tool-btn.wa:hover { border-color:#25D366; }
+
+    /* AD ZONE */
+    .ad-zone {
+      margin: 20px 0; padding: 20px;
+      background: rgba(212,175,55,0.05);
+      border: 2px dashed var(--gold);
+      border-radius: 12px;
+      text-align: center;
+      min-height: 90px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
     }
-    .btn-reset:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
-    #bizCardPreview { background:linear-gradient(135deg,#0A0F14,#1B232C); border:2px solid var(--gold); border-radius:16px; padding:28px; display:none; margin-top:10px; }
-    .bc-inner { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
-    .bc-name { font-size:1.3rem; font-weight:800; color:#fff; }
-    .bc-title { font-size:0.9rem; color:var(--accent); margin-bottom:8px; }
-    .bc-detail { font-size:0.8rem; color:#c8d0d8; margin-bottom:3px; }
-    .bc-qr { background:#fff; padding:10px; border-radius:12px; }
-    .bc-brand { font-size:0.7rem; color:var(--gold-bright); margin-top:14px; letter-spacing:1px; font-weight:600; }
-
-    .share-bar { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:20px 0; }
-    .share-btn { display:flex; align-items:center; gap:7px; padding:11px 18px; border-radius:8px; font-weight:700; font-size:0.8rem; cursor:pointer; border:none; color:#fff; text-transform:uppercase; }
-    .share-whatsapp { background:var(--whatsapp-green); } .share-pdf { background:#E53935; } .share-jpg,.share-png { background:#545860; border:1px solid var(--gold); }
-
-    .detail-section {
-      margin-top:40px; padding:30px 24px;
-      background: var(--silver-bg);
-      border:2px solid var(--gold);
-      border-radius:16px;
-      line-height:1.8; font-size:0.95rem; color:#0A0F14;
-    }
-    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.5rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; }
-    .detail-section h3 { color:#0A0F14; font-size:1.15rem; margin:24px 0 10px; }
-    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; }
-    .detail-section ul, .detail-section ol { padding-left:24px; }
-    .detail-section li { margin-bottom:6px; }
-    .detail-section strong { color:#0A0F14; }
-
-    .lead-capture {
-      background: rgba(15,22,32,0.9);
+    /* SILVER PREMIUM CARDS */
+    .card {
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
       border: 2px solid var(--gold);
       border-radius: 14px;
+      padding: 22px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .card h2 {
+      font-family:'Oswald',sans-serif; font-size:1rem; font-weight:700;
+      margin-bottom:14px; color:#0A0F14; text-transform:uppercase;
+      letter-spacing:0.5px; border-bottom:2px solid var(--gold);
+      padding-bottom:10px;
+    }
+
+    /* FIELDS — white inputs with golden borders */
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-size: 0.85rem; color: #0A0F14; margin-bottom: 5px; font-weight: 700; }
+    .field input {
+      width: 100%;
+      background: #FFFFFF;
+      border: 2px solid var(--gold);
+      color: #0A0F14;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+    }
+    .field input:focus { outline: none; border-color: var(--gold-bright); box-shadow: 0 0 15px var(--gold-glow); }
+    .field input::placeholder { color: #8a9099; font-weight: 500; }
+
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+
+    /* STACKED BUTTONS — Calculate tall, Reset short */
+    .btn-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+    .btn-primary {
+      width: 100%;
+      background: var(--silver-bg);
+      color: #0A0F14;
+      border: 2px solid var(--gold);
+      min-height: 64px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 900;
+      font-size: 1.1rem;
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 15px var(--gold-glow);
+      transition: all 0.25s ease;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-primary:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); box-shadow: 0 0 22px var(--gold-glow); transform: translateY(-2px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      width: 100%;
+      background: var(--silver-bg);
+      color: #0A0F14;
+      border: 2px solid var(--gold);
+      min-height: 46px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      transition: all 0.25s ease;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn-secondary:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); }
+
+    /* BUSINESS CARD PREVIEW — dark premium display */
+    #bizCardPreview {
+      background: linear-gradient(135deg,#0A0F14,#1B232C);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 26px 22px;
+      display: none;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), 0 0 15px var(--gold-glow);
+    }
+    .bc-inner { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; }
+    .bc-name { font-size:1.4rem; font-weight:800; color:#fff; margin-bottom:4px; }
+    .bc-title { font-size:0.95rem; color:var(--gold-bright); margin-bottom:10px; font-weight:700; }
+    .bc-detail { font-size:0.85rem; color:#D8DEE5; margin-bottom:4px; font-weight:500; }
+    .bc-qr { background:#fff; padding:12px; border-radius:12px; border:2px solid var(--gold); }
+    .bc-qr img { display:block; border-radius:6px; }
+    .bc-brand { font-size:0.7rem; color:var(--gold-bright); margin-top:16px; letter-spacing:1.5px; font-weight:700; }
+
+    /* SHARE BAR */
+    .share-bar {
+      display:grid; grid-template-columns: repeat(4, 1fr); gap:10px;
+      margin: 20px auto; padding: 0 4px;
+    }
+    .share-bar > span {
+      grid-column: 1/-1; text-align:center;
+      font-size:0.78rem; color:var(--gold-bright);
+      font-family:'Oswald',sans-serif; font-weight:700;
+      letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;
+    }
+    .share-btn {
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+      padding:14px 8px; border-radius:14px;
+      font-family:'Oswald',sans-serif; font-weight:800; font-size:0.72rem;
+      cursor:pointer; text-decoration:none; color:#0A0F14;
+      text-transform:uppercase; letter-spacing:0.5px;
+      transition:all 0.3s ease;
+      background:#FFFFFF; background-image:linear-gradient(145deg, #FFFFFF, #F0F2F5);
+      border:2px solid var(--gold);
+      box-shadow:0 3px 10px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.9);
+      min-height:72px;
+    }
+    .share-btn i { font-size:1.3rem; }
+    .share-btn:hover { border-color:var(--gold-bright); transform:translateY(-3px); box-shadow:0 8px 22px rgba(0,0,0,0.2), 0 0 20px rgba(212,175,55,0.4); }
+    .share-whatsapp { color:#128C4A; } .share-whatsapp i { color:#25D366; }
+    .share-pdf { color:#B71C1C; } .share-pdf i { color:#E53935; }
+    .share-jpg { color:#4A2B9E; } .share-jpg i { color:#6C5CE7; }
+    .share-png { color:#A15C00; } .share-png i { color:#F59E0B; }
+
+    /* SILVER EDUCATIONAL */
+    .detail-section {
+      margin: 30px auto;
+      padding: 30px 24px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.85; font-size: 0.95rem; color: #0A0F14;
+    }
+    .detail-section h2 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.35rem; margin-bottom:16px; border-bottom:2px solid var(--gold); padding-bottom:10px; font-weight: 800; }
+    .detail-section h3 { color:#0A0F14; font-size:1.1rem; margin:22px 0 10px; font-weight: 800; }
+    .detail-section p, .detail-section ul, .detail-section ol { margin-bottom:14px; color: #0A0F14; font-weight: 500; }
+    .detail-section ul, .detail-section ol { padding-left:24px; }
+    .detail-section li { margin-bottom:6px; }
+    .detail-section strong { color:#0A0F14; font-weight: 800; }
+    .detail-section a { color: #0A0F14; font-weight: 800; text-decoration: underline; }
+
+    /* PAKISTANI BLOCK */
+    .pakistani-block {
+      margin: 30px auto;
+      padding: 24px 20px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+    }
+    .pakistani-block h2 { color:#0A0F14; font-family:'Oswald',sans-serif; font-size:1.15rem; margin-bottom:12px; font-weight: 800; }
+    .pakistani-block p { color:#0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color:#0A0F14; font-weight: 800; }
+
+    /* RELATED TOOLS */
+    .related-tools-section {
+      margin: 20px auto; padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+    }
+    .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; font-family:'Oswald',sans-serif; letter-spacing:0.5px; }
+    .related-tools-section a { color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; display: inline-block; margin: 4px 4px 4px 0; }
+
+    /* DISCLAIMER */
+    .disclaimer-box {
+      margin: 20px auto; padding: 16px 18px;
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      font-size: 0.85rem; color: #0A0F14; line-height: 1.7; font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    /* LEAD CAPTURE */
+    .lead-capture {
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
       padding: 28px 24px;
       margin: 30px 0;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
     }
-    .lead-capture h3 { font-family:'Oswald',sans-serif; color:var(--gold-bright); font-size:1.25rem; margin-bottom:14px; letter-spacing:0.5px; }
-    .lead-capture p { color:#c5cdd6; margin-bottom:18px; font-size:0.9rem; }
+    .lead-capture h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.2rem; margin-bottom:12px; letter-spacing:0.5px; font-weight: 800; }
+    .lead-capture p { color:#0A0F14; margin-bottom:18px; font-size:0.9rem; font-weight: 500; }
     .lead-capture form { display:flex; flex-direction:column; gap:12px; }
-    .lead-capture input[type="email"] { background:#0e1520; border:1.5px solid rgba(212,175,55,0.6); border-radius:8px; padding:12px 16px; color:#fff; font-size:0.95rem; outline:none; }
-    .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 12px rgba(212,175,55,0.3); }
-    .lead-capture button { background:var(--silver-bg); border:none; border-radius:8px; padding:12px 20px; font-weight:700; font-size:0.95rem; color:#0A0F14; cursor:pointer; transition:background 0.25s; letter-spacing:0.5px; }
-    .lead-capture button:hover { background:var(--silver-bg-hover); box-shadow:0 0 20px rgba(212,175,55,0.5); }
+    .lead-capture input[type="email"] {
+      background:#FFFFFF; border:2px solid var(--gold); border-radius:10px;
+      padding:12px 16px; color:#0A0F14; font-size:0.95rem; font-weight: 600; outline:none;
+    }
+    .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .lead-capture button {
+      background: var(--silver-bg); border:2px solid var(--gold); border-radius:10px;
+      padding:14px 20px; font-family:'Oswald',sans-serif; font-weight: 800;
+      font-size: 0.95rem; color:#0A0F14; cursor:pointer;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      transition: all 0.25s ease;
+    }
+    .lead-capture button:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 20px var(--gold-glow); }
 
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:30px 0 20px; border-top:2px solid; border-image:var(--gold-border) 1; margin-top:40px; }
-    footer a { color:var(--gold-bright); text-decoration:none; font-weight:600; }
-    .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.3rem; text-decoration:none; }
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 30px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14; font-weight: 800;
+      padding: 14px 28px; border-radius: 50px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5), 0 0 30px rgba(212,175,55,0.5);
+      z-index: 9999; opacity: 0;
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      font-size: 0.9rem; pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-    @media (max-width:600px){ .grid2{grid-template-columns:1fr;} .bc-inner{flex-direction:column;text-align:center;} .btn-row{grid-template-columns:1fr;} }
+    footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding: 40px 0 20px; border-top: 2px solid var(--gold); margin-top: 50px; }
+    footer a { color: var(--gold-bright); text-decoration: none; font-weight: 600; }
+    .whatsapp-float { position: fixed; bottom: 20px; right: 20px; z-index: 999; width: 48px; height: 48px; background: var(--whatsapp-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); text-decoration: none; color: #fff; font-size: 1.3rem; }
+
+    @media (max-width: 600px) {
+      .grid2 { grid-template-columns: 1fr; }
+      .bc-inner { flex-direction: column; text-align: center; }
+      .share-bar { grid-template-columns: 1fr 1fr; }
+      h1 { font-size: 1.4rem; }
+      .detail-section, .pakistani-block, .lead-capture {
+        margin-left: -6px !important;
+        margin-right: -6px !important;
+        padding: 20px 16px !important;
+      }
+      .detail-section h2 { font-size: 1.15rem; }
+      .bc-qr img { width: 140px !important; height: 140px !important; }
+    }
   </style>
   <script type="application/ld+json">
   {
@@ -192,9 +418,10 @@
   </script>
 </head>
 <body>
+  <!-- GOLDEN NAVBAR -->
   <nav class="navbar">
     <div class="container nav-inner">
-      <a href="index.html" class="logo"><i class="fa-solid fa-snowflake"></i> ColdMatrix</a>
+      <a href="index.html" class="logo">❄️ ColdMatrix</a>
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
@@ -207,17 +434,21 @@
   </nav>
 
   <div class="container">
-    <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
-
-    <div class="ad-card">
-      <div><ul><li>PEB Structures</li><li>Cold Storage & Freezer Rooms</li><li>PU/PIR Sandwich Panels</li><li>Prefab Construction Solutions</li></ul><div style="font-size:0.8rem;color:#c8d0d8;margin-top:4px;">✦ Karachi, Lahore, Islamabad & all Pakistan</div></div>
-      <a href="https://wa.me/923333228470" class="whatsapp-btn" target="_blank">💬 Get Quote</a>
-    </div>
+    <a href="index.html#tools" class="back-link">← Back to Tools</a>
 
     <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
     <h1>📱 ColdMatrix <span>QR Business Card Generator</span></h1>
-    <p class="subtitle">Create a professional digital business card with a scannable QR code — anyone can scan it with their phone camera to instantly save your name, phone, email, and company details. Perfect for networking, printed cards, email signatures, and digital sharing.</p>
+    <p class="subtitle">Create a professional digital business card with a scannable QR code — anyone can scan it with their phone camera to instantly save your name, phone, email, and company details for digital sharing.</p>
+
+    <div class="get-quote-strip">
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20a%20QR%20business%20card." class="quote-btn whatsapp" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Quick Chat
+      </a>
+      <a href="contact.html" class="quote-btn">
+        <i class="fa-solid fa-envelope"></i> Get a Quote
+      </a>
+    </div>
 
     <div class="share-tool-card">
       <div class="share-tool-title">Share This Tool</div>
@@ -227,15 +458,32 @@
       </div>
     </div>
 
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+    <!-- DETAILS FORM -->
     <div class="card">
       <h2>👤 Your Details</h2>
-      <div class="grid2"><div><label>Full Name</label><input id="bcName" placeholder="Wasi Ahmed"></div><div><label>Job Title</label><input id="bcTitle" placeholder="Founder"></div></div>
-      <div class="grid2"><div><label>Company</label><input id="bcCompany" placeholder="ColdMatrix Contracting"></div><div><label>Phone</label><input id="bcPhone" placeholder="+92 333 3228470"></div></div>
-      <div class="grid2"><div><label>Email</label><input id="bcEmail" type="email" placeholder="you@email.com"></div><div><label>Website</label><input id="bcWebsite" placeholder="coldmatrixtools.com"></div></div>
-      <div style="margin-bottom:14px;"><label>Address (optional)</label><input id="bcAddress" placeholder="City, Country"></div>
-      <div class="btn-row"><button class="btn-calc" onclick="generateCard()">📱 Generate My QR Business Card</button><button class="btn-reset" onclick="window.location.reload()">↺ Reset</button></div>
+      <div class="grid2">
+        <div class="field"><label>Full Name</label><input id="bcName" placeholder="Wasi Ahmed"></div>
+        <div class="field"><label>Job Title</label><input id="bcTitle" placeholder="Founder"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Company</label><input id="bcCompany" placeholder="ColdMatrix Contracting"></div>
+        <div class="field"><label>Phone</label><input id="bcPhone" placeholder="+92 333 3228470"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Email</label><input id="bcEmail" type="email" placeholder="you@email.com"></div>
+        <div class="field"><label>Website</label><input id="bcWebsite" placeholder="coldmatrixtools.com"></div>
+      </div>
+      <div class="field"><label>Address (optional)</label><input id="bcAddress" placeholder="City, Country"></div>
+
+      <div class="btn-stack">
+        <button class="btn-primary" onclick="generateCard()">📱 Generate My QR Business Card</button>
+        <button class="btn-secondary" onclick="resetForm()">↺ Reset</button>
+      </div>
     </div>
 
+    <!-- BUSINESS CARD PREVIEW -->
     <div id="bizCardPreview">
       <div class="bc-inner" id="shareCapture">
         <div>
@@ -253,12 +501,16 @@
     </div>
 
     <div class="share-bar" id="shareBarWrap" style="display:none;">
+      <span>📤 Share or save your business card</span>
       <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
       <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
       <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
 
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+    <!-- EDUCATIONAL -->
     <div class="detail-section">
       <h2>📖 About the QR Business Card Generator</h2>
       <p>Design a professional digital business card with a built-in scannable QR code — share your contact details instantly with anyone, no app required on their end. This tool creates a complete vCard (virtual contact card) that contains your name, job title, company, phone, email, website, and address in a single scannable code.</p>
@@ -267,7 +519,7 @@
       <ul>
         <li><strong>Digital Business Card:</strong> Create a complete vCard with name, title, company, phone, email, website, and address.</li>
         <li><strong>QR Code Generation:</strong> Automatically generates a scannable QR code containing all your contact details.</li>
-        <li><strong>Download & Share:</strong> Export as PDF, JPG, or PNG, and share on WhatsApp.</li>
+        <li><strong>Download &amp; Share:</strong> Export as PDF, JPG, or PNG, and share on WhatsApp.</li>
         <li><strong>Print-Ready:</strong> Use on printed cards, email signatures, or digital profiles.</li>
         <li><strong>Universal Compatibility:</strong> Works with all modern smartphone cameras — no special app needed.</li>
         <li><strong>100% Free:</strong> No registration, no hidden fees, no watermarks.</li>
@@ -279,8 +531,8 @@
         <li><strong>Email Signatures:</strong> Add a QR code to your email footer for one-tap contact saving.</li>
         <li><strong>Printed Cards:</strong> Include QR on traditional business cards for quick saving.</li>
         <li><strong>Social Media Profiles:</strong> Link your digital card in Instagram, LinkedIn, or Twitter bios.</li>
-        <li><strong>Conferences & Trade Shows:</strong> Quick contact exchange with potential clients and partners.</li>
-        <li><strong>Freelancers & Consultants:</strong> Share your professional details with clients effortlessly.</li>
+        <li><strong>Conferences &amp; Trade Shows:</strong> Quick contact exchange with potential clients and partners.</li>
+        <li><strong>Freelancers &amp; Consultants:</strong> Share your professional details with clients effortlessly.</li>
       </ul>
 
       <h3>How It Works</h3>
@@ -302,15 +554,37 @@
       </ul>
 
       <h3>Common Questions</h3>
-      <p><strong>How is this different from the QR Code Generator?</strong><br>This tool is purpose-built for business cards specifically, with layout and design options. The <a href="qr-code-generator.html" style="color:#0A0F14; font-weight:700;">QR Code Generator</a> is for general links, text, or WiFi codes.</p>
+      <p><strong>How is this different from the QR Code Generator?</strong><br>This tool is purpose-built for business cards specifically, with layout and design options. The <a href="qr-code-generator.html">QR Code Generator</a> is for general links, text, or WiFi codes.</p>
       <p><strong>Can I use this on my printed business card?</strong><br>Yes! Download the QR code and add it to your print design. The QR code works perfectly in print as long as it's at least 2cm × 2cm.</p>
       <p><strong>Does it work with all phones?</strong><br>Yes, any modern smartphone camera can scan the QR code and save the contact — both iPhone and Android.</p>
       <p><strong>Can I edit my card after generating?</strong><br>Yes, simply change the fields and click "Generate" again to update the QR code.</p>
       <p><strong>Is there a limit on how many cards I can create?</strong><br>No limit — create as many cards as you need for different roles or businesses.</p>
-
-      <p><strong>Disclaimer:</strong> This tool creates standard vCard format QR codes. Always test the QR code with your own phone before printing large quantities.</p>
     </div>
 
+    <!-- PAKISTANI / GLOBAL -->
+    <div class="pakistani-block">
+      <h2>🌐 ColdMatrix — Digital Tools for a Global Community</h2>
+      <p>Our QR Business Card Generator is used daily by professionals, freelancers, business owners, and sales teams across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, and Australia</strong>. It's a genuinely global tool — fast, private, and free for everyone.</p>
+      <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients worldwide with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
+      <p>Need a custom digital card, company profile tool, or project quote? Our team responds within 24 hours.</p>
+      <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- RELATED TOOLS -->
+    <div class="related-tools-section">
+      <h3>🔗 Related Tools You Might Need</h3>
+      <div>
+        <a href="qr-code-generator.html">📱 QR &amp; Barcode Studio</a>
+        <a href="smart-scanner.html">📷 Smart Scanner</a>
+        <a href="password-generator.html">🔐 Password Generator</a>
+        <a href="image-converter-tool.html">🖼️ Image Converter</a>
+        <a href="notepad.html">📝 Notepad</a>
+        <a href="unit-converter.html">📏 Unit Converter</a>
+        <a href="contact.html">📞 Contact Us</a>
+      </div>
+    </div>
+
+    <!-- LEAD CAPTURE -->
     <div class="lead-capture">
       <h3>🚀 Need a Custom Business Solution?</h3>
       <p>Get tailored tools, dashboards, or automation for your business. Leave your email and we'll reach out with a free consultation.</p>
@@ -321,39 +595,45 @@
         <button type="submit">Request Custom Tool</button>
       </form>
     </div>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> This tool creates standard vCard format QR codes. Always test the QR code with your own phone before printing large quantities.
+    </div>
+
   </div>
 
-<!-- Combined Footer + Floating WhatsApp -->
-<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" style="position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem;">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
-<footer style="background:rgba(10,15,20,0.9); border-top:2px solid #D4AF37; padding:30px 20px; margin-top:50px; text-align:center;">
-    <!-- Contact Info -->
+  <!-- FOOTER -->
+  <footer>
     <div style="margin-bottom:15px;">
-        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
-        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
-        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
-            📞 <strong>Call / WhatsApp:</strong> 
-            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
-            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
-                <i class="fa-brands fa-whatsapp"></i>
-            </a>
-        </p>
+      <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+      <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#FFD700; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+      <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+        📞 <strong>Call / WhatsApp:</strong>
+        <a href="tel:+923333228470" style="color:#FFD700; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+        <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+      </p>
     </div>
 
-    <!-- Legal Links -->
     <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+      <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+      <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+      <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+      <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
     </div>
 
-    <!-- Copyright -->
     <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
-</footer>
+  </footer>
+
   <script>
+    // ============================================
+    // GENERATE BUSINESS CARD
+    // ============================================
     function generateCard(){
       const name=document.getElementById('bcName').value.trim();
       const title=document.getElementById('bcTitle').value.trim();
@@ -377,13 +657,35 @@
       document.getElementById('qrCanvas').innerHTML=`<img src="${qrUrl}" alt="QR Code" style="width:160px;height:160px;">`;
 
       document.getElementById('bizCardPreview').style.display='block';
-      document.getElementById('shareBarWrap').style.display='flex';
+      document.getElementById('shareBarWrap').style.display='grid';
+      showToast('✓ Business card generated');
     }
 
+    // ============================================
+    // RESET
+    // ============================================
+    function resetForm(){
+      if(!confirm('Reset all fields to defaults?')) return;
+      document.getElementById('bcName').value='Wasi Ahmed';
+      document.getElementById('bcTitle').value='Founder';
+      document.getElementById('bcCompany').value='ColdMatrix Contracting';
+      document.getElementById('bcPhone').value='+92 333 3228470';
+      document.getElementById('bcEmail').value='';
+      document.getElementById('bcWebsite').value='';
+      document.getElementById('bcAddress').value='';
+      document.getElementById('bizCardPreview').style.display='none';
+      document.getElementById('shareBarWrap').style.display='none';
+      showToast('↺ Reset complete');
+    }
+
+    // ============================================
+    // CAPTURE / DOWNLOAD / SHARE
+    // ============================================
     async function captureCanvas(){
       await new Promise(r=>setTimeout(r,300));
       return await html2canvas(document.getElementById('shareCapture'),{backgroundColor:'#0A0F14',scale:2});
     }
+
     async function downloadResult(type){
       const canvas=await captureCanvas();
       if(type==='pdf'){
@@ -400,6 +702,7 @@
         link.click();
       }
     }
+
     async function shareWhatsApp(){
       const canvas=await captureCanvas();
       canvas.toBlob(async(blob)=>{
@@ -413,23 +716,53 @@
       });
     }
 
-    let dp;const ib=document.getElementById('installBarTool');
+    // ============================================
+    // TOAST
+    // ============================================
+    function showToast(msg){
+      let toast=document.getElementById('cmToast');
+      if(!toast){
+        toast=document.createElement('div');
+        toast.id='cmToast';
+        toast.className='toast';
+        document.body.appendChild(toast);
+      }
+      toast.textContent=msg;
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'),2000);
+    }
+
+    // ============================================
+    // PWA INSTALL
+    // ============================================
+    let dp;
+    const ib=document.getElementById('installBarTool');
     window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;ib.style.display='block';});
-    window.installAppTool=function(){if(dp){dp.prompt();dp.userChoice.then(()=>{ib.style.display='none';});}else{alert('📱 Add to Home Screen via browser menu.');}};
+    window.installAppTool=function(){
+      if(dp){dp.prompt();dp.userChoice.then(()=>{ib.style.display='none';});}
+      else{alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');}
+    };
     if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
 
-    function shareToolWhatsApp(){window.open('https://wa.me/?text='+encodeURIComponent('QR Business Card Generator: '+location.href));}
-    function copyToolLink(){navigator.clipboard.writeText(location.href).then(()=>alert('Link copied!')).catch(()=>{alert(location.href);});}
+    // ============================================
+    // TOOL SHARE
+    // ============================================
+    function shareToolWhatsApp(){
+      window.open('https://wa.me/?text='+encodeURIComponent('Check out this free QR Business Card Generator from ColdMatrix Tools! '+location.href),'_blank');
+    }
+    function copyToolLink(){
+      navigator.clipboard.writeText(location.href).then(()=>showToast('✓ Link copied')).catch(()=>{alert(location.href);});
+    }
+
+    // ============================================
+    // DEFAULT VALUES
+    // ============================================
     document.addEventListener("DOMContentLoaded", function() {
-    var name = document.getElementById('bcName');
-    var phone = document.getElementById('bcPhone');
-    var company = document.getElementById('bcCompany');
-    var title = document.getElementById('bcTitle');
-    if (name) name.value = 'Wasi Ahmed';
-    if (phone) phone.value = '+92 333 3228470';
-    if (company) company.value = 'ColdMatrix Contracting';
-    if (title) title.value = 'Founder';
-});
+      document.getElementById('bcName').value = 'Wasi Ahmed';
+      document.getElementById('bcPhone').value = '+92 333 3228470';
+      document.getElementById('bcCompany').value = 'ColdMatrix Contracting';
+      document.getElementById('bcTitle').value = 'Founder';
+    });
   </script>
 </body>
 </html>
