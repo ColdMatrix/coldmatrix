@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script src="https://cdnjs.cloudflare.com/cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     :root {
@@ -58,7 +58,6 @@
     }
     .container { max-width: 850px; margin:0 auto; padding:0 20px; }
 
-    /* GOLDEN NAVBAR */
     .navbar { position:sticky; top:0; z-index:100; background:rgba(10,15,20,0.95); backdrop-filter:blur(18px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; }
     .logo { font-size:1.35rem; font-weight:800; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
@@ -67,7 +66,6 @@
     .nav-links a:hover { color:var(--gold-bright); }
     .back-link { display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem; }
 
-    /* GOLDEN INSTALL BAR */
     .install-bar {
       display: block;
       background: linear-gradient(135deg, #D4AF37, #FFD700);
@@ -87,7 +85,6 @@
     h1 span { color: var(--gold-bright); }
     .subtitle { color:#EAEDF0; font-size:0.98rem; font-weight:500; margin-bottom:22px; }
 
-    /* GET QUOTE STRIP */
     .get-quote-strip { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
     .get-quote-strip .quote-btn {
       flex: 1; min-width: 140px;
@@ -108,7 +105,6 @@
     .get-quote-strip .quote-btn.whatsapp { background: #25D366; color: #fff; border-color: #1da851; }
     .get-quote-strip .quote-btn.whatsapp:hover { background: #1da851; border-color: #25D366; box-shadow: 0 0 22px rgba(37,211,102,0.5); }
 
-    /* SHARE CARD */
     .share-tool-card {
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
       border:2px solid;
@@ -130,21 +126,32 @@
     .share-tool-btn.wa { border-color:rgba(37,211,102,0.55); }
     .share-tool-btn.wa:hover { border-color:#25D366; box-shadow:0 0 20px rgba(37,211,102,0.35); }
 
-    /* AD ZONE */
+    /* ============================================ */
+    /* AD ZONE — Reserves space so buttons don't jump when ads load */
+    /* Fixes AdSense layout shift (CLS) and prevents accidental taps */
+    /* ============================================ */
     .ad-zone {
       margin: 20px 0;
-      padding: 20px;
+      padding: 12px;
       background: rgba(212,175,55,0.05);
       border: 2px dashed var(--gold);
       border-radius: 12px;
       text-align: center;
-      min-height: 90px;
+      width: 100%;
+      min-height: 120px;
+      contain: layout size;
       display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 0.75rem; font-weight: 600;
+      color: var(--muted); font-size: 0.72rem; font-weight: 600;
       letter-spacing: 1px; text-transform: uppercase;
+      overflow: hidden;
+    }
+    .ad-zone.has-ad {
+      border-style: solid;
+      background: transparent;
+      padding: 0;
+      min-height: 0;
     }
 
-    /* SILVER CONVERSION CARD */
     .card {
       background: var(--silver-bg);
       background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
@@ -187,7 +194,65 @@
     .card input:focus, .card select:focus { border-color: var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
     .card input::placeholder { color:#8B98A5; font-weight:500; }
 
-    /* BIG GOLDEN DROPDOWN ARROW */
+    .currency-search {
+      width: 100%;
+      margin-bottom: 8px !important;
+      background: rgba(255,255,255,0.92) !important;
+      border: 2px solid var(--gold) !important;
+      color: #0A0F14 !important;
+      padding: 10px 14px !important;
+      border-radius: 8px !important;
+      font-size: 0.85rem !important;
+      font-weight: 600 !important;
+      font-family: 'Inter', sans-serif !important;
+    }
+    .currency-search:focus {
+      border-color: var(--gold-bright) !important;
+      box-shadow: 0 0 12px var(--gold-glow) !important;
+    }
+    .currency-search::placeholder { color: #8B98A5 !important; font-weight: 500 !important; }
+
+    .popular-pairs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 12px;
+      background: rgba(255,255,255,0.5);
+      border: 1.5px solid rgba(212,175,55,0.5);
+      border-radius: 10px;
+    }
+    .popular-label {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.75rem;
+      color: #0A0F14;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-right: 4px;
+    }
+    .pair-chip {
+      background: #FFFFFF;
+      border: 1.5px solid var(--gold);
+      color: #0A0F14;
+      padding: 6px 12px;
+      border-radius: 18px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .pair-chip:hover {
+      background: var(--gold);
+      border-color: var(--gold-bright);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 10px rgba(212,175,55,0.35);
+    }
+
     .card select {
       appearance:none; -webkit-appearance:none; -moz-appearance:none;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14' viewBox='0 0 22 14'%3E%3Cpath d='M2 3 L11 11 L20 3' fill='none' stroke='%23D4AF37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -196,7 +261,6 @@
     }
     .card select option { background:#FFFFFF; color:#0A0F14; font-weight:600; }
 
-    /* QUICK AMOUNT CHIPS */
     .quick-chips { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 18px; }
     .quick-chip {
       background:#FFFFFF;
@@ -213,7 +277,6 @@
     }
     .quick-chip:hover { background: var(--gold); border-color: var(--gold-bright); transform:translateY(-2px); box-shadow: 0 4px 12px rgba(212,175,55,0.35); }
 
-    /* CONVERSION ROW */
     .conv-row {
       display:grid;
       grid-template-columns: 1fr auto 1fr;
@@ -237,7 +300,6 @@
     }
     .swap-btn:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); box-shadow:0 0 20px var(--gold-glow); transform: rotate(180deg); }
 
-    /* RESULT */
     .result-box {
       text-align:center;
       margin-top:20px;
@@ -250,6 +312,55 @@
     }
     .result-number { font-family:'Oswald',sans-serif; font-size:2.2rem; font-weight:800; color:#0A0F14; line-height:1.2; word-break:break-word; }
     .result-sub { color:#4a4d55; font-size:0.9rem; margin-top:10px; font-weight:600; }
+    .result-reverse { color:#4a4d55; font-size:0.8rem; margin-top:6px; font-weight:600; font-style:italic; }
+
+    .btn-copy-result {
+      margin-top: 14px;
+      background: var(--silver-bg);
+      border: 2px solid var(--gold);
+      color: #0A0F14;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.82rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-copy-result:hover {
+      background: var(--gold);
+      border-color: var(--gold-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(212,175,55,0.4);
+    }
+
+    .copy-toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 20px rgba(212,175,55,0.5);
+      border: 2px solid var(--gold-bright);
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+    .copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     .rate-updated {
       text-align:center;
@@ -257,9 +368,16 @@
       color: var(--gold-bright);
       margin-top:14px;
       font-weight:700;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: all 0.25s ease;
+    }
+    .rate-updated.fallback {
+      background: rgba(255, 193, 7, 0.12);
+      border: 1px dashed var(--gold);
+      color: #FFC107;
     }
 
-    /* STACKED BUTTONS */
     .btn-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
 
     .btn-convert {
@@ -302,9 +420,6 @@
     }
     .btn-reset:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform:translateY(-2px); }
 
-/* ============================================ */
-/* SHARE BAR — Elite 4-button premium grid */
-/* ============================================ */
 .share-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -349,9 +464,7 @@
   box-shadow: 0 4px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
   min-height: 58px;
 }
-.share-btn i {
-  font-size: 1.15rem;
-}
+.share-btn i { font-size: 1.15rem; }
 .share-btn::before {
   content: '';
   position: absolute;
@@ -367,58 +480,22 @@
 }
 .share-btn:active { transform: translateY(-1px); }
 
-/* WhatsApp — brand green with gold border */
-.share-whatsapp {
-  background: linear-gradient(145deg, #2ee06f, #1da851);
-  border: 2px solid var(--gold);
-}
+.share-whatsapp { background: linear-gradient(145deg, #2ee06f, #1da851); border: 2px solid var(--gold); }
 .share-whatsapp:hover { border-color: var(--gold-bright); }
-
-/* PDF — rich red */
-.share-pdf {
-  background: linear-gradient(145deg, #F35B5B, #C62828);
-  border: 2px solid var(--gold);
-}
+.share-pdf { background: linear-gradient(145deg, #F35B5B, #C62828); border: 2px solid var(--gold); }
 .share-pdf:hover { border-color: var(--gold-bright); }
-
-/* JPG — royal purple */
-.share-jpg {
-  background: linear-gradient(145deg, #8B7CF6, #5B21B6);
-  border: 2px solid var(--gold);
-}
+.share-jpg { background: linear-gradient(145deg, #8B7CF6, #5B21B6); border: 2px solid var(--gold); }
 .share-jpg:hover { border-color: var(--gold-bright); }
-
-/* PNG — premium amber */
-.share-png {
-  background: linear-gradient(145deg, #FBBF24, #D97706);
-  border: 2px solid var(--gold);
-  color: #0A0F14;
-}
+.share-png { background: linear-gradient(145deg, #FBBF24, #D97706); border: 2px solid var(--gold); color: #0A0F14; }
 .share-png:hover { border-color: var(--gold-bright); }
 .share-png i { color: #0A0F14; }
 
-/* Mobile — 2×2 grid (perfectly even) */
 @media (max-width: 640px) {
-  .share-bar {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    padding: 0 8px;
-  }
-  .share-btn {
-    padding: 14px 8px;
-    font-size: 0.75rem;
-    min-height: 54px;
-    gap: 6px;
-  }
+  .share-bar { grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 8px; }
+  .share-btn { padding: 14px 8px; font-size: 0.75rem; min-height: 54px; gap: 6px; }
   .share-btn i { font-size: 1rem; }
 }
-    }
-    .share-whatsapp { background: var(--whatsapp-green); }
-    .share-pdf { background:#E53935; }
-    .share-jpg, .share-png { background: var(--silver-bg); color:#0A0F14; border: 2px solid var(--gold); }
-    .share-btn:hover { transform:translateY(-2px); }
 
-    /* SILVER EDUCATIONAL CONTENT */
     .detail-section {
       margin: 30px 0;
       padding: 30px 24px;
@@ -436,7 +513,6 @@
     .detail-section li { margin-bottom:6px; }
     .detail-section strong { color:#0A0F14; font-weight: 800; }
 
-    /* PAKISTANI BLOCK */
     .pakistani-block {
       margin: 30px 0;
       padding: 24px 20px;
@@ -451,7 +527,6 @@
     .pakistani-block p { color:#0A0F14; font-weight: 500; margin-top: 10px; }
     .pakistani-block strong { color:#0A0F14; font-weight: 800; }
 
-    /* RELATED TOOLS */
     .related-tools-section {
       margin: 20px 0; padding: 20px;
       background: rgba(255,255,255,0.03);
@@ -461,7 +536,6 @@
     .related-tools-section h3 { color:#FFD700; font-size:1rem; margin-bottom:10px; font-family:'Oswald',sans-serif; letter-spacing:0.5px; }
     .related-tools-section a { color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; display: inline-block; margin: 4px 4px 4px 0; }
 
-    /* DISCLAIMER */
     .disclaimer-box {
       margin: 20px 0; padding: 16px 18px;
       background: var(--silver-bg);
@@ -472,7 +546,6 @@
     }
     .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
 
-    /* LEAD CAPTURE */
     .lead-capture {
       background: var(--silver-bg);
       background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
@@ -516,6 +589,8 @@
         padding: 20px 16px !important;
       }
       .card { padding: 22px 16px; }
+      .popular-pairs { padding: 10px; }
+      .pair-chip { font-size: 0.7rem; padding: 5px 10px; }
     }
   </style>
 </head>
@@ -563,9 +638,6 @@
       <span>📢 Ad Space Available</span>
     </div>
 
-    <!-- ============================================ -->
-    <!-- CONVERTER CARD — SILVER PREMIUM -->
-    <!-- ============================================ -->
     <div class="card" id="shareCapture">
       <h2>💱 Convert Currency</h2>
 
@@ -574,7 +646,6 @@
         <input id="amount" type="number" value="100" oninput="convert()" placeholder="Enter amount">
       </div>
 
-      <!-- QUICK AMOUNT CHIPS -->
       <div class="quick-chips">
         <button class="quick-chip" onclick="setAmount(1)">$1</button>
         <button class="quick-chip" onclick="setAmount(10)">$10</button>
@@ -584,14 +655,27 @@
         <button class="quick-chip" onclick="setAmount(5000)">$5,000</button>
       </div>
 
+      <div class="popular-pairs">
+        <span class="popular-label">⚡ Popular:</span>
+        <button class="pair-chip" onclick="setPopularPair('USD','PKR')">🇺🇸 USD → 🇵🇰 PKR</button>
+        <button class="pair-chip" onclick="setPopularPair('USD','EUR')">🇺🇸 USD → 🇪🇺 EUR</button>
+        <button class="pair-chip" onclick="setPopularPair('USD','GBP')">🇺🇸 USD → 🇬🇧 GBP</button>
+        <button class="pair-chip" onclick="setPopularPair('USD','INR')">🇺🇸 USD → 🇮🇳 INR</button>
+        <button class="pair-chip" onclick="setPopularPair('USD','AED')">🇺🇸 USD → 🇦🇪 AED</button>
+        <button class="pair-chip" onclick="setPopularPair('GBP','USD')">🇬🇧 GBP → 🇺🇸 USD</button>
+        <button class="pair-chip" onclick="setPopularPair('EUR','USD')">🇪🇺 EUR → 🇺🇸 USD</button>
+      </div>
+
       <div class="conv-row">
         <div>
           <label>From Currency</label>
+          <input type="text" class="currency-search" id="fromSearch" placeholder="🔍 Search currency..." oninput="filterCurrencies('from')">
           <select id="fromCur" onchange="convert()"></select>
         </div>
         <button class="swap-btn" onclick="swapCur()" title="Swap Currencies">⇄</button>
         <div>
           <label>To Currency</label>
+          <input type="text" class="currency-search" id="toSearch" placeholder="🔍 Search currency..." oninput="filterCurrencies('to')">
           <select id="toCur" onchange="convert()"></select>
         </div>
       </div>
@@ -604,6 +688,8 @@
       <div class="result-box" id="resultBox">
         <div class="result-number" id="resultNumber">—</div>
         <div class="result-sub" id="resultSub"></div>
+        <div class="result-reverse" id="resultReverse"></div>
+        <button class="btn-copy-result" onclick="copyResult()"><i class="fa-solid fa-copy"></i> Copy Result</button>
       </div>
 
       <div class="rate-updated" id="rateUpdated">⏳ Loading live rates…</div>
@@ -616,9 +702,6 @@
       <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
     </div>
 
-    <!-- ============================================ -->
-    <!-- EDUCATIONAL CONTENT — SILVER, MOBILE-FRIENDLY -->
-    <!-- ============================================ -->
     <div class="detail-section">
       <h2>💱 The Complete Currency Conversion Guide</h2>
 
@@ -682,9 +765,6 @@
       <span>📢 Ad Space Available</span>
     </div>
 
-    <!-- ============================================ -->
-    <!-- PAKISTANI / GLOBAL BLOCK -->
-    <!-- ============================================ -->
     <div class="pakistani-block">
       <h2>🌐 ColdMatrix Advanced Solutions — Finance Tools for a Global Economy</h2>
       <p>Our Global Currency Converter is used daily by freelancers, travelers, importers, and business owners across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, Australia, and beyond</strong>. It's a genuinely global tool built for a genuinely global economy.</p>
@@ -693,9 +773,6 @@
       <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
     </div>
 
-    <!-- ============================================ -->
-    <!-- RELATED TOOLS -->
-    <!-- ============================================ -->
     <div class="related-tools-section">
       <h3>🔗 Related Tools You Might Need</h3>
       <div>
@@ -709,9 +786,6 @@
       </div>
     </div>
 
-    <!-- ============================================ -->
-    <!-- LEAD CAPTURE -->
-    <!-- ============================================ -->
     <div class="lead-capture">
       <h3>🚀 Need a Custom Financial Tool?</h3>
       <p>Get tailored currency dashboards, rate alerts, or automation for your business — anywhere in the world. Leave your email and we'll reach out within 24 hours.</p>
@@ -723,16 +797,12 @@
       </form>
     </div>
 
-    <!-- ============================================ -->
-    <!-- DISCLAIMER -->
-    <!-- ============================================ -->
     <div class="disclaimer-box">
       <strong>⚠️ Disclaimer:</strong> Exchange rates shown are mid-market rates sourced from public APIs and are provided for informational purposes only. They may differ from the rates offered by your bank, money transfer service, or payment processor. Always confirm the final rate before executing any transaction. ColdMatrix is not liable for decisions made based on the rates shown.
     </div>
 
   </div>
 
-  <!-- WhatsApp Float -->
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
 <footer>
@@ -775,20 +845,53 @@
 
   const popular = ["USD","EUR","GBP","PKR","AED","SAR","INR","CNY","JPY","AUD","CAD","CHF","SGD","MYR","TRY","ZAR","NGN","BDT","EGP","QAR"];
 
-  // Currency names via Intl API
-  let currencyNames = {};
+  const LS_RATES_KEY = 'cmCachedRates';
+  const LS_TIME_KEY  = 'cmLastLiveRates';
+
+  function saveRatesToCache(ratesObj){
+    try {
+      localStorage.setItem(LS_RATES_KEY, JSON.stringify(ratesObj));
+      localStorage.setItem(LS_TIME_KEY, new Date().toISOString());
+    } catch(e) {}
+  }
+
+  function readRatesFromCache(){
+    try {
+      const r = localStorage.getItem(LS_RATES_KEY);
+      const t = localStorage.getItem(LS_TIME_KEY);
+      return { rates: r ? JSON.parse(r) : null, time: t || null };
+    } catch(e) {
+      return { rates: null, time: null };
+    }
+  }
+
+  function formatCacheTime(iso){
+    try {
+      const d = new Date(iso);
+      return d.toLocaleString(undefined, { dateStyle:'medium', timeStyle:'short' });
+    } catch(e) { return iso; }
+  }
+
+  let currencyDisplayNames = null;
   try {
-    const displayNames = new Intl.DisplayNames(['en'], {type: 'currency'});
-    // Build names lazily when we know the rate codes
+    currencyDisplayNames = new Intl.DisplayNames(['en'], {type: 'currency'});
   } catch(e) {}
 
   function getName(code) {
-    try {
-      const dn = new Intl.DisplayNames(['en'], {type: 'currency'});
-      return dn.of(code) || code;
-    } catch(e) {
-      return code;
+    if(currencyDisplayNames){
+      try { return currencyDisplayNames.of(code) || code; }
+      catch(e) { return code; }
     }
+    return code;
+  }
+
+  function flagFor(code){
+    if(!code || code.length < 2) return '';
+    const cc = code.slice(0,2).toUpperCase();
+    if(!/^[A-Z]{2}$/.test(cc)) return '';
+    try {
+      return String.fromCodePoint(0x1F1E6 + (cc.charCodeAt(0) - 65), 0x1F1E6 + (cc.charCodeAt(1) - 65));
+    } catch(e) { return ''; }
   }
 
   function setAmount(v) {
@@ -802,7 +905,10 @@
       const data = await res.json();
       if(data && data.rates){
         rates = data.rates;
-        document.getElementById('rateUpdated').textContent = '✅ Live rates updated: ' + (data.time_last_update_utc || new Date().toUTCString());
+        saveRatesToCache(data.rates);
+        const el = document.getElementById('rateUpdated');
+        el.classList.remove('fallback');
+        el.textContent = '✅ Live rates updated: ' + (data.time_last_update_utc || new Date().toUTCString());
       } else {
         useFallbackRates();
       }
@@ -814,33 +920,83 @@
   }
 
   function useFallbackRates(){
-    rates = FALLBACK_RATES;
-    document.getElementById('rateUpdated').textContent = '⚠️ Using fallback rates (offline mode). Live rates resume on next connection.';
+    const cached = readRatesFromCache();
+    const el = document.getElementById('rateUpdated');
+    el.classList.add('fallback');
+
+    if(cached.rates){
+      rates = cached.rates;
+      const when = cached.time ? formatCacheTime(cached.time) : 'an earlier session';
+      el.textContent = '⚠️ Live rates unavailable. Showing cached rates from ' + when + '. Live rates resume on next connection.';
+    } else {
+      rates = FALLBACK_RATES;
+      el.textContent = '⚠️ Live rates unavailable. Showing built-in fallback rates. Live rates resume on next connection.';
+    }
   }
 
-  function populateSelects(){
+  const buildOptions = (codes) => codes.map(c => {
+    const name = getName(c);
+    const flag = flagFor(c);
+    return `<option value="${c}">${flag ? flag + ' ' : ''}${c} — ${name}</option>`;
+  }).join('');
+
+  function populateSelects(initialFrom, initialTo){
+    if(!rates) return;
     const allCodes = Object.keys(rates).sort();
     const ordered = [...popular.filter(c=>rates[c]), ...allCodes.filter(c=>!popular.includes(c))];
 
     const fromSel = document.getElementById('fromCur');
     const toSel = document.getElementById('toCur');
 
-    const buildOptions = (codes) => codes.map(c => {
-      const name = getName(c);
-      return `<option value="${c}">${c} — ${name}</option>`;
-    }).join('');
-
     fromSel.innerHTML = buildOptions(ordered);
     toSel.innerHTML = buildOptions(ordered);
 
-    fromSel.value = 'USD';
-    toSel.value = rates['PKR'] ? 'PKR' : (ordered[1] || ordered[0]);
+    fromSel.value = initialFrom || 'USD';
+    toSel.value = initialTo || (rates['PKR'] ? 'PKR' : (ordered[1] || ordered[0]));
+  }
+
+  function filterCurrencies(side){
+    if(!rates) return;
+    const searchEl = document.getElementById(side + 'Search');
+    const selEl = document.getElementById(side + 'Cur');
+    const currentVal = selEl.value;
+    const term = (searchEl.value || '').toLowerCase().trim();
+
+    const allCodes = Object.keys(rates).sort();
+    const ordered = [...popular.filter(c=>rates[c]), ...allCodes.filter(c=>!popular.includes(c))];
+
+    let filtered = ordered;
+    if(term){
+      filtered = ordered.filter(code => {
+        const name = getName(code).toLowerCase();
+        return code.toLowerCase().includes(term) || name.includes(term);
+      });
+    }
+
+    if(filtered.length === 0){
+      filtered = [currentVal];
+    }
+    if(currentVal && !filtered.includes(currentVal)){
+      filtered = [currentVal, ...filtered];
+    }
+
+    selEl.innerHTML = buildOptions(filtered);
+    selEl.value = currentVal;
+  }
+
+  function setPopularPair(from, to){
+    if(!rates) return;
+    document.getElementById('fromSearch').value = '';
+    document.getElementById('toSearch').value = '';
+    populateSelects(from, to);
+    convert();
   }
 
   function resetConverter(){
     document.getElementById('amount').value = 100;
-    document.getElementById('fromCur').value = 'USD';
-    document.getElementById('toCur').value = rates && rates['PKR'] ? 'PKR' : document.getElementById('toCur').options[0].value;
+    document.getElementById('fromSearch').value = '';
+    document.getElementById('toSearch').value = '';
+    populateSelects('USD', rates && rates['PKR'] ? 'PKR' : null);
     document.getElementById('resultBox').style.display = 'none';
     document.getElementById('shareBarWrap').style.display = 'none';
     convert();
@@ -851,12 +1007,20 @@
     const amount = parseFloat(document.getElementById('amount').value) || 0;
     const from = document.getElementById('fromCur').value;
     const to = document.getElementById('toCur').value;
+    if(!from || !to) return;
 
     const result = (amount / rates[from]) * rates[to];
     const rate = rates[to] / rates[from];
+    const reverseRate = 1 / rate;
 
     document.getElementById('resultNumber').textContent = result.toLocaleString(undefined, {maximumFractionDigits: 2}) + ' ' + to;
     document.getElementById('resultSub').textContent = `1 ${from} = ${rate.toLocaleString(undefined, {maximumFractionDigits: 4})} ${to}`;
+
+    const reverseEl = document.getElementById('resultReverse');
+    if(reverseEl){
+      reverseEl.textContent = `Reverse: 1 ${to} = ${reverseRate.toLocaleString(undefined, {maximumFractionDigits: 4})} ${from}`;
+    }
+
     document.getElementById('resultBox').style.display = 'block';
     document.getElementById('shareBarWrap').style.display = 'flex';
   }
@@ -868,6 +1032,35 @@
     f.value = t.value;
     t.value = tmp;
     convert();
+  }
+
+  function copyResult(){
+    const from = document.getElementById('fromCur').value;
+    const to = document.getElementById('toCur').value;
+    const amount = document.getElementById('amount').value;
+    const resultNum = document.getElementById('resultNumber').textContent;
+    const rateLine = document.getElementById('resultSub').textContent;
+    const reverseLine = document.getElementById('resultReverse').textContent;
+
+    const text = `${amount} ${from} = ${resultNum}\n${rateLine}\n${reverseLine}\n\nColdMatrix Global Currency Converter — coldmatrixtools.com`;
+
+    const showToast = () => {
+      const toast = document.createElement('div');
+      toast.className = 'copy-toast';
+      toast.textContent = '✅ Result copied!';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.classList.add('show'), 10);
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+      }, 1800);
+    };
+
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(showToast).catch(() => alert('Could not copy — please copy manually.'));
+    } else {
+      alert('Copy not supported — here is the result:\n\n' + text);
+    }
   }
 
   loadRates();

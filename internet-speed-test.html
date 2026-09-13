@@ -41,8 +41,6 @@
       --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
       --silver-bg:#C8CDD4;
       --silver-bg-hover:#D5D9DE;
-      --silver-gradient:linear-gradient(145deg,#D5D9DE,#C8CDD4);
-      --dark-silver:#4a4d55;
       --whatsapp-green:#25D366;
       --gauge-bg: linear-gradient(160deg, #0a0d13, #101a2c 55%, #0a0d13);
       --gauge-track:#1a2030;
@@ -54,7 +52,7 @@
     }
     .container { max-width:900px; margin:0 auto; padding:0 20px; }
 
-    /* GOLDEN NAVBAR */
+    /* NAVBAR */
     .navbar { position:sticky; top:0; z-index:100; background:rgba(13,17,23,0.94); backdrop-filter:blur(20px); border-bottom:2px solid var(--gold); }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:14px 0; flex-wrap:wrap; }
     .logo { font-size:1.3rem; font-weight:800; color:var(--gold-bright); text-decoration:none; }
@@ -63,7 +61,7 @@
     .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
     .back-link { display:inline-block; margin:14px 0 4px; color:var(--gold); text-decoration:none; font-weight:600; font-size:0.85rem; }
 
-    /* GOLDEN INSTALL BAR */
+    /* INSTALL BAR */
     .install-bar {
       display: block;
       background: linear-gradient(135deg, #D4AF37, #FFD700);
@@ -85,7 +83,7 @@
     .brand-title span { color:var(--gold-bright); }
     .brand-sub { font-size:1rem; color:#EAEDF0; font-weight:500; }
 
-    /* GET QUOTE STRIP */
+    /* QUOTE STRIP */
     .get-quote-strip { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
     .get-quote-strip .quote-btn {
       flex: 1; min-width: 140px;
@@ -121,18 +119,43 @@
 
     /* AD ZONE */
     .ad-zone {
-      margin: 20px 0; padding: 20px;
+      margin: 20px 0; padding: 12px;
       background: rgba(212,175,55,0.05);
       border: 2px dashed var(--gold);
       border-radius: 12px;
       text-align: center;
-      min-height: 90px;
+      width: 100%;
+      min-height: 120px;
+      contain: layout size;
       display: flex; align-items: center; justify-content: center;
-      color: var(--muted); font-size: 0.75rem; font-weight: 600;
+      color: var(--muted); font-size: 0.72rem; font-weight: 600;
       letter-spacing: 1px; text-transform: uppercase;
+      overflow: hidden;
     }
+    .ad-zone.has-ad { border-style: solid; background: transparent; padding: 0; min-height: 0; }
 
-    /* GAUGE SECTION — premium dark with golden border */
+    /* OFFLINE BANNER */
+    .offline-banner {
+      display: none;
+      background: linear-gradient(135deg, #7F1D1D, #991B1B);
+      border: 2px solid #EF4444;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin: 14px 0;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(239,68,68,0.35), inset 0 1px 0 rgba(255,255,255,0.1);
+      animation: slideIn 0.4s ease;
+    }
+    .offline-banner.show { display: block; }
+    .offline-banner .ob-icon { font-size: 1.8rem; margin-bottom: 6px; display: block; }
+    .offline-banner .ob-title { font-family: 'Oswald', sans-serif; font-size: 1.05rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+    .offline-banner .ob-desc { font-size: 0.82rem; font-weight: 500; opacity: 0.95; line-height: 1.5; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ============================================ */
+    /* GAUGE SECTION */
+    /* ============================================ */
     .gauge-section {
       display:flex; flex-direction:column; align-items:center;
       background: var(--gauge-bg);
@@ -140,22 +163,211 @@
       border-radius:20px; padding:20px 16px 24px; margin:16px auto;
       box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 25px rgba(212,175,55,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
     }
+
+    /* Connection status badge */
+    .connection-status {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.6px;
+      text-transform: uppercase; margin-bottom: 12px;
+      font-family: 'Oswald', sans-serif;
+      transition: all 0.3s ease;
+    }
+    .connection-status.online { background: rgba(52,211,153,0.15); border: 1.5px solid #34D399; color: #34D399; }
+    .connection-status.offline { background: rgba(239,68,68,0.15); border: 1.5px solid #EF4444; color: #EF4444; }
+    .connection-status.checking { background: rgba(212,175,55,0.15); border: 1.5px solid var(--gold); color: var(--gold-bright); }
+    .connection-status .cs-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 8px currentColor; }
+    .connection-status.online .cs-dot { animation: pulseGreen 1.5s ease-in-out infinite; }
+    .connection-status.offline .cs-dot { animation: pulseRed 1s ease-in-out infinite; }
+    .connection-status.checking .cs-dot { animation: pulseGold 1s ease-in-out infinite; }
+    @keyframes pulseGreen { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @keyframes pulseRed { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.3); } }
+    @keyframes pulseGold { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    /* Phase label above gauge */
+    .gauge-phase-label {
+      font-size: 0.85rem; color: #fff; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      text-shadow: 0 0 8px rgba(212,175,55,0.6);
+      margin-bottom: 8px; min-height: 1.3em;
+      font-family: 'Oswald', sans-serif;
+    }
+
     .gauge-svg-wrap { position:relative; width:100%; max-width:340px; aspect-ratio:1/1; margin:0 auto; }
     .gauge-svg-wrap svg { width:100%; height:100%; filter: drop-shadow(0 0 20px rgba(212,175,55,0.3)); }
     .gauge-track { fill:none; stroke:var(--gauge-track); stroke-width:24; }
-    .gauge-arc { fill:none; stroke-width:24; stroke-linecap:round; filter:drop-shadow(0 0 18px var(--gold-glow)); }
+    .gauge-arc { fill:none; stroke-width:24; stroke-linecap:round; }
     .gauge-num {
       fill:#ffffff; font-size:12px; font-family:'Oswald',sans-serif; font-weight:700;
       text-anchor:middle; dominant-baseline:middle;
       text-shadow: 0 0 8px rgba(212,175,55,0.8);
     }
-    .gauge-center { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
-    .gauge-status { font-size:0.82rem; color:#fff; font-weight:700; letter-spacing:1px; text-transform:uppercase; text-shadow:0 0 8px rgba(212,175,55,0.6); }
-    .gauge-value { font-size:3rem; font-weight:800; color:#fff; line-height:1; text-shadow:0 0 20px rgba(212,175,55,0.9); }
-    .gauge-unit { font-size:0.85rem; color:var(--gold-bright); font-weight:700; text-shadow:0 0 8px rgba(212,175,55,0.6); }
-    .completion-text { text-align:center; font-size:1rem; font-weight:700; color:var(--gold-bright); letter-spacing:2px; display:none; }
+    .completion-text { text-align:center; font-size:1rem; font-weight:700; color:var(--gold-bright); letter-spacing:2px; display:none; margin-top: 8px; }
     .completion-text.show { display:block; }
 
+/* ============================================ */
+/* GAUGE READOUT — big number INSIDE the gauge (bottom area) */
+/* ============================================ */
+.gauge-readout {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  pointer-events: none;
+  width: 80%;
+}
+.gauge-value {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1;
+  text-shadow: 0 0 22px rgba(212,175,55,0.95), 0 0 40px rgba(212,175,55,0.5);
+  letter-spacing: 1px;
+}
+.gauge-unit {
+  font-size: 0.85rem;
+  color: var(--gold-bright);
+  font-weight: 700;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(212,175,55,0.6);
+}
+
+    /* ============================================ */
+    /* ARC + NEEDLE: hidden when idle, visible during test, fade on completion */
+    /* ============================================ */
+    #gaugeArc, #gaugeNeedle {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .gauge-section.testing #gaugeArc,
+    .gauge-section.testing #gaugeNeedle {
+      opacity: 1;
+    }
+    /* Arc stroke color changes per phase */
+    #gaugeArc {
+      stroke: #FFD700;
+      transition: stroke 0.4s ease, stroke-width 0.3s ease, filter 0.3s ease;
+    }
+    .gauge-section.phase-ping #gaugeArc {
+      stroke: #FFD700;
+      filter: drop-shadow(0 0 20px rgba(255,215,0,0.95));
+    }
+    .gauge-section.phase-download #gaugeArc {
+      stroke: #22D3EE;
+      filter: drop-shadow(0 0 22px rgba(34,211,238,0.95));
+    }
+    .gauge-section.phase-upload #gaugeArc {
+      stroke: #A78BFA;
+      filter: drop-shadow(0 0 22px rgba(167,139,250,0.95));
+    }
+    .gauge-section.testing .gauge-arc { stroke-width: 28; }
+
+    /* White thick bar needle */
+    #gaugeNeedle {
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+    }
+    #gaugeNeedle rect {
+      fill: #FFFFFF;
+    }
+    #gaugeNeedle .needle-hub-outer {
+      fill: #0A0F14;
+      stroke: #D4AF37;
+      stroke-width: 3;
+    }
+    #gaugeNeedle .needle-hub-inner {
+      fill: #FFFFFF;
+      stroke: #E5E7EB;
+      stroke-width: 1.5;
+    }
+    #gaugeNeedle .needle-hub-center {
+      fill: #D4AF37;
+    }
+    .gauge-section.testing #gaugeNeedle {
+      filter: drop-shadow(0 0 18px rgba(255,255,255,0.95)) drop-shadow(0 0 30px rgba(255,215,0,0.5));
+    }
+
+    /* Result card phase borders */
+    .result-card { transition: border-color 0.4s ease, box-shadow 0.4s ease; }
+    .result-card.phase-ping-card {
+      border-color: #FFD700;
+      box-shadow: 0 6px 20px rgba(255,215,0,0.45), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .result-card.phase-download-card {
+      border-color: #22D3EE;
+      box-shadow: 0 6px 20px rgba(34,211,238,0.45), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .result-card.phase-upload-card {
+      border-color: #A78BFA;
+      box-shadow: 0 6px 20px rgba(167,139,250,0.45), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    /* Phase progress bar */
+    .phase-progress {
+      width: 100%;
+      max-width: 340px;
+      height: 6px;
+      background: rgba(212,175,55,0.15);
+      border-radius: 20px;
+      margin: 16px auto 0;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(212,175,55,0.25);
+    }
+    .phase-progress .pp-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #3B6CFF, #22D3EE, #34D399, #FFD700);
+      border-radius: 20px;
+      transition: width 0.5s ease;
+      box-shadow: 0 0 10px rgba(255,215,0,0.5);
+    }
+
+    /* Phase chips */
+    .phase-indicator {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .phase-chip {
+      padding: 5px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(212,175,55,0.25);
+      color: var(--muted);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-family: 'Oswald', sans-serif;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .phase-chip.active {
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14;
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 15px rgba(212,175,55,0.5);
+      transform: scale(1.05);
+    }
+    .phase-chip.done {
+      background: rgba(52,211,153,0.15);
+      border-color: #34D399;
+      color: #34D399;
+    }
+
+    /* Start button */
     .btn-premium {
       background: var(--silver-bg);
       color:#0A0F14;
@@ -163,18 +375,19 @@
       padding:16px 44px; border-radius:50px;
       font-family: 'Oswald', sans-serif;
       font-weight: 900; font-size:1.05rem; cursor:pointer;
-      margin:14px auto 0; text-transform:uppercase; letter-spacing:1px;
+      margin:16px auto 0; text-transform:uppercase; letter-spacing:1px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.4), 0 0 20px var(--gold-glow);
       transition:all 0.25s ease;
       display: block;
       min-height: 60px;
       min-width: 220px;
     }
-    .btn-premium:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); box-shadow: 0 0 30px var(--gold-glow); }
+    .btn-premium:hover:not(:disabled) { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); box-shadow: 0 0 30px var(--gold-glow); }
     .btn-premium.cancel { background:#E8A850; color:#1a1005; border-color:#C88430; box-shadow:0 6px 24px rgba(232,168,80,0.4); }
+    .btn-premium:disabled { opacity: 0.45; cursor: not-allowed; filter: grayscale(0.7); box-shadow: none; }
 
-    /* RESULT CARDS — silver premium */
-.results-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:16px 0; opacity:0; transition:opacity 0.5s; }
+    /* Result cards */
+    .results-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:16px 0; opacity:0; transition:opacity 0.5s; }
     .results-grid.show { opacity:1; }
     .result-card {
       background: var(--silver-bg);
@@ -191,106 +404,90 @@
     .prem-down { background:linear-gradient(135deg,#3B6CFF,#22D3EE); box-shadow:0 0 12px rgba(34,211,238,0.4); }
     .prem-up { background:linear-gradient(135deg,#A78BFA,#7C3AED); box-shadow:0 0 12px rgba(167,139,250,0.4); }
 
-/* ============================================ */
-/* SHARE BAR — ELEGANT LIGHT PREMIUM STYLE */
-/* ============================================ */
-.share-bar {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin: 24px auto;
-  max-width: 720px;
-  padding: 0 8px;
-}
-.share-bar > span {
-  grid-column: 1 / -1;
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--gold-bright);
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.share-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 14px 8px;
-  border-radius: 14px;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: 0.72rem;
-  cursor: pointer;
-  text-decoration: none;
-  color: #0A0F14;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  background: #FFFFFF;
-  background-image: linear-gradient(145deg, #FFFFFF, #F0F2F5);
-  border: 2px solid var(--gold);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.9);
-  min-height: 72px;
-  position: relative;
-  overflow: hidden;
-}
-.share-btn i {
-  font-size: 1.3rem;
-  transition: transform 0.3s ease;
-}
-.share-btn:hover {
-  border-color: var(--gold-bright);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 22px rgba(0,0,0,0.2), 0 0 20px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.9);
-}
-.share-btn:hover i {
-  transform: scale(1.15);
-}
-.share-btn:active {
-  transform: translateY(-1px);
-}
+    /* Connection type pill */
+    .conn-info-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #0A0F14;
+      color: #FFD700;
+      border: 2px solid #D4AF37;
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-left: 8px;
+      box-shadow: 0 0 12px rgba(212,175,55,0.35);
+    }
 
-/* Soft, elegant icon colors — accent only */
-.share-whatsapp { color: #128C4A; }
-.share-whatsapp i { color: #25D366; }
-
-.share-pdf { color: #B71C1C; }
-.share-pdf i { color: #E53935; }
-
-.share-jpg { color: #4A2B9E; }
-.share-jpg i { color: #6C5CE7; }
-
-.share-png { color: #A15C00; }
-.share-png i { color: #F59E0B; }
-
-/* Mobile — 2x2 grid */
-@media (max-width: 640px) {
-  .share-bar {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    padding: 0 4px;
-  }
-  .share-btn {
-    padding: 12px 6px;
-    font-size: 0.7rem;
-    min-height: 68px;
-    gap: 5px;
-  }
-  .share-btn i { font-size: 1.15rem; }
-}
+    /* SHARE BAR */
+    .share-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 24px auto;
+      max-width: 720px;
+      padding: 0 8px;
+    }
+    .share-bar > span {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--gold-bright);
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .share-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 14px 8px;
+      border-radius: 14px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      cursor: pointer;
+      text-decoration: none;
+      color: #0A0F14;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      background: #FFFFFF;
+      background-image: linear-gradient(145deg, #FFFFFF, #F0F2F5);
+      border: 2px solid var(--gold);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.9);
+      min-height: 72px;
+    }
+    .share-btn i { font-size: 1.3rem; transition: transform 0.3s ease; }
+    .share-btn:hover {
+      border-color: var(--gold-bright);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.2), 0 0 20px rgba(212,175,55,0.4), inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+    .share-btn:hover i { transform: scale(1.15); }
+    .share-whatsapp { color: #128C4A; }
+    .share-whatsapp i { color: #25D366; }
+    .share-pdf { color: #B71C1C; }
+    .share-pdf i { color: #E53935; }
+    .share-jpg { color: #4A2B9E; }
+    .share-jpg i { color: #6C5CE7; }
+    .share-png { color: #A15C00; }
+    .share-png i { color: #F59E0B; }
 
     /* HISTORY */
     .history-section { margin-top:20px; }
     .history-title { font-size:0.85rem; font-weight:700; color:var(--gold-bright); margin-bottom:8px; font-family: 'Oswald', sans-serif; letter-spacing: 0.5px; text-transform: uppercase; }
     .history-item { font-size:0.78rem; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05); color:var(--muted); display:flex; justify-content:space-between; }
 
-    /* ============================================ */
-    /* EDUCATIONAL CONTENT — SILVER PREMIUM */
-    /* ============================================ */
+    /* EDUCATIONAL */
     .learn-section { margin-top: 30px; }
     .learn-card {
       background: var(--silver-bg);
@@ -304,140 +501,40 @@
       line-height: 1.85;
       font-size: 0.95rem;
     }
-    .learn-card h2 {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.35rem;
-      color: #0A0F14;
-      margin-bottom: 16px;
-      border-bottom: 2px solid var(--gold);
-      padding-bottom: 10px;
-      font-weight: 800;
-    }
-    .learn-card h3 {
-      font-size: 1.05rem;
-      color: #0A0F14;
-      margin: 18px 0 8px;
-      font-weight: 800;
-    }
+    .learn-card h2 { font-family: 'Oswald', sans-serif; font-size: 1.35rem; color: #0A0F14; margin-bottom: 16px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; font-weight: 800; }
+    .learn-card h3 { font-size: 1.05rem; color: #0A0F14; margin: 18px 0 8px; font-weight: 800; }
     .learn-card p { color: #0A0F14; font-weight: 500; margin-bottom: 12px; }
-
-    /* Accordion on silver */
     .accordion-item { border-bottom: 1px solid rgba(0,0,0,0.1); }
     .accordion-item:last-child { border-bottom: none; }
-    .accordion-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 0;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.9rem;
-      color: #0A0F14;
-    }
-    .accordion-head i {
-      color: var(--gold);
-      transition: transform 0.3s ease;
-      font-size: 0.8rem;
-    }
+    .accordion-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; cursor: pointer; font-weight: 700; font-size: 0.9rem; color: #0A0F14; }
+    .accordion-head i { color: var(--gold); transition: transform 0.3s ease; font-size: 0.8rem; }
     .accordion-head.open i { transform: rotate(180deg); }
-    .accordion-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease;
-      font-size: 0.87rem;
-      color: #0A0F14;
-      line-height: 1.7;
-      font-weight: 500;
-    }
+    .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; font-size: 0.87rem; color: #0A0F14; line-height: 1.7; font-weight: 500; }
     .accordion-body div { padding: 0 0 16px; }
-    .accordion-body table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-      color: #0A0F14;
-      margin: 10px 0;
-      background: #FFFFFF;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 2px solid var(--gold);
-    }
-    .accordion-body th {
-      padding: 10px 8px;
-      text-align: left;
-      background: #0A0F14;
-      color: var(--gold-bright);
-      font-weight: 800;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }
-    .accordion-body td {
-      padding: 9px 8px;
-      text-align: left;
-      border-bottom: 1px solid rgba(212,175,55,0.3);
-      color: #0A0F14;
-      font-weight: 600;
-    }
+    .accordion-body table { width: 100%; border-collapse: collapse; font-size: 0.85rem; color: #0A0F14; margin: 10px 0; background: #FFFFFF; border-radius: 8px; overflow: hidden; border: 2px solid var(--gold); }
+    .accordion-body th { padding: 10px 8px; text-align: left; background: #0A0F14; color: var(--gold-bright); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.3px; }
+    .accordion-body td { padding: 9px 8px; text-align: left; border-bottom: 1px solid rgba(212,175,55,0.3); color: #0A0F14; font-weight: 600; }
     .accordion-body tr:last-child td { border-bottom: none; }
-    .metric-highlight {
-      background: #FFFFFF;
-      border-left: 4px solid var(--gold);
-      padding: 10px 14px;
-      border-radius: 6px;
-      margin: 10px 0;
-      color: #0A0F14;
-      font-weight: 600;
-    }
+    .metric-highlight { background: #FFFFFF; border-left: 4px solid var(--gold); padding: 10px 14px; border-radius: 6px; margin: 10px 0; color: #0A0F14; font-weight: 600; }
     .metric-highlight strong { color: #0A0F14; }
 
     /* PAKISTANI BLOCK */
-    .pakistani-block {
-      margin: 30px 0;
-      padding: 24px 20px;
-      background: var(--silver-bg);
-      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
-      border: 2px solid var(--gold);
-      border-radius: 16px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
-      line-height: 1.8;
-      font-size: 0.95rem;
-      color: #0A0F14;
-    }
+    .pakistani-block { margin: 30px 0; padding: 24px 20px; background: var(--silver-bg); background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4); border: 2px solid var(--gold); border-radius: 16px; box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7); line-height: 1.8; font-size: 0.95rem; color: #0A0F14; }
     .pakistani-block h2 { color:#0A0F14; font-family:'Oswald',sans-serif; font-size:1.15rem; margin-bottom:12px; font-weight: 800; }
     .pakistani-block p { color:#0A0F14; font-weight: 500; margin-top: 10px; }
     .pakistani-block strong { color:#0A0F14; font-weight: 800; }
 
-    /* RELATED TOOLS */
-    .related-tools-section {
-      margin: 20px 0; padding: 20px;
-      background: rgba(255,255,255,0.03);
-      border: 2px solid var(--gold);
-      border-radius: 12px;
-    }
+    /* RELATED */
+    .related-tools-section { margin: 20px 0; padding: 20px; background: rgba(255,255,255,0.03); border: 2px solid var(--gold); border-radius: 12px; }
     .related-tools-section h3 { color:var(--gold-bright); font-size:1rem; margin-bottom:10px; font-family:'Oswald',sans-serif; letter-spacing:0.5px; }
     .related-tools-section a { color:#4FC3F7; text-decoration:none; background:rgba(79,195,247,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; display: inline-block; margin: 4px 4px 4px 0; }
 
     /* DISCLAIMER */
-    .disclaimer-box {
-      margin: 20px 0; padding: 16px 18px;
-      background: var(--silver-bg);
-      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
-      border: 2px solid var(--gold);
-      border-radius: 12px;
-      font-size: 0.85rem; color: #0A0F14; line-height: 1.7; font-weight: 500;
-    }
+    .disclaimer-box { margin: 20px 0; padding: 16px 18px; background: var(--silver-bg); background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4); border: 2px solid var(--gold); border-radius: 12px; font-size: 0.85rem; color: #0A0F14; line-height: 1.7; font-weight: 500; }
     .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
 
     /* LEAD CAPTURE */
-    .lead-capture {
-      background: var(--silver-bg);
-      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
-      border: 2px solid var(--gold);
-      border-radius: 16px;
-      padding: 28px 24px;
-      margin: 30px 0;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
-    }
+    .lead-capture { background: var(--silver-bg); background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4); border: 2px solid var(--gold); border-radius: 16px; padding: 28px 24px; margin: 30px 0; box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7); }
     .lead-capture h3 { font-family:'Oswald',sans-serif; color:#0A0F14; font-size:1.2rem; margin-bottom:12px; letter-spacing:0.5px; font-weight: 800; }
     .lead-capture p { color:#0A0F14; margin-bottom:18px; font-size:0.9rem; font-weight: 500; }
     .lead-capture form { display:flex; flex-direction:column; gap:12px; }
@@ -452,10 +549,16 @@
     #shareCapture { display:none; }
     .note { font-size:0.72rem; color:var(--muted); margin-top:12px; text-align:center; padding-top:10px; border-top:1px solid rgba(255,255,255,0.05); }
 
+    @media (max-width: 640px) {
+      .share-bar { grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 4px; }
+      .share-btn { padding: 12px 6px; font-size: 0.7rem; min-height: 68px; gap: 5px; }
+      .share-btn i { font-size: 1.15rem; }
+    }
     @media (max-width:600px){
       .results-grid { grid-template-columns:1fr 1fr; }
       .results-grid .result-card:last-child { grid-column: span 2 !important; }
-      .gauge-value { font-size:2.2rem; }
+      .gauge-value { font-size:2.6rem; }
+      .gauge-unit { font-size: 0.85rem; }
       .brand-title { font-size:1.5rem; }
       .learn-card { padding: 20px 16px; }
       .learn-card h2 { font-size: 1.15rem; }
@@ -468,6 +571,19 @@
       }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix Internet Speed Test",
+    "url": "https://coldmatrixtools.com/internet-speed-test.html",
+    "applicationCategory": "UtilityApplication",
+    "description": "Premium internet speed test with circular gauge, download, upload, ping & jitter measurement.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+</head>
+
 </head>
 <body>
   <nav class="navbar">
@@ -513,92 +629,119 @@
 
     <div class="ad-zone"><span>📢 Ad Space Available</span></div>
 
-    <!-- ============================================ -->
-    <!-- GAUGE -->
-    <!-- ============================================ -->
-    <div class="gauge-section">
-      <div class="completion-text" id="completionText">🧭 Complete</div>
-      <div class="gauge-svg-wrap">
-        <svg id="gaugeSvg" viewBox="0 0 400 400">
-          <defs>
-            <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#3B6CFF"/>
-              <stop offset="35%" stop-color="#22D3EE"/>
-              <stop offset="65%" stop-color="#34D399"/>
-              <stop offset="100%" stop-color="#FFD700"/>
-            </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
-        </svg>
-        <div class="gauge-center">
-          <div class="gauge-status" id="gaugeStatus">Ready</div>
-          <div class="gauge-value"><span id="gaugeValueNum">0.0</span></div>
-          <div class="gauge-unit" id="gaugeUnit">Mbps</div>
-        </div>
-      </div>
-      <button class="btn-premium" id="startBtn">Start Test</button>
+    <!-- OFFLINE BANNER -->
+    <div class="offline-banner" id="offlineBanner">
+      <span class="ob-icon">📡</span>
+      <div class="ob-title">No Internet Connection</div>
+      <div class="ob-desc">Please connect to Wi-Fi or mobile data and try again. The speed test cannot run without an active connection.</div>
     </div>
 
     <!-- ============================================ -->
-    <!-- RESULTS -->
+    <!-- GAUGE SECTION -->
     <!-- ============================================ -->
-    <div class="results-grid" id="resultsGrid">
-  <div class="result-card">
-    <div><span class="prem-arrow prem-down">▼</span></div>
-    <div><span class="rc-value" id="rDown">-</span><span class="rc-unit"> Mbps</span></div>
-    <div class="rc-label">Download</div>
-  </div>
-  <div class="result-card">
-    <div><span class="prem-arrow prem-up">▲</span></div>
-    <div><span class="rc-value" id="rUp">-</span><span class="rc-unit"> Mbps</span></div>
-    <div class="rc-label">Upload</div>
-  </div>
-  <div class="result-card">
-    <div>📶</div>
-    <div><span class="rc-value" id="rPing">-</span><span class="rc-unit"> ms</span></div>
-    <div class="rc-label">Ping</div>
-  </div>
-  <div class="result-card">
-    <div>〰️</div>
-    <div><span class="rc-value" id="rJitter">-</span><span class="rc-unit"> ms</span></div>
-    <div class="rc-label">Jitter</div>
-  </div>
-  <div class="result-card" style="grid-column:span 4; display:flex; align-items:center; justify-content:center; gap:10px;">
-    <div>🌐</div>
-    <div style="font-size:0.85rem; font-weight:800; color:#0A0F14;">
-      <strong id="serverCity">Detecting server...</strong>
-    </div>
+    <div class="gauge-section" id="gaugeSection">
+      <!-- Live connection badge -->
+      <div class="connection-status checking" id="connStatus">
+        <span class="cs-dot"></span>
+        <span id="connStatusText">Checking…</span>
+      </div>
+
+      <!-- Phase label ABOVE the gauge -->
+      <div class="gauge-phase-label" id="gaugeStatus">Ready</div>
+
+      <!-- The gauge (arc + needle only) -->
+ <div class="gauge-svg-wrap">
+  <svg id="gaugeSvg" viewBox="0 0 400 400">
+    <defs>
+      <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#3B6CFF"/>
+        <stop offset="35%" stop-color="#22D3EE"/>
+        <stop offset="65%" stop-color="#34D399"/>
+        <stop offset="100%" stop-color="#FFD700"/>
+      </linearGradient>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+  </svg>
+  <!-- Big number INSIDE the gauge, bottom-center -->
+  <div class="gauge-readout">
+    <span class="gauge-value" id="gaugeValueNum">0.0</span>
+    <span class="gauge-unit" id="gaugeUnit">Mbps</span>
   </div>
 </div>
 
-    <!-- ============================================ -->
-    <!-- SHARE BAR -->
-    <!-- ============================================ -->
-    <div class="share-bar" id="shareBarWrap" style="display:none;">
-      <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-      <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
-      <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
-      <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+      <!-- Completion text -->
+      <div class="completion-text" id="completionText">🧭 Complete</div>
+
+      <!-- Progress bar -->
+      <div class="phase-progress"><div class="pp-fill" id="phaseProgressFill"></div></div>
+
+      <!-- Phase chips -->
+      <div class="phase-indicator">
+        <span class="phase-chip" id="chipPing">⚡ Ping</span>
+        <span class="phase-chip" id="chipDown">⬇ Download</span>
+        <span class="phase-chip" id="chipUp">⬆ Upload</span>
+      </div>
+
+      <button class="btn-premium" id="startBtn">Start Test</button>
     </div>
 
-    <!-- ============================================ -->
+    <!-- RESULTS -->
+    <div class="results-grid" id="resultsGrid">
+      <div class="result-card">
+        <div><span class="prem-arrow prem-down">▼</span></div>
+        <div><span class="rc-value" id="rDown">-</span><span class="rc-unit"> Mbps</span></div>
+        <div class="rc-label">Download</div>
+      </div>
+      <div class="result-card">
+        <div><span class="prem-arrow prem-up">▲</span></div>
+        <div><span class="rc-value" id="rUp">-</span><span class="rc-unit"> Mbps</span></div>
+        <div class="rc-label">Upload</div>
+      </div>
+      <div class="result-card">
+        <div>📶</div>
+        <div><span class="rc-value" id="rPing">-</span><span class="rc-unit"> ms</span></div>
+        <div class="rc-label">Ping</div>
+      </div>
+      <div class="result-card">
+        <div>〰️</div>
+        <div><span class="rc-value" id="rJitter">-</span><span class="rc-unit"> ms</span></div>
+        <div class="rc-label">Jitter</div>
+      </div>
+      <div class="result-card" style="grid-column:span 4; display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;">
+        <div>🌐</div>
+        <div style="font-size:0.85rem; font-weight:800; color:#0A0F14;">
+          <strong id="serverCity">Detecting server...</strong>
+        </div>
+        <span class="conn-info-pill" id="connTypePill">—</span>
+      </div>
+    </div>
+
+<!-- SHARE BAR -->
+<div class="share-bar-wrap" id="shareBarWrap" style="display:none;">
+  <div class="share-heading-text">📄 Take Your Speed Test Report</div>
+  <div class="share-heading-line"></div>
+  <div class="share-bar">
+    <button class="share-btn share-whatsapp" onclick="shareWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+    <button class="share-btn share-pdf" onclick="downloadResult('pdf')"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+    <button class="share-btn share-jpg" onclick="downloadResult('jpg')"><i class="fa-solid fa-image"></i> JPG</button>
+    <button class="share-btn share-png" onclick="downloadResult('png')"><i class="fa-solid fa-image"></i> PNG</button>
+  </div>
+</div>
+
     <!-- HISTORY -->
-    <!-- ============================================ -->
     <div class="history-section">
       <div class="history-title">📜 Recent Tests</div>
       <div id="historyList"></div>
     </div>
     <div class="note">Results may vary by network conditions.</div>
 
-    <!-- ============================================ -->
-    <!-- EDUCATIONAL CONTENT — SILVER -->
-    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT -->
     <div class="learn-section">
       <div class="learn-card">
         <h2>📡 Comprehensive Guide: Understanding Your Internet Speed</h2>
@@ -720,6 +863,7 @@
             <div>
               This speed test follows a standard process:
               <ol style="padding-left:20px; margin:10px 0;">
+                <li><strong>Connection check</strong> — verifies internet is actually reachable.</li>
                 <li><strong>Ping test</strong> — sends tiny packets to a nearby server and measures response time.</li>
                 <li><strong>Download test</strong> — downloads a large random file and measures throughput.</li>
                 <li><strong>Upload test</strong> — uploads a large file and measures throughput.</li>
@@ -826,20 +970,16 @@
 
     <div class="ad-zone"><span>📢 Ad Space Available</span></div>
 
-    <!-- ============================================ -->
-    <!-- PAKISTANI / GLOBAL BLOCK -->
-    <!-- ============================================ -->
+    <!-- PAKISTANI BLOCK -->
     <div class="pakistani-block">
       <h2>🌐 ColdMatrix Advanced Solutions — Network Tools for a Global Community</h2>
       <p>Our Internet Speed Test is used daily by users across the <strong>United States, Canada, United Kingdom, Europe, Middle East, South Asia, Australia, and beyond</strong> — a genuinely global tool for anyone who needs to verify their connection quality.</p>
       <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients worldwide with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
       <p>Need a custom network tool, dashboard, or project quote? Our team responds within 24 hours.</p>
-      <p style="margin-top:14px; font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+      <p style="margin-top:14px;font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
     </div>
 
-    <!-- ============================================ -->
     <!-- RELATED TOOLS -->
-    <!-- ============================================ -->
     <div class="related-tools-section">
       <h3>🔗 Related Tools You Might Need</h3>
       <div>
@@ -853,9 +993,7 @@
       </div>
     </div>
 
-    <!-- ============================================ -->
     <!-- LEAD CAPTURE -->
-    <!-- ============================================ -->
     <div class="lead-capture">
       <h3>🚀 Need a Custom Network Tool?</h3>
       <p>Get tailored speed tests, network monitors, or automation for your business — anywhere in the world. Leave your email and we'll reach out within 24 hours.</p>
@@ -867,9 +1005,7 @@
       </form>
     </div>
 
-    <!-- ============================================ -->
     <!-- DISCLAIMER -->
-    <!-- ============================================ -->
     <div class="disclaimer-box">
       <strong>⚠️ Disclaimer:</strong> Speed test results are for informational purposes only and may vary based on your network environment, device performance, and server load. Results are not a guarantee of your internet service provider's actual speed. Always consult your ISP for official performance details.
     </div>
@@ -889,7 +1025,6 @@
     </div>
   </div>
 
-  <!-- WhatsApp Float -->
   <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
@@ -917,9 +1052,6 @@
     <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
 
-<!-- ============================================ -->
-<!-- GAUGE + SPEED TEST SCRIPTS -->
-<!-- ============================================ -->
 <script>
   const CX=200,CY=200,R=160,START=135,SWEEP=270,NUMS=[0,1,5,10,20,50,100,200,500,1000];
   function v2f(v){return Math.min(1,Math.max(0,Math.log10(Math.max(0,v)+1)/Math.log10(1001)));}
@@ -961,11 +1093,10 @@
       tx.setAttribute('y',lp.y);
       tx.setAttribute('class','gauge-num');
       tx.textContent=v>=1000?'1K':v;
-      tx.setAttribute('filter','url(#glow)');
       svg.appendChild(tx);
     });
 
-    // Arc
+    // Arc (hidden by default — appears only during test via CSS)
     const arc=document.createElementNS('http://www.w3.org/2000/svg','path');
     arc.setAttribute('id','gaugeArc');
     arc.setAttribute('class','gauge-arc');
@@ -973,10 +1104,15 @@
     arc.setAttribute('filter','url(#glow)');
     svg.appendChild(arc);
 
-    // Needle
+    // Needle — thick white bar with hub (hidden by default via CSS)
     const nd=document.createElementNS('http://www.w3.org/2000/svg','g');
     nd.setAttribute('id','gaugeNeedle');
-    nd.innerHTML=`<polygon points="${CX-4},${CY} ${CX+85},${CY-3} ${CX+75},${CY} ${CX+85},${CY+3}" fill="#FFD700" stroke="#D4AF37" stroke-width="1.5" filter="url(#glow)"/><circle cx="${CX}" cy="${CY}" r="9" fill="#FFD700" stroke="#D4AF37" stroke-width="2" filter="url(#glow)"/>`;
+    nd.innerHTML=`
+      <rect x="${CX}" y="${CY-5}" width="94" height="10" rx="3" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+      <circle cx="${CX}" cy="${CY}" r="18" fill="#0A0F14" stroke="#D4AF37" stroke-width="3"/>
+      <circle cx="${CX}" cy="${CY}" r="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+      <circle cx="${CX}" cy="${CY}" r="4" fill="#D4AF37"/>
+    `;
     svg.appendChild(nd);
 
     setArc(0);
@@ -997,7 +1133,9 @@
     } else {
       arc.style.display='none';
     }
-    document.getElementById('gaugeNeedle').setAttribute('transform',`rotate(${eA-START} ${CX} ${CY})`);
+    // FIX: needle rotates by eA (absolute angle), not (eA-START)
+    // so it points exactly at the arc tip.
+    document.getElementById('gaugeNeedle').setAttribute('transform',`rotate(${eA} ${CX} ${CY})`);
     const dots=document.querySelectorAll('#ledDots circle');
     dots.forEach((dot,index)=>{
       const dotF=index/(dots.length-1);
@@ -1017,6 +1155,133 @@
       if(t<1)requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
+  }
+
+  // ============================================
+  // PHASE COLOR MANAGERS
+  // ============================================
+  function setPhaseColor(phase){
+    const gs = document.getElementById('gaugeSection');
+    gs.classList.remove('phase-ping','phase-download','phase-upload');
+    if(phase) gs.classList.add('phase-' + phase);
+  }
+  function markResultCard(id, phase){
+    const el = document.getElementById(id);
+    if(!el) return;
+    const card = el.closest('.result-card');
+    if(card){
+      card.classList.remove('phase-ping-card','phase-download-card','phase-upload-card');
+      card.classList.add('phase-' + phase + '-card');
+    }
+  }
+
+  // ============================================
+  // CONNECTION DETECTION
+  // ============================================
+  let isReallyOnline = false;
+
+  async function checkRealConnectivity(){
+    if (!navigator.onLine) return false;
+    try {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 5000);
+      const r = await fetch('https://speed.cloudflare.com/__down?bytes=1000&' + Math.random(), {
+        signal: ctrl.signal, cache: 'no-store'
+      });
+      clearTimeout(t);
+      return r.ok;
+    } catch(e) { return false; }
+  }
+
+  function setConnectionStatus(state, text){
+    const el = document.getElementById('connStatus');
+    const txt = document.getElementById('connStatusText');
+    el.classList.remove('online','offline','checking');
+    el.classList.add(state);
+    txt.textContent = text;
+  }
+
+  function updateConnectionUI(online){
+    const banner = document.getElementById('offlineBanner');
+    const startBtn = document.getElementById('startBtn');
+    if (online) {
+      setConnectionStatus('online', 'Connected');
+      banner.classList.remove('show');
+      startBtn.disabled = false;
+    } else {
+      setConnectionStatus('offline', 'No Internet');
+      banner.classList.add('show');
+      startBtn.disabled = true;
+    }
+  }
+
+  async function refreshConnectivity(){
+    setConnectionStatus('checking', 'Checking…');
+    const online = await checkRealConnectivity();
+    isReallyOnline = online;
+    updateConnectionUI(online);
+    return online;
+  }
+
+  window.addEventListener('online', () => { refreshConnectivity(); });
+  window.addEventListener('offline', () => {
+    isReallyOnline = false;
+    updateConnectionUI(false);
+    if (document.getElementById('startBtn').classList.contains('cancel')) {
+      cancel();
+    }
+  });
+
+  // ============================================
+  // CONNECTION TYPE
+  // ============================================
+  function getConnectionType(){
+    const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (!c) return 'Unknown';
+    const t = c.effectiveType || c.type;
+    if (!t) return 'Unknown';
+    const map = {
+      'slow-2g': '2G', '2g': '2G', '3g': '3G', '4g': '4G', '5g': '5G',
+      'wifi': 'Wi-Fi', 'ethernet': 'Ethernet', 'cellular': 'Cellular',
+      'none': 'None', 'unknown': 'Unknown', 'bluetooth': 'Bluetooth',
+      'wimax': 'WiMAX', 'other': 'Other'
+    };
+    return map[String(t).toLowerCase()] || String(t).toUpperCase();
+  }
+
+  function updateConnectionTypePill(){
+    const type = getConnectionType();
+    const pill = document.getElementById('connTypePill');
+    if (pill) pill.textContent = type;
+  }
+
+  // ============================================
+  // PHASE CHIPS & PROGRESS
+  // ============================================
+  function setPhase(phase){
+    ['chipPing','chipDown','chipUp'].forEach(id => {
+      document.getElementById(id).classList.remove('active','done');
+    });
+    if (phase === 'ping') {
+      document.getElementById('chipPing').classList.add('active');
+      document.getElementById('phaseProgressFill').style.width = '15%';
+    } else if (phase === 'down') {
+      document.getElementById('chipPing').classList.add('done');
+      document.getElementById('chipDown').classList.add('active');
+      document.getElementById('phaseProgressFill').style.width = '50%';
+    } else if (phase === 'up') {
+      document.getElementById('chipPing').classList.add('done');
+      document.getElementById('chipDown').classList.add('done');
+      document.getElementById('chipUp').classList.add('active');
+      document.getElementById('phaseProgressFill').style.width = '85%';
+    } else if (phase === 'done') {
+      document.getElementById('chipPing').classList.add('done');
+      document.getElementById('chipDown').classList.add('done');
+      document.getElementById('chipUp').classList.add('done');
+      document.getElementById('phaseProgressFill').style.width = '100%';
+    } else {
+      document.getElementById('phaseProgressFill').style.width = '0%';
+    }
   }
 
   // ============================================
@@ -1085,45 +1350,76 @@
     cancelled=true;
     if(abortCtrl)abortCtrl.abort();
     if(xhr)xhr.abort();
-    document.getElementById('startBtn').classList.remove('cancel');
-    document.getElementById('startBtn').textContent='Test Again';
+    const gs = document.getElementById('gaugeSection');
+    gs.classList.remove('testing','phase-ping','phase-download','phase-upload');
+    const b=document.getElementById('startBtn');
+    b.classList.remove('cancel');
+    b.textContent='Test Again';
     document.getElementById('gaugeStatus').textContent='Ready';
     document.getElementById('gaugeUnit').textContent='Mbps';
     document.getElementById('completionText').classList.remove('show');
+    setPhase('reset');
     animNum(0,300);
+    document.querySelectorAll('.result-card').forEach(c => {
+      c.classList.remove('phase-ping-card','phase-download-card','phase-upload-card');
+    });
   }
 
   async function run(){
+    // Pre-flight: verify internet is truly working
+    setConnectionStatus('checking','Verifying…');
+    const online = await checkRealConnectivity();
+    isReallyOnline = online;
+    if (!online) {
+      updateConnectionUI(false);
+      alert('No internet connection detected. Please connect to Wi-Fi or mobile data and try again.');
+      return;
+    }
+    updateConnectionUI(true);
+
     cancelled=false;
+    const gs = document.getElementById('gaugeSection');
     const b=document.getElementById('startBtn');
     b.textContent='Cancel Test';
     b.classList.add('cancel');
+    // Start test: arc + needle fade IN (via .testing class)
+    gs.classList.add('testing');
     document.getElementById('resultsGrid').classList.remove('show');
     document.getElementById('shareBarWrap').style.display='none';
     document.getElementById('completionText').classList.remove('show');
 
-    // Ping
+    // PING
+    setPhase('ping');
+    setPhaseColor('ping');
     document.getElementById('gaugeStatus').textContent='⚡ Ping...';
+    document.getElementById('gaugeUnit').textContent='ms';
     animNum(0,150);
     const pRes=await ping();
     if(cancelled)return;
     document.getElementById('rPing').textContent=pRes&&pRes.ping?pRes.ping.toFixed(0):'—';
     document.getElementById('rJitter').textContent=pRes&&pRes.jitter?pRes.jitter.toFixed(1):'—';
+    markResultCard('rPing','ping');
+    markResultCard('rJitter','ping');
 
-    // Download
+    // DOWNLOAD
+    setPhase('down');
+    setPhaseColor('download');
     document.getElementById('gaugeStatus').textContent='⬇ Download...';
-    document.getElementById('gaugeUnit').textContent='Mbps ↓';
+    document.getElementById('gaugeUnit').textContent='Mbps';
     let down=0;
     try{down=await dl(m=>animNum(m,100));}catch(e){}
     if(cancelled)return;
     animNum(down,250);
     document.getElementById('rDown').textContent=down?down.toFixed(1):'—';
+    markResultCard('rDown','download');
     await new Promise(r=>setTimeout(r,400));
     if(cancelled)return;
 
-    // Upload
+    // UPLOAD
+    setPhase('up');
+    setPhaseColor('upload');
     document.getElementById('gaugeStatus').textContent='⬆ Upload...';
-    document.getElementById('gaugeUnit').textContent='Mbps ↑';
+    document.getElementById('gaugeUnit').textContent='Mbps';
     animNum(0,200);
     await new Promise(r=>setTimeout(r,200));
     let up=null;
@@ -1131,8 +1427,10 @@
     if(cancelled)return;
     if(up){animNum(up,250);}
     document.getElementById('rUp').textContent=up?up.toFixed(1):'—';
+    markResultCard('rUp','upload');
 
-    // Final
+    // DONE — hide arc + needle (remove .testing)
+    setPhase('done');
     document.getElementById('gaugeStatus').textContent='';
     document.getElementById('gaugeUnit').textContent='Mbps';
     document.getElementById('completionText').classList.add('show');
@@ -1140,8 +1438,9 @@
     document.getElementById('shareBarWrap').style.display='grid';
     b.classList.remove('cancel');
     b.textContent='Test Again';
+    gs.classList.remove('testing');
 
-    // Server info
+    // Server + connection type
     fetch('https://speed.cloudflare.com/meta',{cache:'no-store'})
       .then(r=>r.json())
       .then(d=>{
@@ -1150,6 +1449,7 @@
       .catch(()=>{
         document.getElementById('serverCity').textContent='Global Network';
       });
+    updateConnectionTypePill();
 
     // Save history
     const hist=JSON.parse(localStorage.getItem('cm_speed')||'[]');
@@ -1162,7 +1462,6 @@
     localStorage.setItem('cm_speed',JSON.stringify(hist.slice(0,5)));
     renderHist();
 
-    // Populate share capture
     document.getElementById('pvPing').textContent=(pRes&&pRes.ping?pRes.ping.toFixed(0):'—')+' ms';
     document.getElementById('pvDown').textContent=(down?down.toFixed(1):'—')+' Mbps';
     document.getElementById('pvUp').textContent=(up?up.toFixed(1):'—')+' Mbps';
@@ -1178,7 +1477,6 @@
     w.innerHTML=h.map(x=>`<div class="history-item"><span>${new Date(x.time).toLocaleDateString()}</span><span>↓${x.down} ↑${x.up} ${x.ping}ms</span></div>`).join('');
   }
 
-  // Share functions
   async function cap(){
     const e=document.getElementById('shareCapture');
     e.style.display='block';
@@ -1265,6 +1563,10 @@
   window.addEventListener('DOMContentLoaded',()=>{
     buildGauge();
     renderHist();
+    updateConnectionTypePill();
+    refreshConnectivity();
+    setInterval(refreshConnectivity, 15000);
+
     document.getElementById('startBtn').addEventListener('click',function(){
       if(this.classList.contains('cancel')){
         cancel();
@@ -1275,7 +1577,6 @@
   });
 </script>
 
-<!-- FAQ Schema -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

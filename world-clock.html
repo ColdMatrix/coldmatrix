@@ -779,10 +779,13 @@
     <span>📢 Ad Space Available</span>
   </div>
 
-  <div class="section-heading">
-    <h2>🕐 Live World Clock <span class="live-badge"><span class="live-dot"></span> LIVE</span></h2>
+<div class="section-heading">
+  <h2>🕐 Live World Clock <span class="live-badge"><span class="live-dot"></span> LIVE</span></h2>
+  <div style="display:flex; gap:8px; flex-wrap:wrap;">
+    <button class="add-city-btn" onclick="toggleClockFormat()" id="formatBtn">🕐 12h</button>
     <button class="add-city-btn" onclick="togglePanel()">+ Add City</button>
   </div>
+</div>
 
   <div class="add-city-panel premium-card" id="addCityPanel">
     <input type="text" id="cityFilter" placeholder="🔍 Type to filter cities..." oninput="filterCityOptions()">
@@ -1136,12 +1139,24 @@ const DEFAULT_CITIES = ['America/New_York', 'Asia/Shanghai', 'Asia/Tokyo', 'Euro
     filterCityOptions();
   }
 
-  function removeCity(tz) {
-    myCities = myCities.filter(c => c !== tz);
-    saveCities(myCities);
-    renderClocks();
-  }
+function removeCity(tz) {
+  myCities = myCities.filter(c => c !== tz);
+  saveCities(myCities);
+  renderClocks();
+}
 
+// 12h / 24h format toggle — remembers your choice
+let clockFormat = (function(){
+  try { return localStorage.getItem('cm_clock_format') || '12'; } catch(e) { return '12'; }
+})();
+
+function toggleClockFormat(){
+  clockFormat = clockFormat === '12' ? '24' : '12';
+  try { localStorage.setItem('cm_clock_format', clockFormat); } catch(e) {}
+  const btn = document.getElementById('formatBtn');
+  if (btn) btn.textContent = '🕐 ' + clockFormat + 'h';
+  renderClocks();
+}
   function populateZoneSelects() {
     const options = CITIES.map(c => `<option value="${c.tz}">${c.name}, ${c.country}</option>`).join('');
     document.getElementById('fromZone').innerHTML = options;
@@ -1153,7 +1168,7 @@ const DEFAULT_CITIES = ['America/New_York', 'Asia/Shanghai', 'Asia/Tokyo', 'Euro
   function setCurrentTime() {
     const fromTz = document.getElementById('fromZone').value;
     const now = new Date();
-    const timeStr = new Intl.DateTimeFormat('en-US', { timeZone: fromTz, hour: '2-digit', minute: '2-digit', hour12: false }).format(now);
+const timeStr = new Intl.DateTimeFormat('en-US', { timeZone: tz, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: clockFormat === '12' }).format(now);
     document.getElementById('convertTime').value = timeStr;
   }
 
@@ -1189,13 +1204,15 @@ const DEFAULT_CITIES = ['America/New_York', 'Asia/Shanghai', 'Asia/Tokyo', 'Euro
     document.getElementById('convertResult').style.display = 'none';
   }
 
-  window.addEventListener('DOMContentLoaded', function() {
-    populateCitySelect();
-    populateZoneSelects();
-    filterCityOptions();
-    renderClocks();
-    setInterval(renderClocks, 1000);
-  });
+window.addEventListener('DOMContentLoaded', function() {
+  populateCitySelect();
+  populateZoneSelects();
+  filterCityOptions();
+  const btn = document.getElementById('formatBtn');
+  if (btn) btn.textContent = '🕐 ' + clockFormat + 'h';
+  renderClocks();
+  setInterval(renderClocks, 1000);
+});
 
   let deferredPrompt;
   const installBar = document.getElementById('installBarTool');
@@ -1212,4 +1229,4 @@ const DEFAULT_CITIES = ['America/New_York', 'Asia/Shanghai', 'Asia/Tokyo', 'Euro
   function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(() => alert('Link copied!')).catch(() => alert(window.location.href)); }
 </script>
 </body>
-</html>
+</html> 

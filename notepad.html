@@ -156,6 +156,69 @@
     }
     .btn-new:hover { background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); }
 
+    /* ============================================ */
+    /* BACKUP / RESTORE TOOLBAR — New section       */
+    /* ============================================ */
+    .backup-panel {
+      margin: 0 0 18px;
+      padding: 16px 18px;
+      background: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .backup-header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 12px;
+    }
+    .backup-note-count {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800; font-size: 0.92rem;
+      color: #0A0F14; letter-spacing: 0.4px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .backup-note-count .count-badge {
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14;
+      padding: 3px 11px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 900;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+    }
+    .backup-warning {
+      font-size: 0.78rem; color: #4a4d55; font-weight: 600;
+      line-height: 1.5; flex: 1 1 100%;
+    }
+    .backup-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .btn-backup {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 2px solid var(--gold);
+      background: #FFFFFF;
+      color: #0A0F14;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800; font-size: 0.85rem;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
+    .btn-backup:hover {
+      border-color: var(--gold-bright);
+      background: linear-gradient(145deg, #FFFFFF, #F5F7FA);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(212,175,55,0.35);
+    }
+    .btn-backup i { font-size: 0.95rem; }
+    .btn-backup.export i { color: #1B5E20; }
+    .btn-backup.import i { color: #0D47A1; }
+
     /* Note list */
     .notes-grid { display:flex; flex-direction:column; gap:12px; }
     .note-card {
@@ -381,6 +444,7 @@
       .btn-new { width:100%; }
       .editor-actions-row { grid-template-columns: 1fr; }
       .share-note-section { grid-template-columns: 1fr 1fr; }
+      .backup-buttons { grid-template-columns: 1fr; }
       .note-card { padding:14px; }
       .detail-section, .pakistani-block, .lead-capture {
         margin-left: -6px !important; margin-right: -6px !important; padding: 20px 16px !important;
@@ -436,6 +500,29 @@
     <div class="notepad-toolbar">
       <input type="text" class="search-box" id="searchNotes" placeholder="🔍 Search your notes..." oninput="renderNoteList()">
       <button class="btn-new" onclick="createNewNote()">+ New Note</button>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- BACKUP & RESTORE PANEL — Safety net for notes -->
+    <!-- ============================================ -->
+    <div class="backup-panel">
+      <div class="backup-header">
+        <div class="backup-note-count">
+          📝 You have <span class="count-badge" id="noteCountBadge">0</span> notes
+        </div>
+        <div class="backup-warning">
+          ⚠️ Your notes live in this browser only. Clearing browser data will erase them. Download a backup to keep them safe.
+        </div>
+      </div>
+      <div class="backup-buttons">
+        <button class="btn-backup export" onclick="exportBackup()">
+          <i class="fa-solid fa-download"></i> Export Backup (.json)
+        </button>
+        <button class="btn-backup import" onclick="triggerImport()">
+          <i class="fa-solid fa-upload"></i> Import Backup
+        </button>
+      </div>
+      <input type="file" id="importFileInput" accept=".json,application/json" style="display:none;" onchange="handleImportFile(event)">
     </div>
 
     <div class="notes-grid" id="notesGrid"></div>
@@ -497,6 +584,8 @@
       <li><strong>Search:</strong> Instantly search across all your notes by title or content.</li>
       <li><strong>Download as .txt:</strong> Export any note to a plain text file for use elsewhere.</li>
       <li><strong>Share as Image or PDF:</strong> Generate a beautiful image or PDF of your note to share on WhatsApp or save.</li>
+      <li><strong>Export Backup (.json):</strong> Download ALL your notes at once as a single file you can keep safe or move to another device.</li>
+      <li><strong>Import Backup:</strong> Restore your notes from a backup file — even on a new phone or after clearing browser data.</li>
       <li><strong>Organized List View:</strong> See all your notes sorted by last edited with a snippet preview.</li>
       <li><strong>Privacy First:</strong> All data is stored locally in your browser. Nothing is uploaded to any server.</li>
       <li><strong>Free &amp; Offline:</strong> Works after the first load without an internet connection.</li>
@@ -511,23 +600,32 @@
       <li><strong>Go back to list:</strong> Tap the arrow icon to return to your notes list.</li>
       <li><strong>Search:</strong> Use the search box at the top to filter notes.</li>
       <li><strong>Download .txt:</strong> Open a note and click <strong>Download .txt</strong> to save it as a file.</li>
+      <li><strong>Backup all notes:</strong> Click <strong>Export Backup (.json)</strong> to download every note in a single file.</li>
+      <li><strong>Restore notes:</strong> Click <strong>Import Backup</strong> and pick your .json file — notes are added back safely.</li>
       <li><strong>Share as image/PDF:</strong> Use the toolbar below to share on WhatsApp or export as PDF/JPG/PNG.</li>
       <li><strong>Delete:</strong> Click <strong>Delete Note</strong> to remove a note permanently.</li>
     </ol>
+
+    <h3>Why Backups Matter — And How Ours Work</h3>
+    <p>Because your notes live only in your browser, they are vulnerable to browser cleaning tools, storage limits, device changes, or clearing cookies. The <strong>Export Backup</strong> button creates a single .json file containing every note, title, and timestamp — a complete snapshot you can save to your phone, email, or cloud drive. The <strong>Import Backup</strong> button restores that snapshot any time, even on a new device. Existing notes are never overwritten; imported notes are merged in safely.</p>
 
     <h3>Tips for Effective Note-Taking</h3>
     <ul>
       <li><strong>Use clear titles:</strong> A short, descriptive title helps you find the note later.</li>
       <li><strong>Keep notes focused:</strong> One main idea per note works best.</li>
       <li><strong>Use the search:</strong> If you have many notes, type a keyword to locate the right one quickly.</li>
-      <li><strong>Download important notes:</strong> Export critical information as .txt or image for backup.</li>
+      <li><strong>Back up regularly:</strong> Export a backup weekly if your notes are important.</li>
+      <li><strong>Download important notes:</strong> Export critical information as .txt or image for extra safety.</li>
       <li><strong>Add to home screen:</strong> Install the notepad as an app for one-tap access on your phone.</li>
     </ul>
 
     <h3>Frequently Asked Questions</h3>
     <p><strong>Q: Are my notes uploaded anywhere?</strong><br>A: No. Everything is stored locally in your browser using localStorage. Nothing is sent to a server, so your notes remain completely private to your device.</p>
     <p><strong>Q: Will I lose my notes if I close the tab?</strong><br>A: No. Your notes are saved automatically and will still be there next time you visit — as long as you use the same browser and device, and don't clear your browser data.</p>
-    <p><strong>Q: Can I access my notes from another device?</strong><br>A: No. Notes are stored locally, so they are not synced across devices. For cross-device access, download notes and move them manually.</p>
+    <p><strong>Q: How do I back up my notes?</strong><br>A: Click the <strong>Export Backup (.json)</strong> button. It downloads a single file containing all your notes. Keep it safe — you can restore anytime.</p>
+    <p><strong>Q: Can I restore my notes on a new phone?</strong><br>A: Yes. Open the Notepad on your new phone, click <strong>Import Backup</strong>, and select your .json file. All notes will be added.</p>
+    <p><strong>Q: Will importing delete my existing notes?</strong><br>A: Never. Imported notes are merged with your existing notes safely. Nothing is overwritten.</p>
+    <p><strong>Q: Can I access my notes from another device?</strong><br>A: Only via the Export/Import backup method. Notes are not synced automatically across devices.</p>
     <p><strong>Q: Is there a limit to how many notes I can create?</strong><br>A: No. There is no limit — only your browser's local storage capacity.</p>
     <p><strong>Q: Does the notepad work on mobile?</strong><br>A: Yes. The tool is fully responsive and works great on smartphones and tablets.</p>
     <p><strong>Q: Can I share a note as an image?</strong><br>A: Yes. Open any note and use the JPG or PNG buttons to generate a clean image you can send anywhere.</p>
@@ -543,7 +641,7 @@
     </ul>
 
     <h3>Why Choose ColdMatrix Notepad?</h3>
-    <p>It's fast, private, and beautifully designed. Unlike cloud-based note apps, your data stays on your device, giving you complete control. The premium silver and gold interface, ruled lines, and auto-save feature make note-taking a pleasure. Whether you're on desktop or mobile, this notepad is always ready when inspiration strikes.</p>
+    <p>It's fast, private, and beautifully designed. Unlike cloud-based note apps, your data stays on your device, giving you complete control. The premium silver and gold interface, ruled lines, auto-save feature, and easy backup/restore make note-taking a pleasure. Whether you're on desktop or mobile, this notepad is always ready when inspiration strikes.</p>
 
     <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ This guide, combined with our free notepad, gives you a complete tool for capturing and organizing ideas — anywhere in the world.</p>
   </div>
@@ -593,7 +691,7 @@
   <!-- DISCLAIMER -->
   <!-- ============================================ -->
   <div class="disclaimer-box">
-    <strong>⚠️ Disclaimer:</strong> All notes are stored only in your browser's local storage. Clearing your browser data will delete your notes permanently. Always download important notes if you need long-term storage. ColdMatrix does not store, transmit, or have access to any of your notes.
+    <strong>⚠️ Disclaimer:</strong> All notes are stored only in your browser's local storage. Clearing your browser data will delete your notes permanently. Use the <strong>Export Backup</strong> button regularly to keep your notes safe. ColdMatrix does not store, transmit, or have access to any of your notes.
   </div>
 
   <div class="appreciation">✨ <strong class="gold">Thank you</strong> for using our Notepad. Happy writing!<br><span style="font-size:0.75rem">Explore more <a href="index.html" style="color:var(--gold-bright)">premium tools</a> designed for you.</span></div>
@@ -638,6 +736,12 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(notes)); } catch (e) {}
   }
 
+  function updateNoteCount() {
+    const count = getNotes().length;
+    const badge = document.getElementById('noteCountBadge');
+    if (badge) badge.textContent = count;
+  }
+
   function renderNoteList() {
     const query = document.getElementById('searchNotes').value.trim().toLowerCase();
     let notes = getNotes().sort((a, b) => b.updatedAt - a.updatedAt);
@@ -647,6 +751,8 @@
     const grid = document.getElementById('notesGrid');
     const empty = document.getElementById('emptyState');
     grid.innerHTML = '';
+
+    updateNoteCount();
 
     if (notes.length === 0) {
       empty.style.display = 'block';
@@ -743,6 +849,94 @@
     link.click();
   }
 
+  // ============================================
+  // EXPORT / IMPORT BACKUP (.json)
+  // ============================================
+  function exportBackup() {
+    const notes = getNotes();
+    if (notes.length === 0) {
+      alert('📝 You have no notes to back up yet. Create one first!');
+      return;
+    }
+    const backup = {
+      app: 'ColdMatrix Notepad',
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      noteCount: notes.length,
+      notes: notes
+    };
+    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    const stamp = new Date().toISOString().slice(0, 10);
+    link.href = URL.createObjectURL(blob);
+    link.download = 'coldmatrix-notepad-backup-' + stamp + '.json';
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  }
+
+  function triggerImport() {
+    document.getElementById('importFileInput').click();
+  }
+
+  function handleImportFile(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target.result);
+        // Support both formats: {notes:[...]} or plain array [...]
+        let incoming = [];
+        if (Array.isArray(data)) {
+          incoming = data;
+        } else if (data && Array.isArray(data.notes)) {
+          incoming = data.notes;
+        } else {
+          alert('❌ This file does not look like a ColdMatrix Notepad backup.');
+          return;
+        }
+        if (incoming.length === 0) {
+          alert('📝 That backup file has no notes in it.');
+          return;
+        }
+
+        const current = getNotes();
+        const existingIds = new Set(current.map(n => n.id));
+        let added = 0, renamed = 0;
+
+        incoming.forEach(item => {
+          if (!item || typeof item !== 'object') return;
+          let id = item.id || ('n' + Date.now() + Math.random().toString(36).slice(2, 8));
+          // If ID already exists, generate a new one to avoid overwrite
+          if (existingIds.has(id)) {
+            id = 'n' + Date.now() + Math.random().toString(36).slice(2, 8);
+            renamed++;
+          }
+          current.push({
+            id: id,
+            title: String(item.title || ''),
+            content: String(item.content || ''),
+            updatedAt: Number(item.updatedAt) || Date.now()
+          });
+          existingIds.add(id);
+          added++;
+        });
+
+        saveNotes(current);
+        renderNoteList();
+        alert('✅ Import complete!\n\n' + added + ' note' + (added !== 1 ? 's' : '') + ' added to your Notepad.' + (renamed ? '\n(' + renamed + ' had duplicate IDs and were given fresh ones.)' : ''));
+      } catch (err) {
+        alert('❌ Could not read that file. Make sure it is a valid ColdMatrix Notepad backup (.json).');
+      }
+    };
+    reader.onerror = () => alert('❌ Could not read the file. Please try again.');
+    reader.readAsText(file);
+
+    // Reset input so the same file can be re-imported if needed
+    event.target.value = '';
+  }
+
   function prepareNoteCapture() {
     const title = document.getElementById('noteTitleInput').value || 'Untitled Note';
     const content = document.getElementById('noteContentInput').value || '';
@@ -830,7 +1024,7 @@
   "name": "ColdMatrix Notepad",
   "url": "https://coldmatrixtools.com/notepad.html",
   "applicationCategory": "UtilityApplication",
-  "description": "A free, private online notepad with auto-save, search, and text file export.",
+  "description": "A free, private online notepad with auto-save, search, backup/restore, and text file export.",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
 }
 </script>
@@ -854,6 +1048,14 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "No. Your notes are saved automatically and will still be there next time you visit, as long as you use the same browser and don't clear your data."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I back up or restore my notes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the Export Backup (.json) button to download all your notes as a single file. Use Import Backup to restore them on any device — existing notes are never overwritten."
       }
     },
     {

@@ -13,6 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Women's Corner — Clothing, Fabric, Beauty & Jewelry Calculator | ColdMatrix</title>
   <meta name="description" content="Elegant multi-tool for women: clothing cost, fabric quantity, beauty budget, and jewelry value calculator. Free, global, multi-currency.">
+  <meta name="keywords" content="clothing cost calculator, fabric calculator, beauty budget calculator, jewelry price calculator, gold price calculator, tailor cost calculator, women calculators">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ColdMatrix Tools">
   <meta property="og:title" content="Women's Corner — Clothing, Fabric, Beauty & Jewelry Calculator">
@@ -23,11 +24,10 @@
   <meta name="twitter:title" content="Women's Corner — Clothing, Fabric, Beauty & Jewelry Calculator">
   <meta name="twitter:description" content="Elegant multi-tool for women: clothing cost, fabric quantity, beauty budget, and jewelry value calculator.">
   <meta name="twitter:image" content="https://coldmatrixtools.com/womens_corner.jpg">
-  <meta name="theme-color" content="#F8BBD0">
+  <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     :root {
       --bg: #FFF5F7;
@@ -39,12 +39,15 @@
       --accent2: #C2185B;
       --gold: #D4AF37;
       --gold-bright: #FFD700;
+      --gold-glow: rgba(212,175,55,0.45);
       --rose: #F8BBD0;
       --lavender: #E1BEE7;
       --cream: #FFF8E1;
       --success: #4CAF50;
       --danger: #F44336;
       --whatsapp-green: #25D366;
+      --silver-bg: #C8CDD4;
+      --silver-bg-hover: #D5D9DE;
       --shadow: 0 8px 30px rgba(0,0,0,0.08);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -53,22 +56,48 @@
       color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; min-height: 100vh;
     }
     .container { max-width: 1000px; margin:0 auto; padding:0 24px; }
+
+    /* GOLDEN NAVBAR — matches rest of site */
     .navbar {
       position:sticky; top:0; z-index:100;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(14px);
-      border-bottom: 3px solid var(--gold);
+      background: rgba(10,15,20,0.95);
+      backdrop-filter: blur(18px);
+      border-bottom: 2px solid var(--gold);
     }
     .nav-inner { display:flex; justify-content:space-between; align-items:center; padding:12px 0; flex-wrap:wrap; }
-    .logo { font-size:1.3rem; font-weight:800; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px; }
+    .logo { font-size:1.3rem; font-weight:800; color:var(--gold-bright); text-decoration:none; display:flex; align-items:center; gap:8px; }
     .nav-links { display:flex; gap:24px; list-style:none; flex-wrap:wrap; }
-    .nav-links a { color:var(--muted); text-decoration:none; font-weight:500; font-size:0.95rem; }
-    .nav-links a:hover, .nav-links a.active { color:var(--accent); }
+    .nav-links a { color:#8B98A5; text-decoration:none; font-weight:600; font-size:0.9rem; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold-bright); }
     .back-link { display:inline-block; margin:14px 0 4px; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.85rem; }
-    .install-bar { background:linear-gradient(135deg, #E91E63, #C2185B); color:#fff; text-align:center; padding:12px 20px; border-radius:10px; margin:14px 0; font-weight:600; font-size:0.85rem; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.2); }
-    .install-bar button { background:#fff; color:var(--accent); border:none; padding:6px 18px; border-radius:6px; margin-left:12px; font-weight:700; cursor:pointer; }
+
+    /* GOLDEN INSTALL BAR */
+    .install-bar {
+      display:block;
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14; text-align:center;
+      padding:12px 20px; border-radius:10px; margin:14px 0;
+      font-weight:700; font-size:0.85rem;
+      border:1px solid #FFD700;
+      box-shadow:0 4px 12px rgba(212,175,55,0.35);
+    }
+    .install-bar button { background:#0A0F14; color:var(--gold-bright); border:2px solid var(--gold-bright); padding:5px 16px; border-radius:6px; margin-left:10px; font-weight:800; cursor:pointer; font-size:0.8rem; }
+
     h1 { font-family:'Playfair Display', serif; font-size:2.2rem; font-weight:800; margin-bottom:6px; color:var(--accent); }
     .subtitle { color:var(--muted); margin-bottom:24px; font-size:1.05rem; }
+
+    /* GET QUOTE STRIP */
+    .get-quote-strip { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
+    .get-quote-strip .quote-btn {
+      flex:1; min-width:140px; display:flex; align-items:center; justify-content:center; gap:8px;
+      padding:13px 16px; background:#FFFFFF; border:2px solid var(--gold); border-radius:12px;
+      color:#0A0F14; font-family:'Playfair Display', serif; font-weight:800; font-size:0.88rem;
+      text-decoration:none; cursor:pointer; letter-spacing:0.3px; text-transform:uppercase;
+      box-shadow:0 4px 12px rgba(0,0,0,0.2), 0 0 10px var(--gold-glow); transition:all 0.25s ease;
+    }
+    .get-quote-strip .quote-btn:hover { background:#FFF8E1; border-color:var(--gold-bright); transform:translateY(-2px); box-shadow:0 0 22px var(--gold-glow); }
+    .get-quote-strip .quote-btn.whatsapp { background:#25D366; color:#fff; border-color:#1da851; }
+    .get-quote-strip .quote-btn.whatsapp:hover { background:#1da851; }
 
     .share-tool-card {
       background: linear-gradient(135deg, #FCE4EC, #F3E5F5);
@@ -87,6 +116,29 @@
     }
     .share-tool-btn:hover { border-color:var(--accent); transform:translateY(-2px); }
     .share-tool-btn.wa { border-color:var(--whatsapp-green); background:var(--whatsapp-green); color:#fff; }
+
+    /* AD ZONE — AdSense ready */
+    .ad-zone {
+      margin: 20px 0;
+      padding: 12px;
+      background: rgba(212,175,55,0.05);
+      border: 2px dashed var(--gold);
+      border-radius: 12px;
+      text-align: center;
+      width: 100%;
+      min-height: 120px;
+      contain: layout size;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      overflow: hidden;
+    }
+    .ad-zone.has-ad { border-style: solid; background: transparent; padding: 0; min-height: 0; }
 
     /* BIG BEAUTIFUL SECTION BUTTONS */
     .section-nav {
@@ -138,7 +190,6 @@
     }
     .field input:focus, .field select:focus { outline:none; border-color:var(--accent); box-shadow:0 0 15px rgba(233,30,99,0.25); }
 
-    /* LARGE VISIBLE DROPDOWN ARROWS */
     .field select {
       appearance:none;
       -webkit-appearance:none;
@@ -163,6 +214,15 @@
     }
     .btn-calc:hover { transform:translateY(-3px); box-shadow: 0 12px 35px rgba(233,30,99,0.5); }
 
+    .btn-reset-full {
+      width:100%; padding:11px 20px; border-radius:12px;
+      background:#fff; border:2px solid var(--gold); color:#0A0F14;
+      font-family:'Playfair Display', serif; font-weight:800; font-size:0.9rem;
+      letter-spacing:0.5px; cursor:pointer; text-transform:uppercase;
+      transition:all 0.25s ease; margin-top:10px;
+    }
+    .btn-reset-full:hover { background:#FFF8E1; border-color:var(--gold-bright); transform:translateY(-2px); }
+
     .result-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:14px; margin-top:20px; }
     .result-item {
       background: linear-gradient(135deg, #FCE4EC, #F3E5F5);
@@ -174,6 +234,33 @@
     .result-item .lbl { font-size:0.8rem; color:var(--muted); font-weight:700; text-transform:uppercase; margin-top:4px; }
     .result-item.highlight { background: linear-gradient(135deg, #E91E63, #C2185B); border-color:#fff; }
     .result-item.highlight .val, .result-item.highlight .lbl { color:#fff; }
+
+    /* COPY RESULT BUTTON */
+    .btn-copy-result {
+      display:inline-flex; align-items:center; gap:6px;
+      margin-top:14px; padding:10px 20px; border-radius:12px;
+      background:#FFF8E1; border:2px solid var(--gold); color:#0A0F14;
+      font-family:'Playfair Display', serif; font-weight:800;
+      font-size:0.82rem; letter-spacing:0.5px; text-transform:uppercase;
+      cursor:pointer; transition:all 0.25s ease;
+    }
+    .btn-copy-result:hover { background:var(--gold); border-color:var(--gold-bright); transform:translateY(-2px); box-shadow:0 4px 14px rgba(212,175,55,0.4); }
+
+    /* COPY TOAST */
+    .copy-toast {
+      position: fixed; bottom: 90px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14; padding: 12px 22px; border-radius: 10px;
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: 0.85rem; letter-spacing: 0.3px; text-transform: uppercase;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 20px rgba(212,175,55,0.5);
+      border: 2px solid var(--gold-bright);
+      z-index: 9999; opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+    .copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     .contact-note { margin-top:20px; padding:16px 14px; background:var(--cream); border:2px solid var(--gold); border-radius:14px; text-align:center; color:var(--text); font-size:0.85rem; word-break:break-word; }
 
@@ -192,8 +279,60 @@
     .detail-section li { margin-bottom:8px; }
     .detail-section strong { color:var(--accent); }
 
-    footer { text-align:center; color:var(--muted); font-size:0.8rem; padding:40px 0 20px; border-top:3px solid var(--gold); margin-top:50px; }
-    footer a { color:var(--accent); text-decoration:none; }
+    .detail-section table { width:100%; border-collapse:collapse; font-size:0.85rem; margin:12px 0; background:#fff; border-radius:8px; overflow:hidden; border:2px solid var(--gold); }
+    .detail-section th { padding:10px 8px; text-align:left; background:#0A0F14; color:var(--gold-bright); font-weight:800; font-size:0.78rem; text-transform:uppercase; }
+    .detail-section td { padding:9px 8px; border-bottom:1px solid rgba(212,175,55,0.3); color:#0A0F14; font-weight:600; }
+
+    /* PAKISTANI / GLOBAL BLOCK */
+    .pakistani-block {
+      margin: 30px 0; padding: 24px 20px;
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold); border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+      line-height: 1.8; font-size: 0.95rem; color: #0A0F14;
+    }
+    .pakistani-block h2 { color:#0A0F14; font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:12px; font-weight:800; }
+    .pakistani-block p { color:#0A0F14; font-weight: 500; margin-top: 10px; }
+    .pakistani-block strong { color:#0A0F14; font-weight: 800; }
+
+    /* RELATED TOOLS */
+    .related-tools-section {
+      margin: 20px 0; padding: 20px;
+      background: rgba(255,255,255,0.5);
+      border: 2px solid var(--gold); border-radius: 12px;
+    }
+    .related-tools-section h3 { color:#0A0F14; font-size:1rem; margin-bottom:10px; font-family:'Playfair Display',serif; letter-spacing:0.5px; }
+    .related-tools-section a { color:#E91E63; text-decoration:none; background:rgba(233,30,99,0.1); padding:8px 16px; border-radius:20px; font-size:0.85rem; font-weight:600; display:inline-block; margin:4px 4px 4px 0; }
+
+    /* DISCLAIMER */
+    .disclaimer-box {
+      margin: 20px 0; padding: 16px 18px;
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold); border-radius: 12px;
+      font-size: 0.85rem; color: #0A0F14; line-height: 1.7; font-weight: 500;
+    }
+    .disclaimer-box strong { color: #0A0F14; font-weight: 800; }
+
+    /* LEAD CAPTURE */
+    .lead-capture {
+      background: var(--silver-bg);
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid var(--gold); border-radius: 16px;
+      padding: 28px 24px; margin: 30px 0;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    .lead-capture h3 { font-family:'Playfair Display',serif; color:#0A0F14; font-size:1.2rem; margin-bottom:12px; letter-spacing:0.5px; font-weight:800; }
+    .lead-capture p { color:#0A0F14; margin-bottom:18px; font-size:0.9rem; font-weight: 500; }
+    .lead-capture form { display:flex; flex-direction:column; gap:12px; }
+    .lead-capture input[type="email"] { background:#FFFFFF; border:2px solid var(--gold); border-radius:10px; padding:12px 16px; color:#0A0F14; font-size:0.95rem; font-weight:600; outline:none; }
+    .lead-capture input[type="email"]:focus { border-color:var(--gold-bright); box-shadow:0 0 15px var(--gold-glow); }
+    .lead-capture button { background: var(--silver-bg); border:2px solid var(--gold); border-radius:10px; padding:14px 20px; font-family:'Playfair Display',serif; font-weight: 800; font-size: 0.95rem; color:#0A0F14; cursor:pointer; letter-spacing: 0.5px; text-transform: uppercase; transition: all 0.25s ease; }
+    .lead-capture button:hover { background: var(--silver-bg-hover); border-color: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 0 20px var(--gold-glow); }
+
+    footer { text-align:center; color: #C3CBD4; font-size:0.8rem; padding:40px 20px 20px; border-top:2px solid var(--gold); margin-top:50px; background: rgba(10,15,20,0.95); }
+    footer a { color: var(--gold-bright); text-decoration:none; font-weight: 600; }
     .whatsapp-float { position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:var(--whatsapp-green); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.3); text-decoration:none; color:#fff; font-size:1.3rem; }
 
     .section-content { display:none; }
@@ -201,6 +340,50 @@
 
     @media (max-width:600px){ .row2,.row3{grid-template-columns:1fr;} .result-grid{grid-template-columns:1fr 1fr;} .section-nav{grid-template-columns:1fr 1fr;} .section-btn{padding:20px 14px;font-size:0.9rem;} .section-btn i{font-size:1.8rem;} }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix Women's Corner Calculator",
+    "url": "https://coldmatrixtools.com/womens-corner.html",
+    "applicationCategory": "UtilityApplication",
+    "description": "Elegant multi-tool for women: clothing cost, fabric quantity, beauty budget, and jewelry value calculator. Free, global, multi-currency.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does the fabric quantity calculator work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "It estimates fabric yardage based on garment type, garment length, and fabric width. Wider fabric (60 inches) requires less yardage than narrow fabric (36 inches) for the same garment." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is jewelry price calculated?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Jewelry price = (Metal weight × Price per gram) + Making charges % + Wastage % + Stone charges + Other charges. We support grams, tola, and ounces." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this calculator support multiple currencies?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes — PKR, INR, AED, SAR, CNY, USD, EUR, GBP, CAD, and AUD are supported across all calculators." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this Women's Corner tool free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, 100% free with no signup. All calculations run in your browser, so your data stays private." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are fabric requirements accurate for tailoring?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Our estimates are based on standard garment patterns. Actual requirements can vary by design, cutting pattern, and fabric direction. Always confirm with your tailor for precise orders." }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <nav class="navbar">
@@ -209,7 +392,7 @@
       <ul class="nav-links">
         <li><a href="index.html">🏠 Home</a></li>
         <li><a href="index.html#tools">🛠️ Tools</a></li>
-        <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+        <li><a href="solutions.html">❄️ Cold Matrix</a></li>
         <li><a href="blog.html">📝 Blog</a></li>
         <li><a href="about.html">ℹ️ About</a></li>
         <li><a href="contact.html">📞 Contact</a></li>
@@ -224,6 +407,15 @@
     <h1>🌸 Women's Corner</h1>
     <p class="subtitle">Clothing, Fabric, Beauty & Jewelry Calculator — elegant tools for every woman, everywhere.</p>
 
+    <div class="get-quote-strip">
+      <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20custom%20women's%20fashion%20or%20beauty%20tools." class="quote-btn whatsapp" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i> Quick Chat
+      </a>
+      <a href="contact.html" class="quote-btn">
+        <i class="fa-solid fa-envelope"></i> Get a Quote
+      </a>
+    </div>
+
     <div class="share-tool-card">
       <div class="share-tool-title">Share Women's Corner</div>
       <div class="share-tool-buttons">
@@ -231,6 +423,9 @@
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
       </div>
     </div>
+
+    <!-- AD ZONE 1 -->
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
 
     <!-- BIG BEAUTIFUL SECTION BUTTONS -->
     <div class="section-nav">
@@ -285,6 +480,7 @@
         </div>
         <div class="field"><label>Other Costs</label><input type="number" id="otherClothCost" value="0"></div>
         <button class="btn-calc" onclick="calcClothing()">🌸 Calculate Clothing Cost</button>
+        <button class="btn-reset-full" onclick="resetClothing()">↺ Reset</button>
         <div class="result-grid" id="clothingResult"></div>
       </div>
     </div>
@@ -320,6 +516,7 @@
           </select></div>
         </div>
         <button class="btn-calc" onclick="calcFabric()">🌸 Calculate Fabric Requirement</button>
+        <button class="btn-reset-full" onclick="resetFabric()">↺ Reset</button>
         <div class="result-grid" id="fabricResult"></div>
         <p style="font-size:0.85rem;color:var(--muted);margin-top:12px;">⚠️ This is an estimate. Actual fabric consumption depends on design, cutting pattern, fabric width, and garment construction.</p>
       </div>
@@ -355,6 +552,7 @@
           <option value="AUD">🇦🇺 AUD</option>
         </select></div>
         <button class="btn-calc" onclick="calcBeauty()">🌸 Calculate Beauty Budget</button>
+        <button class="btn-reset-full" onclick="resetBeauty()">↺ Reset</button>
         <div class="result-grid" id="beautyResult"></div>
       </div>
     </div>
@@ -409,173 +607,480 @@
           <option value="AUD">🇦🇺 AUD</option>
         </select></div>
         <button class="btn-calc" onclick="calcJewelry()">🌸 Calculate Jewelry Price</button>
+        <button class="btn-reset-full" onclick="resetJewelry()">↺ Reset</button>
         <div class="result-grid" id="jewelryResult"></div>
       </div>
     </div>
 
+<!-- ⬇️⬇️⬇️ CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
+
+    <!-- ============================================ -->
+    <!-- EDUCATIONAL CONTENT — SILVER -->
+    <!-- ============================================ -->
     <div class="detail-section">
       <h2>🌸 Complete Guide to Women's Corner</h2>
       <p>Welcome to the Women's Corner — a beautiful collection of four practical calculators designed for women around the world. This multi-tool helps you calculate clothing costs, fabric requirements, beauty budgets, and jewelry values, so you can make informed decisions about your everyday and special purchases.</p>
 
       <h3>👗 1. Clothing & Fabric Cost Calculator</h3>
-      <p>This tool helps you calculate the true cost of making or buying clothing. Simply enter the fabric price, quantity needed, and all accessories like lining, buttons, zippers, and embroidery. It adds everything together, including stitching charges, to show you the total garment cost. Whether you're getting a dress made or planning a wardrobe, this calculator gives you a clear picture of expenses.</p>
+      <p>This tool helps you calculate the true cost of making or buying clothing. Simply enter the fabric price, quantity needed, and all accessories like lining, buttons, zippers, and embroidery. It adds everything together, including stitching charges, to show you the total garment cost.</p>
+      <p>Whether you're getting a dress made or planning a wardrobe, this calculator gives you a clear picture of expenses. When ordering from a tailor, always ask for a breakdown of:</p>
+      <ul>
+        <li><strong>Fabric cost</strong> — varies by quality (cotton, silk, lawn, chiffon, georgette, etc.)</li>
+        <li><strong>Accessories cost</strong> — lining, buttons, zippers, lace, embroidery, beads</li>
+        <li><strong>Stitching charges</strong> — usually 15–30% of total cost</li>
+        <li><strong>Extra work</strong> — hand embroidery, designer cuts, custom fitting</li>
+      </ul>
 
       <h3>🧵 2. Fabric Quantity Calculator</h3>
-      <p>Not sure how much fabric you need? This calculator estimates the required fabric based on the garment type, fabric width, and garment length. It supports inches, centimeters, meters, and yards, making it useful for tailors, designers, and home sewers around the world. Remember, this is an estimate — actual fabric consumption depends on the design and cutting pattern.</p>
+      <p>Not sure how much fabric you need? This calculator estimates the required fabric based on the garment type, fabric width, and garment length. It supports inches, centimeters, meters, and yards, making it useful for tailors, designers, and home sewers around the world.</p>
+
+      <p><strong>Why fabric width matters:</strong> A wider fabric (60 inches) requires less yardage than a narrower one (36 inches) for the same garment because you can fit more pattern pieces side by side. Our calculator now adjusts the estimate based on your chosen width.</p>
+
+      <table>
+        <tr><th>Garment</th><th>Typical Fabric (45" width)</th></tr>
+        <tr><td>Simple Shirt</td><td>2.5 – 3 yards</td></tr>
+        <tr><td>Dress (Knee-length)</td><td>3 – 4 yards</td></tr>
+        <tr><td>Formal Suit</td><td>4 – 5 yards</td></tr>
+        <tr><td>Abaya (Simple)</td><td>3 – 4 yards</td></tr>
+        <tr><td>Trousers</td><td>1.5 – 2 yards</td></tr>
+        <tr><td>Skirt (Long)</td><td>2 – 3 yards</td></tr>
+      </table>
+
+      <p><strong>Important:</strong> Always add 10–15% extra fabric for safety — for pattern matching on prints, direction of the fabric, and cutting errors. Our calculator adds a small margin automatically.</p>
 
       <h3>💄 3. Beauty & Makeup Budget Calculator</h3>
       <p>Plan your beauty expenses with this simple budget calculator. Enter your monthly spending on makeup, skincare, haircare, salon visits, nails, and fragrance. The tool calculates your monthly and annual beauty costs, helping you manage your personal care budget effectively.</p>
 
+      <p><strong>Smart budgeting tips:</strong></p>
+      <ul>
+        <li><strong>Invest in skincare</strong> — a good foundation beats a fancy lipstick</li>
+        <li><strong>Buy multi-purpose products</strong> — one highlighter can double as an eyeshadow</li>
+        <li><strong>Track your annual spend</strong> — most people underestimate by 30%</li>
+        <li><strong>Rotate products</strong> — don't hoard; use what you buy</li>
+        <li><strong>Salon visits</strong> — spacing them 4–6 weeks is healthier and cheaper</li>
+      </ul>
+
       <h3>💎 4. Jewelry Weight & Price Calculator</h3>
-      <p>Calculate the estimated value of gold, silver, or platinum jewelry. Enter the weight, metal type, price per gram, making charges, wastage percentage, and stone charges. The tool computes the metal value, making charges, wastage, and final estimated jewelry price. This is especially useful when buying or selling jewelry to ensure you're paying a fair price.</p>
+      <p>Calculate the estimated value of gold, silver, or platinum jewelry. Enter the weight, metal type, price per gram, making charges, wastage percentage, and stone charges. The tool computes the metal value, making charges, wastage, and final estimated jewelry price.</p>
+
+      <p><strong>Understanding the components:</strong></p>
+      <ul>
+        <li><strong>Metal value</strong> = weight × price per gram (per today's rate)</li>
+        <li><strong>Making charges</strong> = 8–15% of metal value (labor)</li>
+        <li><strong>Wastage</strong> = 3–8% (metal lost during crafting)</li>
+        <li><strong>Stone charges</strong> = variable, based on gemstone type</li>
+        <li><strong>Hallmarking / GST</strong> = additional tax in most countries</li>
+      </ul>
+
+      <p><strong>Gold weight units commonly used:</strong></p>
+      <table>
+        <tr><th>Unit</th><th>Grams</th><th>Used in</th></tr>
+        <tr><td>1 Gram</td><td>1 g</td><td>Global standard</td></tr>
+        <tr><td>1 Tola</td><td>11.66 g</td><td>Pakistan, India, Bangladesh, Nepal</td></tr>
+        <tr><td>1 Ounce (troy)</td><td>31.10 g</td><td>USA, UK, international gold trade</td></tr>
+        <tr><td>1 Masha</td><td>0.972 g</td><td>Traditional South Asia</td></tr>
+        <tr><td>1 Ratti</td><td>0.121 g</td><td>Traditional South Asia (small gems)</td></tr>
+      </table>
+
+      <h3>🌍 Multi-Currency Support</h3>
+      <p>All four calculators support <strong>10 currencies</strong> — Pakistani Rupee (PKR), Indian Rupee (INR), UAE Dirham (AED), Saudi Riyal (SAR), Chinese Yuan (CNY), US Dollar (USD), Euro (EUR), British Pound (GBP), Canadian Dollar (CAD), and Australian Dollar (AUD). Simply change the currency in the dropdown, and results update instantly.</p>
 
       <h3>Why Use Women's Corner?</h3>
       <ul>
-        <li><strong>Save Money:</strong> Know the true cost before making purchases.</li>
-        <li><strong>Plan Better:</strong> Calculate fabric needs and beauty budgets with confidence.</li>
-        <li><strong>Global Support:</strong> Multiple currencies and units for worldwide use.</li>
-        <li><strong>Beautiful Interface:</strong> Soft colors and elegant design make it a joy to use.</li>
-        <li><strong>Private & Free:</strong> No registration, no data storage.</li>
+        <li><strong>Save Money:</strong> Know the true cost before making purchases</li>
+        <li><strong>Plan Better:</strong> Calculate fabric needs and beauty budgets with confidence</li>
+        <li><strong>Global Support:</strong> Multiple currencies and units for worldwide use</li>
+        <li><strong>Beautiful Interface:</strong> Soft colors and elegant design make it a joy to use</li>
+        <li><strong>Private & Free:</strong> No registration, no data storage — everything runs in your browser</li>
       </ul>
 
-      <h3>Important Disclaimer</h3>
-      <p>Fabric requirements are estimates and can vary based on design, cutting pattern, fabric width, and garment construction. Jewelry pricing varies according to market rates, workmanship, and seller charges. Always confirm with your tailor or jeweler for exact figures.</p>
+      <h3>Frequently Asked Questions</h3>
+      <p><strong>Q: Are the fabric requirements accurate for tailoring?</strong><br>A: They're based on standard patterns. Always confirm with your tailor for complex designs or patterned fabric.</p>
+      <p><strong>Q: Which gold weight unit should I use?</strong><br>A: Use Tola in Pakistan, India, and Bangladesh. Use grams internationally. Use ounces if buying from US or UK dealers.</p>
+      <p><strong>Q: Do jewelry prices include taxes?</strong><br>A: No — the calculator shows the pre-tax estimated price. Add GST/VAT as applicable in your country.</p>
+      <p><strong>Q: Can I use this for business?</strong><br>A: Yes! Boutiques, tailors, beauty salons, and jewelry shops commonly use it for quick quotes.</p>
+
+      <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ A complete lifestyle toolkit — from fabric to jewelry, beauty to budgets. Elegant, accurate, and free for every woman, everywhere.</p>
     </div>
+
+    <!-- AD ZONE 2 -->
+    <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+    <!-- PAKISTANI / GLOBAL BLOCK -->
+    <div class="pakistani-block">
+      <h2>🌸 ColdMatrix Advanced Solutions — Empowering Women Worldwide</h2>
+      <p>Our Women's Corner tools are used daily by shoppers, homemakers, boutique owners, and designers across the <strong>United States, Canada, United Kingdom, Europe, Middle East, Pakistan, India, Bangladesh, and Australia</strong> — a genuinely global toolkit for everyday elegance.</p>
+      <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi, Pakistan — serving clients with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>.</p>
+      <p>Need a custom women-focused tool, boutique dashboard, or project quote? Our team responds within 24 hours.</p>
+      <p style="margin-top:14px;font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+    </div>
+
+    <!-- RELATED TOOLS -->
+    <div class="related-tools-section">
+      <h3>🔗 Related Tools You Might Need</h3>
+      <div>
+        <a href="currency-converter.html">💱 Currency Converter</a>
+        <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+        <a href="unit-converter.html">📏 Unit Converter</a>
+        <a href="age-calculator.html">🎂 Age Calculator</a>
+        <a href="business-calculator-suite.html">🧮 Business Calculator Suite</a>
+        <a href="qr-business-card.html">📱 QR Business Card</a>
+        <a href="quotation-generator.html">🧾 Quotation Generator</a>
+      </div>
+    </div>
+
+    <!-- LEAD CAPTURE -->
+    <div class="lead-capture">
+      <h3>🚀 Need a Custom Women's Lifestyle Tool?</h3>
+      <p>Get tailored fashion, beauty, or jewelry calculators for your boutique, salon, or brand — anywhere in the world. Leave your email and we'll reach out within 24 hours.</p>
+      <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="email" name="email" placeholder="Your work email" required>
+        <button type="submit">Request Custom Tool</button>
+      </form>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer-box">
+      <strong>⚠️ Disclaimer:</strong> Fabric requirements are estimates and vary by design, cutting pattern, and fabric width. Jewelry pricing depends on live market rates and seller charges. Beauty budget is a planning guide only. All calculations run locally in your browser — nothing is uploaded. Always confirm final figures with your tailor, jeweler, or salon for important purchases.
+    </div>
+
   </div>
 
-<!-- Combined Footer + Floating WhatsApp -->
-<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp" style="position:fixed; bottom:20px; right:20px; z-index:999; width:48px; height:48px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(0,0,0,0.4); text-decoration:none; color:#fff; font-size:1.3rem;">
-    <i class="fa-brands fa-whatsapp"></i>
-</a>
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
-<footer style="background:rgba(10,15,20,0.9); border-top:2px solid #D4AF37; padding:30px 20px; margin-top:50px; text-align:center;">
-    <!-- Contact Info -->
+<footer>
     <div style="margin-bottom:15px;">
         <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
-        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#FFD700; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
         <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
-            📞 <strong>Call / WhatsApp:</strong> 
-            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#FFD700; text-decoration:none; font-weight:600;">+92 333 3228470</a>
             <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
                 <i class="fa-brands fa-whatsapp"></i>
             </a>
         </p>
     </div>
 
-    <!-- Legal Links -->
     <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
-        <a href="privacy-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Privacy Policy</a>
-        <a href="terms-of-use.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Terms of Use</a>
-        <a href="cookie-policy.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Cookie Policy</a>
-        <a href="security.html" style="color:#4FC3F7; text-decoration:underline; font-weight:600; font-size:0.85rem;">Security</a>
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
     </div>
 
-    <!-- Copyright -->
     <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
 </footer>
-  <script>
-    function showSection(id, btn) {
-      document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('.section-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      btn.classList.add('active');
+
+<script>
+  // ============================================
+  // SECTION NAVIGATION
+  // ============================================
+  function showSection(id, btn) {
+    document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.section-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ============================================
+  // 1. CLOTHING CALCULATOR
+  // ============================================
+  let lastClothResult = null;
+
+  function calcClothing() {
+    const currency = document.getElementById('clothCurrency').value;
+    const fabricPrice = parseFloat(document.getElementById('fabricPrice').value) || 0;
+    const fabricQty = parseFloat(document.getElementById('fabricQty').value) || 0;
+    const lining = parseFloat(document.getElementById('liningCost').value) || 0;
+    const buttons = parseFloat(document.getElementById('buttonsCost').value) || 0;
+    const zippers = parseFloat(document.getElementById('zippersCost').value) || 0;
+    const lace = parseFloat(document.getElementById('laceCost').value) || 0;
+    const accessories = parseFloat(document.getElementById('accessoriesCost').value) || 0;
+    const stitching = parseFloat(document.getElementById('stitchingCost').value) || 0;
+    const other = parseFloat(document.getElementById('otherClothCost').value) || 0;
+
+    const fabricCost = fabricPrice * fabricQty;
+    const accessoriesCost = lining + buttons + zippers + lace + accessories;
+    const total = fabricCost + accessoriesCost + stitching + other;
+
+    lastClothResult = { currency, fabricCost, accessoriesCost, stitching, other, total };
+
+    document.getElementById('clothingResult').innerHTML = `
+      <div class="result-item"><div class="val">${currency} ${fabricCost.toFixed(2)}</div><div class="lbl">Fabric Cost</div></div>
+      <div class="result-item"><div class="val">${currency} ${accessoriesCost.toFixed(2)}</div><div class="lbl">Accessories</div></div>
+      <div class="result-item"><div class="val">${currency} ${stitching.toFixed(2)}</div><div class="lbl">Stitching</div></div>
+      <div class="result-item highlight"><div class="val">${currency} ${total.toFixed(2)}</div><div class="lbl">Total Cost</div></div>
+      <div style="grid-column:1/-1; text-align:center;">
+        <button class="btn-copy-result" onclick="copyResult('clothing')"><i class="fa-solid fa-copy"></i> Copy Result</button>
+      </div>
+    `;
+  }
+
+  function resetClothing() {
+    document.getElementById('fabricPrice').value = 20;
+    document.getElementById('fabricQty').value = 3;
+    document.getElementById('liningCost').value = 5;
+    document.getElementById('buttonsCost').value = 3;
+    document.getElementById('zippersCost').value = 2;
+    document.getElementById('laceCost').value = 10;
+    document.getElementById('accessoriesCost').value = 0;
+    document.getElementById('stitchingCost').value = 15;
+    document.getElementById('otherClothCost').value = 0;
+    document.getElementById('clothCurrency').value = 'USD';
+    document.getElementById('clothingResult').innerHTML = '';
+  }
+
+  // ============================================
+  // 2. FABRIC CALCULATOR — FIXED: now uses fabric width
+  // ============================================
+  let lastFabricResult = null;
+
+  function calcFabric() {
+    const width = parseFloat(document.getElementById('fabricWidth').value);
+    const length = parseFloat(document.getElementById('garmentLength').value) || 0;
+    const unit = document.getElementById('lengthUnit').value;
+    const garment = document.getElementById('fabGarment').value;
+
+    let lengthInInches = length;
+    if(unit === 'cm') lengthInInches = length / 2.54;
+    else if(unit === 'meters') lengthInInches = length * 39.37;
+    else if(unit === 'yards') lengthInInches = length * 36;
+
+    // Width-based multiplier: narrower fabric needs more yardage
+    let widthMultiplier = 1.0;
+    if(width === 36) widthMultiplier = 1.40;
+    else if(width === 44) widthMultiplier = 1.15;
+    else if(width === 45) widthMultiplier = 1.00;
+    else if(width === 54) widthMultiplier = 0.90;
+    else if(width === 58) widthMultiplier = 0.85;
+    else if(width === 60) widthMultiplier = 0.80;
+
+    // Base calculation
+    const baseYards = lengthInInches / 36;
+    const fabricRequirement = (baseYards * widthMultiplier) + 0.3;
+
+    // If fabric is wider than 45", assume 2 garments can be cut side-by-side for smaller items
+    let note = '';
+    if(width >= 58 && (garment === 'shirt' || garment === 'trousers' || garment === 'skirt')) {
+      note = '💡 Tip: With this wide fabric, you may be able to cut 2 garments from the same length.';
     }
 
-    function calcClothing() {
-      const currency = document.getElementById('clothCurrency').value;
-      const fabricPrice = parseFloat(document.getElementById('fabricPrice').value) || 0;
-      const fabricQty = parseFloat(document.getElementById('fabricQty').value) || 0;
-      const lining = parseFloat(document.getElementById('liningCost').value) || 0;
-      const buttons = parseFloat(document.getElementById('buttonsCost').value) || 0;
-      const zippers = parseFloat(document.getElementById('zippersCost').value) || 0;
-      const lace = parseFloat(document.getElementById('laceCost').value) || 0;
-      const accessories = parseFloat(document.getElementById('accessoriesCost').value) || 0;
-      const stitching = parseFloat(document.getElementById('stitchingCost').value) || 0;
-      const other = parseFloat(document.getElementById('otherClothCost').value) || 0;
+    lastFabricResult = {
+      yards: fabricRequirement,
+      meters: fabricRequirement * 0.9144,
+      width: width,
+      garment: garment
+    };
 
-      const fabricCost = fabricPrice * fabricQty;
-      const accessoriesCost = lining + buttons + zippers + lace + accessories;
-      const total = fabricCost + accessoriesCost + stitching + other;
+    document.getElementById('fabricResult').innerHTML = `
+      <div class="result-item highlight"><div class="val">${fabricRequirement.toFixed(2)} yards</div><div class="lbl">Estimated Fabric</div></div>
+      <div class="result-item"><div class="val">${(fabricRequirement * 0.9144).toFixed(2)} m</div><div class="lbl">In Meters</div></div>
+      <div class="result-item"><div class="val">${width}"</div><div class="lbl">Fabric Width</div></div>
+      ${note ? `<div class="result-item" style="grid-column:1/-1; background:#FFF8E1;"><div class="lbl" style="color:#0A0F14; text-transform:none; font-weight:600;">${note}</div></div>` : ''}
+      <div style="grid-column:1/-1; text-align:center;">
+        <button class="btn-copy-result" onclick="copyResult('fabric')"><i class="fa-solid fa-copy"></i> Copy Result</button>
+      </div>
+    `;
+  }
 
-      document.getElementById('clothingResult').innerHTML = `
-        <div class="result-item"><div class="val">${currency} ${fabricCost.toFixed(2)}</div><div class="lbl">Fabric Cost</div></div>
-        <div class="result-item"><div class="val">${currency} ${accessoriesCost.toFixed(2)}</div><div class="lbl">Accessories</div></div>
-        <div class="result-item"><div class="val">${currency} ${stitching.toFixed(2)}</div><div class="lbl">Stitching</div></div>
-        <div class="result-item highlight"><div class="val">${currency} ${total.toFixed(2)}</div><div class="lbl">Total Cost</div></div>
-      `;
+  function resetFabric() {
+    document.getElementById('fabGarment').value = 'shirt';
+    document.getElementById('fabricWidth').value = '45';
+    document.getElementById('garmentLength').value = 40;
+    document.getElementById('lengthUnit').value = 'inches';
+    document.getElementById('fabricResult').innerHTML = '';
+  }
+
+  // ============================================
+  // 3. BEAUTY CALCULATOR
+  // ============================================
+  let lastBeautyResult = null;
+
+  function calcBeauty() {
+    const currency = document.getElementById('beautyCurrency').value;
+    const makeup = parseFloat(document.getElementById('makeupCost').value) || 0;
+    const skincare = parseFloat(document.getElementById('skincareCost').value) || 0;
+    const haircare = parseFloat(document.getElementById('haircareCost').value) || 0;
+    const salon = parseFloat(document.getElementById('salonCost').value) || 0;
+    const nails = parseFloat(document.getElementById('nailsCost').value) || 0;
+    const fragrance = parseFloat(document.getElementById('fragranceCost').value) || 0;
+    const other = parseFloat(document.getElementById('otherBeautyCost').value) || 0;
+
+    const monthly = makeup + skincare + haircare + salon + nails + fragrance + other;
+    const annual = monthly * 12;
+    const daily = monthly / 30;
+
+    lastBeautyResult = { currency, monthly, annual, daily };
+
+    document.getElementById('beautyResult').innerHTML = `
+      <div class="result-item"><div class="val">${currency} ${daily.toFixed(2)}</div><div class="lbl">Daily</div></div>
+      <div class="result-item highlight"><div class="val">${currency} ${monthly.toFixed(2)}</div><div class="lbl">Monthly</div></div>
+      <div class="result-item"><div class="val">${currency} ${annual.toFixed(2)}</div><div class="lbl">Annual</div></div>
+      <div style="grid-column:1/-1; text-align:center;">
+        <button class="btn-copy-result" onclick="copyResult('beauty')"><i class="fa-solid fa-copy"></i> Copy Result</button>
+      </div>
+    `;
+  }
+
+  function resetBeauty() {
+    document.getElementById('makeupCost').value = 50;
+    document.getElementById('skincareCost').value = 40;
+    document.getElementById('haircareCost').value = 30;
+    document.getElementById('salonCost').value = 60;
+    document.getElementById('nailsCost').value = 20;
+    document.getElementById('fragranceCost').value = 35;
+    document.getElementById('otherBeautyCost').value = 0;
+    document.getElementById('beautyCurrency').value = 'USD';
+    document.getElementById('beautyResult').innerHTML = '';
+  }
+
+  // ============================================
+  // 4. JEWELRY CALCULATOR
+  // ============================================
+  let lastJewelResult = null;
+
+  function calcJewelry() {
+    const currency = document.getElementById('jewelCurrency').value;
+    const weight = parseFloat(document.getElementById('jewelWeight').value) || 0;
+    const unit = document.getElementById('weightUnit').value;
+    const pricePerGram = parseFloat(document.getElementById('pricePerGram').value) || 0;
+    const making = (parseFloat(document.getElementById('makingCharges').value) || 0) / 100;
+    const wastage = (parseFloat(document.getElementById('wastage').value) || 0) / 100;
+    const stone = parseFloat(document.getElementById('stoneCharges').value) || 0;
+    const other = parseFloat(document.getElementById('otherJewelCharges').value) || 0;
+
+    let weightInGrams = weight;
+    if(unit === 'tola') weightInGrams = weight * 11.66;
+    else if(unit === 'ounces') weightInGrams = weight * 31.1035;
+
+    const metalValue = weightInGrams * pricePerGram;
+    const makingCharges = metalValue * making;
+    const wastageCharges = metalValue * wastage;
+    const total = metalValue + makingCharges + wastageCharges + stone + other;
+
+    lastJewelResult = { currency, metalValue, makingCharges, wastageCharges, stone, other, total, weightInGrams };
+
+    document.getElementById('jewelryResult').innerHTML = `
+      <div class="result-item"><div class="val">${currency} ${metalValue.toFixed(2)}</div><div class="lbl">Metal Value</div></div>
+      <div class="result-item"><div class="val">${currency} ${makingCharges.toFixed(2)}</div><div class="lbl">Making</div></div>
+      <div class="result-item"><div class="val">${currency} ${wastageCharges.toFixed(2)}</div><div class="lbl">Wastage</div></div>
+      <div class="result-item highlight"><div class="val">${currency} ${total.toFixed(2)}</div><div class="lbl">Final Price</div></div>
+      <div style="grid-column:1/-1; text-align:center;">
+        <button class="btn-copy-result" onclick="copyResult('jewelry')"><i class="fa-solid fa-copy"></i> Copy Result</button>
+      </div>
+    `;
+  }
+
+  function resetJewelry() {
+    document.getElementById('jewelryType').value = 'necklace';
+    document.getElementById('metalType').value = 'gold';
+    document.getElementById('jewelWeight').value = 10;
+    document.getElementById('weightUnit').value = 'grams';
+    document.getElementById('pricePerGram').value = 60;
+    document.getElementById('makingCharges').value = 10;
+    document.getElementById('wastage').value = 5;
+    document.getElementById('stoneCharges').value = 0;
+    document.getElementById('otherJewelCharges').value = 0;
+    document.getElementById('jewelCurrency').value = 'USD';
+    document.getElementById('jewelryResult').innerHTML = '';
+  }
+
+  // ============================================
+  // COPY RESULT — with toast notification
+  // ============================================
+  function showToast(msg) {
+    const t = document.createElement('div');
+    t.className = 'copy-toast';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.classList.add('show'), 10);
+    setTimeout(() => {
+      t.classList.remove('show');
+      setTimeout(() => t.remove(), 400);
+    }, 1800);
+  }
+
+  function copyResult(type) {
+    let text = '';
+
+    if(type === 'clothing' && lastClothResult) {
+      const r = lastClothResult;
+      text = `🌸 Women's Corner — Clothing Cost\n` +
+             `Fabric Cost: ${r.currency} ${r.fabricCost.toFixed(2)}\n` +
+             `Accessories: ${r.currency} ${r.accessoriesCost.toFixed(2)}\n` +
+             `Stitching: ${r.currency} ${r.stitching.toFixed(2)}\n` +
+             `Total: ${r.currency} ${r.total.toFixed(2)}\n` +
+             `\nFrom ColdMatrix Tools — coldmatrixtools.com`;
+    } else if(type === 'fabric' && lastFabricResult) {
+      const r = lastFabricResult;
+      text = `🌸 Women's Corner — Fabric Requirement\n` +
+             `Garment: ${r.garment}\n` +
+             `Fabric Width: ${r.width}"\n` +
+             `Estimated Fabric: ${r.yards.toFixed(2)} yards (${r.meters.toFixed(2)} m)\n` +
+             `\nFrom ColdMatrix Tools — coldmatrixtools.com`;
+    } else if(type === 'beauty' && lastBeautyResult) {
+      const r = lastBeautyResult;
+      text = `🌸 Women's Corner — Beauty Budget\n` +
+             `Daily: ${r.currency} ${r.daily.toFixed(2)}\n` +
+             `Monthly: ${r.currency} ${r.monthly.toFixed(2)}\n` +
+             `Annual: ${r.currency} ${r.annual.toFixed(2)}\n` +
+             `\nFrom ColdMatrix Tools — coldmatrixtools.com`;
+    } else if(type === 'jewelry' && lastJewelResult) {
+      const r = lastJewelResult;
+      text = `🌸 Women's Corner — Jewelry Price\n` +
+             `Weight: ${r.weightInGrams.toFixed(2)} g\n` +
+             `Metal Value: ${r.currency} ${r.metalValue.toFixed(2)}\n` +
+             `Making: ${r.currency} ${r.makingCharges.toFixed(2)}\n` +
+             `Wastage: ${r.currency} ${r.wastageCharges.toFixed(2)}\n` +
+             `Final Price: ${r.currency} ${r.total.toFixed(2)}\n` +
+             `\nFrom ColdMatrix Tools — coldmatrixtools.com`;
+    } else {
+      showToast('⚠️ Please calculate first');
+      return;
     }
 
-    function calcFabric() {
-      const width = parseFloat(document.getElementById('fabricWidth').value);
-      const length = parseFloat(document.getElementById('garmentLength').value) || 0;
-      const unit = document.getElementById('lengthUnit').value;
-
-      let lengthInInches = length;
-      if(unit === 'cm') lengthInInches = length / 2.54;
-      else if(unit === 'meters') lengthInInches = length * 39.37;
-      else if(unit === 'yards') lengthInInches = length * 36;
-
-      const fabricRequirement = (lengthInInches / 36) + 0.5;
-
-      document.getElementById('fabricResult').innerHTML = `
-        <div class="result-item highlight"><div class="val">${fabricRequirement.toFixed(2)} yards</div><div class="lbl">Estimated Fabric</div></div>
-        <div class="result-item"><div class="val">${(fabricRequirement * 0.9144).toFixed(2)} m</div><div class="lbl">In Meters</div></div>
-      `;
+    if(navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text)
+        .then(() => showToast('✅ Result copied!'))
+        .catch(() => { alert(text); });
+    } else {
+      alert(text);
     }
+  }
 
-    function calcBeauty() {
-      const currency = document.getElementById('beautyCurrency').value;
-      const makeup = parseFloat(document.getElementById('makeupCost').value) || 0;
-      const skincare = parseFloat(document.getElementById('skincareCost').value) || 0;
-      const haircare = parseFloat(document.getElementById('haircareCost').value) || 0;
-      const salon = parseFloat(document.getElementById('salonCost').value) || 0;
-      const nails = parseFloat(document.getElementById('nailsCost').value) || 0;
-      const fragrance = parseFloat(document.getElementById('fragranceCost').value) || 0;
-      const other = parseFloat(document.getElementById('otherBeautyCost').value) || 0;
+  // ============================================
+  // SHARE TOOL
+  // ============================================
+  function shareToolWhatsApp(){
+    window.open('https://wa.me/?text=' + encodeURIComponent('🌸 Check out Women\'s Corner from ColdMatrix Tools! ' + window.location.href));
+  }
+  function copyToolLink(){
+    navigator.clipboard.writeText(window.location.href)
+      .then(()=>alert('Link copied!'))
+      .catch(()=>alert(window.location.href));
+  }
 
-      const monthly = makeup + skincare + haircare + salon + nails + fragrance + other;
-      const annual = monthly * 12;
-
-      document.getElementById('beautyResult').innerHTML = `
-        <div class="result-item highlight"><div class="val">${currency} ${monthly.toFixed(2)}</div><div class="lbl">Monthly</div></div>
-        <div class="result-item"><div class="val">${currency} ${annual.toFixed(2)}</div><div class="lbl">Annual</div></div>
-      `;
-    }
-
-    function calcJewelry() {
-      const currency = document.getElementById('jewelCurrency').value;
-      const weight = parseFloat(document.getElementById('jewelWeight').value) || 0;
-      const unit = document.getElementById('weightUnit').value;
-      const pricePerGram = parseFloat(document.getElementById('pricePerGram').value) || 0;
-      const making = (parseFloat(document.getElementById('makingCharges').value) || 0) / 100;
-      const wastage = (parseFloat(document.getElementById('wastage').value) || 0) / 100;
-      const stone = parseFloat(document.getElementById('stoneCharges').value) || 0;
-      const other = parseFloat(document.getElementById('otherJewelCharges').value) || 0;
-
-      let weightInGrams = weight;
-      if(unit === 'tola') weightInGrams = weight * 11.66;
-      else if(unit === 'ounces') weightInGrams = weight * 28.35;
-
-      const metalValue = weightInGrams * pricePerGram;
-      const makingCharges = metalValue * making;
-      const wastageCharges = metalValue * wastage;
-      const total = metalValue + makingCharges + wastageCharges + stone + other;
-
-      document.getElementById('jewelryResult').innerHTML = `
-        <div class="result-item"><div class="val">${currency} ${metalValue.toFixed(2)}</div><div class="lbl">Metal Value</div></div>
-        <div class="result-item"><div class="val">${currency} ${makingCharges.toFixed(2)}</div><div class="lbl">Making</div></div>
-        <div class="result-item"><div class="val">${currency} ${wastageCharges.toFixed(2)}</div><div class="lbl">Wastage</div></div>
-        <div class="result-item highlight"><div class="val">${currency} ${total.toFixed(2)}</div><div class="lbl">Final Price</div></div>
-      `;
-    }
-
-    function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('🌸 Check out Women\'s Corner from ColdMatrix Tools! ' + window.location.href)); }
-    function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')); }
-
-    let d; const bar = document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
-    window.installAppTool = function(){ if(d){ d.prompt(); } else { alert('📱 Add to Home Screen via browser menu.'); } };
-    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
-  </script>
+  // ============================================
+  // PWA INSTALL
+  // ============================================
+  let d;
+  const bar = document.getElementById('installBarTool');
+  window.addEventListener('beforeinstallprompt', e=>{
+    e.preventDefault();
+    d = e;
+    bar.style.display='block';
+  });
+  window.installAppTool = function(){
+    if(d){ d.prompt(); d.userChoice.then(()=>{ bar.style.display='none'; }); }
+    else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
+  };
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('/service-worker.js').catch(()=>{});
+  }
+</script>
 </body>
-</html> 
+</html>

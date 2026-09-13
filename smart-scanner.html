@@ -80,37 +80,106 @@
       font-weight: 800; cursor: pointer; font-size: 0.8rem;
     }
 
-    h1{font-size:1.7rem;font-weight:800;margin-bottom:8px;line-height:1.25}
-    h1 span{color:var(--gold-bright)}
-    .subtitle{color:#EAEDF0;margin-bottom:20px;font-size:0.95rem;font-weight:500}
+    /* ============================================ */
+    /* HERO — Title + Subtitle + Feature strip in silver box */
+    /* ============================================ */
+    h1 {
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border: 2px solid #D4AF37;
+      border-bottom: none;
+      border-radius: 14px 14px 0 0;
+      padding: 16px 22px 6px;
+      margin-bottom: 0;
+      margin-top: 14px;
+      color: #0A0F14;
+      text-shadow: none;
+      font-size: 1.5rem;
+      line-height: 1.3;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7);
+    }
+    h1 span { color: #B8952B; }
 
-    /* Premium feature strip */
-    .tool-intro{
-      margin: 0 0 20px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--gold);
-    }
-    .tool-intro p{
-      color: var(--gold-bright);
-      font-weight: 700;
-      font-size: 0.95rem;
-      margin-bottom: 10px;
-    }
-    .tool-intro ul{
-      list-style: none;
-      padding-left: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .tool-intro ul li{
-      color: var(--gold-bright);
-      font-size: 0.82rem;
+    .subtitle {
+      background: #C8CDD4;
+      background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+      border-left: 2px solid #D4AF37;
+      border-right: 2px solid #D4AF37;
+      border-top: none;
+      border-bottom: none;
+      padding: 0 22px 12px;
+      margin: 0;
+      color: #0A0F14;
+      font-size: 0.85rem;
       font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      line-height: 1.5;
+      text-shadow: none;
     }
+
+    /* Feature strip joins the silver hero box */
+.tool-intro {
+  background: #C8CDD4;
+  background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
+  border: 2px solid #D4AF37;
+  border-top: none;
+  border-radius: 0 0 14px 14px;
+  padding: 12px 22px 16px;
+  margin: 0 0 22px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5);
+}
+.tool-intro p {
+  color: #0A0F14;
+  font-weight: 800;
+  font-size: 0.82rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tool-intro ul {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
+  width: 100% !important;
+}
+.tool-intro ul li {
+  /* Force every box to be EXACTLY the same width */
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  /* Same height for all */
+  min-height: 58px !important;
+  /* Layout inside the box: icon on top, text below */
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 4px !important;
+  /* Compact style — not big */
+  padding: 6px 4px !important;
+  color: #0A0F14;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid #D4AF37;
+  border-radius: 10px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0;
+  /* Prevent long text from stretching the box */
+  overflow: hidden;
+  word-break: break-word;
+  hyphens: auto;
+}
+.tool-intro ul li i {
+  color: #B8952B;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
 
     .share-tool-card{
       background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);
@@ -134,29 +203,88 @@
     .share-tool-btn.wa:hover{border-color:#25D366;box-shadow:0 0 20px rgba(37,211,102,0.35);}
     .share-tool-btn i{font-size:1rem;}
 
-    /* Tab buttons — gold active state */
-    .tab-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+    /* ============================================ */
+    /* Tab buttons — CLEAN 5-column GRID (was flex-wrap) */
+    /* ============================================ */
+    .tab-row{
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
     .tab-btn{
-      flex:1; padding:13px 6px; min-width:100px;
+      padding: 16px 8px;
+      min-height: 76px;
       background: var(--silver-bg);
+      background-image: var(--silver-gradient);
       border: 2px solid var(--gold);
       color: #0A0F14;
-      border-radius: 10px; cursor:pointer; text-align:center; font-size:0.8rem;
-      font-family:'Oswald',sans-serif; font-weight:800;
-      letter-spacing:0.4px; text-transform:uppercase;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 0.78rem;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      line-height: 1.25;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.35), 0 0 10px rgba(212,175,55,0.2);
-      transition:all 0.25s;
+      transition: all 0.25s ease;
     }
-    .tab-btn:hover{ background:var(--silver-bg-hover); border-color:var(--gold-bright); box-shadow:0 0 22px rgba(212,175,55,0.6); transform:translateY(-2px); }
+    .tab-btn:hover{
+      background: var(--silver-bg-hover);
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 22px rgba(212,175,55,0.6);
+      transform: translateY(-2px);
+    }
     .tab-btn.active{
-      border-color:var(--gold-bright);
+      border-color: var(--gold-bright);
       background: var(--gold);
-      color:#0A0F14;
-      box-shadow:0 0 22px rgba(212,175,55,0.7);
-      transform:translateY(-2px);
+      background-image: linear-gradient(135deg, #D4AF37, #FFD700);
+      color: #0A0F14;
+      box-shadow: 0 0 22px rgba(212,175,55,0.7);
+      transform: translateY(-2px);
     }
     .tab-content{display:none}
     .tab-content.active{display:block}
+
+    /* ============================================ */
+    /* Reset button — FULL-WIDTH, gray/secondary style */
+    /* ============================================ */
+    .reset-row{
+      margin: 0 0 20px;
+    }
+    .reset-all-btn{
+      width: 100%;
+      min-height: 52px;
+      background: linear-gradient(145deg, #E8ECF1, #C8CDD4);
+      border: 2px solid #8B98A5;
+      color: #3a3d45;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 800;
+      font-size: 0.92rem;
+      cursor: pointer;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 3px 8px rgba(0,0,0,0.2);
+      transition: all 0.25s ease;
+    }
+    .reset-all-btn:hover{
+      background: linear-gradient(145deg, #D5D9DE, #B8BDC4);
+      border-color: #4a4d55;
+      color: #0A0F14;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    }
 
     /* Silver premium card */
     .card{
@@ -202,7 +330,6 @@
     }
     .field select option { background: #FFFFFF; color: #0A0F14; font-weight: 600; }
 
-    /* STACKED BUTTONS — tall main, short reset */
     .btn-calc{
       width:100%;
       background: var(--silver-bg);
@@ -247,36 +374,51 @@
     #qrcode,#barcodeSvg{display:flex;justify-content:center;margin-top:16px;background: #FFFFFF; padding: 14px; border-radius: 10px; border: 2px solid var(--gold);}
     #qrcode:empty,#barcodeSvg:empty{display:none}
 
-    /* Reset All button — gold */
-    .reset-all-btn{
-      background: var(--silver-bg);
-      border: 2px solid var(--gold);
-      color: #0A0F14;
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-family: 'Oswald', sans-serif;
-      font-weight: 800;
-      font-size: 0.85rem;
-      cursor: pointer;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 0 10px rgba(212,175,55,0.3);
-      transition: all 0.25s ease;
+    /* ============================================ */
+    /* OCR Loading indicator — clearer phases */
+    /* ============================================ */
+    .ocr-status{
+      display:none;
+      background:#FFFFFF;
+      border:2px solid var(--gold);
+      border-radius:10px;
+      padding:14px 16px;
+      margin:12px 0;
+      font-weight:700;
+      color:#B8952B;
+      font-size:0.9rem;
+      line-height:1.5;
     }
-    .reset-all-btn:hover{
-      background: var(--silver-bg-hover);
-      border-color: var(--gold-bright);
-      transform: translateY(-2px);
-      box-shadow: 0 0 20px rgba(212,175,55,0.6);
+    .ocr-status .ocr-phase{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .ocr-status .ocr-spinner{
+      width:18px; height:18px;
+      border:3px solid #E8D9A8;
+      border-top-color:#B8952B;
+      border-radius:50%;
+      animation:ocrSpin 0.8s linear infinite;
+      flex-shrink:0;
+    }
+    @keyframes ocrSpin{to{transform:rotate(360deg)}}
+    .ocr-status .ocr-note{
+      display:block;
+      font-size:0.75rem;
+      color:#8B98A5;
+      font-weight:600;
+      margin-top:6px;
+      font-style:italic;
     }
 
     /* ============================================ */
-    /* SILVER EDUCATIONAL CONTENT — with margins */
+    /* SILVER EDUCATIONAL CONTENT */
     /* ============================================ */
     .detail-section{
-      max-width: 800px;
-      margin: 30px auto;
-      padding: 30px 24px;
+      max-width: 880px;
+      margin: 24px auto;
+      padding: 26px 22px;
       background: #C8CDD4;
       background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
       border: 2px solid var(--gold);
@@ -306,21 +448,14 @@
       color: #0A0F14;
       font-weight: 500;
     }
-    .detail-section ul, .detail-section ol{
-      padding-left: 24px;
-    }
-    .detail-section li{
-      margin-bottom: 6px;
-    }
-    .detail-section strong{
-      color: #0A0F14;
-      font-weight: 800;
-    }
+    .detail-section ul, .detail-section ol{ padding-left: 24px; }
+    .detail-section li{ margin-bottom: 6px; }
+    .detail-section strong{ color: #0A0F14; font-weight: 800; }
 
     /* Pakistani block */
     .pakistani-block{
-      max-width: 800px;
-      margin: 30px auto;
+      max-width: 880px;
+      margin: 24px auto;
       padding: 24px 20px;
       background: #C8CDD4;
       background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4);
@@ -337,7 +472,7 @@
 
     /* Related tools */
     .related-tools-section{
-      max-width: 800px;
+      max-width: 880px;
       margin: 20px auto;
       padding: 20px;
       background: rgba(255,255,255,0.03);
@@ -355,7 +490,7 @@
 
     /* Disclaimer box */
     .disclaimer-box{
-      max-width: 800px;
+      max-width: 880px;
       margin: 20px auto;
       padding: 16px 18px;
       background: #C8CDD4;
@@ -373,173 +508,32 @@
     footer a{color:var(--gold-bright);text-decoration:none;font-weight:600}
     .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:999;width:48px;height:48px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.4);text-decoration:none;color:#fff;font-size:1.4rem}
 
-    @media (max-width:600px){
-      .tab-btn{min-width:calc(50% - 4px);font-size:0.7rem;padding:11px 4px}
-      .detail-section{padding:20px 16px;margin:20px 12px}
-      .pakistani-block{padding:20px 16px;margin:20px 12px}
-      .related-tools-section{margin:16px 12px}
-      .disclaimer-box{margin:16px 12px}
-      .detail-section h2{font-size:1.15rem}
-      .detail-section h3{font-size:1rem}
-      h1{font-size:1.4rem}
-      /* ============================================ */
-/* HERO — Title + Subtitle + Feature strip in silver box */
-/* ============================================ */
-h1 {
-  background: #C8CDD4 !important;
-  background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4) !important;
-  border: 2px solid #D4AF37 !important;
-  border-bottom: none !important;
-  border-radius: 14px 14px 0 0 !important;
-  padding: 16px 22px 6px !important;
-  margin-bottom: 0 !important;
-  margin-top: 14px !important;
-  color: #0A0F14 !important;
-  text-shadow: none !important;
-  font-size: 1.5rem !important;
-  line-height: 1.3 !important;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7) !important;
-}
-h1 span {
-  color: #B8952B !important;
-}
+    /* ============================================ */
+    /* RESPONSIVE — clean media queries only */
+    /* ============================================ */
+    @media (max-width: 700px) {
+      .tab-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .tab-btn { padding: 12px 6px; min-height: 68px; font-size: 0.7rem; }
+    }
 
-.subtitle {
-  background: #C8CDD4 !important;
-  background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4) !important;
-  border-left: 2px solid #D4AF37 !important;
-  border-right: 2px solid #D4AF37 !important;
-  border-top: none !important;
-  border-bottom: none !important;
-  padding: 0 22px 12px !important;
-  margin: 0 !important;
-  color: #0A0F14 !important;
-  font-size: 0.85rem !important;
-  font-weight: 600 !important;
-  line-height: 1.5 !important;
-  text-shadow: none !important;
-}
+    @media (max-width: 480px) {
+      .tab-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .tab-btn { min-height: 64px; font-size: 0.68rem; }
+    }
 
-/* Feature strip joins the silver hero box */
-.tool-intro {
-  background: #C8CDD4 !important;
-  background-image: linear-gradient(145deg, #D5D9DE, #C8CDD4) !important;
-  border: 2px solid #D4AF37 !important;
-  border-top: none !important;
-  border-radius: 0 0 14px 14px !important;
-  padding: 12px 22px 16px !important;
-  margin: 0 0 22px !important;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5) !important;
-}
-.tool-intro p {
-  color: #0A0F14 !important;
-  font-weight: 800 !important;
-  font-size: 0.82rem !important;
-  margin-bottom: 8px !important;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.tool-intro ul {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 8px !important;
-  padding-left: 0 !important;
-  margin: 0 !important;
-}
-.tool-intro ul li {
-  color: #0A0F14 !important;
-  background: rgba(255,255,255,0.5) !important;
-  border: 1px solid #D4AF37 !important;
-  border-radius: 20px !important;
-  padding: 4px 12px !important;
-  font-size: 0.72rem !important;
-  font-weight: 700 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 5px !important;
-}
-.tool-intro ul li i {
-  color: #B8952B !important;
-}
-
-@media (max-width: 600px) {
-  h1 { font-size: 1.2rem !important; padding: 14px 16px 4px !important; }
-  .subtitle { font-size: 0.78rem !important; padding: 0 16px 10px !important; }
-  .tool-intro { padding: 10px 16px 14px !important; }
-  .tool-intro ul li { font-size: 0.65rem !important; padding: 3px 9px !important; }
-}
-/* ============================================ */
-/* Wider educational blocks (mobile-friendly but not too narrow) */
-/* ============================================ */
-.detail-section,
-.pakistani-block {
-  max-width: 880px !important;
-  margin: 24px auto !important;
-  padding: 26px 22px !important;
-}
-.related-tools-section,
-.disclaimer-box {
-  max-width: 880px !important;
-  margin: 20px auto !important;
-}
-
-@media (max-width: 920px) {
-  .detail-section,
-  .pakistani-block,
-  .related-tools-section,
-  .disclaimer-box {
-    margin-left: 14px !important;
-    margin-right: 14px !important;
-  }
-}
-
-@media (max-width: 600px) {
-  .detail-section,
-  .pakistani-block {
-    padding: 20px 16px !important;
-    margin: 20px 12px !important;
-  }
-}
-/* ============================================ */
-/* Educational content — proper width on mobile */
-/* ============================================ */
-
-/* On mobile: container gives 24px, no extra margins */
-@media (max-width: 640px) {
-  .container {
-    padding: 0 14px !important;
-  }
-  .detail-section,
-  .pakistani-block,
-  .related-tools-section,
-  .disclaimer-box {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-  .detail-section,
-  .pakistani-block {
-    padding: 20px 18px !important;
-    margin-top: 20px !important;
-    margin-bottom: 20px !important;
-  }
-  .related-tools-section,
-  .disclaimer-box {
-    padding: 16px 14px !important;
-  }
-}
-
-/* On desktop: center with a max-width */
-@media (min-width: 641px) {
-  .detail-section,
-  .pakistani-block,
-  .related-tools-section,
-  .disclaimer-box {
-    max-width: 900px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-}
-}
+    @media (max-width: 600px) {
+      h1 { font-size: 1.2rem; padding: 14px 16px 4px; }
+      .subtitle { font-size: 0.78rem; padding: 0 16px 10px; }
+      .tool-intro { padding: 10px 16px 14px; }
+.tool-intro ul { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 6px !important; }
+.tool-intro ul li { font-size: 0.62rem !important; padding: 6px 3px !important; min-height: 54px !important; }
+      .container { padding: 0 14px; }
+      .detail-section,
+      .pakistani-block { padding: 20px 16px; margin: 20px 12px; }
+      .related-tools-section,
+      .disclaimer-box { margin: 16px 12px; }
+      .detail-section h2 { font-size: 1.15rem; }
+      .detail-section h3 { font-size: 1rem; }
     }
   </style>
 </head>
@@ -563,19 +557,19 @@ h1 span {
 
   <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
 
-<h1>📷 <span>ColdMatrix</span> Smart Scanner</h1>
-<p class="subtitle">QR · Barcode · Text — scan and generate in one place.</p>
+  <h1>📷 <span>ColdMatrix</span> Smart Scanner</h1>
+  <p class="subtitle">QR · Barcode · Text — scan and generate in one place.</p>
 
-<div class="tool-intro">
-  <p>⚡ All-in-one scanner toolkit</p>
-  <ul>
-    <li><i class="fa-solid fa-camera"></i> Live Camera Scan</li>
-    <li><i class="fa-solid fa-image"></i> Image Upload</li>
-    <li><i class="fa-solid fa-qrcode"></i> QR Generator</li>
-    <li><i class="fa-solid fa-barcode"></i> Barcode Maker</li>
-    <li><i class="fa-solid fa-file-text"></i> OCR Text</li>
-  </ul>
-</div>
+  <div class="tool-intro">
+    <p>⚡ All-in-one scanner toolkit</p>
+    <ul>
+      <li><i class="fa-solid fa-camera"></i> Live Camera Scan</li>
+      <li><i class="fa-solid fa-image"></i> Image Upload</li>
+      <li><i class="fa-solid fa-qrcode"></i> QR Generator</li>
+      <li><i class="fa-solid fa-barcode"></i> Barcode Maker</li>
+      <li><i class="fa-solid fa-file-text"></i> OCR Text</li>
+    </ul>
+  </div>
 
   <div class="share-tool-card">
     <div class="share-tool-title">Share Smart Scanner</div>
@@ -593,7 +587,7 @@ h1 span {
     <button class="tab-btn" data-tab="tab5">📝 Text OCR</button>
   </div>
 
-  <div style="text-align:right;margin:8px 0;">
+  <div class="reset-row">
     <button class="reset-all-btn" onclick="resetAll()"><i class="fa-solid fa-rotate"></i> Reset All</button>
   </div>
 
@@ -646,14 +640,19 @@ h1 span {
       <h2>📝 Text Scanner (OCR)</h2>
       <p style="color:#0A0F14;font-weight:600;margin-bottom:16px;">Upload an image and extract text instantly — completely in your browser.</p>
       <div class="field"><label>Upload image (JPG, PNG)</label><input type="file" id="ocrInput" accept="image/*"></div>
-      <div id="ocrStatus" style="display:none;background:#FFFFFF;border:2px solid var(--gold);border-radius:8px;padding:10px;margin:10px 0;font-weight:700;color:#B8952B;">Processing OCR...</div>
+      <div class="ocr-status" id="ocrStatus">
+        <div class="ocr-phase">
+          <div class="ocr-spinner"></div>
+          <span id="ocrStatusText">Preparing…</span>
+        </div>
+        <span class="ocr-note" id="ocrStatusNote"></span>
+      </div>
       <div class="result-box" id="ocrResult" style="display:none;white-space:pre-wrap;max-height:300px;overflow-y:auto;"></div>
     </div>
   </div>
 
-<!-- ⬇️⬇️⬇️ CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
   <!-- ============================================ -->
-  <!-- EDUCATIONAL CONTENT — SILVER, NARROW, MARGINS -->
+  <!-- EDUCATIONAL CONTENT — SILVER -->
   <!-- ============================================ -->
   <div class="detail-section">
     <h2>📖 Complete Guide to Smart Scanner</h2>
@@ -681,9 +680,18 @@ h1 span {
       <li><strong>For scanning:</strong> Allow camera access for live scan, or upload an image. The result appears instantly in the result box.</li>
       <li><strong>For QR generation:</strong> Enter your text or URL, click "Generate QR Code", and the code will appear. You can right-click to save it.</li>
       <li><strong>For barcode generation:</strong> Enter the barcode number, select the type, and click "Generate Barcode". The barcode SVG is displayed.</li>
-      <li><strong>For OCR:</strong> Upload an image, wait for the progress indicator, and the extracted text will appear in the result box.</li>
+      <li><strong>For OCR:</strong> Upload an image. On the first use, Tesseract.js downloads a small language engine (~5MB) — you'll see a clear progress indicator. Then the extracted text appears.</li>
       <li><strong>Reset any time:</strong> Use the "Reset All" button to clear all outputs and return to the first tab.</li>
     </ol>
+
+    <h3>About the OCR Processing Engine</h3>
+    <p>Our OCR feature uses <strong>Tesseract.js</strong>, a powerful open-source engine that runs entirely in your browser. The first time you use OCR, your browser downloads a small processing engine and English language data (about <strong>5MB</strong>). You will see a clear progress indicator at each step:</p>
+    <ul>
+      <li><strong>Downloading engine…</strong> — pulling the OCR engine (first use only, cached after)</li>
+      <li><strong>Loading language data…</strong> — pulling the English language pack</li>
+      <li><strong>Reading text… X%</strong> — analysing your image</li>
+    </ul>
+    <p>On slow connections this may take 10–20 seconds. Once downloaded, the engine is cached by your browser, so future uses are much faster. Nothing is ever uploaded — all processing happens on your device.</p>
 
     <h3>Tips for Best Results</h3>
     <ul>
@@ -698,6 +706,7 @@ h1 span {
     <p><strong>Is my data uploaded to a server?</strong><br>A: No. All scanning, generation, and OCR processing is done locally in your browser using JavaScript libraries. Nothing is uploaded or stored externally.</p>
     <p><strong>Does the camera scan work on mobile?</strong><br>A: Yes. The live scan uses the HTML5 QR Code library, which works on Android and iOS browsers. You must grant camera permission when prompted.</p>
     <p><strong>Can I scan barcodes with the live camera?</strong><br>A: Yes, the camera scan supports common 1D and 2D barcode formats, including QR, EAN-13, UPC-A, Code 128, and more.</p>
+    <p><strong>Why does OCR take a while the first time?</strong><br>A: The OCR engine (~5MB) downloads on first use. It's cached after that, so future OCR runs are much faster. You'll see a clear progress indicator throughout.</p>
     <p><strong>What image formats are supported for upload?</strong><br>A: JPG, PNG, and most common image formats. For best results, use images with clear, well-defined codes or text.</p>
     <p><strong>Is OCR available for languages other than English?</strong><br>A: Yes, Tesseract.js supports many languages, though English is the default. You can modify the code to specify additional language packs.</p>
 
@@ -779,7 +788,9 @@ h1 span {
 </footer>
 
 <script>
+  // ============================================
   // Tabs
+  // ============================================
   document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',function(){
     document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
@@ -788,7 +799,9 @@ h1 span {
     if(this.dataset.tab==='tab1') startScanner(); else stopScanner();
   }));
 
+  // ============================================
   // Live Scanner
+  // ============================================
   let html5QrCode;
   function startScanner(){
     if(html5QrCode)return;
@@ -813,7 +826,9 @@ h1 span {
     }
   }
 
+  // ============================================
   // Upload Scanner
+  // ============================================
   document.getElementById('uploadInput').addEventListener('change',function(e){
     const file=e.target.files[0]; if(!file) return;
     const reader=new FileReader();
@@ -834,14 +849,18 @@ h1 span {
     reader.readAsDataURL(file);
   });
 
+  // ============================================
   // QR Generator
+  // ============================================
   function generateQR(){
     const txt=document.getElementById('qrText').value; if(!txt) return;
     document.getElementById('qrcode').innerHTML='';
     new QRCodeStyling({width:200,height:200,data:txt,dotsOptions:{type:'rounded',color:'#0B0F14'},backgroundOptions:{color:'#ffffff'}}).append(document.getElementById('qrcode'));
   }
 
+  // ============================================
   // Barcode Generator
+  // ============================================
   function generateBarcode(){
     const txt=document.getElementById('barcodeText').value;
     const type=document.getElementById('barcodeType').value;
@@ -854,19 +873,43 @@ h1 span {
     }
   }
 
-  // OCR (Tesseract.js)
+  // ============================================
+  // OCR (Tesseract.js) with clear loading phases
+  // ============================================
   document.getElementById('ocrInput').addEventListener('change', async function(e) {
     const file = e.target.files[0];
     if (!file) return;
     const statusEl = document.getElementById('ocrStatus');
+    const statusText = document.getElementById('ocrStatusText');
+    const statusNote = document.getElementById('ocrStatusNote');
     const resultEl = document.getElementById('ocrResult');
+
+    // Show loading box with the initial phase
     statusEl.style.display = 'block';
+    statusText.textContent = 'Preparing OCR engine…';
+    statusNote.textContent = 'First use downloads a small engine (~5MB). It will be cached for next time.';
     resultEl.style.display = 'none';
+
     try {
       const result = await Tesseract.recognize(file, 'eng', {
         logger: (m) => {
-          if (m.status === 'recognizing text') {
-            statusEl.textContent = `Processing OCR... ${Math.round(m.progress * 100)}%`;
+          // Map Tesseract phases to friendly messages
+          if (m.status === 'loading tesseract core' || m.status === 'loading tesseract core language') {
+            statusText.textContent = 'Downloading processing engine (~5MB)…';
+            statusNote.textContent = 'First use only. It will be cached for faster runs later.';
+          } else if (m.status === 'initializing tesseract') {
+            statusText.textContent = 'Initializing OCR engine…';
+            statusNote.textContent = '';
+          } else if (m.status === 'loading language traineddata') {
+            statusText.textContent = 'Loading English language data…';
+            statusNote.textContent = '';
+          } else if (m.status === 'initializing api') {
+            statusText.textContent = 'Almost ready…';
+            statusNote.textContent = '';
+          } else if (m.status === 'recognizing text') {
+            const pct = Math.round((m.progress || 0) * 100);
+            statusText.textContent = `Reading text… ${pct}%`;
+            statusNote.textContent = 'This usually takes a few seconds.';
           }
         }
       });
@@ -876,10 +919,13 @@ h1 span {
     } catch (err) {
       statusEl.style.display = 'none';
       resultEl.style.display = 'block';
-      resultEl.textContent = '⚠️ OCR failed. Please try a clearer image.';
+      resultEl.textContent = '⚠️ OCR failed. Please try a clearer image, or check your connection and try again.';
     }
   });
 
+  // ============================================
+  // Reset All
+  // ============================================
   function resetAll() {
     stopScanner();
     document.getElementById('qrcode').innerHTML = '';
@@ -897,9 +943,12 @@ h1 span {
     document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));
     document.querySelector('.tab-btn[data-tab="tab1"]').classList.add('active');
     document.getElementById('tab1').classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
   }
 
-  // PWA
+  // ============================================
+  // PWA Install
+  // ============================================
   let d; const bar=document.getElementById('installBarTool');
   window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d=e; });
   window.installAppTool = function(){
@@ -908,6 +957,9 @@ h1 span {
   };
   if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
 
+  // ============================================
+  // Share
+  // ============================================
   function shareToolWhatsApp(){
     const text = encodeURIComponent('Check out this Smart Scanner from ColdMatrix Tools! ' + window.location.href);
     window.open('https://wa.me/?text='+text, '_blank');
@@ -928,6 +980,14 @@ h1 span {
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "No. All scanning, generation, and OCR processing is done locally in your browser. Nothing is uploaded or stored externally."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does OCR take a while the first time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The OCR engine (~5MB) downloads on first use and is then cached by the browser. Future runs are much faster. You'll see a clear progress indicator throughout."
       }
     },
     {

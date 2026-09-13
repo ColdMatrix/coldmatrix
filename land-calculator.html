@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="canonical" href="https://coldmatrixtools.com/land-calculator.html">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DCJ7K7LSCF')</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ColdMatrix Global Land Area Calculator — Marla, Kanal, Acre, Sq Ft, Sq M & 30+ Units</title>
+  <meta name="description" content="Convert land area between 35+ global units — Marla, Kanal, Acre, Bigha, Hectare, Square Feet, Square Meter, Cent, Guntha, Dunam, Tsubo, Mu and more. Free, accurate, global.">
+  <meta name="keywords" content="land calculator, marla to square feet, kanal to acre, acre to hectare, bigha calculator, land area converter, square feet to square meter, plot size calculator, murabba calculator">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ColdMatrix Tools">
+  <meta property="og:title" content="ColdMatrix Global Land Area Calculator — 35+ Units">
+  <meta property="og:description" content="Convert land between Marla, Kanal, Acre, Bigha, Hectare, Sq Ft, Sq M and 30+ global units.">
+  <meta property="og:url" content="https://coldmatrixtools.com/land-calculator.html">
+  <meta property="og:image" content="https://coldmatrixtools.com/land_calculator.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ColdMatrix Global Land Area Calculator — 35+ Units">
+  <meta name="twitter:description" content="Convert land between Marla, Kanal, Acre, Bigha, Hectare and more.">
+  <meta property="og:image" content="https://coldmatrixtools.com/land_calculator.jpg">
+  <meta name="theme-color" content="#0A0F14">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    :root{
+      --bg:#0B0F14; --text:#EAEDF0; --muted:#8B98A5;
+      --gold:#D4AF37; --gold-bright:#FFD700; --gold-glow:rgba(212,175,55,0.45);
+      --silver-bg:#C8CDD4;
+      --silver-bg-hover:#D5D9DE;
+      --whatsapp-green:#25D366;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      background: radial-gradient(circle at 20% 0%, rgba(79,195,247,0.06), transparent 55%), radial-gradient(circle at 90% 100%, rgba(212,175,55,0.06), transparent 55%), var(--bg);
+      color:var(--text); font-family:'Inter',sans-serif; line-height:1.6; min-height:100vh;
+    }
+    .container{max-width:900px;margin:0 auto;padding:0 20px}
+
+    .navbar{position:sticky;top:0;z-index:100;background:rgba(10,15,20,0.95);backdrop-filter:blur(18px);border-bottom:2px solid var(--gold)}
+    .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:14px 0;flex-wrap:wrap}
+    .logo{font-size:1.3rem;font-weight:800;color:var(--gold-bright);text-decoration:none}
+    .nav-links{display:flex;gap:20px;list-style:none;flex-wrap:wrap}
+    .nav-links a{color:var(--muted);text-decoration:none;font-weight:600;font-size:0.9rem}
+    .nav-links a:hover{color:var(--gold-bright)}
+    .back-link{display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem}
+
+    .install-bar{
+      display:block;background:linear-gradient(135deg,#D4AF37,#FFD700);
+      color:#0A0F14;text-align:center;padding:10px 16px;border-radius:10px;margin:14px 0;
+      font-weight:700;font-size:0.85rem;border:1px solid #FFD700;
+      box-shadow:0 3px 10px rgba(212,175,55,0.35);
+    }
+    .install-bar button{background:#0A0F14;color:#FFD700;border:2px solid #FFD700;padding:5px 16px;border-radius:6px;margin-left:10px;font-weight:800;cursor:pointer;font-size:0.8rem}
+
+    h1{font-family:'Oswald',sans-serif;font-size:1.75rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:6px}
+    h1 span{color:var(--gold-bright)}
+    .subtitle{color:#EAEDF0;font-size:0.95rem;font-weight:500;margin-bottom:20px}
+
+    .get-quote-strip{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+    .get-quote-strip .quote-btn{
+      flex:1;min-width:140px;display:flex;align-items:center;justify-content:center;gap:8px;
+      padding:13px 16px;background:var(--silver-bg);border:2px solid var(--gold);border-radius:12px;
+      color:#0A0F14;font-family:'Oswald',sans-serif;font-weight:800;font-size:0.85rem;
+      text-decoration:none;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;
+      box-shadow:0 4px 12px rgba(0,0,0,0.35),0 0 10px var(--gold-glow);transition:all 0.25s ease;
+    }
+    .get-quote-strip .quote-btn:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);transform:translateY(-2px);box-shadow:0 0 22px var(--gold-glow)}
+    .get-quote-strip .quote-btn.whatsapp{background:#25D366;color:#fff;border-color:#1da851}
+
+    .share-tool-card{background:linear-gradient(160deg,#0a0d13,#101a2c 55%,#0a0d13);border:2px solid;border-image:linear-gradient(135deg,#E8B93A,#16294a 45%,#4d8cff 55%,#E8B93A) 1;border-radius:12px;padding:18px 20px;margin-bottom:22px;box-shadow:0 10px 34px rgba(0,0,0,0.55)}
+    .share-tool-title{font-weight:800;font-size:0.95rem;color:#E8B93A;text-align:center;letter-spacing:0.6px;margin-bottom:14px;text-transform:uppercase}
+    .share-tool-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .share-tool-btn{display:flex;align-items:center;justify-content:center;gap:9px;padding:13px;border-radius:10px;font-weight:700;font-size:0.88rem;cursor:pointer;background:rgba(15,20,30,0.75);color:#EAEDF0;border:1.5px solid rgba(200,168,78,0.45);transition:all 0.25s ease}
+    .share-tool-btn:hover{border-color:#E8B93A;box-shadow:0 0 20px rgba(200,168,78,0.35);transform:translateY(-2px)}
+    .share-tool-btn.wa{border-color:rgba(37,211,102,0.55)}
+
+    .ad-zone{margin:20px 0;padding:12px;background:rgba(212,175,55,0.05);border:2px dashed var(--gold);border-radius:12px;text-align:center;width:100%;min-height:120px;contain:layout size;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;overflow:hidden}
+    .ad-zone.has-ad{border-style:solid;background:transparent;padding:0;min-height:0}
+
+    /* SILVER CARD */
+    .card{background:var(--silver-bg);background-image:linear-gradient(145deg,#D5D9DE,#C8CDD4);border:2px solid var(--gold);border-radius:16px;padding:24px 22px;margin-bottom:22px;box-shadow:0 12px 30px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.7)}
+    .card h2{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:800;margin-bottom:16px;color:#0A0F14;text-transform:uppercase;letter-spacing:0.8px;border-bottom:2px solid var(--gold);padding-bottom:10px}
+    .card label{display:block;font-size:0.85rem;color:#0A0F14;margin-bottom:6px;font-weight:700}
+    .card input,.card select{width:100%;background:#FFFFFF;border:2px solid var(--gold);color:#0A0F14;padding:14px 16px;border-radius:10px;font-size:1rem;font-weight:600;font-family:'Inter',sans-serif;outline:none;transition:all 0.25s}
+    .card input:focus,.card select:focus{border-color:var(--gold-bright);box-shadow:0 0 15px var(--gold-glow)}
+    .card select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14' viewBox='0 0 22 14'%3E%3Cpath d='M2 3 L11 11 L20 3' fill='none' stroke='%23D4AF37' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-size:22px 13px;padding-right:52px}
+    .card select option,.card select optgroup{background:#FFFFFF;color:#0A0F14;font-weight:600}
+
+    .quick-chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 18px}
+    .quick-chip{background:#FFFFFF;border:1.5px solid var(--gold);color:#0A0F14;padding:8px 16px;border-radius:20px;font-weight:800;font-size:0.82rem;cursor:pointer;font-family:'Oswald',sans-serif;letter-spacing:0.3px;transition:all 0.2s ease}
+    .quick-chip:hover{background:var(--gold);border-color:var(--gold-bright);transform:translateY(-2px);box-shadow:0 4px 12px rgba(212,175,55,0.35)}
+
+    .popular-pairs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px;background:rgba(255,255,255,0.5);border:1.5px solid rgba(212,175,55,0.5);border-radius:10px;margin-top:14px}
+    .popular-label{font-family:'Oswald',sans-serif;font-weight:800;font-size:0.75rem;color:#0A0F14;letter-spacing:0.5px;text-transform:uppercase;margin-right:4px;width:100%;margin-bottom:4px}
+    .pair-chip{background:#FFFFFF;border:1.5px solid var(--gold);color:#0A0F14;padding:7px 14px;border-radius:18px;font-family:'Oswald',sans-serif;font-weight:700;font-size:0.76rem;letter-spacing:0.3px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+    .pair-chip:hover{background:var(--gold);border-color:var(--gold-bright);transform:translateY(-1px);box-shadow:0 3px 10px rgba(212,175,55,0.35)}
+
+    /* RESULTS */
+    .result-banner{text-align:center;padding:14px 16px;background:linear-gradient(145deg,rgba(212,175,55,0.12),rgba(212,175,55,0.05));border:2px solid var(--gold);border-radius:12px;margin-bottom:16px}
+    .result-banner-title{font-family:'Oswald',sans-serif;font-weight:800;font-size:1.05rem;color:var(--gold-bright);letter-spacing:1px;text-transform:uppercase}
+    .result-banner-sub{font-size:0.8rem;color:#EAEDF0;margin-top:4px;font-weight:600}
+
+    .result-group{margin-bottom:20px}
+    .result-group-title{
+      font-family:'Oswald',sans-serif;font-weight:800;font-size:0.92rem;
+      color:var(--gold-bright);letter-spacing:0.8px;text-transform:uppercase;
+      padding:10px 4px 8px;border-bottom:1.5px solid rgba(212,175,55,0.4);
+      display:flex;align-items:center;gap:8px;margin-bottom:10px;
+    }
+    .result-group-title .flag{font-size:1.1rem}
+
+    .result-grid{
+      display:grid;grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));gap:10px;
+    }
+    .result-item{
+      background:var(--silver-bg);background-image:linear-gradient(145deg,#D5D9DE,#C8CDD4);
+      border:2px solid var(--gold);border-radius:12px;padding:12px 14px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.7);
+      display:flex;justify-content:space-between;align-items:center;gap:10px;
+      transition:all 0.2s ease;
+    }
+    .result-item:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(212,175,55,0.35)}
+    .result-item.is-source{
+      background:linear-gradient(145deg,#FFF8E1,#FFE082);
+      border-color:#D4AF37;
+      box-shadow:0 4px 14px rgba(212,175,55,0.5);
+    }
+    .result-item.is-source .ri-label{color:#8B6914}
+    .ri-label{
+      font-size:0.78rem;font-weight:700;color:#0A0F14;
+      letter-spacing:0.3px;text-transform:uppercase;
+      line-height:1.2;flex:1;
+    }
+    .ri-value{
+      font-family:'Oswald',sans-serif;font-weight:800;font-size:1.05rem;
+      color:#0A0F14;text-align:right;white-space:nowrap;
+      letter-spacing:0.3px;
+    }
+    .ri-value small{font-size:0.7rem;color:#4a4d55;font-weight:600;margin-left:2px}
+
+    .btn-convert{width:100%;background:var(--silver-bg);color:#0A0F14;border:2px solid var(--gold);min-height:56px;padding:14px 20px;border-radius:12px;font-family:'Oswald',sans-serif;font-weight:900;font-size:1.05rem;cursor:pointer;letter-spacing:1px;text-transform:uppercase;box-shadow:0 4px 12px rgba(0,0,0,0.35),0 0 15px var(--gold-glow);transition:all 0.25s ease;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px}
+    .btn-convert:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);box-shadow:0 0 22px var(--gold-glow);transform:translateY(-2px)}
+    .btn-reset-full{width:100%;padding:11px 20px;border-radius:10px;background:var(--silver-bg);border:2px solid #8B98A5;color:#3a3d45;font-family:'Oswald',sans-serif;font-weight:800;font-size:0.9rem;letter-spacing:0.6px;cursor:pointer;text-transform:uppercase;transition:all 0.25s ease;margin-top:10px}
+    .btn-reset-full:hover{background:linear-gradient(145deg,#D5D9DE,#B8BDC4);border-color:#4a4d55;color:#0A0F14;transform:translateY(-2px)}
+
+    .copy-toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg,#D4AF37,#FFD700);color:#0A0F14;padding:12px 22px;border-radius:10px;font-family:'Oswald',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.3px;text-transform:uppercase;box-shadow:0 8px 24px rgba(0,0,0,0.4),0 0 20px rgba(212,175,55,0.5);border:2px solid var(--gold-bright);z-index:9999;opacity:0;transition:opacity 0.3s ease,transform 0.3s ease;pointer-events:none}
+    .copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    /* EDUCATIONAL */
+    .detail-section{margin:30px 0;padding:30px 24px;background:var(--silver-bg);background-image:linear-gradient(145deg,#D5D9DE,#C8CDD4);border:2px solid var(--gold);border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.7);line-height:1.85;font-size:0.95rem;color:#0A0F14}
+    .detail-section h2{font-family:'Oswald',sans-serif;color:#0A0F14;font-size:1.35rem;margin-bottom:16px;border-bottom:2px solid var(--gold);padding-bottom:10px;font-weight:800}
+    .detail-section h3{color:#0A0F14;font-size:1.1rem;margin:22px 0 10px;font-weight:800}
+    .detail-section p,.detail-section ul,.detail-section ol{margin-bottom:14px;color:#0A0F14;font-weight:500}
+    .detail-section ul,.detail-section ol{padding-left:24px}
+    .detail-section li{margin-bottom:6px}
+    .detail-section strong{color:#0A0F14;font-weight:800}
+    .detail-section table{width:100%;border-collapse:collapse;margin:12px 0;background:#FFFFFF;border-radius:8px;overflow:hidden;border:2px solid var(--gold);font-size:0.85rem}
+    .detail-section th{padding:10px 8px;text-align:left;background:#0A0F14;color:var(--gold-bright);font-weight:800;font-size:0.78rem;text-transform:uppercase}
+    .detail-section td{padding:9px 8px;border-bottom:1px solid rgba(212,175,55,0.3);color:#0A0F14;font-weight:600}
+
+    .pakistani-block{margin:30px 0;padding:24px 20px;background:var(--silver-bg);background-image:linear-gradient(145deg,#D5D9DE,#C8CDD4);border:2px solid var(--gold);border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.7);line-height:1.8;font-size:0.95rem;color:#0A0F14}
+    .pakistani-block h2{color:#0A0F14;font-family:'Oswald',sans-serif;font-size:1.15rem;margin-bottom:12px;font-weight:800}
+    .pakistani-block p{color:#0A0F14;font-weight:500;margin-top:10px}
+    .pakistani-block strong{color:#0A0F14;font-weight:800}
+
+    .related-tools-section{margin:20px 0;padding:20px;background:rgba(255,255,255,0.03);border:2px solid var(--gold);border-radius:12px}
+    .related-tools-section h3{color:#FFD700;font-size:1rem;margin-bottom:10px;font-family:'Oswald',sans-serif;letter-spacing:0.5px}
+    .related-tools-section a{color:#4FC3F7;text-decoration:none;background:rgba(79,195,247,0.1);padding:8px 16px;border-radius:20px;font-size:0.85rem;font-weight:600;display:inline-block;margin:4px 4px 4px 0}
+
+    .disclaimer-box{margin:20px 0;padding:16px 18px;background:var(--silver-bg);background-image:linear-gradient(145deg,#D5D9DE,#C8CDD4);border:2px solid var(--gold);border-radius:12px;font-size:0.85rem;color:#0A0F14;line-height:1.7;font-weight:500}
+    .disclaimer-box strong{color:#0A0F14;font-weight:800}
+
+    .lead-capture{background:var(--silver-bg);background-image:linear-gradient(145deg,#D5D9DE,#C8CDD4);border:2px solid var(--gold);border-radius:16px;padding:28px 24px;margin:30px 0;box-shadow:0 12px 30px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.7)}
+    .lead-capture h3{font-family:'Oswald',sans-serif;color:#0A0F14;font-size:1.2rem;margin-bottom:12px;letter-spacing:0.5px;font-weight:800}
+    .lead-capture p{color:#0A0F14;margin-bottom:18px;font-size:0.9rem;font-weight:500}
+    .lead-capture form{display:flex;flex-direction:column;gap:12px}
+    .lead-capture input[type="email"]{background:#FFFFFF;border:2px solid var(--gold);border-radius:10px;padding:12px 16px;color:#0A0F14;font-size:0.95rem;font-weight:600;outline:none}
+    .lead-capture input[type="email"]:focus{border-color:var(--gold-bright);box-shadow:0 0 15px var(--gold-glow)}
+    .lead-capture button{background:var(--silver-bg);border:2px solid var(--gold);border-radius:10px;padding:14px 20px;font-family:'Oswald',sans-serif;font-weight:800;font-size:0.95rem;color:#0A0F14;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;transition:all 0.25s ease}
+    .lead-capture button:hover{background:var(--silver-bg-hover);border-color:var(--gold-bright);transform:translateY(-2px);box-shadow:0 0 20px var(--gold-glow)}
+
+    footer{text-align:center;color:var(--muted);font-size:0.8rem;padding:40px 0 20px;border-top:2px solid var(--gold);margin-top:50px}
+    footer a{color:var(--gold-bright);text-decoration:none;font-weight:600}
+    .whatsapp-float{position:fixed;bottom:20px;right:20px;z-index:999;width:48px;height:48px;background:var(--whatsapp-green);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,0.4);text-decoration:none;color:#fff;font-size:1.3rem}
+
+    @media (max-width:600px){
+      h1{font-size:1.4rem}
+      .result-grid{grid-template-columns:1fr}
+      .result-item{padding:11px 12px}
+      .ri-value{font-size:1rem}
+      .detail-section,.pakistani-block,.lead-capture{margin-left:-6px !important;margin-right:-6px !important;padding:20px 16px !important}
+      .detail-section h2{font-size:1.15rem}
+      .container{padding:0 14px}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ColdMatrix Global Land Area Calculator",
+    "url": "https://coldmatrixtools.com/land-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "description": "Convert land area between 35+ global units — Marla, Kanal, Acre, Bigha, Hectare, Sq Ft, Sq M and more.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">❄️ ColdMatrix</a>
+    <ul class="nav-links">
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="index.html#tools">🛠️ Tools</a></li>
+      <li><a href="solutions.html" class="active">❄️ Cold Matrix</a></li>
+      <li><a href="blog.html">📝 Blog</a></li>
+      <li><a href="about.html">ℹ️ About</a></li>
+      <li><a href="contact.html">📞 Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <a href="index.html#tools" class="back-link">← Back to Tools</a>
+
+  <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+
+  <h1>🌍 ColdMatrix <span>Land Area Calculator</span></h1>
+  <p class="subtitle">Convert between 35+ global land units — Marla, Kanal, Acre, Bigha, Hectare, Sq Ft, Sq M, Cent, Guntha, Dunam, Tsubo, Mu & more.</p>
+
+  <div class="get-quote-strip">
+    <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20land%20measurement%20or%20property%20tools." class="quote-btn whatsapp" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> Quick Chat
+    </a>
+    <a href="contact.html" class="quote-btn">
+      <i class="fa-solid fa-envelope"></i> Get a Quote
+    </a>
+  </div>
+
+  <div class="share-tool-card">
+    <div class="share-tool-title">Share Land Calculator</div>
+    <div class="share-tool-buttons">
+      <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
+    </div>
+  </div>
+
+  <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+  <div class="card">
+    <h2>🌍 Enter Your Land Area</h2>
+
+    <div style="margin-bottom:16px">
+      <label>Amount</label>
+      <input id="amountInput" type="number" value="1" step="any" min="0" oninput="convert()" placeholder="Enter amount">
+    </div>
+
+    <div class="quick-chips">
+      <button class="quick-chip" onclick="setAmount(1)">1</button>
+      <button class="quick-chip" onclick="setAmount(5)">5</button>
+      <button class="quick-chip" onclick="setAmount(10)">10</button>
+      <button class="quick-chip" onclick="setAmount(20)">20</button>
+      <button class="quick-chip" onclick="setAmount(100)">100</button>
+      <button class="quick-chip" onclick="setAmount(500)">500</button>
+      <button class="quick-chip" onclick="setAmount(1000)">1000</button>
+    </div>
+
+    <div style="margin-bottom:14px">
+      <label>From Unit</label>
+      <select id="fromUnit" onchange="convert()"></select>
+    </div>
+
+    <button class="btn-convert" onclick="convert()">🔄 Convert Now</button>
+    <button class="btn-reset-full" onclick="resetCalc()">↺ Reset</button>
+
+    <div class="popular-pairs">
+      <span class="popular-label">⚡ Quick Conversions</span>
+      <button class="pair-chip" onclick="setPair('marla_pk', 1)">🇵🇰 1 Marla</button>
+      <button class="pair-chip" onclick="setPair('kanal_pk', 1)">🇵🇰 1 Kanal</button>
+      <button class="pair-chip" onclick="setPair('marla_pk', 10)">🇵🇰 10 Marla</button>
+      <button class="pair-chip" onclick="setPair('kanal_pk', 5)">🇵🇰 5 Kanal</button>
+      <button class="pair-chip" onclick="setPair('acre', 1)">🇺🇸 1 Acre</button>
+      <button class="pair-chip" onclick="setPair('bigha_up', 1)">🇮🇳 1 Bigha</button>
+      <button class="pair-chip" onclick="setPair('hectare', 1)">🌍 1 Hectare</button>
+      <button class="pair-chip" onclick="setPair('cent', 1)">🇮🇳 1 Cent</button>
+    </div>
+  </div>
+
+  <div class="result-banner">
+    <div class="result-banner-title" id="resultBannerTitle">Enter a value above</div>
+    <div class="result-banner-sub" id="resultBannerSub">Your land area in every major unit worldwide</div>
+  </div>
+
+  <div id="resultsContainer"></div>
+
+<!-- ⬇️⬇️⬇️ CONTINUE WITH PART 2 IN NEXT MESSAGE ⬇️⬇️⬇️ -->
+
+  <!-- ============================================ -->
+  <!-- EDUCATIONAL CONTENT -->
+  <!-- ============================================ -->
+  <div class="detail-section">
+    <h2>🌍 Complete Guide to Global Land Measurement Units</h2>
+
+    <p>Land measurement is one of the oldest and most culturally diverse systems in human history. Unlike distance or weight, which have been standardized globally under the metric system, land area is still measured using deeply local units that vary by country, region, and even district. This is why a farmer in Punjab speaks of "Marla" while a buyer in Texas speaks of "Acres," and a real estate agent in Tokyo talks about "Tsubo."</p>
+
+    <p>Our ColdMatrix Land Area Calculator solves this global problem. Enter a value in any unit — and instantly see it converted to <strong>30+ units used across Asia, the Middle East, Europe, North America, and the Far East</strong>.</p>
+
+    <h3>Why Land Units Differ Around the World</h3>
+    <p>Land units were historically based on practical, human-scale measurements — how much land a pair of oxen could plough in a day, how much a family needed to survive, or how much seed could be sown on a given plot. Because different civilizations developed independently, they created their own scales. Even today, these traditional units remain in active use because property records, tax systems, and inheritance laws are often built on them.</p>
+
+    <h3>South Asian Land Units Explained</h3>
+    <p>South Asia has the richest variety of land units in the world. Here's what each one means:</p>
+    <ul>
+      <li><strong>Marla:</strong> The smallest common unit in Pakistan and North India. Traditionally 1 Marla = 272.25 square feet (approximately 25.29 m²). Some modern housing societies use 225 sq ft Marla. 20 Marla = 1 Kanal.</li>
+      <li><strong>Kanal:</strong> Equal to 20 Marla or 5,445 square feet (approximately 505.86 m²). Commonly used for large residential plots and small farms.</li>
+      <li><strong>Murabba:</strong> Equal to 25 Acres. Used for very large agricultural estates. 1 Murabba = 25 Acres = 500 Kanal.</li>
+      <li><strong>Acre:</strong> The standard British-era unit, still used across Pakistan, India, Bangladesh, and the West. 1 Acre = 4,046.86 m² = 43,560 sq ft.</li>
+      <li><strong>Bigha:</strong> A traditional agricultural unit with different values across regions. In Uttar Pradesh and Bihar, 1 Bigha = 2,529 m². In West Bengal, it's smaller (~1,338 m²). In Rajasthan and Gujarat, it's around 1,619 m².</li>
+      <li><strong>Katha:</strong> Used in Bihar, UP, and Bengal. In Bihar/UP, 1 Katha = 126.44 m². In Bengal, it's 66.89 m².</li>
+      <li><strong>Chatak:</strong> A small Bengali unit. 16 Chatak = 1 Katha (Bengal).</li>
+      <li><strong>Cent:</strong> Used in South India (Tamil Nadu, Kerala, Karnataka). 1 Cent = 1/100 Acre = 40.47 m².</li>
+      <li><strong>Ground:</strong> Common in Tamil Nadu. 1 Ground = 2,400 sq ft = 222.97 m².</li>
+      <li><strong>Guntha:</strong> Used in Maharashtra. 1 Guntha = 1/40 Acre = 101.17 m².</li>
+    </ul>
+
+    <h3>Imperial / US Units</h3>
+    <p>The imperial system remains dominant in the United States, United Kingdom, Canada, Australia, and former British colonies:</p>
+    <ul>
+      <li><strong>Square Foot (ft²):</strong> The most common US residential unit. 1 ft² ≈ 0.0929 m².</li>
+      <li><strong>Square Yard (yd²):</strong> Used in UK, India, Pakistan for carpets and small plots. 1 yd² = 9 ft² = 0.836 m².</li>
+      <li><strong>Acre:</strong> 43,560 sq ft = 4,046.86 m². Standard US land unit.</li>
+      <li><strong>Square Mile:</strong> 640 Acres = 2.59 km². Used for large territories.</li>
+      <li><strong>Rood:</strong> An old British unit equal to 1/4 Acre = 1,011.71 m².</li>
+    </ul>
+
+    <h3>Middle East Units</h3>
+    <ul>
+      <li><strong>Dunam:</strong> Used in Israel, Jordan, Lebanon, and Palestine. 1 Dunam = 1,000 m² (the "metric dunam"). Older Ottoman dunams were 919.3 m².</li>
+      <li><strong>Feddan:</strong> Egypt's primary agricultural unit. 1 Feddan = 4,200.83 m² (roughly 1.038 Acres).</li>
+      <li><strong>Kilometric Dunam:</strong> 10,000 m², used in some Gulf countries for large plots.</li>
+    </ul>
+
+    <h3>Far East Units</h3>
+    <ul>
+      <li><strong>Tsubo (Japan):</strong> Standard Japanese real estate unit. 1 Tsubo = 3.30579 m² = 2 tatami mats.</li>
+      <li><strong>Pyeong (Korea):</strong> Korean equivalent. 1 Pyeong = 3.30579 m².</li>
+      <li><strong>Tan (Japan):</strong> 300 Tsubo = 991.74 m².</li>
+      <li><strong>Cho (Japan):</strong> 10 Tan = 9,917.36 m² ≈ 1 Hectare.</li>
+      <li><strong>Mu (China):</strong> Standard Chinese agricultural unit. 1 Mu = 666.67 m² (15 Mu = 1 Hectare).</li>
+      <li><strong>Rai (Thailand):</strong> 1 Rai = 1,600 m² = 4 Ngan = 400 Wah.</li>
+    </ul>
+
+    <h3>Metric System</h3>
+    <p>The internationally recognized standard used by scientists, governments, and most of the world:</p>
+    <ul>
+      <li><strong>Square Meter (m²):</strong> Base unit of area in the metric system.</li>
+      <li><strong>Are:</strong> 100 m². Rarely used directly but is the base for hectare.</li>
+      <li><strong>Hectare (ha):</strong> 10,000 m² = 2.471 Acres. Standard for large land.</li>
+      <li><strong>Square Kilometer (km²):</strong> 1,000,000 m². Used for cities and countries.</li>
+    </ul>
+
+    <h3>Common Land Conversion Reference</h3>
+    <table>
+      <tr><th>From</th><th>To</th><th>Value</th></tr>
+      <tr><td>1 Marla</td><td>Square Feet</td><td>272.25</td></tr>
+      <tr><td>1 Kanal</td><td>Square Feet</td><td>5,445</td></tr>
+      <tr><td>1 Kanal</td><td>Marla</td><td>20</td></tr>
+      <tr><td>1 Acre</td><td>Kanal</td><td>8</td></tr>
+      <tr><td>1 Acre</td><td>Square Feet</td><td>43,560</td></tr>
+      <tr><td>1 Acre</td><td>Hectare</td><td>0.4047</td></tr>
+      <tr><td>1 Hectare</td><td>Acre</td><td>2.471</td></tr>
+      <tr><td>1 Hectare</td><td>Kanal</td><td>19.77</td></tr>
+      <tr><td>1 Bigha (UP)</td><td>Square Feet</td><td>27,225</td></tr>
+      <tr><td>1 Cent</td><td>Square Feet</td><td>435.6</td></tr>
+      <tr><td>1 Tsubo</td><td>Square Meter</td><td>3.3058</td></tr>
+      <tr><td>1 Mu (China)</td><td>Square Meter</td><td>666.67</td></tr>
+      <tr><td>1 Feddan</td><td>Acre</td><td>1.038</td></tr>
+      <tr><td>1 Dunam</td><td>Square Meter</td><td>1,000</td></tr>
+    </table>
+
+    <h3>How to Use This Calculator</h3>
+    <ol>
+      <li>Enter the land area you want to convert.</li>
+      <li>Choose the unit you're converting <strong>from</strong> (Marla, Kanal, Acre, Square Feet, etc.).</li>
+      <li>The calculator instantly shows the value in all 30+ units organized by region.</li>
+      <li>Use the "Quick Conversions" chips for common Pakistani and Indian units.</li>
+      <li>Results are shown grouped by region — Metric, Imperial, South Asia, Middle East, and Far East.</li>
+    </ol>
+
+    <h3>Best Practices for Land Transactions</h3>
+    <ul>
+      <li><strong>Always confirm the local standard:</strong> A "Marla" can be 272.25 or 225 sq ft depending on region and developer. Ask your lawyer or society office which standard applies.</li>
+      <li><strong>Convert to square feet or square meters:</strong> When comparing plots from different regions, always convert to a common unit.</li>
+      <li><strong>Check the legal document:</strong> Your property title will list the unit officially used in your area's land registry.</li>
+      <li><strong>Use multiple units:</strong> Cross-check by entering the value in 2–3 different units to confirm consistency.</li>
+    </ul>
+
+    <h3>Frequently Asked Questions</h3>
+    <p><strong>Q: How many square feet in 1 Marla?</strong><br>A: Traditional Marla = 272.25 sq ft. Some modern societies use 225 sq ft. This tool has both.</p>
+    <p><strong>Q: How many Kanal in 1 Acre?</strong><br>A: 1 Acre = 8 Kanal exactly.</p>
+    <p><strong>Q: Is this calculator accurate for legal use?</strong><br>A: The math is precise. However, always verify with your local land registry or a certified surveyor for legal transactions, as some regions have local variations.</p>
+    <p><strong>Q: Why are there multiple Bigha values?</strong><br>A: Bigha varies by state — UP/Bihar (~2,529 m²), West Bengal (~1,338 m²), Rajasthan/Gujarat (~1,619 m²). Choose the correct variant for your state.</p>
+    <p><strong>Q: Does this tool work offline?</strong><br>A: Yes, after the first load it works entirely offline.</p>
+
+    <p style="margin-top:18px; font-weight:800; color:#0A0F14;">✅ A complete global land conversion tool — from inches to acres, from Marla to Tsubo. Built for property buyers, farmers, surveyors, and anyone working with land across borders.</p>
+  </div>
+
+  <div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+  <!-- PAKISTANI / GLOBAL BLOCK -->
+  <div class="pakistani-block">
+    <h2>🇵🇰 ColdMatrix Advanced Solutions — Land Tools for Pakistan & Beyond</h2>
+    <p>Our Land Area Calculator is used daily by property buyers, farmers, real estate agents, and legal professionals across <strong>Pakistan, India, Bangladesh, the Middle East, and worldwide</strong>. Whether you're buying a 5 Marla house in Lahore or 10 Acres of farmland in Punjab — you need instant, accurate land conversion.</p>
+    <p>Beyond digital tools, <strong>ColdMatrix Advanced Solutions</strong> delivers engineering and construction projects from its base in Karachi — serving clients with <strong>PEB warehouses, cold storage facilities, sandwich panel buildings, and turnkey industrial construction</strong>. Every project sits on carefully measured land — and we know how important accurate measurement is.</p>
+    <p>Need a custom land or property tool, or a project quote? Our team responds within 24 hours.</p>
+    <p style="margin-top:14px;font-weight:800;">📞 Call / WhatsApp: +92 333 3228470 &nbsp;|&nbsp; 📧 contact@coldmatrixtools.com</p>
+  </div>
+
+  <!-- RELATED TOOLS -->
+  <div class="related-tools-section">
+    <h3>🔗 Related Tools You Might Need</h3>
+    <div>
+      <a href="cft-calculator.html">📐 CFT Calculator</a>
+      <a href="construction-cost-calculator.html">💰 Construction Cost Calculator</a>
+      <a href="build-vs-buy-calculator.html">🏗️ Build vs Buy Calculator</a>
+      <a href="unit-converter.html">📏 Unit Converter</a>
+      <a href="percentage-calculator.html">📊 Percentage Calculator</a>
+      <a href="roi-calculator.html">📈 ROI Calculator</a>
+      <a href="startup-cost-calculator.html">🚀 Startup Cost Planner</a>
+    </div>
+  </div>
+
+  <!-- LEAD CAPTURE -->
+  <div class="lead-capture">
+    <h3>🚀 Need a Custom Property or Land Tool?</h3>
+    <p>Get tailored land calculators, property dashboards, or automation for your business — anywhere in the world. Leave your email and we'll reach out within 24 hours.</p>
+    <form action="https://formsubmit.co/contact@coldmatrixtools.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="email" name="email" placeholder="Your work email" required>
+      <button type="submit">Request Custom Tool</button>
+    </form>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer-box">
+    <strong>⚠️ Disclaimer:</strong> Land unit conversions vary by country and region — especially Bigha, Katha, Marla, and Murabba which have local variations. The values shown use the most widely accepted standards. Always verify with your local land registry, certified surveyor, or legal professional for property transactions, tax filings, or official documentation.
+  </div>
+
+</div>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+
+<footer>
+    <div style="margin-bottom:15px;">
+        <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#4FC3F7; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
+        <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+            📞 <strong>Call / WhatsApp:</strong>
+            <a href="tel:+923333228470" style="color:#4FC3F7; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+            <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </p>
+    </div>
+
+    <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
+        <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
+        <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
+        <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+    </div>
+
+    <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
+</footer>
+
+<script>
+  // ============================================
+  // UNITS DATABASE — all factors in square meters (m²)
+  // ============================================
+const UNITS = {
+  // ---- Metric / Global ----
+  sq_mm:       { label: 'Square Millimeter', symbol: 'mm²', factor: 0.000001, group: 'metric' },
+  sq_cm:       { label: 'Square Centimeter', symbol: 'cm²', factor: 0.0001, group: 'metric' },
+  sq_m:        { label: 'Square Meter', symbol: 'm²', factor: 1, group: 'metric' },
+  are:         { label: 'Are', symbol: 'a', factor: 100, group: 'metric' },
+  hectare:     { label: 'Hectare', symbol: 'ha', factor: 10000, group: 'metric' },
+  sq_km:       { label: 'Square Kilometer', symbol: 'km²', factor: 1000000, group: 'metric' },
+
+  // ---- Imperial / US / UK / Canada / Australia ----
+  sq_in:       { label: 'Square Inch', symbol: 'in²', factor: 0.00064516, group: 'imperial' },
+  sq_ft:       { label: 'Square Foot', symbol: 'ft²', factor: 0.09290304, group: 'imperial' },
+  sq_yd:       { label: 'Square Yard', symbol: 'yd²', factor: 0.83612736, group: 'imperial' },
+  acre:        { label: 'Acre', symbol: 'ac', factor: 4046.8564224, group: 'imperial' },
+  sq_mile:     { label: 'Square Mile', symbol: 'mi²', factor: 2589988.110336, group: 'imperial' },
+  rood:        { label: 'Rood', symbol: 'rood', factor: 1011.7141056, group: 'imperial' },
+
+  // ---- Europe ----
+  morgen_de:   { label: 'Morgen (Germany / Netherlands)', symbol: 'Morgen', factor: 2500, group: 'europe' },
+  arpent_fr:   { label: 'Arpent (France)', symbol: 'Arpent', factor: 3400, group: 'europe' },
+  donum_tr:    { label: 'Dönüm (Turkey)', symbol: 'Dönüm', factor: 1000, group: 'europe' },
+
+  // ---- Pakistan & South Asia ----
+  marla_pk:    { label: 'Marla (Traditional 272 ft²)', symbol: 'Marla', factor: 25.2929, group: 'south_asia' },
+  marla_modern:{ label: 'Marla (Modern 225 ft²)', symbol: 'Marla', factor: 20.9032, group: 'south_asia' },
+  kanal:       { label: 'Kanal (20 Marla)', symbol: 'Kanal', factor: 505.857, group: 'south_asia' },
+  murabba:     { label: 'Murabba (25 Acres)', symbol: 'Murabba', factor: 101171.41, group: 'south_asia' },
+  bigha_up:    { label: 'Bigha (UP / Bihar)', symbol: 'Bigha', factor: 2529.29, group: 'south_asia' },
+  bigha_wb:    { label: 'Bigha (West Bengal)', symbol: 'Bigha', factor: 1337.8, group: 'south_asia' },
+  bigha_raj:   { label: 'Bigha (Rajasthan / Gujarat)', symbol: 'Bigha', factor: 1618.74, group: 'south_asia' },
+  katha:       { label: 'Katha (Bihar / UP)', symbol: 'Katha', factor: 126.44, group: 'south_asia' },
+  katha_bengal:{ label: 'Katha (Bengal)', symbol: 'Katha', factor: 66.89, group: 'south_asia' },
+  chatak:      { label: 'Chatak (Bengal)', symbol: 'Chatak', factor: 4.18, group: 'south_asia' },
+  cent:        { label: 'Cent (South India)', symbol: 'Cent', factor: 40.4686, group: 'south_asia' },
+  ground:      { label: 'Ground (Tamil Nadu)', symbol: 'Ground', factor: 222.967, group: 'south_asia' },
+  guntha:      { label: 'Guntha (Maharashtra)', symbol: 'Guntha', factor: 101.17, group: 'south_asia' },
+  decimal_bd:  { label: 'Decimal (Bangladesh)', symbol: 'Decimal', factor: 40.4686, group: 'south_asia' },
+  perch_lk:    { label: 'Perch (Sri Lanka)', symbol: 'Perch', factor: 25.2929, group: 'south_asia' },
+  ropani_np:   { label: 'Ropani (Nepal)', symbol: 'Ropani', factor: 508.72, group: 'south_asia' },
+  aana_np:     { label: 'Aana (Nepal)', symbol: 'Aana', factor: 31.795, group: 'south_asia' },
+
+  // ---- Middle East ----
+  dunam:       { label: 'Dunam (Israel / Jordan / Lebanon)', symbol: 'Dunam', factor: 1000, group: 'middle_east' },
+  feddan:      { label: 'Feddan (Egypt)', symbol: 'Feddan', factor: 4200.83, group: 'middle_east' },
+  km_dunam:    { label: 'Kilometric Dunam (Gulf)', symbol: 'km Dunam', factor: 10000, group: 'middle_east' },
+
+  // ---- Russia & Central Asia ----
+  sotka_ru:    { label: 'Sotka (Russia)', symbol: 'Sotka', factor: 100, group: 'russia' },
+  jerib_ir:    { label: 'Jerib (Iran)', symbol: 'Jerib', factor: 1000, group: 'russia' },
+  jerib_af:    { label: 'Jerib (Afghanistan)', symbol: 'Jerib', factor: 2000, group: 'russia' },
+
+  // ---- Africa ----
+  morgen_za:   { label: 'Morgen (South Africa)', symbol: 'Morgen', factor: 8560, group: 'africa' },
+
+  // ---- Far East ----
+  tsubo:       { label: 'Tsubo (Japan)', symbol: 'Tsubo', factor: 3.30579, group: 'far_east' },
+  pyeong:      { label: 'Pyeong (Korea)', symbol: 'Pyeong', factor: 3.30579, group: 'far_east' },
+  tan:         { label: 'Tan (Japan)', symbol: 'Tan', factor: 991.736, group: 'far_east' },
+  cho:         { label: 'Cho (Japan)', symbol: 'Cho', factor: 9917.36, group: 'far_east' },
+  mu:          { label: 'Mu (China)', symbol: 'Mu', factor: 666.667, group: 'far_east' },
+  rai:         { label: 'Rai (Thailand)', symbol: 'Rai', factor: 1600, group: 'far_east' }
+};
+
+    // ---- Far East ----
+    tsubo:       { label: 'Tsubo (Japan)', symbol: 'Tsubo', factor: 3.30579, group: 'far_east' },
+    pyeong:      { label: 'Pyeong (Korea)', symbol: 'Pyeong', factor: 3.30579, group: 'far_east' },
+    tan:         { label: 'Tan (Japan)', symbol: 'Tan', factor: 991.736, group: 'far_east' },
+    cho:         { label: 'Cho (Japan)', symbol: 'Cho', factor: 9917.36, group: 'far_east' },
+    mu:          { label: 'Mu (China)', symbol: 'Mu', factor: 666.667, group: 'far_east' },
+    rai:         { label: 'Rai (Thailand)', symbol: 'Rai', factor: 1600, group: 'far_east' }
+  };
+
+const GROUP_LABELS = {
+  metric:      '🌍 Metric / Global',
+  imperial:    '🇺🇸🇬🇧🇨🇦 Imperial / US / UK / Canada',
+  europe:      '🇪🇺 Europe',
+  south_asia:  '🇵🇰🇮🇳🇧🇩🇱🇰🇳🇵 Pakistan & South Asia',
+  middle_east: '🌙 Middle East',
+  russia:      '🇷🇺 Russia & Central Asia',
+  africa:      '🌍 Africa',
+  far_east:    '🇯🇵🇨🇳🇰🇷🇹🇭 Far East'
+};
+  // ============================================
+  // POPULATE FROM UNIT DROPDOWN (grouped)
+  // ============================================
+  function populateUnits(){
+    const sel = document.getElementById('fromUnit');
+    const groups = {};
+    Object.keys(UNITS).forEach(k => {
+      const g = UNITS[k].group;
+      if (!groups[g]) groups[g] = [];
+      groups[g].push(k);
+    });
+    let html = '';
+    Object.keys(GROUP_LABELS).forEach(g => {
+      if (!groups[g]) return;
+      html += `<optgroup label="${GROUP_LABELS[g]}">`;
+      groups[g].forEach(k => {
+        const u = UNITS[k];
+        html += `<option value="${k}">${u.label}</option>`;
+      });
+      html += `</optgroup>`;
+    });
+    sel.innerHTML = html;
+    sel.value = 'marla_pk';
+  }
+
+  // ============================================
+  // SMART NUMBER FORMATTER
+  // ============================================
+  function formatValue(v){
+    if (v === 0) return '0';
+    if (!isFinite(v)) return '—';
+    const a = Math.abs(v);
+    if (a < 0.00001) return v.toExponential(3);
+    if (a < 0.001) return v.toFixed(7);
+    if (a < 1) return v.toFixed(5);
+    if (a < 100) return v.toFixed(3);
+    if (a < 100000) return v.toFixed(2);
+    return v.toLocaleString(undefined, { maximumFractionDigits: 2 });
+  }
+
+  // ============================================
+  // QUICK CHIP CONTROLS
+  // ============================================
+  function setAmount(v){
+    document.getElementById('amountInput').value = v;
+    convert();
+  }
+  function setPair(unit, amount){
+    document.getElementById('amountInput').value = amount;
+    document.getElementById('fromUnit').value = unit;
+    convert();
+    const rc = document.getElementById('resultsContainer');
+    if (rc) rc.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+  function resetCalc(){
+    document.getElementById('amountInput').value = 1;
+    document.getElementById('fromUnit').value = 'marla_pk';
+    convert();
+  }
+
+  // ============================================
+  // MAIN CONVERT FUNCTION
+  // ============================================
+  let lastResult = null;
+
+  function convert(){
+    const amount = parseFloat(document.getElementById('amountInput').value) || 0;
+    const fromKey = document.getElementById('fromUnit').value;
+    const fromUnit = UNITS[fromKey];
+    if (!fromUnit) return;
+
+    const m2 = amount * fromUnit.factor;
+
+    // Update banner
+    document.getElementById('resultBannerTitle').textContent =
+      `${formatValue(amount)} ${fromUnit.label}`;
+    document.getElementById('resultBannerSub').textContent =
+      `= ${formatValue(m2)} m²  ·  ${formatValue(m2 / UNITS.sq_ft.factor)} ft²  ·  Showing all units below`;
+
+    // Render
+    renderResults(m2, fromKey);
+
+    lastResult = { amount, fromKey, m2 };
+  }
+
+  function renderResults(m2, sourceKey){
+    const container = document.getElementById('resultsContainer');
+    const groups = {};
+    Object.keys(UNITS).forEach(k => {
+      const g = UNITS[k].group;
+      if (!groups[g]) groups[g] = [];
+      groups[g].push(k);
+    });
+
+    let html = '';
+    Object.keys(GROUP_LABELS).forEach(g => {
+      if (!groups[g]) return;
+      html += `<div class="result-group">`;
+      html += `<div class="result-group-title">${GROUP_LABELS[g]}</div>`;
+      html += `<div class="result-grid">`;
+      groups[g].forEach(k => {
+        const u = UNITS[k];
+        const val = m2 / u.factor;
+        const isSource = (k === sourceKey);
+        html += `<div class="result-item${isSource ? ' is-source' : ''}">
+          <span class="ri-label">${u.label}</span>
+          <span class="ri-value">${formatValue(val)} <small>${u.symbol}</small></span>
+        </div>`;
+      });
+      html += `</div></div>`;
+    });
+    container.innerHTML = html;
+  }
+
+  // ============================================
+  // SHARE TOOL
+  // ============================================
+  function shareToolWhatsApp(){
+    window.open('https://wa.me/?text=' + encodeURIComponent('Check out this Global Land Area Calculator from ColdMatrix Tools! ' + window.location.href), '_blank');
+  }
+  function copyToolLink(){
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => alert('Link copied!'))
+      .catch(() => alert(window.location.href));
+  }
+
+  // ============================================
+  // PWA INSTALL
+  // ============================================
+  let deferredPrompt;
+  const installBar = document.getElementById('installBarTool');
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBar.style.display = 'block';
+  });
+  window.installAppTool = function(){
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => { installBar.style.display = 'none'; });
+    } else {
+      alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');
+    }
+  };
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  }
+
+  // ============================================
+  // INIT
+  // ============================================
+  window.addEventListener('DOMContentLoaded', () => {
+    populateUnits();
+    convert();
+  });
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many square feet are in 1 Marla?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Traditional Marla = 272.25 sq ft. Some modern Pakistani housing societies use 225 sq ft Marla. This tool includes both variants."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many Kanal are in 1 Acre?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1 Acre = 8 Kanal exactly. 1 Kanal = 20 Marla = 5,445 square feet = approximately 505.86 square meters."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why are there multiple Bigha values?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bigha varies by Indian state. In Uttar Pradesh and Bihar, 1 Bigha = 2,529 m². In West Bengal, 1 Bigha = 1,338 m². In Rajasthan and Gujarat, 1 Bigha = 1,619 m²."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a Tsubo and how does it compare to square feet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tsubo is the traditional Japanese real estate unit. 1 Tsubo = 3.30579 square meters = approximately 35.58 square feet = the size of 2 tatami mats."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many Marla in 1 Kanal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1 Kanal = 20 Marla. This is the standard across Pakistan and North India."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this Land Calculator free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, completely free. No signup, no registration, no data collection. All conversions run in your browser."
+      }
+    }
+  ]
+}
+</script>
+</body>
+</html>

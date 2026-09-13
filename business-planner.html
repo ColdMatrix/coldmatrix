@@ -137,29 +137,50 @@
         .planner-header p { color:var(--muted); font-size:0.95rem; margin-top:8px; font-style:italic; }
         .planner-divider { width:80px; height:3px; background:var(--gold-border); margin:16px auto; border-radius:2px; }
 
-        /* CAPSULE TABS */
+        /* ============================================ */
+        /* SECTION TABS — Premium 3×3 Grid              */
+        /* ============================================ */
         .section-tabs {
-            display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
-            margin: 20px 0 30px; align-items: center;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin: 24px 0 30px;
+            align-items: stretch;
         }
         .section-tab {
-            padding: 12px 18px;
+            padding: 18px 14px;
             border: 2px solid var(--gold-bright);
-            background: var(--paper);
+            background: linear-gradient(145deg, #FFFFFF, #FFFCF7);
             color: var(--gold-deep);
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.8rem;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 0.92rem;
             cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-            display: inline-flex;
-            align-items: center; justify-content: center;
-            min-height: 44px;
-            box-sizing: border-box;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 8px;
+            min-height: 68px;
+            box-shadow: 0 4px 12px rgba(200,153,58,0.15);
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            line-height: 1.25;
         }
-        .section-tab:hover { background: var(--gold-light); }
-        .section-tab.active { background: var(--gold-bright); color: #fff; border-color: var(--gold-deep); }
+        .section-tab:hover {
+            background: var(--gold-light);
+            border-color: var(--gold-deep);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(200,153,58,0.35);
+        }
+        .section-tab.active {
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            color: #0A0F14;
+            border-color: var(--gold-deep);
+            box-shadow: 0 8px 22px rgba(200,153,58,0.5), inset 0 1px 0 rgba(255,255,255,0.6);
+        }
 
         .planner-page { background:var(--paper); border:2px solid; border-image: var(--gold-border) 1; border-radius:16px; padding:30px; margin-bottom:30px; box-shadow:0 8px 30px rgba(0,0,0,0.08); }
         .page-title { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--ink); margin-bottom:6px; }
@@ -209,15 +230,23 @@
         }
         .task-check.checked { background: var(--gold-bright); color:#fff; }
 
-        /* SNAPSHOT BUTTON */
+        /* SNAPSHOT BUTTON ROW (Summary page) */
         .snapshot-row { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
         .snapshot-btn {
             background:var(--paper-cream); color:var(--gold-deep); border:2px solid var(--gold-bright);
-            padding:10px 18px; border-radius:50px; font-weight:700; cursor:pointer; font-size:0.8rem;
+            padding:11px 18px; border-radius:50px; font-weight:800; cursor:pointer; font-size:0.82rem;
             display:inline-flex; align-items:center; gap:6px;
             box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+            font-family:'Oswald',sans-serif;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            transition: all 0.25s ease;
         }
-        .snapshot-btn:hover { background: var(--gold-light); }
+        .snapshot-btn:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(200,153,58,0.3); }
+        .snapshot-btn.import { background: linear-gradient(145deg,#FFFFFF,#F0F4FA); color: #0D47A1; border-color: #0D47A1; }
+        .snapshot-btn.import:hover { background: linear-gradient(145deg,#F0F4FA,#E3EAF5); }
+        .snapshot-btn.export { background: linear-gradient(145deg,#FFFFFF,#F0FAF3); color: #1B5E20; border-color: #1B5E20; }
+        .snapshot-btn.export:hover { background: linear-gradient(145deg,#F0FAF3,#E3F5E8); }
 
         /* EDUCATIONAL SECTION — SILVER */
         .edu-section {
@@ -317,12 +346,14 @@
         @media (max-width:600px) {
             .planner-page { padding:20px 16px; }
             .planner-header h1 { font-size:1.4rem; }
-            .section-tabs { gap:6px; }
-            .section-tab { padding:10px 14px; font-size:0.72rem; min-height:38px; }
+            .section-tabs { grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 18px 0 24px; }
+            .section-tab { padding: 14px 8px; font-size: 0.76rem; min-height: 58px; letter-spacing: 0.3px; }
             .summary-grid { grid-template-columns:1fr 1fr; }
             .edu-section, .pakistani-block, .lead-capture { padding: 20px 16px !important; }
             .edu-section h2 { font-size: 1.15rem; }
             .nav-inner { padding-left:14px; padding-right:14px; }
+            .snapshot-row { flex-direction: column; }
+            .snapshot-btn { width: 100%; justify-content: center; }
         }
     </style>
     <script type="application/ld+json">
@@ -355,6 +386,11 @@
           "@type": "Question",
           "name": "Will my data be lost if I close the browser?",
           "acceptedAnswer": { "@type": "Answer", "text": "No. Your data persists automatically using local browser storage. Just reopen the planner and everything is there." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I back up and restore my planner data?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Use the Export Backup button on the Summary page to download all your data as a .json file. Use the Import Backup button to restore it on any device — existing entries are never overwritten, imported items are safely merged in." }
         },
         {
           "@type": "Question",
@@ -411,7 +447,7 @@
 
         <div class="ad-zone"><span>📢 Ad Space Available</span></div>
 
-        <!-- SECTION TABS -->
+        <!-- SECTION TABS — 3×3 Premium Grid -->
         <div class="section-tabs" id="sectionTabs">
             <button class="section-tab active" data-section="summary">📊 Summary</button>
             <button class="section-tab" data-section="goals">🎯 Goals</button>
@@ -434,7 +470,9 @@
             <div class="snapshot-row">
                 <button class="snapshot-btn" onclick="downloadSnapshot('pdf')"><i class="fa-solid fa-file-pdf"></i> Export as PDF</button>
                 <button class="snapshot-btn" onclick="downloadSnapshot('jpg')"><i class="fa-solid fa-image"></i> Export as JPG</button>
-                <button class="snapshot-btn" onclick="backupAll()"><i class="fa-solid fa-download"></i> Backup All Data</button>
+                <button class="snapshot-btn export" onclick="exportBackup()"><i class="fa-solid fa-download"></i> Export Backup (.json)</button>
+                <button class="snapshot-btn import" onclick="triggerImport()"><i class="fa-solid fa-upload"></i> Import Backup</button>
+                <input type="file" id="importPlannerFile" accept=".json,application/json" style="display:none;" onchange="handleImportPlanner(event)">
             </div>
         </div>
 
@@ -652,6 +690,15 @@
 
             <p><strong>📝 Business Notes:</strong> A free-form writing area for ideas, meeting notes, supplier information, or any important business information. Your digital notebook within the planner.</p>
 
+            <h3>💾 Backup, Export &amp; Import — Your Safety Net</h3>
+            <p>Because all data lives only in your browser, we've added two crucial safety features on the <strong>Summary</strong> page:</p>
+            <ul>
+                <li><strong>Export Backup (.json):</strong> Downloads every entry across all 8 sections — goals, meetings, tasks, trips, marketing, expenses, contacts, notes — as a single file. Save it to your phone, email, or cloud drive.</li>
+                <li><strong>Import Backup:</strong> Restores your data from any backup file. Works perfectly on a new phone, after a browser reset, or if you simply want to move your planner. Imported entries are <strong>merged safely</strong> with your existing data — nothing is overwritten.</li>
+                <li><strong>Export as PDF / JPG:</strong> For visual snapshots of your weekly summary — perfect for printing or sharing with your team.</li>
+            </ul>
+            <p>We recommend exporting a backup every week if your planner holds important business information.</p>
+
             <h3>💎 Why Use the ColdMatrix Business Planner?</h3>
             <ul>
                 <li><strong>100% Free:</strong> No registration, no subscription, no hidden fees.</li>
@@ -659,7 +706,7 @@
                 <li><strong>Works Offline:</strong> After first load, access your planner anytime without internet.</li>
                 <li><strong>Beautiful Design:</strong> Premium paper-style interface that feels like a real executive diary.</li>
                 <li><strong>Mobile Responsive:</strong> Use it on phone, tablet, or desktop — seamless experience everywhere.</li>
-                <li><strong>Export Options:</strong> Export your summary as PDF or JPG, and back up all your data anytime.</li>
+                <li><strong>Export Options:</strong> Export your summary as PDF or JPG, and backup/restore all your data anytime.</li>
                 <li><strong>Auto-Save:</strong> Everything is saved automatically as you type. No save button needed.</li>
             </ul>
 
@@ -677,7 +724,10 @@
             <p><strong>Q: Is my data safe?</strong><br>A: Yes, 100% safe. All data is stored locally in your browser using localStorage. Nothing is ever uploaded to a server.</p>
             <p><strong>Q: Can I use this offline?</strong><br>A: Yes! After first load, the planner works completely offline.</p>
             <p><strong>Q: Will my data be lost if I close the browser?</strong><br>A: No. Your data persists automatically. Just open the planner again and everything is there.</p>
-            <p><strong>Q: Can I export my planner?</strong><br>A: Yes, you can export the summary as PDF or JPG, and back up all your data with the Backup button.</p>
+            <p><strong>Q: How do I back up my planner data?</strong><br>A: Go to the Summary tab and click <strong>Export Backup (.json)</strong>. A single file with all your data downloads.</p>
+            <p><strong>Q: Can I restore my data on a new phone?</strong><br>A: Yes. Open the planner on your new device, go to Summary, click <strong>Import Backup</strong>, and select your .json file. Everything is restored safely.</p>
+            <p><strong>Q: Will importing overwrite my existing entries?</strong><br>A: Never. Imported items are merged with what you already have — nothing is deleted or overwritten.</p>
+            <p><strong>Q: Can I export my planner as PDF or image?</strong><br>A: Yes — the Summary page has Export as PDF and Export as JPG buttons for your weekly overview.</p>
             <p><strong>Q: Is this really free forever?</strong><br>A: Yes, it's 100% free. Made by ColdMatrix for business users worldwide.</p>
 
             <p style="margin-top:20px;font-style:italic;"><em>This tool is a proud creation of the ColdMatrix Business Team — designed for our own business use and shared with entrepreneurs everywhere. We hope it brings organization and success to your journey.</em></p>
@@ -721,7 +771,7 @@
 
         <!-- DISCLAIMER -->
         <div class="disclaimer-box">
-            <strong>⚠️ Disclaimer:</strong> This planner stores all data locally in your browser. Clearing your browser data or using private/incognito mode will remove your entries. Use the Backup button regularly to save a copy of your data.
+            <strong>⚠️ Disclaimer:</strong> This planner stores all data locally in your browser. Clearing your browser data or using private/incognito mode will remove your entries. Use the <strong>Export Backup</strong> button on the Summary page regularly to save a copy of your data — and <strong>Import Backup</strong> to restore it on any device.
         </div>
     </div>
 
@@ -778,7 +828,6 @@
         // FORM TOGGLE
         // ============================================
         function showForm(section) {
-            // Close all other open forms first
             document.querySelectorAll('.form-card').forEach(f => f.classList.remove('active'));
             document.getElementById('form-' + section).classList.add('active');
         }
@@ -1104,7 +1153,6 @@
         // SNAPSHOT EXPORT (PDF / JPG)
         // ============================================
         async function downloadSnapshot(type) {
-            // Prepare snapshot content
             document.getElementById('snapshotDate').textContent = new Date().toLocaleString();
             document.getElementById('snapshotGrid').innerHTML = `
                 <div style="background:#FFF;border:2px solid #D4AF37;border-radius:10px;padding:14px;text-align:center;">
@@ -1170,15 +1218,110 @@
         }
 
         // ============================================
-        // BACKUP ALL DATA
+        // EXPORT BACKUP (.json)
         // ============================================
-        function backupAll() {
-            const dataStr = JSON.stringify(plannerData, null, 2);
-            const blob = new Blob([dataStr], { type: 'application/json' });
+        function exportBackup() {
+            const totalItems = Object.values(plannerData).reduce((sum, arr) => sum + arr.length, 0);
+            if (totalItems === 0) {
+                alert('📖 Your planner has no data to back up yet. Add some entries first!');
+                return;
+            }
+            const backup = {
+                app: 'ColdMatrix Business Planner',
+                version: 1,
+                exportedAt: new Date().toISOString(),
+                summary: {
+                    goals: plannerData.goals.length,
+                    meetings: plannerData.meetings.length,
+                    tasks: plannerData.tasks.length,
+                    trips: plannerData.trips.length,
+                    marketing: plannerData.marketing.length,
+                    expenses: plannerData.expenses.length,
+                    contacts: plannerData.contacts.length,
+                    notes: plannerData.notes.length,
+                    total: totalItems
+                },
+                data: plannerData
+            };
+            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
             const link = document.createElement('a');
-            link.download = 'ColdMatrix-Planner-Backup-' + new Date().toISOString().slice(0,10) + '.json';
+            const stamp = new Date().toISOString().slice(0, 10);
             link.href = URL.createObjectURL(blob);
+            link.download = 'coldmatrix-business-planner-backup-' + stamp + '.json';
             link.click();
+            setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+        }
+
+        // ============================================
+        // IMPORT BACKUP (.json) — safe merge
+        // ============================================
+        function triggerImport() {
+            document.getElementById('importPlannerFile').click();
+        }
+
+        function handleImportPlanner(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    // Support both formats: {data:{...}} or plain planner object
+                    let incoming = null;
+                    if (parsed && parsed.data && typeof parsed.data === 'object') {
+                        incoming = parsed.data;
+                    } else if (parsed && typeof parsed === 'object' && (Array.isArray(parsed.goals) || Array.isArray(parsed.tasks))) {
+                        incoming = parsed;
+                    } else {
+                        alert('❌ This file does not look like a ColdMatrix Business Planner backup.');
+                        return;
+                    }
+
+                    // Required sections
+                    const sections = ['goals','meetings','tasks','trips','marketing','expenses','contacts','notes'];
+                    let totalAdded = 0;
+                    const added = {};
+
+                    sections.forEach(sec => {
+                        const incomingArr = Array.isArray(incoming[sec]) ? incoming[sec] : [];
+                        if (!Array.isArray(plannerData[sec])) plannerData[sec] = [];
+                        incomingArr.forEach(item => {
+                            if (!item || typeof item !== 'object') return;
+                            // Copy item as-is — no ID collision risk here since these use index positions
+                            plannerData[sec].push(item);
+                            totalAdded++;
+                        });
+                        added[sec] = incomingArr.length;
+                    });
+
+                    if (totalAdded === 0) {
+                        alert('📖 That backup file has no entries in it.');
+                        return;
+                    }
+
+                    saveData();
+                    renderAll();
+                    alert('✅ Import complete!\n\n' +
+                        totalAdded + ' item' + (totalAdded !== 1 ? 's' : '') + ' added:\n' +
+                        '• Goals: ' + added.goals + '\n' +
+                        '• Meetings: ' + added.meetings + '\n' +
+                        '• Tasks: ' + added.tasks + '\n' +
+                        '• Trips: ' + added.trips + '\n' +
+                        '• Marketing: ' + added.marketing + '\n' +
+                        '• Expenses: ' + added.expenses + '\n' +
+                        '• Contacts: ' + added.contacts + '\n' +
+                        '• Notes: ' + added.notes + '\n\n' +
+                        'Your existing data was preserved.');
+                } catch (err) {
+                    alert('❌ Could not read that file. Make sure it is a valid ColdMatrix Business Planner backup (.json).');
+                }
+            };
+            reader.onerror = () => alert('❌ Could not read the file. Please try again.');
+            reader.readAsText(file);
+
+            // Reset input so the same file can be re-imported if needed
+            event.target.value = '';
         }
 
         // ============================================
