@@ -6,183 +6,375 @@
 <link rel="canonical" href="https://coldmatrixtools.com/cold-invoice-studio/">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0A0F14">
-<title>ColdMatrix Invoice Studio — Invoices, Quotations, BOQs & Business Proposals</title>
+<title>ColdMatrix Invoice Studio — Invoices, Quotations, BOQs &amp; Business Proposals</title>
 <meta name="description" content="Create professional invoices, quotations, BOQs, estimates, and business proposals free — export as PDF, share on WhatsApp. Fast, simple, no signup.">
-<meta property="og:title" content="ColdMatrix Invoice Studio — Invoices, Quotations, BOQs & Business Proposals">
-<meta property="og:description" content="Create professional invoices, quotations, BOQs, estimates, and business proposals free — export as PDF, share on WhatsApp.">
+<meta name="keywords" content="invoice maker, free invoice generator, quotation maker, BOQ generator, business proposal, invoice PDF, online invoice">
+<meta property="og:title" content="ColdMatrix Invoice Studio — Invoices, Quotations, BOQs &amp; Business Proposals">
+<meta property="og:description" content="Create professional invoices, quotations, BOQs, estimates, and business proposals free.">
 <meta property="og:url" content="https://coldmatrixtools.com/cold-invoice-studio/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ColdMatrix Tools">
+<meta property="og:image" content="https://coldmatrixtools.com/invoice_studio.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ColdMatrix Invoice Studio">
+<meta name="twitter:description" content="Create professional invoices, quotations &amp; business proposals free.">
+<meta name="twitter:image" content="https://coldmatrixtools.com/invoice_studio.jpg">
+<link rel="manifest" href="../manifest.json">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DCJ7K7LSCF')</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#D4AF37;--gold2:#FFD700;--gold3:#FFF8DC}
+:root{
+  --bg:#0A0F14; --surface:#12181F; --surface2:#1B232C; --border:#2A3540;
+  --text:#EAEDF0; --text-soft:#C3CBD4; --muted:#8B98A5;
+  --gold:#D4AF37; --gold-bright:#FFD700; --gold-deep:#A07828;
+  --gold-glow:rgba(212,175,55,0.45);
+  --gold-gradient:linear-gradient(135deg,#E8C96A 0%,#D4AF37 50%,#B8860B 100%);
+  --silver-bg:#C8CDD4; --silver-bg-hover:#D5D9DE;
+  --edu-bg:#E8EBEF;
+  --whatsapp:#25D366;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   font-family:'Inter',sans-serif;
   background:
-   radial-gradient(1000px 600px at -10% -20%, rgba(212,175,55,0.12) 0%, transparent 60%),
-   radial-gradient(800px 500px at 110% 0%, rgba(212,175,55,0.08) 0%, transparent 60%),
-   radial-gradient(600px 400px at 50% 120%, rgba(255,215,0,0.06) 0%, transparent 60%),
-   #060a14;
-  color:#e2e8f0;
+   radial-gradient(1000px 600px at -10% -20%, rgba(212,175,55,0.08) 0%, transparent 60%),
+   radial-gradient(800px 500px at 110% 0%, rgba(79,195,247,0.05) 0%, transparent 60%),
+   #0A0F14;
+  color:var(--text);
   min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
-h1,h2,.poppins{font-family:'Poppins',sans-serif}
-.gold-shine{background:linear-gradient(130deg,#D4AF37 0%,#FFD700 20%,#FFF8DC 35%,#D4AF37 50%,#8B6914 65%,#FFD700 85%,#D4AF37 100%);background-size:200% 200%;animation:goldShine 3s linear infinite}
+h1,h2,h3,.poppins{font-family:'Poppins',sans-serif}
+.gold-shine{
+  background:linear-gradient(130deg,#D4AF37 0%,#FFD700 20%,#FFF8DC 35%,#D4AF37 50%,#8B6914 65%,#FFD700 85%,#D4AF37 100%);
+  background-size:200% 200%;
+  animation:goldShine 3s linear infinite;
+}
 @keyframes goldShine{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 .live-dot{animation:livePulse 1.6s infinite}
 @keyframes livePulse{0%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.2)}100%{opacity:1;transform:scale(1)}}
 
-/* EXECUTIVE CARDS - Black Glass */
+/* GOLDEN NAVBAR */
+.navbar-cm{
+  position:sticky; top:0; z-index:100;
+  background:rgba(10,15,20,0.95);
+  backdrop-filter:blur(14px);
+  border-bottom:2px solid var(--gold);
+}
+.navbar-cm-inner{
+  max-width:1600px; margin:0 auto; padding:14px 20px;
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:12px;
+}
+.navbar-cm-logo{
+  font-size:1.25rem; font-weight:800; color:var(--gold-bright);
+  text-decoration:none; display:flex; align-items:center; gap:8px;
+  letter-spacing:0.5px; font-family:'Poppins',sans-serif;
+}
+.navbar-cm-links{
+  display:flex; gap:18px; list-style:none; flex-wrap:wrap; align-items:center;
+}
+.navbar-cm-links a{
+  color:var(--muted); text-decoration:none; font-weight:600;
+  font-size:0.85rem; transition:color 0.2s; white-space:nowrap;
+}
+.navbar-cm-links a:hover, .navbar-cm-links a.active{color:var(--gold-bright)}
+.back-link-cm{
+  display:inline-block; margin:14px 0 4px; color:var(--gold);
+  text-decoration:none; font-weight:700; font-size:0.85rem;
+}
+
+/* GET QUOTE STRIP */
+.get-quote-strip{display:flex; flex-wrap:wrap; gap:10px; margin:0 auto 20px; max-width:1200px}
+.get-quote-strip .quote-btn{
+  flex:1; min-width:140px;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  padding:13px 16px; background:var(--silver-bg);
+  border:2px solid var(--gold); border-radius:12px; color:#0A0F14;
+  font-family:'Oswald',sans-serif; font-weight:800;
+  font-size:0.85rem; text-decoration:none; cursor:pointer;
+  letter-spacing:0.5px; text-transform:uppercase;
+  box-shadow:0 4px 12px rgba(0,0,0,0.35), 0 0 10px var(--gold-glow);
+  transition:all 0.25s ease;
+}
+.get-quote-strip .quote-btn:hover{background:var(--silver-bg-hover); border-color:var(--gold-bright); transform:translateY(-2px); box-shadow:0 0 22px var(--gold-glow)}
+.get-quote-strip .quote-btn.whatsapp{background:#25D366; color:#fff; border-color:#1da851}
+
+/* AD ZONE */
+.ad-zone{
+  margin:20px auto; padding:20px;
+  background:rgba(212,175,55,0.05);
+  border:2px dashed var(--gold); border-radius:12px;
+  text-align:center; min-height:90px;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--muted); font-size:0.75rem; font-weight:600;
+  letter-spacing:1px; text-transform:uppercase;
+  max-width:1200px;
+}
+
+/* EXEC CARDS */
 .exec-card{
-  background: linear-gradient(180deg, rgba(18,28,52,0.9) 0%, rgba(10,18,36,0.95) 100%);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-top: 1px solid rgba(255,255,255,0.12);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.06) inset;
-  border-radius: 18px;
+  background:var(--surface) !important;
+  border:2px solid var(--gold) !important;
+  border-radius:14px !important;
+  box-shadow:0 8px 30px rgba(0,0,0,0.5) !important;
+  overflow:hidden;
 }
-.exec-header{
-  background: rgba(6,10,20,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom:1px solid rgba(255,255,255,0.08);
+.exec-card > summary{
+  background:rgba(18,24,31,0.6);
+  border-bottom:1px solid rgba(212,175,55,0.2);
+  list-style:none;
 }
+.exec-card > summary::-webkit-details-marker{display:none}
 
-/* RECTANGLE INPUTS - ALL SAME SHAPE - EXECUTIVE */
-.exec-input{
-  background:#121e36;
-  border:1.6px solid #253a5e;
-  border-radius:10px;
-  padding:12px 14px;
-  font-size:14px;
-  font-weight:500;
-  color:#f1f5f9;
-  width:100%;
-  outline:none;
-  transition:all .22s ease;
+/* INPUTS — WHITE, GOLDEN BORDERS */
+.exec-input,
+.exec-textarea,
+select.exec-input,
+input,
+textarea,
+select{
+  background:#FFFFFF !important;
+  border:2px solid var(--gold) !important;
+  color:#0A0F14 !important;
+  border-radius:10px !important;
+  font-weight:600 !important;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,0.06) !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+  font-size:16px !important;
+  padding:12px 14px !important;
+  outline:none !important;
+  transition:border-color 0.15s ease, box-shadow 0.15s ease !important;
+  transform:none !important;
+  -webkit-transform:none !important;
 }
-.exec-input::placeholder{color:#475569}
-.exec-input:hover{border-color:#334e7a; background:#15223e}
-.exec-input:focus{border-color:var(--gold); background:#172543; box-shadow:0 0 0 4px rgba(212,175,55,0.15)}
-.exec-textarea{
-  background:#121e36;
-  border:1.6px solid #253a5e;
-  border-radius:10px;
-  padding:12px 14px;
-  font-size:13px;
-  color:#f1f5f9;
-  width:100%;
-  outline:none;
-  resize:none;
-  transition:.22s;
+.exec-textarea,
+textarea{resize:vertical; min-height:64px; font-family:'Inter',sans-serif}
+.exec-input::placeholder,
+.exec-textarea::placeholder{color:#8a9099 !important; font-weight:500 !important}
+.exec-input:focus,
+.exec-textarea:focus,
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:var(--gold-bright) !important;
+  box-shadow:0 0 15px var(--gold-glow) !important;
+  transform:none !important;
 }
-.exec-textarea:focus{border-color:var(--gold); box-shadow:0 0 0 4px rgba(212,175,55,0.15)}
+select.exec-input option{background:#FFFFFF; color:#0A0F14}
+
+.flex > *, .grid > *{min-width:0}
+.flex-1{min-width:0; flex:1 1 0%}
+
 .exec-label{
-  font-size:10.5px;
-  font-weight:700;
-  letter-spacing:.09em;
-  text-transform:uppercase;
-  color:#94a3b8;
-  margin-bottom:6px;
+  color:var(--gold-bright) !important;
+  font-weight:800 !important;
+  font-size:10.5px !important;
+  letter-spacing:0.08em !important;
+  text-transform:uppercase !important;
   display:block;
+  margin-bottom:6px;
 }
 
-/* TABS - GOLD NOT BLUE - Fixes blue on black */
+.btn-gold{
+  background:var(--gold-gradient) !important;
+  color:#0A0F14 !important;
+  border:2px solid var(--gold-bright) !important;
+  font-weight:900 !important;
+  font-family:'Oswald',sans-serif !important;
+  letter-spacing:0.5px !important;
+  border-radius:10px !important;
+  box-shadow:0 4px 12px rgba(212,175,55,0.35) !important;
+  transition:transform 0.2s, box-shadow 0.2s !important;
+  cursor:pointer !important;
+}
+.btn-gold:hover{transform:translateY(-1.5px) !important; box-shadow:0 8px 22px rgba(212,175,55,0.55) !important}
+
+.btn-glass-dark{
+  background:var(--silver-bg) !important;
+  border:2px solid var(--gold) !important;
+  color:#0A0F14 !important;
+  font-weight:800 !important;
+  border-radius:10px !important;
+  transition:all 0.2s !important;
+  cursor:pointer !important;
+}
+.btn-glass-dark:hover{background:var(--silver-bg-hover) !important; border-color:var(--gold-bright) !important; box-shadow:0 0 18px var(--gold-glow) !important}
+
+/* DOC TABS */
 .doc-tab{
-  border-radius:10px;
-  font-weight:700;
-  font-size:13px;
-  padding:10px 8px;
-  transition:.22s;
-  border:1.5px solid transparent;
+  border-radius:12px !important;
+  font-weight:800 !important;
+  font-family:'Oswald',sans-serif !important;
+  letter-spacing:0.6px !important;
+  text-transform:uppercase !important;
+  border:2px solid transparent !important;
+  transition:all 0.2s !important;
+  cursor:pointer !important;
+  padding:18px 12px !important;
+  font-size:15px !important;
+  min-height:64px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
 }
 .doc-tab-active{
-  background: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #FFF8DC 100%);
-  color:#000;
-  box-shadow:0 8px 20px rgba(212,175,55,0.25), 0 1px 0 rgba(255,255,255,0.6) inset;
-  border-color: rgba(212,175,55,0.5);
+  background:var(--gold-gradient) !important;
+  color:#0A0F14 !important;
+  border-color:var(--gold-bright) !important;
+  box-shadow:0 8px 22px rgba(212,175,55,0.45) !important;
+  font-weight:900 !important;
 }
 .doc-tab-idle{
-  background:#121e36;
-  color:#94a3b8;
-  border-color:#1e2f4a;
+  background:#1B232C !important;
+  color:#D5DCE5 !important;
+  border-color:var(--gold) !important;
+  font-weight:800 !important;
 }
-.doc-tab-idle:hover{background:#172543; color:#e2e8f0; border-color:#2a4060}
+.doc-tab-idle:hover{background:#232e3c !important; color:var(--gold-bright) !important}
 
 .template-card{
   border-radius:12px;
-  border:1.8px solid #1e2f4a;
-  background:#0f1c34;
-  cursor:pointer;
-  transition:.22s;
-  overflow:hidden;
+  border:2px solid var(--gold) !important;
+  background:#1B232C !important;
+  cursor:pointer; transition:all 0.2s; overflow:hidden;
 }
-.template-card:hover{border-color:#2a4060; transform:translateY(-2px); box-shadow:0 10px 25px rgba(0,0,0,0.3)}
-.template-active{border-color:var(--gold) !important; box-shadow:0 0 0 3px rgba(212,175,55,0.2), 0 10px 25px rgba(212,175,55,0.15)}
+.template-card:hover{border-color:var(--gold-bright) !important; transform:translateY(-2px); box-shadow:0 10px 25px rgba(212,175,55,0.25) !important}
+.template-active{border-color:var(--gold-bright) !important; box-shadow:0 0 0 3px rgba(212,175,55,0.25), 0 10px 25px rgba(212,175,55,0.2) !important}
 
-/* BUTTONS */
-.btn-gold{
-  background: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #FFF8DC 100%);
-  color:#000;
-  border-radius:12px;
-  font-weight:800;
-  font-family:'Poppins',sans-serif;
-  box-shadow: 0 10px 25px rgba(212,175,55,0.28), 0 1px 0 rgba(255,255,255,0.6) inset;
-  transition:.25s;
+.badge-live{
+  background:rgba(212,175,55,0.12);
+  border:1px solid rgba(212,175,55,0.35);
+  color:#FFD700; border-radius:10px;
+  font-weight:700; font-size:12px; padding:6px 12px;
+  display:inline-flex; gap:6px; align-items:center;
 }
-.btn-gold:hover{transform:translateY(-1.5px); box-shadow:0 14px 32px rgba(212,175,55,0.35)}
-.btn-glass-dark{
-  background:#121e36;
-  border:1.6px solid #253a5e;
-  border-radius:12px;
-  color:#e2e8f0;
-  font-weight:600;
-  transition:.22s;
-}
-.btn-glass-dark:hover{background:#172543; border-color:#334e7a; transform:translateY(-1px)}
+
+.text-slate-300{color:#F5F7FA !important; font-weight:600 !important}
+.text-slate-500{color:#C7D0DC !important}
+.text-slate-400{color:#C7D0DC !important; font-weight:600 !important}
+
+#logoPlace{color:#FFD700 !important; font-weight:800 !important}
+#logoPlace i{color:#FFD700 !important}
+
 .invoice-paper{font-family:'Inter',sans-serif; color:#0f172a; background:white}
 .mono{font-family:'Inter',monospace; font-weight:600}
-.badge-live{
-  background: rgba(212,175,55,0.12);
-  border:1px solid rgba(212,175,55,0.3);
-  color:#FFD700;
-  border-radius:10px;
-  font-weight:700;
-  font-size:12px;
-  padding:6px 12px;
-  display:inline-flex;
-  gap:6px;
-  align-items:center;
+
+.edu-section{
+  margin:30px auto; padding:30px 26px;
+  background:var(--edu-bg);
+  border:3px solid var(--gold); border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.8);
+  color:#0A0F14; line-height:1.85; font-size:0.95rem;
+  max-width:1200px;
 }
-.badge-state{
-  background: linear-gradient(90deg,#D4AF37,#FFD700);
-  color:#000;
-  border-radius:20px;
-  font-weight:900;
-  font-size:11px;
-  letter-spacing:.07em;
-  padding:7px 16px;
-  box-shadow:0 4px 15px rgba(212,175,55,0.3);
+.edu-section h2{
+  font-family:'Oswald',sans-serif; color:#0A0F14;
+  font-size:1.3rem; font-weight:800;
+  margin-bottom:16px; padding-bottom:10px;
+  border-bottom:2px solid var(--gold);
+  letter-spacing:0.3px; text-transform:uppercase;
+}
+.edu-section h3{
+  font-family:'Oswald',sans-serif; color:#0A0F14;
+  font-size:1.05rem; font-weight:700; margin:22px 0 10px;
+  letter-spacing:0.2px; text-transform:uppercase;
+}
+.edu-section p, .edu-section li{
+  color:#2A3138; font-weight:500;
+  margin-bottom:12px; line-height:1.8; font-size:0.94rem;
+}
+.edu-section ul, .edu-section ol{padding-left:24px; margin-bottom:16px}
+.edu-section li{margin-bottom:8px}
+.edu-section strong{color:#0A0F14; font-weight:800}
+.edu-section a{color:var(--gold-deep); font-weight:700; text-decoration:underline}
+.edu-section .gold-line{
+  margin-top:18px; padding:14px 18px;
+  background:#FFFFFF; border:2px solid var(--gold);
+  border-radius:10px; color:var(--gold-deep);
+  font-weight:700; line-height:1.7;
+}
+
+.footer-cm{
+  text-align:center; color:#C3CBD4; font-size:0.85rem;
+  padding:40px 20px 24px; border-top:2px solid var(--gold);
+  margin-top:50px; line-height:1.75;
+}
+.footer-cm a{color:var(--gold-bright); text-decoration:none; font-weight:600}
+.footer-cm .legal-links{
+  display:flex; justify-content:center; gap:20px; flex-wrap:wrap;
+  margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1);
+  padding-top:15px;
+}
+.footer-cm .legal-links a{
+  text-decoration:underline; font-weight:700;
+  font-size:0.85rem; color:var(--gold-bright);
+}
+
+.whatsapp-float{
+  position:fixed; bottom:22px; right:20px; z-index:999;
+  width:52px; height:52px; background:var(--whatsapp);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 6px 20px rgba(37,211,102,0.5);
+  text-decoration:none; color:#fff; font-size:1.4rem;
+  border:2px solid rgba(255,255,255,0.2);
+  transition:transform 0.25s;
+}
+.whatsapp-float:hover{transform:scale(1.08)}
+
+@media (max-width:900px){
+  .grid.lg\:grid-cols-\[440px_1fr\]{grid-template-columns:1fr !important}
+}
+@media (max-width:700px){
+  .navbar-cm-inner{padding:12px 14px; gap:10px}
+  .navbar-cm-links{gap:8px}
+  .navbar-cm-links a{font-size:0.75rem}
+  .doc-tab{padding:14px 8px !important; font-size:12px !important; min-height:56px !important; letter-spacing:0.3px !important}
+  .exec-label{font-size:9.5px !important}
+}
+@media (max-width:600px){
+  .edu-section{padding:22px 16px !important; margin-left:14px !important; margin-right:14px !important; border-radius:14px !important}
+  .edu-section h2{font-size:1.1rem !important}
+  .edu-section h3{font-size:0.98rem !important}
+  .edu-section p, .edu-section li{font-size:0.9rem !important}
+  .whatsapp-float{width:48px; height:48px; bottom:18px; right:18px; font-size:1.25rem}
+  .footer-cm{padding:30px 16px 20px}
 }
 </style>
 </head>
 <body>
 
-<header class="exec-header sticky top-0 z-50">
-<div class="max-w-[1600px] mx-auto px-5 py-3.5 flex items-center justify-between">
-<a href="/" class="flex items-center gap-3 font-extrabold text-[18px] text-white poppins">
-<span class="w-9 h-9 rounded-xl gold-shine flex items-center justify-center text-black font-extrabold text-[16px]">C</span> ColdMatrix
-</a>
-<a href="/" class="px-5 py-2 rounded-full bg-white text-black text-[13px] font-bold hover:bg-slate-100 transition">Home</a>
+<!-- GOLDEN NAVBAR -->
+<nav class="navbar-cm">
+  <div class="navbar-cm-inner">
+    <a href="../index.html" class="navbar-cm-logo">❄️ ColdMatrix</a>
+    <ul class="navbar-cm-links">
+      <li><a href="../index.html">🏠 Home</a></li>
+      <li><a href="../index.html#tools">🛠️ Tools</a></li>
+      <li><a href="../solutions.html">❄️ Cold Matrix</a></li>
+      <li><a href="../blog.html">📝 Blog</a></li>
+      <li><a href="../about.html">ℹ️ About</a></li>
+      <li><a href="../contact.html">📞 Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div style="max-width:1600px;margin:12px auto 0;padding:0 20px;">
+  <a href="../index.html#tools" class="back-link-cm">← Back to Tools</a>
 </div>
-</header>
 
-<div style="max-width:1600px;margin:12px auto 0;padding:0 20px;"><a href="../index.html#tools" style="display:inline-block;color:#D4AF37;text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a></div>
-
-<div id="cmInstallBar" style="display:none;background:#D4AF37;color:#0A0A0A;text-align:center;padding:12px;font-weight:600;border-radius:10px;margin:12px auto;max-width:1600px;font-family:sans-serif;">📱 Add ColdMatrix to your Home Screen <button onclick="window.cmInstallApp()" style="background:#0A0A0A;color:#D4AF37;border:none;padding:6px 18px;border-radius:6px;margin-left:12px;font-weight:600;cursor:pointer;">Install</button></div>
+<div id="cmInstallBar" style="display:none;background:linear-gradient(135deg,#D4AF37,#FFD700);color:#0A0F14;text-align:center;padding:12px;font-weight:700;border-radius:10px;margin:12px auto;max-width:1600px;font-family:'Inter',sans-serif;font-size:0.85rem;border:1px solid #FFD700;">📱 Add ColdMatrix to your Home Screen <button onclick="window.cmInstallApp()" style="background:#0A0F14;color:#FFD700;border:2px solid #FFD700;padding:5px 16px;border-radius:6px;margin-left:12px;font-weight:800;cursor:pointer;font-size:0.8rem;">Install</button></div>
 <script>
   window.cmDeferredPrompt = null;
   window.addEventListener('beforeinstallprompt', function(e) {
@@ -198,240 +390,729 @@ h1,h2,.poppins{font-family:'Poppins',sans-serif}
         document.getElementById('cmInstallBar').style.display = 'none';
       });
     } else {
-      alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');
+      alert('📱 Add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');
     }
   };
 </script>
 
-<div class="max-w-[1600px] mx-auto px-4 md:px-6 py-8">
+<div style="max-width:1600px; margin:0 auto; padding:24px 16px;">
 
-<!-- HERO - EXECUTIVE COPY - NOT TECHNICAL JPG PNG -->
-<div class="max-w-4xl mx-auto text-center mb-10">
-<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 text-[10px] font-bold tracking-[0.12em] text-[#FFD700] mb-5">❄️ EXECUTIVE BLACK • STATE OF THE ART • LIVE</div>
-<h1 class="text-[34px] md:text-[54px] font-extrabold leading-[0.92] tracking-tight text-white poppins">ColdMatrix <span class="gold-shine" style="-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Invoice Studio</span></h1>
-<p class="text-slate-300 mt-4 text-[15px] md:text-[17px] max-w-3xl mx-auto leading-[1.6] font-medium">
-Create professional invoices, quotations & business proposals in just 2 minutes. Built for freelancers, startups & growing businesses — just fill the fields, get executive paper instantly.
-</p>
-<p class="text-slate-500 mt-2 text-[13px] max-w-2xl mx-auto">
-Stop searching. Start sending. Among 20+ tools, this is the one clients notice. Your business deserves premium papers, not ordinary bills.
-</p>
+<!-- HERO -->
+<div style="max-width:800px; margin:0 auto 32px; text-align:center;">
+  <div style="display:inline-flex; align-items:center; gap:8px; padding:8px 18px; border-radius:50px; background:rgba(212,175,55,0.12); border:1px solid rgba(212,175,55,0.35); margin-bottom:20px;">
+    <span style="font-size:11px; font-weight:800; letter-spacing:0.15em; color:#FFD700;">❄️ EXECUTIVE • FREE • NO SIGNUP</span>
+  </div>
+  <h1 style="font-size:clamp(30px, 7vw, 52px); font-weight:800; line-height:1; letter-spacing:-0.02em; color:#fff; margin:0;">
+    ColdMatrix <span class="gold-shine" style="-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Invoice Studio</span>
+  </h1>
+  <p style="color:#F5F7FA; margin-top:18px; font-size:clamp(15px, 3.5vw, 17px); max-width:640px; margin-left:auto; margin-right:auto; line-height:1.6; font-weight:600;">
+    Create professional invoices, quotations &amp; business proposals in 2 minutes.
+  </p>
+</div>
+
+<!-- GET QUOTE STRIP -->
+<div class="get-quote-strip">
+  <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20invoicing%20or%20business%20documents." class="quote-btn whatsapp" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i> Quick Chat
+  </a>
+  <a href="../contact.html" class="quote-btn">
+    <i class="fa-solid fa-envelope"></i> Get a Quote
+  </a>
 </div>
 
 <!-- SHARE TOOL -->
-<div class="max-w-3xl mx-auto mb-8">
-<div class="p-[1.5px] rounded-[14px]" style="background:linear-gradient(90deg,#D4AF37,#FFD700,#D4AF37)">
-<div class="bg-[#0a1224] rounded-[12px] p-4 text-center">
-<p class="text-[11px] font-extrabold tracking-[0.12em] text-[#FFD700] mb-3">SHARE COLDMATRIX INVOICE STUDIO</p>
-<div class="flex gap-2 justify-center">
-<button onclick="shareTool('whatsapp')" class="flex-1 md:flex-none px-6 py-2.5 rounded-[10px] bg-[#25D366] text-white font-bold text-[13px] flex items-center justify-center gap-2 hover:brightness-110 transition"><i class="fa-brands fa-whatsapp text-[16px]"></i> WhatsApp</button>
-<button onclick="shareTool('copy')" id="copyToolBtn" class="flex-1 md:flex-none px-6 py-2.5 rounded-[10px] bg-white text-black font-bold text-[13px] flex items-center justify-center gap-2"><i class="fa-solid fa-link"></i> <span id="copyToolText">Copy Link</span></button>
-</div>
-</div>
-</div>
-</div>
-
-<div class="flex items-center gap-3 mb-5">
-<div class="badge-live"><span class="w-2 h-2 bg-[#FFD700] rounded-full live-dot"></span> Live</div>
-<span class="text-slate-500 text-[13px]">• Free • No Watermark • 2,431 businesses using now • Executive</span>
+<div style="max-width:640px; margin:0 auto 24px;">
+  <div style="padding:1.5px; border-radius:14px; background:linear-gradient(90deg,#D4AF37,#FFD700,#D4AF37);">
+    <div style="background:#0a1224; border-radius:12px; padding:16px; text-align:center;">
+      <p style="font-size:11px; font-weight:800; letter-spacing:0.12em; color:#FFD700; margin:0 0 12px 0;">SHARE INVOICE STUDIO</p>
+      <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+        <button onclick="shareTool('whatsapp')" style="padding:10px 24px; border-radius:10px; background:#25D366; color:#fff; font-weight:700; font-size:13px; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px;"><i class="fa-brands fa-whatsapp" style="font-size:16px;"></i> WhatsApp</button>
+        <button onclick="shareTool('copy')" style="padding:10px 24px; border-radius:10px; background:#fff; color:#000; font-weight:700; font-size:13px; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px;"><i class="fa-solid fa-link"></i> <span id="copyToolText">Copy Link</span></button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-[440px_1fr] gap-6 items-start">
-
-<!-- LEFT -->
-<div class="space-y-4">
-
-<div class="exec-card p-2 flex gap-2">
-<button onclick="setDocType('invoice')" data-type="invoice" class="doc-tab doc-tab-active flex-1">Invoice</button>
-<button onclick="setDocType('quotation')" data-type="quotation" class="doc-tab doc-tab-idle flex-1">Quotation</button>
-<button onclick="setDocType('estimate')" data-type="estimate" class="doc-tab doc-tab-idle flex-1">Estimate</button>
-<button onclick="setDocType('proposal')" data-type="proposal" class="doc-tab doc-tab-idle flex-1">Proposal</button>
+<!-- BADGE -->
+<div style="display:flex; align-items:center; gap:12px; margin-bottom:20px; justify-content:center; flex-wrap:wrap;">
+  <div class="badge-live"><span style="width:8px; height:8px; background:#FFD700; border-radius:50%;" class="live-dot"></span> Live</div>
+  <span style="color:#C7D0DC; font-size:13px;">• Executive Grade • Multi-Currency • No Signup</span>
 </div>
 
-<div class="exec-card p-4">
-<p class="exec-label" style="color:#FFD700">✦ Template Style — Executive</p>
-<div class="grid grid-cols-3 gap-3 mt-2">
-<div onclick="setTemplate('minimal')" data-tmpl="minimal" class="template-card template-active p-3 text-center bg-white">
-<div class="h-12 rounded-[8px] bg-slate-100 border border-slate-200 mb-2"></div>
-<p class="text-[11px] font-bold text-black">Minimal</p>
-</div>
-<div onclick="setTemplate('gold')" data-tmpl="gold" class="template-card p-3 text-center">
-<div class="h-12 rounded-[8px] mb-2 gold-shine"></div>
-<p class="text-[11px] font-bold text-white">Gold Pro</p>
-</div>
-<div onclick="setTemplate('dark')" data-tmpl="dark" class="template-card p-3 text-center bg-[#0a0a0a]">
-<div class="h-12 rounded-[8px] bg-[#1a1a1a] border border-white/10 mb-2"></div>
-<p class="text-[11px] font-bold text-white">Dark Exec</p>
-</div>
-</div>
+<div class="ad-zone"><span>📢 Ad Space Available</span></div>
+
+<!-- MAIN GRID -->
+<div style="display:grid; grid-template-columns:1fr; gap:24px; align-items:start;">
+<div class="main-grid-cm" style="display:grid; grid-template-columns:440px 1fr; gap:24px; align-items:start;">
+
+<!-- LEFT — CONTROLS -->
+<div style="display:flex; flex-direction:column; gap:16px; min-width:0;">
+
+<!-- DOC TYPE TABS -->
+<div class="exec-card" style="padding:8px;">
+  <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;">
+    <button onclick="setDocType('invoice')" data-type="invoice" class="doc-tab doc-tab-active">Invoice</button>
+    <button onclick="setDocType('quotation')" data-type="quotation" class="doc-tab doc-tab-idle">Quotation</button>
+    <button onclick="setDocType('estimate')" data-type="estimate" class="doc-tab doc-tab-idle">Estimate</button>
+    <button onclick="setDocType('proposal')" data-type="proposal" class="doc-tab doc-tab-idle">Proposal</button>
+  </div>
 </div>
 
-<details open class="exec-card p-0 overflow-hidden">
-<summary class="p-4 cursor-pointer font-bold text-[14px] list-none flex justify-between items-center text-white poppins">🏢 Your Business <i class="fa-solid fa-chevron-down text-[10px] text-slate-500"></i></summary>
-<div class="px-4 pb-4 space-y-4 border-t border-white/5 pt-4">
-<div class="flex gap-3">
-<label class="w-[64px] h-[64px] rounded-[10px] bg-[#121e36] border-2 border-dashed border-[#2a3f5f] flex flex-col items-center justify-center cursor-pointer overflow-hidden relative hover:border-[#D4AF37] transition shrink-0">
-<input type="file" accept="image/*" class="hidden" onchange="uploadLogo(event)"><img id="logoPreview" class="hidden w-full h-full object-cover"><span id="logoPlace" class="text-[10px] text-center text-slate-400"><i class="fa-solid fa-camera block text-[14px] mb-1"></i>Logo</span>
-</label>
-<div class="flex-1 space-y-3">
-<div><span class="exec-label">Business Name</span><input id="bizName" oninput="render()" class="exec-input" value="ColdMatrix Pakistan"></div>
-<div><span class="exec-label">Tagline</span><input id="bizTag" oninput="render()" class="exec-input !py-2.5 text-[13px]" value="Premium Business Solutions"></div>
+<!-- TEMPLATES -->
+<div class="exec-card" style="padding:16px;">
+  <span class="exec-label">✦ Template Style</span>
+  <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-top:8px;">
+    <div onclick="setTemplate('minimal')" data-tmpl="minimal" class="template-card template-active" style="padding:12px; text-align:center; background:#fff;">
+      <div style="height:48px; border-radius:8px; background:#f1f5f9; border:1px solid #e2e8f0; margin-bottom:8px;"></div>
+      <p style="font-size:11px; font-weight:800; color:#000; margin:0;">Minimal</p>
+    </div>
+    <div onclick="setTemplate('gold')" data-tmpl="gold" class="template-card" style="padding:12px; text-align:center;">
+      <div style="height:48px; border-radius:8px; margin-bottom:8px;" class="gold-shine"></div>
+      <p style="font-size:11px; font-weight:800; color:#fff; margin:0;">Gold Pro</p>
+    </div>
+    <div onclick="setTemplate('dark')" data-tmpl="dark" class="template-card" style="padding:12px; text-align:center; background:#0a0a0a;">
+      <div style="height:48px; border-radius:8px; background:#1a1a1a; border:1px solid rgba(255,255,255,0.1); margin-bottom:8px;"></div>
+      <p style="font-size:11px; font-weight:800; color:#fff; margin:0;">Dark Exec</p>
+    </div>
+  </div>
 </div>
-</div>
-<div><span class="exec-label">Email Address</span><input id="bizEmail" oninput="render()" class="exec-input" value="hello@coldmatrixtools.com"></div>
-<div class="grid grid-cols-2 gap-3">
-<div><span class="exec-label">Phone</span><input id="bizPhone" oninput="render()" class="exec-input text-[13px]" value="+92 300 1234567"></div>
-<div><span class="exec-label">GST / Tax ID</span><input id="bizGst" oninput="render()" class="exec-input text-[13px]" value="GSTIN: 123456"></div>
-</div>
-<div><span class="exec-label">Address</span><textarea id="bizAddr" oninput="render()" class="exec-textarea h-[64px]">Tharu Shah, Sindh, Pakistan</textarea></div>
-</div>
+
+<!-- BUSINESS -->
+<details open class="exec-card">
+  <summary style="padding:16px; cursor:pointer; font-weight:800; font-size:14px; display:flex; justify-content:space-between; align-items:center; color:#fff; font-family:'Poppins',sans-serif;">🏢 Your Business <i class="fa-solid fa-chevron-down" style="font-size:10px; color:#8B98A5;"></i></summary>
+  <div style="padding:16px; display:flex; flex-direction:column; gap:14px; border-top:1px solid rgba(212,175,55,0.2);">
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <label style="width:64px; height:64px; border-radius:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; overflow:hidden; flex-shrink:0; background:#1B232C; border:2px dashed var(--gold);">
+        <input type="file" accept="image/*" style="display:none;" onchange="uploadLogo(event)">
+        <img id="logoPreview" style="display:none; width:100%; height:100%; object-fit:cover;">
+        <span id="logoPlace" style="font-size:10px; text-align:center;"><i class="fa-solid fa-camera" style="display:block; font-size:14px; margin-bottom:4px;"></i>Logo</span>
+      </label>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:12px;">
+        <div style="min-width:0;"><span class="exec-label">Business Name</span><input id="bizName" oninput="render()" class="exec-input" value="ColdMatrix Pakistan"></div>
+        <div style="min-width:0;"><span class="exec-label">Tagline</span><input id="bizTag" oninput="render()" class="exec-input" value="Premium Business Solutions"></div>
+      </div>
+    </div>
+    <div style="min-width:0;"><span class="exec-label">Email Address</span><input id="bizEmail" oninput="render()" class="exec-input" value="contact@coldmatrixtools.com"></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+      <div style="min-width:0;"><span class="exec-label">Phone</span><input id="bizPhone" oninput="render()" class="exec-input" value="+92 333 3228470"></div>
+      <div style="min-width:0;"><span class="exec-label">GST / Tax ID</span><input id="bizGst" oninput="render()" class="exec-input" value="GSTIN: 123456"></div>
+    </div>
+    <div style="min-width:0;"><span class="exec-label">Address</span><textarea id="bizAddr" oninput="render()" class="exec-textarea">Karachi, Pakistan</textarea></div>
+  </div>
 </details>
 
-<details open class="exec-card p-0 overflow-hidden">
-<summary class="p-4 cursor-pointer font-bold text-[14px] list-none flex justify-between items-center text-white poppins">👤 Bill To — Client <i class="fa-solid fa-chevron-down text-[10px] text-slate-500"></i></summary>
-<div class="px-4 pb-4 space-y-3 border-t border-white/5 pt-4">
-<div><span class="exec-label">Client Name</span><input id="clientName" oninput="render()" class="exec-input" value="Acme Corporation"></div>
-<div><span class="exec-label">Company Name</span><input id="clientCompany" oninput="render()" class="exec-input" value="Acme Pvt Ltd"></div>
-<div><span class="exec-label">Client Address</span><textarea id="clientAddr" oninput="render()" class="exec-textarea h-[64px]">123 Business Street, Karachi</textarea></div>
-</div>
+<!-- CLIENT -->
+<details open class="exec-card">
+  <summary style="padding:16px; cursor:pointer; font-weight:800; font-size:14px; display:flex; justify-content:space-between; align-items:center; color:#fff; font-family:'Poppins',sans-serif;">👤 Bill To — Client <i class="fa-solid fa-chevron-down" style="font-size:10px; color:#8B98A5;"></i></summary>
+  <div style="padding:16px; display:flex; flex-direction:column; gap:12px; border-top:1px solid rgba(212,175,55,0.2);">
+    <div style="min-width:0;"><span class="exec-label">Client Name</span><input id="clientName" oninput="render()" class="exec-input" value="Acme Corporation"></div>
+    <div style="min-width:0;"><span class="exec-label">Company Name</span><input id="clientCompany" oninput="render()" class="exec-input" value="Acme Pvt Ltd"></div>
+    <div style="min-width:0;"><span class="exec-label">Client Address</span><textarea id="clientAddr" oninput="render()" class="exec-textarea">123 Business Street, Karachi</textarea></div>
+  </div>
 </details>
 
-<details open class="exec-card p-0 overflow-hidden">
-<summary class="p-4 cursor-pointer font-bold text-[14px] list-none flex justify-between items-center text-white poppins">#️⃣ Invoice Details <i class="fa-solid fa-chevron-down text-[10px] text-slate-500"></i></summary>
-<div class="px-4 pb-4 grid grid-cols-2 gap-3 border-t border-white/5 pt-4">
-<div><span class="exec-label">Invoice #</span><input id="invNumber" oninput="render()" class="exec-input mono text-[13px]" value="INV-2026-001"></div>
-<div><span class="exec-label">PO Number</span><input id="invPo" oninput="render()" placeholder="Optional PO" class="exec-input text-[13px]"></div>
-<div><span class="exec-label">Invoice Date</span><input id="invDate" type="date" oninput="render()" class="exec-input text-[13px]"></div>
-<div><span class="exec-label">Due Date</span><input id="invDue" type="date" oninput="render()" class="exec-input text-[13px]"></div>
-<div class="col-span-2">
-<div class="rounded-[10px] p-3 border" style="background:linear-gradient(135deg,rgba(212,175,55,0.12),rgba(212,175,55,0.05)); border-color:rgba(212,175,55,0.25)">
-<span class="exec-label" style="color:#FFD700">💱 Currency — Select Your Currency</span>
-<select id="invCurrency" onchange="render()" class="exec-input mt-1">
-<option value="PKR">🇵🇰 PKR — Pakistani Rupee (Rs)</option>
-<option value="USD" selected>🇺🇸 USD — US Dollar ($)</option>
-<option value="INR">🇮🇳 INR — Indian Rupee (₹)</option>
-<option value="EUR">🇪🇺 EUR — Euro (€)</option>
-<option value="GBP">🇬🇧 GBP — British Pound (£)</option>
-<option value="AED">🇦🇪 AED — UAE Dirham</option>
-<option value="SAR">🇸🇦 SAR — Saudi Riyal</option>
-</select>
-<p class="text-[11px] text-slate-400 mt-2">Selected currency shows on executive paper</p>
-</div>
-</div>
-</div>
+<!-- DOCUMENT DETAILS -->
+<details open class="exec-card">
+  <summary style="padding:16px; cursor:pointer; font-weight:800; font-size:14px; display:flex; justify-content:space-between; align-items:center; color:#fff; font-family:'Poppins',sans-serif;">#️⃣ Document Details <i class="fa-solid fa-chevron-down" style="font-size:10px; color:#8B98A5;"></i></summary>
+  <div style="padding:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px; border-top:1px solid rgba(212,175,55,0.2);">
+    <div style="min-width:0;"><span class="exec-label">Document #</span><input id="invNumber" oninput="render()" class="exec-input mono" value="INV-2026-001"></div>
+    <div style="min-width:0;"><span class="exec-label">PO Number</span><input id="invPo" oninput="render()" placeholder="Optional" class="exec-input"></div>
+    <div style="min-width:0;"><span class="exec-label">Date</span><input id="invDate" type="date" oninput="render()" class="exec-input"></div>
+    <div style="min-width:0;"><span class="exec-label">Due Date</span><input id="invDue" type="date" oninput="render()" class="exec-input"></div>
+    <div style="grid-column:span 2; min-width:0;">
+      <div style="border-radius:10px; padding:12px; background:rgba(212,175,55,0.08); border:2px solid var(--gold);">
+        <span class="exec-label">💱 Currency</span>
+        <select id="invCurrency" onchange="render();renderItems();" class="exec-input">
+          <option value="PKR">🇵🇰 PKR — Pakistani Rupee (Rs)</option>
+          <option value="USD" selected>🇺🇸 USD — US Dollar ($)</option>
+          <option value="INR">🇮🇳 INR — Indian Rupee (₹)</option>
+          <option value="EUR">🇪🇺 EUR — Euro (€)</option>
+          <option value="GBP">🇬🇧 GBP — British Pound (£)</option>
+          <option value="AED">🇦🇪 AED — UAE Dirham</option>
+          <option value="SAR">🇸🇦 SAR — Saudi Riyal</option>
+        </select>
+      </div>
+    </div>
+  </div>
 </details>
 
-<div class="exec-card p-4">
-<div class="flex justify-between items-center mb-3">
-<p class="font-bold text-[14px] text-white poppins">📋 Items & Pricing</p>
-<button onclick="addItem()" class="btn-gold px-4 py-2 text-[12px]">+ Add Item</button>
+<!-- NOTES & PAYMENT -->
+<details open class="exec-card">
+  <summary style="padding:16px; cursor:pointer; font-weight:800; font-size:14px; display:flex; justify-content:space-between; align-items:center; color:#fff; font-family:'Poppins',sans-serif;">📝 Notes, Terms &amp; Payment <i class="fa-solid fa-chevron-down" style="font-size:10px; color:#8B98A5;"></i></summary>
+  <div style="padding:16px; display:flex; flex-direction:column; gap:12px; border-top:1px solid rgba(212,175,55,0.2);">
+    <div style="min-width:0;"><span class="exec-label">Notes / Terms &amp; Conditions</span><textarea id="invNotes" oninput="render()" class="exec-textarea" placeholder="e.g. Payment due within 15 days. Late fees apply after due date."></textarea></div>
+    <div style="min-width:0;"><span class="exec-label">Payment / Bank Details</span><textarea id="invPayment" oninput="render()" class="exec-textarea" placeholder="Bank: Meezan Bank&#10;Account: 1234567890&#10;Title: ColdMatrix Pakistan"></textarea></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+      <label style="display:flex; align-items:center; gap:8px; padding:10px; background:#1B232C; border:2px solid var(--gold); border-radius:10px; cursor:pointer; font-size:12px; font-weight:800; color:#fff;">
+        <input type="checkbox" id="invPaidStamp" onchange="render()" style="width:auto !important; min-width:auto !important; padding:0 !important; margin:0; accent-color:#D4AF37;">
+        PAID Stamp
+      </label>
+      <label style="display:flex; align-items:center; gap:8px; padding:10px; background:#1B232C; border:2px solid var(--gold); border-radius:10px; cursor:pointer; font-size:12px; font-weight:800; color:#fff;">
+        <input type="checkbox" id="invSignature" onchange="render()" style="width:auto !important; min-width:auto !important; padding:0 !important; margin:0; accent-color:#D4AF37;">
+        Signature Line
+      </label>
+    </div>
+  </div>
+</details>
+
+<!-- ITEMS -->
+<div class="exec-card" style="padding:16px;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; gap:8px; flex-wrap:wrap;">
+    <p style="font-weight:800; font-size:14px; color:#fff; margin:0; font-family:'Poppins',sans-serif;">📋 Items &amp; Pricing</p>
+    <button onclick="addItem()" class="btn-gold" style="padding:8px 16px; font-size:12px;">+ Add Item</button>
+  </div>
+  <div id="itemsContainer" style="display:flex; flex-direction:column; gap:12px;"></div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; padding-top:16px; border-top:1px solid rgba(212,175,55,0.3);">
+    <div style="min-width:0;"><span class="exec-label">Discount</span><input id="discount" type="number" oninput="render()" value="0" class="exec-input"></div>
+    <div style="min-width:0;"><span class="exec-label">Tax %</span><input id="taxRate" type="number" oninput="render()" value="10" class="exec-input"></div>
+    <div style="min-width:0;"><span class="exec-label">Shipping</span><input id="shipping" type="number" oninput="render()" value="0" class="exec-input"></div>
+    <div style="min-width:0;"><span class="exec-label">Paid Amount</span><input id="paid" type="number" oninput="render()" value="0" class="exec-input"></div>
+  </div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:16px; padding-top:16px; border-top:1px solid rgba(212,175,55,0.3);">
+    <button onclick="saveDraft()" class="btn-glass-dark" style="padding:12px; font-size:12px; font-weight:800;"><i class="fa-solid fa-floppy-disk" style="margin-right:4px;"></i> Save Draft</button>
+    <button onclick="loadDraft()" class="btn-glass-dark" style="padding:12px; font-size:12px; font-weight:800;"><i class="fa-solid fa-folder-open" style="margin-right:4px;"></i> Load Draft</button>
+  </div>
 </div>
-<div id="itemsContainer" class="space-y-3"></div>
-<div class="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-white/10">
-<div><span class="exec-label">Discount</span><input id="discount" type="number" oninput="render()" value="0" class="exec-input"></div>
-<div><span class="exec-label">Tax %</span><input id="taxRate" type="number" oninput="render()" value="10" class="exec-input"></div>
-<div><span class="exec-label">Shipping</span><input id="shipping" type="number" oninput="render()" value="0" class="exec-input"></div>
-<div><span class="exec-label">Paid Amount</span><input id="paid" type="number" oninput="render()" value="0" class="exec-input"></div>
+
+</div>
+<!-- RIGHT — PREVIEW -->
+<div class="exec-card" style="min-width:0;">
+  <div style="padding:16px; display:flex; justify-content:space-between; align-items:center; gap:8px; border-bottom:1px solid rgba(212,175,55,0.25); flex-wrap:wrap;">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div style="width:8px; height:8px; background:#FFD700; border-radius:50%; animation:pulse 2s infinite;"></div>
+      <span style="font-size:11px; font-weight:800; letter-spacing:0.15em; color:#FFD700;">LIVE PREVIEW</span>
+    </div>
+    <div style="display:flex; gap:8px;">
+      <button onclick="setZoom(-0.1)" style="width:32px; height:32px; border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; background:#1B232C; border:2px solid var(--gold); color:#FFD700;"><i class="fa-solid fa-minus" style="font-size:10px;"></i></button>
+      <button onclick="setZoom(0.1)" style="width:32px; height:32px; border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer; background:#1B232C; border:2px solid var(--gold); color:#FFD700;"><i class="fa-solid fa-plus" style="font-size:10px;"></i></button>
+    </div>
+  </div>
+
+  <div id="paperWrap" style="padding:12px 16px; display:flex; justify-content:center; overflow:auto; max-height:75vh; background:#0a0f1f;">
+    <div id="invoicePaper" class="invoice-paper" style="width:100%; max-width:800px; background:white; box-shadow:0 25px 80px rgba(0,0,0,0.6); border-radius:12px; overflow:hidden; transform-origin:top center;"></div>
+  </div>
+
+  <div style="padding:16px; background:#0a1224; border-top:1px solid rgba(212,175,55,0.25);">
+    <p class="exec-label" style="text-align:center; margin-bottom:12px;">✦ Export Your Document</p>
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-bottom:12px;">
+      <button onclick="downloadAs('png')" class="btn-glass-dark" style="padding:12px; font-size:12px; font-weight:800;"><i class="fa-solid fa-image" style="margin-right:4px;"></i> PNG</button>
+      <button onclick="downloadAs('jpg')" class="btn-glass-dark" style="padding:12px; font-size:12px; font-weight:800;"><i class="fa-solid fa-file-image" style="margin-right:4px;"></i> JPG</button>
+      <button onclick="downloadAs('pdf')" class="btn-gold" style="padding:12px; font-size:12px;"><i class="fa-solid fa-file-pdf" style="margin-right:4px;"></i> PDF</button>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+      <button onclick="shareInvoice('whatsapp')" id="waShareBtn" class="btn-gold" style="padding:12px; font-size:13px; display:flex; align-items:center; justify-content:center; gap:6px;"><i class="fa-brands fa-whatsapp" style="font-size:16px;"></i> WhatsApp</button>
+      <button onclick="shareInvoice('copy')" class="btn-glass-dark" style="padding:12px; font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; gap:6px;"><i class="fa-solid fa-share-nodes"></i> Share File</button>
+    </div>
+  </div>
+</div>
+
 </div>
 </div>
 
 </div>
 
-<!-- RIGHT PREVIEW -->
-<div class="exec-card p-0 overflow-hidden sticky top-[84px]">
-<div class="p-4 flex justify-between items-center border-b border-white/10">
-<div class="flex items-center gap-2"><div class="w-2 h-2 bg-[#FFD700] rounded-full animate-pulse"></div><span class="text-[11px] font-bold tracking-widest text-slate-400">LIVE PREVIEW • EXECUTIVE BLACK</span></div>
-<div class="flex gap-2">
-<button onclick="setZoom(-0.1)" class="w-8 h-8 rounded-[10px] bg-[#121e36] border border-[#253a5e] flex items-center justify-center hover:bg-[#172543] transition text-white"><i class="fa-solid fa-minus text-[10px]"></i></button>
-<button onclick="setZoom(0.1)" class="w-8 h-8 rounded-[10px] bg-[#121e36] border border-[#253a5e] flex items-center justify-center hover:bg-[#172543] transition text-white"><i class="fa-solid fa-plus text-[10px]"></i></button>
-</div>
+<!-- EDUCATIONAL -->
+<div class="edu-section">
+  <h2>📘 About the ColdMatrix Invoice Studio</h2>
+  <p>Create professional invoices, quotations, estimates, and business proposals with executive-grade paper templates — export as PDF, PNG, or JPG, and share directly via WhatsApp. Built for contractors, consultants, freelancers, and business owners who need polished business documents fast.</p>
+
+  <h3>What You Can Create</h3>
+  <ul>
+    <li><strong>Invoice:</strong> Bill clients for completed work with payment tracking — Paid amount, Balance due, due date, and PO number.</li>
+    <li><strong>Quotation:</strong> Send professional price quotes before work begins, so clients can approve in writing.</li>
+    <li><strong>Estimate:</strong> Preliminary cost projections for larger projects where final numbers aren't set yet.</li>
+    <li><strong>Proposal:</strong> Full business proposals combining scope, pricing, and terms in one document.</li>
+  </ul>
+
+  <h3>What's Inside Every Document</h3>
+  <ul>
+    <li>Your business logo, name, tagline, address, phone, email, and GST/Tax ID</li>
+    <li>Client name, company, and address</li>
+    <li>Document number, date, due date, and PO number</li>
+    <li>Itemized list with description, quantity, rate, and amount</li>
+    <li>Automatic subtotal, tax, shipping, discount, and balance due</li>
+    <li>Multi-currency support: PKR, USD, INR, EUR, GBP, AED, SAR</li>
+  </ul>
+
+  <h3>Why Businesses Trust This Tool</h3>
+  <ul>
+    <li><strong>No signup required</strong> — open the page and start creating instantly</li>
+    <li><strong>Multi-currency</strong> — invoice clients in their local currency</li>
+    <li><strong>Real image export</strong> — send the actual invoice as an image on WhatsApp</li>
+    <li><strong>Save Draft</strong> — your data stays in your browser, safe and private</li>
+    <li><strong>Three templates</strong> — Minimal, Gold Pro, and Dark Executive for every business style</li>
+  </ul>
+
+  <h3>Best Practices for Professional Invoices</h3>
+  <ul>
+    <li><strong>Number sequentially:</strong> INV-2026-001, INV-2026-002 — makes record-keeping easy.</li>
+    <li><strong>Always add a due date:</strong> 7 to 30 days is standard for most businesses.</li>
+    <li><strong>Itemize clearly:</strong> Vague line items delay payments. Be specific.</li>
+    <li><strong>Include tax ID:</strong> Required for business-to-business transactions in most countries.</li>
+    <li><strong>Follow up politely:</strong> Send a gentle reminder 2 days before the due date.</li>
+    <li><strong>Keep a copy:</strong> Download and archive every invoice you send.</li>
+  </ul>
+
+  <h3>Frequently Asked Questions</h3>
+  <p><strong>Is this tool really free?</strong><br>Yes — 100% free, no signup, no hidden charges.</p>
+  <p><strong>Can I use it for international clients?</strong><br>Yes — 7 currencies supported, and the templates work globally.</p>
+  <p><strong>Does my data get uploaded to a server?</strong><br>No. Everything runs in your browser. Save Draft uses your device's local storage only.</p>
+  <p><strong>Can I customize the branding?</strong><br>Yes — upload your logo, set your business name, and the branding flows through every document.</p>
+  <p><strong>Need a simpler quotation tool?</strong><br>Try our standalone <a href="../quotation-generator.html">Quotation Generator</a> for quick one-page quotes.</p>
+
+  <div class="gold-line">✅ Free, private, and instant — executive-grade business documents in under 2 minutes.</div>
 </div>
 
-<div id="paperWrap" class="bg-[#0a0f1f] p-3 md:p-6 flex justify-center overflow-auto max-h-[75vh]">
-<div id="invoicePaper" class="invoice-paper w-full max-w-[800px] bg-white shadow-[0_25px_80px_rgba(0,0,0,0.6)] rounded-[12px] overflow-hidden" style="transform-origin:top center"></div>
+<!-- RELATED TOOLS -->
+<div class="edu-section">
+  <h2>🔗 Related Tools You Might Need</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;">
+    <a href="../quotation-generator.html" style="display:inline-block;background:#FFFFFF;border:2px solid var(--gold);padding:9px 16px;border-radius:20px;font-weight:700;text-decoration:none;color:#0A0F14;margin:4px 6px 4px 0;">🧾 Quotation Generator</a>
+    <a href="../business-planner.html" style="display:inline-block;background:#FFFFFF;border:2px solid var(--gold);padding:9px 16px;border-radius:20px;font-weight:700;text-decoration:none;color:#0A0F14;margin:4px 6px 4px 0;">📖 Business Planner</a>
+    <a href="../roi-calculator.html" style="display:inline-block;background:#FFFFFF;border:2px solid var(--gold);padding:9px 16px;border-radius:20px;font-weight:700;text-decoration:none;color:#0A0F14;margin:4px 6px 4px 0;">💰 ROI Calculator</a>
+    <a href="../profit-margin-calculator.html" style="display:inline-block;background:#FFFFFF;border:2px solid var(--gold);padding:9px 16px;border-radius:20px;font-weight:700;text-decoration:none;color:#0A0F14;margin:4px 6px 4px 0;">📈 Profit Margin</a>
+    <a href="../loan-emi-calculator.html" style="display:inline-block;background:#FFFFFF;border:2px solid var(--gold);padding:9px 16px;border-radius:20px;font-weight:700;text-decoration:none;color:#0A0F14;margin:4px 6px 4px 0;">🏦 Loan EMI</a>
+    <a href="../contact.html" style="display:inline-block;background:#FFFFFF;border:2px solid var(--gold);padding:9px 16px;border-radius:20px;font-weight:700;text-decoration:none;color:#0A0F14;margin:4px 6px 4px 0;">📞 Contact Us</a>
+  </div>
 </div>
 
-<div class="p-4 bg-[#0a1224] border-t border-white/10">
-<p class="exec-label text-center mb-3" style="color:#FFD700">✦ Export as Executive Paper — Customer Gets Real Paper</p>
-<div class="grid grid-cols-3 gap-2 mb-3">
-<button onclick="downloadAs('png')" class="btn-glass-dark py-3 text-[12px] font-bold"><i class="fa-solid fa-image mr-1"></i> PNG</button>
-<button onclick="downloadAs('jpg')" class="btn-glass-dark py-3 text-[12px] font-bold"><i class="fa-solid fa-file-image mr-1"></i> JPG</button>
-<button onclick="downloadAs('pdf')" class="btn-gold py-3 text-[12px]"><i class="fa-solid fa-file-pdf mr-1"></i> PDF</button>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-<button onclick="shareInvoice('whatsapp')" id="waShareBtn" class="btn-gold py-3 text-[13px] flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-[16px]"></i> Send Real Paper on WhatsApp</button>
-<button onclick="shareInvoice('copy')" class="btn-glass-dark py-3 text-[13px] font-bold flex items-center justify-center gap-2"><i class="fa-solid fa-share-nodes"></i> Share File</button>
-</div>
-<p class="text-[11px] text-slate-500 mt-2 text-center">✨ Customer receives actual invoice image — not just link — Premium experience!</p>
-</div>
+<div class="ad-zone"><span>📢 Ad Space Available</span></div>
 
-</div>
+<!-- WhatsApp Float -->
+<a href="https://wa.me/923333228470?text=Hi%2C%20I%27m%20interested%20in%20your%20products%20and%20services." class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 
-</div>
+<!-- FOOTER -->
+<footer class="footer-cm">
+  <div style="margin-bottom:15px;">
+    <p style="color:#EAEDF0; font-size:0.9rem; font-weight:600; margin-bottom:5px;">❄️ <strong style="color:#FFD700;">ColdMatrix – Your 24/7 Business Companion</strong></p>
+    <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px;">📧 <a href="mailto:contact@coldmatrixtools.com">contact@coldmatrixtools.com</a></p>
+    <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
+      📞 <strong>Call / WhatsApp:</strong>
+      <a href="tel:+923333228470">+92 333 3228470</a>
+      <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;">
+        <i class="fa-brands fa-whatsapp"></i>
+      </a>
+    </p>
+  </div>
+  <div class="legal-links">
+    <a href="../privacy-policy.html">Privacy Policy</a>
+    <a href="../terms-of-use.html">Terms of Use</a>
+    <a href="../cookie-policy.html">Cookie Policy</a>
+    <a href="../security.html">Security</a>
+  </div>
+  <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="../index.html">ColdMatrix</a> — Free tools for everyone.</p>
+</footer>
 
-</div>
-</div>
+<!-- RESPONSIVE GRID FIX -->
+<style>
+@media (max-width: 900px) {
+  .main-grid-cm {
+    grid-template-columns: 1fr !important;
+  }
+}
+@media (max-width: 600px) {
+  .doc-tab {
+    font-size: 11px !important;
+    padding: 12px 6px !important;
+    min-height: 52px !important;
+    letter-spacing: 0.2px !important;
+  }
+}
+</style>
 
+<!-- MAIN SCRIPT -->
 <script>
-let state={docType:'invoice',template:'minimal',zoom:1,logo:'',items:[{name:'Website Design',qty:1,rate:500,desc:'Premium website'}, {name:'Business Card Kit',qty:1,rate:150,desc:'Gold branding'}]};
-const currencies={PKR:'Rs',USD:'$',INR:'₹',EUR:'€',GBP:'£',AED:'AED',SAR:'SAR'};
-function init(){document.getElementById('invDate').valueAsDate=new Date();let d=new Date();d.setDate(d.getDate()+7);document.getElementById('invDue').valueAsDate=d;renderItems();render();}
-function setDocType(t){state.docType=t;document.querySelectorAll('.doc-tab').forEach(b=>{b.className='doc-tab doc-tab-idle flex-1';});document.querySelector(`[data-type=${t}]`).className='doc-tab doc-tab-active flex-1';render();}
-function setTemplate(t){state.template=t;document.querySelectorAll('.template-card').forEach(c=>c.classList.remove('template-active'));document.querySelector(`[data-tmpl=${t}]`).classList.add('template-active');render();}
-function setZoom(d){state.zoom=Math.min(1.5,Math.max(0.5,state.zoom+d));document.getElementById('invoicePaper').style.transform=`scale(${state.zoom})`;}
-function uploadLogo(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=ev=>{state.logo=ev.target.result;document.getElementById('logoPreview').src=state.logo;document.getElementById('logoPreview').classList.remove('hidden');document.getElementById('logoPlace').classList.add('hidden');render();};r.readAsDataURL(f);}
-function renderItems(){let c=document.getElementById('itemsContainer');c.innerHTML='';state.items.forEach((it,i)=>{c.innerHTML+=`<div class="bg-[#0f1c34] rounded-[10px] p-3 border border-[#1e2f4a]"><div class="flex justify-between gap-2"><input value="${it.name}" oninput="state.items[${i}].name=this.value;render()" class="flex-1 bg-transparent font-semibold text-[13px] outline-none text-white" placeholder="Item name"><button onclick="removeItem(${i})" class="text-slate-500 hover:text-red-400 w-6 h-6 flex items-center justify-center rounded-full hover:bg-red-500/10 transition"><i class="fa-solid fa-trash text-[11px]"></i></button></div><input value="${it.desc||''}" oninput="state.items[${i}].desc=this.value;render()" class="w-full bg-transparent text-[12px] text-slate-400 outline-none mt-1" placeholder="Description"><div class="grid grid-cols-3 gap-2 mt-3"><div><span class="exec-label !text-[9px] !mb-1">Qty</span><input type="number" value="${it.qty}" oninput="state.items[${i}].qty=parseFloat(this.value)||0;render()" class="exec-input !py-2 !text-[13px]"></div><div><span class="exec-label !text-[9px] !mb-1">Rate</span><input type="number" value="${it.rate}" oninput="state.items[${i}].rate=parseFloat(this.value)||0;render()" class="exec-input !py-2 !text-[13px]"></div><div class="bg-white text-black rounded-[10px] px-2 py-[11px] text-[12px] font-bold text-center mono flex items-center justify-center">${curr()}${(it.qty*it.rate).toFixed(0)}</div></div></div>`});}
-function addItem(){state.items.push({name:'New Item',qty:1,rate:100,desc:''});renderItems();render();}
-function removeItem(i){state.items.splice(i,1);renderItems();render();}
-function curr(){return currencies[document.getElementById('invCurrency').value]||'$';}
-function calc(){let sub=0;state.items.forEach(it=>sub+=it.qty*it.rate);let disc=parseFloat(document.getElementById('discount').value)||0;let taxRate=parseFloat(document.getElementById('taxRate').value)||0;let ship=parseFloat(document.getElementById('shipping').value)||0;let tax=sub*taxRate/100;let total=sub+tax+ship-disc;let paid=parseFloat(document.getElementById('paid').value)||0;return{sub,tax,ship,total,balance:total-paid,disc};}
-function render(){let t=calc();let cur=curr();let type=state.docType.toUpperCase();let isGold=state.template==='gold';let isDark=state.template==='dark';
-document.getElementById('invoicePaper').innerHTML=`<div class="${isDark?'bg-[#0f172a] text-white':'bg-white text-[#0f172a]'} p-6 md:p-7">${isGold?`<div class="h-[5px] -mx-6 -mt-6 md:-mx-7 md:-mt-7 mb-5 gold-shine"></div>`:''}<div class="flex justify-between items-start gap-4"><div class="flex gap-3 items-center">${state.logo?`<img src="${state.logo}" class="w-14 h-14 rounded-[10px] object-cover border border-slate-200 shadow-sm">`:`<div class="w-14 h-14 rounded-[10px] flex items-center justify-center text-black font-extrabold text-[20px] shadow-sm gold-shine">${(document.getElementById('bizName').value||'C')[0]}</div>`}<div><h2 class="font-bold text-[15px] leading-tight tracking-tight poppins">${document.getElementById('bizName').value}</h2><p class="text-[12px] ${isDark?'text-white/60':'text-slate-500'} mt-0.5">${document.getElementById('bizTag').value}</p></div></div><div class="text-right"><h1 class="text-[22px] font-extrabold tracking-tight poppins ${isGold?'text-[#854d0e]':''}">${type}</h1><p class="mono text-[11px] ${isDark?'text-white/60':'text-slate-500'} mt-1">#${document.getElementById('invNumber').value}</p></div></div><div class="grid grid-cols-2 gap-6 mt-8 text-[13px]"><div><p class="text-[10px] font-bold tracking-[0.12em] ${isDark?'text-white/40':'text-slate-400'} uppercase">From</p><p class="font-bold mt-2 text-[14px]">${document.getElementById('bizName').value}</p><p class="text-[12px] ${isDark?'text-white/60':'text-slate-500'} mt-1 leading-[1.5]">${document.getElementById('bizEmail').value}<br>${document.getElementById('bizPhone').value}<br>${document.getElementById('bizAddr').value}</p></div><div><p class="text-[10px] font-bold tracking-[0.12em] ${isDark?'text-white/40':'text-slate-400'} uppercase">Bill To</p><p class="font-bold mt-2 text-[14px]">${document.getElementById('clientName').value}</p><p class="text-[12px] ${isDark?'text-white/60':'text-slate-500'} mt-1 leading-[1.5]">${document.getElementById('clientCompany').value}<br>${document.getElementById('clientAddr').value}</p></div></div><div class="mt-6 overflow-hidden rounded-[10px] border ${isDark?'border-white/10':'border-slate-200'}"><div class="grid grid-cols-[1fr_60px_80px_80px] gap-2 p-3 text-[10px] font-bold tracking-[0.1em] uppercase ${isDark?'bg-white/5 text-white/40':'bg-slate-50 text-slate-500'}"><span>Item</span><span class="text-center">Qty</span><span class="text-right">Rate</span><span class="text-right">Amount</span></div>${state.items.map(it=>`<div class="grid grid-cols-[1fr_60px_80px_80px] gap-2 p-3 text-[13px] border-t ${isDark?'border-white/5':'border-slate-100'}"><div><p class="font-semibold text-[13px]">${it.name}</p><p class="text-[11px] ${isDark?'text-white/50':'text-slate-500'} mt-0.5">${it.desc||''}</p></div><div class="text-center mono text-[13px]">${it.qty}</div><div class="text-right mono text-[13px]">${cur}${it.rate}</div><div class="text-right font-bold mono text-[13px]">${cur}${(it.qty*it.rate).toFixed(0)}</div></div>`).join('')}</div><div class="flex justify-end mt-5"><div class="w-[220px] space-y-2 text-[13px]"><div class="flex justify-between text-slate-600"><span>Subtotal</span><span class="mono font-semibold">${cur}${t.sub.toFixed(2)}</span></div><div class="flex justify-between text-slate-600"><span>Tax</span><span class="mono font-semibold">${cur}${t.tax.toFixed(2)}</span></div><div class="flex justify-between font-extrabold text-[16px] pt-3 border-t border-slate-200"><span>Total</span><span class="mono">${cur}${t.total.toFixed(2)}</span></div><div class="flex justify-between font-bold p-3 rounded-[10px] bg-slate-900 text-white mt-2"><span>Balance</span><span class="mono">${cur}${t.balance.toFixed(2)}</span></div></div></div></div>`;}
-function shareTool(type){let url=window.location.href;if(type==='whatsapp'){window.open(`https://wa.me/?text=${encodeURIComponent('Free Invoice Maker - '+url)}`,'_blank');}else{navigator.clipboard.writeText(url);let t=document.getElementById('copyToolText');t.innerText='Copied!';setTimeout(()=>t.innerText='Copy Link',2000);}}
-async function shareInvoice(type){
-  let inv=document.getElementById('invNumber').value;
-  let total=calc().total;
-  let cur=curr();
-  let paper=document.getElementById('invoicePaper');
-  let btn=document.getElementById('waShareBtn');
-  let origBtn = btn ? btn.innerHTML : '';
-  if(btn) btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Making Paper...';
-  try{
-    let canvas=await html2canvas(paper,{scale:2,useCORS:true,backgroundColor:'#ffffff'});
-    let blob=await new Promise(r=>canvas.toBlob(r,'image/jpeg',0.92));
-    let file=new File([blob], `${inv}.jpg`, {type:'image/jpeg'});
-    if(type==='whatsapp'){
-      if(navigator.canShare && navigator.canShare({files:[file]})){
-        await navigator.share({files:[file], title:`${state.docType.toUpperCase()} ${inv}`, text:`Hi, your ${state.docType} ${inv} for ${cur}${total.toFixed(2)} from ${document.getElementById('bizName').value} is ready. Executive paper attached.`});
-      }else{
-        let url=URL.createObjectURL(blob);
-        let a=document.createElement('a');a.href=url;a.download=`${inv}.jpg`;a.click();
-        setTimeout(()=>{let msg=`Hi, your ${state.docType} ${inv} for ${cur}${total.toFixed(2)} is ready. Downloaded ${inv}.jpg - customer gets real paper, not link!`;window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`,'_blank');},800);
-      }
-    }else{
-      if(navigator.canShare && navigator.canShare({files:[file]})){await navigator.share({files:[file], title:inv});}
-      else{let a=document.createElement('a');a.href=canvas.toDataURL('image/jpeg',0.92);a.download=`${inv}.jpg`;a.click();alert('Executive JPG downloaded - share real paper!');}
+let state = {
+  docType: 'invoice',
+  template: 'minimal',
+  zoom: 1,
+  logo: '',
+  items: [
+    {name:'Website Design', qty:1, rate:500, desc:'Premium website'},
+    {name:'Business Card Kit', qty:1, rate:150, desc:'Gold branding'}
+  ]
+};
+
+const currencies = {PKR:'Rs',USD:'$',INR:'₹',EUR:'€',GBP:'£',AED:'AED',SAR:'SAR'};
+
+function init(){
+  document.getElementById('invDate').valueAsDate = new Date();
+  let d = new Date();
+  d.setDate(d.getDate()+7);
+  document.getElementById('invDue').valueAsDate = d;
+  renderItems();
+  render();
+}
+
+function setDocType(t){
+  state.docType = t;
+  document.querySelectorAll('.doc-tab').forEach(b => {
+    b.className = 'doc-tab doc-tab-idle';
+  });
+  const el = document.querySelector('[data-type="'+t+'"]');
+  if (el) el.className = 'doc-tab doc-tab-active';
+  render();
+}
+
+function setTemplate(t){
+  state.template = t;
+  document.querySelectorAll('.template-card').forEach(c => c.classList.remove('template-active'));
+  const el = document.querySelector('[data-tmpl="'+t+'"]');
+  if (el) el.classList.add('template-active');
+  render();
+}
+
+function setZoom(d){
+  state.zoom = Math.min(1.5, Math.max(0.5, state.zoom + d));
+  document.getElementById('invoicePaper').style.transform = 'scale(' + state.zoom + ')';
+}
+
+function uploadLogo(e){
+  let f = e.target.files[0];
+  if (!f) return;
+  let r = new FileReader();
+  r.onload = ev => {
+    state.logo = ev.target.result;
+    document.getElementById('logoPreview').src = state.logo;
+    document.getElementById('logoPreview').style.display = 'block';
+    document.getElementById('logoPlace').style.display = 'none';
+    render();
+  };
+  r.readAsDataURL(f);
+}
+
+function escapeHtml(s){
+  if (s === undefined || s === null) return '';
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderItems(){
+  let c = document.getElementById('itemsContainer');
+  c.innerHTML = '';
+  state.items.forEach((it, i) => {
+    const div = document.createElement('div');
+    div.style.cssText = 'background:#1B232C;border:2px solid var(--gold);border-radius:10px;padding:12px;min-width:0;';
+    div.innerHTML = `
+      <div style="display:flex; justify-content:space-between; gap:8px; align-items:center;">
+        <input value="${escapeHtml(it.name)}" oninput="state.items[${i}].name=this.value;render()" style="flex:1; min-width:0; background:transparent; border:none; font-weight:700; font-size:14px; outline:none; color:#fff;" placeholder="Item name">
+        <button onclick="removeItem(${i})" style="color:#8B98A5; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:transparent; border:none; cursor:pointer; flex-shrink:0;"><i class="fa-solid fa-trash" style="font-size:11px;"></i></button>
+      </div>
+      <input value="${escapeHtml(it.desc||'')}" oninput="state.items[${i}].desc=this.value;render()" style="width:100%; background:transparent; border:none; font-size:12px; color:#8B98A5; outline:none; margin-top:4px;" placeholder="Description">
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:12px;">
+        <div style="min-width:0;"><span class="exec-label" style="font-size:9px;">Qty</span><input type="number" value="${it.qty}" oninput="state.items[${i}].qty=parseFloat(this.value)||0;render()" class="exec-input" style="padding:8px 10px; font-size:13px;"></div>
+        <div style="min-width:0;"><span class="exec-label" style="font-size:9px;">Rate</span><input type="number" value="${it.rate}" oninput="state.items[${i}].rate=parseFloat(this.value)||0;render()" class="exec-input" style="padding:8px 10px; font-size:13px;"></div>
+        <div style="background:#fff; color:#000; border-radius:10px; padding:10px; text-align:center; font-weight:800; font-size:12px; display:flex; align-items:center; justify-content:center; min-width:0;">${curr()}${(it.qty*it.rate).toFixed(0)}</div>
+      </div>
+    `;
+    c.appendChild(div);
+  });
+}
+
+function addItem(){
+  state.items.push({name:'New Item', qty:1, rate:100, desc:''});
+  renderItems();
+  render();
+}
+
+function removeItem(i){
+  state.items.splice(i, 1);
+  renderItems();
+  render();
+}
+
+function curr(){
+  return currencies[document.getElementById('invCurrency').value] || '$';
+}
+
+function calc(){
+  let sub = 0;
+  state.items.forEach(it => sub += it.qty * it.rate);
+  let disc = parseFloat(document.getElementById('discount').value) || 0;
+  let taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+  let ship = parseFloat(document.getElementById('shipping').value) || 0;
+  let tax = sub * taxRate / 100;
+  let total = sub + tax + ship - disc;
+  let paid = parseFloat(document.getElementById('paid').value) || 0;
+  return {sub, tax, ship, total, balance: total - paid, disc};
+}
+
+function render(){
+  let t = calc();
+  let cur = curr();
+  let type = state.docType.toUpperCase();
+  let isGold = state.template === 'gold';
+  let isDark = state.template === 'dark';
+  const esc = escapeHtml;
+
+  let html = '<div style="' + (isDark ? 'background:#0f172a; color:#fff;' : 'background:#fff; color:#0f172a;') + ' padding:24px 28px;">';
+  if (isGold) html += '<div style="height:5px; margin:-24px -28px 20px -28px;" class="gold-shine"></div>';
+  html += '<div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;">';
+  html += '<div style="display:flex; gap:12px; align-items:center; min-width:0;">';
+  if (state.logo) {
+    html += '<img src="' + state.logo + '" style="width:56px; height:56px; border-radius:10px; object-fit:cover; border:1px solid #e2e8f0;">';
+  } else {
+    const initial = (document.getElementById('bizName').value || 'C')[0];
+    html += '<div style="width:56px; height:56px; border-radius:10px; display:flex; align-items:center; justify-content:center; color:#000; font-weight:800; font-size:20px;" class="gold-shine">' + esc(initial) + '</div>';
+  }
+  html += '<div style="min-width:0;"><h2 style="font-weight:800; font-size:15px; line-height:1.2; margin:0; font-family:\'Poppins\',sans-serif;">' + esc(document.getElementById('bizName').value) + '</h2>';
+  html += '<p style="font-size:12px; ' + (isDark ? 'color:rgba(255,255,255,0.6)' : 'color:#64748b') + '; margin:4px 0 0;">' + esc(document.getElementById('bizTag').value) + '</p></div></div>';
+  html += '<div style="text-align:right; min-width:0;">';
+  html += '<h1 style="font-size:22px; font-weight:800; margin:0; font-family:\'Poppins\',sans-serif;' + (isGold ? 'color:#854d0e;' : '') + '">' + type + '</h1>';
+  html += '<p style="font-size:11px; ' + (isDark ? 'color:rgba(255,255,255,0.6)' : 'color:#64748b') + '; margin:4px 0 0; font-family:\'Inter\',monospace; font-weight:600;">#' + esc(document.getElementById('invNumber').value) + '</p></div></div>';
+
+  html += '<div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:32px; font-size:13px; min-width:0;">';
+  html += '<div style="min-width:0;"><p style="font-size:10px; font-weight:800; letter-spacing:0.12em; ' + (isDark ? 'color:rgba(255,255,255,0.4)' : 'color:#94a3b8') + '; text-transform:uppercase; margin:0;">From</p>';
+  html += '<p style="font-weight:800; margin:8px 0 0; font-size:14px;">' + esc(document.getElementById('bizName').value) + '</p>';
+  html += '<p style="font-size:12px; ' + (isDark ? 'color:rgba(255,255,255,0.6)' : 'color:#64748b') + '; margin:4px 0 0; line-height:1.5;">' + esc(document.getElementById('bizEmail').value) + '<br>' + esc(document.getElementById('bizPhone').value) + '<br>' + esc(document.getElementById('bizAddr').value) + '</p></div>';
+  html += '<div style="min-width:0;"><p style="font-size:10px; font-weight:800; letter-spacing:0.12em; ' + (isDark ? 'color:rgba(255,255,255,0.4)' : 'color:#94a3b8') + '; text-transform:uppercase; margin:0;">Bill To</p>';
+  html += '<p style="font-weight:800; margin:8px 0 0; font-size:14px;">' + esc(document.getElementById('clientName').value) + '</p>';
+  html += '<p style="font-size:12px; ' + (isDark ? 'color:rgba(255,255,255,0.6)' : 'color:#64748b') + '; margin:4px 0 0; line-height:1.5;">' + esc(document.getElementById('clientCompany').value) + '<br>' + esc(document.getElementById('clientAddr').value) + '</p></div></div>';
+
+  html += '<div style="margin-top:24px; overflow:hidden; border-radius:10px; border:1px solid ' + (isDark ? 'rgba(255,255,255,0.1)' : '#e2e8f0') + ';">';
+  html += '<div style="display:grid; grid-template-columns:1fr 60px 80px 80px; gap:8px; padding:12px; font-size:10px; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; ' + (isDark ? 'background:rgba(255,255,255,0.05); color:rgba(255,255,255,0.4)' : 'background:#f8fafc; color:#64748b') + ';">';
+  html += '<span>Item</span><span style="text-align:center;">Qty</span><span style="text-align:right;">Rate</span><span style="text-align:right;">Amount</span></div>';
+  state.items.forEach(it => {
+    html += '<div style="display:grid; grid-template-columns:1fr 60px 80px 80px; gap:8px; padding:12px; font-size:13px; border-top:1px solid ' + (isDark ? 'rgba(255,255,255,0.05)' : '#f1f5f9') + ';">';
+    html += '<div style="min-width:0;"><p style="font-weight:700; margin:0; font-size:13px;">' + esc(it.name) + '</p>';
+    if (it.desc) html += '<p style="font-size:11px; ' + (isDark ? 'color:rgba(255,255,255,0.5)' : 'color:#64748b') + '; margin:2px 0 0;">' + esc(it.desc) + '</p>';
+    html += '</div>';
+    html += '<div style="text-align:center; font-family:\'Inter\',monospace; font-weight:600; font-size:13px;">' + it.qty + '</div>';
+    html += '<div style="text-align:right; font-family:\'Inter\',monospace; font-weight:600; font-size:13px;">' + cur + it.rate + '</div>';
+    html += '<div style="text-align:right; font-weight:800; font-family:\'Inter\',monospace; font-size:13px;">' + cur + (it.qty*it.rate).toFixed(0) + '</div></div>';
+  });
+  html += '</div>';
+
+  html += '<div style="display:flex; justify-content:flex-end; margin-top:20px;">';
+  html += '<div style="width:220px; max-width:100%; display:flex; flex-direction:column; gap:8px; font-size:13px;">';
+  html += '<div style="display:flex; justify-content:space-between; color:#64748b;"><span>Subtotal</span><span style="font-weight:700; font-family:\'Inter\',monospace;">' + cur + t.sub.toFixed(2) + '</span></div>';
+  html += '<div style="display:flex; justify-content:space-between; color:#64748b;"><span>Tax</span><span style="font-weight:700; font-family:\'Inter\',monospace;">' + cur + t.tax.toFixed(2) + '</span></div>';
+  html += '<div style="display:flex; justify-content:space-between; font-weight:800; font-size:16px; padding-top:12px; border-top:1px solid #e2e8f0;"><span>Total</span><span style="font-family:\'Inter\',monospace;">' + cur + t.total.toFixed(2) + '</span></div>';
+  html += '<div style="display:flex; justify-content:space-between; font-weight:700; padding:12px; border-radius:10px; background:#0f172a; color:#fff; margin-top:8px;"><span>Balance</span><span style="font-family:\'Inter\',monospace;">' + cur + t.balance.toFixed(2) + '</span></div>';
+  html += '</div></div>';
+
+  // Notes + Payment + Stamp / Signature
+  const notesEl = document.getElementById('invNotes');
+  const payEl = document.getElementById('invPayment');
+  const stampEl = document.getElementById('invPaidStamp');
+  const signEl = document.getElementById('invSignature');
+  const hasNotes = notesEl && notesEl.value.trim();
+  const hasPay = payEl && payEl.value.trim();
+  const hasStamp = stampEl && stampEl.checked;
+  const hasSign = signEl && signEl.checked;
+
+  if (hasNotes || hasPay || hasStamp || hasSign) {
+    html += '<div style="margin-top:24px; padding-top:16px; border-top:1px dashed ' + (isDark ? 'rgba(255,255,255,0.15)' : '#cbd5e1') + '; display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:12px;">';
+    html += '<div style="min-width:0;">';
+    if (hasPay) {
+      html += '<p style="font-size:10px; font-weight:800; letter-spacing:0.12em; ' + (isDark ? 'color:rgba(255,255,255,0.4)' : 'color:#94a3b8') + '; text-transform:uppercase; margin:0;">Payment Details</p>';
+      html += '<p style="margin:8px 0 0; white-space:pre-wrap; ' + (isDark ? 'color:rgba(255,255,255,0.7)' : 'color:#334155') + '; line-height:1.6;">' + esc(payEl.value) + '</p>';
     }
-  }catch(e){alert('Share failed: '+e.message);}
-  if(btn) btn.innerHTML=origBtn;
+    if (hasNotes) {
+      html += '<p style="font-size:10px; font-weight:800; letter-spacing:0.12em; ' + (isDark ? 'color:rgba(255,255,255,0.4)' : 'color:#94a3b8') + '; text-transform:uppercase; margin:' + (hasPay ? '16px' : '0') + ' 0 0;">Notes &amp; Terms</p>';
+      html += '<p style="margin:8px 0 0; white-space:pre-wrap; ' + (isDark ? 'color:rgba(255,255,255,0.7)' : 'color:#334155') + '; line-height:1.6;">' + esc(notesEl.value) + '</p>';
+    }
+    html += '</div>';
+    html += '<div style="min-width:0; text-align:right;">';
+    if (hasSign) {
+      html += '<div style="margin-top:40px; padding-top:8px; border-top:1px solid ' + (isDark ? 'rgba(255,255,255,0.3)' : '#94a3b8') + '; display:inline-block; min-width:180px; text-align:center;">';
+      html += '<p style="font-size:11px; margin:0; ' + (isDark ? 'color:rgba(255,255,255,0.6)' : 'color:#64748b') + ';">Authorized Signature</p></div>';
+    }
+    if (hasStamp) {
+      html += '<div style="display:inline-block; margin-top:16px; padding:8px 20px; border:3px solid #16a34a; color:#16a34a; border-radius:10px; font-weight:900; font-size:20px; letter-spacing:0.2em; transform:rotate(-8deg); font-family:\'Poppins\',sans-serif;">PAID</div>';
+    }
+    html += '</div></div>';
+  }
+
+  html += '</div>';
+  document.getElementById('invoicePaper').innerHTML = html;
 }
+
+function shareTool(type){
+  let url = window.location.href;
+  if (type === 'whatsapp') {
+    window.open('https://wa.me/?text=' + encodeURIComponent('Free Invoice Maker — ' + url), '_blank');
+  } else {
+    navigator.clipboard.writeText(url);
+    let t = document.getElementById('copyToolText');
+    t.innerText = 'Copied!';
+    setTimeout(() => t.innerText = 'Copy Link', 2000);
+  }
+}
+
+async function shareInvoice(type){
+  let inv = document.getElementById('invNumber').value;
+  let total = calc().total;
+  let cur = curr();
+  let paper = document.getElementById('invoicePaper');
+  let btn = document.getElementById('waShareBtn');
+  let origBtn = btn ? btn.innerHTML : '';
+  if (btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Making...';
+
+  try {
+    let canvas = await html2canvas(paper, {scale:2, useCORS:true, backgroundColor:'#ffffff'});
+    let blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.92));
+    let file = new File([blob], inv + '.jpg', {type:'image/jpeg'});
+
+    if (type === 'whatsapp') {
+      if (navigator.canShare && navigator.canShare({files:[file]})) {
+        await navigator.share({
+          files: [file],
+          title: state.docType.toUpperCase() + ' ' + inv,
+          text: 'Hi, your ' + state.docType + ' ' + inv + ' for ' + cur + total.toFixed(2) + ' is ready.'
+        });
+      } else {
+        let url = URL.createObjectURL(blob);
+        let a = document.createElement('a');
+        a.href = url;
+        a.download = inv + '.jpg';
+        a.click();
+        setTimeout(() => {
+          let msg = 'Hi, your ' + state.docType + ' ' + inv + ' for ' + cur + total.toFixed(2) + ' is ready.';
+          window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+        }, 800);
+      }
+    } else {
+      if (navigator.canShare && navigator.canShare({files:[file]})) {
+        await navigator.share({files:[file], title:inv});
+      } else {
+        let a = document.createElement('a');
+        a.href = canvas.toDataURL('image/jpeg', 0.92);
+        a.download = inv + '.jpg';
+        a.click();
+        alert('Document downloaded — share it anywhere!');
+      }
+    }
+  } catch(e) {
+    alert('Share failed: ' + e.message);
+  }
+  if (btn) btn.innerHTML = origBtn;
+}
+
 async function downloadAs(fmt){
-  let paper=document.getElementById('invoicePaper');
-  try{
-    let canvas=await html2canvas(paper,{scale:2,useCORS:true,backgroundColor:'#ffffff'});
-    if(fmt==='png'){let a=document.createElement('a');a.download=`${document.getElementById('invNumber').value}.png`;a.href=canvas.toDataURL('image/png');a.click();}
-    else if(fmt==='jpg'){let a=document.createElement('a');a.download=`${document.getElementById('invNumber').value}.jpg`;a.href=canvas.toDataURL('image/jpeg',0.9);a.click();}
-    else{const {jsPDF}=window.jspdf;let imgData=canvas.toDataURL('image/png');let pdf=new jsPDF('p','mm','a4');let w=pdf.internal.pageSize.getWidth();let h=canvas.height*w/canvas.width;pdf.addImage(imgData,'PNG',0,0,w,h);pdf.save(`${document.getElementById('invNumber').value}.pdf`);}
-  }catch(e){alert(e.message);}
+  let paper = document.getElementById('invoicePaper');
+  try {
+    let canvas = await html2canvas(paper, {scale:2, useCORS:true, backgroundColor:'#ffffff'});
+    if (fmt === 'png') {
+      let a = document.createElement('a');
+      a.download = document.getElementById('invNumber').value + '.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    } else if (fmt === 'jpg') {
+      let a = document.createElement('a');
+      a.download = document.getElementById('invNumber').value + '.jpg';
+      a.href = canvas.toDataURL('image/jpeg', 0.9);
+      a.click();
+    } else {
+      const {jsPDF} = window.jspdf;
+      let imgData = canvas.toDataURL('image/png');
+      let pdf = new jsPDF('p', 'mm', 'a4');
+      let w = pdf.internal.pageSize.getWidth();
+      let h = canvas.height * w / canvas.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, w, h);
+      pdf.save(document.getElementById('invNumber').value + '.pdf');
+    }
+  } catch(e) {
+    alert(e.message);
+  }
 }
+
+function saveDraft(){
+  const draft = {
+    docType: state.docType,
+    template: state.template,
+    logo: state.logo,
+    items: state.items,
+    fields: {}
+  };
+  ['bizName','bizTag','bizEmail','bizPhone','bizGst','bizAddr','clientName','clientCompany','clientAddr',
+   'invNumber','invPo','invDate','invDue','invCurrency','discount','taxRate','shipping','paid',
+   'invNotes','invPayment'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) draft.fields[id] = el.value;
+  });
+  const stampEl = document.getElementById('invPaidStamp');
+  const signEl = document.getElementById('invSignature');
+  if (stampEl) draft.fields.invPaidStamp = stampEl.checked;
+  if (signEl) draft.fields.invSignature = signEl.checked;
+  try {
+    localStorage.setItem('coldmatrix_invoice_draft', JSON.stringify(draft));
+    alert('Draft saved! Load it anytime from this browser.');
+  } catch (e) {
+    alert('Could not save: ' + e.message);
+  }
+}
+
+function loadDraft(){
+  const raw = localStorage.getItem('coldmatrix_invoice_draft');
+  if (!raw) {
+    alert('No saved draft found. Please save one first.');
+    return;
+  }
+  try {
+    const draft = JSON.parse(raw);
+    Object.keys(draft.fields || {}).forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (el.type === 'checkbox') el.checked = !!draft.fields[id];
+      else el.value = draft.fields[id];
+    });
+    if (draft.logo) {
+      state.logo = draft.logo;
+      const prev = document.getElementById('logoPreview');
+      prev.src = draft.logo;
+      prev.style.display = 'block';
+      document.getElementById('logoPlace').style.display = 'none';
+    }
+    if (Array.isArray(draft.items)) state.items = draft.items;
+    if (draft.docType) setDocType(draft.docType);
+    if (draft.template) setTemplate(draft.template);
+    renderItems();
+    render();
+    alert('Draft loaded successfully!');
+  } catch (e) {
+    alert('Error loading draft: ' + e.message);
+  }
+}
+
 init();
 </script>
 
-<div style="max-width:1600px;margin:20px auto;padding:22px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(212,175,55,0.25);border-radius:14px;line-height:1.75;font-size:0.92rem;color:#cfd6dd;font-family:sans-serif;">
-  <h2 style="font-size:1.05rem;margin-bottom:10px;color:#D4AF37;">About the ColdMatrix Invoice Studio</h2>
-  <p>Create professional invoices, quotations, and BOQs (Bills of Quantities) with executive-grade paper templates — export as PDF, PNG, or JPG, and share directly via WhatsApp. Built for contractors, consultants, and business owners who need polished business documents fast.</p>
-  <h3 style="font-size:0.95rem;margin:16px 0 8px;color:#D4AF37;">Common Questions</h3>
-  <p><strong>Can I customize the currency and branding?</strong> Yes — set your business name, logo, and currency symbol, and they carry through every document you create.</p>
-  <p><strong>Need a simpler quotation tool?</strong> Try our standalone <a href="../quotation-generator.html" style="color:#D4AF37;">Quotation Generator</a>.</p>
-</div>
+<!-- SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ColdMatrix Invoice Studio",
+  "url": "https://coldmatrixtools.com/cold-invoice-studio/",
+  "applicationCategory": "BusinessApplication",
+  "description": "Create professional invoices, quotations, BOQs, estimates, and business proposals free — export as PDF, share on WhatsApp.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is ColdMatrix Invoice Studio really free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes — 100% free, no signup, no hidden charges." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use it for international clients?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes — 7 currencies supported including PKR, USD, INR, EUR, GBP, AED, and SAR." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does ColdMatrix store my data?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Everything runs in your browser. Save Draft uses your device's local storage only." }
+    }
+  ]
+}
+</script>
+
 </body>
 </html>
+
