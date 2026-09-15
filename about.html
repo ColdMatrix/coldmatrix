@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <link rel="canonical" href="https://coldmatrixtools.com/about.html">
+  <script>if(location.protocol==='file:'||(location.hostname!=='coldmatrixtools.com'&&location.hostname!=='www.coldmatrixtools.com')){window['ga-disable-G-DCJ7K7LSCF']=true;}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -10,9 +11,7 @@
     gtag('config', 'G-DCJ7K7LSCF');
   </script>
   <meta charset="UTF-8">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About ColdMatrix — Our Story, Our Legacy, Our Father's Prayers | ColdMatrix</title>
   <meta name="description" content="The story of ColdMatrix — built on the prayers of our late father Muhammad Saleem Arain (RIP), from humble beginnings to Cold Matrix Advanced Solutions and free engineering tools for the world.">
@@ -557,7 +556,7 @@
   <div class="container">
     <a href="index.html" class="back-link">← Back to Home</a>
 
-    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+<div class="install-bar" id="cmInstallBar">📱 Add ColdMatrix to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
     <h1><span class="blue-text">About ColdMatrix</span></h1>
     <p class="subtitle">Practical Tools. Real Engineering. A Family Legacy.</p>
@@ -777,24 +776,24 @@
 
   <script>
     // PWA INSTALL
-    let deferredPrompt;
-    const installBar = document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt', e => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBar.style.display = 'block';
+window.deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  window.deferredPrompt = e;
+});
+window.cmInstallApp = function() {
+  if (window.deferredPrompt) {
+    window.deferredPrompt.prompt();
+    window.deferredPrompt.userChoice.then(function() {
+      window.deferredPrompt = null;
     });
-    window.installAppTool = function() {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(() => { installBar.style.display = 'none'; });
-      } else {
-        alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');
-      }
-    };
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-    }
+  } else {
+    alert('📱 To install ColdMatrix:\n\n• Android: Menu (⋮) → "Install app"\n• iPhone: Share → "Add to Home Screen"\n• Desktop Chrome/Edge: Click install icon in address bar\n• Desktop Firefox/Safari: Use Chrome or Edge');
+  }
+};
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js').catch(function() {});
+}
   </script>
 </body>
 </html>

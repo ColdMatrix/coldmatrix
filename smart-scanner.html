@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <link rel="canonical" href="https://coldmatrixtools.com/smart-scanner.html">
+  <script>if(location.protocol==='file:'||(location.hostname!=='coldmatrixtools.com'&&location.hostname!=='www.coldmatrixtools.com')){window['ga-disable-G-DCJ7K7LSCF']=true;}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DCJ7K7LSCF')</script>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -555,7 +556,7 @@
 <div class="container">
   <a href="index.html#tools" class="back-link">← Back to Tools</a>
 
-  <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+  <div class="install-bar" id="cmInstallBar">📱 Add to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
   <h1>📷 <span>ColdMatrix</span> Smart Scanner</h1>
   <p class="subtitle">QR · Barcode · Text — scan and generate in one place.</p>
@@ -950,13 +951,12 @@
   // ============================================
   // PWA Install
   // ============================================
-  let d; const bar=document.getElementById('installBarTool');
-  window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d=e; });
-  window.installAppTool = function(){
-    if(d){ d.prompt(); d.userChoice.then(()=>{ bar.style.display='none'; }); }
-    else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
-  };
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+let d; const bar = document.getElementById('cmInstallBar');
+window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; });
+window.cmInstallApp = function(){
+  if(d){ d.prompt(); d.userChoice.then(()=>{ d = null; }); }
+  else { alert('📱 To install ColdMatrix:\n\n• Android: Menu (⋮) → "Install app"\n• iPhone: Share → "Add to Home Screen"\n• Desktop Chrome/Edge: Click install icon in address bar\n• Desktop Firefox/Safari: Use Chrome or Edge'); }
+};
 
   // ============================================
   // Share
@@ -982,7 +982,7 @@
         "@type": "Answer",
         "text": "No. All scanning, generation, and OCR processing is done locally in your browser. Nothing is uploaded or stored externally."
       }
-    },
+    }, 
     {
       "@type": "Question",
       "name": "Why does OCR take a while the first time?",

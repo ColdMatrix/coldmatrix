@@ -29,9 +29,7 @@
     </script>
     <link rel="canonical" href="https://coldmatrixtools.com/cft-calculator.html">
     <meta name="theme-color" content="#0A0F14">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -493,7 +491,7 @@
 <div class="container">
   <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
 
-  <div class="install-bar" id="cmInstallBar">📱 Add to Home Screen <button onclick="cmInstallApp()">Install</button></div>
+<div class="install-bar" id="cmInstallBar">📱 Add ColdMatrix to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
   <h1 class="tool-title">📐 <span>ColdMatrix</span> CFT Calculator Pro</h1>
   <p class="subtitle">Quick volume &amp; cost in seconds + Advanced Pro mode with client info, cost estimation, material, transport &amp; export reports.</p>
@@ -1035,23 +1033,24 @@
         navigator.clipboard.writeText("https://coldmatrixtools.com/cft-calculator.html").then(() => alert('Link copied!'));
     }
 
-    let cmDeferredPrompt;
-    window.addEventListener('beforeinstallprompt', function(e) {
-        e.preventDefault();
-        cmDeferredPrompt = e;
-        document.getElementById('cmInstallBar').style.display = 'block';
+ window.deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  window.deferredPrompt = e;
+});
+window.cmInstallApp = function() {
+  if (window.deferredPrompt) {
+    window.deferredPrompt.prompt();
+    window.deferredPrompt.userChoice.then(function() {
+      window.deferredPrompt = null;
     });
-    function cmInstallApp() {
-        if (cmDeferredPrompt) {
-            cmDeferredPrompt.prompt();
-            cmDeferredPrompt.userChoice.then(() => { document.getElementById('cmInstallBar').style.display = 'none'; });
-        } else {
-            alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');
-        }
-    }
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js').catch(function(){});
-    }
+  } else {
+    alert('📱 To install ColdMatrix:\n\n• Android: Menu (⋮) → "Install app"\n• iPhone: Share → "Add to Home Screen"\n• Desktop Chrome/Edge: Click install icon in address bar\n• Desktop Firefox/Safari: Use Chrome or Edge');
+  }
+};
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js').catch(function() {});
+}
 </script>
 
 <script type="application/ld+json">

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <link rel="canonical" href="https://coldmatrixtools.com/construction-cost-calculator.html">
+  <script>if(location.protocol==='file:'||(location.hostname!=='coldmatrixtools.com'&&location.hostname!=='www.coldmatrixtools.com')){window['ga-disable-G-DCJ7K7LSCF']=true;}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -11,9 +12,6 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>ColdMatrix Construction Cost Calculator — Estimate Building Cost by Area, Quality & Currency</title>
   <meta name="description" content="Free construction cost calculator. Estimate total building cost by area, quality, structure type & MEP. Supports 10 currencies including USD, PKR, AED.">
   <meta property="og:type" content="website">
@@ -309,7 +307,7 @@
   <div class="container">
   <a href="index.html#tools" style="display:inline-block;margin:14px 0 4px;color:var(--gold);text-decoration:none;font-weight:600;font-size:0.85rem;">← Back to Tools</a>
 
-    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+<div class="install-bar" id="cmInstallBar">📱 Add ColdMatrix to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
     <h1><span>ColdMatrix</span> Construction Cost Calculator</h1>
     <p class="subtitle">A complete building cost estimator — structure, foundation, finishing, MEP works, professional fees & material quantities. 10 currencies, metric & imperial units.</p>
@@ -1146,14 +1144,6 @@
       }
     });
   }
-
-  let d; const bar = document.getElementById('installBarTool');
-  window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
-  window.installAppTool = function(){
-    if(d){ d.prompt(); d.userChoice.then(()=>{ bar.style.display='none'; }); }
-    else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
-  };
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
 
   function shareToolWhatsApp(){
     const text = encodeURIComponent('Check out this Construction Cost Calculator from ColdMatrix Tools! ' + window.location.href);

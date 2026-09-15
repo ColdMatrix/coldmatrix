@@ -17,7 +17,7 @@
     <meta name="twitter:image" content="https://coldmatrixtools.com/profit_margin_calc.jpg">
     <link rel="canonical" href="https://coldmatrixtools.com/business-calculator-suite.html">
     <meta name="theme-color" content="#0A0F14">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -381,9 +381,7 @@
     <a href="index.html#tools" class="back-link">← Back to Tools</a>
 
     <div class="title-section">
-        <div class="install-bar" id="cmInstallBar">
-            📱 Add to Home Screen <button onclick="cmInstallApp()">Install</button>
-        </div>
+ <div class="install-bar" id="cmInstallBar">📱 Add ColdMatrix to Home Screen <button onclick="cmInstallApp()">Install</button></div>
         <h1 class="tool-title">🧮 ColdMatrix <span>Business Calculator Suite</span></h1>
         <p class="subtitle">17 essential calculators in one premium suite — profit, margin, markup, GST, ROI, break-even, interest, cash flow, and more.</p>
     </div>
@@ -748,10 +746,24 @@
     renderHistory();
     updateCurrency();
 
-    let cmDeferredPrompt;
-    window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();cmDeferredPrompt=e;document.getElementById('cmInstallBar').style.display='block';});
-    function cmInstallApp(){if(cmDeferredPrompt){cmDeferredPrompt.prompt();cmDeferredPrompt.userChoice.then(()=>{document.getElementById('cmInstallBar').style.display='none';});}else{alert('📱 To add to Home Screen:\nAndroid (Chrome): Menu → Add to Home Screen.\niPhone (Safari): Share → Add to Home Screen.');}}
-    if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+window.deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  window.deferredPrompt = e;
+});
+window.cmInstallApp = function() {
+  if (window.deferredPrompt) {
+    window.deferredPrompt.prompt();
+    window.deferredPrompt.userChoice.then(function() {
+      window.deferredPrompt = null;
+    });
+  } else {
+    alert('📱 To install ColdMatrix:\n\n• Android: Menu (⋮) → "Install app"\n• iPhone: Share → "Add to Home Screen"\n• Desktop Chrome/Edge: Click install icon in address bar\n• Desktop Firefox/Safari: Use Chrome or Edge');
+  }
+};
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js').catch(function() {});
+}
 </script>
 
 <script type="application/ld+json">

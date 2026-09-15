@@ -7,9 +7,7 @@
   <meta name="description" content="Free online step counter, pedometer, heart rate monitor, blood pressure log, and water tracker. Premium wellness studio that works on any phone.">
   <meta name="theme-color" content="#0A0F14">
   <link rel="canonical" href="https://coldmatrixtools.com/step-counter.html">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -306,7 +304,7 @@
   <div id="app-viewport">
     <a href="index.html#tools" class="back-link">← Back to Tools</a>
 
-    <button id="install-bar" class="install-bar" onclick="installApp()">📲 Add to Home Screen</button>
+<div class="install-bar" id="cmInstallBar">📱 Add ColdMatrix to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
     <div class="get-quote-strip">
       <a href="https://wa.me/923333228470?text=Hi%2C%20I%20need%20help%20with%20a%20wellness%20tool." class="quote-btn whatsapp" target="_blank">
@@ -1374,23 +1372,24 @@
     }
 
     /* PWA INSTALL */
-    let deferredInstallPrompt = null;
-    window.addEventListener('beforeinstallprompt', function (e) {
-      e.preventDefault();
-      deferredInstallPrompt = e;
+    window.deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  window.deferredPrompt = e;
+});
+window.cmInstallApp = function() {
+  if (window.deferredPrompt) {
+    window.deferredPrompt.prompt();
+    window.deferredPrompt.userChoice.then(function() {
+      window.deferredPrompt = null;
     });
-    function installApp() {
-      const bar = document.getElementById('install-bar');
-      if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        deferredInstallPrompt.userChoice.finally(() => {
-          deferredInstallPrompt = null;
-          if (bar) bar.style.display = 'none';
-        });
-      } else {
-        alert('📱 Android: "Add to Home Screen" in Chrome menu.\n📱 iPhone: Share → Add to Home Screen.');
-      }
-    }
+  } else {
+    alert('📱 To install ColdMatrix:\n\n• Android: Menu (⋮) → "Install app"\n• iPhone: Share → "Add to Home Screen"\n• Desktop Chrome/Edge: Click install icon in address bar\n• Desktop Firefox/Safari: Use Chrome or Edge');
+  }
+};
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js').catch(function() {});
+}
 
     /* SHARE */
     function shareToolWhatsApp() {

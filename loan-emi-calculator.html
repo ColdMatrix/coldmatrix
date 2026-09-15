@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <link rel="canonical" href="https://coldmatrixtools.com/loan-emi-calculator.html">
+  <script>if(location.protocol==='file:'||(location.hostname!=='coldmatrixtools.com'&&location.hostname!=='www.coldmatrixtools.com')){window['ga-disable-G-DCJ7K7LSCF']=true;}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DCJ7K7LSCF')</script>
   <meta charset="UTF-8">
@@ -17,9 +18,7 @@
   <meta name="twitter:title" content="ColdMatrix Loan & EMI Calculator">
   <meta name="twitter:description" content="Calculate EMI, max affordable loan, or salary-based affordability with prepayment savings & full amortization schedule.">
   <meta name="theme-color" content="#0A0F14">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -408,7 +407,7 @@
   <div class="container">
     <a href="index.html#tools" class="back-link">← Back to Tools</a>
 
-    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+<div class="install-bar" id="cmInstallBar">📱 Add ColdMatrix to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
     <h1><span>ColdMatrix</span> Loan &amp; EMI Calculator</h1>
     <p class="subtitle">Calculate EMI three ways: from a loan amount, from your monthly budget, or from your salary &amp; income ratio.</p>
@@ -459,7 +458,7 @@
             <option value="MYR">🇲🇾 MYR</option>
             <option value="TRY">🇹🇷 TRY</option>
             <option value="ZAR">🇿🇦 ZAR</option>
-            <option value="NGN">🇳🇬 NGN</option>
+            <option value="NGN">🇳?? NGN</option>
             <option value="EGP">🇪🇬 EGP</option>
             <option value="QAR">🇶🇦 QAR</option>
             <option value="KWD">🇰🇼 KWD</option>
@@ -934,13 +933,12 @@
   // ============================================
   // PWA INSTALL
   // ============================================
-  let d; const bar = document.getElementById('installBarTool');
-  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); d = e; bar.style.display = 'block'; });
-  window.installAppTool = function(){
-    if(d){ d.prompt(); d.userChoice.then(() => { bar.style.display = 'none'; }); }
-    else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
-  };
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+let d; const bar = document.getElementById('cmInstallBar');
+window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; });
+window.cmInstallApp = function(){
+  if(d){ d.prompt(); d.userChoice.then(()=>{ d = null; }); }
+  else { alert('📱 To install ColdMatrix:\n\n• Android: Menu (⋮) → "Install app"\n• iPhone: Share → "Add to Home Screen"\n• Desktop Chrome/Edge: Click install icon in address bar\n• Desktop Firefox/Safari: Use Chrome or Edge'); }
+};
 </script>
 
 <script type="application/ld+json">

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <link rel="canonical" href="https://coldmatrixtools.com/ecommerce-profit-calculator.html">
+  <script>if(location.protocol==='file:'||(location.hostname!=='coldmatrixtools.com'&&location.hostname!=='www.coldmatrixtools.com')){window['ga-disable-G-DCJ7K7LSCF']=true;}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -11,9 +12,7 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+
   <title>E-Commerce Profit & Seller Calculator | ColdMatrix</title>
   <meta name="description" content="Calculate true profit, marketplace fees, shipping, marketing, returns, break-even, and sales targets for online sellers. Free multi-currency tool.">
   <meta property="og:type" content="website">
@@ -404,7 +403,7 @@
 
   <div class="container">
     <a href="index.html#tools" class="back-link">← Back to Tools</a>
-    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+<div class="install-bar" id="cmInstallBar">📱 Add ColdMatrix to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
     <h1>🛒 <span>ColdMatrix</span> E-Commerce Profit Calculator</h1>
     <p class="subtitle">Calculate true profit, marketplace fees, shipping, marketing, returns, break-even, and sales targets — for every online seller, everywhere.</p>
@@ -901,14 +900,12 @@
   function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this E-Commerce Profit Calculator from ColdMatrix Tools! ' + window.location.href)); }
   function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>alert(window.location.href)); }
 
-  let d; const bar = document.getElementById('installBarTool');
-  window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
-  window.installAppTool = function(){
-    if(d){ d.prompt(); d.userChoice.then(()=>{ bar.style.display='none'; }); }
-    else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
-  };
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
-
+let d; const bar = document.getElementById('cmInstallBar');
+window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; });
+window.cmInstallApp = function(){
+  if(d){ d.prompt(); d.userChoice.then(()=>{ d = null; }); }
+  else { alert('📱 To install ColdMatrix:\n\n• Android: Menu (⋮) → "Install app"\n• iPhone: Share → "Add to Home Screen"\n• Desktop Chrome/Edge: Click install icon in address bar\n• Desktop Firefox/Safari: Use Chrome or Edge'); }
+};
   // ============================================
   // LEAD MODAL + PDF
   // ============================================

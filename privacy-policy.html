@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <link rel="canonical" href="https://coldmatrixtools.com/privacy-policy.html">
+  <script>if(location.protocol==='file:'||(location.hostname!=='coldmatrixtools.com'&&location.hostname!=='www.coldmatrixtools.com')){window['ga-disable-G-DCJ7K7LSCF']=true;}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DCJ7K7LSCF')</script>
   <meta charset="UTF-8">
@@ -382,7 +383,7 @@
   <div class="legal-wrapper">
     <a href="index.html" class="back-link">← Back to Home</a>
 
-    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+<div class="install-bar" id="cmInstallBar">📱 Add ColdMatrix to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
     <div class="legal-container">
 
@@ -447,9 +448,9 @@
       </ul>
 
       <div class="info-box">
-        <p><strong>🍪 Cookie Consent for EEA &amp; UK Visitors:</strong> In accordance with GDPR and the ePrivacy Directive, visitors from the European Economic Area and the United Kingdom are shown a cookie consent notice before non-essential cookies (analytics, advertising) are set. You may accept or reject these cookies at any time, and you can withdraw your consent at any time by clearing cookies in your browser. Essential cookies required for the site to function are set on a legitimate-interest basis.</p>
-      </div>
-
+ <div class="info-box">
+  <p><strong>🍪 Cookie Choices:</strong> You can accept, reject, or delete cookies at any time through your browser settings. Blocking non-essential cookies will not prevent you from using our tools. If you are located in the EEA or UK, you have the right to withdraw consent for cookies at any time by clearing your browser cookies.</p>
+</div>
       <div class="highlight">
         <strong>Google AdSense and Third-Party Advertising</strong>
         <p>We use <strong>Google AdSense</strong> to serve advertisements. Google, as a third-party vendor, uses cookies (including the DART cookie) to serve ads based on your visit to our site and other websites.</p>
@@ -554,8 +555,10 @@
 <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:6px;">📧 <a href="mailto:contact@coldmatrixtools.com" style="color:#FFD700; text-decoration:none; font-weight:600;">contact@coldmatrixtools.com</a></p>
 <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:8px; line-height:1.6;">📍 <strong style="color:#FFD700;">Cold Matrix Advanced Solutions</strong><br>Main Shahra-e-Faisal, Karachi, Sindh, Pakistan</p>
       <p style="color:#C3CBD4; font-size:0.85rem; margin-bottom:0;">
-        📞 <strong>Call / WhatsApp:</strong>
-        <a href="tel:+923333228470" style="color:#FFD700; text-decoration:none; font-weight:600;">+92 333 3228470</a>
+      
+      
+    📞 <strong style="color:#EAEDF0;">Call / WhatsApp:</strong>
+        <a href="tel:+923333228470" style="color:#FFD700; text-decoration:none; font-weight:600;">+92 333 3228470</a> 
         <a href="https://wa.me/923333228470" target="_blank" style="margin-left:8px; color:#25D366; text-decoration:none; font-size:1.1rem;" title="Chat on WhatsApp">
           <i class="fa-brands fa-whatsapp"></i>
         </a>
@@ -574,24 +577,24 @@
 
   <script>
     // PWA INSTALL
-    let deferredPrompt;
-    const installBar = document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt', e => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBar.style.display = 'block';
+window.deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  window.deferredPrompt = e;
+});
+window.cmInstallApp = function() {
+  if (window.deferredPrompt) {
+    window.deferredPrompt.prompt();
+    window.deferredPrompt.userChoice.then(function() {
+      window.deferredPrompt = null;
     });
-    window.installAppTool = function() {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(() => { installBar.style.display = 'none'; });
-      } else {
-        alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.');
-      }
-    };
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-    }
+  } else {
+    alert('📱 To install ColdMatrix:\n\n• Android: Menu (⋮) → "Install app"\n• iPhone: Share → "Add to Home Screen"\n• Desktop Chrome/Edge: Click install icon in address bar\n• Desktop Firefox/Safari: Use Chrome or Edge');
+  }
+};
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js').catch(function() {});
+}
   </script>
 </body>
 </html>

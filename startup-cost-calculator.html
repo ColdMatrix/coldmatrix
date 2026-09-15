@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <link rel="canonical" href="https://coldmatrixtools.com/startup-cost-calculator.html">
+  <script>if(location.protocol==='file:'||(location.hostname!=='coldmatrixtools.com'&&location.hostname!=='www.coldmatrixtools.com')){window['ga-disable-G-DCJ7K7LSCF']=true;}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -11,9 +12,6 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
   <title>Startup Cost & Working Capital Calculator | ColdMatrix</title>
   <meta name="description" content="Calculate startup investment, monthly operating expenses, working capital, and total funding required for your new business. Free multi-currency tool.">
   <meta property="og:type" content="website">
@@ -401,7 +399,7 @@
 
   <div class="container">
     <a href="index.html#tools" class="back-link">← Back to Tools</a>
-    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+ <div class="install-bar" id="cmInstallBar">📱 Add ColdMatrix to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
     <h1>🚀 <span>ColdMatrix</span> Startup Cost Calculator</h1>
 <p class="subtitle">Every cost. Every month. Every rupee — planned before you launch.</p>
@@ -1082,10 +1080,12 @@
     function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this Startup Cost Calculator from ColdMatrix Tools! ' + window.location.href)); }
     function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>alert(window.location.href)); }
 
-    let d; const bar = document.getElementById('installBarTool');
-    window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; bar.style.display='block'; });
-    window.installAppTool = function(){ if(d){ d.prompt(); } else { alert('📱 Add to Home Screen via browser menu.'); } };
-    if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+let d; const bar = document.getElementById('cmInstallBar');
+window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); d = e; });
+window.cmInstallApp = function(){
+  if(d){ d.prompt(); d.userChoice.then(()=>{ d = null; }); }
+  else { alert('📱 To install ColdMatrix:\n\n• Android: Menu (⋮) → "Install app"\n• iPhone: Share → "Add to Home Screen"\n• Desktop Chrome/Edge: Click install icon in address bar\n• Desktop Firefox/Safari: Use Chrome or Edge'); }
+};
 
     // Lead modal
     function openLeadModal() {

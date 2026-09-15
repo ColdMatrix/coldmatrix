@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <link rel="canonical" href="https://coldmatrixtools.com/currency-converter.html">
+  <script>if(location.protocol==='file:'||(location.hostname!=='coldmatrixtools.com'&&location.hostname!=='www.coldmatrixtools.com')){window['ga-disable-G-DCJ7K7LSCF']=true;}</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCJ7K7LSCF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -25,9 +26,7 @@
   <meta name="description" content="Convert between 150+ world currencies with live exchange rates. Free, fast, and accurate — no signup required.">
   <meta name="keywords" content="currency converter, exchange rate calculator, USD to EUR, live currency rates, global currency converter, money converter, USD to PKR, international money exchange">
   <meta name="theme-color" content="#0A0F14">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230A0F14'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='54' fill='%23D4AF37'>CM</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -612,7 +611,7 @@
   <div class="container">
   <a href="index.html#tools" class="back-link">← Back to Tools</a>
 
-    <div class="install-bar" id="installBarTool">📱 Add to Home Screen <button onclick="installAppTool()">Install</button></div>
+<div class="install-bar" id="cmInstallBar">📱 Add ColdMatrix to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
     <h1><span>ColdMatrix</span> Global Currency Converter</h1>
     <p class="subtitle">Real-time live exchange rates for 150+ world currencies — updated continuously, not static estimates.</p>
@@ -1099,14 +1098,24 @@
     });
   }
 
-  let deferredPrompt;
-  const installBar = document.getElementById('installBarTool');
-  window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt = e; installBar.style.display='block'; });
-  window.installAppTool = function(){
-    if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(()=>{ installBar.style.display='none'; }); }
-    else { alert('📱 Android: "Add to Home Screen" in Chrome.\n📱 iPhone: Share → Add to Home Screen.'); }
-  };
-  if('serviceWorker' in navigator){ navigator.serviceWorker.register('/service-worker.js').catch(()=>{}); }
+window.deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  window.deferredPrompt = e;
+});
+window.cmInstallApp = function() {
+  if (window.deferredPrompt) {
+    window.deferredPrompt.prompt();
+    window.deferredPrompt.userChoice.then(function() {
+      window.deferredPrompt = null;
+    });
+  } else {
+    alert('📱 To install ColdMatrix:\n\n• Android: Menu (⋮) → "Install app"\n• iPhone: Share → "Add to Home Screen"\n• Desktop Chrome/Edge: Click install icon in address bar\n• Desktop Firefox/Safari: Use Chrome or Edge');
+  }
+};
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js').catch(function() {});
+}
 
   function shareToolWhatsApp(){
     window.open('https://wa.me/?text=' + encodeURIComponent('Check out ColdMatrix Currency Converter! ' + window.location.href));
