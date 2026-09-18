@@ -447,9 +447,8 @@
       </ul>
 
       <div class="info-box">
- <div class="info-box">
-  <p><strong>🍪 Cookie Choices:</strong> You can accept, reject, or delete cookies at any time through your browser settings. Blocking non-essential cookies will not prevent you from using our tools. If you are located in the EEA or UK, you have the right to withdraw consent for cookies at any time by clearing your browser cookies.</p>
-</div>
+        <p><strong>🍪 Cookie Choices:</strong> We use cookies to improve your experience and serve relevant ads. You can accept or decline cookies via the banner shown on your first visit, or manage them anytime through your browser settings. Essential cookies for site functionality are always enabled. Blocking non-essential cookies will not prevent you from using our tools. If you are located in the EEA or UK, you have the right to withdraw consent for cookies at any time by clearing your browser cookies or using the banner. For more details, see our <a href="cookie-policy.html" style="text-decoration:underline; font-weight:700;">Cookie Policy</a>.</p>
+      </div>
       <div class="highlight">
         <strong>Google AdSense and Third-Party Advertising</strong>
         <p>We use <strong>Google AdSense</strong> to serve advertisements. Google, as a third-party vendor, uses cookies (including the DART cookie) to serve ads based on your visit to our site and other websites.</p>
@@ -593,5 +592,18 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service-worker.js').catch(function() {});
 }
   </script>
+<div id="cookie-notice" style="position:fixed; bottom:0; left:0; right:0; background:#12181F; border-top:3px solid #D4AF37; padding:15px 20px; text-align:center; z-index:99999; display:block; box-shadow:0 -4px 20px rgba(0,0,0,0.7); font-family:'Inter',sans-serif;">
+  <p style="color:#EAEDF0; font-size:0.9rem; margin:0 0 10px; line-height:1.6; max-width:800px; margin-left:auto; margin-right:auto;">We use cookies to improve your experience and serve relevant ads. Read our <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline;">Privacy Policy</a> and <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline;">Cookie Policy</a>.</p>
+  <button id="cookieAcceptBtn" style="background:#FFD700; color:#0A0F14; border:none; padding:10px 24px; border-radius:6px; font-weight:800; cursor:pointer; font-size:0.85rem; margin:0 4px; min-height:44px;">ACCEPT</button>
+  <button id="cookieDeclineBtn" style="background:transparent; color:#C3CBD4; border:2px solid #2A3540; padding:10px 24px; border-radius:6px; font-weight:700; cursor:pointer; font-size:0.85rem; margin:0 4px; min-height:44px;">DECLINE</button>
+</div>
+<script>
+  (function(){
+    var box = document.getElementById('cookie-notice');
+    if (localStorage.getItem('cookieChoice')) { box.style.display = 'none'; }
+    document.getElementById('cookieAcceptBtn').onclick = function(){ localStorage.setItem('cookieChoice','accepted'); box.style.display = 'none'; };
+    document.getElementById('cookieDeclineBtn').onclick = function(){ localStorage.setItem('cookieChoice','declined'); box.style.display = 'none'; };
+  })();
+</script>
 </body>
 </html>
