@@ -1137,16 +1137,38 @@ if ('serviceWorker' in navigator) {
   <button id="cookieDeclineBtn" style="background:transparent; color:#C3CBD4; border:2px solid #2A3540; padding:10px 24px; border-radius:6px; font-weight:700; cursor:pointer; font-size:0.85rem; margin:0 4px; min-height:44px;">DECLINE</button>
 </div>
 <script>
-  (function(){
-    var box = document.getElementById('cookie-notice');
-    if (localStorage.getItem('cookieChoice')) { box.style.display = 'none'; }
-    document.getElementById('cookieAcceptBtn').onclick = function(){ localStorage.setItem('cookieChoice','accepted'); location.reload(); };
-    document.getElementById('cookieDeclineBtn').onclick = function(){ localStorage.setItem('cookieChoice','declined'); box.style.display = 'none'; };
-  })();
-  function resetCookieConsent() {
-    localStorage.removeItem('cookieChoice');
-    location.reload();
+(function(){
+  var box = document.getElementById('cookie-notice');
+  if (!box) return;
+  var choice = localStorage.getItem('cookieChoice');
+  var choiceTime = localStorage.getItem('cookieTime');
+  var now = Date.now();
+  var sevenDays = 7 * 24 * 60 * 60 * 1000;
+
+  if (!choice || !choiceTime || (now - parseInt(choiceTime)) > sevenDays) {
+    box.style.display = 'block';
+  } else {
+    box.style.display = 'none';
   }
+
+  var acceptBtn = document.getElementById('cookieAcceptBtn');
+  var declineBtn = document.getElementById('cookieDeclineBtn');
+
+  if (acceptBtn) {
+    acceptBtn.onclick = function(){
+      localStorage.setItem('cookieChoice','accepted');
+      localStorage.setItem('cookieTime', now);
+      location.reload();
+    };
+  }
+  if (declineBtn) {
+    declineBtn.onclick = function(){
+      localStorage.setItem('cookieChoice','declined');
+      localStorage.setItem('cookieTime', now);
+      box.style.display = 'none';
+    };
+  }
+})();
 </script>
 </body>
 </html>
