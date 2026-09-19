@@ -721,9 +721,12 @@
 
     <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:15px; border-top:1px solid rgba(255,255,255,0.1); padding-top:15px;">
         <a href="privacy-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Privacy Policy</a>
+        <a href="privacy-policy.html#ccpa" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Do Not Sell My Info</a>
+        <a href="#" onclick="resetCookieConsent(); return false;" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Settings</a>
         <a href="terms-of-use.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Terms of Use</a>
         <a href="cookie-policy.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Cookie Policy</a>
         <a href="security.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Security</a>
+        <a href="author.html" style="color:#FFD700; text-decoration:underline; font-weight:700; font-size:0.85rem;">Author</a>
     </div>
 
     <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html" style="color:#FFD700; text-decoration:none; font-weight:600;">ColdMatrix</a> — Free tools for everyone.</p>
@@ -980,6 +983,10 @@ if ('serviceWorker' in navigator) {
     document.getElementById('cookieAcceptBtn').onclick = function(){ localStorage.setItem('cookieChoice','accepted'); location.reload(); };
     document.getElementById('cookieDeclineBtn').onclick = function(){ localStorage.setItem('cookieChoice','declined'); box.style.display = 'none'; };
   })();
+  function resetCookieConsent() {
+    localStorage.removeItem('cookieChoice');
+    location.reload();
+  }
 </script>
 </body>
 </html>

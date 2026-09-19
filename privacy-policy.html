@@ -464,6 +464,7 @@
       <div class="highlight">
         <strong>Google AdSense and Third-Party Advertising</strong>
         <p>We use <strong>Google AdSense</strong> to serve advertisements. Google, as a third-party vendor, uses cookies (including the DART cookie) to serve ads based on your visit to our site and other websites.</p>
+        <p>Third party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet. Users may opt out of personalized advertising by visiting Ads Settings (https://www.google.com/settings/ads).</p>
         <p>Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to our site and/or other sites on the Internet.</p>
         <p>You may opt out of personalized advertising by visiting <a href="https://adssettings.google.com" target="_blank" rel="noopener">Google Ads Settings</a>, or opt out of some third-party vendors' use of cookies for personalized advertising by visiting <a href="https://www.aboutads.info" target="_blank" rel="noopener">www.aboutads.info</a>.</p>
         <p>Third-party ad servers or ad networks may use cookies, JavaScript, or web beacons to measure ad effectiveness and personalize content. ColdMatrix Tools has no access to or control over these third-party cookies.</p>
@@ -488,7 +489,7 @@
       <p>To exercise any of these rights, please contact us using the information below. We will respond within 30 days.</p>
       <p><strong>Right to Lodge a Complaint:</strong> You have the right to lodge a complaint with a supervisory authority in your country of residence if you believe our processing of your personal data violates applicable law.</p>
 
-      <h2>9. California Consumer Privacy Act (CCPA)</h2>
+      <h2 id="ccpa">9. California Consumer Privacy Act (CCPA)</h2>
       <p>If you are a California resident, you have the following rights under the CCPA:</p>
       <ul>
         <li><strong>Right to Know:</strong> Know what personal information we collect, use, or disclose.</li>
@@ -575,9 +576,12 @@
 
     <div class="legal-links">
       <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="privacy-policy.html#ccpa">Do Not Sell My Info</a>
+    <a href="#" onclick="resetCookieConsent(); return false;">Cookie Settings</a>
       <a href="terms-of-use.html">Terms of Use</a>
       <a href="cookie-policy.html">Cookie Policy</a>
       <a href="security.html">Security</a>
+    <a href="author.html">Author</a>
     </div>
 
     <p style="color:#8B98A5; font-size:0.8rem;">Powered by <a href="index.html">ColdMatrix</a> — Free tools for everyone.</p>
@@ -616,6 +620,10 @@ if ('serviceWorker' in navigator) {
     document.getElementById('cookieAcceptBtn').onclick = function(){ localStorage.setItem('cookieChoice','accepted'); location.reload(); };
     document.getElementById('cookieDeclineBtn').onclick = function(){ localStorage.setItem('cookieChoice','declined'); box.style.display = 'none'; };
   })();
+  function resetCookieConsent() {
+    localStorage.removeItem('cookieChoice');
+    location.reload();
+  }
 </script>
 </body>
 </html>
