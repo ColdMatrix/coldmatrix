@@ -1689,46 +1689,77 @@ window.cmInstallApp = function(){
   ]
 }
 </script>
-<div id="cookie-notice" style="position:fixed; bottom:0; left:0; right:0; background:#E8EBEF; border-top:3px solid #D4AF37; padding:15px 20px; text-align:center; z-index:99999; display:block; box-shadow:0 -4px 20px rgba(0,0,0,0.25); font-family:'Inter',sans-serif;">
-  <p style="color:#0A0F14; font-size:0.9rem; margin:0 0 10px; line-height:1.6; max-width:800px; margin-left:auto; margin-right:auto;">We use cookies to improve your experience and serve relevant ads. Read our <a href="privacy-policy.html" style="color:#A07828; text-decoration:underline; font-weight:700;">Privacy Policy</a> and <a href="cookie-policy.html" style="color:#A07828; text-decoration:underline; font-weight:700;">Cookie Policy</a>.</p>
-  <button id="cookieAcceptBtn" style="background:#FFD700; color:#0A0F14; border:none; padding:10px 24px; border-radius:6px; font-weight:800; cursor:pointer; font-size:0.85rem; margin:0 4px; min-height:44px;">ACCEPT</button>
-  <button id="cookieDeclineBtn" style="background:transparent; color:#2A3138; border:2px solid #8B98A5; padding:10px 24px; border-radius:6px; font-weight:700; cursor:pointer; font-size:0.85rem; margin:0 4px; min-height:44px;">DECLINE</button>
+<!-- ===== COLDMATRIX ULTIMATE INLINE FIX ===== -->
+<style>
+  /* 1. Premium Cookie Banner */
+  #cookie-notice {
+    position: fixed !important; bottom: 20px !important; left: 50% !important;
+    transform: translateX(-50%) !important; width: 95% !important; max-width: 900px !important;
+    background: #E8EBEF !important; border: 2px solid #D4AF37 !important; border-radius: 12px !important;
+    padding: 18px 24px !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+    z-index: 99999 !important; display: flex !important; flex-direction: row !important;
+    flex-wrap: wrap !important; justify-content: center !important; align-items: center !important;
+    gap: 15px !important; font-family: 'Inter', sans-serif !important;
+  }
+  #cookie-notice p { color: #0A0F14 !important; font-size: 0.9rem !important; font-weight: 600 !important; line-height: 1.5 !important; margin: 0 !important; text-align: center !important; width: 100% !important; }
+  #cookie-notice a { color: #A07828 !important; text-decoration: underline !important; }
+  #cookieAcceptBtn, #cookieDeclineBtn { padding: 10px 30px !important; font-weight: 800 !important; border-radius: 8px !important; cursor: pointer !important; font-size: 0.85rem !important; min-width: 120px !important; display: inline-block !important; }
+  #cookieAcceptBtn { background: #D4AF37 !important; color: #0A0F14 !important; border: 2px solid #A07828 !important; }
+  #cookieDeclineBtn { background: #FFFFFF !important; color: #0A0F14 !important; border: 2px solid #0A0F14 !important; }
+
+  /* 2. Fix Educational Content Margins */
+  .edu-section, .coldmatrix-note, .local-bridge {
+    background-color: #E8EBEF !important; color: #0A0F14 !important; padding: 24px !important;
+    border: 2px solid #D4AF37 !important; border-radius: 12px !important; margin: 0 auto 24px auto !important;
+    width: 95% !important; max-width: 95% !important; box-sizing: border-box !important; overflow-wrap: break-word !important;
+  }
+  .edu-section h2, .edu-section h3, .edu-section p, .edu-section li, .coldmatrix-note, .local-bridge p { color: #0A0F14 !important; }
+
+  /* 3. Fix Sleek Install Button */
+  .install-bar, #cmInstallBar {
+    width: 95% !important; max-width: 500px !important; margin: 20px auto !important;
+    padding: 12px 20px !important; border-radius: 50px !important; display: flex !important;
+    flex-direction: row !important; justify-content: center !important; align-items: center !important;
+    gap: 12px !important; box-sizing: border-box !important; height: auto !important;
+  }
+  .install-bar { font-size: 0.85rem !important; font-weight: 700 !important; }
+  .install-bar button, #cmInstallBar button { padding: 6px 16px !important; font-size: 0.8rem !important; border-radius: 6px !important; white-space: nowrap !important; width: auto !important; height: auto !important; min-height: 30px !important; }
+</style>
+
+<div id="cookie-notice">
+  <p>We use cookies to improve your experience and serve relevant ads. Read our <a href="privacy-policy.html">Privacy Policy</a> and <a href="cookie-policy.html">Cookie Policy</a>.</p>
+  <button id="cookieAcceptBtn">ACCEPT</button>
+  <button id="cookieDeclineBtn">DECLINE</button>
 </div>
+
 <script>
-(function(){
-  var box = document.getElementById('cookie-notice');
-  if (!box) return;
+document.addEventListener("DOMContentLoaded", function() {
+  var banner = document.getElementById('cookie-notice');
   var choice = localStorage.getItem('cookieChoice');
   var choiceTime = localStorage.getItem('cookieTime');
   var now = Date.now();
   var sevenDays = 7 * 24 * 60 * 60 * 1000;
 
-  if (!choice || !choiceTime || (now - parseInt(choiceTime)) > sevenDays) {
-    box.style.display = 'block';
-  } else {
-    box.style.display = 'none';
+  if (choice && choiceTime && (now - parseInt(choiceTime)) < sevenDays) {
+    banner.style.display = 'none';
   }
-
-  var acceptBtn = document.getElementById('cookieAcceptBtn');
-  var declineBtn = document.getElementById('cookieDeclineBtn');
-
-  if (acceptBtn) {
-    acceptBtn.onclick = function(){
-      localStorage.setItem('cookieChoice','accepted');
-      localStorage.setItem('cookieTime', now);
-      location.reload();
-    };
-  }
-  if (declineBtn) {
-    declineBtn.onclick = function(){
-      localStorage.setItem('cookieChoice','declined');
-      localStorage.setItem('cookieTime', now);
-      box.style.display = 'none';
-    };
-  }
-})();
-function resetCookieConsent() { localStorage.removeItem('cookieChoice'); localStorage.removeItem('cookieTime'); location.reload(); }
+  document.getElementById('cookieAcceptBtn').onclick = function() {
+    localStorage.setItem('cookieChoice', 'accepted');
+    localStorage.setItem('cookieTime', now);
+    banner.style.display = 'none';
+    location.reload();
+  };
+  document.getElementById('cookieDeclineBtn').onclick = function() {
+    localStorage.setItem('cookieChoice', 'declined');
+    localStorage.setItem('cookieTime', now);
+    banner.style.display = 'none';
+  };
+});
 </script>
-<script src="global-fixes.js"></script>
+<!-- ===== END ULTIMATE INLINE FIX ===== -->
+<!-- ===== COMPATIBILITY ADDITIONS (needed so the block above works with the page) ===== -->
+<style>#cookie-notice[style*="display: none"] { display: none !important; }</style>
+<script>function resetCookieConsent() { localStorage.removeItem('cookieChoice'); localStorage.removeItem('cookieTime'); location.reload(); }</script>
+<!-- ===== END COMPATIBILITY ADDITIONS ===== -->
 </body>
 </html>
