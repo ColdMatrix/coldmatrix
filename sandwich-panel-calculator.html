@@ -1260,13 +1260,34 @@ if (maxSpan > 15) {
       doc.save(`ColdMatrix_SandwichPanel_Estimate_${leadData.name.replace(/\s+/g, '_')}.pdf`);
     }
   </script>
-  <!-- BULLETPROOF COOKIE BANNER -->
-<div id="cookie-notice" style="position: fixed !important; bottom: 20px !important; left: 50% !important; transform: translateX(-50%) !important; width: 90% !important; max-width: 600px !important; background: #E8EBEF !important; border: 2px solid #D4AF37 !important; border-radius: 12px !important; padding: 16px 20px !important; box-shadow: 0 10px 30px rgba(0,0,0,0.6) !important; z-index: 99999 !important; text-align: center !important; font-family: 'Inter', sans-serif !important;">
-  <p style="color: #0A0F14 !important; font-size: 0.85rem !important; font-weight: 600 !important; line-height: 1.5 !important; margin: 0 0 12px 0 !important;">We use cookies to improve your experience and serve relevant ads. Read our <a href="privacy-policy.html" style="color: #A07828 !important; text-decoration: underline !important;">Privacy Policy</a> and <a href="cookie-policy.html" style="color: #A07828 !important; text-decoration: underline !important;">Cookie Policy</a>.</p>
-  
-  <button onclick="document.getElementById('cookie-notice').remove();" style="padding: 8px 25px !important; font-weight: 800 !important; border-radius: 6px !important; cursor: pointer !important; font-size: 0.8rem !important; min-width: 110px !important; text-transform: uppercase !important; background: #D4AF37 !important; color: #0A0F14 !important; border: 2px solid #A07828 !important; margin-right: 10px !important;">ACCEPT</button>
-  
-  <button onclick="document.getElementById('cookie-notice').remove();" style="padding: 8px 25px !important; font-weight: 800 !important; border-radius: 6px !important; cursor: pointer !important; font-size: 0.8rem !important; min-width: 110px !important; text-transform: uppercase !important; background: #FFFFFF !important; color: #0A0F14 !important; border: 2px solid #0A0F14 !important;">DECLINE</button>
-</div>
+  <!-- FINAL COOKIE BANNER -->
+  <div id="cookie-notice" style="display: none; position: fixed !important; bottom: 20px !important; left: 50% !important; transform: translateX(-50%) !important; width: 90% !important; max-width: 600px !important; background: #E8EBEF !important; border: 2px solid #D4AF37 !important; border-radius: 12px !important; padding: 16px 20px !important; box-shadow: 0 10px 30px rgba(0,0,0,0.6) !important; z-index: 99999 !important; text-align: center !important; font-family: 'Inter', sans-serif !important;">
+    <p style="color: #0A0F14 !important; font-size: 0.85rem !important; font-weight: 600 !important; line-height: 1.5 !important; margin: 0 0 12px 0 !important;">We use cookies to improve your experience and serve relevant ads. Read our <a href="privacy-policy.html" style="color: #A07828 !important; text-decoration: underline !important;">Privacy Policy</a> and <a href="cookie-policy.html" style="color: #A07828 !important; text-decoration: underline !important;">Cookie Policy</a>.</p>
+    
+    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+      <button onclick="acceptCookies(this)" style="padding: 8px 25px !important; font-weight: 800 !important; border-radius: 6px !important; cursor: pointer !important; font-size: 0.8rem !important; min-width: 110px !important; text-transform: uppercase !important; background: #D4AF37 !important; color: #0A0F14 !important; border: 2px solid #A07828 !important;">ACCEPT</button>
+      <button onclick="acceptCookies(this)" style="padding: 8px 25px !important; font-weight: 800 !important; border-radius: 6px !important; cursor: pointer !important; font-size: 0.8rem !important; min-width: 110px !important; text-transform: uppercase !important; background: #FFFFFF !important; color: #0A0F14 !important; border: 2px solid #0A0F14 !important;">DECLINE</button>
+    </div>
+  </div>
+
+  <script>
+    // 1. Function to save choice and hide banner
+    function acceptCookies(btn) {
+      try { localStorage.setItem('cm_cookie_consent', 'true'); } catch(e) {}
+      // This physically removes the banner from the page
+      btn.closest('#cookie-notice').remove(); 
+    }
+
+    // 2. Check memory on page load
+    document.addEventListener("DOMContentLoaded", function() {
+      var hasConsent = null;
+      try { hasConsent = localStorage.getItem('cm_cookie_consent'); } catch(e) {}
+      
+      if (!hasConsent) {
+        var banner = document.getElementById('cookie-notice');
+        if (banner) banner.style.display = 'block';
+      }
+    });
+  </script>
 </body>
 </html>
