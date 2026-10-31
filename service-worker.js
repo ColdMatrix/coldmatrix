@@ -2,7 +2,7 @@
 // IMPORTANT: bump CACHE_NAME every time you deploy a real content update.
 // Changing this string is what makes browsers detect a new service worker,
 // wipe the old cache, and start serving your latest files.
-const CACHE_NAME = 'coldmatrix-cache-v6';
+const CACHE_NAME = 'coldmatrix-v99';
 
 const ASSETS = [
   '/',
