@@ -218,6 +218,83 @@
     .tools-grid .tool-card .tool-status {
         color: var(--gold-bright) !important;
         font-weight: 800 !important;
+        
+        
+/* ===== DESKTOP CLEANUP & SPACING FIX ===== */
+@media (min-width: 1024px) {
+  /* 1. Force 3 columns on desktop */
+  .tools-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 45px 35px !important; /* 45px gap top/bottom, 35px left/right */
+    margin-bottom: 50px !important;
+  }
+}
+
+/* 2. Make the Tool Cards look clean and premium */
+.tool-card {
+  padding: 24px !important;
+  min-height: 220px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+/* 3. Cut the text down to 2 lines */
+.tool-card p {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  font-size: 0.85rem !important;
+  margin-bottom: 20px !important;
+  color: #D0E1EF !important;
+}
+
+/* 4. Turn "Live" into a big, clear button */
+.tool-card .tool-status {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #F2BE32 !important;
+  padding: 12px 12px !important;
+  border-radius: 8px !important;
+  text-align: center !important;
+  font-weight: 800 !important;
+  font-size: 0.85rem !important;
+  border: 1px solid rgba(242, 190, 50, 0.4) !important;
+  transition: all 0.3s !important;
+  display: block !important;
+  width: 100% !important;
+  margin-top: auto !important;
+}
+
+.tool-card:hover .tool-status {
+  background: #F2BE32 !important;
+  color: #0B3156 !important;
+  border-color: #F2BE32 !important;
+}
+
+/* 5. Bigger, bolder Section Headings */
+.container h2, 
+.section-title-center h2 {
+  font-size: 2.2rem !important;
+  font-weight: 900 !important;
+  margin-bottom: 12px !important;
+  color: var(--navy) !important;
+}
+
+/* 6. Increase the space between major sections */
+.section {
+  padding: 60px 0 !important;
+}
+/* ===== BRING BACK THE BLINKING LIVE DOT ===== */
+@keyframes livePulse {
+  0% { opacity: 1; text-shadow: 0 0 8px rgba(242, 190, 50, 0.8); }
+  50% { opacity: 0.6; text-shadow: 0 0 0px rgba(242, 190, 50, 0); }
+  100% { opacity: 1; text-shadow: 0 0 8px rgba(242, 190, 50, 0.8); }
+}
+
+.tool-card .tool-status {
+  animation: livePulse 2s infinite ease-in-out !important;
+}
     }
   </style>
 </head>
