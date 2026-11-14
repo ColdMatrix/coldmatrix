@@ -347,6 +347,74 @@ body {
     background: #0A192F !important; 
     color: #F9E596 !important; /* Bright gold text */
 }
+/* ===== FIX DESKTOP NAVBAR OVERFLOW & EDGE SPACING ===== */
+
+@media (min-width: 901px) {
+    .nav-inner {
+        /* This adds 20px of space on the far left and far right edges */
+        padding-left: 20px !important; 
+        padding-right: 20px !important;
+        flex-wrap: wrap !important; /* Allows it to drop to a second line if the screen is tiny */
+    }
+    
+    .nav-links {
+        gap: 15px !important; /* Perfectly balanced gap */
+        margin-left: auto !important;
+        justify-content: flex-end !important; 
+    }
+    
+    .nav-links > li > a, .nav-links > li > span {
+        font-size: 0.85rem !important; /* Slightly smaller so they fit */
+        white-space: nowrap !important; /* Prevents words from breaking into two lines */
+    }
+    
+    .logo {
+        font-size: 1.3rem !important; 
+    }
+/* ===== FINAL FIX: MOBILE BG & UNIFORM GLASS OVERLAY ===== */
+
+/* 1. Slightly darker background so white cards pop */
+body {
+    background-color: #DDE6ED !important; /* Premium Pearl-Grey */
+}
+
+/* 2. Force perfectly clear, fitting images */
+.tools-grid .tool-card {
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    min-height: 250px !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    border: 2px solid #D6A928 !important; /* Gold Border */
+    border-radius: 16px !important;
+    padding: 24px !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* 3. The Uniform Glass Overlay (Equal light/dark everywhere) */
+.tools-grid .tool-card::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    /* A solid, uniform navy glass tint - NO gradient */
+    background: rgba(10, 25, 47, 0.65) !important; 
+    z-index: 1 !important;
+    pointer-events: none !important;
+}
+
+/* 4. Ensure text is bright and readable */
+.tools-grid .tool-card h3, 
+.tools-grid .tool-card p, 
+.tools-grid .tool-card .tool-icon {
+    position: relative !important;
+    z-index: 2 !important;
+    color: #FFFFFF !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.9) !important; 
+}
 }
 </style>
 
