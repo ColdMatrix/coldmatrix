@@ -469,14 +469,11 @@ img {
 .cat-card .cat-status {
     color: #0B3156 !important; /* Dark Navy text instead of Gold */
     font-weight: 800 !important;
-}
+
 }
 </style>
 
 </head>
-
-
-
 
 <body>
   <header class="navbar">
@@ -1119,5 +1116,144 @@ img {
     }
   })();
   </script>
+  
+<style>
+  /* UPGRADED: ULTRA-DEEP OBSIDIAN PURPLE + CRYSTAL GLASS SHINE */
+  html body .hero-text-box,
+  html body .promo-banner,
+  html body .hostinger-glass-auto {
+    position: relative !important;
+    overflow: hidden !important;
+    background: 
+      /* Crisp diagonal glass reflection band */
+      linear-gradient(125deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 28%, transparent 28.5%),
+      /* Deep rich Hostinger obsidian-to-royal-violet gradient */
+      radial-gradient(circle at 85% 90%, rgba(103, 61, 230, 0.38) 0%, transparent 55%),
+      linear-gradient(165deg, #16073B 0%, #09021A 60%, #050110 100%) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 1px solid rgba(167, 139, 250, 0.32) !important;
+    box-shadow: 
+      0 24px 50px rgba(0, 0, 0, 0.75),
+      0 0 35px rgba(103, 61, 230, 0.25),
+      /* Razor-sharp top glass edge reflection */
+      inset 0 1.5px 0 rgba(255, 255, 255, 0.65),
+      /* Subtle bottom violet refraction glow */
+      inset 0 -2px 12px rgba(103, 61, 230, 0.45) !important;
+  }
+
+  /* Crisp Specular Glass Streak (No milky fog) */
+  html body .hero-text-box::after,
+  html body .promo-banner::after,
+  html body .hostinger-glass-auto::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 45% !important;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, transparent 100%) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+  }
+
+  html body .hero-text-box > *,
+  html body .promo-banner > *,
+  html body .hostinger-glass-auto > * {
+    position: relative !important;
+    z-index: 2 !important;
+  }
+
+  /* Keep footer square edge-to-edge */
+  html body footer.hostinger-glass-auto {
+    border-radius: 0 !important;
+  }
+    /* MATCHING OBSIDIAN-VIOLET GLASS NAVBAR */
+  html body header,
+  html body .navbar,
+  html body .nav-inner {
+    background: 
+      linear-gradient(90deg, rgba(103, 61, 230, 0.25) 0%, rgba(12, 4, 30, 0.94) 50%, rgba(103, 61, 230, 0.25) 100%) !important;
+    background-color: #0C041E !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border-bottom: 1px solid rgba(196, 181, 253, 0.3) !important;
+  }
+
+  /* FIX ALL DROPDOWN MENUS: SOLID DARK GLASS + CRISP WHITE TEXT */
+  html body header ul ul,
+  html body .dropdown-menu,
+  html body .dropdown-content,
+  html body .submenu,
+  html body [class*="dropdown"] > ul,
+  html body [class*="dropdown"] > div {
+    background: linear-gradient(165deg, #16073B 0%, #09021A 100%) !important;
+    background-color: #0B0320 !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 1px solid rgba(196, 181, 253, 0.35) !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85) !important;
+    z-index: 9999 !important;
+  }
+
+  /* Make dropdown text crisp white/lavender instead of dark purple */
+  html body header ul ul a,
+  html body .dropdown-menu a,
+  html body .dropdown-content a,
+  html body .submenu a,
+  html body [class*="dropdown"] > ul a,
+  html body [class*="dropdown"] > div a {
+    color: #F3E8FF !important;
+    border-bottom: 1px solid rgba(196, 181, 253, 0.12) !important;
+  }
+
+  html body header ul ul a:hover,
+  html body .dropdown-menu a:hover,
+  html body .dropdown-content a:hover,
+  html body .submenu a:hover {
+    background: rgba(103, 61, 230, 0.4) !important;
+    color: #FFFFFF !important;
+  }
+
+</style>
+
+
+<script>
+  document.querySelectorAll('div, section, footer, article, a').forEach(el => {
+    if (el.closest('header, nav')) return;
+    const style = getComputedStyle(el);
+    const bgImg = style.backgroundImage;
+    const combined = bgImg + ' ' + style.backgroundColor;
+    const matches = combined.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/gi) || [];
+
+    const isPurple = matches.some(rgb => {
+      const [r, g, b] = rgb.match(/\d+/g).map(Number);
+      return r > 45 && b > 80 && g < r * 0.65 && g < b * 0.65;
+    });
+
+    if (isPurple || el.tagName.toLowerCase() === 'footer') {
+      // If the card has a background photo (url), preserve the photo with a translucent glass tint!
+      if (bgImg && bgImg.includes('url(')) {
+        const urlMatch = bgImg.match(/url\(['"]?([^'"]+)['"]?\)/);
+        if (urlMatch) {
+          el.style.setProperty(
+            'background',
+            `linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.02) 32%, transparent 32.5%),
+linear-gradient(165deg, rgba(22, 7, 59, 0.30) 0%, rgba(9, 2, 26, 0.45) 100%),
+             url("${urlMatch[1]}") center/cover no-repeat`,
+            'important'
+          );
+          el.style.setProperty('border', '1px solid rgba(196, 181, 253, 0.35)', 'important');
+          el.style.setProperty('box-shadow', '0 18px 38px rgba(0,0,0,0.55), inset 0 1.5px 0 rgba(255,255,255,0.55)', 'important');
+        }
+      } else {
+        // Solid purple boxes (like Why Choose & Footer) get the full deep glossy purple
+        el.classList.add('hostinger-glass-auto');
+      }
+    }
+  });
+</script>
+
+
 </body>
 </html>
