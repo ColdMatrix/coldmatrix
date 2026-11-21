@@ -1264,6 +1264,32 @@
   }
   </script>
 <link rel="stylesheet" href="global-fixes.css">
+
+<style id="shared-wall-ui-fix">
+  .shared-wall-card.is-shared-wall {
+    border-color: #8f9aa6 !important;
+    background: rgba(115,125,138,.16) !important;
+    opacity: .78;
+  }
+  .shared-wall-card.is-shared-wall input[type="number"]:disabled {
+    background: #303943 !important;
+    color: #aeb7c1 !important;
+    border-color: #68727d !important;
+    opacity: .72;
+    cursor: not-allowed;
+    -webkit-text-fill-color: #aeb7c1;
+  }
+  .shared-wall-status {
+    display:block;
+    margin:7px 0 0 24px;
+    color:#d4af37;
+    font-size:.75rem;
+    font-weight:700;
+    line-height:1.4;
+  }
+  .additional-room-card .shared-wall-status { margin-left:24px; }
+</style>
+
 </head>
 <body>
   <nav class="navbar">
@@ -1430,7 +1456,7 @@ h3 { margin-bottom: 16px !important; }
       </div>
 
       <div class="grid-2" style="margin-bottom: 16px;">
-        <div class="field" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+        <div class="field shared-wall-card" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
           <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 1 – Length × Height</label>
           <div class="grid-2" style="margin-bottom: 10px;">
             <input type="number" id="w1L" value="20" step="any" placeholder="Length">
@@ -1440,8 +1466,9 @@ h3 { margin-bottom: 16px !important; }
             <input type="checkbox" id="w1Shared" style="width:auto;"> Shared / Existing Insulated Wall (Exclude Panels)
             <span class="tooltip-trigger">?<span class="tooltip-text">A shared wall is one that already exists (e.g., adjoining another cold room or building wall). It's included in the cooling load calculation but excluded from panel billing.</span></span>
           </label>
+          <span class="shared-wall-status" id="w1SharedStatus" aria-live="polite">Included in panel quantities</span>
         </div>
-        <div class="field" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+        <div class="field shared-wall-card" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
           <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 2 – Length × Height</label>
           <div class="grid-2" style="margin-bottom: 10px;">
             <input type="number" id="w2L" value="40" step="any" placeholder="Length">
@@ -1450,8 +1477,9 @@ h3 { margin-bottom: 16px !important; }
           <label style="font-size:0.8rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
             <input type="checkbox" id="w2Shared" style="width:auto;"> Shared / Existing Insulated Wall (Exclude Panels)
           </label>
+          <span class="shared-wall-status" id="w2SharedStatus" aria-live="polite">Included in panel quantities</span>
         </div>
-        <div class="field" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+        <div class="field shared-wall-card" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
           <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 3 – Length × Height (opposite Side 1)</label>
           <div class="grid-2" style="margin-bottom: 10px;">
             <input type="number" id="w3L" value="20" step="any" placeholder="Length">
@@ -1460,8 +1488,9 @@ h3 { margin-bottom: 16px !important; }
           <label style="font-size:0.8rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
             <input type="checkbox" id="w3Shared" style="width:auto;"> Shared / Existing Insulated Wall (Exclude Panels)
           </label>
+          <span class="shared-wall-status" id="w3SharedStatus" aria-live="polite">Included in panel quantities</span>
         </div>
-        <div class="field" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
+        <div class="field shared-wall-card" style="border: 2px solid var(--gold); padding: 14px; border-radius: 10px; background: rgba(20,28,38,0.5);">
           <label style="color: var(--frost); margin-bottom:6px;">🧱 Side 4 – Length × Height (opposite Side 2)</label>
           <div class="grid-2" style="margin-bottom: 10px;">
             <input type="number" id="w4L" value="40" step="any" placeholder="Length">
@@ -1470,6 +1499,7 @@ h3 { margin-bottom: 16px !important; }
           <label style="font-size:0.8rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
             <input type="checkbox" id="w4Shared" style="width:auto;"> Shared / Existing Insulated Wall (Exclude Panels)
           </label>
+          <span class="shared-wall-status" id="w4SharedStatus" aria-live="polite">Included in panel quantities</span>
         </div>
       </div>
 
@@ -2483,16 +2513,44 @@ function generateColdStorePDF(leadData, calcData) {
       const wrap = document.createElement('section');
       wrap.className = 'field additional-room-card'; wrap.dataset.roomId = id;
       wrap.style.cssText = 'border:2px solid var(--gold);padding:16px;border-radius:12px;margin:14px 0;background:rgba(20,28,38,.55)';
-      wrap.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><strong style="color:var(--frost);font-size:1rem">🏢 CONTINUOUS ROOM ${id}</strong><button type="button" class="btn-small" data-remove-room="${id}" style="background:#9b3030;color:white">Remove</button></div><div class="grid-2" style="margin-top:12px"><div class="field"><label>Room length (${currentUnit})</label><input type="number" step="any" min="0.01" id="r${id}Length" value="20"></div><div class="field"><label>Room width (${currentUnit})</label><input type="number" step="any" min="0.01" id="r${id}Width" value="40"></div></div><div class="grid-2">${[1,2,3,4].map(n=>`<div class="field" style="border:1px solid var(--gold);padding:10px;border-radius:9px"><label>Side ${n} – Length × Height (${currentUnit})</label><input type="number" step="any" min="0.01" id="r${id}w${n}L" value="${n%2?20:40}" placeholder="Length"><input type="number" step="any" min="0.01" id="r${id}w${n}H" value="15" placeholder="Height" style="margin-top:8px"><label style="display:flex;gap:8px;align-items:center;font-size:.8rem;margin-top:8px"><input type="checkbox" id="r${id}w${n}Shared" style="width:auto"> Existing/shared insulated wall (skip panels)</label></div>`).join('')}</div>`;
+      wrap.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><strong style="color:var(--frost);font-size:1rem">🏢 CONTINUOUS ROOM ${id}</strong><button type="button" class="btn-small" data-remove-room="${id}" style="background:#9b3030;color:white">Remove</button></div><div class="grid-2" style="margin-top:12px"><div class="field"><label>Room length (${currentUnit})</label><input type="number" step="any" min="0.01" id="r${id}Length" value="20"></div><div class="field"><label>Room width (${currentUnit})</label><input type="number" step="any" min="0.01" id="r${id}Width" value="40"></div></div><div class="grid-2">${[1,2,3,4].map(n=>`<div class="field shared-wall-card" style="border:1px solid var(--gold);padding:10px;border-radius:9px"><label>Side ${n} – Length × Height (${currentUnit})</label><input type="number" step="any" min="0.01" id="r${id}w${n}L" value="${n%2?20:40}" placeholder="Length"><input type="number" step="any" min="0.01" id="r${id}w${n}H" value="15" placeholder="Height" style="margin-top:8px"><label style="display:flex;gap:8px;align-items:center;font-size:.8rem;margin-top:8px"><input type="checkbox" id="r${id}w${n}Shared" style="width:auto"> Existing/shared insulated wall (skip panels)</label><span class="shared-wall-status" id="r${id}w${n}SharedStatus">Included in panel quantities</span></div>`).join('')}</div>`;
       document.getElementById('roomList').appendChild(wrap);
       const walls = [1,2,3,4].map(n=>({l:wrap.querySelector(`#r${id}w${n}L`),h:wrap.querySelector(`#r${id}w${n}H`),shared:wrap.querySelector(`#r${id}w${n}Shared`),room:id,side:n}));
       const room={id,walls,l:wrap.querySelector(`#r${id}Length`),w:wrap.querySelector(`#r${id}Width`)};
       roomSets.push(room); wallInputs.push(...walls);
       wrap.querySelector('[data-remove-room]').addEventListener('click',()=>{roomSets.splice(roomSets.findIndex(x=>x.id===id),1); walls.forEach(w=>{const i=wallInputs.indexOf(w);if(i>=0)wallInputs.splice(i,1)});wrap.remove();refreshColdStore();});
       wrap.querySelectorAll('input').forEach(el=>el.addEventListener('input',refreshColdStore));
+      walls.forEach(w=>w.shared.addEventListener('change',()=>{applySharedWallState(w);refreshColdStore();}));
+      walls.forEach(applySharedWallState);
       refreshColdStore();
     };
-    function refreshColdStore(){ updateLiveStats(); updateSuggestion(); updateInstallCostPreview(); const b=document.getElementById('calcBtn'); if(b)b.disabled=false; const r=document.getElementById('resultCard');if(r)r.style.display='none'; }
+
+    function applySharedWallState(w) {
+      if (!w || !w.shared || !w.l || !w.h) return;
+      const shared = !!w.shared.checked;
+      // Disable only wall dimension fields; retain their values for volume geometry and easy restoration.
+      w.l.disabled = shared;
+      w.h.disabled = shared;
+      const card = w.l.closest('.shared-wall-card') || w.l.closest('.field');
+      if (card) card.classList.toggle('is-shared-wall', shared);
+      const statusId = w.room === 1 ? `w${w.side}SharedStatus` : `r${w.room}w${w.side}SharedStatus`;
+      const status = document.getElementById(statusId);
+      if (status) status.textContent = shared
+        ? 'EXISTING WALL — excluded from new panel, accessory and installation quantities; room volume remains unchanged.'
+        : 'Included in new panel quantities.';
+      w.l.setAttribute('aria-disabled', shared ? 'true' : 'false');
+      w.h.setAttribute('aria-disabled', shared ? 'true' : 'false');
+    }
+    function refreshAllSharedWallStates() {
+      wallInputs.forEach(applySharedWallState);
+    }
+    wallInputs.forEach(w => w.shared.addEventListener('change', () => {
+      applySharedWallState(w);
+      refreshColdStore();
+    }));
+
+    function refreshColdStore(){ refreshAllSharedWallStates(); updateLiveStats(); updateSuggestion(); updateInstallCostPreview(); const b=document.getElementById('calcBtn'); if(b)b.disabled=false; const r=document.getElementById('resultCard');if(r)r.style.display='none'; }
+    refreshAllSharedWallStates();
     window.cmPrepareRooms = function(){document.querySelectorAll('.additional-room-card [data-remove-room]').forEach(btn=>btn.click());nextRoomId=2;};
     window.cmRefreshColdStore = refreshColdStore; window.cmCurrentUnit = ()=>currentUnit; window.cmRoomCount = ()=>roomSets.length; window.cmSetUnit = function(u){currentUnit=u;document.querySelectorAll('.unit-btn[data-unit]').forEach(x=>x.classList.toggle('active',x.dataset.unit===u));updatePanelRateLabel();refreshColdStore();};
 
