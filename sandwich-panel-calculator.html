@@ -4,7 +4,7 @@
   <link rel="canonical" href="https://coldmatrixtools.com/sandwich-panel-calculator.html">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sandwich Panel Calculator – Weight, Quantity &amp; Cost | ColdMatrix</title>
+  <title>Cold Matrix – Sandwich Panel BOQ &amp; Fabrication Calculator</title>
   <meta name="description" content="Professional sandwich panel estimation: weight, quantity, and total cost for walls and roofs. Supports mm, inches, feet, meters.">
   <meta name="theme-color" content="#0A0F14">
   <link rel="manifest" href="manifest.json">
@@ -110,11 +110,12 @@
     .unit-btn:hover { background: #D5D9DE; border-color: var(--gold-bright); transform: translateY(-1px); }
     .unit-btn.active { border-color: var(--gold-bright); background: var(--gold-gradient); box-shadow: 0 0 18px var(--gold-glow); font-weight: 800; }
     
-    .btn-row-fixed { display: flex; gap: 12px; margin-top: 24px; align-items: stretch; }
-    .btn-calc { flex: 3; background: var(--gold-gradient); color: #0A0F14; border: 2px solid var(--gold-bright); padding: 16px; border-radius: 12px; font-weight: 900; font-size: 1.15rem; cursor: pointer; text-transform: uppercase; font-family: 'Oswald', sans-serif; box-shadow: 0 4px 15px rgba(212,175,55,0.4); min-height: 70px; letter-spacing: 0.5px; }
-    .btn-calc:hover { filter: brightness(1.1); transform: translateY(-2px); }
-    .btn-reset { flex: 1; background: linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%); color: #0A0F14; border: 2px solid var(--gold); padding: 14px 18px; border-radius: 12px; font-weight: 900; font-size: 1rem; cursor: pointer; text-transform: uppercase; font-family: 'Oswald', sans-serif; min-height: 70px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-    .btn-reset:hover { filter: brightness(1.1); transform: translateY(-2px); }
+    .btn-row-fixed { display: flex; position:relative; isolation:isolate; flex-direction:column; gap: 12px; margin: 24px auto; align-items:stretch; width:100%; max-width:100%; box-sizing:border-box; overflow:hidden; }
+    .btn-calc { display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; max-width:100%; flex: none; box-sizing:border-box; background: var(--gold-gradient); color: #0A0F14; border: 2px solid var(--gold-bright); padding: 18px 14px; border-radius: 14px; font-weight: 900; font-size: 1.55rem; cursor: pointer; text-transform: uppercase; font-family: 'Oswald', sans-serif; box-shadow: 0 4px 15px rgba(212,175,55,0.4); min-height: 100px; letter-spacing: 0.7px; }
+    .btn-calc:hover { filter: brightness(1.1); }
+    .btn-reset { width:100%; max-width:100%; box-sizing:border-box; flex:none; background: linear-gradient(145deg, #e6eaf0 0%, #a8b0bb 25%, #626a74 50%, #b8c0c9 78%, #8a929c 100%); color: #0A0F14; border: 2px solid var(--gold); padding: 14px 18px; border-radius: 12px; font-weight: 900; font-size: 1rem; cursor: pointer; text-transform: uppercase; font-family: 'Oswald', sans-serif; min-height: 70px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .btn-reset:hover { filter: brightness(1.1); }
+    
 
     /* RESULTS */
     .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
@@ -213,7 +214,7 @@
       .subtitle { font-size: 0.9rem; }
       .card { padding: 20px 16px; }
       .btn-row-fixed { flex-direction: column; }
-      .btn-calc, .btn-reset { width: 100% !important; flex: none !important; min-height: 55px !important; }
+      .btn-calc { width:100% !important; max-width:100% !important; min-height:100px !important; } .btn-reset { width:100% !important; max-width:100% !important; }
       .edu-section { padding: 22px 16px !important; }
       .result-item .val { font-size: 1.15rem; }
       .result-item.highlight .val { font-size: 1.35rem; }
@@ -222,7 +223,101 @@
       .cm-byline-name { font-size: 0.85rem; }
       .cm-byline-role { font-size: 0.72rem; }
     }
-  </style>
+    /* ===== SURGICAL OVERRIDE: PREMIUM DARK & GOLD BUTTONS ===== */
+
+/* Fix the ugly silver Reset button */
+.btn-reset { 
+    background: #141C26 !important; /* Deep dark background */
+    color: var(--gold-bright) !important; 
+    border: 2px solid var(--gold) !important; 
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5) !important;
+    transition: 0.2s !important;
+}
+
+.btn-reset:hover {
+    background: #1A2533 !important; /* Slightly lighter on hover */
+    border-color: var(--gold-bright) !important;
+    box-shadow: 0 0 15px var(--gold-glow) !important;
+}
+
+/* Fix the silver Unit Toggle buttons (if they are silver too) */
+.unit-btn { 
+    background: transparent !important; 
+    color: var(--gold-bright) !important; 
+    border: 2px solid var(--gold) !important; 
+}
+
+.unit-btn:hover { 
+    background: rgba(212, 175, 55, 0.1) !important; 
+}
+
+.unit-btn.active { 
+    background: var(--gold-gradient) !important; 
+    color: #0A0F14 !important; 
+    border-color: var(--gold-bright) !important; 
+}
+/* Make the next wall look disabled and dull */
+.wall-box.disabled-wall {
+    opacity: 0.4 !important;
+    pointer-events: none !important; /* Prevents clicking or typing */
+    background: #1A202C !important; /* Darker background */
+    border-color: #4A5568 !important; /* Grey border */
+}
+.wall-box.disabled-wall label {
+    color: #A0AEC0 !important;
+}
+/* ===== PREMIUM THICK DROPDOWN ARROWS ===== */
+select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    /* Thick gold SVG arrow */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D4AF37' stroke-width='5.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 27px !important;
+    padding-right: 48px !important; /* Prevents text from overlapping the arrow */
+    cursor: pointer !important;
+}
+  
+    .cm-door-row{display:grid;grid-template-columns:1.1fr 1fr .7fr 1.15fr auto;gap:8px;align-items:end;margin:10px 0;padding:10px;background:rgba(20,28,38,.6);border:1px solid var(--gold);border-radius:9px}
+    .cm-door-field{min-width:0;display:flex;flex-direction:column;gap:5px}.cm-door-field label{font-size:.72rem;font-weight:800;color:#E5C65A;line-height:1.2}.cm-door-row input,.cm-door-row select{width:100%;min-width:0;background:#fff;color:#0A0F14;border:2px solid var(--gold);padding:10px;border-radius:8px;font:600 .82rem Inter,sans-serif}.cm-door-row input::placeholder{color:#89919A;opacity:1;font-weight:500}
+    .cm-door-row button{background:#141C26;color:var(--gold-bright);border:1px solid var(--gold);border-radius:7px;padding:9px;cursor:pointer;font-weight:700}
+    .cm-report-table{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px}
+    .cm-report-table th,.cm-report-table td{padding:9px 7px;text-align:left;border-bottom:1px solid #D9DEE4}
+    .cm-report-table th{background:#F1F3F5;color:#39434D;font-size:.76rem;text-transform:uppercase}
+    .cm-cost-row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #D9DEE4;font-size:.9rem}
+    .cm-cost-row strong{text-align:right}
+    .cm-cost-row.total{border-top:2px solid var(--gold);border-bottom:0;margin-top:8px;padding-top:14px;font-size:1.08rem;font-weight:800;color:#A07828}
+    @media(max-width:600px){.cm-door-row{grid-template-columns:1fr 1fr}.cm-door-row button{grid-column:2}.cm-door-field label{font-size:.7rem}}
+
+
+    select{font-weight:700 !important;font-size:1rem !important;}
+
+
+    .cm-panel-config-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+    .cm-panel-config{min-width:0;border:1px solid var(--gold);border-radius:10px;padding:14px;background:rgba(20,28,38,.42)}
+    .cm-panel-config h3{color:var(--gold-bright);font-size:1rem;margin:0 0 12px}
+    .cm-report-table td{color:#17212B !important;font-weight:700 !important;background:#fff !important}
+    .cm-report-table th{color:#26313D !important;font-weight:800 !important}
+    #resultsContainer > h2{font-size:clamp(1.05rem,4.5vw,1.55rem) !important;line-height:1.25;overflow-wrap:anywhere;white-space:normal !important;max-width:100%;box-sizing:border-box}
+    @media(max-width:700px){.cm-panel-config-grid{grid-template-columns:1fr}.cm-panel-config{padding:12px}}
+
+
+    /* Agreed compact wall-input layout */
+    .wall-box { padding:12px; }
+    .wall-box .wall-title { margin:0 0 10px; }
+    .wall-shared-row { margin:0 0 12px; min-height:26px; }
+    .wall-dimension-row { display:grid; grid-template-columns:28% minmax(0,1fr); gap:10px; align-items:center; margin:8px 0; color:#EAEDF0; font-size:.88rem; font-weight:700; }
+    .wall-dimension-row input { width:100%; min-width:0; box-sizing:border-box; background:#fff; color:#0A0F14; border:2px solid var(--gold); padding:10px; border-radius:8px; font-size:.9rem; font-weight:600; }
+    .wall-dimension-row input:disabled { opacity:.55; background:#AEB4BC; color:#303741; border-color:#68717D; cursor:not-allowed; }
+    .wall-box.disabled-wall { opacity:.72 !important; pointer-events:auto !important; background:#1A202C !important; border-color:#68717D !important; }
+    .wall-box.disabled-wall .wall-title { color:#A0AEC0 !important; }
+    .wall-shared-row input { pointer-events:auto !important; cursor:pointer; }
+    .btn-calc { width:88%; max-width:620px; margin-left:auto; margin-right:auto; }
+    @media (max-width:520px) { .wall-dimension-row { grid-template-columns:28% minmax(0,1fr); gap:8px; } .wall-dimension-row input { padding:9px; } .btn-calc { width:88%; } }
+
+</style>
 </head>
 <body>
   <nav class="navbar">
@@ -244,7 +339,7 @@
 
     <div class="install-bar" id="cmInstallBar">📱 Add ColdMatrix to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
-    <h1>🧱 <span>ColdMatrix</span> Sandwich Panel Calculator</h1>
+    <h1>❄️ <span>Cold Matrix</span> Sandwich Panel BOQ &amp; Fabrication Calculator</h1>
     
     <div class="cm-byline-wrapper">
       <div class="cm-byline-avatar">WA</div>
@@ -255,10 +350,10 @@
       </div>
     </div>
 
-    <p class="subtitle">Estimate panel weight, quantity, and total cost — with flexible units for any project worldwide. Supports PUF, PIR, EPS, and Rockwool cores. 🌍</p>
+    <p class="subtitle">Calculate sandwich panel requirements, wall and roof quantities, panel sizes, doors, material costs and fabrication BOQs for cold storage projects and all types of prefabricated construction.</p>
 
     <div class="share-tool-card">
-      <div class="share-tool-title">Share Sandwich Panel Calculator</div>
+      <div class="share-tool-title">Share Cold Matrix Sandwich Panel BOQ &amp; Fabrication Calculator</div>
       <div class="share-tool-buttons">
         <button class="share-tool-btn wa" onclick="shareToolWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
         <button class="share-tool-btn" onclick="copyToolLink()"><i class="fa-solid fa-link"></i> Copy Link</button>
@@ -271,7 +366,7 @@
       <h2>1. 📐 Project Area</h2>
       
       <div class="coldmatrix-note">
-        ❄️ <strong>ColdMatrix Note:</strong> Enter dimensions for all 4 walls. Mark any shared/existing wall as shared so panels are excluded from panel billing while maintaining total volumetric cooling load accuracy.
+        ❄️ <strong>ColdMatrix Note:</strong> Enter dimensions for all 4 walls. Mark a shared/existing wall to exclude its wall area from panel billing. Its side length remains active because it is needed to calculate the room footprint and roof.
       </div>
 
       <!-- INPUT METHOD TOGGLE -->
@@ -317,46 +412,30 @@
         <div class="room-block" data-room-id="1">
           <div class="grid-2">
             <div class="wall-box">
-              <label>🧱 Side 1 – Length × Height</label>
-              <div class="wall-inputs">
-                <input type="number" class="wall-l dim-lbl-len" value="20" placeholder="Length (ft)" step="any">
-                <input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Height (ft)" step="any">
-              </div>
-              <label class="checkbox-row">
-                <input type="checkbox" class="wall-shared"> Shared / Existing Wall
-              </label>
+              <label class="wall-title">🧱 Side 1 – Length × Height</label>
+              <label class="checkbox-row wall-shared-row"><input type="checkbox" class="wall-shared"> Shared / Existing Wall</label>
+              <div class="wall-dimension-row"><span>Length</span><input type="number" class="wall-l dim-lbl-len" value="20" placeholder="Enter length" step="any"></div>
+              <div class="wall-dimension-row"><span>Height</span><input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Enter height" step="any"></div>
             </div>
             <div class="wall-box">
-              <label>🧱 Side 2 – Width × Height</label>
-              <div class="wall-inputs">
-                <input type="number" class="wall-l dim-lbl-len" value="40" placeholder="Width (ft)" step="any">
-                <input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Height (ft)" step="any">
-              </div>
-              <label class="checkbox-row">
-                <input type="checkbox" class="wall-shared"> Shared / Existing Wall
-              </label>
+              <label class="wall-title">🧱 Side 2 – Width × Height</label>
+              <label class="checkbox-row wall-shared-row"><input type="checkbox" class="wall-shared"> Shared / Existing Wall</label>
+              <div class="wall-dimension-row"><span>Width</span><input type="number" class="wall-l dim-lbl-len" value="40" placeholder="Enter length" step="any"></div>
+              <div class="wall-dimension-row"><span>Height</span><input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Enter height" step="any"></div>
             </div>
           </div>
           <div class="grid-2">
             <div class="wall-box">
-              <label>🧱 Side 3 – Length × Height (opp. Side 1)</label>
-              <div class="wall-inputs">
-                <input type="number" class="wall-l dim-lbl-len" value="20" placeholder="Length (ft)" step="any">
-                <input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Height (ft)" step="any">
-              </div>
-              <label class="checkbox-row">
-                <input type="checkbox" class="wall-shared"> Shared / Existing Wall
-              </label>
+              <label class="wall-title">🧱 Side 3 – Length × Height (opp. Side 1)</label>
+              <label class="checkbox-row wall-shared-row"><input type="checkbox" class="wall-shared"> Shared / Existing Wall</label>
+              <div class="wall-dimension-row"><span>Length</span><input type="number" class="wall-l dim-lbl-len" value="20" placeholder="Enter length" step="any"></div>
+              <div class="wall-dimension-row"><span>Height</span><input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Enter height" step="any"></div>
             </div>
             <div class="wall-box">
-              <label>🧱 Side 4 – Width × Height (opp. Side 2)</label>
-              <div class="wall-inputs">
-                <input type="number" class="wall-l dim-lbl-len" value="40" placeholder="Width (ft)" step="any">
-                <input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Height (ft)" step="any">
-              </div>
-              <label class="checkbox-row">
-                <input type="checkbox" class="wall-shared"> Shared / Existing Wall
-              </label>
+              <label class="wall-title">🧱 Side 4 – Width × Height (opp. Side 2)</label>
+              <label class="checkbox-row wall-shared-row"><input type="checkbox" class="wall-shared"> Shared / Existing Wall</label>
+              <div class="wall-dimension-row"><span>Width</span><input type="number" class="wall-l dim-lbl-len" value="40" placeholder="Enter length" step="any"></div>
+              <div class="wall-dimension-row"><span>Height</span><input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Enter height" step="any"></div>
             </div>
           </div>
         </div>
@@ -372,28 +451,58 @@
     <!-- STEP 2: PANEL SPECS -->
     <div class="card">
       <h2>2. 🧱 Panel Specifications</h2>
-      <div class="row2">
+      <div class="field">
+        <label>Project Application</label>
+        <select id="projectType" onchange="updateProjectPanelOptions()">
+          <option value="cold" selected>Cold Storage / Cold Room</option>
+          <option value="prefab">Prefab Home / Office Room</option>
+        </select>
+      </div>
+      <div class="cm-panel-config">
+        <h3>Wall Sandwich Panels</h3>
         <div class="field">
-          <label>Panel Type</label>
-          <select id="panelType" onchange="updateDefaultWidth()">
-            <option value="wall" selected>Wall Panel (Flat / Low-Rib)</option>
-            <option value="roof">Roof Panel (Corrugated)</option>
-            <option value="custom">Custom Effective Width</option>
+          <label>Wall Panel Profile</label>
+          <select id="wallPanelProfile">
+            <option value="flat" selected>Flat / Low-Rib Sandwich Panel</option>
           </select>
         </div>
         <div class="field">
-          <label>Effective Coverage Width</label>
+          <label>Effective Coverage Width (Walls and Flat Roof)</label>
           <div class="row2">
-            <input type="number" id="panelWidthVal" value="1190" step="any">
+            <input type="number" id="panelWidthVal" min="0" step="any" placeholder="e.g. 1190">
             <select id="panelWidthUnit">
-              <option value="mm" selected>mm</option>
-              <option value="in">inches</option>
-              <option value="ft">feet</option>
-              <option value="m">meters</option>
+              <option value="mm" selected>mm</option><option value="in">inches</option><option value="ft">feet</option><option value="m">meters</option>
             </select>
           </div>
         </div>
       </div>
+      <div class="cm-panel-config" id="prefabRoofOptions" style="display:none;margin-top:14px;">
+        <h3>Prefab Roof Panel Options</h3>
+        <div class="field">
+          <label>Roof Panel Profile</label>
+          <select id="roofPanelProfile" onchange="updateProjectPanelOptions()">
+            <option value="flat" selected>Flat / Low-Rib Sandwich Panel (same as walls)</option>
+            <option value="corrugated">Corrugated Insulated Roof Panel</option>
+          </select>
+        </div>
+        <div id="corrugatedRoofWidthBox" style="display:none;">
+          <div class="field">
+            <label>Corrugated Roof Effective Coverage Width</label>
+            <div class="row2">
+              <input type="number" id="roofPanelWidth" min="0" step="any" placeholder="e.g. 970">
+              <select id="roofPanelWidthUnit">
+                <option value="mm" selected>mm</option><option value="in">inches</option><option value="ft">feet</option><option value="m">meters</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Corrugated Roof Panel Rate (same currency and rate basis)</label>
+            <input type="number" id="roofPanelRate" min="0" step="any" placeholder="Enter corrugated roof rate">
+          </div>
+        </div>
+        <small style="color:var(--muted);display:block;">If Flat / Low-Rib is selected, the roof uses the same width and rate as the wall sandwich panels. Select Corrugated only when the prefab roof uses a separate corrugated insulated profile.</small>
+      </div>
+      <small style="display:block;color:var(--muted);margin-top:8px;">Enter your supplier's actual effective coverage width. Example widths are guidance only; all dimensions are editable.</small>
       <div class="row2">
         <div class="field">
           <label>Core Material</label>
@@ -415,18 +524,6 @@
         </div>
       </div>
       <div class="row2">
-        <div class="field">
-          <label>Panel Length</label>
-          <div class="row2">
-            <input type="number" id="panelLengthVal" value="20" step="any">
-            <select id="panelLengthUnit">
-              <option value="ft" selected>feet</option>
-              <option value="m">meters</option>
-              <option value="mm">mm</option>
-              <option value="in">inches</option>
-            </select>
-          </div>
-        </div>
         <div class="field">
           <label>Wastage Allowance</label>
           <select id="wastageAllowance">
@@ -493,27 +590,78 @@
     <div class="card">
       <h2>4. 🏗️ Steel Sheets &amp; Core Density</h2>
       <div class="row3">
-        <div class="field"><label>Top Sheet (mm)</label><select id="topGauge"><option value="0.30">0.30</option><option value="0.35">0.35</option><option value="0.40">0.40</option><option value="0.45" selected>0.45</option><option value="0.50">0.50</option><option value="0.60">0.60</option></select></div>
-        <div class="field"><label>Bottom Sheet (mm)</label><select id="botGauge"><option value="0.30">0.30</option><option value="0.35">0.35</option><option value="0.40">0.40</option><option value="0.45" selected>0.45</option><option value="0.50">0.50</option><option value="0.60">0.60</option></select></div>
-        <div class="field"><label>Core Density (kg/m³)</label><select id="coreDensity"><option value="38">38</option><option value="40">40</option><option value="42" selected>42</option><option value="45">45</option></select></div>
+        <div class="field"><label>Top Steel Sheet Thickness (mm)</label><input type="number" id="topGauge" min="0" step="any" placeholder="e.g. 0.5"></div>
+        <div class="field"><label>Bottom Steel Sheet Thickness (mm)</label><input type="number" id="botGauge" min="0" step="any" placeholder="e.g. 0.5"></div>
+        <div class="field"><label>Core Density (kg/m³)</label><input type="number" id="coreDensity" value="42" min="0" step="any"></div>
       </div>
+      <div class="row3" style="margin-top:16px;">
+        <div class="field"><label>Sandwich Panel Rate</label><input type="number" id="panelRate" min="0" step="any" placeholder="Enter panel rate"></div>
+        <div class="field"><label>Currency</label><select id="currencySelect"><option value="PKR" selected>🇵🇰 PKR</option><option value="USD">🇺🇸 USD</option><option value="AED">🇦🇪 AED</option><option value="SAR">🇸🇦 SAR</option><option value="GBP">🇬🇧 GBP</option><option value="EUR">🇪🇺 EUR</option><option value="INR">🇮🇳 INR</option><option value="CNY">🇨🇳 CNY</option><option value="CAD">🇨🇦 CAD</option><option value="AUD">🇦🇺 AUD</option></select></div>
+      </div>
+      <div class="field" style="margin-top:12px;"><label>Panel Rate Basis</label><select id="rateBasis"><option value="sqft" selected>Per sq ft</option><option value="sqm">Per m²</option><option value="runningft">Per Running Foot</option></select></div>
+    </div>
+    <!-- ===== NEW COSTING SECTIONS ===== -->
+<div class="card" style="margin-top: 24px;">
+    <h2>Additional Project Costs</h2>
+    <div class="field" style="margin-bottom: 24px;">
+    <!-- 1. FLOORING INSULATION -->
+<div class="field" style="margin-bottom: 24px;">
+    <label>Flooring Insulation (Optional)</label>
+    <div class="row2" style="margin-bottom: 10px;">
+        <select id="floorMaterial" style="border: 2px solid var(--gold); background: #fff; padding: 10px; border-radius: 8px; font-weight: 600;">
+            <option value="none">None / Not Required</option>
+            <option value="eps">EPS Sheets</option>
+            <option value="xps">XPS Sheets</option>
+            <option value="pu">PU Foamboard Sheets</option>
+        </select>
+        <input type="number" id="floorCost" placeholder="Total flooring cost (PKR)" style="border: 2px solid var(--gold); padding: 10px; border-radius: 8px; background: #fff;">
+    </div>
+</div>
+        <label>Mounting Accessories Cost</label>
+        <div class="row2" style="margin-bottom: 10px;">
+            <select id="accMethod" style="border: 2px solid var(--gold); background: #fff; padding: 10px; border-radius: 8px; font-weight: 600;">
+                <option value="sqft">Per Sq. Ft.</option>
+                <option value="sqm">Per Sq. Meter</option>
+                <option value="job">Complete Job</option>
+            </select>
+            <input type="number" id="accRate" placeholder="Enter rate (PKR)" style="border: 2px solid var(--gold); padding: 10px; border-radius: 8px; background: #fff;">
+        </div>
+    </div>
+    <div class="field">
+        <label>Fabrication Labour & Charges</label>
+        <div class="row2" style="margin-bottom: 10px;">
+            <select id="labMethod" style="border: 2px solid var(--gold); background: #fff; padding: 10px; border-radius: 8px; font-weight: 600;">
+                <option value="sqft">Per Sq. Ft.</option>
+                <option value="sqm">Per Sq. Meter</option>
+                <option value="job">Complete Job</option>
+            </select>
+            <input type="number" id="labRate" placeholder="Enter rate (PKR)" style="border: 2px solid var(--gold); padding: 10px; border-radius: 8px; background: #fff;">
+        </div>
     </div>
 
-    <!-- STEP 5: PRICING -->
-    <div class="card">
-      <h2>5. 💰 Pricing</h2>
-      <div class="row3">
-        <div class="field"><label>Panel Rate</label><input type="number" id="panelRate" value="5500" step="any"></div>
-        <div class="field"><label>Currency</label><select id="currencySelect"><option value="PKR" selected>🇵🇰 PKR</option><option value="USD">🇺🇸 USD</option><option value="AED">🇦🇪 AED</option><option value="SAR">🇸🇦 SAR</option><option value="GBP">🇬🇧 GBP</option><option value="EUR">🇪🇺 EUR</option></select></div>
-        <div class="field"><label>Rate Basis</label><select id="rateBasis"><option value="sqft" selected>Per sq ft</option><option value="sqm">Per m²</option><option value="runningft">Per Running Foot</option></select></div>
-      </div>
+
+    <div class="field" id="cmDoorInputs" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--gold);">
+      <label>Insulated Doors (Optional)</label>
+      <div id="cmDoorRows"></div>
+      <button type="button" class="btn-reset" onclick="addCmDoorRow()" style="width:100%;min-height:44px;margin-top:8px;">+ Add Door</button>
+      <small style="display:block;color:var(--muted);margin-top:8px;">Enter each door's unit price and quantity in the selected currency. The calculator multiplies unit price by quantity. Door openings are not deducted from panel quantities.</small>
     </div>
+
+<!-- 4. CARTAGE / MISCELLANEOUS -->
+<div class="field">
+    <label>Cartage / Miscellaneous (Optional)</label>
+    <input type="number" id="cartageCost" placeholder="Enter total amount (PKR)" style="width: 100%; border: 2px solid var(--gold); padding: 10px; border-radius: 8px; background: #fff;">
+</div>
+</div>
+</div>
+<!-- ===== END NEW COSTING SECTIONS ===== -->
 
     <!-- CALCULATE / RESET -->
     <div class="btn-row-fixed">
-      <button class="btn-calc" onclick="runSandwichCalculation()">Calculate Panels</button>
+      <button class="btn-calc" onclick="runSandwichCalculation()"><span>Calculate</span><small style="display:block;font:700 .76rem Inter,sans-serif;letter-spacing:.25px;text-transform:none;margin-top:5px;">Your Sandwich Panel BOQ &amp; Fabrication Requirements</small></button>
       <button class="btn-reset" onclick="resetForm()">↺ Reset</button>
     </div>
+    
         <!-- RESULTS -->
     <div class="card" id="resultsContainer" style="display:none;">
       <h2>📊 Panel Estimate Summary</h2>
@@ -524,8 +672,8 @@
       </div>
 
       <div class="result-grid">
-        <div class="result-item"><div class="val" id="resNetArea">—</div><div class="lbl">Net Area Required</div></div>
-        <div class="result-item"><div class="val" id="resTotalArea">—</div><div class="lbl">Total Area (incl. waste)</div></div>
+        <div class="result-item"><div class="val" id="resNetArea">—</div><div class="lbl">Effective Area Required</div></div>
+        <div class="result-item"><div class="val" id="resTotalArea">—</div><div class="lbl">Final Panel Material Required</div></div>
         <div class="result-item"><div class="val" id="resPanelCount">—</div><div class="lbl">Panels Required</div></div>
         <div class="result-item"><div class="val" id="resSingleWeight">—</div><div class="lbl">Weight per Panel</div></div>
         <div class="result-item"><div class="val" id="resSteelWeight">—</div><div class="lbl">Total Steel Weight</div></div>
@@ -539,6 +687,34 @@
       <div style="display:flex; justify-content:space-between; padding:11px 6px; border-bottom:1px solid rgba(212,175,55,0.2); font-size:0.92rem;"><span style="color:var(--muted);">Region Selected</span><span id="resFireRegion" style="font-weight:700;">—</span></div>
       <div style="display:flex; justify-content:space-between; padding:11px 6px; border-bottom:1px solid rgba(212,175,55,0.2); font-size:0.92rem;"><span style="color:var(--muted);">Applicable Standard</span><span id="resFireStandard" style="font-weight:700;">—</span></div>
       <div style="display:flex; justify-content:space-between; padding:11px 6px; border-bottom:1px solid rgba(212,175,55,0.2); font-size:0.92rem;"><span style="color:var(--muted);">Recommended Core</span><span id="resFireCore" style="font-weight:700;">—</span></div>
+
+
+      <div id="cmFactorySchedules" style="margin-top:24px;background:#fff;color:#0A0F14;border:2px solid var(--gold);border-radius:12px;padding:18px;">
+        <h3 style="color:#A07828;border-bottom:2px solid var(--gold);padding-bottom:9px;">Sandwich Panel Requirement Schedule</h3>
+        <div style="margin:12px 0;"><strong>SANDWICH PANELS FOR WALLS</strong><div id="cmWallSchedule"></div></div>
+        <div style="margin:18px 0 0;"><strong>SANDWICH PANELS FOR ROOF</strong><div id="cmRoofSchedule"></div></div>
+        <div id="cmFabricationTotals" style="margin-top:16px;padding:12px;background:#FFF8E8;border:1px solid var(--gold);border-radius:9px;color:#17202A;">
+          <strong style="display:block;margin-bottom:8px;">TOTAL FACTORY PANEL REQUIREMENT</strong>
+          <div style="display:flex;justify-content:space-between;gap:10px;padding:4px 0;"><span>Total wall panels</span><strong id="cmTotalWallPanels">—</strong></div>
+          <div style="display:flex;justify-content:space-between;gap:10px;padding:4px 0;"><span>Total roof panels</span><strong id="cmTotalRoofPanels">—</strong></div>
+          <div style="display:flex;justify-content:space-between;gap:10px;padding:4px 0;"><span>Total panels</span><strong id="cmTotalAllPanels">—</strong></div>
+          <div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0 2px;border-top:1px solid #D6C18A;margin-top:5px;"><span>Actual factory panel area</span><strong id="cmFactoryPanelArea">—</strong></div>
+        </div>
+        <div id="cmScheduleUnavailable" style="display:none;margin-top:12px;padding:10px;background:#FFF4D6;border:1px solid #E8A100;border-radius:7px;color:#694900;">Separate wall/roof schedules and dimension-based advisories are unavailable in Direct Area mode.</div>
+      </div>
+      <div id="cmDoorResults" style="display:none;margin-top:18px;background:#fff;color:#0A0F14;border:2px solid var(--gold);border-radius:12px;padding:18px;">
+        <h3 style="color:#A07828;">Insulated Doors</h3><div id="cmDoorSummary"></div>
+      </div>
+      <div id="cmFullCostSummary" style="margin-top:18px;background:#fff;color:#0A0F14;border:2px solid var(--gold);border-radius:12px;padding:18px;">
+        <h3 style="color:#A07828;">Complete Project Cost Summary</h3><div id="cmCostRows"></div>
+      </div>
+
+<!-- ===== PROFESSIONAL BOQ RESULTS ===== -->
+<div id="boq-section" style="display:none;margin-top:24px;background:#FFFFFF;border:2px solid var(--gold);border-radius:14px;padding:20px;box-shadow:0 8px 30px rgba(0,0,0,0.5);color:#0A0F14;">
+  <h2 style="color:#0A0F14;border-bottom:2px solid var(--gold);padding-bottom:10px;margin-bottom:15px;">Project BOQ Summary</h2>
+  <div id="cmBoqSummaryRows" style="border-top:2px solid var(--gold);padding-top:15px;font-size:.95rem;color:#0A0F14;"></div>
+</div>
+<!-- ===== END PROFESSIONAL BOQ RESULTS ===== -->
 
       <div style="font-weight:700; margin-top:22px; color:#FFFFFF; font-size:0.98rem; font-family:'Oswald',sans-serif; letter-spacing:0.5px; text-transform:uppercase;">💎 Take Your Panel Calculation</div>
       <div class="action-buttons">
@@ -823,7 +999,22 @@
       btn.classList.add('active');
       document.querySelectorAll('.dim-lbl-len').forEach(el => el.placeholder = 'Length (' + u + ')');
       document.querySelectorAll('.dim-lbl-ht').forEach(el => el.placeholder = 'Height (' + u + ')');
+      updatePanelWidthExample();
     };
+
+    function updatePanelWidthExample() {
+      const wallUnit = document.getElementById('panelWidthUnit')?.value || 'mm';
+      const wallExamples = {mm:'e.g. 1190 mm',m:'e.g. 1.19 m',ft:'e.g. 3.90 ft',in:'e.g. 46.85 inches'};
+      const wallInput = document.getElementById('panelWidthVal');
+      if (wallInput) wallInput.placeholder = wallExamples[wallUnit] || 'Enter effective width';
+      const roofUnit = document.getElementById('roofPanelWidthUnit')?.value || 'mm';
+      const roofExamples = {mm:'e.g. 970 mm',m:'e.g. 0.97 m',ft:'e.g. 3.18 ft',in:'e.g. 38.19 inches'};
+      const roofInput = document.getElementById('roofPanelWidth');
+      if (roofInput) roofInput.placeholder = roofExamples[roofUnit] || 'Enter effective width';
+    }
+    document.getElementById('panelWidthUnit')?.addEventListener('change', updatePanelWidthExample);
+    document.getElementById('roofPanelWidthUnit')?.addEventListener('change', updatePanelWidthExample);
+    updatePanelWidthExample();
 
     window.addRoomInput = function() {
       const container = document.getElementById('additionalRoomsContainer');
@@ -839,63 +1030,48 @@
         </div>
         <div class="grid-2">
           <div class="wall-box">
-            <label>🧱 Side 1 – Length × Height</label>
-            <div class="wall-inputs">
-              <input type="number" class="wall-l dim-lbl-len" value="20" placeholder="Length (${dimUnit})" step="any">
-              <input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Height (${dimUnit})" step="any">
+              <label class="wall-title">🧱 Side 1 – Length × Height</label>
+              <label class="checkbox-row wall-shared-row"><input type="checkbox" class="wall-shared"> Shared / Existing Wall</label>
+              <div class="wall-dimension-row"><span>Length</span><input type="number" class="wall-l dim-lbl-len" value="20" placeholder="Enter length" step="any"></div>
+              <div class="wall-dimension-row"><span>Height</span><input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Enter height" step="any"></div>
             </div>
-            <label class="checkbox-row">
-              <input type="checkbox" class="wall-shared"> Shared / Existing Wall
-            </label>
-          </div>
           <div class="wall-box">
-            <label>🧱 Side 2 – Width × Height</label>
-            <div class="wall-inputs">
-              <input type="number" class="wall-l dim-lbl-len" value="40" placeholder="Width (${dimUnit})" step="any">
-              <input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Height (${dimUnit})" step="any">
+              <label class="wall-title">🧱 Side 2 – Width × Height</label>
+              <label class="checkbox-row wall-shared-row"><input type="checkbox" class="wall-shared"> Shared / Existing Wall</label>
+              <div class="wall-dimension-row"><span>Width</span><input type="number" class="wall-l dim-lbl-len" value="40" placeholder="Enter length" step="any"></div>
+              <div class="wall-dimension-row"><span>Height</span><input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Enter height" step="any"></div>
             </div>
-            <label class="checkbox-row">
-              <input type="checkbox" class="wall-shared"> Shared / Existing Wall
-            </label>
-          </div>
         </div>
         <div class="grid-2">
           <div class="wall-box">
-            <label>🧱 Side 3 – Length × Height (opp. Side 1)</label>
-            <div class="wall-inputs">
-              <input type="number" class="wall-l dim-lbl-len" value="20" placeholder="Length (${dimUnit})" step="any">
-              <input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Height (${dimUnit})" step="any">
+              <label class="wall-title">🧱 Side 3 – Length × Height (opp. Side 1)</label>
+              <label class="checkbox-row wall-shared-row"><input type="checkbox" class="wall-shared"> Shared / Existing Wall</label>
+              <div class="wall-dimension-row"><span>Length</span><input type="number" class="wall-l dim-lbl-len" value="20" placeholder="Enter length" step="any"></div>
+              <div class="wall-dimension-row"><span>Height</span><input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Enter height" step="any"></div>
             </div>
-            <label class="checkbox-row">
-              <input type="checkbox" class="wall-shared"> Shared / Existing Wall
-            </label>
-          </div>
           <div class="wall-box">
-            <label>🧱 Side 4 – Width × Height (opp. Side 2)</label>
-            <div class="wall-inputs">
-              <input type="number" class="wall-l dim-lbl-len" value="40" placeholder="Width (${dimUnit})" step="any">
-              <input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Height (${dimUnit})" step="any">
+              <label class="wall-title">🧱 Side 4 – Width × Height (opp. Side 2)</label>
+              <label class="checkbox-row wall-shared-row"><input type="checkbox" class="wall-shared"> Shared / Existing Wall</label>
+              <div class="wall-dimension-row"><span>Width</span><input type="number" class="wall-l dim-lbl-len" value="40" placeholder="Enter length" step="any"></div>
+              <div class="wall-dimension-row"><span>Height</span><input type="number" class="wall-h dim-lbl-ht" value="15" placeholder="Enter height" step="any"></div>
             </div>
-            <label class="checkbox-row">
-              <input type="checkbox" class="wall-shared"> Shared / Existing Wall
-            </label>
-          </div>
         </div>
       `;
       container.appendChild(roomDiv);
     };
 
+    window.updateProjectPanelOptions = function() {
+      const project = document.getElementById('projectType')?.value || 'cold';
+      const prefabOptions = document.getElementById('prefabRoofOptions');
+      const corrugatedBox = document.getElementById('corrugatedRoofWidthBox');
+      const roofProfile = document.getElementById('roofPanelProfile');
+      if (prefabOptions) prefabOptions.style.display = project === 'prefab' ? 'block' : 'none';
+      if (corrugatedBox) corrugatedBox.style.display = project === 'prefab' && roofProfile?.value === 'corrugated' ? 'block' : 'none';
+    };
+    document.addEventListener('DOMContentLoaded', () => window.updateProjectPanelOptions());
+
     window.updateDefaultWidth = function() {
-      const type = document.getElementById('panelType').value;
-      const widthInput = document.getElementById('panelWidthVal');
-      const widthUnit = document.getElementById('panelWidthUnit');
-      if (type === 'wall') {
-        widthInput.value = 1190;
-        widthUnit.value = 'mm';
-      } else if (type === 'roof') {
-        widthInput.value = 970;
-        widthUnit.value = 'mm';
-      }
+      // Widths are intentionally independent, user-entered values for walls and roof.
     };
 
     function toMeter(value, unit) {
@@ -920,135 +1096,335 @@
       document.getElementById('fireSafetyNote').style.display = 'block';
     };
 
+
+    // Shared / existing wall: keep checkbox active so accidental selection can be undone.
+    // Preserve entered values while disabling both dimension inputs.
+    function refreshSharedWallState(room) {
+      room.querySelectorAll('.wall-box').forEach(wall => {
+        const sharedBox = wall.querySelector('.wall-shared');
+        const lengthInput = wall.querySelector('.wall-l');
+        const heightInput = wall.querySelector('.wall-h');
+        const isShared = !!sharedBox?.checked;
+        wall.classList.toggle('disabled-wall', isShared);
+        if (lengthInput) lengthInput.disabled = isShared;
+        if (heightInput) heightInput.disabled = isShared;
+        if (sharedBox) sharedBox.disabled = false;
+        wall.setAttribute('aria-disabled', isShared ? 'true' : 'false');
+      });
+    }
+    function bindSharedWallControls(room) {
+      room.querySelectorAll('.wall-shared').forEach(box => {
+        box.addEventListener('change', () => refreshSharedWallState(room));
+      });
+      refreshSharedWallState(room);
+    }
+    document.querySelectorAll('.room-block').forEach(bindSharedWallControls);
+    const roomsObserver = new MutationObserver(records => {
+      records.forEach(record => record.addedNodes.forEach(node => {
+        if (node.nodeType === 1 && node.matches('.room-block')) bindSharedWallControls(node);
+      }));
+    });
+    roomsObserver.observe(document.getElementById('additionalRoomsContainer'), {childList:true});
+
+    document.getElementById('currencySelect')?.addEventListener('change', function() {
+      const currency = this.value;
+      document.querySelectorAll('#cmDoorRows .cm-door-row').forEach(row => {
+        const label = row.querySelector('.cm-door-price')?.closest('.cm-door-field')?.querySelector('label');
+        const price = row.querySelector('.cm-door-price');
+        if (label) label.textContent = 'PRICE PER DOOR (' + currency + ')';
+        if (price) price.placeholder = 'Each door (e.g. 15,000 ' + currency + ')';
+      });
+      const placeholders = {
+        floorCost: 'Total flooring cost (' + currency + ')',
+        accRate: 'Enter accessories rate (' + currency + ')',
+        labRate: 'Enter labour rate (' + currency + ')',
+        cartageCost: 'Enter total amount (' + currency + ')'
+      };
+      Object.entries(placeholders).forEach(([id,value]) => { const el=document.getElementById(id); if(el) el.placeholder=value; });
+    });
+
+    // Door rows are optional, priced as user-entered lump sums.
+    window.addCmDoorRow = function() {
+      const row = document.createElement('div');
+      row.className = 'cm-door-row';
+      const currency = document.getElementById('currencySelect')?.value || 'PKR';
+      row.innerHTML = `
+        <div class="cm-door-field"><label>DOOR TYPE</label>
+          <select class="cm-door-type" aria-label="Door type">
+            <option value="Sliding Door">Sliding Door</option>
+            <option value="Hinged Door">Hinged Door</option>
+          </select>
+        </div>
+        <div class="cm-door-field"><label>DOOR SIZE</label>
+          <input class="cm-door-dim" type="text" placeholder="e.g. 8 × 8 ft" aria-label="Door dimensions">
+        </div>
+        <div class="cm-door-field"><label>QUANTITY</label>
+          <input class="cm-door-qty" type="number" min="1" step="1" value="1" placeholder="Qty" aria-label="Door quantity">
+        </div>
+        <div class="cm-door-field"><label>ENTER PRICE PER DOOR (${currency})</label>
+          <input class="cm-door-price" type="number" min="0" step="any" value="" placeholder="Each door (e.g. 15,000 ${currency})" aria-label="Price per door in selected currency">
+        </div>
+        <button type="button" onclick="this.closest('.cm-door-row').remove()">Remove</button>`;
+      document.getElementById('cmDoorRows').appendChild(row);
+    };
+
+    function cmGetDoors() {
+      return Array.from(document.querySelectorAll('#cmDoorRows .cm-door-row')).map(row => ({
+        type: row.querySelector('.cm-door-type').value,
+        dimensions: row.querySelector('.cm-door-dim').value.trim(),
+        quantity: Math.max(1, parseInt(row.querySelector('.cm-door-qty').value,10) || 1),
+        unitPrice: Math.max(0, parseFloat(row.querySelector('.cm-door-price').value) || 0)
+      })).map(d => ({...d, lineTotal: d.unitPrice * d.quantity})).filter(d => d.unitPrice > 0 || d.dimensions);
+    }
+
+    function cmMoney(value, currency) {
+      return currency + ' ' + Number(value || 0).toLocaleString('en-PK',{minimumFractionDigits:2,maximumFractionDigits:2});
+    }
+
+    function cmBuildScheduleTable(items, panelWidthFt, panelWidthEntered, panelDescription, profileLabel) {
+      if (!items.length) return '<p style="color:#52606D;font-size:.9rem;font-weight:600;">No panels in this schedule.</p>';
+      const widthText = panelWidthFt.toFixed(2);
+      const body = items.map(item => `<tr><td>${item.quantity} pcs</td><td>${item.length.toFixed(2)} ft</td></tr>`).join('');
+      const total = items.reduce((sum,item)=>sum+item.quantity,0);
+      const totalArea = items.reduce((sum,item)=>sum+(item.quantity*item.length*panelWidthFt),0);
+      return `<p style="margin:4px 0 8px;color:#26313D;font-size:.9rem;font-weight:700;">Profile: ${profileLabel} · Effective coverage width: ${panelWidthEntered} (${widthText} ft)</p><table class="cm-report-table"><thead><tr><th>Required quantity</th><th>Panel length</th></tr></thead><tbody>${body}</tbody><tfoot><tr><th>${total} pcs total</th><th>—</th></tr></tfoot></table><div style="margin-top:8px;padding:9px 11px;background:#F4F6F8;border-radius:7px;display:flex;justify-content:space-between;gap:8px;font-weight:800;"><span>Total ${panelDescription.toLowerCase()} panel area</span><strong>${totalArea.toLocaleString('en-PK',{maximumFractionDigits:2})} sq ft</strong></div>`;
+    }
+
     window.runSandwichCalculation = function() {
-      let netAreaSqFt = 0;
-      let maxSpan = 0;
-
-      if (inputMode === 'area') {
-        let val = parseFloat(document.getElementById('areaNeeded').value) || 0;
-        const unit = document.getElementById('areaUnit').value;
-        netAreaSqFt = (unit === 'sqm') ? val * 10.7639 : val;
-      } else {
-        const rooms = document.querySelectorAll('.room-block');
-        let totalWallArea = 0;
-        let totalRoofArea = 0;
-
-        rooms.forEach(room => {
-          const walls = room.querySelectorAll('.wall-box');
-          let length = 0;
-          let width = 0;
-
-          walls.forEach((wall, index) => {
-            let wLength = parseFloat(wall.querySelector('.wall-l').value) || 0;
-            let wHeight = parseFloat(wall.querySelector('.wall-h').value) || 0;
-            let isShared = wall.querySelector('.wall-shared').checked;
-            
-            if (dimUnit === 'm') { 
-              wLength *= 3.28084; 
-              wHeight *= 3.28084; 
-            }
-            
-            if (wLength > maxSpan) maxSpan = wLength;
-
-            if (!isShared) {
-              totalWallArea += (wLength * wHeight);
-            }
-
-            if (index === 0) length = wLength;
-            if (index === 1) width = wLength;
-          });
-
-          totalRoofArea += (length * width);
-        });
-
-        netAreaSqFt = totalWallArea + totalRoofArea;
-      }
-
-      if (netAreaSqFt <= 0) {
-        alert('Please enter valid room dimensions.');
+      const num = id => Math.max(0,parseFloat(document.getElementById(id).value)||0);
+      const toFt = (value,unit) => unit === 'm' ? value * 3.280839895 : value;
+      const toSqFt = (value,unit) => unit === 'sqm' ? value * 10.7639104167 : value;
+      const projectType = document.getElementById('projectType').value;
+      const wallProfile = 'flat';
+      const roofProfile = projectType === 'prefab' ? document.getElementById('roofPanelProfile').value : 'flat';
+      const wallWidthM = toMeter(num('panelWidthVal'),document.getElementById('panelWidthUnit').value);
+      const wallCoverFt = wallWidthM * 3.280839895;
+      const roofWidthM = roofProfile === 'corrugated'
+        ? toMeter(num('roofPanelWidth'),document.getElementById('roofPanelWidthUnit').value)
+        : wallWidthM;
+      const roofCoverFt = roofWidthM * 3.280839895;
+      if (inputMode !== 'dims') {
+        alert('For a complete wall and roof fabrication BOQ, please use Room Dimensions mode.');
         return;
       }
+      if (!(wallCoverFt > 0)) { alert('Enter the actual effective coverage width for the wall / flat sandwich panels.'); return; }
+      if (roofProfile === 'corrugated' && !(roofCoverFt > 0)) { alert('Enter the actual effective coverage width for corrugated roof panels.'); return; }
+      if (num('panelRate') <= 0) { alert('Enter the sandwich panel rate.'); return; }
+      if (roofProfile === 'corrugated' && num('roofPanelRate') <= 0) { alert('Enter the corrugated roof panel rate.'); return; }
 
-      const wastage = parseFloat(document.getElementById('wastageAllowance').value) || 0;
-      const totalAreaSqFt = netAreaSqFt * (1 + wastage);
-      const totalAreaSqM = totalAreaSqFt / 10.7639;
+      const wastage = num('wastageAllowance');
+      let wallArea = 0, roofArea = 0, maxParapetHeightFt = 0, maxRoofShortSpanFt = 0;
+      const wallMap = new Map(), roofMap = new Map();
+      const wallRunsByHeight = new Map(), roofRunsByLength = new Map();
+      const addQty = (map,length,qty) => {
+        const key = Math.round(length*100)/100;
+        map.set(key,(map.get(key)||0)+qty);
+      };
+      const addRun = (map,key,run) => {
+        const k = Math.round(key*100)/100;
+        map.set(k,(map.get(k)||0)+run);
+      };
+      const scheduleAvailable = inputMode === 'dims';
 
-      let pWidthVal = parseFloat(document.getElementById('panelWidthVal').value) || 1190;
-      let pWidthUnit = document.getElementById('panelWidthUnit').value;
-      let pWidthM = toMeter(pWidthVal, pWidthUnit);
+      if (scheduleAvailable) {
+        document.querySelectorAll('.room-block').forEach(room => {
+          const walls = Array.from(room.querySelectorAll('.wall-box'));
+          const sideLengths = [];
+          walls.forEach((wall,index) => {
+            const lenInput = wall.querySelector('.wall-l');
+            const heightInput = wall.querySelector('.wall-h');
+            const lengthFt = toFt(Math.max(0,parseFloat(lenInput.value)||0),dimUnit);
+            const heightFt = toFt(Math.max(0,parseFloat(heightInput.value)||0),dimUnit);
+            sideLengths[index] = lengthFt;
+            maxParapetHeightFt = Math.max(maxParapetHeightFt,heightFt);
+            const shared = wall.querySelector('.wall-shared').checked;
+            if (!shared && lengthFt > 0 && heightFt > 0) {
+              wallArea += lengthFt*heightFt;
+              addRun(wallRunsByHeight,heightFt,lengthFt);
+            }
+          });
+          const roomLength = sideLengths[0] || 0;
+          const roomWidth = sideLengths[1] || 0;
+          if (roomLength > 0 && roomWidth > 0) {
+            roofArea += roomLength*roomWidth;
+            const shortSpan = Math.min(roomLength,roomWidth);
+            const longSpan = Math.max(roomLength,roomWidth);
+            maxRoofShortSpanFt = Math.max(maxRoofShortSpanFt,shortSpan);
+            addRun(roofRunsByLength,shortSpan,longSpan);
+          }
+        });
+        // Treat compatible continuous wall runs as one combined run before rounding to whole panels.
+        wallRunsByHeight.forEach((run,height) => addQty(wallMap,height,Math.ceil(run/wallCoverFt)));
+        // Combine compatible continuous roof runs with the same panel length before rounding.
+        roofRunsByLength.forEach((run,panelLength) => addQty(roofMap,panelLength,Math.ceil(run/roofCoverFt)));
+      }
 
-      let pLengthVal = parseFloat(document.getElementById('panelLengthVal').value) || 20;
-      let pLengthUnit = document.getElementById('panelLengthUnit').value;
-      let pLengthM = toMeter(pLengthVal, pLengthUnit);
+      let netAreaSqFt;
+      if (inputMode === 'area') {
+        netAreaSqFt = toSqFt(num('areaNeeded'),document.getElementById('areaUnit').value);
+      } else {
+        netAreaSqFt = wallArea+roofArea;
+      }
+      if (!(netAreaSqFt > 0)) { alert('Please enter valid room dimensions or coverage area.'); return; }
 
-      const panelAreaSqM = pWidthM * pLengthM;
-      const panelAreaSqFt = panelAreaSqM * 10.7639;
-      const panelCount = Math.ceil(totalAreaSqFt / panelAreaSqFt);
+      if (!(wallArea > 0 && roofArea > 0)) { alert('Enter valid wall and roof dimensions.'); return; }
+      const wallPanelCount = [...wallMap.values()].reduce((sum,q)=>sum+q,0);
+      const roofPanelCount = [...roofMap.values()].reduce((sum,q)=>sum+q,0);
+      const panelCount = wallPanelCount + roofPanelCount;
+      const wallFactoryArea = [...wallMap.entries()].reduce((sum,[length,qty])=>sum+length*wallCoverFt*qty,0);
+      const roofFactoryArea = [...roofMap.entries()].reduce((sum,[length,qty])=>sum+length*roofCoverFt*qty,0);
+      const factoryPanelArea = wallFactoryArea + roofFactoryArea;
+      const wallAreaWithWaste = wallFactoryArea * (1+wastage);
+      const roofAreaWithWaste = roofFactoryArea * (1+wastage);
+      const totalAreaSqFt = wallAreaWithWaste + roofAreaWithWaste;
+      const totalAreaSqM = totalAreaSqFt/10.7639104167;
 
-      const topG = parseFloat(document.getElementById('topGauge').value) || 0.45;
-      const botG = parseFloat(document.getElementById('botGauge').value) || 0.45;
-      const coreDensity = parseFloat(document.getElementById('coreDensity').value) || 42;
-      const coreThickMm = parseFloat(document.getElementById('coreThickness').value) || 100;
+      const topGauge = num('topGauge'), bottomGauge = num('botGauge');
+      if (!(topGauge > 0 && bottomGauge > 0)) { alert('Enter both top and bottom steel sheet thicknesses (mm), for example 0.5.'); return; }
+      const coreDensity = num('coreDensity'), coreThickness = num('coreThickness');
+      const steelKgPerSqM = (topGauge+bottomGauge)*0.001*7850;
+      const steelWeight = totalAreaSqM*steelKgPerSqM;
+      const coreWeight = totalAreaSqM*(coreThickness/1000)*coreDensity;
+      const totalWeight = steelWeight+coreWeight;
+      const singlePanelWeight = panelCount ? totalWeight/panelCount : 0;
 
-      const steelDensity = 7850;
-      const steelWeightPerSqM = (topG + botG) * 0.001 * steelDensity;
-      const totalSteelWeight = totalAreaSqM * steelWeightPerSqM;
-      const coreVolumeM3 = totalAreaSqM * (coreThickMm * 0.001);
-      const totalCoreWeight = coreVolumeM3 * coreDensity;
-      const totalNetWeight = totalSteelWeight + totalCoreWeight;
-      const singlePanelWeight = totalNetWeight / panelCount;
-
-      const rate = parseFloat(document.getElementById('panelRate').value) || 0;
+      const wallRate = num('panelRate');
+      const roofRate = roofProfile === 'corrugated' ? num('roofPanelRate') : wallRate;
       const currency = document.getElementById('currencySelect').value;
       const rateBasis = document.getElementById('rateBasis').value;
-      const symbols = { 'PKR':'Rs','USD':'$','AED':'د.إ','SAR':'ر.س','GBP':'£','EUR':'€' };
-      const sym = symbols[currency] || 'Rs';
-
-      let grandTotal = 0;
-      if (rateBasis === 'sqft') grandTotal = totalAreaSqFt * rate;
-      else if (rateBasis === 'sqm') grandTotal = totalAreaSqM * rate;
-      else {
-        let totalRunningFt = panelCount * (pLengthUnit === 'ft' ? pLengthVal : pLengthM / 0.3048);
-        grandTotal = totalRunningFt * rate;
+      const wallAreaWithWasteSqM = wallAreaWithWaste/10.7639104167;
+      const roofAreaWithWasteSqM = roofAreaWithWaste/10.7639104167;
+      const sumRunLength = map => [...map.entries()].reduce((sum,[length,qty])=>sum+length*qty,0);
+      const wallRunFt = sumRunLength(wallMap);
+      const roofRunFt = sumRunLength(roofMap);
+      let wallPanelCost = 0, roofPanelCost = 0;
+      if (rateBasis === 'sqft') {
+        wallPanelCost = wallAreaWithWaste*wallRate;
+        roofPanelCost = roofAreaWithWaste*roofRate;
+      } else if (rateBasis === 'sqm') {
+        wallPanelCost = wallAreaWithWasteSqM*wallRate;
+        roofPanelCost = roofAreaWithWasteSqM*roofRate;
+      } else {
+        wallPanelCost = wallRunFt*wallRate;
+        roofPanelCost = roofRunFt*roofRate;
       }
+      const panelCost = wallPanelCost + roofPanelCost;
 
-      document.getElementById('resNetArea').textContent = Math.round(netAreaSqFt).toLocaleString() + ' sq ft';
-      document.getElementById('resTotalArea').textContent = Math.round(totalAreaSqFt).toLocaleString() + ' sq ft';
-      document.getElementById('resPanelCount').textContent = panelCount + ' pcs';
-      document.getElementById('resSingleWeight').textContent = singlePanelWeight.toFixed(1) + ' kg';
-      document.getElementById('resSteelWeight').textContent = totalSteelWeight.toFixed(1) + ' kg';
-      document.getElementById('resCoreWeight').textContent = totalCoreWeight.toFixed(1) + ' kg';
-      document.getElementById('resTotalWeight').textContent = totalNetWeight.toFixed(1) + ' kg (' + (totalNetWeight/1000).toFixed(2) + ' Tons)';
-      document.getElementById('resGrandTotal').textContent = sym + ' ' + Math.round(grandTotal).toLocaleString();
+      const floorCost = num('floorCost');
+      const floorLabel = document.getElementById('floorMaterial').selectedOptions[0].text;
+      const accRate = num('accRate'), labRate = num('labRate');
+      const accMethod = document.getElementById('accMethod').value;
+      const labMethod = document.getElementById('labMethod').value;
+      const byBasis = (method,amount) => method === 'sqft' ? totalAreaSqFt*amount : method === 'sqm' ? totalAreaSqM*amount : amount;
+      const accessoriesCost = byBasis(accMethod,accRate);
+      const labourCost = byBasis(labMethod,labRate);
+      const cartageCost = num('cartageCost');
+      const doors = cmGetDoors();
+      const doorCost = doors.reduce((sum,d)=>sum+d.lineTotal,0);
+      const grandTotal = panelCost+floorCost+accessoriesCost+labourCost+doorCost+cartageCost;
+      const symbol = ({PKR:'PKR',USD:'USD',AED:'AED',SAR:'SAR',GBP:'GBP',EUR:'EUR'})[currency]||currency;
 
-      const country = document.getElementById('countrySelect').value;
-      const fireInfo = regionFireSafety[country] || regionFireSafety.OTHER;
-      document.getElementById('resFireRegion').textContent = fireInfo.region;
-      document.getElementById('resFireStandard').textContent = fireInfo.standard;
-      document.getElementById('resFireCore').textContent = fireInfo.core;
+      const put = (id,value) => { const el=document.getElementById(id); if(el) el.textContent=value; };
+      put('resNetArea',Math.round(netAreaSqFt).toLocaleString()+' sq ft');
+      put('resTotalArea',totalAreaSqFt.toLocaleString('en-PK',{maximumFractionDigits:2})+' sq ft');
+      put('resPanelCount',panelCount.toLocaleString()+' pcs');
+      put('resSingleWeight',singlePanelWeight.toFixed(1)+' kg');
+      put('resSteelWeight',steelWeight.toFixed(1)+' kg');
+      put('resCoreWeight',coreWeight.toFixed(1)+' kg');
+      put('resTotalWeight',totalWeight.toFixed(1)+' kg ('+(totalWeight/1000).toFixed(2)+' Tons)');
+      put('resGrandTotal',cmMoney(grandTotal,symbol));
 
-      const warningBox = document.getElementById('structuralWarning');
+      const fireCountry = document.getElementById('countrySelect').value;
+      const fireInfo = regionFireSafety[fireCountry]||regionFireSafety.OTHER;
+      put('resFireRegion',fireInfo.region); put('resFireStandard',fireInfo.standard); put('resFireCore',fireInfo.core);
+
+      const advisory = [];
+      if (scheduleAvailable && maxRoofShortSpanFt > 14) advisory.push('Roof shorter span is '+maxRoofShortSpanFt.toFixed(2)+' ft, exceeding 14 ft. Obtain a project-specific structural assessment.');
+      if (scheduleAvailable && maxParapetHeightFt > 20) advisory.push('Entered wall/parapet height is '+maxParapetHeightFt.toFixed(2)+' ft, exceeding 20 ft. Obtain a project-specific structural assessment.');
+      const warning = document.getElementById('structuralWarning');
       const warningText = document.getElementById('structuralWarningText');
+      warning.style.display = advisory.length ? 'block' : 'none';
+      warningText.textContent = advisory.join(' ');
 
-      if (maxSpan > 15) {
-        warningBox.style.display = 'block';
-        warningText.innerHTML = `Your maximum span is <strong>${maxSpan.toFixed(1)} ft</strong>. Sandwich panels alone cannot support this clear span for walls or roof. You <strong>MUST</strong> install a long-span PEB or structural steel framework (trusses, purlins) to hold the roof and wall panels securely. Please consult a structural engineer.`;
-      } else if (maxSpan > 0) {
-        warningBox.style.display = 'none';
-      }
+      const wallItems = [...wallMap.entries()].sort((a,b)=>b[0]-a[0]).map(([length,quantity])=>({length,quantity}));
+      const roofItems = [...roofMap.entries()].sort((a,b)=>b[0]-a[0]).map(([length,quantity])=>({length,quantity}));
+      const wallWidthEntered = document.getElementById('panelWidthVal').value + ' ' + document.getElementById('panelWidthUnit').value;
+      const roofWidthEntered = roofProfile === 'corrugated'
+        ? document.getElementById('roofPanelWidth').value + ' ' + document.getElementById('roofPanelWidthUnit').value
+        : wallWidthEntered;
+      document.getElementById('cmWallSchedule').innerHTML = scheduleAvailable ? cmBuildScheduleTable(wallItems, wallCoverFt, wallWidthEntered, 'Sandwich panels for walls', 'Flat / Low-Rib') : '';
+      document.getElementById('cmRoofSchedule').innerHTML = scheduleAvailable ? cmBuildScheduleTable(roofItems, roofCoverFt, roofWidthEntered, 'Sandwich panels for roof', roofProfile === 'flat' ? 'Flat / Low-Rib' : 'Corrugated') : '';
+      document.getElementById('cmScheduleUnavailable').style.display = scheduleAvailable ? 'none' : 'block';
+      put('cmTotalWallPanels',wallPanelCount.toLocaleString()+' pcs');
+      put('cmTotalRoofPanels',roofPanelCount.toLocaleString()+' pcs');
+      put('cmTotalAllPanels',panelCount.toLocaleString()+' pcs');
+      put('cmFactoryPanelArea',factoryPanelArea.toLocaleString('en-PK',{maximumFractionDigits:2})+' sq ft');
 
-      document.getElementById('resultsContainer').style.display = 'block';
+      const doorBlock = document.getElementById('cmDoorResults');
+      document.getElementById('cmDoorSummary').innerHTML = doors.map(d=>`<div class="cm-cost-row"><span>${d.type} — ${d.dimensions||'Size not supplied'} · ${d.quantity} × ${cmMoney(d.unitPrice,symbol)} each</span><strong>${cmMoney(d.lineTotal,symbol)}</strong></div>`).join('') || '<p>None entered</p>';
+      doorBlock.style.display = doors.length ? 'block' : 'none';
+
+      const costRows = [
+        ['Wall sandwich panels',wallPanelCost],
+        ['Roof sandwich panels',roofPanelCost],
+        ['Flooring insulation — '+floorLabel,floorCost],
+        ['Mounting accessories',accessoriesCost],
+        ['Fabrication labour',labourCost],
+        ['Insulated doors',doorCost],
+        ['Cartage / miscellaneous',cartageCost]
+      ];
+      document.getElementById('cmCostRows').innerHTML = costRows.map(([label,value])=>`<div class="cm-cost-row"><span>${label}</span><strong>${cmMoney(value,symbol)}</strong></div>`).join('')+`<div class="cm-cost-row total"><span>GRAND TOTAL</span><strong>${cmMoney(grandTotal,symbol)}</strong></div>`;
+
+      const fmtRate = value => cmMoney(value,symbol) + (rateBasis === 'sqft' ? ' / sq ft' : rateBasis === 'sqm' ? ' / m²' : ' / running ft');
+      const boqRows = [
+        ['Effective area required',wallArea+roofArea,'sq ft'],
+        ['Actual factory panel material required (before additional allowance)',factoryPanelArea,'sq ft'],
+        ['Additional allowance', (wastage*100).toFixed(0)+'%',''],
+        ['Final panel material requirement (including allowance)',totalAreaSqFt,'sq ft'],
+        ['Total wall panels',wallPanelCount+' pcs',''],
+        ['Total roof panels',roofPanelCount+' pcs',''],
+        ['Total panels required',panelCount+' pcs',''],
+        ['Wall panel profile / effective width','Flat / Low-Rib · '+wallCoverFt.toFixed(2)+' ft',''],
+        ['Wall panel rate applied',fmtRate(wallRate),''],
+        ['Sandwich panels for walls',cmMoney(wallPanelCost,symbol),''],
+        ['Roof panel profile / effective width',(roofProfile === 'corrugated' ? 'Corrugated · ' : 'Flat / Low-Rib · ')+roofCoverFt.toFixed(2)+' ft',''],
+        ['Roof panel rate applied',fmtRate(roofRate),''],
+        ['Sandwich panels for roof',cmMoney(roofPanelCost,symbol),''],
+        ['Mounting accessories',cmMoney(accessoriesCost,symbol),''],
+        ['Fabrication / labour',cmMoney(labourCost,symbol),''],
+        ['Floor insulation — '+floorLabel,cmMoney(floorCost,symbol),''],
+        ['Insulated doors',cmMoney(doorCost,symbol),''],
+        ['Cartage / miscellaneous',cmMoney(cartageCost,symbol),'']
+      ];
+      const doorGroups = ['Sliding Door','Hinged Door'].map(type => { const rows=doors.filter(d=>d.type===type); return {type,qty:rows.reduce((n,d)=>n+d.quantity,0),total:rows.reduce((n,d)=>n+d.lineTotal,0)}; }).filter(x=>x.qty>0);
+      const doorBoqRows = doorGroups.map(d => [d.type+' · '+d.qty+' doors',cmMoney(d.total,symbol),'']);
+      const boqHtml = [...boqRows,...doorBoqRows].map(([label,value,unit])=>`<div style="display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid #E1E4E8;align-items:flex-start;"><span style="flex:1;">${label}</span><strong style="text-align:right;max-width:52%;">${typeof value === 'number' ? value.toLocaleString('en-PK',{minimumFractionDigits:2,maximumFractionDigits:2})+' '+unit : value}</strong></div>`).join('');
+      document.getElementById('cmBoqSummaryRows').innerHTML = boqHtml + `<div style="display:flex;justify-content:space-between;gap:14px;padding-top:15px;margin-top:8px;border-top:2px solid var(--gold);font-size:1.15rem;font-weight:900;color:#A07828;"><span>GRAND TOTAL</span><strong>${cmMoney(grandTotal,symbol)}</strong></div>`;
+      const boq = document.getElementById('boq-section');
+      if (boq) boq.style.display='block';
+
+      document.getElementById('resultsContainer').style.display='block';
       document.getElementById('resultsContainer').scrollIntoView({behavior:'smooth'});
     };
 
     window.shareWhatsAppSummary = function() {
-      const area = document.getElementById('resTotalArea').textContent;
-      const panels = document.getElementById('resPanelCount').textContent;
-      const weight = document.getElementById('resTotalWeight').textContent;
-      const cost = document.getElementById('resGrandTotal').textContent;
-      const fire = document.getElementById('resFireStandard').textContent;
-      const msg = `🧱 *ColdMatrix Sandwich Panel Estimate*%0A%0A📐 Total Area: ${area}%0A📦 Panels: ${panels}%0A⚖️ Weight: ${weight}%0A🔥 Fire Safety: ${fire}%0A💰 Cost: ${cost}%0A%0A🔗 coldmatrixtools.com`;
-      window.open(`https://wa.me/?text=${msg}`, '_blank');
+      const txt = id => document.getElementById(id)?.innerText?.trim() || '—';
+      const message = [
+        '*ColdMatrix Sandwich Panel Estimate*','',
+        'Effective area required: '+txt('resNetArea'),'Final panel material required: '+txt('resTotalArea'),
+        'Panels: '+txt('resPanelCount'),'Weight per panel: '+txt('resSingleWeight'),
+        'Steel weight: '+txt('resSteelWeight'),'Core weight: '+txt('resCoreWeight'),
+        'Total order weight: '+txt('resTotalWeight'),'',
+        'FIRE SAFETY','Region: '+txt('resFireRegion'),'Standard: '+txt('resFireStandard'),'Recommended core: '+txt('resFireCore'),'',
+        'WALL FABRICATION SCHEDULE',txt('cmWallSchedule'),'',
+        'ROOF FABRICATION SCHEDULE',txt('cmRoofSchedule'),'',
+        'INSULATED DOORS',txt('cmDoorSummary'),'',
+        'PROJECT COST SUMMARY',txt('cmCostRows'),'',
+        'PROJECT BOQ SUMMARY',txt('cmBoqSummaryRows'),'',
+        'STRUCTURAL ADVISORY',txt('structuralWarningText'),'',
+        'coldmatrixtools.com'
+      ].join('\n');
+      window.open('https://wa.me/?text='+encodeURIComponent(message),'_blank');
     };
 
     window.downloadResult = function(type) {
@@ -1151,7 +1527,20 @@
         grandTotal: document.getElementById('resGrandTotal').textContent,
         fireRegion: document.getElementById('resFireRegion').textContent,
         fireStandard: document.getElementById('resFireStandard').textContent,
-        fireCore: document.getElementById('resFireCore').textContent
+        fireCore: document.getElementById('resFireCore').textContent,
+        projectType: document.getElementById('projectType')?.selectedOptions[0]?.text || '',
+        wallPanelProfile: 'Flat / Low-Rib Sandwich Panel',
+        roofPanelProfile: (document.getElementById('projectType')?.value === 'prefab' ? document.getElementById('roofPanelProfile')?.selectedOptions[0]?.text : 'Flat / Low-Rib Sandwich Panel') || '',
+        wallAndFlatRoofWidth: document.getElementById('panelWidthVal')?.value + ' ' + document.getElementById('panelWidthUnit')?.value,
+        corrugatedRoofWidth: document.getElementById('roofPanelWidth')?.value ? document.getElementById('roofPanelWidth').value + ' ' + document.getElementById('roofPanelWidthUnit')?.value : 'Same as wall panels',
+        standardPanelRate: document.getElementById('panelRate')?.value,
+        corrugatedRoofRate: document.getElementById('roofPanelRate')?.value || 'Same as wall panel rate',
+        wallSchedule: document.getElementById('cmWallSchedule')?.innerText || 'Unavailable in Direct Area mode',
+        roofSchedule: document.getElementById('cmRoofSchedule')?.innerText || 'Unavailable in Direct Area mode',
+        doorSummary: document.getElementById('cmDoorSummary')?.innerText || 'No doors entered',
+        projectCosts: document.getElementById('cmCostRows')?.innerText || '',
+        projectBOQ: document.getElementById('cmBoqSummaryRows')?.innerText || '',
+        structuralAdvisory: document.getElementById('structuralWarningText')?.innerText || 'No advisory thresholds exceeded'
       };
 
       try {
@@ -1215,6 +1604,22 @@
       ];
       doc.autoTable({ startY: doc.lastAutoTable.finalY + 16, head: [engineeringMetrics[0]], body: engineeringMetrics.slice(1), theme: 'striped', headStyles: { fillColor: PRIMARY, textColor: WHITE, fontStyle: 'bold' }, styles: { fontSize: 10, cellPadding: 4, textColor: TEXT_DARK }, columnStyles: { 0: { fontStyle: 'bold', cellWidth: 60 }, 1: { cellWidth: 60 }, 2: { cellWidth: 50 } }, margin: { left: 14, right: 14 } });
 
+      doc.setFont("helvetica","bold"); doc.setFontSize(12); doc.setTextColor(...PRIMARY);
+      doc.text("3. Factory Fabrication Schedules",14,doc.lastAutoTable.finalY+12);
+      const scheduleRows = [];
+      String(calcData.wallSchedule||"").split("\n").filter(Boolean).forEach(line=>scheduleRows.push(["Wall",line]));
+      String(calcData.roofSchedule||"").split("\n").filter(Boolean).forEach(line=>scheduleRows.push(["Roof",line]));
+      if (!scheduleRows.length) scheduleRows.push(["Schedules","Unavailable in Direct Area mode"]);
+      doc.autoTable({startY:doc.lastAutoTable.finalY+16,head:[["Panel group","Panel length / quantity"]],body:scheduleRows,theme:"striped",headStyles:{fillColor:PRIMARY,textColor:WHITE},styles:{fontSize:9,cellPadding:3},margin:{left:14,right:14}});
+      doc.setFont("helvetica","bold"); doc.setFontSize(12); doc.setTextColor(...PRIMARY);
+      doc.text("4. Doors, Project Costs & Advisory",14,doc.lastAutoTable.finalY+12);
+      doc.autoTable({startY:doc.lastAutoTable.finalY+16,body:[
+        ["Insulated doors",calcData.doorSummary||"None entered"],
+        ["Project BOQ summary",calcData.projectBOQ||""],
+        ["Complete project cost summary",calcData.projectCosts||""],
+        ["Structural advisory",calcData.structuralAdvisory||"No advisory thresholds exceeded"]
+      ],theme:"grid",styles:{fontSize:8,cellPadding:4,textColor:TEXT_DARK},columnStyles:{0:{fontStyle:"bold",cellWidth:48}},margin:{left:14,right:14}});
+
       let finalY = doc.lastAutoTable.finalY + 15;
       doc.setFillColor(...LIGHT_BG); doc.rect(14, finalY, 182, 28, 'F');
       doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(...SECONDARY); doc.text("⚠️ ENGINEERING NOTICE & COMPLIANCE VERIFICATION:", 18, finalY + 6);
@@ -1277,6 +1682,10 @@
       } catch(e) {}
       location.reload();
     }
+
+    // Each shared/existing-wall checkbox excludes only its own wall from the panel area and schedule.
+    // It does not disable or erase another wall's dimensions.
+
   </script>
 </body>
 </html>
