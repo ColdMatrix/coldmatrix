@@ -787,6 +787,90 @@ img {
   html body footer.hostinger-glass-auto {
     border-radius: 0 !important;
   }
+
+  /* ACCESSIBILITY-ONLY: premium obsidian-violet glass cookie notice */
+  #cookie-notice.cm-cookie-notice {
+    position: fixed;
+    isolation: isolate;
+    overflow: hidden;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999;
+    display: none;
+    padding: 18px 20px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    background:
+      linear-gradient(125deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 28%, transparent 28.5%),
+      radial-gradient(circle at 85% 90%, rgba(103,61,230,0.42) 0%, transparent 55%),
+      linear-gradient(165deg, #16073B 0%, #09021A 60%, #050110 100%);
+    border-top: 2px solid #F2BE32;
+    box-shadow: 0 -12px 38px rgba(0,0,0,0.55), 0 0 28px rgba(103,61,230,0.24), inset 0 1px 0 rgba(255,255,255,0.42);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+  }
+  #cookie-notice.cm-cookie-notice::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 48%;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(255,255,255,0.10), transparent);
+    z-index: -1;
+  }
+  #cookie-notice .cm-cookie-message {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto 12px;
+    color: #FFFFFF;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+  #cookie-notice .cm-cookie-message a {
+    color: #FFD700;
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    font-weight: 800;
+  }
+  #cookie-notice .cm-cookie-accept,
+  #cookie-notice .cm-cookie-decline {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin: 0 4px;
+    padding: 10px 24px;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  #cookie-notice .cm-cookie-accept {
+    color: #16073B;
+    background: #FFD700;
+    border: 2px solid #FFD700;
+  }
+  #cookie-notice .cm-cookie-decline {
+    color: #FFFFFF;
+    background: rgba(9,2,26,0.42);
+    border: 2px solid #D8CCFF;
+  }
+  #cookie-notice .cm-cookie-message a:focus-visible,
+  #cookie-notice button:focus-visible {
+    outline: 3px solid #FFFFFF;
+    outline-offset: 3px;
+  }
+  @media (max-width: 600px) {
+    #cookie-notice.cm-cookie-notice { padding: 15px 12px; }
+    #cookie-notice .cm-cookie-message { font-size: 0.88rem; }
+  }
     /* MATCHING OBSIDIAN-VIOLET GLASS NAVBAR */
   html body header,
   html body .navbar,
@@ -1705,7 +1789,7 @@ html body footer p a {
         <div class="footer-col"><h4>Company</h4>
           <a href="solutions.html?v=1">❄️ Cold Matrix</a>
           <a href="about.html?v=1">ℹ️ About</a>
-          <a href="contact.html?v=1">📞 Contact</a>
+          <a href="contact.html?v=1">?? Contact</a>
           <a href="sitemap.html?v=1">📋 Site Map</a>
           <a href="security.html?v=1">🔒 Security</a>
           <a href="privacy-policy.html?v=1">🔒 Privacy Policy</a>
@@ -1853,14 +1937,14 @@ html body footer p a {
   </script>
 
   <!-- ============================================ -->
-  <!-- BULLETPROOF COOKIE BANNER -->
+  <!-- ACCESSIBLE OBSIDIAN-VIOLET GLASS COOKIE BANNER -->
   <!-- ============================================ -->
-  <div id="cookie-notice" style="position:fixed; bottom:0; left:0; right:0; background:#E8EBEF; border-top:3px solid #D4AF37; padding:15px 20px; text-align:center; z-index:99999; display:none; box-shadow:0 -4px 20px rgba(0,0,0,0.25); font-family:'Inter',sans-serif;">
-    <p style="color:#0A0F14; font-size:0.9rem; margin:0 0 10px; line-height:1.6; max-width:800px; margin-left:auto; margin-right:auto;">We use cookies to improve your experience and serve relevant ads. Read our <a href="privacy-policy.html" style="color:#A07828; text-decoration:underline; font-weight:700;">Privacy Policy</a> and <a href="cookie-policy.html" style="color:#A07828; text-decoration:underline; font-weight:700;">Cookie Policy</a>.</p>
-    
-    <button onclick="this.parentElement.style.display='none'; this.parentElement.remove(); try{localStorage.setItem('cookieChoice','accepted'); localStorage.setItem('cookieTime', Date.now());}catch(e){}" style="background:#FFD700; color:#0A0F14; border:none; padding:10px 24px; border-radius:6px; font-weight:800; cursor:pointer; font-size:0.85rem; margin:0 4px; min-height:44px;">ACCEPT</button>
-    
-    <button onclick="this.parentElement.style.display='none'; this.parentElement.remove(); try{localStorage.setItem('cookieChoice','declined'); localStorage.setItem('cookieTime', Date.now());}catch(e){}" style="background:transparent; color:#2A3138; border:2px solid #8B98A5; padding:10px 24px; border-radius:6px; font-weight:700; cursor:pointer; font-size:0.85rem; margin:0 4px; min-height:44px;">DECLINE</button>
+  <div id="cookie-notice" class="cm-cookie-notice" role="region" aria-label="Cookie notice">
+    <p class="cm-cookie-message">We use cookies to improve your experience and serve relevant ads. Read our <a href="privacy-policy.html">Privacy Policy</a> and <a href="cookie-policy.html">Cookie Policy</a>.</p>
+
+    <button class="cm-cookie-accept" onclick="this.parentElement.style.display='none'; this.parentElement.remove(); try{localStorage.setItem('cookieChoice','accepted'); localStorage.setItem('cookieTime', Date.now());}catch(e){}">ACCEPT</button>
+
+    <button class="cm-cookie-decline" onclick="this.parentElement.style.display='none'; this.parentElement.remove(); try{localStorage.setItem('cookieChoice','declined'); localStorage.setItem('cookieTime', Date.now());}catch(e){}">DECLINE</button>
   </div>
 
   <script>
