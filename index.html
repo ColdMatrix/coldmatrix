@@ -56,6 +56,7 @@
 
     /* Dropdown */
     .cm-dropdown { position: relative; display: inline-block; }
+    .cm-dropdown > .dropbtn::after { content: ' ▾'; color: var(--gold-bright); font-weight: 800; }
     .cm-dropdown .dropdown-content { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: #fff; min-width: 260px; max-height: 400px; overflow-y: auto; box-shadow: 0 10px 30px rgba(63, 16, 132, 0.15); border: 1px solid var(--border); border-radius: 12px; z-index: 1000; padding: 8px 0; }
     .cm-dropdown .dropdown-content a { display: block; padding: 10px 20px; color: var(--purple-dark); text-decoration: none; font-size: 0.85rem; border-bottom: 1px solid #eee; }
     .cm-dropdown .dropdown-content a:hover { background: var(--lavender-light); color: var(--accent); }
@@ -242,33 +243,75 @@
 
 @media (max-width: 900px) {
   
-  /* 3. Navbar: 2 Rows & Silver Text */
-  .nav-inner { flex-direction: column !important; align-items: center !important; padding: 7px 10px !important; }
-  .nav-links { 
-      display: flex !important; 
-      flex-wrap: wrap !important; 
-      justify-content: center !important; 
-      gap: 6px 10px !important; /* Slightly tighter rows on mobile */
-      width: 100% !important; 
-      padding-top: 5px !important; 
-      margin-left: 0 !important; 
+  /* 3. Navbar: exactly two balanced rows on mobile; prevent horizontal clipping. */
+  .nav-inner {
+      flex-direction: column !important;
+      align-items: center !important;
+      padding: 7px 10px !important;
+      row-gap: 8px !important;
+      width: 100% !important;
   }
-  .nav-links > li > a, .nav-links > li > span { 
-      font-size: 0.72rem !important; 
-      color: #64748B !important; /* Strong Silver/Charcoal */
+  .nav-links {
+      display: grid !important;
+      grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+      grid-template-rows: auto auto !important;
+      justify-content: stretch !important;
+      align-items: center !important;
+      column-gap: 0 !important;
+      row-gap: 8px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 5px 0 0 !important;
+      margin: 0 !important;
+      box-sizing: border-box !important;
+  }
+  /* Row one: Home, Engineering Tools, Business & Finance. */
+  .nav-links > li:nth-child(1) { grid-column: 1 / span 2 !important; grid-row: 1 !important; }
+  .nav-links > li:nth-child(2) { grid-column: 3 / span 5 !important; grid-row: 1 !important; }
+  .nav-links > li:nth-child(3) { grid-column: 8 / span 5 !important; grid-row: 1 !important; }
+  /* Row two: five links, evenly spaced from the left edge. */
+  .nav-links > li:nth-child(4) { grid-column: 1 / span 4 !important; grid-row: 2 !important; }
+  .nav-links > li:nth-child(5) { grid-column: 5 / span 3 !important; grid-row: 2 !important; }
+  .nav-links > li:nth-child(6) { grid-column: 8 / span 1 !important; grid-row: 2 !important; }
+  .nav-links > li:nth-child(7) { grid-column: 9 / span 2 !important; grid-row: 2 !important; }
+  .nav-links > li:nth-child(8) { grid-column: 11 / span 2 !important; grid-row: 2 !important; }
+  .nav-links > li {
+      min-width: 0 !important;
+      text-align: center !important;
+      justify-self: stretch !important;
+  }
+  .nav-links > li > a, .nav-links > li > span {
+      display: inline-block !important;
+      max-width: 100% !important;
+      font-size: 0.72rem !important;
+      line-height: 1.15 !important;
+      color: #FFFFFF !important;
       font-weight: 700 !important;
-      letter-spacing: -0.2px !important;
+      letter-spacing: -0.015em !important;
+      white-space: nowrap !important;
+      padding: 0 1px !important;
   }
-  .nav-links > li > a:hover { 
-      color: var(--gold-bright) !important; 
+  .nav-links > li:nth-child(n+4) > a,
+  .nav-links > li:nth-child(n+4) > span {
+      font-size: 0.72rem !important;
+      letter-spacing: -0.015em !important;
+  }
+  .nav-links > li > a:hover {
+      color: var(--gold-bright) !important;
   }
 
   /* 4. Category Cards: Stop Stretching */
-  .category-grid { grid-template-columns: 1fr 1fr !important; gap: 15px !important; }
-  .cat-card { 
-      height: fit-content !important; 
-      min-height: 0 !important; 
-      padding: 20px 15px !important; 
+  .category-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      grid-auto-rows: 1fr !important;
+      align-items: stretch !important;
+      gap: 15px !important;
+  }
+  .cat-card {
+      box-sizing: border-box !important;
+      height: 100% !important;
+      min-height: 145px !important;
+      padding: 16px 13px !important;
   }
   .cat-card p { 
       flex-grow: 0 !important; /* Kills the empty stretching gap */
@@ -613,31 +656,6 @@ img {
   .tools-grid { column-gap: 30px !important; row-gap: 30px !important; }
 }
 
-/* Equal, consistent dimensions for all four introductory category cards. */
-.category-grid {
-  align-items: stretch !important;
-  grid-auto-rows: 220px !important;
-}
-.category-grid .cat-card {
-  box-sizing: border-box !important;
-  height: 220px !important;
-  min-height: 220px !important;
-  max-height: 220px !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-.category-grid .cat-card .cat-icon { flex: 0 0 auto !important; }
-.category-grid .cat-card h4 { flex: 0 0 auto !important; }
-.category-grid .cat-card p {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  margin-bottom: 12px !important;
-}
-.category-grid .cat-card .cat-footer {
-  flex: 0 0 auto !important;
-  margin-top: auto !important;
-}
-
 /* Restore readable contrast in the dark hero text panel. */
 .hero-text-box .hero-desc, .hero-text-box .hero-desc * {
   color: #F1F5F9 !important; opacity: 1 !important;
@@ -691,7 +709,31 @@ img {
   overflow: hidden !important;
 }
 
-</style>
+
+
+/* Equal heights for the four introductory category cards only. */
+.category-grid {
+  align-items: stretch !important;
+  grid-auto-rows: 1fr !important;
+}
+.category-grid .cat-card {
+  box-sizing: border-box !important;
+  height: 100% !important;
+}
+
+/* Final category-card polish: smaller icons and less top-heavy spacing. */
+@media (max-width: 900px) {
+  .category-grid .cat-card {
+    padding-top: 14px !important;
+  }
+  .category-grid .cat-card .cat-icon {
+    font-size: 1.7rem !important;
+    line-height: 1 !important;
+    margin-top: 0 !important;
+    margin-bottom: 6px !important;
+  }
+}
+\n</style>
 
 </head>
 
@@ -705,7 +747,7 @@ img {
       <ul class="nav-links">
         <li><a href="/" class="active">Home</a></li>
         <li class="cm-dropdown">
-          <span class="dropbtn">Engineering Tools ▾</span>
+          <span class="dropbtn">Engineering Tools</span>
           <div class="dropdown-content">
             <a href="cold-store-calculator.html?v=1">❄ Cold Room &amp; Panel Calculator</a>
             <a href="sandwich-panel-calculator.html?v=1">🧱 Sandwich Panel Calculator</a>
@@ -719,7 +761,7 @@ img {
           </div>
         </li>
         <li class="cm-dropdown">
-          <span class="dropbtn">Business &amp; Finance ▾</span>
+          <span class="dropbtn">Business &amp; Finance</span>
           <div class="dropdown-content">
             <a href="business-planner.html?v=1">📖 Digital Business Planner</a>
             <a href="roi-calculator.html?v=1">📈 ROI &amp; Investment Profit</a>
@@ -735,7 +777,7 @@ img {
           </div>
         </li>
         <li class="cm-dropdown">
-          <span class="dropbtn">Everyday Utilities ▾</span>
+          <span class="dropbtn">Everyday Utilities</span>
           <div class="dropdown-content">
             <a href="internet-speed-test.html?v=1">🌐 Internet Speed Test</a>
             <a href="unit-converter.html?v=1">📏 Universal Unit Converter</a>
@@ -1008,7 +1050,7 @@ img {
         <div class="tool-icon" style="font-size:1.5rem;">🖼️</div><h3>Image Converter &amp; Resizer</h3><p>Convert JPG, PNG, BMP, WebP — free online.</p><div class="tool-status">● Live</div>
       </a>
       <a href="cold-matrix-bmi-calculator.html?v=1" class="tool-card" style="background-image: url('bmi_calc.jpg?v=4');">
-        <div class="tool-icon" style="font-size:1.5rem;">⚖️</div><h3>ColdMatrix BMI &amp; Health Calculator</h3><p>BMI, BMR, daily calories, healthy weight range &amp; more — your complete health companion.</p><div class="tool-status">● Live</div>
+        <div class="tool-icon" style="font-size:1.5rem;"> ❤️‍🩹</div><h3>ColdMatrix BMI &amp; Health Calculator</h3><p>BMI, BMR, daily calories, healthy weight range &amp; more — your complete health companion.</p><div class="tool-status">● Live</div>
       </a>
       <a href="pdf-toolkit.html?v=1" class="tool-card" style="background-image: url('pdf_toolkit.jpg?v=4');">
         <div class="tool-icon" style="font-size:1.5rem;">📄</div><h3>PDF Toolkit</h3><p>Merge, split, compress &amp; convert PDFs — all in your browser.</p><div class="tool-status">● Live</div>
@@ -1530,7 +1572,7 @@ img {
     html body .navbar button,
     html body .navbar span {
       color: #FFFFFF !important;
-      font-size: 13.5px !important;
+      font-size: 14.5px !important;
       font-weight: 500 !important;
       padding: 6px 4px !important;
       white-space: nowrap !important;
@@ -1565,45 +1607,6 @@ img {
 
 
 /* ===== FINAL REQUESTED FIXES: TOOL TEXT, LIVE BADGES, LOWER-PAGE CONTRAST ===== */
-
-/* Let tool cards grow to fit all description text and keep the Live badge inside. */
-.tools-grid .tool-card {
-    height: auto !important;
-    min-height: 290px !important;
-    max-height: none !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
-    gap: 8px !important;
-    box-sizing: border-box !important;
-}
-.tools-grid .tool-card h3 {
-    line-height: 1.25 !important;
-    margin: 0 !important;
-    flex: 0 0 auto !important;
-}
-.tools-grid .tool-card p {
-    display: block !important;
-    overflow: visible !important;
-    height: auto !important;
-    max-height: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    line-height: 1.4 !important;
-    flex: 0 0 auto !important;
-    white-space: normal !important;
-    overflow-wrap: break-word !important;
-}
-.tools-grid .tool-card .tool-icon {
-    flex: 0 0 auto !important;
-}
-.tools-grid .tool-card .tool-status {
-    position: relative !important;
-    z-index: 2 !important;
-    align-self: center !important;
-    flex: 0 0 auto !important;
-    margin: auto auto 0 auto !important;
-}
 
 /* All category and calculator Live badges: gold fill and a gentle pulse on every screen. */
 @keyframes cmGoldLivePulse {
@@ -1680,31 +1683,7 @@ html body footer p a {
     box-shadow: none !important;
 }
 
-/* Every actual calculator/tool tile: consistent visible gold border. */
-.tools-grid .tool-card {
-    box-sizing: border-box !important;
-    border: 2px solid #D6A928 !important;
-}
-
-/* Calculator Live labels: gold dot and gold text, transparent background, blinking. */
-.tools-grid .tool-card .tool-status {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    align-self: center !important;
-    width: fit-content !important;
-    margin: auto auto 0 auto !important;
-    padding: 5px 12px !important;
-    background: transparent !important;
-    color: #F2BE32 !important;
-    border: 1px solid rgba(242, 190, 50, 0.55) !important;
-    border-radius: 999px !important;
-    font-weight: 800 !important;
-    line-height: 1.2 !important;
-    white-space: nowrap !important;
-    animation: cmToolLiveBlink 1.15s infinite ease-in-out !important;
-    box-shadow: none !important;
-}
+/* Calculator Live-label animation; final label layout is defined with the tool-card rules below. */
 @keyframes cmToolLiveBlink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.42; }
@@ -1749,7 +1728,7 @@ html body footer p a {
 }
 .tools-grid .tool-card h3 {
   flex: 0 0 auto !important;
-  font-size: 1.08rem !important;
+  font-size: 20px !important;
   line-height: 1.2 !important;
   margin: 0 !important;
   max-height: 2.4em !important;
@@ -1761,12 +1740,13 @@ html body footer p a {
   -webkit-line-clamp: 3 !important;
   flex: 0 1 auto !important;
   min-height: 0 !important;
-  max-height: 3.9em !important;
+  max-height: none !important;
   overflow: hidden !important;
-  font-size: 0.88rem !important;
-  line-height: 1.3 !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 0 0 3px 0 !important;
+  box-sizing: content-box !important;
   overflow-wrap: break-word !important;
 }
 .tools-grid .tool-card .tool-status {
@@ -1795,6 +1775,75 @@ html body footer p a {
     height: 245px !important;
     min-height: 245px !important;
     max-height: 245px !important;
+  }
+}
+
+
+/* ===== TARGETED TOOL-CARD TITLE/DESCRIPTION SEPARATION ===== */
+/* Keep every tool title fully visible; descriptions start below the title. */
+.tools-grid .tool-card h3 {
+  flex: 0 0 auto !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  line-height: 1.2 !important;
+  margin: 0 0 3px 0 !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+/* Allow descriptions up to three readable lines; preserve separation from titles and Live badges. */
+.tools-grid .tool-card p {
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 3 !important;
+  flex: 0 1 auto !important;
+  min-height: 0 !important;
+  max-height: 4.2em !important;
+  height: auto !important;
+  overflow: hidden !important;
+  line-height: 1.4 !important;
+  margin: 3px 0 0 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* The BMI title is longer than most; slightly reduce its size without changing its wording. */
+.tools-grid .tool-card[href*="cold-matrix-bmi-calculator"] h3 {
+  font-size: 18px !important;
+  line-height: 1.2 !important;
+}
+
+/* Keep the Live badge at the bottom, separate from the description. */
+.tools-grid .tool-card .tool-status {
+  flex: 0 0 auto !important;
+  margin-top: auto !important;
+}
+
+
+/* FINAL MOBILE DESCRIPTION FIX ONLY
+   Let each tool card grow naturally when its description needs more room.
+   This prevents text from being cut by the fixed mobile card height. */
+@media (max-width: 900px) {
+  .tools-grid .tool-card {
+    height: auto !important;
+    min-height: 245px !important;
+    max-height: none !important;
+  }
+
+  .tools-grid .tool-card p {
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: initial !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    flex: 0 0 auto !important;
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+    margin: 3px 0 8px 0 !important;
+    padding: 0 !important;
   }
 }
 
