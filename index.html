@@ -840,7 +840,7 @@ img {
   <!-- Promotional Video Section -->
   <div class="container" style="margin: 30px auto; text-align: center;">
     <div class="cm-video-frame" style="border: 2px solid #D4AF37; border-radius: 16px; overflow: hidden; box-shadow: 0 0 20px rgba(212,175,55,0.3); max-width: 720px; margin: 0 auto;">
-      <video autoplay muted loop playsinline controls style="width: 100%; display: block;">
+      <video muted loop playsinline controls preload="none" data-lazy-video style="width: 100%; display: block;">
         <source src="coldmatrix-intro.mp4?v=3" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -1031,7 +1031,7 @@ img {
   <!-- Second Promotional Video -->
   <div class="container" style="margin: 30px auto; text-align: center;">
     <div class="cm-video-frame" style="border: 2px solid #D4AF37; border-radius: 16px; overflow: hidden; box-shadow: 0 0 20px rgba(212,175,55,0.3); max-width: 720px; margin: 0 auto;">
-      <video autoplay muted loop playsinline controls style="width: 100%; display: block;">
+      <video muted loop playsinline controls preload="none" data-lazy-video style="width: 100%; display: block;">
         <source src="coldmatrix-everyday.mp4?v=3" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -1936,6 +1936,40 @@ linear-gradient(165deg, rgba(22, 7, 59, 0.30) 0%, rgba(9, 2, 26, 0.45) 100%),
         el.classList.add('hostinger-glass-auto');
       }
     });
+  })();
+</script>
+
+
+<script>
+  /* Load promotional videos only when a visitor approaches them.
+     This keeps large MP4 downloads out of the initial page load while
+     preserving automatic muted playback when each video comes into view. */
+  (() => {
+    const videos = document.querySelectorAll('video[data-lazy-video]');
+    if (!videos.length) return;
+
+    const startVideo = video => {
+      video.load();
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {});
+      }
+    };
+
+    if ('IntersectionObserver' in window) {
+      const videoObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            startVideo(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '100px 0px', threshold: 0.01 });
+
+      videos.forEach(video => videoObserver.observe(video));
+    } else {
+      videos.forEach(startVideo);
+    }
   })();
 </script>
 
