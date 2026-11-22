@@ -1955,57 +1955,66 @@ html body footer p a {
 
 
 <script>
-  /* ColdMatrix glass styling: read computed styles first, then apply changes.
-     Separating reads from writes prevents repeated forced layout/reflow. */
+  /* ColdMatrix glass styling.
+     Run after the initial page load during browser idle time so computed-style
+     reads do not compete with the first render and Largest Contentful Paint. */
   (() => {
-    const elements = Array.from(
-      document.querySelectorAll('div, section, footer, article, a')
-    ).filter(el => !el.matches('#cookie-notice') && !el.closest('header, nav, .hero-split'));
+    const applyGlassStyling = () => {
+      const elements = Array.from(
+        document.querySelectorAll('div, section, footer, article, a')
+      ).filter(el => !el.matches('#cookie-notice') && !el.closest('header, nav, .hero-split'));
 
-    const updates = [];
+      const updates = [];
 
-    // Phase 1: read all computed styles before changing any element.
-    elements.forEach(el => {
-      const style = getComputedStyle(el);
-      const bgImg = style.backgroundImage;
-      const combined = bgImg + ' ' + style.backgroundColor;
-      const matches = combined.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/gi) || [];
+      // Phase 1: read all computed styles before changing any element.
+      elements.forEach(el => {
+        const style = getComputedStyle(el);
+        const bgImg = style.backgroundImage;
+        const combined = bgImg + ' ' + style.backgroundColor;
+        const matches = combined.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/gi) || [];
 
-      const isPurple = matches.some(rgb => {
-        const [r, g, b] = rgb.match(/\d+/g).map(Number);
-        return r > 45 && b > 80 && g < r * 0.65 && g < b * 0.65;
+        const isPurple = matches.some(rgb => {
+          const [r, g, b] = rgb.match(/\d+/g).map(Number);
+          return r > 45 && b > 80 && g < r * 0.65 && g < b * 0.65;
+        });
+
+        if (isPurple || el.tagName.toLowerCase() === 'footer') {
+          let imageUrl = null;
+          if (bgImg && bgImg.includes('url(')) {
+            const urlMatch = bgImg.match(/url\(['"]?([^'"]+)['"]?\)/);
+            if (urlMatch) imageUrl = urlMatch[1];
+          }
+          updates.push({ el, bgImg, imageUrl });
+        }
       });
 
-      if (isPurple || el.tagName.toLowerCase() === 'footer') {
-        let imageUrl = null;
-        if (bgImg && bgImg.includes('url(')) {
-          const urlMatch = bgImg.match(/url\(['"]?([^'"]+)['"]?\)/);
-          if (urlMatch) imageUrl = urlMatch[1];
-        }
-        updates.push({ el, bgImg, imageUrl });
-      }
-    });
-
-    // Phase 2: apply all visual updates after the style reads are complete.
-    updates.forEach(({ el, bgImg, imageUrl }) => {
-      if (imageUrl) {
-        el.style.setProperty(
-          'background',
-          `linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.02) 32%, transparent 32.5%),
+      // Phase 2: apply all visual updates after the style reads are complete.
+      updates.forEach(({ el, bgImg, imageUrl }) => {
+        if (imageUrl) {
+          el.style.setProperty(
+            'background',
+            `linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.02) 32%, transparent 32.5%),
 linear-gradient(165deg, rgba(22, 7, 59, 0.30) 0%, rgba(9, 2, 26, 0.45) 100%),
              url("${imageUrl}") center/cover no-repeat`,
-          'important'
-        );
-        if (el.matches('.tools-grid .tool-card')) {
-          el.style.setProperty('border', '2px solid #D6A928', 'important');
+            'important'
+          );
+          if (el.matches('.tools-grid .tool-card')) {
+            el.style.setProperty('border', '2px solid #D6A928', 'important');
+          } else {
+            el.style.setProperty('border', '1px solid rgba(196, 181, 253, 0.35)', 'important');
+          }
+          el.style.setProperty('box-shadow', '0 18px 38px rgba(0,0,0,0.55), inset 0 1.5px 0 rgba(255,255,255,0.55)', 'important');
         } else {
-          el.style.setProperty('border', '1px solid rgba(196, 181, 253, 0.35)', 'important');
+          el.classList.add('hostinger-glass-auto');
         }
-        el.style.setProperty('box-shadow', '0 18px 38px rgba(0,0,0,0.55), inset 0 1.5px 0 rgba(255,255,255,0.55)', 'important');
-      } else {
-        el.classList.add('hostinger-glass-auto');
-      }
-    });
+      });
+    };
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(applyGlassStyling, { timeout: 2000 });
+    } else {
+      window.addEventListener('load', () => setTimeout(applyGlassStyling, 0), { once: true });
+    }
   })();
 </script>
 
