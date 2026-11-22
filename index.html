@@ -797,7 +797,7 @@ img {
     right: 0;
     bottom: 0;
     z-index: 99999;
-    display: none;
+    display: block;
     padding: 18px 20px;
     text-align: center;
     font-family: 'Inter', sans-serif;
@@ -1294,6 +1294,17 @@ html body footer p a {
 </head>
 
 <body>
+  <!-- ============================================ -->
+  <!-- ACCESSIBLE OBSIDIAN-VIOLET GLASS COOKIE BANNER -->
+  <!-- ============================================ -->
+  <div id="cookie-notice" class="cm-cookie-notice" role="region" aria-label="Cookie notice">
+<p class="cm-cookie-message" style="color: #FFFFFF !important; font-size: 0.95rem; font-weight: 500;">We use cookies to improve your experience and serve relevant ads. Read our <a href="privacy-policy.html" style="color: #F2BE32 !important;">Privacy Policy</a> and <a href="cookie-policy.html" style="color: #F2BE32 !important;">Cookie Policy</a>.</p>
+
+    <button class="cm-cookie-accept" onclick="this.parentElement.remove()">ACCEPT</button>
+
+    <button class="cm-cookie-decline" onclick="this.parentElement.remove()">DECLINE</button>
+  </div>
+
   <header class="navbar">
     <div class="container nav-inner">
 <a href="/" class="logo" style="display: flex; align-items: center; gap: 8px; font-weight: 800; color: var(--navy); text-decoration: none; font-size: 1.4rem;">
@@ -1936,38 +1947,6 @@ html body footer p a {
     }
   </script>
 
-  <!-- ============================================ -->
-  <!-- ACCESSIBLE OBSIDIAN-VIOLET GLASS COOKIE BANNER -->
-  <!-- ============================================ -->
-  <div id="cookie-notice" class="cm-cookie-notice" role="region" aria-label="Cookie notice">
-    <p class="cm-cookie-message">We use cookies to improve your experience and serve relevant ads. Read our <a href="privacy-policy.html">Privacy Policy</a> and <a href="cookie-policy.html">Cookie Policy</a>.</p>
-
-    <button class="cm-cookie-accept" onclick="this.parentElement.style.display='none'; this.parentElement.remove(); try{localStorage.setItem('cookieChoice','accepted'); localStorage.setItem('cookieTime', Date.now());}catch(e){}">ACCEPT</button>
-
-    <button class="cm-cookie-decline" onclick="this.parentElement.style.display='none'; this.parentElement.remove(); try{localStorage.setItem('cookieChoice','declined'); localStorage.setItem('cookieTime', Date.now());}catch(e){}">DECLINE</button>
-  </div>
-
-  <script>
-  (function(){
-    var box = document.getElementById('cookie-notice');
-    if (!box) return;
-    var choice = null;
-    var choiceTime = null;
-    try {
-      choice = localStorage.getItem('cookieChoice');
-      choiceTime = localStorage.getItem('cookieTime');
-    } catch(e) {}
-    var now = Date.now();
-    var sevenDays = 7 * 24 * 60 * 60 * 1000;
-
-    // If no choice, or choice is older than 7 days, show the banner
-    if (!choice || !choiceTime || (now - parseInt(choiceTime)) > sevenDays) {
-      box.style.display = 'block';
-    } else {
-      box.style.display = 'none';
-    }
-  })();
-  </script>
   
 
 
@@ -1977,7 +1956,7 @@ html body footer p a {
   (() => {
     const elements = Array.from(
       document.querySelectorAll('div, section, footer, article, a')
-    ).filter(el => !el.closest('header, nav, .hero-split'));
+    ).filter(el => !el.matches('#cookie-notice') && !el.closest('header, nav, .hero-split'));
 
     const updates = [];
 
