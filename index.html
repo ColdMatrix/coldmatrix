@@ -217,13 +217,12 @@
     /* Tool Grid */
     .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 50px; }
     .tool-card { background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; background-color: var(--purple-dark) !important; border: 2px solid var(--gold) !important; position: relative !important; overflow: hidden !important; box-shadow: 0 5px 15px rgba(0,0,0,0.15) !important; min-height: 220px !important; padding: 24px !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; border-radius: 16px; text-decoration: none; transition: 0.3s; }
-    .tool-card::before { content: "" !important; position: absolute !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; background: linear-gradient(180deg, rgba(63,16,132,.3), rgba(63,16,132,.9)) !important; z-index: 1 !important; pointer-events: none !important; }
     .tool-card h3, .tool-card p, .tool-card .tool-icon, .tool-card .tool-status { color: #FFFFFF !important; position: relative !important; z-index: 2 !important; }
     .tool-card p { display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important; overflow: hidden !important; font-size: 0.85rem !important; margin-bottom: 20px !important; color: var(--silver) !important; }
 
     /* Live Button */
-    @keyframes fastLivePulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-    .tool-card .tool-status, .cat-card .cat-status { animation: fastLivePulse 1s infinite ease-in-out !important; background: rgba(255, 255, 255, 0.1) !important; color: var(--gold-bright) !important; padding: 8px 25px !important; border-radius: 50px !important; border: 1px solid rgba(242, 190, 50, 0.5) !important; display: inline-block !important; width: fit-content !important; margin: 15px auto 0 auto !important; text-align: center !important; font-weight: 800 !important; font-size: 0.85rem !important; }
+    
+    .tool-card .tool-status, .cat-card .cat-status { background: rgba(255, 255, 255, 0.1) !important; color: var(--gold-bright) !important; padding: 8px 25px !important; border-radius: 50px !important; border: 1px solid rgba(242, 190, 50, 0.5) !important; display: inline-block !important; width: fit-content !important; margin: 15px auto 0 auto !important; text-align: center !important; font-weight: 800 !important; font-size: 0.85rem !important; }
 
     /* Footer */
     .footer { background: var(--purple-dark); color: var(--silver); padding: 50px 0 30px; margin-top: 50px; border-top: 4px solid var(--gold-bright); }
@@ -238,11 +237,6 @@
 .logo { color: var(--gold) !important; }
 .logo::before { color: #168ED0 !important; }
 .logo span { color: var(--gold-bright) !important; }
-
-/* 2. Tool Cards: Remove purple overlay, use clean dark shadow */
-.tool-card::before { 
-    background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.60) 100%) !important; 
-}
 
 @media (max-width: 900px) {
   
@@ -353,45 +347,6 @@
 @media (max-width: 500px) {
   .category-grid { grid-template-columns: 1fr !important; }
 }
-  /* ===== SILVER NAVBAR & PREMIUM PEARL BACKGROUND ===== */
-
-/* 1. The Premium Pearl Background */
-body {
-    background-color: #F3F4F8 !important; /* Soft Pearl Grey-Lavender */
-}
-
-/* 2. The Amazing Silver Navbar */
-.navbar {
-    background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 100%) !important; /* Metallic Silver Gradient */
-    border-bottom: 2px solid #CBD5E1 !important; /* Solid silver border */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
-}
-
-/* (Optional but recommended) Make the ticker blend with the silver theme */
-.ticker-wrap {
-    background: #1E293B !important; /* Deep Charcoal/Slate instead of flat black/purple */
-    border-bottom: 2px solid var(--gold-bright) !important;
-}
-/* ===== FINAL CORRECTIONS: SILVER NAVBAR, PEARL BG, & CARD SHAPES ===== */
-
-/* 1. Force the Premium Pearl-Grey Background */
-body {
-    background-color: #F1F5F9 !important; /* Soft cool grey/lavender */
-}
-
-/* 2. The Silver Navbar (Solid, Premium, No Gradient) */
-.navbar {
-    background: #E2E8F0 !important; /* Solid Silver */
-    border-bottom: 2px solid #CBD5E1 !important; 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
-}
-
-/* 3. Revert the Ticker back to Navy (or original dark) */
-.ticker-wrap {
-    background: #0B3156 !important; /* Original Navy */
-    border-bottom: 2px solid var(--gold-bright) !important;
-
-}
 
 /* COLD MATRIX - UNIFIED TOOL CARD DESIGN */
 
@@ -427,16 +382,6 @@ body {
 
 
 /* 5. The Dark Shadow Overlay (No purple, just dark for text readability) */
-.tools-grid .tool-card::before {
-    content: "" !important;
-    position: absolute !important;
-    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-    /* A clean dark gradient from bottom to top */
-background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.35) 100%) !important;
-    z-index: 1 !important; 
-    pointer-events: none !important;
-
-}
 
 /* 6. Fix Category Cards Height (Stop them from stretching) */
 .cat-card {
@@ -483,47 +428,7 @@ background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.35) 100%) 
 }
 /* ===== FIX DESKTOP NAVBAR OVERFLOW & EDGE SPACING ===== */
 
-@media (min-width: 901px) {
-    .nav-inner {
-        /* This adds 20px of space on the far left and far right edges */
-        padding-left: 20px !important; 
-        padding-right: 20px !important;
-        flex-wrap: wrap !important; /* Allows it to drop to a second line if the screen is tiny */
-    }
-    
-    .nav-links {
-        gap: 15px !important; /* Perfectly balanced gap */
-        margin-left: auto !important;
-        justify-content: flex-end !important; 
-    }
-    
-    .nav-links > li > a, .nav-links > li > span {
-        font-size: 0.85rem !important; /* Slightly smaller so they fit */
-        white-space: nowrap !important; /* Prevents words from breaking into two lines */
-    }
-    
-    .logo {
-        font-size: 1.3rem !important; 
-    }
-/* ===== FINAL FIX: MOBILE BG & UNIFORM GLASS OVERLAY ===== */
-
-/* 1. Slightly darker background so white cards pop */
-body {
-    background-color: #DDE6ED !important; /* Premium Pearl-Grey */
-}
-
-}
-
 /* 3. The Uniform Glass Overlay (Equal light/dark everywhere) */
-.tools-grid .tool-card::before {
-    content: "" !important;
-    position: absolute !important;
-    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-    /* A solid, uniform navy glass tint - NO gradient */
-    background: rgba(10, 25, 47, 0.65) !important; 
-    z-index: 1 !important;
-    pointer-events: none !important;
-}
 
 /* 4. Ensure text is bright and readable */
 .tools-grid .tool-card h3, 
@@ -540,33 +445,6 @@ body {
 }
 
 /* ===== 2. AGGRESSIVE DESKTOP NAVBAR FIX ===== */
-@media (min-width: 901px) {
-    /* Force the container to stay strictly inside the screen */
-    .nav-inner {
-        padding: 10px 15px !important; 
-        box-sizing: border-box !important;
-        width: 100% !important;
-        flex-wrap: nowrap !important; /* Stops it from breaking into a weird second line */
-    }
-    
-    /* Shrink the logo slightly to give the menu more room */
-    .logo {
-        font-size: 1.15rem !important; 
-        white-space: nowrap !important;
-    }
-    
-    /* Shrink font and gap on desktop to guarantee "Contact" fits */
-    .nav-links {
-        gap: 8px !important; /* Very tight gap */
-        margin-left: auto !important;
-        flex-wrap: nowrap !important;
-    }
-    
-    .nav-links > li > a, .nav-links > li > span {
-        font-size: 0.75rem !important; /* Smaller font size for desktop menu */
-        white-space: nowrap !important;
-    }
-}
 
 /* ===== BORDER FOR THE ABOUT BOX ===== */
 /* Targets the white About box and gives it a Gold border */
@@ -586,55 +464,12 @@ img {
     max-width: 100%; 
     height: auto; 
 }
-/* Fix Contrast on Category Cards */
-.cat-card .cat-status {
-    color: #0B3156 !important; /* Dark Navy text instead of Gold */
-    font-weight: 800 !important;
+
+
+
+@media (min-width: 901px) {
+  .logo { font-size: 1.15rem !important; white-space: nowrap !important; }
 }
-  /* DESKTOP-ONLY NAVBAR ALIGNMENT & LINK COLOR FIX */
-  @media (min-width: 901px) {
-    /* 1. Align Logo on left & Menu cleanly on right without overflow */
-    html body .nav-inner,
-    html body header.navbar > div {
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: center !important;
-      max-width: 1280px !important;
-      width: 100% !important;
-      margin: 0 auto !important;
-      padding: 12px 24px !important;
-      box-sizing: border-box !important;
-    }
-
-    /* 2. Remove extra left push on the menu list & tighten item spacing */
-    html body header ul,
-    html body .nav-links,
-    html body .navbar ul {
-      display: flex !important;
-      align-items: center !important;
-      gap: 16px !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      list-style: none !important;
-      flex-wrap: nowrap !important;
-    }
-
-    /* 3. Make top-level navbar links crisp bright white so they never blend in */
-    html body header a,
-    html body .navbar a,
-    html body header ul > li > a {
-      color: #FFFFFF !important;
-      font-size: 14px !important;
-      white-space: nowrap !important;
-      text-decoration: none !important;
-    }
-
-    html body header ul > li > a:hover {
-      color: #FACC15 !important; /* Subtle gold hover highlight */
-    }
-  }
-
-
 
 /* ===== COLDMATRIX FINAL LAYOUT CORRECTIONS ===== */
 @media (min-width: 901px) {
@@ -666,19 +501,6 @@ img {
 
 
 
-/* ===== FINAL TOOL-GRID-ONLY FIX: FULL DESCRIPTIONS + LIGHT IMAGE TINT ===== */
-/* Keep existing card dimensions, grid layout, images, titles and Live buttons. */
-.tools-grid .tool-card p {
-    display: block !important;
-    -webkit-line-clamp: unset !important;
-    -webkit-box-orient: initial !important;
-    overflow: visible !important;
-    height: auto !important;
-    max-height: none !important;
-    margin-bottom: 8px !important;
-    line-height: 1.35 !important;
-}
-
 /* This final rule overrides the older competing overlay declarations. */
 .tools-grid .tool-card::before,
 .tool-card::before {
@@ -687,8 +509,8 @@ img {
     inset: 0 !important;
     background: linear-gradient(
         180deg,
-        rgba(0, 0, 0, 0.02) 0%,
-        rgba(0, 0, 0, 0.20) 100%
+        rgba(0, 0, 0, 0.05) 0%,
+        rgba(0, 0, 0, 0.52) 100%
     ) !important;
     z-index: 1 !important;
     pointer-events: none !important;
@@ -702,15 +524,6 @@ img {
 
 
 
-/* FINAL AUTHORITATIVE TOOL GRID RULES: fixed 250 CSS-pixel cards + gold borders */
-.tools-grid .tool-card {
-  box-sizing: border-box !important;
-  height: 250px !important;
-  min-height: 250px !important;
-  max-height: 250px !important;
-  border: 2px solid #D6A928 !important;
-  overflow: hidden !important;
-}
 
 
 
@@ -919,41 +732,8 @@ img {
     background: rgba(103, 61, 230, 0.4) !important;
     color: #FFFFFF !important;
   }
-  /* DESKTOP-ONLY NAVBAR: FIX BUTTON TEXT COLORS & FIT ALL 8 ITEMS */
+  /* Desktop navigation: one authoritative layout and link treatment. */
   @media (min-width: 901px) {
-    /* 1. Force top bar container to span full width cleanly */
-    html body header,
-    html body header > div,
-    html body .navbar,
-    html body .nav-inner {
-      display: flex !important;
-      justify-content: space-between !important;
-      align-items: center !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      padding-left: 20px !important;
-      padding-right: 20px !important;
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-      box-sizing: border-box !important;
-    }
-
-    /* 2. Remove the huge left push on the menu list & pull it left */
-    html body header ul,
-    html body header nav,
-    html body .nav-links,
-    html body .navbar ul {
-      display: flex !important;
-      align-items: center !important;
-      gap: 14px !important;
-      margin-left: auto !important;
-      margin-right: 0 !important;
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-      list-style: none !important;
-    }
-
-      @media (min-width: 901px) {
     html body header,
     html body header > div,
     html body .navbar,
@@ -1001,43 +781,16 @@ img {
     }
   }
 
-    }
-
-    /* Keep active Home link highlighted in gold */
-    html body header a.active,
-    html body header ul > li:first-child > a {
-      color: #FACC15 !important;
-      font-weight: 700 !important;
-    }
+  /* Keep the active navigation item highlighted in gold at every width. */
+  html body header a.active,
+  html body header ul > li:first-child > a {
+    color: #FACC15 !important;
+    font-weight: 700 !important;
   }
-
-
-/* Final lighter image overlay: preserve image detail while keeping text legible. */
-.tools-grid .tool-card::before {
-    background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.05) 0%,
-        rgba(0, 0, 0, 0.52) 100%
-    ) !important;
-}
 
 
 /* ===== FINAL REQUESTED FIXES: TOOL TEXT, LIVE BADGES, LOWER-PAGE CONTRAST ===== */
 
-/* All category and calculator Live badges: gold fill and a gentle pulse on every screen. */
-@keyframes cmGoldLivePulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(242, 190, 50, 0.32); }
-    50% { opacity: 0.78; box-shadow: 0 0 0 5px rgba(242, 190, 50, 0.12); }
-}
-.tool-card .tool-status,
-.cat-card .cat-status {
-    background: #F2BE32 !important;
-    color: #35145F !important;
-    border: 1px solid #FFD85A !important;
-    font-weight: 800 !important;
-    animation: cmGoldLivePulse 1.2s infinite ease-in-out !important;
-    opacity: 1;
-}
 
 /* Restore readable silver descriptions in Project Gallery and Engineering Blog cards. */
 body a[href="gallery.html"] p,
@@ -1144,29 +897,6 @@ html body footer p a {
   line-height: 1.1 !important;
   margin: 0 0 2px 0 !important;
 }
-.tools-grid .tool-card h3 {
-  flex: 0 0 auto !important;
-  font-size: 20px !important;
-  line-height: 1.2 !important;
-  margin: 0 !important;
-  max-height: 2.4em !important;
-  overflow: hidden !important;
-}
-.tools-grid .tool-card p {
-  display: -webkit-box !important;
-  -webkit-box-orient: vertical !important;
-  -webkit-line-clamp: 3 !important;
-  flex: 0 1 auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  overflow: hidden !important;
-  font-size: 15px !important;
-  line-height: 1.4 !important;
-  margin: 0 !important;
-  padding: 0 0 3px 0 !important;
-  box-sizing: content-box !important;
-  overflow-wrap: break-word !important;
-}
 .tools-grid .tool-card .tool-status {
   display: inline-flex !important;
   align-items: center !important;
@@ -1187,20 +917,13 @@ html body footer p a {
   box-shadow: none !important;
 }
 
-/* Preserve the user's 245px card height on mobile only. */
-@media (max-width: 900px) {
-  .tools-grid .tool-card {
-    height: 245px !important;
-    min-height: 245px !important;
-    max-height: 245px !important;
-  }
-}
 
 
 /* ===== TARGETED TOOL-CARD TITLE/DESCRIPTION SEPARATION ===== */
 /* Keep every tool title fully visible; descriptions start below the title. */
 .tools-grid .tool-card h3 {
   flex: 0 0 auto !important;
+  font-size: 20px !important;
   height: auto !important;
   max-height: none !important;
   overflow: visible !important;
@@ -1213,6 +936,7 @@ html body footer p a {
 /* Allow descriptions up to three readable lines; preserve separation from titles and Live badges. */
 .tools-grid .tool-card p {
   display: -webkit-box !important;
+  font-size: 15px !important;
   -webkit-box-orient: vertical !important;
   -webkit-line-clamp: 3 !important;
   flex: 0 1 auto !important;
@@ -1233,10 +957,6 @@ html body footer p a {
 }
 
 /* Keep the Live badge at the bottom, separate from the description. */
-.tools-grid .tool-card .tool-status {
-  flex: 0 0 auto !important;
-  margin-top: auto !important;
-}
 
 
 /* FINAL MOBILE DESCRIPTION FIX ONLY
@@ -1420,7 +1140,7 @@ html body footer p a {
   <!-- OVERLAPPING SEARCH BAR -->
   <div class="container search-container">
  <div class="search-inner">
-  <input type="text" id="toolSearchInput" onkeyup="filterTools()" placeholder="🔍 Search all tools... e.g. cold storage, sandwich panel, ROI, BMI..." style="width: 100%;">
+  <input type="text" id="toolSearchInput" aria-label="Search all tools" onkeyup="filterTools()" placeholder="🔍 Search all tools... e.g. cold storage, sandwich panel, ROI, BMI..." style="width: 100%;">
 </div>
  <p id="searchResultCount" role="status" aria-live="polite" style="display:none; margin:12px auto 0; max-width:800px; text-align:center; color:#0B3156; font-weight:700; font-size:0.9rem;"></p>
 
@@ -1857,7 +1577,7 @@ html body footer p a {
     };
     
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js').catch(function() {});
+      navigator.serviceWorker.register('/service-worker.js', { updateViaCache: 'none' }).catch(function() {});
     }
 
     // ============================================
