@@ -768,9 +768,6 @@
 <div class="install-bar" id="cmInstallBar">📱 Add ColdMatrix to Home Screen <button onclick="cmInstallApp()">Install</button></div>
 
   <h1>🌍 ColdMatrix <span>World Clock</span></h1>
-<!-- ========================================== -->
-<!-- COLDMATRIX PREMIUM BYLINE BLOCK            -->
-<!-- ========================================== -->
 <style>
   .cm-byline-wrapper { display: flex; align-items: center; gap: 14px; margin: 16px 0 24px 0; padding: 10px 14px; background: #11151C; border: 2px solid #D4AF37; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); font-family: 'Inter', sans-serif; }
   .cm-byline-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #FFD700, #D4AF37); color: #0A0F14; display: flex; align-items: center; justify-content: center; font-weight: 900; font-family: 'Oswald', sans-serif; font-size: 1.2rem; flex-shrink: 0; border: 2px solid #FFF; }
@@ -802,26 +799,6 @@ body { font-size: 1rem; line-height: 1.6; }
 h2 { margin-bottom: 24px !important; }
 h3 { margin-bottom: 16px !important; }
 </style>
-
-<div class="cm-byline-wrapper">
-  <div class="cm-byline-avatar">WA</div>
-  <div class="cm-byline-content">
-    <a href="https://coldmatrixtools.com/author.html" class="cm-byline-name">Waseem Akhtar</a>
-    <div class="cm-byline-role">Founder & CEO, Cold Matrix Advanced Solutions</div>
-    <div class="cm-byline-date">✍️ Reviewed & Updated: <span id="cm-byline-current-date"></span></div>
-  </div>
-</div>
-
-<script>
-  (function() {
-    var d = new Date();
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var dateStr = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
-    var el = document.getElementById('cm-byline-current-date');
-    if (el) el.textContent = dateStr;
-  })();
-</script>
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -838,10 +815,7 @@ h3 { margin-bottom: 16px !important; }
   }
 }
 </script>
-<!-- ========================================== -->
-<!-- END COLDMATRIX PREMIUM BYLINE BLOCK        -->
-<!-- ========================================== -->
-  <p class="subtitle">Live time in any city worldwide + instant time zone conversion — built for global teams, remote workers, and travel planning.</p>
+  <p class="subtitle">Live global times. Add cities. Convert time zones instantly.</p>
 
   <!-- GET QUOTE / LEAD STRIP -->
   <div class="share-tool-card">
@@ -998,6 +972,26 @@ h3 { margin-bottom: 16px !important; }
   <div class="disclaimer-box">
     <strong>⚠️ Disclaimer:</strong> Times are based on your device's settings and the IANA time zone database. Daylight Saving Time is automatically adjusted. Always double-check critical scheduling with an official source — especially for legal, medical, or financial deadlines.
   </div>
+
+
+  <!-- Premium author byline — intentionally placed after the tool and its content -->
+<div class="cm-byline-wrapper">
+  <div class="cm-byline-avatar">WA</div>
+  <div class="cm-byline-content">
+    <a href="https://coldmatrixtools.com/author.html" class="cm-byline-name">Waseem Akhtar</a>
+    <div class="cm-byline-role">Founder & CEO, Cold Matrix Advanced Solutions</div>
+    <div class="cm-byline-date">✍️ Reviewed & Updated: <span id="cm-byline-current-date"></span></div>
+  </div>
+</div>
+<script>
+  (function() {
+    var d = new Date();
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var dateStr = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+    var el = document.getElementById('cm-byline-current-date');
+    if (el) el.textContent = dateStr;
+  })();
+</script>
 
 </div>
 
@@ -1311,6 +1305,212 @@ if ('serviceWorker' in navigator) {
   function shareToolWhatsApp(){ window.open('https://wa.me/?text=' + encodeURIComponent('Check out this World Clock from ColdMatrix Tools! ' + window.location.href), '_blank'); }
   function copyToolLink(){ navigator.clipboard.writeText(window.location.href).then(() => alert('Link copied!')).catch(() => alert(window.location.href)); }
 </script>
+
+<style id="world-clock-visual-refresh">
+/* ===== COLDMATRIX WORLD CLOCK: LUXURY GLASS DISPLAY ===== */
+.clock-grid {
+  gap: 18px !important;
+  margin-top: 8px !important;
+}
+.clock-card {
+  isolation: isolate;
+  padding: 23px 16px 20px !important;
+  min-width: 0;
+  color: #F4F6FA !important;
+  text-align: center !important;
+  border: 1px solid rgba(224, 188, 82, 0.78) !important;
+  border-radius: 18px !important;
+  background:
+    radial-gradient(ellipse at 50% -18%, rgba(255, 215, 110, 0.19), transparent 52%),
+    linear-gradient(145deg, rgba(30, 43, 59, 0.98), rgba(10, 17, 27, 0.98) 58%, rgba(18, 29, 43, 0.98)) !important;
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.42),
+    0 0 0 1px rgba(255,215,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.13),
+    inset 0 -18px 32px rgba(0,0,0,0.16) !important;
+  overflow: hidden !important;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease !important;
+}
+.clock-card::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: -1;
+  inset: 0 0 auto 0 !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, transparent, #F8E5A2 22%, #D4AF37 50%, #F8E5A2 78%, transparent) !important;
+  opacity: .95 !important;
+}
+.clock-card::after {
+  content: "" !important;
+  position: absolute !important;
+  z-index: -1;
+  width: 150px;
+  height: 150px;
+  right: -90px;
+  bottom: -100px;
+  border-radius: 50%;
+  background: rgba(212,175,55,.10);
+  filter: blur(22px);
+  pointer-events: none;
+}
+.clock-card:hover {
+  transform: translateY(-3px) !important;
+  border-color: #F4D778 !important;
+  box-shadow: 0 17px 38px rgba(0,0,0,.5), 0 0 24px rgba(212,175,55,.20), inset 0 1px 0 rgba(255,255,255,.16) !important;
+}
+.clock-card .city-name {
+  color: #F7F8FB !important;
+  font-family: 'Oswald', sans-serif !important;
+  font-size: 1.18rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.15px !important;
+  text-shadow: 0 1px 12px rgba(255,255,255,.10) !important;
+  margin-bottom: 3px !important;
+}
+.clock-card .city-country {
+  color: #AEB9C8 !important;
+  font-size: .68rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  margin: 0 0 16px !important;
+  padding: 0 0 12px !important;
+  border-bottom: 1px solid rgba(212,175,55,.28) !important;
+}
+.clock-card .time-display {
+  display: inline-block;
+  max-width: 100%;
+  color: #F5D879 !important;
+  background: linear-gradient(180deg, #FFF4C7 0%, #E9C65C 48%, #C7962E 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  font-family: 'Oswald', sans-serif !important;
+  font-size: clamp(1.65rem, 5vw, 2.15rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.7px !important;
+  line-height: 1.12 !important;
+  margin-top: 2px !important;
+  filter: drop-shadow(0 0 9px rgba(242,202,91,.25)) !important;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.clock-card .date-display {
+  color: #C1CBD7 !important;
+  font-size: .76rem !important;
+  font-weight: 600 !important;
+  margin-top: 9px !important;
+  letter-spacing: .35px !important;
+}
+.clock-card .badges {
+  margin-top: 14px !important;
+  gap: 7px !important;
+}
+.clock-card .day-badge,
+.clock-card .day-night {
+  font-size: .61rem !important;
+  padding: 4px 10px !important;
+  border-radius: 30px !important;
+  letter-spacing: .55px !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+.clock-card .day-badge.today {
+  background: rgba(48, 190, 133, .17) !important;
+  color: #83E5B8 !important;
+  border-color: rgba(92,220,164,.28) !important;
+}
+.clock-card .day-badge.tomorrow {
+  background: rgba(224,166,66,.16) !important;
+  color: #F4CF83 !important;
+  border-color: rgba(244,207,131,.25) !important;
+}
+.clock-card .day-badge.yesterday {
+  background: rgba(220,105,105,.15) !important;
+  color: #FFB1B1 !important;
+  border-color: rgba(255,177,177,.24) !important;
+}
+.clock-card .day-night.day {
+  background: rgba(255,210,91,.13) !important;
+  color: #F7D979 !important;
+  border-color: rgba(247,217,121,.24) !important;
+}
+.clock-card .day-night.night {
+  background: rgba(120,151,226,.16) !important;
+  color: #B9CAFF !important;
+  border-color: rgba(185,202,255,.23) !important;
+}
+.clock-card .remove-btn {
+  top: 10px !important;
+  right: 10px !important;
+  width: 25px !important;
+  height: 25px !important;
+  color: #AEB9C8 !important;
+  background: rgba(255,255,255,.07) !important;
+  border: 1px solid rgba(255,255,255,.09) !important;
+}
+.clock-card .remove-btn:hover {
+  color: #FFD0D0 !important;
+  background: rgba(255,90,90,.18) !important;
+}
+/* Sleek, compact author signature at the bottom */
+.cm-byline-wrapper {
+  margin: 24px 0 8px !important;
+  padding: 12px 15px !important;
+  gap: 12px !important;
+  background: linear-gradient(135deg, rgba(18,27,40,.96), rgba(10,15,22,.96)) !important;
+  border: 1px solid rgba(212,175,55,.52) !important;
+  border-radius: 13px !important;
+  box-shadow: 0 8px 22px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+.cm-byline-avatar {
+  width: 38px !important;
+  height: 38px !important;
+  border: 1.5px solid #E8C96A !important;
+  box-shadow: 0 0 12px rgba(212,175,55,.18);
+}
+.cm-byline-name { font-size: .86rem !important; }
+.cm-byline-role { color: #BFC9D5 !important; font-size: .73rem !important; }
+.cm-byline-date { color: #8291A2 !important; font-size: .68rem !important; }
+/* Mobile: retain readable cards without squeezing the time display */
+@media (max-width: 600px) {
+  .clock-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+  .clock-card {
+    padding: 20px 8px 17px !important;
+    border-radius: 15px !important;
+  }
+  .clock-card .city-name {
+    font-size: 1rem !important;
+    letter-spacing: .7px !important;
+  }
+  .clock-card .city-country {
+    font-size: .59rem !important;
+    letter-spacing: .45px !important;
+    margin-bottom: 13px !important;
+    padding-bottom: 10px !important;
+  }
+  .clock-card .time-display {
+    font-size: clamp(1.35rem, 5.2vw, 1.8rem) !important;
+    letter-spacing: .8px !important;
+  }
+  .clock-card .date-display { font-size: .68rem !important; }
+  .clock-card .day-badge, .clock-card .day-night {
+    font-size: .54rem !important;
+    padding: 4px 7px !important;
+  }
+}
+@media (max-width: 350px) {
+  .clock-grid { grid-template-columns: 1fr !important; }
+  .clock-card .time-display { font-size: 2rem !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .clock-card { transition: none !important; }
+  .clock-card:hover { transform: none !important; }
+}
+</style>
+
 <!-- ===== COLDMATRIX ULTIMATE INLINE FIX ===== -->
 <style>
   /* 1. Premium Cookie Banner */
