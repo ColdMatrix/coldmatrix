@@ -1106,10 +1106,53 @@ html body .category-grid .cat-card:hover .cat-arrow {
   <div id="cookie-notice" class="cm-cookie-notice" role="region" aria-label="Cookie notice">
 <p class="cm-cookie-message" style="color: #FFFFFF !important; font-size: 0.95rem; font-weight: 500;">We use cookies to improve your experience and serve relevant ads. Read our <a href="privacy-policy.html" style="color: #F2BE32 !important;">Privacy Policy</a> and <a href="cookie-policy.html" style="color: #F2BE32 !important;">Cookie Policy</a>.</p>
 
-    <button class="cm-cookie-accept" onclick="this.parentElement.remove()">ACCEPT</button>
+    <button type="button" id="cookieAcceptBtn" class="cm-cookie-accept">ACCEPT</button>
 
-    <button class="cm-cookie-decline" onclick="this.parentElement.remove()">DECLINE</button>
+    <button type="button" id="cookieDeclineBtn" class="cm-cookie-decline">DECLINE</button>
   </div>
+
+  <script>
+    (function () {
+      var banner = document.getElementById('cookie-notice');
+      var acceptButton = document.getElementById('cookieAcceptBtn');
+      var declineButton = document.getElementById('cookieDeclineBtn');
+      var choiceKey = 'cmCookieChoiceV3';
+      var timeKey = 'cmCookieChoiceTimeV3';
+      var consentPeriod = 7 * 24 * 60 * 60 * 1000;
+
+      function hideBanner() {
+        if (banner) banner.style.display = 'none';
+      }
+
+      function saveChoice(choice) {
+        try {
+          localStorage.setItem(choiceKey, choice);
+          localStorage.setItem(timeKey, String(Date.now()));
+        } catch (e) {}
+        hideBanner();
+      }
+
+      var savedChoice = null;
+      var savedTime = 0;
+      try {
+        savedChoice = localStorage.getItem(choiceKey);
+        savedTime = Number(localStorage.getItem(timeKey) || 0);
+      } catch (e) {}
+
+      var age = Date.now() - savedTime;
+      var hasValidChoice = (savedChoice === 'accepted' || savedChoice === 'declined') &&
+        savedTime > 0 && age >= 0 && age < consentPeriod;
+
+      if (hasValidChoice) hideBanner();
+
+      if (acceptButton) acceptButton.addEventListener('click', function () {
+        saveChoice('accepted');
+      });
+      if (declineButton) declineButton.addEventListener('click', function () {
+        saveChoice('declined');
+      });
+    })();
+  </script>
 
   <header class="navbar">
     <div class="container nav-inner">
@@ -1746,12 +1789,16 @@ html body .category-grid .cat-card:hover .cat-arrow {
       });
     })();
 
-    function resetCookieConsent() { 
+    function resetCookieConsent() {
       try {
-        localStorage.removeItem('cookieChoice'); 
-        localStorage.removeItem('cookieTime'); 
-      } catch(e) {}
-      location.reload(); 
+        localStorage.removeItem('cmCookieChoiceV3');
+        localStorage.removeItem('cmCookieChoiceTimeV3');
+        localStorage.removeItem('cookieChoice');
+        localStorage.removeItem('cookieTime');
+        localStorage.removeItem('cmCookieConsentV2');
+        localStorage.removeItem('cmCookieConsentTimeV2');
+      } catch (e) {}
+      location.reload();
     }
   </script>
 
